@@ -1,14 +1,81 @@
 {
 	"info": {
-		"_postman_id": "70bfc09f-5bc1-41c1-abb0-c63472f5f844",
+		"_postman_id": "4da43c99-8591-4492-b34e-c975580f6536",
 		"name": "Ed-Fi ODS/API Integration Test Suite GetByExample Tests",
 		"description": "Localhost integration testing using Postman Scripts",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42536960"
 	},
 	"item": [
 		{
 			"name": "Shared Initialization",
 			"item": [
+				{
+					"name": "Create AcademicSubjectDescriptor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"  pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"pm.environment.set('test-suite:known:academicSubjectDescriptors:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codeValue\": \"Multiple Subjects\",\r\n    \"description\": \"Multiple Subjects\",\r\n    \"namespace\": \"uri://sample.ed-fi.org/AcademicSubjectDescriptor\",\r\n    \"shortDescription\": \"Multiple Subjects\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicSubjectDescriptors"
+							]
+						},
+						"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+					},
+					"response": []
+				},
 				{
 					"name": "Initialize Schools Data",
 					"event": [
@@ -711,14 +778,14 @@
 											"englishDescriptor = __.find(responseItems, x => __.isEqual(x.codeValue, 'English'));\r",
 											"pm.environment.set('known:english_id', englishDescriptor.id);\r",
 											"\r",
-											"const tpdm_namespace = pm.environment.get('supplied:tpdm_namespace');\r",
+											"const sample_namespace = pm.environment.get('supplied:sample_namespace');\r",
 											"const science_codeValue = pm.environment.get('supplied:codeValue');\r",
 											"const english_id = englishDescriptor.id;\r",
 											"const lifeAndPhysicalSciences_description = pm.environment.get('supplied:description');\r",
 											"const other_shortDescription = pm.environment.get('supplied:shortDescription');\r",
 											"\r",
 											"pm.environment.set('known:all_academicSubjectDescriptors', responseItems);\r",
-											"pm.environment.set('known:tpdm_academicSubjectDescriptors', __.filter(responseItems, x => __.isEqual(x.namespace, tpdm_namespace)));\r",
+											"pm.environment.set('known:sample_academicSubjectDescriptors', __.filter(responseItems, x => __.isEqual(x.namespace, sample_namespace)));\r",
 											"pm.environment.set('known:science_descriptor', __.filter(responseItems, x => __.isEqual(x.codeValue, science_codeValue)));\r",
 											"pm.environment.set('known:english_descriptor', __.filter(responseItems, x => __.isEqual(x.id, english_id)));\r",
 											"pm.environment.set('known:lifeAndPhysicalSciences_descriptor', __.filter(responseItems, x => __.isEqual(x.description, lifeAndPhysicalSciences_description)));\r",
@@ -734,7 +801,7 @@
 									"script": {
 										"exec": [
 											"pm.environment.set('supplied:edfi_namespace', 'uri://ed-fi.org/AcademicSubjectDescriptor');\r",
-											"pm.environment.set('supplied:tpdm_namespace', 'uri://tpdm.ed-fi.org/AcademicSubjectDescriptor');\r",
+											"pm.environment.set('supplied:sample_namespace', 'uri://sample.ed-fi.org/AcademicSubjectDescriptor');\r",
 											"pm.environment.set('supplied:codeValue', 'Science');\r",
 											"pm.environment.set('supplied:description', 'Life and Physical Sciences');\r",
 											"pm.environment.set('supplied:shortDescription', 'Other');"
@@ -779,10 +846,10 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should return filtered descriptors\", () => {\r",
-											"    const tpdm_academicSubjectDescriptors = pm.environment.get('known:tpdm_academicSubjectDescriptors');\r",
+											"    const sample_academicSubjectDescriptors = pm.environment.get('known:sample_academicSubjectDescriptors');\r",
 											"    const responseItems = pm.response.json();\r",
 											"\r",
-											"    pm.expect(responseItems).to.deep.equal(tpdm_academicSubjectDescriptors);\r",
+											"    pm.expect(responseItems).to.deep.equal(sample_academicSubjectDescriptors);\r",
 											"});\r",
 											""
 										],
@@ -795,7 +862,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?namespace={{supplied:tpdm_namespace}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?namespace={{supplied:sample_namespace}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -808,7 +875,7 @@
 									"query": [
 										{
 											"key": "namespace",
-											"value": "{{supplied:tpdm_namespace}}"
+											"value": "{{supplied:sample_namespace}}"
 										}
 									]
 								}
@@ -2708,6 +2775,72 @@
 		{
 			"name": "Clean Up Test Data",
 			"item": [
+				{
+					"name": "Delete AcademicSubjectDescriptor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"  pm.expect(pm.response.code).to.equal(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors/{{test-suite:known:academicSubjectDescriptors:id}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicSubjectDescriptors",
+								"{{test-suite:known:academicSubjectDescriptors:id}}"
+							]
+						},
+						"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+					},
+					"response": []
+				},
 				{
 					"name": "Clean up Environment Variables",
 					"event": [

@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "829ceac5-1c29-44c8-8df4-994aa4747b6e",
+		"_postman_id": "3608a577-9699-4da1-8a0a-b452a9b13478",
 		"name": "Ed-Fi ODS/API Integration Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "7275232"
+		"_exporter_id": "42536960"
 	},
 	"item": [
 		{
@@ -94,6 +94,138 @@
 								}
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create EducationOrganizationCategoryDescriptor University",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"  pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"pm.environment.set('test-suite:known:educationOrganizationCategoryDescriptor:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codeValue\": \"University\",\r\n    \"description\": \"University\",\r\n    \"namespace\": \"uri://sample.ed-fi.org/EducationOrganizationCategoryDescriptor\",\r\n    \"shortDescription\": \"University\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationOrganizationCategoryDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"educationOrganizationCategoryDescriptors"
+							]
+						},
+						"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Create EducationOrganizationCategoryDescriptor Education Preparation Prov",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"  pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"pm.environment.set('test-suite:known:edPreparationProv:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codeValue\": \"Educator Preparation Provider\",\r\n    \"description\": \"Educator Preparation Provider\",\r\n    \"namespace\": \"uri://sample.ed-fi.org/EducationOrganizationCategoryDescriptor\",\r\n    \"shortDescription\": \"Educator Preparation Provider\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationOrganizationCategoryDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"educationOrganizationCategoryDescriptors"
+							]
+						},
+						"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
 					},
 					"response": []
 				}
@@ -12869,7 +13001,8 @@
 													"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.cteProgramService.cteProgramServiceDescriptor\"]).to.match(/CTEProgramServiceDescriptor is required./);\r",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -12878,7 +13011,8 @@
 												"exec": [
 													"pm.environment.set('supplied:schools:schoolId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -12887,7 +13021,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \r\n        }\r\n\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://sample.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \r\n        }\r\n\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -12945,7 +13079,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": 1{{$randomInt}}{{$randomInt}},\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \"cteProgramServiceDescriptor\": \"uri://ed-fi.org/CTEProgramServiceDescriptor#Architecture and Construction\"\r\n        }\r\n\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"schoolId\": 1{{$randomInt}}{{$randomInt}},\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://sample.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \"cteProgramServiceDescriptor\": \"uri://ed-fi.org/CTEProgramServiceDescriptor#Architecture and Construction\"\r\n        }\r\n\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -15518,7 +15652,8 @@
 											"});\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -15527,7 +15662,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "  {\r\n    \"schoolId\": {{$randomInt}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#Educator Preparation Provider\"\r\n      },\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#Educator Preparation Provider\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [],\r\n    \"indicators\": [],\r\n    \"institutionTelephones\": [],\r\n    \"internationalAddresses\": [],\r\n    \"schoolCategories\": [],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n      }\r\n    ]\r\n  }",
+									"raw": "  {\r\n    \"schoolId\": {{$randomInt}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://sample.ed-fi.org/EducationOrganizationCategoryDescriptor#Educator Preparation Provider\"\r\n      },\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://sample.ed-fi.org/EducationOrganizationCategoryDescriptor#Educator Preparation Provider\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [],\r\n    \"indicators\": [],\r\n    \"institutionTelephones\": [],\r\n    \"internationalAddresses\": [],\r\n    \"schoolCategories\": [],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n      }\r\n    ]\r\n  }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -19275,6 +19410,138 @@
 		{
 			"name": "Test Suite Teardown",
 			"item": [
+				{
+					"name": "Delete EducationOrganizationCategoryDescriptor University",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"  pm.expect(pm.response.code).to.equal(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationOrganizationCategoryDescriptors/{{test-suite:known:educationOrganizationCategoryDescriptor:id}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"educationOrganizationCategoryDescriptors",
+								"{{test-suite:known:educationOrganizationCategoryDescriptor:id}}"
+							]
+						},
+						"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete EducationOrganizationCategoryDescriptor Education Preparation Prov",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"  pm.expect(pm.response.code).to.equal(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationOrganizationCategoryDescriptors/{{test-suite:known:edPreparationProv:id}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"educationOrganizationCategoryDescriptors",
+								"{{test-suite:known:edPreparationProv:id}}"
+							]
+						},
+						"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+					},
+					"response": []
+				},
 				{
 					"name": "Clean up Environment Variables and Access Tokens",
 					"event": [
