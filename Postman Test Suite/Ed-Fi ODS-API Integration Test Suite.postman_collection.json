@@ -1,10 +1,11 @@
 {
 	"info": {
-		"_postman_id": "829ceac5-1c29-44c8-8df4-994aa4747b6e",
+		"_postman_id": "39a3ade3-c1d9-433a-848a-161a2baf199f",
 		"name": "Ed-Fi ODS/API Integration Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "7275232"
+		"_exporter_id": "42536960",
+		"_collection_link": "https://test33-6887.postman.co/workspace/39dabc76-6aa2-468a-b755-b60479cc7769/collection/42536960-39a3ade3-c1d9-433a-848a-161a2baf199f?action=share&source=collection_link&creator=42536960"
 	},
 	"item": [
 		{
@@ -12869,7 +12870,8 @@
 													"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.cteProgramService.cteProgramServiceDescriptor\"]).to.match(/CTEProgramServiceDescriptor is required./);\r",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -12878,7 +12880,8 @@
 												"exec": [
 													"pm.environment.set('supplied:schools:schoolId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -12887,7 +12890,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \r\n        }\r\n\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \r\n        }\r\n\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -12945,7 +12948,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": 1{{$randomInt}}{{$randomInt}},\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \"cteProgramServiceDescriptor\": \"uri://ed-fi.org/CTEProgramServiceDescriptor#Architecture and Construction\"\r\n        }\r\n\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"schoolId\": 1{{$randomInt}}{{$randomInt}},\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \"cteProgramServiceDescriptor\": \"uri://ed-fi.org/CTEProgramServiceDescriptor#Architecture and Construction\"\r\n        }\r\n\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -15518,7 +15521,8 @@
 											"});\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -15527,7 +15531,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "  {\r\n    \"schoolId\": {{$randomInt}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#Educator Preparation Provider\"\r\n      },\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#Educator Preparation Provider\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [],\r\n    \"indicators\": [],\r\n    \"institutionTelephones\": [],\r\n    \"internationalAddresses\": [],\r\n    \"schoolCategories\": [],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n      }\r\n    ]\r\n  }",
+									"raw": "  {\r\n    \"schoolId\": {{$randomInt}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      },\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [],\r\n    \"indicators\": [],\r\n    \"institutionTelephones\": [],\r\n    \"internationalAddresses\": [],\r\n    \"schoolCategories\": [],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n      }\r\n    ]\r\n  }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -19336,6 +19340,7 @@
 					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
 					"",
 					"CreateAccessToken(\"255901\");",
+					"CreateAccessToken(\"255901_sampleextension\");",
 					"CreateAccessToken(\"TokenIntrospection_255901\");",
 					"CreateAccessToken(\"MultipleEmpAss_255901001_255901044\");",
 					"// Set variables related to data standard specific contact/parent variablility ",
