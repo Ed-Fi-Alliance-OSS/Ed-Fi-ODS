@@ -1,11 +1,11 @@
 {
 	"info": {
-		"_postman_id": "c3ebe492-99ee-4c14-ba8c-ffeeee2f8715",
+		"_postman_id": "5a6d75af-ea7d-4a60-95f4-58fee26f71d5",
 		"name": "Ed-Fi ODS/API Integration Test Suite GetByExample Tests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42536960",
-		"_collection_link": "https://test33-6887.postman.co/workspace/ODS-6668~39dabc76-6aa2-468a-b755-b60479cc7769/collection/42536960-c3ebe492-99ee-4c14-ba8c-ffeeee2f8715?action=share&source=collection_link&creator=42536960"
+		"_collection_link": "https://test33-6887.postman.co/workspace/39dabc76-6aa2-468a-b755-b60479cc7769/collection/42536960-5a6d75af-ea7d-4a60-95f4-58fee26f71d5?action=share&source=collection_link&creator=42536960"
 	},
 	"item": [
 		{
@@ -72,8 +72,7 @@
 								"ed-fi",
 								"academicSubjectDescriptors"
 							]
-						},
-						"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+						}
 					},
 					"response": []
 				},
@@ -2837,8 +2836,7 @@
 								"academicSubjectDescriptors",
 								"{{test-suite:known:academicSubjectDescriptors:id}}"
 							]
-						},
-						"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+						}
 					},
 					"response": []
 				},
