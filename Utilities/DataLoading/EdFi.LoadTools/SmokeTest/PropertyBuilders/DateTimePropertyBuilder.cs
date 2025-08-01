@@ -31,7 +31,10 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                     : DateTime.Today.AddDays(Random.Next(100));
 
                 // Sets actual time to a random date
-                randomDate = randomDate.Add(DateTime.Now.TimeOfDay);
+                if (IsTypeMatch<DateTime>(propertyInfo))
+                {
+                    randomDate = randomDate.AddHours(13);
+                }
 
                 propertyInfo.SetValue(
                     obj,
