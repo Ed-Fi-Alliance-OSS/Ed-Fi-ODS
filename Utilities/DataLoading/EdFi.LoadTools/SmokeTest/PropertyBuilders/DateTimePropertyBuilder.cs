@@ -30,7 +30,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                     ? DateTime.Today.AddDays(-Random.Next(5 * 365, 99 * 365))
                     : DateTime.Today.AddDays(Random.Next(100));
 
-                // Sets actual time to a random date
+                // Add a fixed time component to DateTime properties
                 if (IsTypeMatch<DateTime>(propertyInfo))
                 {
                     randomDate = randomDate.AddHours(13);
