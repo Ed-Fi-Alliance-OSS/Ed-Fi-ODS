@@ -12,11 +12,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
     public class DateTimePropertyBuilder : BaseBuilder
     {
-        private readonly List<string> PastDateNames = new List<string>
-        {
-            "birthDate",
-            "beginDate"
-        };
+        private readonly List<string> PastDateNames = new List<string> { "birthDate", "beginDate" };
 
         public DateTimePropertyBuilder(IPropertyInfoMetadataLookup metadataLookup)
             : base(metadataLookup) { }
@@ -34,10 +30,15 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                     ? DateTime.Today.AddDays(-Random.Next(5 * 365, 99 * 365))
                     : DateTime.Today.AddDays(Random.Next(100));
 
+                // Sets actual time to a random date
+                randomDate = randomDate.Add(DateTime.Now.TimeOfDay);
+
                 propertyInfo.SetValue(
-                    obj, IsTypeMatch<DateOnly>(propertyInfo)
+                    obj,
+                    IsTypeMatch<DateOnly>(propertyInfo)
                         ? DateOnly.FromDateTime(randomDate)
-                        : randomDate);
+                        : randomDate
+                );
             }
 
             return true;
@@ -45,7 +46,10 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
         private bool IsPastDate(PropertyInfo propertyInfo)
         {
-            return PastDateNames.Contains(propertyInfo.Name, StringComparer.InvariantCultureIgnoreCase);
+            return PastDateNames.Contains(
+                propertyInfo.Name,
+                StringComparer.InvariantCultureIgnoreCase
+            );
         }
     }
 }
