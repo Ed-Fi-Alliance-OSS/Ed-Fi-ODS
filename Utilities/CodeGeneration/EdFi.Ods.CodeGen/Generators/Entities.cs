@@ -810,6 +810,11 @@ namespace EdFi.Ods.CodeGen.Generators
 
         public string OtherPropertyName { get; }
 
+        public bool HasContextualReferenceProperties
+        {
+            get => ContextualReferenceProperties.Any();
+        }
+
         public List<ContextualProperty> ContextualReferenceProperties { get; } = new();
 
         public ReferenceDataPropertyMapping(
