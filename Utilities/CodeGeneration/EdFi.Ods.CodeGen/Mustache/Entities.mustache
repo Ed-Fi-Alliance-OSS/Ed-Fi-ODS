@@ -44,12 +44,33 @@ namespace {{AggregateNamespace}}
     public class {{ReferenceDataClassName}} : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<{{ReferenceDataClassName}}> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public {{ReferenceDataClassName}}() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public {{ReferenceDataClassName}}(Action<{{ReferenceDataClassName}}> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public {{ReferenceDataClassName}}(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public {{ReferenceDataClassName}}({{#PrimaryKey}}{{#NonParentProperties}}{{CSharpDeclaredType}} contextual{{CSharpSafePropertyName}} = default, {{/NonParentProperties}}{{/PrimaryKey}}bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            {{#PrimaryKey}}
+                {{#NonParentProperties}}
+            {{CSharpSafeFieldName}} = contextual{{CSharpSafePropertyName}};
+                {{/NonParentProperties}}
+            {{/PrimaryKey}}
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -86,7 +107,7 @@ namespace {{AggregateNamespace}}
         [Key({{#ReferenceDataMessagePackIndexer}}{{NextKey}}{{/ReferenceDataMessagePackIndexer}})]
         public virtual {{CSharpDeclaredType}} {{CSharpSafePropertyName}}
         {
-            get => {{CSharpSafeFieldName}};
+            get { EnsureContextualValuesInitialized(); return {{CSharpSafeFieldName}}; }
             set
             {
                 var originalValue = {{CSharpSafeFieldName}};
@@ -114,6 +135,15 @@ namespace {{AggregateNamespace}}
         }
             {{/NonParentProperties}}
         {{/PrimaryKey}}
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
+            }
+        }
 
         {{#PrimaryKey}}
         public virtual bool IsFullyDefined()

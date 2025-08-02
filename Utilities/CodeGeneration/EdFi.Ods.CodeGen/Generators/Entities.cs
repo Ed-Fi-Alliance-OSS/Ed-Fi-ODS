@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Helpers;
@@ -508,8 +509,15 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             return entityProperty.IncomingAssociations
                 .Where(a => !a.IsNavigable && a.AssociationType != AssociationViewType.FromBase && a.OtherEntity.IsReferenceable())
+                // Associations for references
                 .Select(a =>
                 {
+                    // Does this property have context already established by the parent entity?
+                    // Capture context value for the reference constructor
+                    var contextualReferenceProperties = a.ThisProperties.Where(p => p.IsFromParent)
+                        .Select(p => GetInstanceBasedPropertySourceValuePath(p, a))
+                        .ToList();
+
                     EntityProperty otherProperty = a.PropertyMappingByThisName[entityProperty.PropertyName].OtherProperty;
 
                     string referenceDataPropertyName = (otherProperty.BaseProperty ?? otherProperty).PropertyName;
@@ -519,8 +527,48 @@ namespace EdFi.Ods.CodeGen.Generators
                             a.OtherEntity.TypeHierarchyRootEntity.SchemaProperCaseName()),
                         a.OtherEntity.TypeHierarchyRootEntity.Name + "ReferenceData",
                         a.Name + "SerializedReferenceData",
-                        referenceDataPropertyName);
+                        referenceDataPropertyName,
+                        contextualReferenceProperties);
                 });
+            
+            (string referencePropertyName, string instanceSourceValuePath) GetInstanceBasedPropertySourceValuePath(
+                EntityProperty property,
+                AssociationView associationView)
+            {
+                // This logic is only here to build a C# instance path to the source value
+                if (!property.IsFromParent)
+                {
+                    throw new InvalidOperationException("Expected property passed to be derived from parent.");
+                }
+
+                var referencePropertyName =
+                    associationView.PropertyMappingByThisName[property.PropertyName].OtherProperty.PropertyName;
+
+                StringBuilder sb = new();
+
+                var currentProperty = property;
+
+                while (true)
+                {
+                    if (currentProperty.ParentProperty == null)
+                    {
+                        throw new InvalidOperationException($"Property {currentProperty.PropertyName} on entity {currentProperty.Entity.Name} returns no parent property, though IsFromParent returned true.");
+                    }
+
+                    // Switch to the associated property in the parent
+                    currentProperty = currentProperty.ParentProperty;
+                    
+                    sb.Append(currentProperty.Entity.Name);
+                    sb.Append('.');
+
+                    // Look for the exit condition where property is not from the parent.
+                    if (!currentProperty.IsFromParent)
+                    {
+                        sb.Append(currentProperty.PropertyName);
+                        return (referencePropertyName, sb.ToString());
+                    }
+                }
+            }
         }
 
         private readonly Dictionary<FullName, MessagePackIndexer> _abstractMessagePackIndexerByEntity = new(); 
@@ -762,12 +810,35 @@ namespace EdFi.Ods.CodeGen.Generators
 
         public string OtherPropertyName { get; }
 
-        public ReferenceDataPropertyMapping(string referenceDataClassNamespace, string referenceDataClassName, string referenceDataPropertyName, string otherPropertyName)
+        public List<ContextualProperty> ContextualReferenceProperties { get; } = new();
+
+        public ReferenceDataPropertyMapping(
+            string referenceDataClassNamespace,
+            string referenceDataClassName,
+            string referenceDataPropertyName,
+            string otherPropertyName,
+            List<(string referencePropertyName, string instanceSourceValuePath)> contextualReferenceProperties)
         {
             ReferenceDataClassNamespace = referenceDataClassNamespace;
             ReferenceDataClassName = referenceDataClassName;
             ReferenceDataPropertyName = referenceDataPropertyName;
             OtherPropertyName = otherPropertyName;
+
+            ContextualReferenceProperties = contextualReferenceProperties
+                .Select(t => new ContextualProperty(t.referencePropertyName, t.instanceSourceValuePath))
+                .ToList();
+        }
+
+        public class ContextualProperty
+        {
+            public ContextualProperty(string referencePropertyName, string instanceSourceValuePath)
+            {
+                ReferencePropertyName = referencePropertyName;
+                InstanceSourceValuePath = instanceSourceValuePath;
+            }
+
+            public string ReferencePropertyName { get; }
+            public string InstanceSourceValuePath { get; }
         }
     }
 }
