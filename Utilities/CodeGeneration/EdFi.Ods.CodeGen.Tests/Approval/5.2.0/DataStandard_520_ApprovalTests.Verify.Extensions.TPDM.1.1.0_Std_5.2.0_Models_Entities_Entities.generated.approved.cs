@@ -398,12 +398,29 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<CandidateReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public CandidateReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public CandidateReferenceData(Action<CandidateReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public CandidateReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public CandidateReferenceData(string contextualCandidateIdentifier = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _candidateIdentifier = contextualCandidateIdentifier;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -437,7 +454,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [Key(1)]
         public virtual string CandidateIdentifier
         {
-            get => _candidateIdentifier;
+            get { EnsureContextualValuesInitialized(); return _candidateIdentifier; }
             set
             {
                 var originalValue = _candidateIdentifier;
@@ -459,6 +476,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -955,7 +981,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
+
                     PersonSerializedReferenceData.PersonId = value ?? default;
                 }
             }
@@ -1019,7 +1046,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                         PersonSerializedReferenceData.SourceSystemDescriptorId = _sourceSystemDescriptorId ?? default;
                     }
                 }
@@ -1033,7 +1060,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = value ?? default;
                 }
             }
@@ -1059,7 +1086,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
                 }
             }
@@ -4290,12 +4317,33 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     public class CandidateEducatorPreparationProgramAssociationReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<CandidateEducatorPreparationProgramAssociationReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public CandidateEducatorPreparationProgramAssociationReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public CandidateEducatorPreparationProgramAssociationReferenceData(Action<CandidateEducatorPreparationProgramAssociationReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public CandidateEducatorPreparationProgramAssociationReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public CandidateEducatorPreparationProgramAssociationReferenceData(DateTime contextualBeginDate = default, string contextualCandidateIdentifier = default, long contextualEducationOrganizationId = default, string contextualProgramName = default, int contextualProgramTypeDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _beginDate = contextualBeginDate;
+            _candidateIdentifier = contextualCandidateIdentifier;
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _programName = contextualProgramName;
+            _programTypeDescriptorId = contextualProgramTypeDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -4329,7 +4377,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         [Key(1)]
         public virtual DateTime BeginDate
         {
-            get => _beginDate;
+            get { EnsureContextualValuesInitialized(); return _beginDate; }
             set
             {
                 var originalValue = _beginDate;
@@ -4358,7 +4406,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         [Key(2)]
         public virtual string CandidateIdentifier
         {
-            get => _candidateIdentifier;
+            get { EnsureContextualValuesInitialized(); return _candidateIdentifier; }
             set
             {
                 var originalValue = _candidateIdentifier;
@@ -4387,7 +4435,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         [Key(3)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -4416,7 +4464,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         [Key(4)]
         public virtual string ProgramName
         {
-            get => _programName;
+            get { EnsureContextualValuesInitialized(); return _programName; }
             set
             {
                 var originalValue = _programName;
@@ -4445,7 +4493,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         [Key(5)]
         public virtual int ProgramTypeDescriptorId
         {
-            get => _programTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _programTypeDescriptorId; }
             set
             {
                 var originalValue = _programTypeDescriptorId;
@@ -4467,6 +4515,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -4719,7 +4776,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    CandidateSerializedReferenceData ??= new NHibernate.CandidateAggregate.TPDM.CandidateReferenceData(true);
+                    CandidateSerializedReferenceData ??= new NHibernate.CandidateAggregate.TPDM.CandidateReferenceData(trackLookupContext: true);
+
                     CandidateSerializedReferenceData.CandidateIdentifier = value;
                 }
             }
@@ -4738,7 +4796,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(true);
+                    EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(trackLookupContext: true);
+
                     EducatorPreparationProgramSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -4757,7 +4816,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(true);
+                    EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(trackLookupContext: true);
+
                     EducatorPreparationProgramSerializedReferenceData.ProgramName = value;
                 }
             }
@@ -4777,7 +4837,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(true);
+                        EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(trackLookupContext: true);
                         EducatorPreparationProgramSerializedReferenceData.ProgramTypeDescriptorId = _programTypeDescriptorId;
                     }
                 }
@@ -4791,7 +4851,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(true);
+                    EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(trackLookupContext: true);
                     EducatorPreparationProgramSerializedReferenceData.ProgramTypeDescriptorId = value;
                 }
             }
@@ -4817,7 +4877,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(true);
+                    EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(trackLookupContext: true);
                     EducatorPreparationProgramSerializedReferenceData.ProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
                 }
             }
@@ -5286,7 +5346,19 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData(true);
+                    if (CandidateEducatorPreparationProgramAssociation == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData(trackLookupContext: true);
+                    }
+
                     SchoolYearTypeSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -6120,7 +6192,19 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(true);
+                    if (Credential == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
+                    }
+
                     StudentAcademicRecordSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -6139,7 +6223,19 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(true);
+                    if (Credential == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
+                    }
+
                     StudentAcademicRecordSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -6162,7 +6258,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                         if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                         {
-                            StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(true);
+                            StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
                             StudentAcademicRecordSerializedReferenceData.StudentUSI = _studentUSI;
                         }
                     }
@@ -6177,7 +6273,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(true);
+                    StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
                     StudentAcademicRecordSerializedReferenceData.StudentUSI = value;
                 }
             }
@@ -6214,7 +6310,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                     if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
                         && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
                     {
-                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(true);
+                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
                         StudentAcademicRecordSerializedReferenceData.StudentUSI = usi;
                     }
                 }
@@ -6233,7 +6329,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(true);
+                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
                         StudentAcademicRecordSerializedReferenceData.TermDescriptorId = _termDescriptorId;
                     }
                 }
@@ -6247,7 +6343,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(true);
+                    StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
                     StudentAcademicRecordSerializedReferenceData.TermDescriptorId = value;
                 }
             }
@@ -6273,7 +6369,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(true);
+                    StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
                     StudentAcademicRecordSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
                 }
             }
@@ -6664,7 +6760,19 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    if (Credential == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
+                    }
+
                     PersonSerializedReferenceData.PersonId = value ?? default;
                 }
             }
@@ -6683,7 +6791,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                         PersonSerializedReferenceData.SourceSystemDescriptorId = _sourceSystemDescriptorId ?? default;
                     }
                 }
@@ -6697,7 +6805,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = value ?? default;
                 }
             }
@@ -6723,7 +6831,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
                 }
             }
@@ -7063,12 +7171,31 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
     public class EducatorPreparationProgramReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<EducatorPreparationProgramReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public EducatorPreparationProgramReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public EducatorPreparationProgramReferenceData(Action<EducatorPreparationProgramReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public EducatorPreparationProgramReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public EducatorPreparationProgramReferenceData(long contextualEducationOrganizationId = default, string contextualProgramName = default, int contextualProgramTypeDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _programName = contextualProgramName;
+            _programTypeDescriptorId = contextualProgramTypeDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -7102,7 +7229,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         [Key(1)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -7131,7 +7258,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         [Key(2)]
         public virtual string ProgramName
         {
-            get => _programName;
+            get { EnsureContextualValuesInitialized(); return _programName; }
             set
             {
                 var originalValue = _programName;
@@ -7160,7 +7287,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         [Key(3)]
         public virtual int ProgramTypeDescriptorId
         {
-            get => _programTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _programTypeDescriptorId; }
             set
             {
                 var originalValue = _programTypeDescriptorId;
@@ -7182,6 +7309,15 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -7359,7 +7495,8 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EducationOrganizationSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(true);
+                    EducationOrganizationSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(trackLookupContext: true);
+
                     EducationOrganizationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -8386,12 +8523,35 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
     public class EvaluationReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<EvaluationReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public EvaluationReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public EvaluationReferenceData(Action<EvaluationReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public EvaluationReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public EvaluationReferenceData(long contextualEducationOrganizationId = default, int contextualEvaluationPeriodDescriptorId = default, string contextualEvaluationTitle = default, string contextualPerformanceEvaluationTitle = default, int contextualPerformanceEvaluationTypeDescriptorId = default, short contextualSchoolYear = default, int contextualTermDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _evaluationPeriodDescriptorId = contextualEvaluationPeriodDescriptorId;
+            _evaluationTitle = contextualEvaluationTitle;
+            _performanceEvaluationTitle = contextualPerformanceEvaluationTitle;
+            _performanceEvaluationTypeDescriptorId = contextualPerformanceEvaluationTypeDescriptorId;
+            _schoolYear = contextualSchoolYear;
+            _termDescriptorId = contextualTermDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -8425,7 +8585,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         [Key(1)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -8454,7 +8614,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         [Key(2)]
         public virtual int EvaluationPeriodDescriptorId
         {
-            get => _evaluationPeriodDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _evaluationPeriodDescriptorId; }
             set
             {
                 var originalValue = _evaluationPeriodDescriptorId;
@@ -8483,7 +8643,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         [Key(3)]
         public virtual string EvaluationTitle
         {
-            get => _evaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationTitle; }
             set
             {
                 var originalValue = _evaluationTitle;
@@ -8512,7 +8672,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         [Key(4)]
         public virtual string PerformanceEvaluationTitle
         {
-            get => _performanceEvaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTitle; }
             set
             {
                 var originalValue = _performanceEvaluationTitle;
@@ -8541,7 +8701,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         [Key(5)]
         public virtual int PerformanceEvaluationTypeDescriptorId
         {
-            get => _performanceEvaluationTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTypeDescriptorId; }
             set
             {
                 var originalValue = _performanceEvaluationTypeDescriptorId;
@@ -8570,7 +8730,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         [Key(6)]
         public virtual short SchoolYear
         {
-            get => _schoolYear;
+            get { EnsureContextualValuesInitialized(); return _schoolYear; }
             set
             {
                 var originalValue = _schoolYear;
@@ -8599,7 +8759,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         [Key(7)]
         public virtual int TermDescriptorId
         {
-            get => _termDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _termDescriptorId; }
             set
             {
                 var originalValue = _termDescriptorId;
@@ -8621,6 +8781,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -8806,7 +8975,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
+
                     PerformanceEvaluationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -8826,7 +8996,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                         PerformanceEvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
                     }
                 }
@@ -8840,7 +9010,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = value;
                 }
             }
@@ -8866,7 +9036,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
                 }
             }
@@ -8887,7 +9057,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
+
                     PerformanceEvaluationSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -8907,7 +9078,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                         PerformanceEvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
                     }
                 }
@@ -8921,7 +9092,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
                 }
             }
@@ -8947,7 +9118,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
                 }
             }
@@ -8964,7 +9135,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
+
                     PerformanceEvaluationSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -8984,7 +9156,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                         PerformanceEvaluationSerializedReferenceData.TermDescriptorId = _termDescriptorId;
                     }
                 }
@@ -8998,7 +9170,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.TermDescriptorId = value;
                 }
             }
@@ -9024,7 +9196,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
                 }
             }
@@ -9482,12 +9654,37 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
     public class EvaluationElementReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<EvaluationElementReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public EvaluationElementReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public EvaluationElementReferenceData(Action<EvaluationElementReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public EvaluationElementReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public EvaluationElementReferenceData(long contextualEducationOrganizationId = default, string contextualEvaluationElementTitle = default, string contextualEvaluationObjectiveTitle = default, int contextualEvaluationPeriodDescriptorId = default, string contextualEvaluationTitle = default, string contextualPerformanceEvaluationTitle = default, int contextualPerformanceEvaluationTypeDescriptorId = default, short contextualSchoolYear = default, int contextualTermDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _evaluationElementTitle = contextualEvaluationElementTitle;
+            _evaluationObjectiveTitle = contextualEvaluationObjectiveTitle;
+            _evaluationPeriodDescriptorId = contextualEvaluationPeriodDescriptorId;
+            _evaluationTitle = contextualEvaluationTitle;
+            _performanceEvaluationTitle = contextualPerformanceEvaluationTitle;
+            _performanceEvaluationTypeDescriptorId = contextualPerformanceEvaluationTypeDescriptorId;
+            _schoolYear = contextualSchoolYear;
+            _termDescriptorId = contextualTermDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -9521,7 +9718,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         [Key(1)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -9550,7 +9747,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         [Key(2)]
         public virtual string EvaluationElementTitle
         {
-            get => _evaluationElementTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationElementTitle; }
             set
             {
                 var originalValue = _evaluationElementTitle;
@@ -9579,7 +9776,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         [Key(3)]
         public virtual string EvaluationObjectiveTitle
         {
-            get => _evaluationObjectiveTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationObjectiveTitle; }
             set
             {
                 var originalValue = _evaluationObjectiveTitle;
@@ -9608,7 +9805,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         [Key(4)]
         public virtual int EvaluationPeriodDescriptorId
         {
-            get => _evaluationPeriodDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _evaluationPeriodDescriptorId; }
             set
             {
                 var originalValue = _evaluationPeriodDescriptorId;
@@ -9637,7 +9834,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         [Key(5)]
         public virtual string EvaluationTitle
         {
-            get => _evaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationTitle; }
             set
             {
                 var originalValue = _evaluationTitle;
@@ -9666,7 +9863,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         [Key(6)]
         public virtual string PerformanceEvaluationTitle
         {
-            get => _performanceEvaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTitle; }
             set
             {
                 var originalValue = _performanceEvaluationTitle;
@@ -9695,7 +9892,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         [Key(7)]
         public virtual int PerformanceEvaluationTypeDescriptorId
         {
-            get => _performanceEvaluationTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTypeDescriptorId; }
             set
             {
                 var originalValue = _performanceEvaluationTypeDescriptorId;
@@ -9724,7 +9921,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         [Key(8)]
         public virtual short SchoolYear
         {
-            get => _schoolYear;
+            get { EnsureContextualValuesInitialized(); return _schoolYear; }
             set
             {
                 var originalValue = _schoolYear;
@@ -9753,7 +9950,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         [Key(9)]
         public virtual int TermDescriptorId
         {
-            get => _termDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _termDescriptorId; }
             set
             {
                 var originalValue = _termDescriptorId;
@@ -9775,6 +9972,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -9964,7 +10170,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -9987,7 +10194,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveSerializedReferenceData.EvaluationObjectiveTitle = value;
                 }
             }
@@ -10007,7 +10215,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                         EvaluationObjectiveSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
                     }
                 }
@@ -10021,7 +10229,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.EvaluationPeriodDescriptorId = value;
                 }
             }
@@ -10047,7 +10255,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
                 }
             }
@@ -10064,7 +10272,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -10083,7 +10292,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -10103,7 +10313,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                         EvaluationObjectiveSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
                     }
                 }
@@ -10117,7 +10327,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
                 }
             }
@@ -10143,7 +10353,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
                 }
             }
@@ -10160,7 +10370,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -10180,7 +10391,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                         EvaluationObjectiveSerializedReferenceData.TermDescriptorId = _termDescriptorId;
                     }
                 }
@@ -10194,7 +10405,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.TermDescriptorId = value;
                 }
             }
@@ -10220,7 +10431,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
                 }
             }
@@ -10677,12 +10888,40 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
     public class EvaluationElementRatingReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<EvaluationElementRatingReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public EvaluationElementRatingReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public EvaluationElementRatingReferenceData(Action<EvaluationElementRatingReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public EvaluationElementRatingReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public EvaluationElementRatingReferenceData(long contextualEducationOrganizationId = default, DateTime contextualEvaluationDate = default, string contextualEvaluationElementTitle = default, string contextualEvaluationObjectiveTitle = default, int contextualEvaluationPeriodDescriptorId = default, string contextualEvaluationTitle = default, string contextualPerformanceEvaluationTitle = default, int contextualPerformanceEvaluationTypeDescriptorId = default, string contextualPersonId = default, short contextualSchoolYear = default, int contextualSourceSystemDescriptorId = default, int contextualTermDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _evaluationDate = contextualEvaluationDate;
+            _evaluationElementTitle = contextualEvaluationElementTitle;
+            _evaluationObjectiveTitle = contextualEvaluationObjectiveTitle;
+            _evaluationPeriodDescriptorId = contextualEvaluationPeriodDescriptorId;
+            _evaluationTitle = contextualEvaluationTitle;
+            _performanceEvaluationTitle = contextualPerformanceEvaluationTitle;
+            _performanceEvaluationTypeDescriptorId = contextualPerformanceEvaluationTypeDescriptorId;
+            _personId = contextualPersonId;
+            _schoolYear = contextualSchoolYear;
+            _sourceSystemDescriptorId = contextualSourceSystemDescriptorId;
+            _termDescriptorId = contextualTermDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -10716,7 +10955,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(1)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -10745,7 +10984,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(2)]
         public virtual DateTime EvaluationDate
         {
-            get => _evaluationDate;
+            get { EnsureContextualValuesInitialized(); return _evaluationDate; }
             set
             {
                 var originalValue = _evaluationDate;
@@ -10774,7 +11013,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(3)]
         public virtual string EvaluationElementTitle
         {
-            get => _evaluationElementTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationElementTitle; }
             set
             {
                 var originalValue = _evaluationElementTitle;
@@ -10803,7 +11042,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(4)]
         public virtual string EvaluationObjectiveTitle
         {
-            get => _evaluationObjectiveTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationObjectiveTitle; }
             set
             {
                 var originalValue = _evaluationObjectiveTitle;
@@ -10832,7 +11071,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(5)]
         public virtual int EvaluationPeriodDescriptorId
         {
-            get => _evaluationPeriodDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _evaluationPeriodDescriptorId; }
             set
             {
                 var originalValue = _evaluationPeriodDescriptorId;
@@ -10861,7 +11100,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(6)]
         public virtual string EvaluationTitle
         {
-            get => _evaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationTitle; }
             set
             {
                 var originalValue = _evaluationTitle;
@@ -10890,7 +11129,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(7)]
         public virtual string PerformanceEvaluationTitle
         {
-            get => _performanceEvaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTitle; }
             set
             {
                 var originalValue = _performanceEvaluationTitle;
@@ -10919,7 +11158,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(8)]
         public virtual int PerformanceEvaluationTypeDescriptorId
         {
-            get => _performanceEvaluationTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTypeDescriptorId; }
             set
             {
                 var originalValue = _performanceEvaluationTypeDescriptorId;
@@ -10948,7 +11187,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(9)]
         public virtual string PersonId
         {
-            get => _personId;
+            get { EnsureContextualValuesInitialized(); return _personId; }
             set
             {
                 var originalValue = _personId;
@@ -10977,7 +11216,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(10)]
         public virtual short SchoolYear
         {
-            get => _schoolYear;
+            get { EnsureContextualValuesInitialized(); return _schoolYear; }
             set
             {
                 var originalValue = _schoolYear;
@@ -11006,7 +11245,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(11)]
         public virtual int SourceSystemDescriptorId
         {
-            get => _sourceSystemDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _sourceSystemDescriptorId; }
             set
             {
                 var originalValue = _sourceSystemDescriptorId;
@@ -11035,7 +11274,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [Key(12)]
         public virtual int TermDescriptorId
         {
-            get => _termDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _termDescriptorId; }
             set
             {
                 var originalValue = _termDescriptorId;
@@ -11057,6 +11296,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -11311,9 +11559,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.EducationOrganizationId = value;
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveRatingSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -11339,7 +11589,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                     EvaluationObjectiveRatingSerializedReferenceData.EvaluationDate = _evaluationDate;
                 }
             }
@@ -11358,7 +11608,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.EvaluationElementTitle = value;
                 }
             }
@@ -11377,9 +11628,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.EvaluationObjectiveTitle = value;
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveRatingSerializedReferenceData.EvaluationObjectiveTitle = value;
                 }
             }
@@ -11399,9 +11652,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                         EvaluationElementSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
-                        EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                        EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                         EvaluationObjectiveRatingSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
                     }
                 }
@@ -11415,9 +11668,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.EvaluationPeriodDescriptorId = value;
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                     EvaluationObjectiveRatingSerializedReferenceData.EvaluationPeriodDescriptorId = value;
                 }
             }
@@ -11443,9 +11696,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                     EvaluationObjectiveRatingSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
                 }
             }
@@ -11462,9 +11715,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.EvaluationTitle = value;
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveRatingSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -11483,9 +11738,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.PerformanceEvaluationTitle = value;
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveRatingSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -11505,9 +11762,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                         EvaluationElementSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
-                        EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                        EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                         EvaluationObjectiveRatingSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
                     }
                 }
@@ -11521,9 +11778,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                     EvaluationObjectiveRatingSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
                 }
             }
@@ -11549,9 +11806,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                     EvaluationObjectiveRatingSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
                 }
             }
@@ -11568,7 +11825,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveRatingSerializedReferenceData.PersonId = value;
                 }
             }
@@ -11587,9 +11845,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.SchoolYear = value;
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveRatingSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -11609,7 +11869,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                        EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                         EvaluationObjectiveRatingSerializedReferenceData.SourceSystemDescriptorId = _sourceSystemDescriptorId;
                     }
                 }
@@ -11623,7 +11883,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                     EvaluationObjectiveRatingSerializedReferenceData.SourceSystemDescriptorId = value;
                 }
             }
@@ -11649,7 +11909,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                     EvaluationObjectiveRatingSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
                 }
             }
@@ -11667,9 +11927,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                         EvaluationElementSerializedReferenceData.TermDescriptorId = _termDescriptorId;
-                        EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                        EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                         EvaluationObjectiveRatingSerializedReferenceData.TermDescriptorId = _termDescriptorId;
                     }
                 }
@@ -11683,9 +11943,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.TermDescriptorId = value;
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                     EvaluationObjectiveRatingSerializedReferenceData.TermDescriptorId = value;
                 }
             }
@@ -11711,9 +11971,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
-                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(true);
+                    EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
                     EvaluationObjectiveRatingSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
                 }
             }
@@ -12362,12 +12622,36 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
     public class EvaluationObjectiveReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<EvaluationObjectiveReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public EvaluationObjectiveReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public EvaluationObjectiveReferenceData(Action<EvaluationObjectiveReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public EvaluationObjectiveReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public EvaluationObjectiveReferenceData(long contextualEducationOrganizationId = default, string contextualEvaluationObjectiveTitle = default, int contextualEvaluationPeriodDescriptorId = default, string contextualEvaluationTitle = default, string contextualPerformanceEvaluationTitle = default, int contextualPerformanceEvaluationTypeDescriptorId = default, short contextualSchoolYear = default, int contextualTermDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _evaluationObjectiveTitle = contextualEvaluationObjectiveTitle;
+            _evaluationPeriodDescriptorId = contextualEvaluationPeriodDescriptorId;
+            _evaluationTitle = contextualEvaluationTitle;
+            _performanceEvaluationTitle = contextualPerformanceEvaluationTitle;
+            _performanceEvaluationTypeDescriptorId = contextualPerformanceEvaluationTypeDescriptorId;
+            _schoolYear = contextualSchoolYear;
+            _termDescriptorId = contextualTermDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -12401,7 +12685,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         [Key(1)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -12430,7 +12714,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         [Key(2)]
         public virtual string EvaluationObjectiveTitle
         {
-            get => _evaluationObjectiveTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationObjectiveTitle; }
             set
             {
                 var originalValue = _evaluationObjectiveTitle;
@@ -12459,7 +12743,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         [Key(3)]
         public virtual int EvaluationPeriodDescriptorId
         {
-            get => _evaluationPeriodDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _evaluationPeriodDescriptorId; }
             set
             {
                 var originalValue = _evaluationPeriodDescriptorId;
@@ -12488,7 +12772,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         [Key(4)]
         public virtual string EvaluationTitle
         {
-            get => _evaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationTitle; }
             set
             {
                 var originalValue = _evaluationTitle;
@@ -12517,7 +12801,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         [Key(5)]
         public virtual string PerformanceEvaluationTitle
         {
-            get => _performanceEvaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTitle; }
             set
             {
                 var originalValue = _performanceEvaluationTitle;
@@ -12546,7 +12830,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         [Key(6)]
         public virtual int PerformanceEvaluationTypeDescriptorId
         {
-            get => _performanceEvaluationTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTypeDescriptorId; }
             set
             {
                 var originalValue = _performanceEvaluationTypeDescriptorId;
@@ -12575,7 +12859,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         [Key(7)]
         public virtual short SchoolYear
         {
-            get => _schoolYear;
+            get { EnsureContextualValuesInitialized(); return _schoolYear; }
             set
             {
                 var originalValue = _schoolYear;
@@ -12604,7 +12888,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         [Key(8)]
         public virtual int TermDescriptorId
         {
-            get => _termDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _termDescriptorId; }
             set
             {
                 var originalValue = _termDescriptorId;
@@ -12626,6 +12910,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -12813,7 +13106,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
+
                     EvaluationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -12837,7 +13131,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                         EvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
                     }
                 }
@@ -12851,7 +13145,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = value;
                 }
             }
@@ -12877,7 +13171,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
                 }
             }
@@ -12894,7 +13188,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
+
                     EvaluationSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -12913,7 +13208,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
+
                     EvaluationSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -12933,7 +13229,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                         EvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
                     }
                 }
@@ -12947,7 +13243,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
                 }
             }
@@ -12973,7 +13269,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
                 }
             }
@@ -12990,7 +13286,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
+
                     EvaluationSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -13010,7 +13307,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                         EvaluationSerializedReferenceData.TermDescriptorId = _termDescriptorId;
                     }
                 }
@@ -13024,7 +13321,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.TermDescriptorId = value;
                 }
             }
@@ -13050,7 +13347,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
                 }
             }
@@ -13509,12 +13806,39 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
     public class EvaluationObjectiveRatingReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<EvaluationObjectiveRatingReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public EvaluationObjectiveRatingReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public EvaluationObjectiveRatingReferenceData(Action<EvaluationObjectiveRatingReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public EvaluationObjectiveRatingReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public EvaluationObjectiveRatingReferenceData(long contextualEducationOrganizationId = default, DateTime contextualEvaluationDate = default, string contextualEvaluationObjectiveTitle = default, int contextualEvaluationPeriodDescriptorId = default, string contextualEvaluationTitle = default, string contextualPerformanceEvaluationTitle = default, int contextualPerformanceEvaluationTypeDescriptorId = default, string contextualPersonId = default, short contextualSchoolYear = default, int contextualSourceSystemDescriptorId = default, int contextualTermDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _evaluationDate = contextualEvaluationDate;
+            _evaluationObjectiveTitle = contextualEvaluationObjectiveTitle;
+            _evaluationPeriodDescriptorId = contextualEvaluationPeriodDescriptorId;
+            _evaluationTitle = contextualEvaluationTitle;
+            _performanceEvaluationTitle = contextualPerformanceEvaluationTitle;
+            _performanceEvaluationTypeDescriptorId = contextualPerformanceEvaluationTypeDescriptorId;
+            _personId = contextualPersonId;
+            _schoolYear = contextualSchoolYear;
+            _sourceSystemDescriptorId = contextualSourceSystemDescriptorId;
+            _termDescriptorId = contextualTermDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -13548,7 +13872,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(1)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -13577,7 +13901,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(2)]
         public virtual DateTime EvaluationDate
         {
-            get => _evaluationDate;
+            get { EnsureContextualValuesInitialized(); return _evaluationDate; }
             set
             {
                 var originalValue = _evaluationDate;
@@ -13606,7 +13930,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(3)]
         public virtual string EvaluationObjectiveTitle
         {
-            get => _evaluationObjectiveTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationObjectiveTitle; }
             set
             {
                 var originalValue = _evaluationObjectiveTitle;
@@ -13635,7 +13959,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(4)]
         public virtual int EvaluationPeriodDescriptorId
         {
-            get => _evaluationPeriodDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _evaluationPeriodDescriptorId; }
             set
             {
                 var originalValue = _evaluationPeriodDescriptorId;
@@ -13664,7 +13988,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(5)]
         public virtual string EvaluationTitle
         {
-            get => _evaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationTitle; }
             set
             {
                 var originalValue = _evaluationTitle;
@@ -13693,7 +14017,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(6)]
         public virtual string PerformanceEvaluationTitle
         {
-            get => _performanceEvaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTitle; }
             set
             {
                 var originalValue = _performanceEvaluationTitle;
@@ -13722,7 +14046,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(7)]
         public virtual int PerformanceEvaluationTypeDescriptorId
         {
-            get => _performanceEvaluationTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTypeDescriptorId; }
             set
             {
                 var originalValue = _performanceEvaluationTypeDescriptorId;
@@ -13751,7 +14075,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(8)]
         public virtual string PersonId
         {
-            get => _personId;
+            get { EnsureContextualValuesInitialized(); return _personId; }
             set
             {
                 var originalValue = _personId;
@@ -13780,7 +14104,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(9)]
         public virtual short SchoolYear
         {
-            get => _schoolYear;
+            get { EnsureContextualValuesInitialized(); return _schoolYear; }
             set
             {
                 var originalValue = _schoolYear;
@@ -13809,7 +14133,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(10)]
         public virtual int SourceSystemDescriptorId
         {
-            get => _sourceSystemDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _sourceSystemDescriptorId; }
             set
             {
                 var originalValue = _sourceSystemDescriptorId;
@@ -13838,7 +14162,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [Key(11)]
         public virtual int TermDescriptorId
         {
-            get => _termDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _termDescriptorId; }
             set
             {
                 var originalValue = _termDescriptorId;
@@ -13860,6 +14184,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -14112,9 +14445,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveSerializedReferenceData.EducationOrganizationId = value;
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
+
                     EvaluationRatingSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -14140,7 +14475,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                     EvaluationRatingSerializedReferenceData.EvaluationDate = _evaluationDate;
                 }
             }
@@ -14159,7 +14494,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveSerializedReferenceData.EvaluationObjectiveTitle = value;
                 }
             }
@@ -14179,9 +14515,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                         EvaluationObjectiveSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
-                        EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                        EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                         EvaluationRatingSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
                     }
                 }
@@ -14195,9 +14531,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.EvaluationPeriodDescriptorId = value;
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                     EvaluationRatingSerializedReferenceData.EvaluationPeriodDescriptorId = value;
                 }
             }
@@ -14223,9 +14559,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                     EvaluationRatingSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
                 }
             }
@@ -14242,9 +14578,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveSerializedReferenceData.EvaluationTitle = value;
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
+
                     EvaluationRatingSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -14263,9 +14601,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveSerializedReferenceData.PerformanceEvaluationTitle = value;
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
+
                     EvaluationRatingSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -14285,9 +14625,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                         EvaluationObjectiveSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
-                        EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                        EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                         EvaluationRatingSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
                     }
                 }
@@ -14301,9 +14641,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                     EvaluationRatingSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
                 }
             }
@@ -14329,9 +14669,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                     EvaluationRatingSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
                 }
             }
@@ -14348,7 +14688,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
+
                     EvaluationRatingSerializedReferenceData.PersonId = value;
                 }
             }
@@ -14367,9 +14708,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
+
                     EvaluationObjectiveSerializedReferenceData.SchoolYear = value;
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
+
                     EvaluationRatingSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -14389,7 +14732,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                        EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                         EvaluationRatingSerializedReferenceData.SourceSystemDescriptorId = _sourceSystemDescriptorId;
                     }
                 }
@@ -14403,7 +14746,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                     EvaluationRatingSerializedReferenceData.SourceSystemDescriptorId = value;
                 }
             }
@@ -14429,7 +14772,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                     EvaluationRatingSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
                 }
             }
@@ -14447,9 +14790,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                        EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                         EvaluationObjectiveSerializedReferenceData.TermDescriptorId = _termDescriptorId;
-                        EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                        EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                         EvaluationRatingSerializedReferenceData.TermDescriptorId = _termDescriptorId;
                     }
                 }
@@ -14463,9 +14806,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.TermDescriptorId = value;
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                     EvaluationRatingSerializedReferenceData.TermDescriptorId = value;
                 }
             }
@@ -14491,9 +14834,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(true);
+                    EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
                     EvaluationObjectiveSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
-                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(true);
+                    EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
                     EvaluationRatingSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
                 }
             }
@@ -15132,12 +15475,38 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     public class EvaluationRatingReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<EvaluationRatingReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public EvaluationRatingReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public EvaluationRatingReferenceData(Action<EvaluationRatingReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public EvaluationRatingReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public EvaluationRatingReferenceData(long contextualEducationOrganizationId = default, DateTime contextualEvaluationDate = default, int contextualEvaluationPeriodDescriptorId = default, string contextualEvaluationTitle = default, string contextualPerformanceEvaluationTitle = default, int contextualPerformanceEvaluationTypeDescriptorId = default, string contextualPersonId = default, short contextualSchoolYear = default, int contextualSourceSystemDescriptorId = default, int contextualTermDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _evaluationDate = contextualEvaluationDate;
+            _evaluationPeriodDescriptorId = contextualEvaluationPeriodDescriptorId;
+            _evaluationTitle = contextualEvaluationTitle;
+            _performanceEvaluationTitle = contextualPerformanceEvaluationTitle;
+            _performanceEvaluationTypeDescriptorId = contextualPerformanceEvaluationTypeDescriptorId;
+            _personId = contextualPersonId;
+            _schoolYear = contextualSchoolYear;
+            _sourceSystemDescriptorId = contextualSourceSystemDescriptorId;
+            _termDescriptorId = contextualTermDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -15171,7 +15540,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [Key(1)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -15200,7 +15569,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [Key(2)]
         public virtual DateTime EvaluationDate
         {
-            get => _evaluationDate;
+            get { EnsureContextualValuesInitialized(); return _evaluationDate; }
             set
             {
                 var originalValue = _evaluationDate;
@@ -15229,7 +15598,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [Key(3)]
         public virtual int EvaluationPeriodDescriptorId
         {
-            get => _evaluationPeriodDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _evaluationPeriodDescriptorId; }
             set
             {
                 var originalValue = _evaluationPeriodDescriptorId;
@@ -15258,7 +15627,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [Key(4)]
         public virtual string EvaluationTitle
         {
-            get => _evaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationTitle; }
             set
             {
                 var originalValue = _evaluationTitle;
@@ -15287,7 +15656,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [Key(5)]
         public virtual string PerformanceEvaluationTitle
         {
-            get => _performanceEvaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTitle; }
             set
             {
                 var originalValue = _performanceEvaluationTitle;
@@ -15316,7 +15685,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [Key(6)]
         public virtual int PerformanceEvaluationTypeDescriptorId
         {
-            get => _performanceEvaluationTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTypeDescriptorId; }
             set
             {
                 var originalValue = _performanceEvaluationTypeDescriptorId;
@@ -15345,7 +15714,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [Key(7)]
         public virtual string PersonId
         {
-            get => _personId;
+            get { EnsureContextualValuesInitialized(); return _personId; }
             set
             {
                 var originalValue = _personId;
@@ -15374,7 +15743,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [Key(8)]
         public virtual short SchoolYear
         {
-            get => _schoolYear;
+            get { EnsureContextualValuesInitialized(); return _schoolYear; }
             set
             {
                 var originalValue = _schoolYear;
@@ -15403,7 +15772,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [Key(9)]
         public virtual int SourceSystemDescriptorId
         {
-            get => _sourceSystemDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _sourceSystemDescriptorId; }
             set
             {
                 var originalValue = _sourceSystemDescriptorId;
@@ -15432,7 +15801,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [Key(10)]
         public virtual int TermDescriptorId
         {
-            get => _termDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _termDescriptorId; }
             set
             {
                 var originalValue = _termDescriptorId;
@@ -15454,6 +15823,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -15764,9 +16142,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
+
                     EvaluationSerializedReferenceData.EducationOrganizationId = value;
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
+
                     PerformanceEvaluationRatingSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -15806,9 +16186,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                         EvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
-                        PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                        PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                         PerformanceEvaluationRatingSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
                     }
                 }
@@ -15822,9 +16202,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = value;
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                     PerformanceEvaluationRatingSerializedReferenceData.EvaluationPeriodDescriptorId = value;
                 }
             }
@@ -15850,9 +16230,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                     PerformanceEvaluationRatingSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
                 }
             }
@@ -15869,7 +16249,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
+
                     EvaluationSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -15888,9 +16269,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
+
                     EvaluationSerializedReferenceData.PerformanceEvaluationTitle = value;
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
+
                     PerformanceEvaluationRatingSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -15910,9 +16293,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                         EvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
-                        PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                        PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                         PerformanceEvaluationRatingSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
                     }
                 }
@@ -15926,9 +16309,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                     PerformanceEvaluationRatingSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
                 }
             }
@@ -15954,9 +16337,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                     PerformanceEvaluationRatingSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
                 }
             }
@@ -15973,7 +16356,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
+
                     PerformanceEvaluationRatingSerializedReferenceData.PersonId = value;
                 }
             }
@@ -15992,11 +16376,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
+
                     EvaluationSerializedReferenceData.SchoolYear = value;
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
+
                     PerformanceEvaluationRatingSerializedReferenceData.SchoolYear = value;
-                    SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(true);
+                    SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(trackLookupContext: true);
+
                     SectionSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -16016,7 +16403,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                        PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                         PerformanceEvaluationRatingSerializedReferenceData.SourceSystemDescriptorId = _sourceSystemDescriptorId;
                     }
                 }
@@ -16030,7 +16417,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                     PerformanceEvaluationRatingSerializedReferenceData.SourceSystemDescriptorId = value;
                 }
             }
@@ -16056,7 +16443,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                     PerformanceEvaluationRatingSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
                 }
             }
@@ -16074,9 +16461,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                        EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                         EvaluationSerializedReferenceData.TermDescriptorId = _termDescriptorId;
-                        PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                        PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                         PerformanceEvaluationRatingSerializedReferenceData.TermDescriptorId = _termDescriptorId;
                     }
                 }
@@ -16090,9 +16477,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.TermDescriptorId = value;
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                     PerformanceEvaluationRatingSerializedReferenceData.TermDescriptorId = value;
                 }
             }
@@ -16118,9 +16505,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(true);
+                    EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
                     EvaluationSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
-                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(true);
+                    PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
                     PerformanceEvaluationRatingSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
                 }
             }
@@ -16230,7 +16617,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(true);
+                    SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(trackLookupContext: true);
+
                     SectionSerializedReferenceData.LocalCourseCode = value ?? default;
                 }
             }
@@ -16248,7 +16636,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(true);
+                    SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(trackLookupContext: true);
+
                     SectionSerializedReferenceData.SchoolId = value ?? default;
                 }
             }
@@ -16266,7 +16655,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(true);
+                    SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(trackLookupContext: true);
+
                     SectionSerializedReferenceData.SectionIdentifier = value ?? default;
                 }
             }
@@ -16284,7 +16674,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(true);
+                    SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(trackLookupContext: true);
+
                     SectionSerializedReferenceData.SessionName = value ?? default;
                 }
             }
@@ -16858,7 +17249,19 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    if (EvaluationRating == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
+                    }
+
                     ReviewerPersonSerializedReferenceData.PersonId = value ?? default;
                 }
             }
@@ -16877,7 +17280,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                         ReviewerPersonSerializedReferenceData.SourceSystemDescriptorId = _reviewerSourceSystemDescriptorId ?? default;
                     }
                 }
@@ -16891,7 +17294,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     ReviewerPersonSerializedReferenceData.SourceSystemDescriptorId = value ?? default;
                 }
             }
@@ -16917,7 +17320,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     ReviewerPersonSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _reviewerSourceSystemDescriptor);
                 }
             }
@@ -17848,12 +18251,31 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
     public class FinancialAidReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<FinancialAidReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public FinancialAidReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public FinancialAidReferenceData(Action<FinancialAidReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public FinancialAidReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public FinancialAidReferenceData(int contextualAidTypeDescriptorId = default, DateTime contextualBeginDate = default, int contextualStudentUSI = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _aidTypeDescriptorId = contextualAidTypeDescriptorId;
+            _beginDate = contextualBeginDate;
+            _studentUSI = contextualStudentUSI;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -17887,7 +18309,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         [Key(1)]
         public virtual int AidTypeDescriptorId
         {
-            get => _aidTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _aidTypeDescriptorId; }
             set
             {
                 var originalValue = _aidTypeDescriptorId;
@@ -17916,7 +18338,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         [Key(2)]
         public virtual DateTime BeginDate
         {
-            get => _beginDate;
+            get { EnsureContextualValuesInitialized(); return _beginDate; }
             set
             {
                 var originalValue = _beginDate;
@@ -17945,7 +18367,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         [Key(3)]
         public virtual int StudentUSI
         {
-            get => _studentUSI;
+            get { EnsureContextualValuesInitialized(); return _studentUSI; }
             set
             {
                 var originalValue = _studentUSI;
@@ -17967,6 +18389,15 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -18198,7 +18629,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
 
                         if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                         {
-                            StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(true);
+                            StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(trackLookupContext: true);
                             StudentSerializedReferenceData.StudentUSI = _studentUSI;
                         }
                     }
@@ -18213,7 +18644,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(true);
+                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(trackLookupContext: true);
                     StudentSerializedReferenceData.StudentUSI = value;
                 }
             }
@@ -18250,7 +18681,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
                     if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
                         && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
                     {
-                        StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(true);
+                        StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(trackLookupContext: true);
                         StudentSerializedReferenceData.StudentUSI = usi;
                     }
                 }
@@ -18782,12 +19213,34 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     public class PerformanceEvaluationReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<PerformanceEvaluationReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public PerformanceEvaluationReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public PerformanceEvaluationReferenceData(Action<PerformanceEvaluationReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public PerformanceEvaluationReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public PerformanceEvaluationReferenceData(long contextualEducationOrganizationId = default, int contextualEvaluationPeriodDescriptorId = default, string contextualPerformanceEvaluationTitle = default, int contextualPerformanceEvaluationTypeDescriptorId = default, short contextualSchoolYear = default, int contextualTermDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _evaluationPeriodDescriptorId = contextualEvaluationPeriodDescriptorId;
+            _performanceEvaluationTitle = contextualPerformanceEvaluationTitle;
+            _performanceEvaluationTypeDescriptorId = contextualPerformanceEvaluationTypeDescriptorId;
+            _schoolYear = contextualSchoolYear;
+            _termDescriptorId = contextualTermDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -18821,7 +19274,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         [Key(1)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -18850,7 +19303,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         [Key(2)]
         public virtual int EvaluationPeriodDescriptorId
         {
-            get => _evaluationPeriodDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _evaluationPeriodDescriptorId; }
             set
             {
                 var originalValue = _evaluationPeriodDescriptorId;
@@ -18879,7 +19332,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         [Key(3)]
         public virtual string PerformanceEvaluationTitle
         {
-            get => _performanceEvaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTitle; }
             set
             {
                 var originalValue = _performanceEvaluationTitle;
@@ -18908,7 +19361,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         [Key(4)]
         public virtual int PerformanceEvaluationTypeDescriptorId
         {
-            get => _performanceEvaluationTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTypeDescriptorId; }
             set
             {
                 var originalValue = _performanceEvaluationTypeDescriptorId;
@@ -18937,7 +19390,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         [Key(5)]
         public virtual short SchoolYear
         {
-            get => _schoolYear;
+            get { EnsureContextualValuesInitialized(); return _schoolYear; }
             set
             {
                 var originalValue = _schoolYear;
@@ -18966,7 +19419,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         [Key(6)]
         public virtual int TermDescriptorId
         {
-            get => _termDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _termDescriptorId; }
             set
             {
                 var originalValue = _termDescriptorId;
@@ -18988,6 +19441,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -19217,7 +19679,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EducationOrganizationSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(true);
+                    EducationOrganizationSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(trackLookupContext: true);
+
                     EducationOrganizationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -19320,7 +19783,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData(true);
+                    SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData(trackLookupContext: true);
+
                     SchoolYearTypeSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -20066,12 +20530,36 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     public class PerformanceEvaluationRatingReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<PerformanceEvaluationRatingReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public PerformanceEvaluationRatingReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public PerformanceEvaluationRatingReferenceData(Action<PerformanceEvaluationRatingReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public PerformanceEvaluationRatingReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public PerformanceEvaluationRatingReferenceData(long contextualEducationOrganizationId = default, int contextualEvaluationPeriodDescriptorId = default, string contextualPerformanceEvaluationTitle = default, int contextualPerformanceEvaluationTypeDescriptorId = default, string contextualPersonId = default, short contextualSchoolYear = default, int contextualSourceSystemDescriptorId = default, int contextualTermDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _evaluationPeriodDescriptorId = contextualEvaluationPeriodDescriptorId;
+            _performanceEvaluationTitle = contextualPerformanceEvaluationTitle;
+            _performanceEvaluationTypeDescriptorId = contextualPerformanceEvaluationTypeDescriptorId;
+            _personId = contextualPersonId;
+            _schoolYear = contextualSchoolYear;
+            _sourceSystemDescriptorId = contextualSourceSystemDescriptorId;
+            _termDescriptorId = contextualTermDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -20105,7 +20593,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [Key(1)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -20134,7 +20622,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [Key(2)]
         public virtual int EvaluationPeriodDescriptorId
         {
-            get => _evaluationPeriodDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _evaluationPeriodDescriptorId; }
             set
             {
                 var originalValue = _evaluationPeriodDescriptorId;
@@ -20163,7 +20651,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [Key(3)]
         public virtual string PerformanceEvaluationTitle
         {
-            get => _performanceEvaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTitle; }
             set
             {
                 var originalValue = _performanceEvaluationTitle;
@@ -20192,7 +20680,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [Key(4)]
         public virtual int PerformanceEvaluationTypeDescriptorId
         {
-            get => _performanceEvaluationTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTypeDescriptorId; }
             set
             {
                 var originalValue = _performanceEvaluationTypeDescriptorId;
@@ -20221,7 +20709,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [Key(5)]
         public virtual string PersonId
         {
-            get => _personId;
+            get { EnsureContextualValuesInitialized(); return _personId; }
             set
             {
                 var originalValue = _personId;
@@ -20250,7 +20738,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [Key(6)]
         public virtual short SchoolYear
         {
-            get => _schoolYear;
+            get { EnsureContextualValuesInitialized(); return _schoolYear; }
             set
             {
                 var originalValue = _schoolYear;
@@ -20279,7 +20767,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [Key(7)]
         public virtual int SourceSystemDescriptorId
         {
-            get => _sourceSystemDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _sourceSystemDescriptorId; }
             set
             {
                 var originalValue = _sourceSystemDescriptorId;
@@ -20308,7 +20796,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [Key(8)]
         public virtual int TermDescriptorId
         {
-            get => _termDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _termDescriptorId; }
             set
             {
                 var originalValue = _termDescriptorId;
@@ -20330,6 +20818,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -20577,7 +21074,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
+
                     PerformanceEvaluationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -20597,7 +21095,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                         PerformanceEvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
                     }
                 }
@@ -20611,7 +21109,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = value;
                 }
             }
@@ -20637,7 +21135,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
                 }
             }
@@ -20654,7 +21152,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
+
                     PerformanceEvaluationSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -20674,7 +21173,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                         PerformanceEvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
                     }
                 }
@@ -20688,7 +21187,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
                 }
             }
@@ -20714,7 +21213,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
                 }
             }
@@ -20731,7 +21230,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
+
                     PersonSerializedReferenceData.PersonId = value;
                 }
             }
@@ -20750,7 +21250,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
+
                     PerformanceEvaluationSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -20770,7 +21271,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                         PersonSerializedReferenceData.SourceSystemDescriptorId = _sourceSystemDescriptorId;
                     }
                 }
@@ -20784,7 +21285,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = value;
                 }
             }
@@ -20810,7 +21311,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
                 }
             }
@@ -20828,7 +21329,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                        PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                         PerformanceEvaluationSerializedReferenceData.TermDescriptorId = _termDescriptorId;
                     }
                 }
@@ -20842,7 +21343,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.TermDescriptorId = value;
                 }
             }
@@ -20868,7 +21369,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(true);
+                    PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
                     PerformanceEvaluationSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
                 }
             }
@@ -21568,7 +22069,19 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    if (PerformanceEvaluationRating == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
+                    }
+
                     ReviewerPersonSerializedReferenceData.PersonId = value ?? default;
                 }
             }
@@ -21587,7 +22100,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                         ReviewerPersonSerializedReferenceData.SourceSystemDescriptorId = _reviewerSourceSystemDescriptorId ?? default;
                     }
                 }
@@ -21601,7 +22114,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     ReviewerPersonSerializedReferenceData.SourceSystemDescriptorId = value ?? default;
                 }
             }
@@ -21627,7 +22140,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     ReviewerPersonSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _reviewerSourceSystemDescriptor);
                 }
             }
@@ -22376,12 +22889,38 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
     public class RubricDimensionReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<RubricDimensionReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public RubricDimensionReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public RubricDimensionReferenceData(Action<RubricDimensionReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public RubricDimensionReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public RubricDimensionReferenceData(long contextualEducationOrganizationId = default, string contextualEvaluationElementTitle = default, string contextualEvaluationObjectiveTitle = default, int contextualEvaluationPeriodDescriptorId = default, string contextualEvaluationTitle = default, string contextualPerformanceEvaluationTitle = default, int contextualPerformanceEvaluationTypeDescriptorId = default, int contextualRubricRating = default, short contextualSchoolYear = default, int contextualTermDescriptorId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _evaluationElementTitle = contextualEvaluationElementTitle;
+            _evaluationObjectiveTitle = contextualEvaluationObjectiveTitle;
+            _evaluationPeriodDescriptorId = contextualEvaluationPeriodDescriptorId;
+            _evaluationTitle = contextualEvaluationTitle;
+            _performanceEvaluationTitle = contextualPerformanceEvaluationTitle;
+            _performanceEvaluationTypeDescriptorId = contextualPerformanceEvaluationTypeDescriptorId;
+            _rubricRating = contextualRubricRating;
+            _schoolYear = contextualSchoolYear;
+            _termDescriptorId = contextualTermDescriptorId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -22415,7 +22954,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         [Key(1)]
         public virtual long EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -22444,7 +22983,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         [Key(2)]
         public virtual string EvaluationElementTitle
         {
-            get => _evaluationElementTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationElementTitle; }
             set
             {
                 var originalValue = _evaluationElementTitle;
@@ -22473,7 +23012,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         [Key(3)]
         public virtual string EvaluationObjectiveTitle
         {
-            get => _evaluationObjectiveTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationObjectiveTitle; }
             set
             {
                 var originalValue = _evaluationObjectiveTitle;
@@ -22502,7 +23041,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         [Key(4)]
         public virtual int EvaluationPeriodDescriptorId
         {
-            get => _evaluationPeriodDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _evaluationPeriodDescriptorId; }
             set
             {
                 var originalValue = _evaluationPeriodDescriptorId;
@@ -22531,7 +23070,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         [Key(5)]
         public virtual string EvaluationTitle
         {
-            get => _evaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _evaluationTitle; }
             set
             {
                 var originalValue = _evaluationTitle;
@@ -22560,7 +23099,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         [Key(6)]
         public virtual string PerformanceEvaluationTitle
         {
-            get => _performanceEvaluationTitle;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTitle; }
             set
             {
                 var originalValue = _performanceEvaluationTitle;
@@ -22589,7 +23128,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         [Key(7)]
         public virtual int PerformanceEvaluationTypeDescriptorId
         {
-            get => _performanceEvaluationTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _performanceEvaluationTypeDescriptorId; }
             set
             {
                 var originalValue = _performanceEvaluationTypeDescriptorId;
@@ -22618,7 +23157,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         [Key(8)]
         public virtual int RubricRating
         {
-            get => _rubricRating;
+            get { EnsureContextualValuesInitialized(); return _rubricRating; }
             set
             {
                 var originalValue = _rubricRating;
@@ -22647,7 +23186,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         [Key(9)]
         public virtual short SchoolYear
         {
-            get => _schoolYear;
+            get { EnsureContextualValuesInitialized(); return _schoolYear; }
             set
             {
                 var originalValue = _schoolYear;
@@ -22676,7 +23215,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         [Key(10)]
         public virtual int TermDescriptorId
         {
-            get => _termDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _termDescriptorId; }
             set
             {
                 var originalValue = _termDescriptorId;
@@ -22698,6 +23237,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -22888,7 +23436,8 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -22907,7 +23456,8 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.EvaluationElementTitle = value;
                 }
             }
@@ -22926,7 +23476,8 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.EvaluationObjectiveTitle = value;
                 }
             }
@@ -22946,7 +23497,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                         EvaluationElementSerializedReferenceData.EvaluationPeriodDescriptorId = _evaluationPeriodDescriptorId;
                     }
                 }
@@ -22960,7 +23511,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.EvaluationPeriodDescriptorId = value;
                 }
             }
@@ -22986,7 +23537,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.EvaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
                 }
             }
@@ -23003,7 +23554,8 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -23022,7 +23574,8 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -23042,7 +23595,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                         EvaluationElementSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = _performanceEvaluationTypeDescriptorId;
                     }
                 }
@@ -23056,7 +23609,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = value;
                 }
             }
@@ -23082,7 +23635,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.PerformanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
                 }
             }
@@ -23103,7 +23656,8 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
+
                     EvaluationElementSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -23123,7 +23677,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                        EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                         EvaluationElementSerializedReferenceData.TermDescriptorId = _termDescriptorId;
                     }
                 }
@@ -23137,7 +23691,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.TermDescriptorId = value;
                 }
             }
@@ -23163,7 +23717,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(true);
+                    EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
                     EvaluationElementSerializedReferenceData.TermDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
                 }
             }
@@ -23633,7 +24187,19 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PostSecondaryInstitutionSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(true);
+                    if (School == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        PostSecondaryInstitutionSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        PostSecondaryInstitutionSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(trackLookupContext: true);
+                    }
+
                     PostSecondaryInstitutionSerializedReferenceData.EducationOrganizationId = value ?? default;
                 }
             }
@@ -23872,7 +24438,19 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    if (SurveyResponse == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
+                    }
+
                     PersonSerializedReferenceData.PersonId = value ?? default;
                 }
             }
@@ -23891,7 +24469,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                         PersonSerializedReferenceData.SourceSystemDescriptorId = _sourceSystemDescriptorId ?? default;
                     }
                 }
@@ -23905,7 +24483,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = value ?? default;
                 }
             }
@@ -23931,7 +24509,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
                 }
             }
@@ -24060,12 +24638,33 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
     public class SurveyResponsePersonTargetAssociationReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<SurveyResponsePersonTargetAssociationReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public SurveyResponsePersonTargetAssociationReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public SurveyResponsePersonTargetAssociationReferenceData(Action<SurveyResponsePersonTargetAssociationReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public SurveyResponsePersonTargetAssociationReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public SurveyResponsePersonTargetAssociationReferenceData(string contextualNamespace = default, string contextualPersonId = default, int contextualSourceSystemDescriptorId = default, string contextualSurveyIdentifier = default, string contextualSurveyResponseIdentifier = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _namespace = contextualNamespace;
+            _personId = contextualPersonId;
+            _sourceSystemDescriptorId = contextualSourceSystemDescriptorId;
+            _surveyIdentifier = contextualSurveyIdentifier;
+            _surveyResponseIdentifier = contextualSurveyResponseIdentifier;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -24099,7 +24698,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         [Key(1)]
         public virtual string Namespace
         {
-            get => _namespace;
+            get { EnsureContextualValuesInitialized(); return _namespace; }
             set
             {
                 var originalValue = _namespace;
@@ -24128,7 +24727,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         [Key(2)]
         public virtual string PersonId
         {
-            get => _personId;
+            get { EnsureContextualValuesInitialized(); return _personId; }
             set
             {
                 var originalValue = _personId;
@@ -24157,7 +24756,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         [Key(3)]
         public virtual int SourceSystemDescriptorId
         {
-            get => _sourceSystemDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _sourceSystemDescriptorId; }
             set
             {
                 var originalValue = _sourceSystemDescriptorId;
@@ -24186,7 +24785,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         [Key(4)]
         public virtual string SurveyIdentifier
         {
-            get => _surveyIdentifier;
+            get { EnsureContextualValuesInitialized(); return _surveyIdentifier; }
             set
             {
                 var originalValue = _surveyIdentifier;
@@ -24215,7 +24814,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         [Key(5)]
         public virtual string SurveyResponseIdentifier
         {
-            get => _surveyResponseIdentifier;
+            get { EnsureContextualValuesInitialized(); return _surveyResponseIdentifier; }
             set
             {
                 var originalValue = _surveyResponseIdentifier;
@@ -24237,6 +24836,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -24476,7 +25084,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SurveyResponseSerializedReferenceData ??= new NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData(true);
+                    SurveyResponseSerializedReferenceData ??= new NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData(trackLookupContext: true);
+
                     SurveyResponseSerializedReferenceData.Namespace = value;
                 }
             }
@@ -24495,7 +25104,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
+
                     PersonSerializedReferenceData.PersonId = value;
                 }
             }
@@ -24515,7 +25125,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                         PersonSerializedReferenceData.SourceSystemDescriptorId = _sourceSystemDescriptorId;
                     }
                 }
@@ -24529,7 +25139,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = value;
                 }
             }
@@ -24555,7 +25165,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
                 }
             }
@@ -24572,7 +25182,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SurveyResponseSerializedReferenceData ??= new NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData(true);
+                    SurveyResponseSerializedReferenceData ??= new NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData(trackLookupContext: true);
+
                     SurveyResponseSerializedReferenceData.SurveyIdentifier = value;
                 }
             }
@@ -24591,7 +25202,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SurveyResponseSerializedReferenceData ??= new NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData(true);
+                    SurveyResponseSerializedReferenceData ??= new NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData(trackLookupContext: true);
+
                     SurveyResponseSerializedReferenceData.SurveyResponseIdentifier = value;
                 }
             }
@@ -24733,12 +25345,34 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
     public class SurveySectionResponsePersonTargetAssociationReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<SurveySectionResponsePersonTargetAssociationReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public SurveySectionResponsePersonTargetAssociationReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public SurveySectionResponsePersonTargetAssociationReferenceData(Action<SurveySectionResponsePersonTargetAssociationReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public SurveySectionResponsePersonTargetAssociationReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public SurveySectionResponsePersonTargetAssociationReferenceData(string contextualNamespace = default, string contextualPersonId = default, int contextualSourceSystemDescriptorId = default, string contextualSurveyIdentifier = default, string contextualSurveyResponseIdentifier = default, string contextualSurveySectionTitle = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _namespace = contextualNamespace;
+            _personId = contextualPersonId;
+            _sourceSystemDescriptorId = contextualSourceSystemDescriptorId;
+            _surveyIdentifier = contextualSurveyIdentifier;
+            _surveyResponseIdentifier = contextualSurveyResponseIdentifier;
+            _surveySectionTitle = contextualSurveySectionTitle;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -24772,7 +25406,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         [Key(1)]
         public virtual string Namespace
         {
-            get => _namespace;
+            get { EnsureContextualValuesInitialized(); return _namespace; }
             set
             {
                 var originalValue = _namespace;
@@ -24801,7 +25435,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         [Key(2)]
         public virtual string PersonId
         {
-            get => _personId;
+            get { EnsureContextualValuesInitialized(); return _personId; }
             set
             {
                 var originalValue = _personId;
@@ -24830,7 +25464,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         [Key(3)]
         public virtual int SourceSystemDescriptorId
         {
-            get => _sourceSystemDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _sourceSystemDescriptorId; }
             set
             {
                 var originalValue = _sourceSystemDescriptorId;
@@ -24859,7 +25493,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         [Key(4)]
         public virtual string SurveyIdentifier
         {
-            get => _surveyIdentifier;
+            get { EnsureContextualValuesInitialized(); return _surveyIdentifier; }
             set
             {
                 var originalValue = _surveyIdentifier;
@@ -24888,7 +25522,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         [Key(5)]
         public virtual string SurveyResponseIdentifier
         {
-            get => _surveyResponseIdentifier;
+            get { EnsureContextualValuesInitialized(); return _surveyResponseIdentifier; }
             set
             {
                 var originalValue = _surveyResponseIdentifier;
@@ -24917,7 +25551,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         [Key(6)]
         public virtual string SurveySectionTitle
         {
-            get => _surveySectionTitle;
+            get { EnsureContextualValuesInitialized(); return _surveySectionTitle; }
             set
             {
                 var originalValue = _surveySectionTitle;
@@ -24939,6 +25573,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -25180,7 +25823,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(true);
+                    SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(trackLookupContext: true);
+
                     SurveySectionResponseSerializedReferenceData.Namespace = value;
                 }
             }
@@ -25199,7 +25843,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
+
                     PersonSerializedReferenceData.PersonId = value;
                 }
             }
@@ -25219,7 +25864,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                         PersonSerializedReferenceData.SourceSystemDescriptorId = _sourceSystemDescriptorId;
                     }
                 }
@@ -25233,7 +25878,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = value;
                 }
             }
@@ -25259,7 +25904,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(true);
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.SourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
                 }
             }
@@ -25276,7 +25921,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(true);
+                    SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(trackLookupContext: true);
+
                     SurveySectionResponseSerializedReferenceData.SurveyIdentifier = value;
                 }
             }
@@ -25295,7 +25941,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(true);
+                    SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(trackLookupContext: true);
+
                     SurveySectionResponseSerializedReferenceData.SurveyResponseIdentifier = value;
                 }
             }
@@ -25314,7 +25961,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(true);
+                    SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(trackLookupContext: true);
+
                     SurveySectionResponseSerializedReferenceData.SurveySectionTitle = value;
                 }
             }

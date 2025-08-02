@@ -216,12 +216,29 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
     public class BusReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<BusReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public BusReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public BusReferenceData(Action<BusReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public BusReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public BusReferenceData(string contextualBusId = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _busId = contextualBusId;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -255,7 +272,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
         [Key(1)]
         public virtual string BusId
         {
-            get => _busId;
+            get { EnsureContextualValuesInitialized(); return _busId; }
             set
             {
                 var originalValue = _busId;
@@ -277,6 +294,15 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -512,12 +538,30 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     public class BusRouteReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<BusRouteReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public BusRouteReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public BusRouteReferenceData(Action<BusRouteReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public BusRouteReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public BusRouteReferenceData(string contextualBusId = default, int contextualBusRouteNumber = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _busId = contextualBusId;
+            _busRouteNumber = contextualBusRouteNumber;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -551,7 +595,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         [Key(1)]
         public virtual string BusId
         {
-            get => _busId;
+            get { EnsureContextualValuesInitialized(); return _busId; }
             set
             {
                 var originalValue = _busId;
@@ -580,7 +624,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         [Key(2)]
         public virtual int BusRouteNumber
         {
-            get => _busRouteNumber;
+            get { EnsureContextualValuesInitialized(); return _busRouteNumber; }
             set
             {
                 var originalValue = _busRouteNumber;
@@ -602,6 +646,15 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -806,7 +859,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(trackLookupContext: true);
                     StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.BeginDate = _beginDate ?? default;
                 }
             }
@@ -872,7 +925,8 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(trackLookupContext: true);
+
                     StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.EducationOrganizationId = value ?? default;
                 }
             }
@@ -903,7 +957,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                        StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(trackLookupContext: true);
                         StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffClassificationDescriptorId = _staffClassificationDescriptorId ?? default;
                     }
                 }
@@ -917,7 +971,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(trackLookupContext: true);
                     StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffClassificationDescriptorId = value ?? default;
                 }
             }
@@ -943,7 +997,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(trackLookupContext: true);
                     StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffClassificationDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("StaffClassificationDescriptor", _staffClassificationDescriptor);
                 }
             }
@@ -963,7 +1017,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
                         if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                         {
-                            StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                            StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(trackLookupContext: true);
                             StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffUSI = _staffUSI ?? default;
                         }
                     }
@@ -982,7 +1036,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(trackLookupContext: true);
                     StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffUSI = value ?? default;
                 }
             }
@@ -1019,7 +1073,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Staff", out var usiByUniqueId)
                         && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
                     {
-                        StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                        StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(trackLookupContext: true);
                         StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffUSI = usi;
                     }
                 }
@@ -1698,7 +1752,19 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    if (BusRoute == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(trackLookupContext: true);
+                    }
+
                     ProgramSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -1717,7 +1783,19 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    if (BusRoute == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(trackLookupContext: true);
+                    }
+
                     ProgramSerializedReferenceData.ProgramName = value;
                 }
             }
@@ -1737,7 +1815,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                        ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(trackLookupContext: true);
                         ProgramSerializedReferenceData.ProgramTypeDescriptorId = _programTypeDescriptorId;
                     }
                 }
@@ -1751,7 +1829,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(trackLookupContext: true);
                     ProgramSerializedReferenceData.ProgramTypeDescriptorId = value;
                 }
             }
@@ -1777,7 +1855,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(trackLookupContext: true);
                     ProgramSerializedReferenceData.ProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
                 }
             }
@@ -3852,7 +3930,19 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    EducationContentSerializedReferenceData ??= new NHibernate.EducationContentAggregate.EdFi.EducationContentReferenceData(true);
+                    if (Parent == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        EducationContentSerializedReferenceData ??= new NHibernate.EducationContentAggregate.EdFi.EducationContentReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        EducationContentSerializedReferenceData ??= new NHibernate.EducationContentAggregate.EdFi.EducationContentReferenceData(trackLookupContext: true);
+                    }
+
                     EducationContentSerializedReferenceData.ContentIdentifier = value;
                 }
             }
@@ -4237,7 +4327,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
                 if (_beginDate != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(trackLookupContext: true);
                     StudentProgramAssociationSerializedReferenceData.BeginDate = _beginDate;
                 }
             }
@@ -4256,7 +4346,19 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    if (Parent == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(trackLookupContext: true);
+                    }
+
                     StudentProgramAssociationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -4275,7 +4377,19 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    if (Parent == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(trackLookupContext: true);
+                    }
+
                     StudentProgramAssociationSerializedReferenceData.ProgramEducationOrganizationId = value;
                 }
             }
@@ -4294,7 +4408,19 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    if (Parent == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(trackLookupContext: true);
+                    }
+
                     StudentProgramAssociationSerializedReferenceData.ProgramName = value;
                 }
             }
@@ -4314,7 +4440,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(trackLookupContext: true);
                         StudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = _programTypeDescriptorId;
                     }
                 }
@@ -4328,7 +4454,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(trackLookupContext: true);
                     StudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = value;
                 }
             }
@@ -4354,7 +4480,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(trackLookupContext: true);
                     StudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
                 }
             }
@@ -4375,7 +4501,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
                         if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                         {
-                            StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                            StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(trackLookupContext: true);
                             StudentProgramAssociationSerializedReferenceData.StudentUSI = _studentUSI;
                         }
                     }
@@ -4390,7 +4516,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(trackLookupContext: true);
                     StudentProgramAssociationSerializedReferenceData.StudentUSI = value;
                 }
             }
@@ -4427,7 +4553,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
                         && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
                     {
-                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(trackLookupContext: true);
                         StudentProgramAssociationSerializedReferenceData.StudentUSI = usi;
                     }
                 }
@@ -5743,7 +5869,19 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    DirectlyOwnedBusSerializedReferenceData ??= new NHibernate.BusAggregate.Sample.BusReferenceData(true);
+                    if (School == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        DirectlyOwnedBusSerializedReferenceData ??= new NHibernate.BusAggregate.Sample.BusReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        DirectlyOwnedBusSerializedReferenceData ??= new NHibernate.BusAggregate.Sample.BusReferenceData(trackLookupContext: true);
+                    }
+
                     DirectlyOwnedBusSerializedReferenceData.BusId = value;
                 }
             }
@@ -10504,7 +10642,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    if (StudentEducationOrganizationAssociation == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(@ref =>
+                        {
+                            @ref.EducationOrganizationId = StudentEducationOrganizationAssociation.EducationOrganizationId;
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(contextualEducationOrganizationId: StudentEducationOrganizationAssociation.EducationOrganizationId, trackLookupContext: true);
+                    }
+
                     FavoriteProgramSerializedReferenceData.ProgramName = value ?? default;
                 }
             }
@@ -10523,7 +10674,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                        FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(contextualEducationOrganizationId: StudentEducationOrganizationAssociation.EducationOrganizationId, trackLookupContext: true);
                         FavoriteProgramSerializedReferenceData.ProgramTypeDescriptorId = _favoriteProgramTypeDescriptorId ?? default;
                     }
                 }
@@ -10537,7 +10688,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(contextualEducationOrganizationId: StudentEducationOrganizationAssociation.EducationOrganizationId, trackLookupContext: true);
                     FavoriteProgramSerializedReferenceData.ProgramTypeDescriptorId = value ?? default;
                 }
             }
@@ -10563,7 +10714,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(contextualEducationOrganizationId: StudentEducationOrganizationAssociation.EducationOrganizationId, trackLookupContext: true);
                     FavoriteProgramSerializedReferenceData.ProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _favoriteProgramTypeDescriptor);
                 }
             }
@@ -10992,12 +11143,32 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     public class StudentGraduationPlanAssociationReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<StudentGraduationPlanAssociationReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public StudentGraduationPlanAssociationReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public StudentGraduationPlanAssociationReferenceData(Action<StudentGraduationPlanAssociationReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public StudentGraduationPlanAssociationReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public StudentGraduationPlanAssociationReferenceData(int contextualEducationOrganizationId = default, int contextualGraduationPlanTypeDescriptorId = default, short contextualGraduationSchoolYear = default, int contextualStudentUSI = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _educationOrganizationId = contextualEducationOrganizationId;
+            _graduationPlanTypeDescriptorId = contextualGraduationPlanTypeDescriptorId;
+            _graduationSchoolYear = contextualGraduationSchoolYear;
+            _studentUSI = contextualStudentUSI;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -11031,7 +11202,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [Key(1)]
         public virtual int EducationOrganizationId
         {
-            get => _educationOrganizationId;
+            get { EnsureContextualValuesInitialized(); return _educationOrganizationId; }
             set
             {
                 var originalValue = _educationOrganizationId;
@@ -11060,7 +11231,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [Key(2)]
         public virtual int GraduationPlanTypeDescriptorId
         {
-            get => _graduationPlanTypeDescriptorId;
+            get { EnsureContextualValuesInitialized(); return _graduationPlanTypeDescriptorId; }
             set
             {
                 var originalValue = _graduationPlanTypeDescriptorId;
@@ -11089,7 +11260,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [Key(3)]
         public virtual short GraduationSchoolYear
         {
-            get => _graduationSchoolYear;
+            get { EnsureContextualValuesInitialized(); return _graduationSchoolYear; }
             set
             {
                 var originalValue = _graduationSchoolYear;
@@ -11118,7 +11289,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [Key(4)]
         public virtual int StudentUSI
         {
-            get => _studentUSI;
+            get { EnsureContextualValuesInitialized(); return _studentUSI; }
             set
             {
                 var originalValue = _studentUSI;
@@ -11140,6 +11311,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -11444,7 +11624,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(true);
+                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(trackLookupContext: true);
+
                     GraduationPlanSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -11464,7 +11645,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(true);
+                        GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(trackLookupContext: true);
                         GraduationPlanSerializedReferenceData.GraduationPlanTypeDescriptorId = _graduationPlanTypeDescriptorId;
                     }
                 }
@@ -11478,7 +11659,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(true);
+                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(trackLookupContext: true);
                     GraduationPlanSerializedReferenceData.GraduationPlanTypeDescriptorId = value;
                 }
             }
@@ -11504,7 +11685,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(true);
+                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(trackLookupContext: true);
                     GraduationPlanSerializedReferenceData.GraduationPlanTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("GraduationPlanTypeDescriptor", _graduationPlanTypeDescriptor);
                 }
             }
@@ -11521,7 +11702,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(true);
+                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(trackLookupContext: true);
+
                     GraduationPlanSerializedReferenceData.GraduationSchoolYear = value;
                 }
             }
@@ -11544,7 +11726,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
                         if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                         {
-                            StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(true);
+                            StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(trackLookupContext: true);
                             StudentSerializedReferenceData.StudentUSI = _studentUSI;
                         }
                     }
@@ -11559,7 +11741,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(true);
+                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(trackLookupContext: true);
                     StudentSerializedReferenceData.StudentUSI = value;
                 }
             }
@@ -11596,7 +11778,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
                         && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
                     {
-                        StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(true);
+                        StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(trackLookupContext: true);
                         StudentSerializedReferenceData.StudentUSI = usi;
                     }
                 }
@@ -11655,7 +11837,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
                         if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                         {
-                            StaffSerializedReferenceData ??= new NHibernate.StaffAggregate.EdFi.StaffReferenceData(true);
+                            StaffSerializedReferenceData ??= new NHibernate.StaffAggregate.EdFi.StaffReferenceData(trackLookupContext: true);
                             StaffSerializedReferenceData.StaffUSI = _staffUSI ?? default;
                         }
                     }
@@ -11674,7 +11856,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffSerializedReferenceData ??= new NHibernate.StaffAggregate.EdFi.StaffReferenceData(true);
+                    StaffSerializedReferenceData ??= new NHibernate.StaffAggregate.EdFi.StaffReferenceData(trackLookupContext: true);
                     StaffSerializedReferenceData.StaffUSI = value ?? default;
                 }
             }
@@ -11711,7 +11893,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Staff", out var usiByUniqueId)
                         && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
                     {
-                        StaffSerializedReferenceData ??= new NHibernate.StaffAggregate.EdFi.StaffReferenceData(true);
+                        StaffSerializedReferenceData ??= new NHibernate.StaffAggregate.EdFi.StaffReferenceData(trackLookupContext: true);
                         StaffSerializedReferenceData.StaffUSI = usi;
                     }
                 }
@@ -13483,7 +13665,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
                         if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                         {
-                            StudentParentAssociationSerializedReferenceData ??= new NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData(true);
+                            StudentParentAssociationSerializedReferenceData ??= new NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData(contextualStudentUSI: StudentGraduationPlanAssociation.StudentUSI, trackLookupContext: true);
                             StudentParentAssociationSerializedReferenceData.ParentUSI = _parentUSI;
                         }
                     }
@@ -13498,7 +13680,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentParentAssociationSerializedReferenceData ??= new NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData(true);
+                    StudentParentAssociationSerializedReferenceData ??= new NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData(contextualStudentUSI: StudentGraduationPlanAssociation.StudentUSI, trackLookupContext: true);
                     StudentParentAssociationSerializedReferenceData.ParentUSI = value;
                 }
             }
@@ -13535,7 +13717,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Parent", out var usiByUniqueId)
                         && usiByUniqueId.TryGetValue(_parentUniqueId, out var usi))
                     {
-                        StudentParentAssociationSerializedReferenceData ??= new NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData(true);
+                        StudentParentAssociationSerializedReferenceData ??= new NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData(contextualStudentUSI: StudentGraduationPlanAssociation.StudentUSI, trackLookupContext: true);
                         StudentParentAssociationSerializedReferenceData.ParentUSI = usi;
                     }
                 }
@@ -14624,7 +14806,19 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                    if (StudentParentAssociation == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(trackLookupContext: true);
+                    }
+
                     StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -14644,7 +14838,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                        StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(trackLookupContext: true);
                         StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.EmploymentStatusDescriptorId = _employmentStatusDescriptorId;
                     }
                 }
@@ -14658,7 +14852,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(trackLookupContext: true);
                     StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.EmploymentStatusDescriptorId = value;
                 }
             }
@@ -14684,7 +14878,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(trackLookupContext: true);
                     StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.EmploymentStatusDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EmploymentStatusDescriptor", _employmentStatusDescriptor);
                 }
             }
@@ -14702,7 +14896,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
                 if (_hireDate != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(trackLookupContext: true);
                     StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.HireDate = _hireDate;
                 }
             }
@@ -14725,7 +14919,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
                         if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                         {
-                            StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                            StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(trackLookupContext: true);
                             StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.StaffUSI = _staffUSI;
                         }
                     }
@@ -14740,7 +14934,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(trackLookupContext: true);
                     StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.StaffUSI = value;
                 }
             }
@@ -14777,7 +14971,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Staff", out var usiByUniqueId)
                         && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
                     {
-                        StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                        StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(trackLookupContext: true);
                         StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.StaffUSI = usi;
                     }
                 }
@@ -15246,7 +15440,19 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    InterventionStudySerializedReferenceData ??= new NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData(true);
+                    if (StudentParentAssociation == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        InterventionStudySerializedReferenceData ??= new NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        InterventionStudySerializedReferenceData ??= new NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData(trackLookupContext: true);
+                    }
+
                     InterventionStudySerializedReferenceData.EducationOrganizationId = value ?? default;
                 }
             }
@@ -15264,7 +15470,19 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    InterventionStudySerializedReferenceData ??= new NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData(true);
+                    if (StudentParentAssociation == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        InterventionStudySerializedReferenceData ??= new NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        InterventionStudySerializedReferenceData ??= new NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData(trackLookupContext: true);
+                    }
+
                     InterventionStudySerializedReferenceData.InterventionStudyIdentificationCode = value ?? default;
                 }
             }
@@ -15901,7 +16119,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
 
                 if (_relatedBeginDate != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(contextualStudentUSI: StudentSectionAssociation.StudentUSI, trackLookupContext: true);
                     RelatedGeneralStudentProgramAssociationSerializedReferenceData.BeginDate = _relatedBeginDate;
                 }
             }
@@ -15920,7 +16138,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    if (StudentSectionAssociation == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(@ref =>
+                        {
+                            @ref.StudentUSI = StudentSectionAssociation.StudentUSI;
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(contextualStudentUSI: StudentSectionAssociation.StudentUSI, trackLookupContext: true);
+                    }
+
                     RelatedGeneralStudentProgramAssociationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -15939,7 +16170,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    if (StudentSectionAssociation == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(@ref =>
+                        {
+                            @ref.StudentUSI = StudentSectionAssociation.StudentUSI;
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(contextualStudentUSI: StudentSectionAssociation.StudentUSI, trackLookupContext: true);
+                    }
+
                     RelatedGeneralStudentProgramAssociationSerializedReferenceData.ProgramEducationOrganizationId = value;
                 }
             }
@@ -15958,7 +16202,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    if (StudentSectionAssociation == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(@ref =>
+                        {
+                            @ref.StudentUSI = StudentSectionAssociation.StudentUSI;
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(contextualStudentUSI: StudentSectionAssociation.StudentUSI, trackLookupContext: true);
+                    }
+
                     RelatedGeneralStudentProgramAssociationSerializedReferenceData.ProgramName = value;
                 }
             }
@@ -15978,7 +16235,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
                 
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
-                        RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                        RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(contextualStudentUSI: StudentSectionAssociation.StudentUSI, trackLookupContext: true);
                         RelatedGeneralStudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = _relatedProgramTypeDescriptorId;
                     }
                 }
@@ -15992,7 +16249,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(contextualStudentUSI: StudentSectionAssociation.StudentUSI, trackLookupContext: true);
                     RelatedGeneralStudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = value;
                 }
             }
@@ -16018,7 +16275,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(contextualStudentUSI: StudentSectionAssociation.StudentUSI, trackLookupContext: true);
                     RelatedGeneralStudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _relatedProgramTypeDescriptor);
                 }
             }

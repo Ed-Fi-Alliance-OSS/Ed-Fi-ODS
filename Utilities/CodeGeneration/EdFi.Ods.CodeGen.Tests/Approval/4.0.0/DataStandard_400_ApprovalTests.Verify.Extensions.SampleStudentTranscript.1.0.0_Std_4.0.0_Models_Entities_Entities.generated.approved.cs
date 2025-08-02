@@ -398,12 +398,29 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
     public class PostSecondaryOrganizationReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<PostSecondaryOrganizationReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public PostSecondaryOrganizationReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public PostSecondaryOrganizationReferenceData(Action<PostSecondaryOrganizationReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public PostSecondaryOrganizationReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public PostSecondaryOrganizationReferenceData(string contextualNameOfInstitution = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _nameOfInstitution = contextualNameOfInstitution;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -437,7 +454,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         [Key(1)]
         public virtual string NameOfInstitution
         {
-            get => _nameOfInstitution;
+            get { EnsureContextualValuesInitialized(); return _nameOfInstitution; }
             set
             {
                 var originalValue = _nameOfInstitution;
@@ -459,6 +476,15 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -1068,7 +1094,19 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    PostSecondaryOrganizationSerializedReferenceData ??= new NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganizationReferenceData(true);
+                    if (StudentAcademicRecord == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        PostSecondaryOrganizationSerializedReferenceData ??= new NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganizationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        PostSecondaryOrganizationSerializedReferenceData ??= new NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganizationReferenceData(trackLookupContext: true);
+                    }
+
                     PostSecondaryOrganizationSerializedReferenceData.NameOfInstitution = value ?? default;
                 }
             }

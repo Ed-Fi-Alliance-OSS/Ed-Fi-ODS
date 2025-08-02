@@ -33,12 +33,30 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
     public class NameReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<NameReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public NameReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public NameReferenceData(Action<NameReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public NameReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public NameReferenceData(string contextualFirstName = default, string contextualLastSurname = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _firstName = contextualFirstName;
+            _lastSurname = contextualLastSurname;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -72,7 +90,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
         [Key(1)]
         public virtual string FirstName
         {
-            get => _firstName;
+            get { EnsureContextualValuesInitialized(); return _firstName; }
             set
             {
                 var originalValue = _firstName;
@@ -101,7 +119,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
         [Key(2)]
         public virtual string LastSurname
         {
-            get => _lastSurname;
+            get { EnsureContextualValuesInitialized(); return _lastSurname; }
             set
             {
                 var originalValue = _lastSurname;
@@ -123,6 +141,15 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -365,12 +392,30 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     public class ParentReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<ParentReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public ParentReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public ParentReferenceData(Action<ParentReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public ParentReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public ParentReferenceData(string contextualParentFirstName = default, string contextualParentLastSurname = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _parentFirstName = contextualParentFirstName;
+            _parentLastSurname = contextualParentLastSurname;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -404,7 +449,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         [Key(1)]
         public virtual string ParentFirstName
         {
-            get => _parentFirstName;
+            get { EnsureContextualValuesInitialized(); return _parentFirstName; }
             set
             {
                 var originalValue = _parentFirstName;
@@ -433,7 +478,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         [Key(2)]
         public virtual string ParentLastSurname
         {
-            get => _parentLastSurname;
+            get { EnsureContextualValuesInitialized(); return _parentLastSurname; }
             set
             {
                 var originalValue = _parentLastSurname;
@@ -455,6 +500,15 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -631,7 +685,8 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ParentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    ParentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
+
                     ParentNameSerializedReferenceData.FirstName = value;
                 }
             }
@@ -650,7 +705,8 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    ParentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    ParentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
+
                     ParentNameSerializedReferenceData.LastSurname = value;
                 }
             }
@@ -1153,7 +1209,19 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    if (Parent == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
+                    }
+
                     StudentSchoolAssociationSerializedReferenceData.SchoolName = value;
                 }
             }
@@ -1172,7 +1240,19 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    if (Parent == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
+                    }
+
                     StudentSchoolAssociationSerializedReferenceData.StudentFirstName = value;
                 }
             }
@@ -1191,7 +1271,19 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    if (Parent == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
+                    }
+
                     StudentSchoolAssociationSerializedReferenceData.StudentLastSurname = value;
                 }
             }
@@ -1334,12 +1426,29 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     public class SchoolReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<SchoolReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public SchoolReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public SchoolReferenceData(Action<SchoolReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public SchoolReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public SchoolReferenceData(string contextualSchoolName = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _schoolName = contextualSchoolName;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -1373,7 +1482,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         [Key(1)]
         public virtual string SchoolName
         {
-            get => _schoolName;
+            get { EnsureContextualValuesInitialized(); return _schoolName; }
             set
             {
                 var originalValue = _schoolName;
@@ -1395,6 +1504,15 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -1581,7 +1699,8 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData(true);
+                    SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData(trackLookupContext: true);
+
                     SchoolYearTypeSerializedReferenceData.SchoolYear = value ?? default;
                 }
             }
@@ -1934,12 +2053,29 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
     public class SchoolYearTypeReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<SchoolYearTypeReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public SchoolYearTypeReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public SchoolYearTypeReferenceData(Action<SchoolYearTypeReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public SchoolYearTypeReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public SchoolYearTypeReferenceData(string contextualSchoolYear = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _schoolYear = contextualSchoolYear;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -1973,7 +2109,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
         [Key(1)]
         public virtual string SchoolYear
         {
-            get => _schoolYear;
+            get { EnsureContextualValuesInitialized(); return _schoolYear; }
             set
             {
                 var originalValue = _schoolYear;
@@ -1995,6 +2131,15 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -2230,12 +2375,30 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     public class StaffReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<StaffReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public StaffReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public StaffReferenceData(Action<StaffReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public StaffReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public StaffReferenceData(string contextualStaffFirstName = default, string contextualStaffLastSurname = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _staffFirstName = contextualStaffFirstName;
+            _staffLastSurname = contextualStaffLastSurname;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -2269,7 +2432,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         [Key(1)]
         public virtual string StaffFirstName
         {
-            get => _staffFirstName;
+            get { EnsureContextualValuesInitialized(); return _staffFirstName; }
             set
             {
                 var originalValue = _staffFirstName;
@@ -2298,7 +2461,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         [Key(2)]
         public virtual string StaffLastSurname
         {
-            get => _staffLastSurname;
+            get { EnsureContextualValuesInitialized(); return _staffLastSurname; }
             set
             {
                 var originalValue = _staffLastSurname;
@@ -2320,6 +2483,15 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -2496,7 +2668,8 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    StaffNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
+
                     StaffNameSerializedReferenceData.FirstName = value;
                 }
             }
@@ -2515,7 +2688,8 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StaffNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    StaffNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
+
                     StaffNameSerializedReferenceData.LastSurname = value;
                 }
             }
@@ -3018,7 +3192,19 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    if (Staff == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
+                    }
+
                     StudentSchoolAssociationSerializedReferenceData.SchoolName = value;
                 }
             }
@@ -3037,7 +3223,19 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    if (Staff == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
+                    }
+
                     StudentSchoolAssociationSerializedReferenceData.StudentFirstName = value;
                 }
             }
@@ -3056,7 +3254,19 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    if (Staff == null)
+                    {
+                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
+                        {
+                        });
+                    }
+                    else
+                    {
+                        // Immediate contextual values initialization
+                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
+                    }
+
                     StudentSchoolAssociationSerializedReferenceData.StudentLastSurname = value;
                 }
             }
@@ -3199,12 +3409,30 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     public class StudentReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<StudentReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public StudentReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public StudentReferenceData(Action<StudentReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public StudentReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public StudentReferenceData(string contextualStudentFirstName = default, string contextualStudentLastSurname = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _studentFirstName = contextualStudentFirstName;
+            _studentLastSurname = contextualStudentLastSurname;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -3238,7 +3466,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         [Key(1)]
         public virtual string StudentFirstName
         {
-            get => _studentFirstName;
+            get { EnsureContextualValuesInitialized(); return _studentFirstName; }
             set
             {
                 var originalValue = _studentFirstName;
@@ -3267,7 +3495,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         [Key(2)]
         public virtual string StudentLastSurname
         {
-            get => _studentLastSurname;
+            get { EnsureContextualValuesInitialized(); return _studentLastSurname; }
             set
             {
                 var originalValue = _studentLastSurname;
@@ -3289,6 +3517,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -3523,7 +3760,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    StudentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
+
                     StudentNameSerializedReferenceData.FirstName = value;
                 }
             }
@@ -3542,7 +3780,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    StudentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
+
                     StudentNameSerializedReferenceData.LastSurname = value;
                 }
             }
@@ -3570,7 +3809,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData(true);
+                    SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData(trackLookupContext: true);
+
                     SchoolYearTypeSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -3926,12 +4166,31 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
     public class StudentSchoolAssociationReferenceData : IEntityReferenceData
     {
         private bool _trackLookupContext;
-    
+        private Action<StudentSchoolAssociationReferenceData> _contextualValuesInitializer;
+        private bool _contextualValuesInitialized;
+
         // Default constructor (used by NHibernate)
         public StudentSchoolAssociationReferenceData() { }
 
+        // Constructor used for deferred initialization when the parent reference hasn't yet been initialized yet because we're falling back from stale serialized data to NHibernate hydration 
+        public StudentSchoolAssociationReferenceData(Action<StudentSchoolAssociationReferenceData> contextualValuesInitializer)
+        {
+            _trackLookupContext = true;
+            _contextualValuesInitializer = contextualValuesInitializer;
+        }
+
         // Constructor (used for link support with Serialized Data feature)
-        public StudentSchoolAssociationReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+        public StudentSchoolAssociationReferenceData(string contextualSchoolName = default, string contextualStudentFirstName = default, string contextualStudentLastSurname = default, bool trackLookupContext = true)
+        {
+            _trackLookupContext = trackLookupContext;
+    
+            // Assign supplied contextual values (values pre-determined from parent context)
+            _schoolName = contextualSchoolName;
+            _studentFirstName = contextualStudentFirstName;
+            _studentLastSurname = contextualStudentLastSurname;
+
+            _contextualValuesInitialized = true;
+        }
 
         // =============================================================
         //                         Primary Key
@@ -3965,7 +4224,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         [Key(1)]
         public virtual string SchoolName
         {
-            get => _schoolName;
+            get { EnsureContextualValuesInitialized(); return _schoolName; }
             set
             {
                 var originalValue = _schoolName;
@@ -3994,7 +4253,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         [Key(2)]
         public virtual string StudentFirstName
         {
-            get => _studentFirstName;
+            get { EnsureContextualValuesInitialized(); return _studentFirstName; }
             set
             {
                 var originalValue = _studentFirstName;
@@ -4023,7 +4282,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         [Key(3)]
         public virtual string StudentLastSurname
         {
-            get => _studentLastSurname;
+            get { EnsureContextualValuesInitialized(); return _studentLastSurname; }
             set
             {
                 var originalValue = _studentLastSurname;
@@ -4045,6 +4304,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
                 }
+            }
+        }
+
+        private void EnsureContextualValuesInitialized()
+        {
+            if (!_contextualValuesInitialized && _contextualValuesInitializer != null)
+            {
+                _contextualValuesInitializer(this);
+                _contextualValuesInitialized = true;
             }
         }
 
@@ -4280,7 +4548,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    SchoolSerializedReferenceData ??= new NHibernate.SchoolAggregate.Homograph.SchoolReferenceData(true);
+                    SchoolSerializedReferenceData ??= new NHibernate.SchoolAggregate.Homograph.SchoolReferenceData(trackLookupContext: true);
+
                     SchoolSerializedReferenceData.SchoolName = value;
                 }
             }
@@ -4299,7 +4568,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.Homograph.StudentReferenceData(true);
+                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.Homograph.StudentReferenceData(trackLookupContext: true);
+
                     StudentSerializedReferenceData.StudentFirstName = value;
                 }
             }
@@ -4318,7 +4588,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.Homograph.StudentReferenceData(true);
+                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.Homograph.StudentReferenceData(trackLookupContext: true);
+
                     StudentSerializedReferenceData.StudentLastSurname = value;
                 }
             }
