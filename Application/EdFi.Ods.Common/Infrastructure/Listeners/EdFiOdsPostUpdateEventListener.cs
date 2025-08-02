@@ -116,7 +116,9 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             if (_serializationEnabled && @event.Entity is AggregateRootWithCompositeKey aggregateRoot)
             {
                 // Produce a new LastModifiedDate so that newly serialized data (with key change) isn't treated as stale
-                aggregateRoot.LastModifiedDate = aggregateRoot.LastModifiedDate.AddMicroseconds(1); // DateTime.UtcNow;
+                // SQL Server DateTime2 has a resolution of 100 nanoseconds, and Postgres timestamp is 1 microsecond
+                // so we add a microsecond here to ensure a different datetime than the value just saved with the key change
+                aggregateRoot.LastModifiedDate = aggregateRoot.LastModifiedDate.AddMicroseconds(1);
 
                 _logger.Debug("Serializing aggregate data for storage (KEY CHANGE)...");
 
