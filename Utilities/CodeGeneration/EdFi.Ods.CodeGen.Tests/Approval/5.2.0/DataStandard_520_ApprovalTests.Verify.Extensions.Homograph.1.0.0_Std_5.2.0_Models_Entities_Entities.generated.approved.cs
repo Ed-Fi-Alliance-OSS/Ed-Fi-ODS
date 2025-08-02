@@ -327,7 +327,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     ContactNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
-
                     ContactNameSerializedReferenceData.FirstName = value;
                 }
             }
@@ -347,7 +346,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     ContactNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
-
                     ContactNameSerializedReferenceData.LastSurname = value;
                 }
             }
@@ -850,19 +848,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (Contact == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
-                    }
-
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
                     StudentSchoolAssociationSerializedReferenceData.SchoolName = value;
                 }
             }
@@ -881,19 +867,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (Contact == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
-                    }
-
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
                     StudentSchoolAssociationSerializedReferenceData.StudentFirstName = value;
                 }
             }
@@ -912,19 +886,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (Contact == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
-                    }
-
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
                     StudentSchoolAssociationSerializedReferenceData.StudentLastSurname = value;
                 }
             }
@@ -1700,7 +1662,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData(trackLookupContext: true);
-
                     SchoolYearTypeSerializedReferenceData.SchoolYear = value ?? default;
                 }
             }
@@ -2669,7 +2630,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     StaffNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
-
                     StaffNameSerializedReferenceData.FirstName = value;
                 }
             }
@@ -2689,7 +2649,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     StaffNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
-
                     StaffNameSerializedReferenceData.LastSurname = value;
                 }
             }
@@ -3192,19 +3151,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (Staff == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
-                    }
-
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
                     StudentSchoolAssociationSerializedReferenceData.SchoolName = value;
                 }
             }
@@ -3223,19 +3170,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (Staff == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
-                    }
-
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
                     StudentSchoolAssociationSerializedReferenceData.StudentFirstName = value;
                 }
             }
@@ -3254,19 +3189,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (Staff == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
-                    }
-
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(trackLookupContext: true);
                     StudentSchoolAssociationSerializedReferenceData.StudentLastSurname = value;
                 }
             }
@@ -3761,7 +3684,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     StudentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
-
                     StudentNameSerializedReferenceData.FirstName = value;
                 }
             }
@@ -3781,7 +3703,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     StudentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(trackLookupContext: true);
-
                     StudentNameSerializedReferenceData.LastSurname = value;
                 }
             }
@@ -3810,7 +3731,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData(trackLookupContext: true);
-
                     SchoolYearTypeSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -4549,7 +4469,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SchoolSerializedReferenceData ??= new NHibernate.SchoolAggregate.Homograph.SchoolReferenceData(trackLookupContext: true);
-
                     SchoolSerializedReferenceData.SchoolName = value;
                 }
             }
@@ -4569,7 +4488,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.Homograph.StudentReferenceData(trackLookupContext: true);
-
                     StudentSerializedReferenceData.StudentFirstName = value;
                 }
             }
@@ -4589,7 +4507,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.Homograph.StudentReferenceData(trackLookupContext: true);
-
                     StudentSerializedReferenceData.StudentLastSurname = value;
                 }
             }

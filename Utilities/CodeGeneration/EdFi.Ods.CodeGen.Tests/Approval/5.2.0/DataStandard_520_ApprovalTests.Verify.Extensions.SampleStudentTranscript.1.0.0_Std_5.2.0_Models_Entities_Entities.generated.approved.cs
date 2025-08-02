@@ -1094,19 +1094,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (StudentAcademicRecord == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        PostSecondaryOrganizationSerializedReferenceData ??= new NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganizationReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        PostSecondaryOrganizationSerializedReferenceData ??= new NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganizationReferenceData(trackLookupContext: true);
-                    }
-
+                    PostSecondaryOrganizationSerializedReferenceData ??= new NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganizationReferenceData(trackLookupContext: true);
                     PostSecondaryOrganizationSerializedReferenceData.NameOfInstitution = value ?? default;
                 }
             }

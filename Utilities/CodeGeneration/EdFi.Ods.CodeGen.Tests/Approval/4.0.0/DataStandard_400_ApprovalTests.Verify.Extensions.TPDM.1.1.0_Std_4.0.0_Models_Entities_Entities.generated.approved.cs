@@ -982,7 +982,6 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
-
                     PersonSerializedReferenceData.PersonId = value ?? default;
                 }
             }
@@ -4771,7 +4770,6 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     CandidateSerializedReferenceData ??= new NHibernate.CandidateAggregate.TPDM.CandidateReferenceData(trackLookupContext: true);
-
                     CandidateSerializedReferenceData.CandidateIdentifier = value;
                 }
             }
@@ -4791,7 +4789,6 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(trackLookupContext: true);
-
                     EducatorPreparationProgramSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -4811,7 +4808,6 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EducatorPreparationProgramSerializedReferenceData ??= new NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData(trackLookupContext: true);
-
                     EducatorPreparationProgramSerializedReferenceData.ProgramName = value;
                 }
             }
@@ -5340,19 +5336,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (CandidateEducatorPreparationProgramAssociation == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData(trackLookupContext: true);
-                    }
-
+                    SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData(trackLookupContext: true);
                     SchoolYearTypeSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -6186,19 +6170,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (Credential == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
-                    }
-
+                    StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
                     StudentAcademicRecordSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -6217,19 +6189,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (Credential == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
-                    }
-
+                    StudentAcademicRecordSerializedReferenceData ??= new NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData(trackLookupContext: true);
                     StudentAcademicRecordSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -6754,19 +6714,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (Credential == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
-                    }
-
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.PersonId = value ?? default;
                 }
             }
@@ -7490,7 +7438,6 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EducationOrganizationSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(trackLookupContext: true);
-
                     EducationOrganizationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -8970,7 +8917,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
-
                     PerformanceEvaluationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -9052,7 +8998,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
-
                     PerformanceEvaluationSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -9130,7 +9075,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
-
                     PerformanceEvaluationSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -10165,7 +10109,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -10189,7 +10132,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveSerializedReferenceData.EvaluationObjectiveTitle = value;
                 }
             }
@@ -10267,7 +10209,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -10287,7 +10228,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -10365,7 +10305,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -11554,10 +11493,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.EducationOrganizationId = value;
                     EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveRatingSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -11603,7 +11540,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.EvaluationElementTitle = value;
                 }
             }
@@ -11623,10 +11559,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.EvaluationObjectiveTitle = value;
                     EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveRatingSerializedReferenceData.EvaluationObjectiveTitle = value;
                 }
             }
@@ -11710,10 +11644,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.EvaluationTitle = value;
                     EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveRatingSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -11733,10 +11665,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.PerformanceEvaluationTitle = value;
                     EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveRatingSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -11820,7 +11750,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveRatingSerializedReferenceData.PersonId = value;
                 }
             }
@@ -11840,10 +11769,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.SchoolYear = value;
                     EvaluationObjectiveRatingSerializedReferenceData ??= new NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveRatingSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -13101,7 +13028,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
-
                     EvaluationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -13183,7 +13109,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
-
                     EvaluationSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -13203,7 +13128,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
-
                     EvaluationSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -13281,7 +13205,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
-
                     EvaluationSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -14440,10 +14363,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveSerializedReferenceData.EducationOrganizationId = value;
                     EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
-
                     EvaluationRatingSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -14489,7 +14410,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveSerializedReferenceData.EvaluationObjectiveTitle = value;
                 }
             }
@@ -14573,10 +14493,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveSerializedReferenceData.EvaluationTitle = value;
                     EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
-
                     EvaluationRatingSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -14596,10 +14514,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveSerializedReferenceData.PerformanceEvaluationTitle = value;
                     EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
-
                     EvaluationRatingSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -14683,7 +14599,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
-
                     EvaluationRatingSerializedReferenceData.PersonId = value;
                 }
             }
@@ -14703,10 +14618,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationObjectiveSerializedReferenceData ??= new NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData(trackLookupContext: true);
-
                     EvaluationObjectiveSerializedReferenceData.SchoolYear = value;
                     EvaluationRatingSerializedReferenceData ??= new NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData(trackLookupContext: true);
-
                     EvaluationRatingSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -16137,10 +16050,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
-
                     EvaluationSerializedReferenceData.EducationOrganizationId = value;
                     PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
-
                     PerformanceEvaluationRatingSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -16244,7 +16155,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
-
                     EvaluationSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -16264,10 +16174,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
-
                     EvaluationSerializedReferenceData.PerformanceEvaluationTitle = value;
                     PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
-
                     PerformanceEvaluationRatingSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -16351,7 +16259,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
-
                     PerformanceEvaluationRatingSerializedReferenceData.PersonId = value;
                 }
             }
@@ -16371,13 +16278,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationSerializedReferenceData ??= new NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData(trackLookupContext: true);
-
                     EvaluationSerializedReferenceData.SchoolYear = value;
                     PerformanceEvaluationRatingSerializedReferenceData ??= new NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData(trackLookupContext: true);
-
                     PerformanceEvaluationRatingSerializedReferenceData.SchoolYear = value;
                     SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(trackLookupContext: true);
-
                     SectionSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -16606,7 +16510,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(trackLookupContext: true);
-
                     SectionSerializedReferenceData.LocalCourseCode = value ?? default;
                 }
             }
@@ -16625,7 +16528,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(trackLookupContext: true);
-
                     SectionSerializedReferenceData.SchoolId = value ?? default;
                 }
             }
@@ -16644,7 +16546,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(trackLookupContext: true);
-
                     SectionSerializedReferenceData.SectionIdentifier = value ?? default;
                 }
             }
@@ -16663,7 +16564,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SectionSerializedReferenceData ??= new NHibernate.SectionAggregate.EdFi.SectionReferenceData(trackLookupContext: true);
-
                     SectionSerializedReferenceData.SessionName = value ?? default;
                 }
             }
@@ -17237,19 +17137,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (EvaluationRating == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
-                    }
-
+                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     ReviewerPersonSerializedReferenceData.PersonId = value ?? default;
                 }
             }
@@ -19668,7 +19556,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EducationOrganizationSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(trackLookupContext: true);
-
                     EducationOrganizationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -19772,7 +19659,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData(trackLookupContext: true);
-
                     SchoolYearTypeSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -21063,7 +20949,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
-
                     PerformanceEvaluationSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -21141,7 +21026,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
-
                     PerformanceEvaluationSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -21219,7 +21103,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
-
                     PersonSerializedReferenceData.PersonId = value;
                 }
             }
@@ -21239,7 +21122,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PerformanceEvaluationSerializedReferenceData ??= new NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData(trackLookupContext: true);
-
                     PerformanceEvaluationSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -22057,19 +21939,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (PerformanceEvaluationRating == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
-                    }
-
+                    ReviewerPersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     ReviewerPersonSerializedReferenceData.PersonId = value ?? default;
                 }
             }
@@ -23425,7 +23295,6 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.EducationOrganizationId = value;
                 }
             }
@@ -23445,7 +23314,6 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.EvaluationElementTitle = value;
                 }
             }
@@ -23465,7 +23333,6 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.EvaluationObjectiveTitle = value;
                 }
             }
@@ -23543,7 +23410,6 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.EvaluationTitle = value;
                 }
             }
@@ -23563,7 +23429,6 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.PerformanceEvaluationTitle = value;
                 }
             }
@@ -23645,7 +23510,6 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     EvaluationElementSerializedReferenceData ??= new NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData(trackLookupContext: true);
-
                     EvaluationElementSerializedReferenceData.SchoolYear = value;
                 }
             }
@@ -24175,19 +24039,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (School == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        PostSecondaryInstitutionSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        PostSecondaryInstitutionSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(trackLookupContext: true);
-                    }
-
+                    PostSecondaryInstitutionSerializedReferenceData ??= new NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData(trackLookupContext: true);
                     PostSecondaryInstitutionSerializedReferenceData.EducationOrganizationId = value ?? default;
                 }
             }
@@ -24426,19 +24278,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    if (SurveyResponse == null)
-                    {
-                        // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
-                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(@ref =>
-                        {
-                        });
-                    }
-                    else
-                    {
-                        // Immediate contextual values initialization
-                        PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
-                    }
-
+                    PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
                     PersonSerializedReferenceData.PersonId = value ?? default;
                 }
             }
@@ -25073,7 +24913,6 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SurveyResponseSerializedReferenceData ??= new NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData(trackLookupContext: true);
-
                     SurveyResponseSerializedReferenceData.Namespace = value;
                 }
             }
@@ -25093,7 +24932,6 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
-
                     PersonSerializedReferenceData.PersonId = value;
                 }
             }
@@ -25171,7 +25009,6 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SurveyResponseSerializedReferenceData ??= new NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData(trackLookupContext: true);
-
                     SurveyResponseSerializedReferenceData.SurveyIdentifier = value;
                 }
             }
@@ -25191,7 +25028,6 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SurveyResponseSerializedReferenceData ??= new NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData(trackLookupContext: true);
-
                     SurveyResponseSerializedReferenceData.SurveyResponseIdentifier = value;
                 }
             }
@@ -25812,7 +25648,6 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(trackLookupContext: true);
-
                     SurveySectionResponseSerializedReferenceData.Namespace = value;
                 }
             }
@@ -25832,7 +25667,6 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     PersonSerializedReferenceData ??= new NHibernate.PersonAggregate.EdFi.PersonReferenceData(trackLookupContext: true);
-
                     PersonSerializedReferenceData.PersonId = value;
                 }
             }
@@ -25910,7 +25744,6 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(trackLookupContext: true);
-
                     SurveySectionResponseSerializedReferenceData.SurveyIdentifier = value;
                 }
             }
@@ -25930,7 +25763,6 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(trackLookupContext: true);
-
                     SurveySectionResponseSerializedReferenceData.SurveyResponseIdentifier = value;
                 }
             }
@@ -25950,7 +25782,6 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                     SurveySectionResponseSerializedReferenceData ??= new NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData(trackLookupContext: true);
-
                     SurveySectionResponseSerializedReferenceData.SurveySectionTitle = value;
                 }
             }
