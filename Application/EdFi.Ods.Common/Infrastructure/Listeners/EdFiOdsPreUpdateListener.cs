@@ -56,6 +56,8 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
 
                     try
                     {
+                        _logger.Debug("Serializing aggregate data to storage (UPDATE)...");
+
                         // Produce the serialized data
                         var aggregateData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
                         aggregateRoot.AggregateData = aggregateData;
