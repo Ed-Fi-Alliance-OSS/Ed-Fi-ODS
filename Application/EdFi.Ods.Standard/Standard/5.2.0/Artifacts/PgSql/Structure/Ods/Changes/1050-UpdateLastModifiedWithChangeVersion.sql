@@ -7,9 +7,14 @@ CREATE OR REPLACE FUNCTION changes.updateChangeVersion()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    new.ChangeVersion := nextval('changes.ChangeVersionSequence');
-    new.LastModifiedDate := NOW();
+    -- Always update ChangeVersion
+    NEW.ChangeVersion := nextval('changes.ChangeVersionSequence');
 
+    -- Only update LastModifiedDate if it was not modified in the update
+    IF NEW.LastModifiedDate IS NOT DISTINCT FROM OLD.LastModifiedDate THEN
+        NEW.LastModifiedDate := NOW();
+    END IF;
+    
     RETURN new;
 END;
 $BODY$ LANGUAGE plpgsql;
