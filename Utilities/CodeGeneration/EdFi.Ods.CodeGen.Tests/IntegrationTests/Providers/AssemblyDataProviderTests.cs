@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ApprovalUtilities.Utilities;
@@ -21,15 +22,35 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
     [TestFixture]
     public class AssemblyDataProviderTests
     {
-        public class When_getting_assembly_data_from_all_providers_with_no_extensions : TestFixtureBase
+        public abstract class MultipleStandardVersionsFixtureBase : TestFixtureBase
+        {
+            protected readonly string StandardVersion;
+
+            public MultipleStandardVersionsFixtureBase(string standardVersion)
+            {
+                StandardVersion = standardVersion;
+            }
+
+            public static readonly string[] StandardVersions =
+            {
+                "4.0.0",
+                "5.2.0",
+                "6.0.0"
+            };
+        }
+
+        [TestFixtureSource(nameof(base.StandardVersions))]
+        public class When_getting_assembly_data_from_all_providers_with_no_extensions : MultipleStandardVersionsFixtureBase
         {
             private IEnumerable<IAssemblyDataProvider> _assemblyDataProviders;
             private List<AssemblyData> _assemblyData;
 
+            public When_getting_assembly_data_from_all_providers_with_no_extensions(string version) : base(version) { }
+
             protected override void Arrange()
             {
                 var container = ContainerHelper.CreateContainer(new Options {
-                        StandardVersion = "6.0.0",
+                        StandardVersion = StandardVersion,
                         ExtensionVersion = "1.1.0"
                 });
 
@@ -51,10 +72,13 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             }
         }
 
-        public class When_getting_assembly_data_from_all_providers_with_extensions : TestFixtureBase
+        [TestFixtureSource(nameof(base.StandardVersions))]
+        public class When_getting_assembly_data_from_all_providers_with_extensions : MultipleStandardVersionsFixtureBase
         {
             private IEnumerable<IAssemblyDataProvider> _assemblyDataProviders;
             private List<AssemblyData> _assemblyData;
+
+            public When_getting_assembly_data_from_all_providers_with_extensions(string version) : base(version) { }
 
             protected override void Arrange()
             {
@@ -66,7 +90,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                             new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
                                 CodeRepositoryConventions.ExtensionsRepositoryName]
                         },
-                        StandardVersion = "6.0.0",
+                        StandardVersion = StandardVersion,
                         ExtensionVersion = "1.1.0"
                     });
 
@@ -82,26 +106,34 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                 {
                     "EdFi.Ods.Extensions.Homograph",
                     "EdFi.Ods.Extensions.Sample",
-                    "EdFi.Ods.Extensions.TPDM",
                     "EdFi.Ods.Standard",
                     "EdFi.Ods.Extensions.SampleAlternativeEducationProgram",
                     "EdFi.Ods.Extensions.SampleStudentTranscript",
                 };
 
+                if (Version.Parse(StandardVersion).Major < 6)
+                {
+                    expected.Add("EdFi.Ods.Extensions.TPDM");
+                }
+
                 _assemblyData.Select(x => x.AssemblyName).ForEach(x => expected.ShouldContain(x));
                 _assemblyData.Count.ShouldBe(expected.Count);
             }
         }
-        public class When_getting_assembly_data_with_no_extensions : TestFixtureBase
+
+        [TestFixtureSource(nameof(base.StandardVersions))]
+        public class When_getting_assembly_data_with_no_extensions : MultipleStandardVersionsFixtureBase
         {
             private IAssemblyDataProvider _assemblyDataProvider;
             private List<AssemblyData> _assemblyData;
+
+            public When_getting_assembly_data_with_no_extensions(string version) : base(version) { }
 
             protected override void Arrange()
             {
                 var container = ContainerHelper.CreateContainer(new Options
                 {
-                    StandardVersion = "6.0.0",
+                    StandardVersion = StandardVersion,
                     ExtensionVersion = "1.1.0"
                 });
 
@@ -124,10 +156,13 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             }
         }
 
-        public class When_getting_assembly_data_with_extensions : TestFixtureBase
+        [TestFixtureSource(nameof(base.StandardVersions))]
+        public class When_getting_assembly_data_with_extensions : MultipleStandardVersionsFixtureBase
         {
             private IAssemblyDataProvider _assemblyDataProvider;
             private List<AssemblyData> _assemblyData;
+
+            public When_getting_assembly_data_with_extensions(string version) : base(version) { }
 
             protected override void Arrange()
             {
@@ -139,7 +174,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                             new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
                                 CodeRepositoryConventions.ExtensionsRepositoryName]
                         },
-                        StandardVersion = "6.0.0",
+                        StandardVersion = StandardVersion,
                         ExtensionVersion = "1.1.0"
                     });
 
@@ -156,11 +191,15 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                 {
                     "EdFi.Ods.Extensions.Homograph",
                     "EdFi.Ods.Extensions.Sample",
-                    "EdFi.Ods.Extensions.TPDM",
                     "EdFi.Ods.Standard",
                     "EdFi.Ods.Extensions.SampleAlternativeEducationProgram",
                     "EdFi.Ods.Extensions.SampleStudentTranscript",
                 };
+
+                if (Version.Parse(StandardVersion).Major < 6)
+                {
+                    expected.Add("EdFi.Ods.Extensions.TPDM");
+                }
 
                 _assemblyData.Select(x => x.AssemblyName).ForEach(x => expected.ShouldContain(x));
                 _assemblyData.Count.ShouldBe(expected.Count);

@@ -12,16 +12,25 @@ using Shouldly;
 
 namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
 {
-    [TestFixture]
+    [TestFixture("4.0.0")]
+    [TestFixture("5.2.0")]
+    [TestFixture("6.0.0")]
     [LocalTestOnly]
     public class MetadataDirectoryProviderTests : TestFixtureBase
     {
         private IContainer _container;
         private IMetadataFolderProvider _metadataFolderProvider;
 
+        private readonly string _standardVersion;
+
+        public MetadataDirectoryProviderTests(string standardVersion)
+        {
+            _standardVersion = standardVersion;
+        }
+
         protected override void Arrange() => _container = ContainerHelper.CreateContainer(new Options
         {
-            StandardVersion = "6.0.0",
+            StandardVersion = _standardVersion,
             ExtensionVersion = "1.1.0"
         });
 

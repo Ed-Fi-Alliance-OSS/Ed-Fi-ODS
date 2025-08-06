@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,17 +23,20 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly AssemblyDataHelper _assemblyDataHelper;
         private readonly ICodeRepositoryProvider _codeRepositoryProvider;
         private readonly IExtensionPluginsProvider _extensionPluginsProviderProvider;
+        private readonly string _standardVersionParam;
 
         public const string AssemblyMetadataSearchString = "assemblyMetadata.json";
 
         public AssemblyDataProvider(
             AssemblyDataHelper assemblyDataHelper,
             ICodeRepositoryProvider codeRepositoryProvider,
-            IExtensionPluginsProvider extensionPluginsProvider)
+            IExtensionPluginsProvider extensionPluginsProvider,
+            Options options)
         {
             _assemblyDataHelper = Preconditions.ThrowIfNull(assemblyDataHelper, nameof(assemblyDataHelper));
             _codeRepositoryProvider = Preconditions.ThrowIfNull(codeRepositoryProvider, nameof(codeRepositoryProvider));
             _extensionPluginsProviderProvider = Preconditions.ThrowIfNull(extensionPluginsProvider, nameof(extensionPluginsProvider));
+            _standardVersionParam = options.StandardVersion;
         }
 
         public IEnumerable<AssemblyData> Get()
@@ -49,13 +53,19 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             paths.AddRange(_extensionPluginsProviderProvider.GetExtensionLocationPlugins());
 
-            var assemblyData = paths.Where(Directory.Exists)
+            var assemblyData = paths
+                .Where(Directory.Exists)
                 .SelectMany(
                     x =>
                         Directory.GetFiles(
                             x,
                             AssemblyMetadataSearchString,
                             SearchOption.AllDirectories))
+                // The TPDM extension is included starting with Data Standard 6 and above.
+                // Since the TPDM path will not contain a DataStandard folder, this check prevents an exception from being thrown.
+                .Where(x =>
+                    Version.Parse(_standardVersionParam).Major < 6 
+                    || !x.Contains("EdFi.Ods.Extensions.TPDM", StringComparison.OrdinalIgnoreCase))
                 .Select(_assemblyDataHelper.CreateAssemblyData)
                 .ToList();
 

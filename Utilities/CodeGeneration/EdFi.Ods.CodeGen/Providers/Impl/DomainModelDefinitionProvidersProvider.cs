@@ -111,6 +111,13 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             foreach (var modelProject in modelProjects)
             {
+                // The TPDM extension is included starting with Data Standard 6 and above.
+                // Since the TPDM path will not contain a DataStandard folder, this check prevents an exception from being thrown.
+                if (Version.Parse(_standardVersionParam).Major >= 6 && modelProject.Name.Contains("EdFi.Ods.Extensions.TPDM", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
                 var metadataFile = modelProject.Name.IsStandardAssembly() ?
                                     GetStandardMetadataFileInfo(modelProject) :
                                     GetExtensionMetadataFileInfo(modelProject);
