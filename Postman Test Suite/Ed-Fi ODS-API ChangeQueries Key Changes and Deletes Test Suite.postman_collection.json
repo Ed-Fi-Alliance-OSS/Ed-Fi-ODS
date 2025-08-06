@@ -12831,6 +12831,52 @@
 									"response": []
 								},
 								{
+									"name": "Create Course",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:course:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"courseCode\": \"XYZ-001\",\r\n  \"courseTitle\": \"Ecks Why Zee\",\r\n  \"numberOfParts\": 1,\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#LEA course code\",\r\n      \"courseCatalogURL\": \"http://www.GBISD.edu/coursecatalog\",\r\n      \"identificationCode\": \"ALG-2\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "Create Course Offering",
 									"event": [
 										{
@@ -12854,7 +12900,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"courseReference\": {\r\n    \"courseCode\": \"ALG-1\",\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"sessionReference\": {\r\n    \"schoolId\": 255901001,\r\n    \"schoolYear\": 2022,\r\n    \"sessionName\": \"Cascading ORIGINAL\"\r\n  },\r\n  \"localCourseCode\": \"ALG-XYZ\",\r\n  \"courseLevelCharacteristics\": [],\r\n  \"curriculumUseds\": [],\r\n  \"offeredGradeLevels\": []\r\n}",
+											"raw": "{\r\n  \"courseReference\": {\r\n    \"courseCode\": \"XYZ-001\",\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"sessionReference\": {\r\n    \"schoolId\": 255901001,\r\n    \"schoolYear\": 2022,\r\n    \"sessionName\": \"Cascading ORIGINAL\"\r\n  },\r\n  \"localCourseCode\": \"ALG-XYZ\",\r\n  \"courseLevelCharacteristics\": [],\r\n  \"curriculumUseds\": [],\r\n  \"offeredGradeLevels\": []\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -12956,8 +13002,6 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"const scenarioId = pm.environment.get('scenarioId');\r",
-													"\r",
 													"pm.test(\"Status code is 204\", () => {\r",
 													"    pm.expect(pm.response.code).to.equal(204);\r",
 													"});\r",
@@ -13138,7 +13182,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"courseReference\": {\r\n    \"courseCode\": \"ALG-1\",\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"sessionReference\": {\r\n    \"schoolId\": 255901001,\r\n    \"schoolYear\": 2022,\r\n    \"sessionName\": \"CASCADING MODIFIED\"\r\n  },\r\n  \"localCourseCode\": \"ALG-XYZ\",\r\n  \"localCourseTitle\": \"AlgebraXYZ\",\r\n  \"courseLevelCharacteristics\": [],\r\n  \"curriculumUseds\": [],\r\n  \"offeredGradeLevels\": []\r\n}",
+											"raw": "{\r\n  \"courseReference\": {\r\n    \"courseCode\": \"XYZ-001\",\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"sessionReference\": {\r\n    \"schoolId\": 255901001,\r\n    \"schoolYear\": 2022,\r\n    \"sessionName\": \"CASCADING MODIFIED\"\r\n  },\r\n  \"localCourseCode\": \"ALG-XYZ\",\r\n  \"localCourseTitle\": \"AlgebraXYZ\",\r\n  \"courseLevelCharacteristics\": [],\r\n  \"curriculumUseds\": [],\r\n  \"offeredGradeLevels\": []\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -13267,6 +13311,46 @@
 												"ed-fi",
 												"courseOfferings",
 												"{{known:courseOffering:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Course",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses",
+												"{{known:course:id}}"
 											]
 										}
 									},
