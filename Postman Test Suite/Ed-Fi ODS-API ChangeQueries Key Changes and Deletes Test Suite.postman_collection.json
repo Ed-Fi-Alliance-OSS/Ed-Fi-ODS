@@ -12841,6 +12841,7 @@
 													"  pm.expect(pm.response.code).to.equal(201);\r",
 													"});\r",
 													"\r",
+													"// Save the course id for future deletion.\r",
 													"pm.environment.set('known:course:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
 													""
 												],
