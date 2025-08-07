@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using Autofac;
 using EdFi.Ods.CodeGen.Conventions;
@@ -18,11 +19,21 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
     [TestFixture]
     public class DomainModelDefinitionProvidersProviderTests
     {
+        [TestFixture("4.0.0")]
+        [TestFixture("5.2.0")]
+        [TestFixture("6.0.0")]
         public class When_loading_domain_model_definitions : TestFixtureBase
         {
+
             private IDomainModelDefinitionsProviderProvider _domainModelDefinitionProvidersProvider;
             private IEnumerable<IDomainModelDefinitionsProvider> _domainModelDefinitionProviders;
             private IDictionary<string, IDomainModelDefinitionsProvider> _domainModelDefinitionsProvidersByProjectName;
+            private readonly string _standardVersion;
+
+            public When_loading_domain_model_definitions(string standardVersion)
+            {
+                _standardVersion = standardVersion;
+            }
 
             protected override void Arrange()
             {
@@ -34,7 +45,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                             new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
                                 CodeRepositoryConventions.ExtensionsRepositoryName]
                         },
-                        StandardVersion = "6.0.0",
+                        StandardVersion = _standardVersion,
                         ExtensionVersion = "1.1.0"
                     });
 
@@ -59,7 +70,11 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                 _domainModelDefinitionsProvidersByProjectName["EdFi.Ods.Standard"].ShouldNotBeNull();
                 _domainModelDefinitionsProvidersByProjectName["EdFi.Ods.Extensions.Homograph"].ShouldNotBeNull();
                 _domainModelDefinitionsProvidersByProjectName["EdFi.Ods.Extensions.Sample"].ShouldNotBeNull();
-                _domainModelDefinitionsProvidersByProjectName["EdFi.Ods.Extensions.TPDM"].ShouldNotBeNull();
+
+                if (Version.Parse(_standardVersion).Major < 6)
+                {
+                    _domainModelDefinitionsProvidersByProjectName["EdFi.Ods.Extensions.TPDM"].ShouldNotBeNull();
+                }
             }
         }
     }
