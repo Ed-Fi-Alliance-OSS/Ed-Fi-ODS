@@ -37,13 +37,27 @@ jobs:
       calling_branch: ${{ github.head_ref || github.ref_name }}
       extension_path: 'Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj'
 
+  FilterVersions:
+    runs-on: ubuntu-22.04
+    needs: FindStandardAndExtensionVersions
+    outputs:
+      filtered-versions: ${{ steps.filter.outputs.versions }}
+    steps:
+    - name: Filter Standard Versions
+      id: filter
+      run: |
+        versions="${{ needs.FindStandardAndExtensionVersions.outputs.StandardVersions }}"
+        versions=$(echo "$versions" | tr "'" '"')
+        filtered=$(echo "$versions" | jq -c '[.[] | select((split(".")[0] | tonumber) < 6)]' | tr '"' "'")
+        echo "versions=$filtered" >> $GITHUB_OUTPUT
+    
   build:
     if: ${{ always() }}
-    needs: FindStandardAndExtensionVersions
+    needs: [FindStandardAndExtensionVersions, FilterVersions]
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        StandardVersion: ${{ fromJson(needs.FilterVersions.outputs.filtered-versions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
     name: build (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})        
     steps:
