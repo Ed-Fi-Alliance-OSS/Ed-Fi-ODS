@@ -14,6 +14,16 @@ BEGIN
     CREATE INDEX IX_AccountabilityRating_EducationOrganizationId ON [edfi].[AccountabilityRating](EducationOrganizationId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Application_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.Application')) 
+BEGIN
+    CREATE INDEX IX_Application_EducationOrganizationId ON [edfi].[Application](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_ApplicationEvent_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.ApplicationEvent')) 
+BEGIN
+    CREATE INDEX IX_ApplicationEvent_EducationOrganizationId ON [edfi].[ApplicationEvent](EducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Assessment_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.Assessment')) 
 BEGIN
     CREATE INDEX IX_Assessment_EducationOrganizationId ON [edfi].[Assessment](EducationOrganizationId) INCLUDE (Id)
@@ -39,6 +49,26 @@ BEGIN
     CREATE INDEX IX_CalendarDate_SchoolId ON [edfi].[CalendarDate](SchoolId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_CandidateEducatorPreparationProgramAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.CandidateEducatorPreparationProgramAssociation')) 
+BEGIN
+    CREATE INDEX IX_CandidateEducatorPreparationProgramAssociation_EducationOrganizationId ON [edfi].[CandidateEducatorPreparationProgramAssociation](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_CandidateIdentity_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.CandidateIdentity')) 
+BEGIN
+    CREATE INDEX IX_CandidateIdentity_EducationOrganizationId ON [edfi].[CandidateIdentity](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Certification_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.Certification')) 
+BEGIN
+    CREATE INDEX IX_Certification_EducationOrganizationId ON [edfi].[Certification](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_CertificationExam_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.CertificationExam')) 
+BEGIN
+    CREATE INDEX IX_CertificationExam_EducationOrganizationId ON [edfi].[CertificationExam](EducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_ChartOfAccount_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.ChartOfAccount')) 
 BEGIN
     CREATE INDEX IX_ChartOfAccount_EducationOrganizationId ON [edfi].[ChartOfAccount](EducationOrganizationId) INCLUDE (Id)
@@ -62,6 +92,11 @@ END;
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_CompetencyObjective_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.CompetencyObjective')) 
 BEGIN
     CREATE INDEX IX_CompetencyObjective_EducationOrganizationId ON [edfi].[CompetencyObjective](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_ContactIdentity_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.ContactIdentity')) 
+BEGIN
+    CREATE INDEX IX_ContactIdentity_EducationOrganizationId ON [edfi].[ContactIdentity](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Course_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.Course')) 
@@ -94,6 +129,11 @@ BEGIN
     CREATE INDEX IX_EducationOrganization_EducationOrganizationId ON [edfi].[EducationOrganization](EducationOrganizationId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EducationOrganizationIdentity_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EducationOrganizationIdentity')) 
+BEGIN
+    CREATE INDEX IX_EducationOrganizationIdentity_EducationOrganizationId ON [edfi].[EducationOrganizationIdentity](EducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EducationOrganizationInterventionPrescriptionAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EducationOrganizationInterventionPrescriptionAssociation')) 
 BEGIN
     CREATE INDEX IX_EducationOrganizationInterventionPrescriptionAssociation_EducationOrganizationId ON [edfi].[EducationOrganizationInterventionPrescriptionAssociation](EducationOrganizationId) INCLUDE (Id)
@@ -109,6 +149,46 @@ BEGIN
     CREATE INDEX IX_EducationOrganizationPeerAssociation_EducationOrganizationId ON [edfi].[EducationOrganizationPeerAssociation](EducationOrganizationId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EducatorPreparationProgram_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EducatorPreparationProgram')) 
+BEGIN
+    CREATE INDEX IX_EducatorPreparationProgram_EducationOrganizationId ON [edfi].[EducatorPreparationProgram](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Evaluation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.Evaluation')) 
+BEGIN
+    CREATE INDEX IX_Evaluation_EducationOrganizationId ON [edfi].[Evaluation](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EvaluationElement_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EvaluationElement')) 
+BEGIN
+    CREATE INDEX IX_EvaluationElement_EducationOrganizationId ON [edfi].[EvaluationElement](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EvaluationElementRating_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EvaluationElementRating')) 
+BEGIN
+    CREATE INDEX IX_EvaluationElementRating_EducationOrganizationId ON [edfi].[EvaluationElementRating](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EvaluationObjective_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EvaluationObjective')) 
+BEGIN
+    CREATE INDEX IX_EvaluationObjective_EducationOrganizationId ON [edfi].[EvaluationObjective](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EvaluationObjectiveRating_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EvaluationObjectiveRating')) 
+BEGIN
+    CREATE INDEX IX_EvaluationObjectiveRating_EducationOrganizationId ON [edfi].[EvaluationObjectiveRating](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EvaluationRating_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EvaluationRating')) 
+BEGIN
+    CREATE INDEX IX_EvaluationRating_EducationOrganizationId ON [edfi].[EvaluationRating](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EvaluationRating_SchoolId' AND object_id = OBJECT_ID('edfi.EvaluationRating')) 
+BEGIN
+    CREATE INDEX IX_EvaluationRating_SchoolId ON [edfi].[EvaluationRating](SchoolId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EvaluationRubricDimension_ProgramEducationOrganizationId' AND object_id = OBJECT_ID('edfi.EvaluationRubricDimension')) 
 BEGIN
     CREATE INDEX IX_EvaluationRubricDimension_ProgramEducationOrganizationId ON [edfi].[EvaluationRubricDimension](ProgramEducationOrganizationId) INCLUDE (Id)
@@ -119,9 +199,29 @@ BEGIN
     CREATE INDEX IX_FeederSchoolAssociation_SchoolId ON [edfi].[FeederSchoolAssociation](SchoolId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_FieldworkExperience_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.FieldworkExperience')) 
+BEGIN
+    CREATE INDEX IX_FieldworkExperience_EducationOrganizationId ON [edfi].[FieldworkExperience](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_FieldworkExperience_SchoolId' AND object_id = OBJECT_ID('edfi.FieldworkExperience')) 
+BEGIN
+    CREATE INDEX IX_FieldworkExperience_SchoolId ON [edfi].[FieldworkExperience](SchoolId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_FieldworkExperienceSectionAssociation_SchoolId' AND object_id = OBJECT_ID('edfi.FieldworkExperienceSectionAssociation')) 
+BEGIN
+    CREATE INDEX IX_FieldworkExperienceSectionAssociation_SchoolId ON [edfi].[FieldworkExperienceSectionAssociation](SchoolId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_GeneralStudentProgramAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.GeneralStudentProgramAssociation')) 
 BEGIN
     CREATE INDEX IX_GeneralStudentProgramAssociation_EducationOrganizationId ON [edfi].[GeneralStudentProgramAssociation](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Goal_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.Goal')) 
+BEGIN
+    CREATE INDEX IX_Goal_EducationOrganizationId ON [edfi].[Goal](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Grade_SchoolId' AND object_id = OBJECT_ID('edfi.Grade')) 
@@ -199,6 +299,31 @@ BEGIN
     CREATE INDEX IX_OpenStaffPosition_EducationOrganizationId ON [edfi].[OpenStaffPosition](EducationOrganizationId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_OpenStaffPositionEvent_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.OpenStaffPositionEvent')) 
+BEGIN
+    CREATE INDEX IX_OpenStaffPositionEvent_EducationOrganizationId ON [edfi].[OpenStaffPositionEvent](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Path_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.Path')) 
+BEGIN
+    CREATE INDEX IX_Path_EducationOrganizationId ON [edfi].[Path](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_PathPhase_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.PathPhase')) 
+BEGIN
+    CREATE INDEX IX_PathPhase_EducationOrganizationId ON [edfi].[PathPhase](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_PerformanceEvaluation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.PerformanceEvaluation')) 
+BEGIN
+    CREATE INDEX IX_PerformanceEvaluation_EducationOrganizationId ON [edfi].[PerformanceEvaluation](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_PerformanceEvaluationRating_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.PerformanceEvaluationRating')) 
+BEGIN
+    CREATE INDEX IX_PerformanceEvaluationRating_EducationOrganizationId ON [edfi].[PerformanceEvaluationRating](EducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_PostSecondaryEvent_PostSecondaryInstitutionId' AND object_id = OBJECT_ID('edfi.PostSecondaryEvent')) 
 BEGIN
     CREATE INDEX IX_PostSecondaryEvent_PostSecondaryInstitutionId ON [edfi].[PostSecondaryEvent](PostSecondaryInstitutionId) INCLUDE (Id)
@@ -219,6 +344,26 @@ BEGIN
     CREATE INDEX IX_ProgramEvaluationObjective_ProgramEducationOrganizationId ON [edfi].[ProgramEvaluationObjective](ProgramEducationOrganizationId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_QuantitativeMeasure_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.QuantitativeMeasure')) 
+BEGIN
+    CREATE INDEX IX_QuantitativeMeasure_EducationOrganizationId ON [edfi].[QuantitativeMeasure](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_QuantitativeMeasureScore_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.QuantitativeMeasureScore')) 
+BEGIN
+    CREATE INDEX IX_QuantitativeMeasureScore_EducationOrganizationId ON [edfi].[QuantitativeMeasureScore](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_RecruitmentEvent_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.RecruitmentEvent')) 
+BEGIN
+    CREATE INDEX IX_RecruitmentEvent_EducationOrganizationId ON [edfi].[RecruitmentEvent](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_RecruitmentEventAttendance_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.RecruitmentEventAttendance')) 
+BEGIN
+    CREATE INDEX IX_RecruitmentEventAttendance_EducationOrganizationId ON [edfi].[RecruitmentEventAttendance](EducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_ReportCard_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.ReportCard')) 
 BEGIN
     CREATE INDEX IX_ReportCard_EducationOrganizationId ON [edfi].[ReportCard](EducationOrganizationId) INCLUDE (Id)
@@ -227,6 +372,11 @@ END;
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_RestraintEvent_SchoolId' AND object_id = OBJECT_ID('edfi.RestraintEvent')) 
 BEGIN
     CREATE INDEX IX_RestraintEvent_SchoolId ON [edfi].[RestraintEvent](SchoolId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_RubricDimension_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.RubricDimension')) 
+BEGIN
+    CREATE INDEX IX_RubricDimension_EducationOrganizationId ON [edfi].[RubricDimension](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Section_SchoolId' AND object_id = OBJECT_ID('edfi.Section')) 
@@ -244,9 +394,24 @@ BEGIN
     CREATE INDEX IX_Session_SchoolId ON [edfi].[Session](SchoolId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Staff_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.Staff')) 
+BEGIN
+    CREATE INDEX IX_Staff_EducationOrganizationId ON [edfi].[Staff](EducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffCohortAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StaffCohortAssociation')) 
 BEGIN
     CREATE INDEX IX_StaffCohortAssociation_EducationOrganizationId ON [edfi].[StaffCohortAssociation](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffDemographic_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StaffDemographic')) 
+BEGIN
+    CREATE INDEX IX_StaffDemographic_EducationOrganizationId ON [edfi].[StaffDemographic](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffDirectory_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StaffDirectory')) 
+BEGIN
+    CREATE INDEX IX_StaffDirectory_EducationOrganizationId ON [edfi].[StaffDirectory](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffDisciplineIncidentAssociation_SchoolId' AND object_id = OBJECT_ID('edfi.StaffDisciplineIncidentAssociation')) 
@@ -267,6 +432,16 @@ END;
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffEducationOrganizationEmploymentAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StaffEducationOrganizationEmploymentAssociation')) 
 BEGIN
     CREATE INDEX IX_StaffEducationOrganizationEmploymentAssociation_EducationOrganizationId ON [edfi].[StaffEducationOrganizationEmploymentAssociation](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffEducatorPreparationProgramAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StaffEducatorPreparationProgramAssociation')) 
+BEGIN
+    CREATE INDEX IX_StaffEducatorPreparationProgramAssociation_EducationOrganizationId ON [edfi].[StaffEducatorPreparationProgramAssociation](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffIdentity_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StaffIdentity')) 
+BEGIN
+    CREATE INDEX IX_StaffIdentity_EducationOrganizationId ON [edfi].[StaffIdentity](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffSchoolAssociation_SchoolId' AND object_id = OBJECT_ID('edfi.StaffSchoolAssociation')) 
@@ -319,6 +494,16 @@ BEGIN
     CREATE INDEX IX_StudentCohortAssociation_EducationOrganizationId ON [edfi].[StudentCohortAssociation](EducationOrganizationId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentDemographic_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentDemographic')) 
+BEGIN
+    CREATE INDEX IX_StudentDemographic_EducationOrganizationId ON [edfi].[StudentDemographic](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentDirectory_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentDirectory')) 
+BEGIN
+    CREATE INDEX IX_StudentDirectory_EducationOrganizationId ON [edfi].[StudentDirectory](EducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentDisciplineIncidentBehaviorAssociation_SchoolId' AND object_id = OBJECT_ID('edfi.StudentDisciplineIncidentBehaviorAssociation')) 
 BEGIN
     CREATE INDEX IX_StudentDisciplineIncidentBehaviorAssociation_SchoolId ON [edfi].[StudentDisciplineIncidentBehaviorAssociation](SchoolId) INCLUDE (Id)
@@ -349,6 +534,11 @@ BEGIN
     CREATE INDEX IX_StudentHealth_EducationOrganizationId ON [edfi].[StudentHealth](EducationOrganizationId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentIdentity_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentIdentity')) 
+BEGIN
+    CREATE INDEX IX_StudentIdentity_EducationOrganizationId ON [edfi].[StudentIdentity](EducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentInterventionAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentInterventionAssociation')) 
 BEGIN
     CREATE INDEX IX_StudentInterventionAssociation_EducationOrganizationId ON [edfi].[StudentInterventionAssociation](EducationOrganizationId) INCLUDE (Id)
@@ -357,6 +547,21 @@ END;
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentInterventionAttendanceEvent_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentInterventionAttendanceEvent')) 
 BEGIN
     CREATE INDEX IX_StudentInterventionAttendanceEvent_EducationOrganizationId ON [edfi].[StudentInterventionAttendanceEvent](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentPath_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentPath')) 
+BEGIN
+    CREATE INDEX IX_StudentPath_EducationOrganizationId ON [edfi].[StudentPath](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentPathMilestoneStatus_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentPathMilestoneStatus')) 
+BEGIN
+    CREATE INDEX IX_StudentPathMilestoneStatus_EducationOrganizationId ON [edfi].[StudentPathMilestoneStatus](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentPathPhaseStatus_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentPathPhaseStatus')) 
+BEGIN
+    CREATE INDEX IX_StudentPathPhaseStatus_EducationOrganizationId ON [edfi].[StudentPathPhaseStatus](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentProgramAttendanceEvent_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentProgramAttendanceEvent')) 
@@ -427,6 +632,16 @@ END;
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_SurveyResponseEducationOrganizationTargetAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.SurveyResponseEducationOrganizationTargetAssociation')) 
 BEGIN
     CREATE INDEX IX_SurveyResponseEducationOrganizationTargetAssociation_EducationOrganizationId ON [edfi].[SurveyResponseEducationOrganizationTargetAssociation](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_SurveySection_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.SurveySection')) 
+BEGIN
+    CREATE INDEX IX_SurveySection_EducationOrganizationId ON [edfi].[SurveySection](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_SurveySectionAggregateResponse_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.SurveySectionAggregateResponse')) 
+BEGIN
+    CREATE INDEX IX_SurveySectionAggregateResponse_EducationOrganizationId ON [edfi].[SurveySectionAggregateResponse](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_SurveySectionAssociation_SchoolId' AND object_id = OBJECT_ID('edfi.SurveySectionAssociation')) 

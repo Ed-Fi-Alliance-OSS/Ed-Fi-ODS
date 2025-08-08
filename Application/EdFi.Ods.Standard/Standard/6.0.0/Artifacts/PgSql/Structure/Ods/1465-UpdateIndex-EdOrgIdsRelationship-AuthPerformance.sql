@@ -10,6 +10,12 @@ CREATE INDEX IF NOT EXISTS IX_AcademicWeek_SchoolId ON edfi.AcademicWeek(SchoolI
 DROP INDEX IF EXISTS IX_AccountabilityRating_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_AccountabilityRating_EducationOrganizationId ON edfi.AccountabilityRating(EducationOrganizationId) INCLUDE (AggregateId);
 
+DROP INDEX IF EXISTS IX_Application_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_Application_EducationOrganizationId ON edfi.Application(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_ApplicationEvent_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_ApplicationEvent_EducationOrganizationId ON edfi.ApplicationEvent(EducationOrganizationId) INCLUDE (AggregateId);
+
 DROP INDEX IF EXISTS IX_Assessment_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_Assessment_EducationOrganizationId ON edfi.Assessment(EducationOrganizationId) INCLUDE (AggregateId);
 
@@ -24,6 +30,22 @@ CREATE INDEX IF NOT EXISTS IX_Calendar_SchoolId ON edfi.Calendar(SchoolId) INCLU
 
 DROP INDEX IF EXISTS IX_CalendarDate_SchoolId;
 CREATE INDEX IF NOT EXISTS IX_CalendarDate_SchoolId ON edfi.CalendarDate(SchoolId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_CandidateEducatorPreparationProgramAssociation_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_CandidateEducatorPreparationProgramAssociation_EducationOrganizationId ON edfi.CandidateEducatorPreparationProgramAssociation(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_CandidateIdentity_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_CandidateIdentity_EducationOrganizationId ON edfi.CandidateIdentity(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_CandidateRelationshipToStaffAssociation_StaffUSI ON edfi.CandidateRelationshipToStaffAssociation(StaffUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_Certification_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_Certification_EducationOrganizationId ON edfi.Certification(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_CertificationExam_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_CertificationExam_EducationOrganizationId ON edfi.CertificationExam(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_CertificationExamResult_CertificationExamStudentUSI ON edfi.CertificationExamResult(CertificationExamStudentUSI) INCLUDE (AggregateId);
 
 DROP INDEX IF EXISTS IX_ChartOfAccount_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_ChartOfAccount_EducationOrganizationId ON edfi.ChartOfAccount(EducationOrganizationId) INCLUDE (AggregateId);
@@ -41,6 +63,11 @@ DROP INDEX IF EXISTS IX_CompetencyObjective_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_CompetencyObjective_EducationOrganizationId ON edfi.CompetencyObjective(EducationOrganizationId) INCLUDE (AggregateId);
 
 CREATE INDEX IF NOT EXISTS IX_Contact_ContactUSI ON edfi.Contact(ContactUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_ContactIdentity_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_ContactIdentity_EducationOrganizationId ON edfi.ContactIdentity(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_ContactIdentity_ContactUSI ON edfi.ContactIdentity(ContactUSI) INCLUDE (AggregateId);
 
 DROP INDEX IF EXISTS IX_Course_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_Course_EducationOrganizationId ON edfi.Course(EducationOrganizationId) INCLUDE (AggregateId);
@@ -66,6 +93,9 @@ CREATE INDEX IF NOT EXISTS IX_DisciplineIncident_SchoolId ON edfi.DisciplineInci
 DROP INDEX IF EXISTS IX_EducationOrganization_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_EducationOrganization_EducationOrganizationId ON edfi.EducationOrganization(EducationOrganizationId) INCLUDE (AggregateId);
 
+DROP INDEX IF EXISTS IX_EducationOrganizationIdentity_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_EducationOrganizationIdentity_EducationOrganizationId ON edfi.EducationOrganizationIdentity(EducationOrganizationId) INCLUDE (AggregateId);
+
 DROP INDEX IF EXISTS IX_EducationOrganizationInterventionPrescriptionAssociation_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_EducationOrganizationInterventionPrescriptionAssociation_EducationOrganizationId ON edfi.EducationOrganizationInterventionPrescriptionAssociation(EducationOrganizationId) INCLUDE (AggregateId);
 
@@ -75,16 +105,58 @@ CREATE INDEX IF NOT EXISTS IX_EducationOrganizationNetworkAssociation_EducationO
 DROP INDEX IF EXISTS IX_EducationOrganizationPeerAssociation_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_EducationOrganizationPeerAssociation_EducationOrganizationId ON edfi.EducationOrganizationPeerAssociation(EducationOrganizationId) INCLUDE (AggregateId);
 
+DROP INDEX IF EXISTS IX_EducatorPreparationProgram_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_EducatorPreparationProgram_EducationOrganizationId ON edfi.EducatorPreparationProgram(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_Evaluation_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_Evaluation_EducationOrganizationId ON edfi.Evaluation(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_EvaluationElement_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_EvaluationElement_EducationOrganizationId ON edfi.EvaluationElement(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_EvaluationElementRating_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_EvaluationElementRating_EducationOrganizationId ON edfi.EvaluationElementRating(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_EvaluationObjective_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_EvaluationObjective_EducationOrganizationId ON edfi.EvaluationObjective(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_EvaluationObjectiveRating_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_EvaluationObjectiveRating_EducationOrganizationId ON edfi.EvaluationObjectiveRating(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_EvaluationRating_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_EvaluationRating_EducationOrganizationId ON edfi.EvaluationRating(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_EvaluationRating_SchoolId;
+CREATE INDEX IF NOT EXISTS IX_EvaluationRating_SchoolId ON edfi.EvaluationRating(SchoolId) INCLUDE (AggregateId);
+
 DROP INDEX IF EXISTS IX_EvaluationRubricDimension_ProgramEducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_EvaluationRubricDimension_ProgramEducationOrganizationId ON edfi.EvaluationRubricDimension(ProgramEducationOrganizationId) INCLUDE (AggregateId);
 
 DROP INDEX IF EXISTS IX_FeederSchoolAssociation_SchoolId;
 CREATE INDEX IF NOT EXISTS IX_FeederSchoolAssociation_SchoolId ON edfi.FeederSchoolAssociation(SchoolId) INCLUDE (AggregateId);
 
+DROP INDEX IF EXISTS IX_FieldworkExperience_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_FieldworkExperience_EducationOrganizationId ON edfi.FieldworkExperience(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_FieldworkExperience_SchoolId;
+CREATE INDEX IF NOT EXISTS IX_FieldworkExperience_SchoolId ON edfi.FieldworkExperience(SchoolId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_FieldworkExperience_StudentUSI ON edfi.FieldworkExperience(StudentUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_FieldworkExperienceSectionAssociation_SchoolId;
+CREATE INDEX IF NOT EXISTS IX_FieldworkExperienceSectionAssociation_SchoolId ON edfi.FieldworkExperienceSectionAssociation(SchoolId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_FieldworkExperienceSectionAssociation_StudentUSI ON edfi.FieldworkExperienceSectionAssociation(StudentUSI) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_FinancialAid_StudentUSI ON edfi.FinancialAid(StudentUSI) INCLUDE (AggregateId);
+
 DROP INDEX IF EXISTS IX_GeneralStudentProgramAssociation_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_GeneralStudentProgramAssociation_EducationOrganizationId ON edfi.GeneralStudentProgramAssociation(EducationOrganizationId) INCLUDE (AggregateId);
 
 CREATE INDEX IF NOT EXISTS IX_GeneralStudentProgramAssociation_StudentUSI ON edfi.GeneralStudentProgramAssociation(StudentUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_Goal_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_Goal_EducationOrganizationId ON edfi.Goal(EducationOrganizationId) INCLUDE (AggregateId);
 
 DROP INDEX IF EXISTS IX_Grade_SchoolId;
 CREATE INDEX IF NOT EXISTS IX_Grade_SchoolId ON edfi.Grade(SchoolId) INCLUDE (AggregateId);
@@ -137,6 +209,21 @@ CREATE INDEX IF NOT EXISTS IX_Location_SchoolId ON edfi.Location(SchoolId) INCLU
 DROP INDEX IF EXISTS IX_OpenStaffPosition_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_OpenStaffPosition_EducationOrganizationId ON edfi.OpenStaffPosition(EducationOrganizationId) INCLUDE (AggregateId);
 
+DROP INDEX IF EXISTS IX_OpenStaffPositionEvent_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_OpenStaffPositionEvent_EducationOrganizationId ON edfi.OpenStaffPositionEvent(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_Path_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_Path_EducationOrganizationId ON edfi.Path(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_PathPhase_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_PathPhase_EducationOrganizationId ON edfi.PathPhase(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_PerformanceEvaluation_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_PerformanceEvaluation_EducationOrganizationId ON edfi.PerformanceEvaluation(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_PerformanceEvaluationRating_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_PerformanceEvaluationRating_EducationOrganizationId ON edfi.PerformanceEvaluationRating(EducationOrganizationId) INCLUDE (AggregateId);
+
 DROP INDEX IF EXISTS IX_PostSecondaryEvent_PostSecondaryInstitutionId;
 CREATE INDEX IF NOT EXISTS IX_PostSecondaryEvent_PostSecondaryInstitutionId ON edfi.PostSecondaryEvent(PostSecondaryInstitutionId) INCLUDE (AggregateId);
 
@@ -151,6 +238,18 @@ CREATE INDEX IF NOT EXISTS IX_ProgramEvaluationElement_ProgramEducationOrganizat
 DROP INDEX IF EXISTS IX_ProgramEvaluationObjective_ProgramEducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_ProgramEvaluationObjective_ProgramEducationOrganizationId ON edfi.ProgramEvaluationObjective(ProgramEducationOrganizationId) INCLUDE (AggregateId);
 
+DROP INDEX IF EXISTS IX_QuantitativeMeasure_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_QuantitativeMeasure_EducationOrganizationId ON edfi.QuantitativeMeasure(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_QuantitativeMeasureScore_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_QuantitativeMeasureScore_EducationOrganizationId ON edfi.QuantitativeMeasureScore(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_RecruitmentEvent_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_RecruitmentEvent_EducationOrganizationId ON edfi.RecruitmentEvent(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_RecruitmentEventAttendance_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_RecruitmentEventAttendance_EducationOrganizationId ON edfi.RecruitmentEventAttendance(EducationOrganizationId) INCLUDE (AggregateId);
+
 DROP INDEX IF EXISTS IX_ReportCard_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_ReportCard_EducationOrganizationId ON edfi.ReportCard(EducationOrganizationId) INCLUDE (AggregateId);
 
@@ -160,6 +259,9 @@ DROP INDEX IF EXISTS IX_RestraintEvent_SchoolId;
 CREATE INDEX IF NOT EXISTS IX_RestraintEvent_SchoolId ON edfi.RestraintEvent(SchoolId) INCLUDE (AggregateId);
 
 CREATE INDEX IF NOT EXISTS IX_RestraintEvent_StudentUSI ON edfi.RestraintEvent(StudentUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_RubricDimension_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_RubricDimension_EducationOrganizationId ON edfi.RubricDimension(EducationOrganizationId) INCLUDE (AggregateId);
 
 DROP INDEX IF EXISTS IX_Section_SchoolId;
 CREATE INDEX IF NOT EXISTS IX_Section_SchoolId ON edfi.Section(SchoolId) INCLUDE (AggregateId);
@@ -172,6 +274,9 @@ CREATE INDEX IF NOT EXISTS IX_SectionAttendanceTakenEvent_StaffUSI ON edfi.Secti
 DROP INDEX IF EXISTS IX_Session_SchoolId;
 CREATE INDEX IF NOT EXISTS IX_Session_SchoolId ON edfi.Session(SchoolId) INCLUDE (AggregateId);
 
+DROP INDEX IF EXISTS IX_Staff_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_Staff_EducationOrganizationId ON edfi.Staff(EducationOrganizationId) INCLUDE (AggregateId);
+
 CREATE INDEX IF NOT EXISTS IX_Staff_StaffUSI ON edfi.Staff(StaffUSI) INCLUDE (AggregateId);
 
 CREATE INDEX IF NOT EXISTS IX_StaffAbsenceEvent_StaffUSI ON edfi.StaffAbsenceEvent(StaffUSI) INCLUDE (AggregateId);
@@ -180,6 +285,16 @@ DROP INDEX IF EXISTS IX_StaffCohortAssociation_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_StaffCohortAssociation_EducationOrganizationId ON edfi.StaffCohortAssociation(EducationOrganizationId) INCLUDE (AggregateId);
 
 CREATE INDEX IF NOT EXISTS IX_StaffCohortAssociation_StaffUSI ON edfi.StaffCohortAssociation(StaffUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_StaffDemographic_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_StaffDemographic_EducationOrganizationId ON edfi.StaffDemographic(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_StaffDemographic_StaffUSI ON edfi.StaffDemographic(StaffUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_StaffDirectory_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_StaffDirectory_EducationOrganizationId ON edfi.StaffDirectory(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_StaffDirectory_StaffUSI ON edfi.StaffDirectory(StaffUSI) INCLUDE (AggregateId);
 
 DROP INDEX IF EXISTS IX_StaffDisciplineIncidentAssociation_SchoolId;
 CREATE INDEX IF NOT EXISTS IX_StaffDisciplineIncidentAssociation_SchoolId ON edfi.StaffDisciplineIncidentAssociation(SchoolId) INCLUDE (AggregateId);
@@ -200,6 +315,16 @@ DROP INDEX IF EXISTS IX_StaffEducationOrganizationEmploymentAssociation_Educatio
 CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationEmploymentAssociation_EducationOrganizationId ON edfi.StaffEducationOrganizationEmploymentAssociation(EducationOrganizationId) INCLUDE (AggregateId);
 
 CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationEmploymentAssociation_StaffUSI ON edfi.StaffEducationOrganizationEmploymentAssociation(StaffUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_StaffEducatorPreparationProgramAssociation_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_StaffEducatorPreparationProgramAssociation_EducationOrganizationId ON edfi.StaffEducatorPreparationProgramAssociation(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_StaffEducatorPreparationProgramAssociation_StaffUSI ON edfi.StaffEducatorPreparationProgramAssociation(StaffUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_StaffIdentity_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_StaffIdentity_EducationOrganizationId ON edfi.StaffIdentity(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_StaffIdentity_StaffUSI ON edfi.StaffIdentity(StaffUSI) INCLUDE (AggregateId);
 
 CREATE INDEX IF NOT EXISTS IX_StaffLeave_StaffUSI ON edfi.StaffLeave(StaffUSI) INCLUDE (AggregateId);
 
@@ -261,6 +386,16 @@ CREATE INDEX IF NOT EXISTS IX_StudentContactAssociation_ContactUSI ON edfi.Stude
 
 CREATE INDEX IF NOT EXISTS IX_StudentContactAssociation_StudentUSI ON edfi.StudentContactAssociation(StudentUSI) INCLUDE (AggregateId);
 
+DROP INDEX IF EXISTS IX_StudentDemographic_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_StudentDemographic_EducationOrganizationId ON edfi.StudentDemographic(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_StudentDemographic_StudentUSI ON edfi.StudentDemographic(StudentUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_StudentDirectory_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_StudentDirectory_EducationOrganizationId ON edfi.StudentDirectory(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_StudentDirectory_StudentUSI ON edfi.StudentDirectory(StudentUSI) INCLUDE (AggregateId);
+
 DROP INDEX IF EXISTS IX_StudentDisciplineIncidentBehaviorAssociation_SchoolId;
 CREATE INDEX IF NOT EXISTS IX_StudentDisciplineIncidentBehaviorAssociation_SchoolId ON edfi.StudentDisciplineIncidentBehaviorAssociation(SchoolId) INCLUDE (AggregateId);
 
@@ -293,6 +428,11 @@ CREATE INDEX IF NOT EXISTS IX_StudentHealth_EducationOrganizationId ON edfi.Stud
 
 CREATE INDEX IF NOT EXISTS IX_StudentHealth_StudentUSI ON edfi.StudentHealth(StudentUSI) INCLUDE (AggregateId);
 
+DROP INDEX IF EXISTS IX_StudentIdentity_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_StudentIdentity_EducationOrganizationId ON edfi.StudentIdentity(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_StudentIdentity_StudentUSI ON edfi.StudentIdentity(StudentUSI) INCLUDE (AggregateId);
+
 DROP INDEX IF EXISTS IX_StudentInterventionAssociation_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_StudentInterventionAssociation_EducationOrganizationId ON edfi.StudentInterventionAssociation(EducationOrganizationId) INCLUDE (AggregateId);
 
@@ -302,6 +442,21 @@ DROP INDEX IF EXISTS IX_StudentInterventionAttendanceEvent_EducationOrganization
 CREATE INDEX IF NOT EXISTS IX_StudentInterventionAttendanceEvent_EducationOrganizationId ON edfi.StudentInterventionAttendanceEvent(EducationOrganizationId) INCLUDE (AggregateId);
 
 CREATE INDEX IF NOT EXISTS IX_StudentInterventionAttendanceEvent_StudentUSI ON edfi.StudentInterventionAttendanceEvent(StudentUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_StudentPath_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_StudentPath_EducationOrganizationId ON edfi.StudentPath(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_StudentPath_StudentUSI ON edfi.StudentPath(StudentUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_StudentPathMilestoneStatus_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_StudentPathMilestoneStatus_EducationOrganizationId ON edfi.StudentPathMilestoneStatus(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_StudentPathMilestoneStatus_StudentUSI ON edfi.StudentPathMilestoneStatus(StudentUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_StudentPathPhaseStatus_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_StudentPathPhaseStatus_EducationOrganizationId ON edfi.StudentPathPhaseStatus(EducationOrganizationId) INCLUDE (AggregateId);
+
+CREATE INDEX IF NOT EXISTS IX_StudentPathPhaseStatus_StudentUSI ON edfi.StudentPathPhaseStatus(StudentUSI) INCLUDE (AggregateId);
 
 DROP INDEX IF EXISTS IX_StudentProgramAttendanceEvent_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_StudentProgramAttendanceEvent_EducationOrganizationId ON edfi.StudentProgramAttendanceEvent(EducationOrganizationId) INCLUDE (AggregateId);
@@ -370,6 +525,12 @@ DROP INDEX IF EXISTS IX_SurveyResponseEducationOrganizationTargetAssociation_Edu
 CREATE INDEX IF NOT EXISTS IX_SurveyResponseEducationOrganizationTargetAssociation_EducationOrganizationId ON edfi.SurveyResponseEducationOrganizationTargetAssociation(EducationOrganizationId) INCLUDE (AggregateId);
 
 CREATE INDEX IF NOT EXISTS IX_SurveyResponseStaffTargetAssociation_StaffUSI ON edfi.SurveyResponseStaffTargetAssociation(StaffUSI) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_SurveySection_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_SurveySection_EducationOrganizationId ON edfi.SurveySection(EducationOrganizationId) INCLUDE (AggregateId);
+
+DROP INDEX IF EXISTS IX_SurveySectionAggregateResponse_EducationOrganizationId;
+CREATE INDEX IF NOT EXISTS IX_SurveySectionAggregateResponse_EducationOrganizationId ON edfi.SurveySectionAggregateResponse(EducationOrganizationId) INCLUDE (AggregateId);
 
 DROP INDEX IF EXISTS IX_SurveySectionAssociation_SchoolId;
 CREATE INDEX IF NOT EXISTS IX_SurveySectionAssociation_SchoolId ON edfi.SurveySectionAssociation(SchoolId) INCLUDE (AggregateId);

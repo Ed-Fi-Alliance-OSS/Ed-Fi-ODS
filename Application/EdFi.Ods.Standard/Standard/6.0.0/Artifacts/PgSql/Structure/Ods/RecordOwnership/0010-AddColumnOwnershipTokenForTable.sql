@@ -7,6 +7,12 @@ ALTER TABLE edfi.AcademicWeek ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.AccountabilityRating ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.ApplicantProfile ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.Application ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.ApplicationEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.Assessment ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.AssessmentAdministration ADD CreatedByOwnershipTokenId SMALLINT NULL;
@@ -27,6 +33,20 @@ ALTER TABLE edfi.Calendar ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.CalendarDate ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.Candidate ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.CandidateEducatorPreparationProgramAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.CandidateIdentity ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.CandidateRelationshipToStaffAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.Certification ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.CertificationExam ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.CertificationExamResult ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.ChartOfAccount ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.ClassPeriod ADD CreatedByOwnershipTokenId SMALLINT NULL;
@@ -39,6 +59,8 @@ ALTER TABLE edfi.CompetencyObjective ADD CreatedByOwnershipTokenId SMALLINT NULL
 
 ALTER TABLE edfi.Contact ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.ContactIdentity ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.Course ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.CourseOffering ADD CreatedByOwnershipTokenId SMALLINT NULL;
@@ -46,6 +68,8 @@ ALTER TABLE edfi.CourseOffering ADD CreatedByOwnershipTokenId SMALLINT NULL;
 ALTER TABLE edfi.CourseTranscript ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.Credential ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.CredentialEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.CrisisEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
@@ -61,21 +85,45 @@ ALTER TABLE edfi.EducationContent ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.EducationOrganization ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.EducationOrganizationIdentity ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.EducationOrganizationInterventionPrescriptionAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.EducationOrganizationNetworkAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.EducationOrganizationPeerAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.EducatorPreparationProgram ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.Evaluation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.EvaluationElement ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.EvaluationElementRating ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.EvaluationObjective ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.EvaluationObjectiveRating ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.EvaluationRating ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.EvaluationRubricDimension ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.FeederSchoolAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.FieldworkExperience ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.FieldworkExperienceSectionAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.FinancialAid ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.FunctionDimension ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.FundDimension ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.GeneralStudentProgramAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.Goal ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.Grade ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
@@ -115,11 +163,27 @@ ALTER TABLE edfi.ObjectiveAssessment ADD CreatedByOwnershipTokenId SMALLINT NULL
 
 ALTER TABLE edfi.OpenStaffPosition ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.OpenStaffPositionEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.OperationalUnitDimension ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.Path ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.PathMilestone ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.PathPhase ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.PerformanceEvaluation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.PerformanceEvaluationRating ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.Person ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.PostSecondaryEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.ProfessionalDevelopmentEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.ProfessionalDevelopmentEventAttendance ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.Program ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
@@ -133,9 +197,19 @@ ALTER TABLE edfi.ProgramEvaluationObjective ADD CreatedByOwnershipTokenId SMALLI
 
 ALTER TABLE edfi.ProjectDimension ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.QuantitativeMeasure ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.QuantitativeMeasureScore ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.RecruitmentEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.RecruitmentEventAttendance ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.ReportCard ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.RestraintEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.RubricDimension ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.SchoolYearType ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
@@ -153,6 +227,10 @@ ALTER TABLE edfi.StaffAbsenceEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StaffCohortAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.StaffDemographic ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.StaffDirectory ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.StaffDisciplineIncidentAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StaffEducationOrganizationAssignmentAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
@@ -160,6 +238,10 @@ ALTER TABLE edfi.StaffEducationOrganizationAssignmentAssociation ADD CreatedByOw
 ALTER TABLE edfi.StaffEducationOrganizationContactAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StaffEducationOrganizationEmploymentAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.StaffEducatorPreparationProgramAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.StaffIdentity ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StaffLeave ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
@@ -187,6 +269,10 @@ ALTER TABLE edfi.StudentCompetencyObjective ADD CreatedByOwnershipTokenId SMALLI
 
 ALTER TABLE edfi.StudentContactAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.StudentDemographic ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.StudentDirectory ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
@@ -201,9 +287,17 @@ ALTER TABLE edfi.StudentGradebookEntry ADD CreatedByOwnershipTokenId SMALLINT NU
 
 ALTER TABLE edfi.StudentHealth ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.StudentIdentity ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.StudentInterventionAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StudentInterventionAttendanceEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.StudentPath ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.StudentPathMilestoneStatus ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.StudentPathPhaseStatus ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StudentProgramAttendanceEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
@@ -235,15 +329,21 @@ ALTER TABLE edfi.SurveyResponse ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.SurveyResponseEducationOrganizationTargetAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.SurveyResponsePersonTargetAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.SurveyResponseStaffTargetAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.SurveySection ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.SurveySectionAggregateResponse ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.SurveySectionAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.SurveySectionResponse ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.SurveySectionResponseEducationOrganizationTargetAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.SurveySectionResponsePersonTargetAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.SurveySectionResponseStaffTargetAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 

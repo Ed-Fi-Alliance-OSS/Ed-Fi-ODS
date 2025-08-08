@@ -42,6 +42,63 @@ CREATE TABLE tracked_changes_edfi.accountabilityrating
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'applicantprofile') THEN
+CREATE TABLE tracked_changes_edfi.applicantprofile
+(
+       oldapplicantprofileidentifier VARCHAR(32) NOT NULL,
+       newapplicantprofileidentifier VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT applicantprofile_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'application') THEN
+CREATE TABLE tracked_changes_edfi.application
+(
+       oldapplicantprofileidentifier VARCHAR(32) NOT NULL,
+       oldapplicationidentifier VARCHAR(20) NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
+       newapplicantprofileidentifier VARCHAR(32) NULL,
+       newapplicationidentifier VARCHAR(20) NULL,
+       neweducationorganizationid BIGINT NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT application_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'applicationevent') THEN
+CREATE TABLE tracked_changes_edfi.applicationevent
+(
+       oldapplicantprofileidentifier VARCHAR(32) NOT NULL,
+       oldapplicationeventtypedescriptorid INT NOT NULL,
+       oldapplicationeventtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldapplicationeventtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldapplicationidentifier VARCHAR(20) NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldeventdate DATE NOT NULL,
+       oldsequencenumber INT NOT NULL,
+       newapplicantprofileidentifier VARCHAR(32) NULL,
+       newapplicationeventtypedescriptorid INT NULL,
+       newapplicationeventtypedescriptornamespace VARCHAR(255) NULL,
+       newapplicationeventtypedescriptorcodevalue VARCHAR(50) NULL,
+       newapplicationidentifier VARCHAR(20) NULL,
+       neweducationorganizationid BIGINT NULL,
+       neweventdate DATE NULL,
+       newsequencenumber INT NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT applicationevent_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'assessment') THEN
 CREATE TABLE tracked_changes_edfi.assessment
 (
@@ -214,6 +271,137 @@ CREATE TABLE tracked_changes_edfi.calendardate
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'candidate') THEN
+CREATE TABLE tracked_changes_edfi.candidate
+(
+       oldcandidateidentifier VARCHAR(32) NOT NULL,
+       newcandidateidentifier VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT candidate_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'candidateeducatorpreparationprogramassociation') THEN
+CREATE TABLE tracked_changes_edfi.candidateeducatorpreparationprogramassociation
+(
+       oldbegindate DATE NOT NULL,
+       oldcandidateidentifier VARCHAR(32) NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldprogramname VARCHAR(255) NOT NULL,
+       oldprogramtypedescriptorid INT NOT NULL,
+       oldprogramtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldprogramtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       newbegindate DATE NULL,
+       newcandidateidentifier VARCHAR(32) NULL,
+       neweducationorganizationid BIGINT NULL,
+       newprogramname VARCHAR(255) NULL,
+       newprogramtypedescriptorid INT NULL,
+       newprogramtypedescriptornamespace VARCHAR(255) NULL,
+       newprogramtypedescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT candidateeducatorpreparationprogramassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'candidateidentity') THEN
+CREATE TABLE tracked_changes_edfi.candidateidentity
+(
+       oldcandidateidentificationsystemdescriptorid INT NOT NULL,
+       oldcandidateidentificationsystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldcandidateidentificationsystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldcandidateidentifier VARCHAR(32) NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
+       newcandidateidentificationsystemdescriptorid INT NULL,
+       newcandidateidentificationsystemdescriptornamespace VARCHAR(255) NULL,
+       newcandidateidentificationsystemdescriptorcodevalue VARCHAR(50) NULL,
+       newcandidateidentifier VARCHAR(32) NULL,
+       neweducationorganizationid BIGINT NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT candidateidentity_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'candidaterelationshiptostaffassociation') THEN
+CREATE TABLE tracked_changes_edfi.candidaterelationshiptostaffassociation
+(
+       oldcandidateidentifier VARCHAR(32) NOT NULL,
+       oldstaffusi INT NOT NULL,
+       oldstaffuniqueid VARCHAR(32) NOT NULL,
+       newcandidateidentifier VARCHAR(32) NULL,
+       newstaffusi INT NULL,
+       newstaffuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT candidaterelationshiptostaffassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'certification') THEN
+CREATE TABLE tracked_changes_edfi.certification
+(
+       oldcertificationidentifier VARCHAR(60) NOT NULL,
+       oldnamespace VARCHAR(255) NOT NULL,
+       newcertificationidentifier VARCHAR(60) NULL,
+       newnamespace VARCHAR(255) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT certification_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'certificationexam') THEN
+CREATE TABLE tracked_changes_edfi.certificationexam
+(
+       oldcertificationexamidentifier VARCHAR(60) NOT NULL,
+       oldnamespace VARCHAR(255) NOT NULL,
+       newcertificationexamidentifier VARCHAR(60) NULL,
+       newnamespace VARCHAR(255) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT certificationexam_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'certificationexamresult') THEN
+CREATE TABLE tracked_changes_edfi.certificationexamresult
+(
+       oldcertificationexamdate DATE NOT NULL,
+       oldcertificationexamidentifier VARCHAR(60) NOT NULL,
+       oldnamespace VARCHAR(255) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       newcertificationexamdate DATE NULL,
+       newcertificationexamidentifier VARCHAR(60) NULL,
+       newnamespace VARCHAR(255) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT certificationexamresult_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'chartofaccount') THEN
 CREATE TABLE tracked_changes_edfi.chartofaccount
 (
@@ -314,6 +502,29 @@ CREATE TABLE tracked_changes_edfi.contact
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'contactidentity') THEN
+CREATE TABLE tracked_changes_edfi.contactidentity
+(
+       oldcontactidentificationsystemdescriptorid INT NOT NULL,
+       oldcontactidentificationsystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldcontactidentificationsystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldcontactusi INT NOT NULL,
+       oldcontactuniqueid VARCHAR(32) NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
+       newcontactidentificationsystemdescriptorid INT NULL,
+       newcontactidentificationsystemdescriptornamespace VARCHAR(255) NULL,
+       newcontactidentificationsystemdescriptorcodevalue VARCHAR(50) NULL,
+       newcontactusi INT NULL,
+       newcontactuniqueid VARCHAR(32) NULL,
+       neweducationorganizationid BIGINT NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT contactidentity_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'course') THEN
 CREATE TABLE tracked_changes_edfi.course
 (
@@ -395,11 +606,37 @@ CREATE TABLE tracked_changes_edfi.credential
        newstateofissuestateabbreviationdescriptornamespace VARCHAR(255) NULL,
        newstateofissuestateabbreviationdescriptorcodevalue VARCHAR(50) NULL,
        id uuid NOT NULL,
-       oldnamespace varchar(255) NOT NULL,
        changeversion bigint NOT NULL,
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT credential_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'credentialevent') THEN
+CREATE TABLE tracked_changes_edfi.credentialevent
+(
+       oldcredentialeventdate DATE NOT NULL,
+       oldcredentialeventtypedescriptorid INT NOT NULL,
+       oldcredentialeventtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldcredentialeventtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldcredentialidentifier VARCHAR(60) NOT NULL,
+       oldstateofissuestateabbreviationdescriptorid INT NOT NULL,
+       oldstateofissuestateabbreviationdescriptornamespace VARCHAR(255) NOT NULL,
+       oldstateofissuestateabbreviationdescriptorcodevalue VARCHAR(50) NOT NULL,
+       newcredentialeventdate DATE NULL,
+       newcredentialeventtypedescriptorid INT NULL,
+       newcredentialeventtypedescriptornamespace VARCHAR(255) NULL,
+       newcredentialeventtypedescriptorcodevalue VARCHAR(50) NULL,
+       newcredentialidentifier VARCHAR(60) NULL,
+       newstateofissuestateabbreviationdescriptorid INT NULL,
+       newstateofissuestateabbreviationdescriptornamespace VARCHAR(255) NULL,
+       newstateofissuestateabbreviationdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT credentialevent_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -514,6 +751,25 @@ CREATE TABLE tracked_changes_edfi.educationorganization
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'educationorganizationidentity') THEN
+CREATE TABLE tracked_changes_edfi.educationorganizationidentity
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldeducationorganizationidentificationsystemdescriptorid INT NOT NULL,
+       oldeducationorganizationidentificationsystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldeducationorganizationidentificationsystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       neweducationorganizationidentificationsystemdescriptorid INT NULL,
+       neweducationorganizationidentificationsystemdescriptornamespace VARCHAR(255) NULL,
+       neweducationorganizationidentificationsystemdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT educationorganizationidentity_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'educationorganizationinterventionprescriptionassociation') THEN
 CREATE TABLE tracked_changes_edfi.educationorganizationinterventionprescriptionassociation
 (
@@ -558,6 +814,291 @@ CREATE TABLE tracked_changes_edfi.educationorganizationpeerassociation
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT educationorganizationpeerassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'educatorpreparationprogram') THEN
+CREATE TABLE tracked_changes_edfi.educatorpreparationprogram
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldprogramname VARCHAR(255) NOT NULL,
+       oldprogramtypedescriptorid INT NOT NULL,
+       oldprogramtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldprogramtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newprogramname VARCHAR(255) NULL,
+       newprogramtypedescriptorid INT NULL,
+       newprogramtypedescriptornamespace VARCHAR(255) NULL,
+       newprogramtypedescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT educatorpreparationprogram_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'evaluation') THEN
+CREATE TABLE tracked_changes_edfi.evaluation
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newschoolyear SMALLINT NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT evaluation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'evaluationelement') THEN
+CREATE TABLE tracked_changes_edfi.evaluationelement
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationelementtitle VARCHAR(255) NOT NULL,
+       oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationelementtitle VARCHAR(255) NULL,
+       newevaluationobjectivetitle VARCHAR(50) NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newschoolyear SMALLINT NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT evaluationelement_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'evaluationelementrating') THEN
+CREATE TABLE tracked_changes_edfi.evaluationelementrating
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationdate TIMESTAMP NOT NULL,
+       oldevaluationelementtitle VARCHAR(255) NOT NULL,
+       oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationdate TIMESTAMP NULL,
+       newevaluationelementtitle VARCHAR(255) NULL,
+       newevaluationobjectivetitle VARCHAR(50) NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newschoolyear SMALLINT NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT evaluationelementrating_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'evaluationobjective') THEN
+CREATE TABLE tracked_changes_edfi.evaluationobjective
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationobjectivetitle VARCHAR(50) NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newschoolyear SMALLINT NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT evaluationobjective_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'evaluationobjectiverating') THEN
+CREATE TABLE tracked_changes_edfi.evaluationobjectiverating
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationdate TIMESTAMP NOT NULL,
+       oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationdate TIMESTAMP NULL,
+       newevaluationobjectivetitle VARCHAR(50) NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newschoolyear SMALLINT NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT evaluationobjectiverating_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'evaluationrating') THEN
+CREATE TABLE tracked_changes_edfi.evaluationrating
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationdate TIMESTAMP NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationdate TIMESTAMP NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newschoolyear SMALLINT NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT evaluationrating_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -617,6 +1158,77 @@ CREATE TABLE tracked_changes_edfi.feederschoolassociation
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'fieldworkexperience') THEN
+CREATE TABLE tracked_changes_edfi.fieldworkexperience
+(
+       oldbegindate DATE NOT NULL,
+       oldfieldworkidentifier VARCHAR(64) NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       newbegindate DATE NULL,
+       newfieldworkidentifier VARCHAR(64) NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT fieldworkexperience_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'fieldworkexperiencesectionassociation') THEN
+CREATE TABLE tracked_changes_edfi.fieldworkexperiencesectionassociation
+(
+       oldbegindate DATE NOT NULL,
+       oldfieldworkidentifier VARCHAR(64) NOT NULL,
+       oldlocalcoursecode VARCHAR(60) NOT NULL,
+       oldschoolid BIGINT NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldsectionidentifier VARCHAR(255) NOT NULL,
+       oldsessionname VARCHAR(60) NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       newbegindate DATE NULL,
+       newfieldworkidentifier VARCHAR(64) NULL,
+       newlocalcoursecode VARCHAR(60) NULL,
+       newschoolid BIGINT NULL,
+       newschoolyear SMALLINT NULL,
+       newsectionidentifier VARCHAR(255) NULL,
+       newsessionname VARCHAR(60) NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT fieldworkexperiencesectionassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'financialaid') THEN
+CREATE TABLE tracked_changes_edfi.financialaid
+(
+       oldaidtypedescriptorid INT NOT NULL,
+       oldaidtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldaidtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldbegindate DATE NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       newaidtypedescriptorid INT NULL,
+       newaidtypedescriptornamespace VARCHAR(255) NULL,
+       newaidtypedescriptorcodevalue VARCHAR(50) NULL,
+       newbegindate DATE NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT financialaid_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'functiondimension') THEN
 CREATE TABLE tracked_changes_edfi.functiondimension
 (
@@ -673,6 +1285,29 @@ CREATE TABLE tracked_changes_edfi.generalstudentprogramassociation
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT generalstudentprogramassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'goal') THEN
+CREATE TABLE tracked_changes_edfi.goal
+(
+       oldassignmentdate DATE NOT NULL,
+       oldgoaltitle VARCHAR(255) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       newassignmentdate DATE NULL,
+       newgoaltitle VARCHAR(255) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT goal_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -1036,6 +1671,29 @@ CREATE TABLE tracked_changes_edfi.openstaffposition
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'openstaffpositionevent') THEN
+CREATE TABLE tracked_changes_edfi.openstaffpositionevent
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldeventdate DATE NOT NULL,
+       oldopenstaffpositioneventtypedescriptorid INT NOT NULL,
+       oldopenstaffpositioneventtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldopenstaffpositioneventtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldrequisitionnumber VARCHAR(20) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       neweventdate DATE NULL,
+       newopenstaffpositioneventtypedescriptorid INT NULL,
+       newopenstaffpositioneventtypedescriptornamespace VARCHAR(255) NULL,
+       newopenstaffpositioneventtypedescriptorcodevalue VARCHAR(50) NULL,
+       newrequisitionnumber VARCHAR(20) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT openstaffpositionevent_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'operationalunitdimension') THEN
 CREATE TABLE tracked_changes_edfi.operationalunitdimension
 (
@@ -1048,6 +1706,135 @@ CREATE TABLE tracked_changes_edfi.operationalunitdimension
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT operationalunitdimension_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'path') THEN
+CREATE TABLE tracked_changes_edfi.path
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldpathname VARCHAR(60) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newpathname VARCHAR(60) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT path_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'pathmilestone') THEN
+CREATE TABLE tracked_changes_edfi.pathmilestone
+(
+       oldpathmilestonename VARCHAR(60) NOT NULL,
+       oldpathmilestonetypedescriptorid INT NOT NULL,
+       oldpathmilestonetypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldpathmilestonetypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       newpathmilestonename VARCHAR(60) NULL,
+       newpathmilestonetypedescriptorid INT NULL,
+       newpathmilestonetypedescriptornamespace VARCHAR(255) NULL,
+       newpathmilestonetypedescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT pathmilestone_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'pathphase') THEN
+CREATE TABLE tracked_changes_edfi.pathphase
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldpathname VARCHAR(60) NOT NULL,
+       oldpathphasename VARCHAR(60) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newpathname VARCHAR(60) NULL,
+       newpathphasename VARCHAR(60) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT pathphase_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'performanceevaluation') THEN
+CREATE TABLE tracked_changes_edfi.performanceevaluation
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newschoolyear SMALLINT NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT performanceevaluation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'performanceevaluationrating') THEN
+CREATE TABLE tracked_changes_edfi.performanceevaluationrating
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newschoolyear SMALLINT NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT performanceevaluationrating_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -1090,6 +1877,46 @@ CREATE TABLE tracked_changes_edfi.postsecondaryevent
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT postsecondaryevent_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'professionaldevelopmentevent') THEN
+CREATE TABLE tracked_changes_edfi.professionaldevelopmentevent
+(
+       oldnamespace VARCHAR(255) NOT NULL,
+       oldprofessionaldevelopmenttitle VARCHAR(60) NOT NULL,
+       newnamespace VARCHAR(255) NULL,
+       newprofessionaldevelopmenttitle VARCHAR(60) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT professionaldevelopmentevent_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'professionaldevelopmenteventattendance') THEN
+CREATE TABLE tracked_changes_edfi.professionaldevelopmenteventattendance
+(
+       oldattendancedate DATE NOT NULL,
+       oldnamespace VARCHAR(255) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldprofessionaldevelopmenttitle VARCHAR(60) NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       newattendancedate DATE NULL,
+       newnamespace VARCHAR(255) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newprofessionaldevelopmenttitle VARCHAR(60) NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT professionaldevelopmenteventattendance_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -1253,6 +2080,138 @@ CREATE TABLE tracked_changes_edfi.projectdimension
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'quantitativemeasure') THEN
+CREATE TABLE tracked_changes_edfi.quantitativemeasure
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationelementtitle VARCHAR(255) NOT NULL,
+       oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldquantitativemeasureidentifier VARCHAR(64) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationelementtitle VARCHAR(255) NULL,
+       newevaluationobjectivetitle VARCHAR(50) NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newquantitativemeasureidentifier VARCHAR(64) NULL,
+       newschoolyear SMALLINT NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT quantitativemeasure_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'quantitativemeasurescore') THEN
+CREATE TABLE tracked_changes_edfi.quantitativemeasurescore
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationdate TIMESTAMP NOT NULL,
+       oldevaluationelementtitle VARCHAR(255) NOT NULL,
+       oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldquantitativemeasureidentifier VARCHAR(64) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationdate TIMESTAMP NULL,
+       newevaluationelementtitle VARCHAR(255) NULL,
+       newevaluationobjectivetitle VARCHAR(50) NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newquantitativemeasureidentifier VARCHAR(64) NULL,
+       newschoolyear SMALLINT NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT quantitativemeasurescore_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'recruitmentevent') THEN
+CREATE TABLE tracked_changes_edfi.recruitmentevent
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldeventdate DATE NOT NULL,
+       oldeventtitle VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       neweventdate DATE NULL,
+       neweventtitle VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT recruitmentevent_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'recruitmenteventattendance') THEN
+CREATE TABLE tracked_changes_edfi.recruitmenteventattendance
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldeventdate DATE NOT NULL,
+       oldeventtitle VARCHAR(50) NOT NULL,
+       oldrecruitmenteventattendeeidentifier VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       neweventdate DATE NULL,
+       neweventtitle VARCHAR(50) NULL,
+       newrecruitmenteventattendeeidentifier VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT recruitmenteventattendance_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'reportcard') THEN
 CREATE TABLE tracked_changes_edfi.reportcard
 (
@@ -1298,6 +2257,49 @@ CREATE TABLE tracked_changes_edfi.restraintevent
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT restraintevent_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'rubricdimension') THEN
+CREATE TABLE tracked_changes_edfi.rubricdimension
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationelementtitle VARCHAR(255) NOT NULL,
+       oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldrubricrating INT NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationelementtitle VARCHAR(255) NULL,
+       newevaluationobjectivetitle VARCHAR(50) NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newrubricrating INT NULL,
+       newschoolyear SMALLINT NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT rubricdimension_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -1450,6 +2452,40 @@ CREATE TABLE tracked_changes_edfi.staffcohortassociation
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'staffdemographic') THEN
+CREATE TABLE tracked_changes_edfi.staffdemographic
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldstaffusi INT NOT NULL,
+       oldstaffuniqueid VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newstaffusi INT NULL,
+       newstaffuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT staffdemographic_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'staffdirectory') THEN
+CREATE TABLE tracked_changes_edfi.staffdirectory
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldstaffusi INT NOT NULL,
+       oldstaffuniqueid VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newstaffusi INT NULL,
+       newstaffuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT staffdirectory_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'staffdisciplineincidentassociation') THEN
 CREATE TABLE tracked_changes_edfi.staffdisciplineincidentassociation
 (
@@ -1535,6 +2571,54 @@ CREATE TABLE tracked_changes_edfi.staffeducationorganizationemploymentassociatio
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT staffeducationorganizationemploymentassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'staffeducatorpreparationprogramassociation') THEN
+CREATE TABLE tracked_changes_edfi.staffeducatorpreparationprogramassociation
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldprogramname VARCHAR(255) NOT NULL,
+       oldprogramtypedescriptorid INT NOT NULL,
+       oldprogramtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldprogramtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldstaffusi INT NOT NULL,
+       oldstaffuniqueid VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newprogramname VARCHAR(255) NULL,
+       newprogramtypedescriptorid INT NULL,
+       newprogramtypedescriptornamespace VARCHAR(255) NULL,
+       newprogramtypedescriptorcodevalue VARCHAR(50) NULL,
+       newstaffusi INT NULL,
+       newstaffuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT staffeducatorpreparationprogramassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'staffidentity') THEN
+CREATE TABLE tracked_changes_edfi.staffidentity
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldstaffidentificationsystemdescriptorid INT NOT NULL,
+       oldstaffidentificationsystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldstaffidentificationsystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldstaffusi INT NOT NULL,
+       oldstaffuniqueid VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newstaffidentificationsystemdescriptorid INT NULL,
+       newstaffidentificationsystemdescriptornamespace VARCHAR(255) NULL,
+       newstaffidentificationsystemdescriptorcodevalue VARCHAR(50) NULL,
+       newstaffusi INT NULL,
+       newstaffuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT staffidentity_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -1857,6 +2941,40 @@ CREATE TABLE tracked_changes_edfi.studentcontactassociation
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentdemographic') THEN
+CREATE TABLE tracked_changes_edfi.studentdemographic
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT studentdemographic_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentdirectory') THEN
+CREATE TABLE tracked_changes_edfi.studentdirectory
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT studentdirectory_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentdisciplineincidentbehaviorassociation') THEN
 CREATE TABLE tracked_changes_edfi.studentdisciplineincidentbehaviorassociation
 (
@@ -1996,6 +3114,29 @@ CREATE TABLE tracked_changes_edfi.studenthealth
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentidentity') THEN
+CREATE TABLE tracked_changes_edfi.studentidentity
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldstudentidentificationsystemdescriptorid INT NOT NULL,
+       oldstudentidentificationsystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldstudentidentificationsystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newstudentidentificationsystemdescriptorid INT NULL,
+       newstudentidentificationsystemdescriptornamespace VARCHAR(255) NULL,
+       newstudentidentificationsystemdescriptorcodevalue VARCHAR(50) NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT studentidentity_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentinterventionassociation') THEN
 CREATE TABLE tracked_changes_edfi.studentinterventionassociation
 (
@@ -2039,6 +3180,73 @@ CREATE TABLE tracked_changes_edfi.studentinterventionattendanceevent
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT studentinterventionattendanceevent_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentpath') THEN
+CREATE TABLE tracked_changes_edfi.studentpath
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldpathname VARCHAR(60) NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newpathname VARCHAR(60) NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT studentpath_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentpathmilestonestatus') THEN
+CREATE TABLE tracked_changes_edfi.studentpathmilestonestatus
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldpathmilestonename VARCHAR(60) NOT NULL,
+       oldpathmilestonetypedescriptorid INT NOT NULL,
+       oldpathmilestonetypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldpathmilestonetypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldpathname VARCHAR(60) NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newpathmilestonename VARCHAR(60) NULL,
+       newpathmilestonetypedescriptorid INT NULL,
+       newpathmilestonetypedescriptornamespace VARCHAR(255) NULL,
+       newpathmilestonetypedescriptorcodevalue VARCHAR(50) NULL,
+       newpathname VARCHAR(60) NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT studentpathmilestonestatus_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentpathphasestatus') THEN
+CREATE TABLE tracked_changes_edfi.studentpathphasestatus
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldpathname VARCHAR(60) NOT NULL,
+       oldpathphasename VARCHAR(60) NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newpathname VARCHAR(60) NULL,
+       newpathphasename VARCHAR(60) NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT studentpathphasestatus_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -2403,6 +3611,31 @@ CREATE TABLE tracked_changes_edfi.surveyresponseeducationorganizationtargetassoc
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'surveyresponsepersontargetassociation') THEN
+CREATE TABLE tracked_changes_edfi.surveyresponsepersontargetassociation
+(
+       oldnamespace VARCHAR(255) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldsurveyidentifier VARCHAR(60) NOT NULL,
+       oldsurveyresponseidentifier VARCHAR(60) NOT NULL,
+       newnamespace VARCHAR(255) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       newsurveyidentifier VARCHAR(60) NULL,
+       newsurveyresponseidentifier VARCHAR(60) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT surveyresponsepersontargetassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'surveyresponsestafftargetassociation') THEN
 CREATE TABLE tracked_changes_edfi.surveyresponsestafftargetassociation
 (
@@ -2438,6 +3671,63 @@ CREATE TABLE tracked_changes_edfi.surveysection
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT surveysection_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'surveysectionaggregateresponse') THEN
+CREATE TABLE tracked_changes_edfi.surveysectionaggregateresponse
+(
+       oldeducationorganizationid BIGINT NOT NULL,
+       oldevaluationdate TIMESTAMP NOT NULL,
+       oldevaluationelementtitle VARCHAR(255) NOT NULL,
+       oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
+       oldevaluationperioddescriptorid INT NOT NULL,
+       oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
+       oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldevaluationtitle VARCHAR(50) NOT NULL,
+       oldnamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtitle VARCHAR(50) NOT NULL,
+       oldperformanceevaluationtypedescriptorid INT NOT NULL,
+       oldperformanceevaluationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldschoolyear SMALLINT NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldsurveyidentifier VARCHAR(60) NOT NULL,
+       oldsurveysectiontitle VARCHAR(255) NOT NULL,
+       oldtermdescriptorid INT NOT NULL,
+       oldtermdescriptornamespace VARCHAR(255) NOT NULL,
+       oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
+       neweducationorganizationid BIGINT NULL,
+       newevaluationdate TIMESTAMP NULL,
+       newevaluationelementtitle VARCHAR(255) NULL,
+       newevaluationobjectivetitle VARCHAR(50) NULL,
+       newevaluationperioddescriptorid INT NULL,
+       newevaluationperioddescriptornamespace VARCHAR(255) NULL,
+       newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
+       newevaluationtitle VARCHAR(50) NULL,
+       newnamespace VARCHAR(255) NULL,
+       newperformanceevaluationtitle VARCHAR(50) NULL,
+       newperformanceevaluationtypedescriptorid INT NULL,
+       newperformanceevaluationtypedescriptornamespace VARCHAR(255) NULL,
+       newperformanceevaluationtypedescriptorcodevalue VARCHAR(50) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newschoolyear SMALLINT NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       newsurveyidentifier VARCHAR(60) NULL,
+       newsurveysectiontitle VARCHAR(255) NULL,
+       newtermdescriptorid INT NULL,
+       newtermdescriptornamespace VARCHAR(255) NULL,
+       newtermdescriptorcodevalue VARCHAR(50) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT surveysectionaggregateresponse_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -2503,6 +3793,33 @@ CREATE TABLE tracked_changes_edfi.surveysectionresponseeducationorganizationtarg
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT surveysectionresponseeducationorganizationtargetassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'surveysectionresponsepersontargetassociation') THEN
+CREATE TABLE tracked_changes_edfi.surveysectionresponsepersontargetassociation
+(
+       oldnamespace VARCHAR(255) NOT NULL,
+       oldpersonid VARCHAR(32) NOT NULL,
+       oldsourcesystemdescriptorid INT NOT NULL,
+       oldsourcesystemdescriptornamespace VARCHAR(255) NOT NULL,
+       oldsourcesystemdescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldsurveyidentifier VARCHAR(60) NOT NULL,
+       oldsurveyresponseidentifier VARCHAR(60) NOT NULL,
+       oldsurveysectiontitle VARCHAR(255) NOT NULL,
+       newnamespace VARCHAR(255) NULL,
+       newpersonid VARCHAR(32) NULL,
+       newsourcesystemdescriptorid INT NULL,
+       newsourcesystemdescriptornamespace VARCHAR(255) NULL,
+       newsourcesystemdescriptorcodevalue VARCHAR(50) NULL,
+       newsurveyidentifier VARCHAR(60) NULL,
+       newsurveyresponseidentifier VARCHAR(60) NULL,
+       newsurveysectiontitle VARCHAR(255) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT surveysectionresponsepersontargetassociation_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
