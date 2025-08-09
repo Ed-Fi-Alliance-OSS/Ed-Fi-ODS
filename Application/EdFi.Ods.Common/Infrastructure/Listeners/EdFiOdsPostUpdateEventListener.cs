@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Authorization;
@@ -56,18 +57,7 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
         private async Task ProcessCascadingKeyValuesAsync(PostUpdateEvent @event, CancellationToken cancellationToken)
         {
-            // Quit if this is not an entity that supports cascading updates
-            var cascadableEntity = @event.Entity as IHasCascadableKeyValues;
-
-            if (cascadableEntity == null)
-            {
-                return;
-            }
-
-            // Quit if there are no modified key values to cascade
-            var newKeyValues = cascadableEntity.NewKeyValues;
-
-            if (newKeyValues == null)
+            if (!KeyChangeHelper.TryGetNewKeyValues(@event.Entity, out OrderedDictionary newKeyValues))
             {
                 return;
             }
@@ -115,10 +105,13 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
             if (_serializationEnabled && @event.Entity is AggregateRootWithCompositeKey aggregateRoot)
             {
-                // Produce a new LastModifiedDate so that newly serialized data (with key change) isn't treated as stale
+                var lastModifiedDateOnRecord = @event.Persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
+
+                // Produce an adjusted LastModifiedDate so that the date isn't modified by the trigger logic and the
+                // newly serialized data (with key change) matches it and isn't treated as stale.
                 // SQL Server DateTime2 has a resolution of 100 nanoseconds, and Postgres timestamp is 1 microsecond
                 // so we add a microsecond here to ensure a different datetime than the value just saved with the key change
-                aggregateRoot.LastModifiedDate = aggregateRoot.LastModifiedDate.AddMicroseconds(1);
+                aggregateRoot.LastModifiedDate = lastModifiedDateOnRecord.AddMicroseconds(1);
 
                 _logger.Debug("Serializing aggregate data for storage (KEY CHANGE)...");
 

@@ -49,34 +49,53 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
                     // Set a date context that will cause all transient entities to report the assigned date without affecting the entity itself
                     CallContext.SetData("TransientSerializableCreateDateTime", currentDateTime);
 
-                    // Update the entity with the last modified date before serializing
-                    DateTime originalLastModified = aggregateRoot.LastModifiedDate;
-                    var lastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
-                    aggregateRoot.LastModifiedDate = lastModifiedDate;
-
                     try
                     {
-                        _logger.Debug("Serializing aggregate data to storage (UPDATE)...");
-
-                        // Produce the serialized data
-                        var aggregateData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
-                        aggregateRoot.AggregateData = aggregateData;
-
-                        // Update the persistence state
-                        persister.Set(@event.State, ColumnNames.AggregateData, aggregateData);
-
-                        if (_logger.IsDebugEnabled)
+                        // If the entity has key changes, skip the serialization for now
+                        if (KeyChangeHelper.HasNewKeyValues(aggregateRoot))
                         {
-                            _logger.Debug($"MessagePack bytes for updated entity: {aggregateData.Length:N0}");
+                            // The entity is being updated with a new key value, so the aggregate data serialization is deferred
+                            // until the final key change query is executed (see EdFiOdsPostUpdateEventListener)
+                            _logger.Debug("Deferring aggregate data serialization for final primary key change query (UPDATE)...");
+
+                            // Clear the aggregate data for now
+                            aggregateRoot.AggregateData = null;
+                            persister.Set(@event.State, ColumnNames.AggregateData, null);
+                        }
+                        else
+                        {
+                            // Update the entity with the last modified date before serializing so that it matches the record's value
+                            DateTime originalLastModified = aggregateRoot.LastModifiedDate;
+                            var lastModifiedDateForRecord = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
+                            aggregateRoot.LastModifiedDate = lastModifiedDateForRecord;
+
+                            try
+                            {
+                                _logger.Debug("Serializing aggregate data to storage (UPDATE)...");
+
+                                // Produce the serialized data
+                                var aggregateData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
+                                aggregateRoot.AggregateData = aggregateData;
+
+                                // Update the persistence state
+                                persister.Set(@event.State, ColumnNames.AggregateData, aggregateData);
+
+                                if (_logger.IsDebugEnabled)
+                                {
+                                    _logger.Debug($"MessagePack bytes for updated entity: {aggregateData.Length:N0}");
+                                }
+                            }
+                            finally
+                            {
+                                // Restore the last modified date to the original value (to prevent NHibernate persistence errors)
+                                aggregateRoot.LastModifiedDate = originalLastModified;
+                            }
                         }
                     }
                     finally
                     {
                         // Stop defaulting the reported CreateDate for transient entities
                         CallContext.SetData("TransientSerializableCreateDateTime", null);
-
-                        // Restore the last modified date to the original value
-                        aggregateRoot.LastModifiedDate = originalLastModified;
                     }
                 }
                 catch (Exception ex)
