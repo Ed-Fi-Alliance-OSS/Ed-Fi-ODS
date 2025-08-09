@@ -1,0 +1,25 @@
+{{#EntityParentClassName}}
+    {{#HasContextualReferenceProperties}}
+if ({{EntityParentClassName}} == null)
+{
+    // Deferred contextual values initialization due to fallback from stale serialized data to NHibernate hydration
+    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(@ref =>
+    {
+    {{#ContextualReferenceProperties}}
+        @ref.{{ReferencePropertyName}} = {{InstanceSourceValuePath}};
+    {{/ContextualReferenceProperties}}
+    });
+}
+else
+{
+    // Immediate contextual values initialization
+    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}({{#ContextualReferenceProperties}}contextual{{ReferencePropertyName}}: {{InstanceSourceValuePath}}, {{/ContextualReferenceProperties}}trackLookupContext: true);
+}
+    {{/HasContextualReferenceProperties}}
+    {{^HasContextualReferenceProperties}}
+{{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}({{#ContextualReferenceProperties}}contextual{{ReferencePropertyName}}: {{InstanceSourceValuePath}}, {{/ContextualReferenceProperties}}trackLookupContext: true);
+    {{/HasContextualReferenceProperties}}
+{{/EntityParentClassName}}
+{{^EntityParentClassName}}
+{{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}({{#ContextualReferenceProperties}}contextual{{ReferencePropertyName}}: {{InstanceSourceValuePath}}, {{/ContextualReferenceProperties}}trackLookupContext: true);
+{{/EntityParentClassName}}

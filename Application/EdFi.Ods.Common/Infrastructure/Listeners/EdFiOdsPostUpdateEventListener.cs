@@ -13,11 +13,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
+using log4net;
 using Microsoft.Extensions.Primitives;
 using NHibernate;
 using NHibernate.Event;
@@ -29,8 +31,10 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
     {
         private readonly Lazy<IEntityAuthorizer> _entityAuthorizer;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
-        private bool _serializationEnabled;
+        private readonly bool _serializationEnabled;
 
+        private readonly ILog _logger = LogManager.GetLogger(typeof(EdFiOdsPostUpdateEventListener));
+        
         public EdFiOdsPostUpdateEventListener(
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider,
@@ -53,18 +57,7 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
         private async Task ProcessCascadingKeyValuesAsync(PostUpdateEvent @event, CancellationToken cancellationToken)
         {
-            // Quit if this is not an entity that supports cascading updates
-            var cascadableEntity = @event.Entity as IHasCascadableKeyValues;
-
-            if (cascadableEntity == null)
-            {
-                return;
-            }
-
-            // Quit if there are no modified key values to cascade
-            var newKeyValues = cascadableEntity.NewKeyValues;
-
-            if (newKeyValues == null)
+            if (!KeyChangeHelper.TryGetNewKeyValues(@event.Entity, out OrderedDictionary newKeyValues))
             {
                 return;
             }
@@ -108,12 +101,24 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             }
 
             byte[] aggregateData = null;
+            DateTime? lastModifiedDate = null;
 
             if (_serializationEnabled && @event.Entity is AggregateRootWithCompositeKey aggregateRoot)
             {
+                var lastModifiedDateOnRecord = @event.Persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
+
+                // Produce an adjusted LastModifiedDate so that the date isn't modified by the trigger logic and the
+                // newly serialized data (with key change) matches it and isn't treated as stale.
+                // SQL Server DateTime2 has a resolution of 100 nanoseconds, and Postgres timestamp is 1 microsecond
+                // so we add a microsecond here to ensure a different datetime than the value just saved with the key change
+                aggregateRoot.LastModifiedDate = lastModifiedDateOnRecord.AddMicroseconds(1);
+
+                _logger.Debug("Serializing aggregate data for storage (KEY CHANGE)...");
+
                 // Produce the serialized data
                 aggregateData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
                 aggregateRoot.AggregateData = aggregateData;
+                lastModifiedDate = aggregateRoot.LastModifiedDate;
             }
 
             var query = CreateUpdateQuery(
@@ -123,7 +128,8 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                 updateTargetColumnNames,
                 valueSourceColumnNames,
                 newKeyValues,
-                aggregateData);
+                aggregateData,
+                lastModifiedDate);
 
             // Execute the update of the primary key
             await query.ExecuteUpdateAsync(cancellationToken).ConfigureAwait(false);
@@ -147,10 +153,15 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             string[] updateTargetColumnNames,
             string[] valueSourceColumnNames,
             OrderedDictionary newKeyValues,
-            byte[] aggregateData)
+            byte[] aggregateData,
+            DateTime? lastModifiedDate)
         {
             // Build the SET clause
-            string setClause = GetSetClause(updateTargetColumnNames, valueSourceColumnNames, aggregateData != null);
+            string setClause = GetSetClause(
+                updateTargetColumnNames,
+                valueSourceColumnNames,
+                aggregateData != null,
+                lastModifiedDate != null);
 
             // Build the UPDATE sql query
             string sql = $@"UPDATE {tableName} SET {setClause} WHERE Id = :id";
@@ -160,6 +171,11 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             if (aggregateData != null)
             {
                 query.SetBinary("aggregateData", aggregateData);
+            }
+
+            if (lastModifiedDate != null)
+            {
+                query.SetDateTime("lastModifiedDate", lastModifiedDate.Value);
             }
 
             // Create parameters for updating the primary key with the new values
@@ -174,7 +190,7 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             return query;
         }
 
-        private static string GetSetClause(string[] updateTargetColumnNames, string[] sourceValueColumnNames, bool hasAggregateData)
+        private static string GetSetClause(string[] updateTargetColumnNames, string[] sourceValueColumnNames, bool hasAggregateData, bool hasLastModifiedDate)
         {
             var sb = new StringBuilder();
 
@@ -196,6 +212,11 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             if (hasAggregateData)
             {
                 sb.Append(", AggregateData = :aggregateData");
+            }
+
+            if (hasLastModifiedDate)
+            {
+                sb.Append(", LastModifiedDate = :lastModifiedDate");
             }
 
             string setClause = sb.ToString();
