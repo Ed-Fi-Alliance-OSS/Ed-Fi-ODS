@@ -320,12 +320,7 @@ function RepositoryTag {
 
     $standardProjectDirectory = Split-Path $Solution  -Resolve
     $versionMapPath = Join-Path $standardProjectDirectory "/versionmap.json"
-    Write-Host "Repository is $Repository"
-    Write-Host "StandardVersion is $StandardVersion"
-    Write-Host "Contents of versionMapPath:"
-    Get-Content $versionMapPath
     $versionTag = (Get-Content $versionMapPath | ConvertFrom-Json).$Repository.$StandardVersion
-    Write-Host "Contents of versionTag: $versionTag"
     return $versionTag
 }
 
