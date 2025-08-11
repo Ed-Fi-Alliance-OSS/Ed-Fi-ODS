@@ -12711,6 +12711,1342 @@
 			]
 		},
 		{
+			"name": "Key Changes (Cascading, LastModifiedDate)",
+			"item": [
+				{
+					"name": "Root Entity with Cascade Key Change",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Create Session",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:session:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n        \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"Cascading ORIGINAL\",\r\n    \"beginDate\": \"2021-08-23\",\r\n    \"endDate\": \"2021-12-17\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n    \"totalInstructionalDays\": 81,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n        {\r\n            \"gradingPeriodReference\": {\r\n                \"schoolId\": 255901001,\r\n                \"schoolYear\": 2022,\r\n                \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\",\r\n                \"periodSequence\": 1\r\n\r\n            }\r\n        }\r\n    ]\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Session (LastModifiedDate)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"pm.environment.set('known:session:lastModifiedDate', item._lastModifiedDate);\r",
+													"\r",
+													"pm.test(\"Top-level reference links should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.schoolReference.link.href).to.match(/^\\/ed-fi\\/schools/); // Correct resource name\r",
+													"  pm.expect(item.schoolReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"\r",
+													"  pm.expect(item.schoolYearTypeReference.link.href).to.match(/^\\/ed-fi\\/schoolYearTypes/); // Correct resource name\r",
+													"  pm.expect(item.schoolYearTypeReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions/{{known:session:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions",
+												"{{known:session:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Course",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"// Save the course id for future deletion.\r",
+													"pm.environment.set('known:course:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"courseCode\": \"XYZ-001\",\r\n  \"courseTitle\": \"Ecks Why Zee\",\r\n  \"numberOfParts\": 1,\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#LEA course code\",\r\n      \"courseCatalogURL\": \"http://www.GBISD.edu/coursecatalog\",\r\n      \"identificationCode\": \"ALG-2\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Course Offering",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:courseOffering:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"courseReference\": {\r\n    \"courseCode\": \"XYZ-001\",\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"sessionReference\": {\r\n    \"schoolId\": 255901001,\r\n    \"schoolYear\": 2022,\r\n    \"sessionName\": \"Cascading ORIGINAL\"\r\n  },\r\n  \"localCourseCode\": \"ALG-XYZ\",\r\n  \"courseLevelCharacteristics\": [],\r\n  \"curriculumUseds\": [],\r\n  \"offeredGradeLevels\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Course Offering (LastModifiedDate)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"pm.environment.set('known:courseOffering:lastModifiedDate', item._lastModifiedDate);\r",
+													"\r",
+													"pm.test(\"Top-level reference links should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.courseReference.link.href).to.match(/^\\/ed-fi\\/courses/); // Correct resource name\r",
+													"  pm.expect(item.courseReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"\r",
+													"  pm.expect(item.schoolReference.link.href).to.match(/^\\/ed-fi\\/schools/); // Correct resource name\r",
+													"  pm.expect(item.schoolReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"\r",
+													"  pm.expect(item.sessionReference.link.href).to.match(/^\\/ed-fi\\/sessions/); // Correct resource name\r",
+													"  pm.expect(item.sessionReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Apply Key Changes and Updates",
+							"item": [
+								{
+									"name": "Change Session Key with Updates",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"schoolYearTypeReference\": {\r\n    \"schoolYear\": 2022\r\n  },\r\n  \"sessionName\": \"CASCADING MODIFIED\",\r\n  \"beginDate\": \"2021-08-23\",\r\n  \"endDate\": \"2021-12-17\",\r\n  \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n  \"totalInstructionalDays\": 100,\r\n  \"academicWeeks\": [],\r\n  \"gradingPeriods\": [\r\n    {\r\n      \"gradingPeriodReference\": {\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n        \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\",\r\n        \"periodSequence\": 1\r\n      }\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions/{{known:session:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions",
+												"{{known:session:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Session (LastModifiedDate)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"const actualLastModifiedDate = item._lastModifiedDate;\r",
+													"const previousLastModifiedDate = pm.environment.get('known:session:lastModifiedDate');\r",
+													"\r",
+													"pm.test(\"Last modified date should be updated by the key change\", () => {\r",
+													"  pm.expect(actualLastModifiedDate).to.not.equal(previousLastModifiedDate);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Key change should be reflected in response\", () => {\r",
+													"  pm.expect(item.sessionName).to.equal(\"CASCADING MODIFIED\");\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Top-level reference links should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.schoolReference.link.href).to.match(/^\\/ed-fi\\/schools/); // Correct resource name\r",
+													"  pm.expect(item.schoolReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"\r",
+													"  pm.expect(item.schoolYearTypeReference.link.href).to.match(/^\\/ed-fi\\/schoolYearTypes/); // Correct resource name\r",
+													"  pm.expect(item.schoolYearTypeReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions/{{known:session:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions",
+												"{{known:session:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Course Offering (LastModifiedDate)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"const actualLastModifiedDate = item._lastModifiedDate;\r",
+													"const previousLastModifiedDate = pm.environment.get('known:courseOffering:lastModifiedDate');\r",
+													"\r",
+													"pm.test(\"Last modified date should be updated by cascading key change on dependent item\", () => {\r",
+													"    pm.expect(actualLastModifiedDate).to.not.equal(previousLastModifiedDate);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Cascade key change on dependent should be reflected in response\", () => {\r",
+													"  pm.expect(item.sessionReference.sessionName).to.equal(\"CASCADING MODIFIED\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Top-level reference links should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.sessionReference.link.href).to.match(/^\\/ed-fi\\/sessions/); // Correct resource name\r",
+													"  pm.expect(item.sessionReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"\r",
+													"  pm.expect(item.schoolReference.link.href).to.match(/^\\/ed-fi\\/schools/); // Correct resource name\r",
+													"  pm.expect(item.schoolReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"\r",
+													"  pm.expect(item.courseReference.link.href).to.match(/^\\/ed-fi\\/courses/); // Correct resource name\r",
+													"  pm.expect(item.courseReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													"\r",
+													"// Save the new last modified date\r",
+													"pm.environment.set('known:courseOffering:lastModifiedDate:cascadedKeyChange', item._lastModifiedDate);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Course Offering",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"courseReference\": {\r\n    \"courseCode\": \"XYZ-001\",\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"sessionReference\": {\r\n    \"schoolId\": 255901001,\r\n    \"schoolYear\": 2022,\r\n    \"sessionName\": \"CASCADING MODIFIED\"\r\n  },\r\n  \"localCourseCode\": \"ALG-XYZ\",\r\n  \"localCourseTitle\": \"AlgebraXYZ\",\r\n  \"courseLevelCharacteristics\": [],\r\n  \"curriculumUseds\": [],\r\n  \"offeredGradeLevels\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Course Offering (LastModifiedDate)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"const knownLastModifiedDate = pm.environment.get('known:courseOffering:lastModifiedDate:cascadedKeyChange');\r",
+													"const actualLastModifiedDate = item._lastModifiedDate;\r",
+													"\r",
+													"pm.test(\"Last modified date should be updated by direct resource update\", () => {\r",
+													"    pm.expect(actualLastModifiedDate).to.not.equal(knownLastModifiedDate);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Updated course title should be reflected in response\", () => {\r",
+													"  pm.expect(item.localCourseTitle).to.equal(\"AlgebraXYZ\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Top-level reference links should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.sessionReference.link.href).to.match(/^\\/ed-fi\\/sessions/); // Correct resource name\r",
+													"  pm.expect(item.sessionReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"\r",
+													"  pm.expect(item.schoolReference.link.href).to.match(/^\\/ed-fi\\/schools/); // Correct resource name\r",
+													"  pm.expect(item.schoolReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"\r",
+													"  pm.expect(item.courseReference.link.href).to.match(/^\\/ed-fi\\/courses/); // Correct resource name\r",
+													"  pm.expect(item.courseReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete Course Offering",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Course",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses",
+												"{{known:course:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions/{{known:session:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions",
+												"{{known:session:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clear Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();\r",
+													"\r",
+													"// Important: Prevent reintroduction of any authentication-related artifacts\r",
+													"pm.execution.skipRequest();"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Child Entity with Cascade Key Change",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Create Class Period",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:classPeriod:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"classPeriodName\": \"CASCADING ORIGINAL\",\r\n    \"meetingTimes\": [\r\n        {\r\n            \"endTime\": \"09:25:00\",\r\n            \"startTime\": \"08:35:00\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Class Period (LastModifiedDate)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"pm.environment.set('known:classPeriod:lastModifiedDate', item._lastModifiedDate);\r",
+													"\r",
+													"pm.test(\"Top-level reference link should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.schoolReference.link.href).to.match(/^\\/ed-fi\\/schools/); // Correct resource name\r",
+													"  pm.expect(item.schoolReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"{{known:classPeriod:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Bell Schedule",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:bellSchedule:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"bellScheduleName\": \"Cascading Child Key Changes\",\r\n  \"endTime\": \"16:00:00\",\r\n  \"startTime\": \"08:15:00\",\r\n  \"totalInstructionalTime\": 325,\r\n  \"classPeriods\": [\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"CASCADING ORIGINAL\",\r\n        \"schoolId\": 255901001\r\n      }\r\n    }\r\n  ],\r\n  \"dates\": [],\r\n  \"gradeLevels\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Bell Schedule (LastModifiedDate)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"pm.environment.set('known:bellSchedule:lastModifiedDate', item._lastModifiedDate);\r",
+													"\r",
+													"pm.test(\"Top-level reference link should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.schoolReference.link.href).to.match(/^\\/ed-fi\\/schools/); // Correct resource name\r",
+													"  pm.expect(item.schoolReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Child reference link should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.classPeriods[0].classPeriodReference.link.href).to.match(/^\\/ed-fi\\/classPeriods/); // Correct resource name\r",
+													"  pm.expect(item.classPeriods[0].classPeriodReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules/{{known:bellSchedule:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules",
+												"{{known:bellSchedule:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Apply Key Changes and Updates",
+							"item": [
+								{
+									"name": "Change Class Period Key",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"classPeriodName\": \"CASCADING MODIFIED\",\r\n  \"meetingTimes\": [\r\n    {\r\n      \"endTime\": \"09:25:00\",\r\n      \"startTime\": \"08:35:00\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"{{known:classPeriod:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Class Period (LastModifiedDate)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"const actualLastModifiedDate = item._lastModifiedDate;\r",
+													"const previousLastModifiedDate = pm.environment.get('known:classPeriod:lastModifiedDate');\r",
+													"\r",
+													"pm.test(\"Last modified date should be updated by the key change\", () => {\r",
+													"    pm.expect(actualLastModifiedDate).to.not.equal(previousLastModifiedDate);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"{{known:classPeriod:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Bell Schedule (LastModifiedDate)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"const actualLastModifiedDate = item._lastModifiedDate;\r",
+													"const previousLastModifiedDate = pm.environment.get('known:bellSchedule:lastModifiedDate');\r",
+													"\r",
+													"pm.test(\"Last modified date should be updated by cascading key change on child item\", () => {\r",
+													"    pm.expect(actualLastModifiedDate).to.not.equal(previousLastModifiedDate);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Cascade key change on child should be reflected in response\", () => {\r",
+													"  pm.expect(item.classPeriods[0].classPeriodReference.classPeriodName).to.equal(\"CASCADING MODIFIED\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Top-level reference link should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.schoolReference.link.href).to.match(/^\\/ed-fi\\/schools/); // Correct resource name\r",
+													"  pm.expect(item.schoolReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Child reference link should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.classPeriods[0].classPeriodReference.link.href).to.match(/^\\/ed-fi\\/classPeriods/); // Correct resource name\r",
+													"  pm.expect(item.classPeriods[0].classPeriodReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													"\r",
+													"// Save the new last modified date\r",
+													"pm.environment.set('known:bellSchedule:lastModifiedDate:cascadedKeyChange', item._lastModifiedDate);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules/{{known:bellSchedule:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules",
+												"{{known:bellSchedule:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Bell Schedule",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"bellScheduleName\": \"Cascading Child Key Changes\",\r\n  \"endTime\": \"16:30:00\",\r\n  \"startTime\": \"08:15:00\",\r\n  \"totalInstructionalTime\": 325,\r\n  \"classPeriods\": [\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"CASCADING MODIFIED\",\r\n        \"schoolId\": 255901001\r\n      }\r\n    }\r\n  ],\r\n  \"dates\": [],\r\n  \"gradeLevels\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Bell Schedule (LastModifiedDate)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"const knownLastModifiedDate = pm.environment.get('known:bellSchedule:lastModifiedDate:cascadedKeyChange');\r",
+													"const actualLastModifiedDate = item._lastModifiedDate;\r",
+													"\r",
+													"pm.test(\"Last modified date should be updated by direct resource update\", () => {\r",
+													"    pm.expect(actualLastModifiedDate).to.not.equal(knownLastModifiedDate);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Updated value should be reflected in response\", () => {\r",
+													"  pm.expect(item.endTime).to.equal(\"16:30:00\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Top-level reference link should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.schoolReference.link.href).to.match(/^\\/ed-fi\\/schools/); // Correct resource name\r",
+													"  pm.expect(item.schoolReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Child reference link should use correct resource name and have non-default id\", () => {\r",
+													"  pm.expect(item.classPeriods[0].classPeriodReference.link.href).to.match(/^\\/ed-fi\\/classPeriods/); // Correct resource name\r",
+													"  pm.expect(item.classPeriods[0].classPeriodReference.link.href).to.not.match(/\\/[0\\-]{32,36}$/); // Non-default id\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules/{{known:bellSchedule:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules",
+												"{{known:bellSchedule:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete Bell Schedule",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules/{{known:bellSchedule:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules",
+												"{{known:bellSchedule:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Class Period",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"{{known:classPeriod:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clear Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();\r",
+													"\r",
+													"// Important: Prevent reintroduction of any authentication-related artifacts\r",
+													"pm.execution.skipRequest();"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Clean Up Test Data",
 			"item": [
 				{
