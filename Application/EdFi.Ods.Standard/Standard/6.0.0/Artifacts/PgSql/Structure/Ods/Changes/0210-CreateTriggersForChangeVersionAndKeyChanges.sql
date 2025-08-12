@@ -6,122 +6,122 @@
 DO $$
 BEGIN
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'academicweek') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.academicweek
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.academicweek
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'accountabilityrating') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.accountabilityrating
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.accountabilityrating
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'applicantprofile') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.applicantprofile
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.applicantprofile
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'application') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.application
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.application
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'applicationevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.applicationevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.applicationevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'assessment') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessment
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessment
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentadministration') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentadministration
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentadministration
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentadministrationparticipation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentadministrationparticipation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentadministrationparticipation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentbatterypart') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentbatterypart
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentbatterypart
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentitem') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentitem
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentitem
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentscorerangelearningstandard') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentscorerangelearningstandard
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentscorerangelearningstandard
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'balancesheetdimension') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.balancesheetdimension
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.balancesheetdimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'bellschedule') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.bellschedule
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.bellschedule
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'calendar') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.calendar
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.calendar
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'calendardate') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.calendardate
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.calendardate
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'candidate') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.candidate
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.candidate
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'candidateeducatorpreparationprogramassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.candidateeducatorpreparationprogramassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.candidateeducatorpreparationprogramassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'candidateidentity') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.candidateidentity
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.candidateidentity
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'candidaterelationshiptostaffassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.candidaterelationshiptostaffassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.candidaterelationshiptostaffassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'certification') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.certification
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.certification
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'certificationexam') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.certificationexam
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.certificationexam
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'certificationexamresult') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.certificationexamresult
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.certificationexamresult
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'chartofaccount') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.chartofaccount
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.chartofaccount
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'classperiod') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.classperiod
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.classperiod
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -146,27 +146,27 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'classperiod') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF classperiodname, schoolid ON edfi.classperiod
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF classperiodname, schoolid ON edfi.classperiod
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.classperiod_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'cohort') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.cohort
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.cohort
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'communityproviderlicense') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.communityproviderlicense
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.communityproviderlicense
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'competencyobjective') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.competencyobjective
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.competencyobjective
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'contact') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.contact
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.contact
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -191,22 +191,22 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'contact') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF contactuniqueid ON edfi.contact
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF contactuniqueid ON edfi.contact
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.contact_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'contactidentity') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.contactidentity
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.contactidentity
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'course') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.course
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.course
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'courseoffering') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.courseoffering
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.courseoffering
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -231,132 +231,132 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'courseoffering') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF localcoursecode, schoolid, schoolyear, sessionname ON edfi.courseoffering
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF localcoursecode, schoolid, schoolyear, sessionname ON edfi.courseoffering
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.courseoffering_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'coursetranscript') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.coursetranscript
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.coursetranscript
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'credential') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.credential
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.credential
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'credentialevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.credentialevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.credentialevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'crisisevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.crisisevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.crisisevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'descriptor') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.descriptor
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.descriptor
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'descriptormapping') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.descriptormapping
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.descriptormapping
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'disciplineaction') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.disciplineaction
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.disciplineaction
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'disciplineincident') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.disciplineincident
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.disciplineincident
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'educationcontent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationcontent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationcontent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'educationorganization') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationorganization
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationorganization
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'educationorganizationidentity') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationorganizationidentity
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationorganizationidentity
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'educationorganizationinterventionprescriptionassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationorganizationinterventionprescriptionassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationorganizationinterventionprescriptionassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'educationorganizationnetworkassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationorganizationnetworkassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationorganizationnetworkassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'educationorganizationpeerassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationorganizationpeerassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educationorganizationpeerassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'educatorpreparationprogram') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educatorpreparationprogram
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.educatorpreparationprogram
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'evaluation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'evaluationelement') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationelement
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationelement
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'evaluationelementrating') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationelementrating
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationelementrating
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'evaluationobjective') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationobjective
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationobjective
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'evaluationobjectiverating') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationobjectiverating
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationobjectiverating
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'evaluationrating') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationrating
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationrating
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'evaluationrubricdimension') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationrubricdimension
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.evaluationrubricdimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'feederschoolassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.feederschoolassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.feederschoolassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'fieldworkexperience') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.fieldworkexperience
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.fieldworkexperience
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'fieldworkexperiencesectionassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.fieldworkexperiencesectionassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.fieldworkexperiencesectionassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -385,37 +385,37 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'fieldworkexperiencesectionassociation') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, fieldworkidentifier, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.fieldworkexperiencesectionassociation
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, fieldworkidentifier, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.fieldworkexperiencesectionassociation
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.fieldworkexperiencesectionassociation_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'financialaid') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.financialaid
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.financialaid
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'functiondimension') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.functiondimension
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.functiondimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'funddimension') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.funddimension
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.funddimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'generalstudentprogramassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.generalstudentprogramassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.generalstudentprogramassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'goal') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.goal
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.goal
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'grade') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.grade
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.grade
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -452,12 +452,12 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'grade') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, gradetypedescriptorid, gradingperioddescriptorid, gradingperiodname, gradingperiodschoolyear, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.grade
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, gradetypedescriptorid, gradingperioddescriptorid, gradingperiodname, gradingperiodschoolyear, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.grade
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.grade_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'gradebookentry') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.gradebookentry
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.gradebookentry
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -482,77 +482,77 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'gradebookentry') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF gradebookentryidentifier, namespace ON edfi.gradebookentry
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF gradebookentryidentifier, namespace ON edfi.gradebookentry
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.gradebookentry_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'gradingperiod') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.gradingperiod
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.gradingperiod
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'graduationplan') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.graduationplan
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.graduationplan
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'intervention') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.intervention
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.intervention
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'interventionprescription') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.interventionprescription
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.interventionprescription
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'interventionstudy') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.interventionstudy
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.interventionstudy
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'learningstandard') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.learningstandard
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.learningstandard
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'learningstandardequivalenceassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.learningstandardequivalenceassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.learningstandardequivalenceassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'localaccount') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localaccount
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localaccount
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'localactual') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localactual
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localactual
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'localbudget') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localbudget
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localbudget
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'localcontractedstaff') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localcontractedstaff
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localcontractedstaff
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'localencumbrance') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localencumbrance
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localencumbrance
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'localpayroll') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localpayroll
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.localpayroll
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'location') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.location
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.location
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -577,152 +577,152 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'location') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF classroomidentificationcode, schoolid ON edfi.location
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF classroomidentificationcode, schoolid ON edfi.location
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.location_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'objectdimension') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.objectdimension
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.objectdimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'objectiveassessment') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.objectiveassessment
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.objectiveassessment
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'openstaffposition') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.openstaffposition
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.openstaffposition
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'openstaffpositionevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.openstaffpositionevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.openstaffpositionevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'operationalunitdimension') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.operationalunitdimension
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.operationalunitdimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'path') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.path
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.path
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'pathmilestone') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.pathmilestone
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.pathmilestone
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'pathphase') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.pathphase
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.pathphase
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'performanceevaluation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.performanceevaluation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.performanceevaluation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'performanceevaluationrating') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.performanceevaluationrating
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.performanceevaluationrating
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'person') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.person
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.person
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'postsecondaryevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.postsecondaryevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.postsecondaryevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'professionaldevelopmentevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.professionaldevelopmentevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.professionaldevelopmentevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'professionaldevelopmenteventattendance') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.professionaldevelopmenteventattendance
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.professionaldevelopmenteventattendance
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'program') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.program
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.program
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'programdimension') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.programdimension
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.programdimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'programevaluation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.programevaluation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.programevaluation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'programevaluationelement') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.programevaluationelement
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.programevaluationelement
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'programevaluationobjective') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.programevaluationobjective
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.programevaluationobjective
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'projectdimension') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.projectdimension
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.projectdimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'quantitativemeasure') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.quantitativemeasure
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.quantitativemeasure
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'quantitativemeasurescore') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.quantitativemeasurescore
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.quantitativemeasurescore
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'recruitmentevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.recruitmentevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.recruitmentevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'recruitmenteventattendance') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.recruitmenteventattendance
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.recruitmenteventattendance
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'reportcard') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.reportcard
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.reportcard
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'restraintevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.restraintevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.restraintevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'rubricdimension') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.rubricdimension
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.rubricdimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'schoolyeartype') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.schoolyeartype
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.schoolyeartype
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'section') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.section
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.section
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -747,12 +747,12 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'section') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname ON edfi.section
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname ON edfi.section
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.section_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'sectionattendancetakenevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.sectionattendancetakenevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.sectionattendancetakenevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -777,12 +777,12 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'sectionattendancetakenevent') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF calendarcode, date, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname ON edfi.sectionattendancetakenevent
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF calendarcode, date, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname ON edfi.sectionattendancetakenevent
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.sectionattendancetakenevent_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'session') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.session
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.session
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -807,17 +807,17 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'session') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF schoolid, schoolyear, sessionname ON edfi.session
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF schoolid, schoolyear, sessionname ON edfi.session
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.session_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'sourcedimension') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.sourcedimension
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.sourcedimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staff') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staff
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staff
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -842,77 +842,77 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'staff') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF staffuniqueid ON edfi.staff
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF staffuniqueid ON edfi.staff
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.staff_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffabsenceevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffabsenceevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffabsenceevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffcohortassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffcohortassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffcohortassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffdemographic') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffdemographic
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffdemographic
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffdirectory') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffdirectory
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffdirectory
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffdisciplineincidentassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffdisciplineincidentassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffdisciplineincidentassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffeducationorganizationassignmentassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffeducationorganizationassignmentassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffeducationorganizationassignmentassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffeducationorganizationcontactassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffeducationorganizationcontactassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffeducationorganizationcontactassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffeducationorganizationemploymentassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffeducationorganizationemploymentassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffeducationorganizationemploymentassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffeducatorpreparationprogramassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffeducatorpreparationprogramassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffeducatorpreparationprogramassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffidentity') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffidentity
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffidentity
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffleave') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffleave
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffleave
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffprogramassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffprogramassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffprogramassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffschoolassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffschoolassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffschoolassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffsectionassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffsectionassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffsectionassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -941,12 +941,12 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'staffsectionassociation') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, staffusi ON edfi.staffsectionassociation
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, staffusi ON edfi.staffsectionassociation
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.staffsectionassociation_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'student') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.student
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.student
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -971,87 +971,87 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'student') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF studentuniqueid ON edfi.student
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF studentuniqueid ON edfi.student
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.student_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentacademicrecord') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentacademicrecord
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentacademicrecord
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentassessment') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentassessment
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentassessment
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentassessmenteducationorganizationassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentassessmenteducationorganizationassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentassessmenteducationorganizationassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentassessmentregistration') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentassessmentregistration
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentassessmentregistration
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentassessmentregistrationbatterypartassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentassessmentregistrationbatterypartassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentassessmentregistrationbatterypartassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentcohortassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentcohortassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentcohortassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentcompetencyobjective') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentcompetencyobjective
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentcompetencyobjective
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentcontactassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentcontactassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentcontactassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentdemographic') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentdemographic
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentdemographic
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentdirectory') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentdirectory
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentdirectory
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentdisciplineincidentbehaviorassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentdisciplineincidentbehaviorassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentdisciplineincidentbehaviorassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentdisciplineincidentnonoffenderassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentdisciplineincidentnonoffenderassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentdisciplineincidentnonoffenderassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studenteducationorganizationassessmentaccommodation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenteducationorganizationassessmentaccommodation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenteducationorganizationassessmentaccommodation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studenteducationorganizationassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenteducationorganizationassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenteducationorganizationassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studenteducationorganizationresponsibilityassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenteducationorganizationresponsibilityassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenteducationorganizationresponsibilityassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentgradebookentry') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentgradebookentry
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentgradebookentry
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -1080,57 +1080,57 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'studentgradebookentry') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF gradebookentryidentifier, namespace, studentusi ON edfi.studentgradebookentry
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF gradebookentryidentifier, namespace, studentusi ON edfi.studentgradebookentry
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentgradebookentry_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studenthealth') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenthealth
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenthealth
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentidentity') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentidentity
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentidentity
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentinterventionassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentinterventionassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentinterventionassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentinterventionattendanceevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentinterventionattendanceevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentinterventionattendanceevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentpath') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentpath
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentpath
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentpathmilestonestatus') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentpathmilestonestatus
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentpathmilestonestatus
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentpathphasestatus') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentpathphasestatus
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentpathphasestatus
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentprogramattendanceevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentprogramattendanceevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentprogramattendanceevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentprogramevaluation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentprogramevaluation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentprogramevaluation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentschoolassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentschoolassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentschoolassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -1159,12 +1159,12 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'studentschoolassociation') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF entrydate, schoolid, studentusi ON edfi.studentschoolassociation
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF entrydate, schoolid, studentusi ON edfi.studentschoolassociation
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentschoolassociation_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentschoolattendanceevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentschoolattendanceevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentschoolattendanceevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -1197,12 +1197,12 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'studentschoolattendanceevent') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF attendanceeventcategorydescriptorid, eventdate, schoolid, schoolyear, sessionname, studentusi ON edfi.studentschoolattendanceevent
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF attendanceeventcategorydescriptorid, eventdate, schoolid, schoolyear, sessionname, studentusi ON edfi.studentschoolattendanceevent
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentschoolattendanceevent_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentsectionassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentsectionassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentsectionassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -1231,12 +1231,12 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'studentsectionassociation') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.studentsectionassociation
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.studentsectionassociation
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentsectionassociation_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentsectionattendanceevent') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentsectionattendanceevent
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentsectionattendanceevent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -1269,77 +1269,77 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'studentsectionattendanceevent') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF attendanceeventcategorydescriptorid, eventdate, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.studentsectionattendanceevent
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF attendanceeventcategorydescriptorid, eventdate, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.studentsectionattendanceevent
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentsectionattendanceevent_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentspecialeducationprogrameligibilityassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentspecialeducationprogrameligibilityassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentspecialeducationprogrameligibilityassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studenttransportation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenttransportation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenttransportation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'survey') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.survey
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.survey
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveycourseassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveycourseassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveycourseassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveyprogramassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyprogramassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyprogramassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveyquestion') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyquestion
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyquestion
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveyquestionresponse') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyquestionresponse
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyquestionresponse
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveyresponse') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyresponse
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyresponse
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveyresponseeducationorganizationtargetassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyresponseeducationorganizationtargetassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyresponseeducationorganizationtargetassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveyresponsepersontargetassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyresponsepersontargetassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyresponsepersontargetassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveyresponsestafftargetassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyresponsestafftargetassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveyresponsestafftargetassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveysection') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysection
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysection
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveysectionaggregateresponse') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionaggregateresponse
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionaggregateresponse
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveysectionassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
@@ -1364,27 +1364,27 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'surveysectionassociation') THEN
-    CREATE OR ALTER TRIGGER HandleKeyChanges AFTER UPDATE OF localcoursecode, namespace, schoolid, schoolyear, sectionidentifier, sessionname, surveyidentifier ON edfi.surveysectionassociation
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF localcoursecode, namespace, schoolid, schoolyear, sectionidentifier, sessionname, surveyidentifier ON edfi.surveysectionassociation
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.surveysectionassociation_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveysectionresponse') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionresponse
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionresponse
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveysectionresponseeducationorganizationtargetassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionresponseeducationorganizationtargetassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionresponseeducationorganizationtargetassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveysectionresponsepersontargetassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionresponsepersontargetassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionresponsepersontargetassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'surveysectionresponsestafftargetassociation') THEN
-CREATE OR ALTER TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionresponsestafftargetassociation
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.surveysectionresponsestafftargetassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 

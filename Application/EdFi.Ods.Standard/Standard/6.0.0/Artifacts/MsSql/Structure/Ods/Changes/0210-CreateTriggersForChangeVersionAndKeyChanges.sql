@@ -6,7 +6,7 @@
 DROP TRIGGER IF EXISTS [edfi].[edfi_AcademicWeek_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_AcademicWeek_TR_UpdateChangeVersion] ON [edfi].[AcademicWeek] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_AcademicWeek_TR_UpdateChangeVersion] ON [edfi].[AcademicWeek] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[AcademicWeek]
@@ -19,7 +19,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_AccountabilityRating_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_AccountabilityRating_TR_UpdateChangeVersion] ON [edfi].[AccountabilityRating] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_AccountabilityRating_TR_UpdateChangeVersion] ON [edfi].[AccountabilityRating] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[AccountabilityRating]
@@ -32,7 +32,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ApplicantProfile_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ApplicantProfile_TR_UpdateChangeVersion] ON [edfi].[ApplicantProfile] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ApplicantProfile_TR_UpdateChangeVersion] ON [edfi].[ApplicantProfile] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ApplicantProfile]
@@ -45,7 +45,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Application_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Application_TR_UpdateChangeVersion] ON [edfi].[Application] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Application_TR_UpdateChangeVersion] ON [edfi].[Application] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Application]
@@ -58,7 +58,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ApplicationEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ApplicationEvent_TR_UpdateChangeVersion] ON [edfi].[ApplicationEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ApplicationEvent_TR_UpdateChangeVersion] ON [edfi].[ApplicationEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ApplicationEvent]
@@ -71,7 +71,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Assessment_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Assessment_TR_UpdateChangeVersion] ON [edfi].[Assessment] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Assessment_TR_UpdateChangeVersion] ON [edfi].[Assessment] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Assessment]
@@ -84,7 +84,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_AssessmentAdministration_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_AssessmentAdministration_TR_UpdateChangeVersion] ON [edfi].[AssessmentAdministration] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_AssessmentAdministration_TR_UpdateChangeVersion] ON [edfi].[AssessmentAdministration] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[AssessmentAdministration]
@@ -97,7 +97,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_AssessmentAdministrationParticipation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_AssessmentAdministrationParticipation_TR_UpdateChangeVersion] ON [edfi].[AssessmentAdministrationParticipation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_AssessmentAdministrationParticipation_TR_UpdateChangeVersion] ON [edfi].[AssessmentAdministrationParticipation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[AssessmentAdministrationParticipation]
@@ -110,7 +110,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_AssessmentBatteryPart_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_AssessmentBatteryPart_TR_UpdateChangeVersion] ON [edfi].[AssessmentBatteryPart] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_AssessmentBatteryPart_TR_UpdateChangeVersion] ON [edfi].[AssessmentBatteryPart] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[AssessmentBatteryPart]
@@ -123,7 +123,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_AssessmentItem_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_AssessmentItem_TR_UpdateChangeVersion] ON [edfi].[AssessmentItem] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_AssessmentItem_TR_UpdateChangeVersion] ON [edfi].[AssessmentItem] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[AssessmentItem]
@@ -136,7 +136,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_AssessmentScoreRangeLearningStandard_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_AssessmentScoreRangeLearningStandard_TR_UpdateChangeVersion] ON [edfi].[AssessmentScoreRangeLearningStandard] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_AssessmentScoreRangeLearningStandard_TR_UpdateChangeVersion] ON [edfi].[AssessmentScoreRangeLearningStandard] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[AssessmentScoreRangeLearningStandard]
@@ -149,7 +149,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_BalanceSheetDimension_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_BalanceSheetDimension_TR_UpdateChangeVersion] ON [edfi].[BalanceSheetDimension] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_BalanceSheetDimension_TR_UpdateChangeVersion] ON [edfi].[BalanceSheetDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[BalanceSheetDimension]
@@ -162,7 +162,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_BellSchedule_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_BellSchedule_TR_UpdateChangeVersion] ON [edfi].[BellSchedule] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_BellSchedule_TR_UpdateChangeVersion] ON [edfi].[BellSchedule] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[BellSchedule]
@@ -175,7 +175,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Calendar_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Calendar_TR_UpdateChangeVersion] ON [edfi].[Calendar] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Calendar_TR_UpdateChangeVersion] ON [edfi].[Calendar] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Calendar]
@@ -188,7 +188,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CalendarDate_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CalendarDate_TR_UpdateChangeVersion] ON [edfi].[CalendarDate] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CalendarDate_TR_UpdateChangeVersion] ON [edfi].[CalendarDate] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CalendarDate]
@@ -201,7 +201,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Candidate_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Candidate_TR_UpdateChangeVersion] ON [edfi].[Candidate] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Candidate_TR_UpdateChangeVersion] ON [edfi].[Candidate] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Candidate]
@@ -214,7 +214,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateEducatorPreparationProgramAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CandidateEducatorPreparationProgramAssociation_TR_UpdateChangeVersion] ON [edfi].[CandidateEducatorPreparationProgramAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CandidateEducatorPreparationProgramAssociation_TR_UpdateChangeVersion] ON [edfi].[CandidateEducatorPreparationProgramAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CandidateEducatorPreparationProgramAssociation]
@@ -227,7 +227,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateIdentity_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CandidateIdentity_TR_UpdateChangeVersion] ON [edfi].[CandidateIdentity] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CandidateIdentity_TR_UpdateChangeVersion] ON [edfi].[CandidateIdentity] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CandidateIdentity]
@@ -240,7 +240,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateRelationshipToStaffAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CandidateRelationshipToStaffAssociation_TR_UpdateChangeVersion] ON [edfi].[CandidateRelationshipToStaffAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CandidateRelationshipToStaffAssociation_TR_UpdateChangeVersion] ON [edfi].[CandidateRelationshipToStaffAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CandidateRelationshipToStaffAssociation]
@@ -253,7 +253,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Certification_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Certification_TR_UpdateChangeVersion] ON [edfi].[Certification] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Certification_TR_UpdateChangeVersion] ON [edfi].[Certification] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Certification]
@@ -266,7 +266,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CertificationExam_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CertificationExam_TR_UpdateChangeVersion] ON [edfi].[CertificationExam] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CertificationExam_TR_UpdateChangeVersion] ON [edfi].[CertificationExam] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CertificationExam]
@@ -279,7 +279,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CertificationExamResult_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CertificationExamResult_TR_UpdateChangeVersion] ON [edfi].[CertificationExamResult] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CertificationExamResult_TR_UpdateChangeVersion] ON [edfi].[CertificationExamResult] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CertificationExamResult]
@@ -292,7 +292,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ChartOfAccount_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ChartOfAccount_TR_UpdateChangeVersion] ON [edfi].[ChartOfAccount] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ChartOfAccount_TR_UpdateChangeVersion] ON [edfi].[ChartOfAccount] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ChartOfAccount]
@@ -305,7 +305,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ClassPeriod_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ClassPeriod_TR_UpdateChangeVersion] ON [edfi].[ClassPeriod] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ClassPeriod_TR_UpdateChangeVersion] ON [edfi].[ClassPeriod] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ClassPeriod]
@@ -332,7 +332,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Cohort_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Cohort_TR_UpdateChangeVersion] ON [edfi].[Cohort] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Cohort_TR_UpdateChangeVersion] ON [edfi].[Cohort] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Cohort]
@@ -345,7 +345,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CommunityProviderLicense_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CommunityProviderLicense_TR_UpdateChangeVersion] ON [edfi].[CommunityProviderLicense] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CommunityProviderLicense_TR_UpdateChangeVersion] ON [edfi].[CommunityProviderLicense] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CommunityProviderLicense]
@@ -358,7 +358,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CompetencyObjective_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CompetencyObjective_TR_UpdateChangeVersion] ON [edfi].[CompetencyObjective] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CompetencyObjective_TR_UpdateChangeVersion] ON [edfi].[CompetencyObjective] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CompetencyObjective]
@@ -371,7 +371,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Contact_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Contact_TR_UpdateChangeVersion] ON [edfi].[Contact] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Contact_TR_UpdateChangeVersion] ON [edfi].[Contact] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Contact]
@@ -396,7 +396,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ContactIdentity_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ContactIdentity_TR_UpdateChangeVersion] ON [edfi].[ContactIdentity] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ContactIdentity_TR_UpdateChangeVersion] ON [edfi].[ContactIdentity] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ContactIdentity]
@@ -409,7 +409,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Course_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Course_TR_UpdateChangeVersion] ON [edfi].[Course] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Course_TR_UpdateChangeVersion] ON [edfi].[Course] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Course]
@@ -422,7 +422,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CourseOffering_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CourseOffering_TR_UpdateChangeVersion] ON [edfi].[CourseOffering] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CourseOffering_TR_UpdateChangeVersion] ON [edfi].[CourseOffering] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CourseOffering]
@@ -449,7 +449,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CourseTranscript_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CourseTranscript_TR_UpdateChangeVersion] ON [edfi].[CourseTranscript] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CourseTranscript_TR_UpdateChangeVersion] ON [edfi].[CourseTranscript] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CourseTranscript]
@@ -462,7 +462,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Credential_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Credential_TR_UpdateChangeVersion] ON [edfi].[Credential] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Credential_TR_UpdateChangeVersion] ON [edfi].[Credential] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Credential]
@@ -475,7 +475,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CredentialEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CredentialEvent_TR_UpdateChangeVersion] ON [edfi].[CredentialEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CredentialEvent_TR_UpdateChangeVersion] ON [edfi].[CredentialEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CredentialEvent]
@@ -488,7 +488,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_CrisisEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_CrisisEvent_TR_UpdateChangeVersion] ON [edfi].[CrisisEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CrisisEvent_TR_UpdateChangeVersion] ON [edfi].[CrisisEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[CrisisEvent]
@@ -501,7 +501,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Descriptor_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Descriptor_TR_UpdateChangeVersion] ON [edfi].[Descriptor] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Descriptor_TR_UpdateChangeVersion] ON [edfi].[Descriptor] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Descriptor]
@@ -514,7 +514,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_DescriptorMapping_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_DescriptorMapping_TR_UpdateChangeVersion] ON [edfi].[DescriptorMapping] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_DescriptorMapping_TR_UpdateChangeVersion] ON [edfi].[DescriptorMapping] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[DescriptorMapping]
@@ -527,7 +527,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_DisciplineAction_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_DisciplineAction_TR_UpdateChangeVersion] ON [edfi].[DisciplineAction] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_DisciplineAction_TR_UpdateChangeVersion] ON [edfi].[DisciplineAction] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[DisciplineAction]
@@ -540,7 +540,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_DisciplineIncident_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_DisciplineIncident_TR_UpdateChangeVersion] ON [edfi].[DisciplineIncident] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_DisciplineIncident_TR_UpdateChangeVersion] ON [edfi].[DisciplineIncident] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[DisciplineIncident]
@@ -553,7 +553,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducationContent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EducationContent_TR_UpdateChangeVersion] ON [edfi].[EducationContent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EducationContent_TR_UpdateChangeVersion] ON [edfi].[EducationContent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EducationContent]
@@ -566,7 +566,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganization_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EducationOrganization_TR_UpdateChangeVersion] ON [edfi].[EducationOrganization] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EducationOrganization_TR_UpdateChangeVersion] ON [edfi].[EducationOrganization] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EducationOrganization]
@@ -579,7 +579,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationIdentity_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EducationOrganizationIdentity_TR_UpdateChangeVersion] ON [edfi].[EducationOrganizationIdentity] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EducationOrganizationIdentity_TR_UpdateChangeVersion] ON [edfi].[EducationOrganizationIdentity] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EducationOrganizationIdentity]
@@ -592,7 +592,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationInterventionPrescriptionAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EducationOrganizationInterventionPrescriptionAssociation_TR_UpdateChangeVersion] ON [edfi].[EducationOrganizationInterventionPrescriptionAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EducationOrganizationInterventionPrescriptionAssociation_TR_UpdateChangeVersion] ON [edfi].[EducationOrganizationInterventionPrescriptionAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EducationOrganizationInterventionPrescriptionAssociation]
@@ -605,7 +605,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationNetworkAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EducationOrganizationNetworkAssociation_TR_UpdateChangeVersion] ON [edfi].[EducationOrganizationNetworkAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EducationOrganizationNetworkAssociation_TR_UpdateChangeVersion] ON [edfi].[EducationOrganizationNetworkAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EducationOrganizationNetworkAssociation]
@@ -618,7 +618,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationPeerAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EducationOrganizationPeerAssociation_TR_UpdateChangeVersion] ON [edfi].[EducationOrganizationPeerAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EducationOrganizationPeerAssociation_TR_UpdateChangeVersion] ON [edfi].[EducationOrganizationPeerAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EducationOrganizationPeerAssociation]
@@ -631,7 +631,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducatorPreparationProgram_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EducatorPreparationProgram_TR_UpdateChangeVersion] ON [edfi].[EducatorPreparationProgram] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EducatorPreparationProgram_TR_UpdateChangeVersion] ON [edfi].[EducatorPreparationProgram] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EducatorPreparationProgram]
@@ -644,7 +644,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Evaluation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Evaluation_TR_UpdateChangeVersion] ON [edfi].[Evaluation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Evaluation_TR_UpdateChangeVersion] ON [edfi].[Evaluation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Evaluation]
@@ -657,7 +657,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationElement_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EvaluationElement_TR_UpdateChangeVersion] ON [edfi].[EvaluationElement] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EvaluationElement_TR_UpdateChangeVersion] ON [edfi].[EvaluationElement] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EvaluationElement]
@@ -670,7 +670,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationElementRating_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EvaluationElementRating_TR_UpdateChangeVersion] ON [edfi].[EvaluationElementRating] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EvaluationElementRating_TR_UpdateChangeVersion] ON [edfi].[EvaluationElementRating] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EvaluationElementRating]
@@ -683,7 +683,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationObjective_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EvaluationObjective_TR_UpdateChangeVersion] ON [edfi].[EvaluationObjective] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EvaluationObjective_TR_UpdateChangeVersion] ON [edfi].[EvaluationObjective] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EvaluationObjective]
@@ -696,7 +696,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationObjectiveRating_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EvaluationObjectiveRating_TR_UpdateChangeVersion] ON [edfi].[EvaluationObjectiveRating] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EvaluationObjectiveRating_TR_UpdateChangeVersion] ON [edfi].[EvaluationObjectiveRating] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EvaluationObjectiveRating]
@@ -709,7 +709,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationRating_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EvaluationRating_TR_UpdateChangeVersion] ON [edfi].[EvaluationRating] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EvaluationRating_TR_UpdateChangeVersion] ON [edfi].[EvaluationRating] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EvaluationRating]
@@ -722,7 +722,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationRubricDimension_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_EvaluationRubricDimension_TR_UpdateChangeVersion] ON [edfi].[EvaluationRubricDimension] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EvaluationRubricDimension_TR_UpdateChangeVersion] ON [edfi].[EvaluationRubricDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[EvaluationRubricDimension]
@@ -735,7 +735,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_FeederSchoolAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_FeederSchoolAssociation_TR_UpdateChangeVersion] ON [edfi].[FeederSchoolAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_FeederSchoolAssociation_TR_UpdateChangeVersion] ON [edfi].[FeederSchoolAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[FeederSchoolAssociation]
@@ -748,7 +748,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_FieldworkExperience_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_FieldworkExperience_TR_UpdateChangeVersion] ON [edfi].[FieldworkExperience] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_FieldworkExperience_TR_UpdateChangeVersion] ON [edfi].[FieldworkExperience] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[FieldworkExperience]
@@ -761,7 +761,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_FieldworkExperienceSectionAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_FieldworkExperienceSectionAssociation_TR_UpdateChangeVersion] ON [edfi].[FieldworkExperienceSectionAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_FieldworkExperienceSectionAssociation_TR_UpdateChangeVersion] ON [edfi].[FieldworkExperienceSectionAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[FieldworkExperienceSectionAssociation]
@@ -792,7 +792,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_FinancialAid_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_FinancialAid_TR_UpdateChangeVersion] ON [edfi].[FinancialAid] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_FinancialAid_TR_UpdateChangeVersion] ON [edfi].[FinancialAid] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[FinancialAid]
@@ -805,7 +805,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_FunctionDimension_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_FunctionDimension_TR_UpdateChangeVersion] ON [edfi].[FunctionDimension] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_FunctionDimension_TR_UpdateChangeVersion] ON [edfi].[FunctionDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[FunctionDimension]
@@ -818,7 +818,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_FundDimension_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_FundDimension_TR_UpdateChangeVersion] ON [edfi].[FundDimension] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_FundDimension_TR_UpdateChangeVersion] ON [edfi].[FundDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[FundDimension]
@@ -831,7 +831,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_GeneralStudentProgramAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_GeneralStudentProgramAssociation_TR_UpdateChangeVersion] ON [edfi].[GeneralStudentProgramAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_GeneralStudentProgramAssociation_TR_UpdateChangeVersion] ON [edfi].[GeneralStudentProgramAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[GeneralStudentProgramAssociation]
@@ -844,7 +844,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Goal_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Goal_TR_UpdateChangeVersion] ON [edfi].[Goal] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Goal_TR_UpdateChangeVersion] ON [edfi].[Goal] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Goal]
@@ -857,7 +857,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Grade_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Grade_TR_UpdateChangeVersion] ON [edfi].[Grade] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Grade_TR_UpdateChangeVersion] ON [edfi].[Grade] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Grade]
@@ -896,7 +896,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_GradebookEntry_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_GradebookEntry_TR_UpdateChangeVersion] ON [edfi].[GradebookEntry] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_GradebookEntry_TR_UpdateChangeVersion] ON [edfi].[GradebookEntry] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[GradebookEntry]
@@ -923,7 +923,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_GradingPeriod_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_GradingPeriod_TR_UpdateChangeVersion] ON [edfi].[GradingPeriod] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_GradingPeriod_TR_UpdateChangeVersion] ON [edfi].[GradingPeriod] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[GradingPeriod]
@@ -936,7 +936,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_GraduationPlan_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_GraduationPlan_TR_UpdateChangeVersion] ON [edfi].[GraduationPlan] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_GraduationPlan_TR_UpdateChangeVersion] ON [edfi].[GraduationPlan] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[GraduationPlan]
@@ -949,7 +949,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Intervention_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Intervention_TR_UpdateChangeVersion] ON [edfi].[Intervention] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Intervention_TR_UpdateChangeVersion] ON [edfi].[Intervention] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Intervention]
@@ -962,7 +962,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_InterventionPrescription_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_InterventionPrescription_TR_UpdateChangeVersion] ON [edfi].[InterventionPrescription] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_InterventionPrescription_TR_UpdateChangeVersion] ON [edfi].[InterventionPrescription] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[InterventionPrescription]
@@ -975,7 +975,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_InterventionStudy_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_InterventionStudy_TR_UpdateChangeVersion] ON [edfi].[InterventionStudy] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_InterventionStudy_TR_UpdateChangeVersion] ON [edfi].[InterventionStudy] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[InterventionStudy]
@@ -988,7 +988,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_LearningStandard_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_LearningStandard_TR_UpdateChangeVersion] ON [edfi].[LearningStandard] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_LearningStandard_TR_UpdateChangeVersion] ON [edfi].[LearningStandard] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[LearningStandard]
@@ -1001,7 +1001,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_LearningStandardEquivalenceAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_LearningStandardEquivalenceAssociation_TR_UpdateChangeVersion] ON [edfi].[LearningStandardEquivalenceAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_LearningStandardEquivalenceAssociation_TR_UpdateChangeVersion] ON [edfi].[LearningStandardEquivalenceAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[LearningStandardEquivalenceAssociation]
@@ -1014,7 +1014,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_LocalAccount_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_LocalAccount_TR_UpdateChangeVersion] ON [edfi].[LocalAccount] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_LocalAccount_TR_UpdateChangeVersion] ON [edfi].[LocalAccount] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[LocalAccount]
@@ -1027,7 +1027,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_LocalActual_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_LocalActual_TR_UpdateChangeVersion] ON [edfi].[LocalActual] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_LocalActual_TR_UpdateChangeVersion] ON [edfi].[LocalActual] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[LocalActual]
@@ -1040,7 +1040,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_LocalBudget_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_LocalBudget_TR_UpdateChangeVersion] ON [edfi].[LocalBudget] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_LocalBudget_TR_UpdateChangeVersion] ON [edfi].[LocalBudget] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[LocalBudget]
@@ -1053,7 +1053,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_LocalContractedStaff_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_LocalContractedStaff_TR_UpdateChangeVersion] ON [edfi].[LocalContractedStaff] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_LocalContractedStaff_TR_UpdateChangeVersion] ON [edfi].[LocalContractedStaff] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[LocalContractedStaff]
@@ -1066,7 +1066,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_LocalEncumbrance_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_LocalEncumbrance_TR_UpdateChangeVersion] ON [edfi].[LocalEncumbrance] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_LocalEncumbrance_TR_UpdateChangeVersion] ON [edfi].[LocalEncumbrance] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[LocalEncumbrance]
@@ -1079,7 +1079,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_LocalPayroll_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_LocalPayroll_TR_UpdateChangeVersion] ON [edfi].[LocalPayroll] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_LocalPayroll_TR_UpdateChangeVersion] ON [edfi].[LocalPayroll] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[LocalPayroll]
@@ -1092,7 +1092,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Location_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Location_TR_UpdateChangeVersion] ON [edfi].[Location] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Location_TR_UpdateChangeVersion] ON [edfi].[Location] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Location]
@@ -1119,7 +1119,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ObjectDimension_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ObjectDimension_TR_UpdateChangeVersion] ON [edfi].[ObjectDimension] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ObjectDimension_TR_UpdateChangeVersion] ON [edfi].[ObjectDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ObjectDimension]
@@ -1132,7 +1132,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ObjectiveAssessment_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ObjectiveAssessment_TR_UpdateChangeVersion] ON [edfi].[ObjectiveAssessment] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ObjectiveAssessment_TR_UpdateChangeVersion] ON [edfi].[ObjectiveAssessment] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ObjectiveAssessment]
@@ -1145,7 +1145,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_OpenStaffPosition_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_OpenStaffPosition_TR_UpdateChangeVersion] ON [edfi].[OpenStaffPosition] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_OpenStaffPosition_TR_UpdateChangeVersion] ON [edfi].[OpenStaffPosition] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[OpenStaffPosition]
@@ -1158,7 +1158,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_OpenStaffPositionEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_OpenStaffPositionEvent_TR_UpdateChangeVersion] ON [edfi].[OpenStaffPositionEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_OpenStaffPositionEvent_TR_UpdateChangeVersion] ON [edfi].[OpenStaffPositionEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[OpenStaffPositionEvent]
@@ -1171,7 +1171,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_OperationalUnitDimension_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_OperationalUnitDimension_TR_UpdateChangeVersion] ON [edfi].[OperationalUnitDimension] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_OperationalUnitDimension_TR_UpdateChangeVersion] ON [edfi].[OperationalUnitDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[OperationalUnitDimension]
@@ -1184,7 +1184,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Path_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Path_TR_UpdateChangeVersion] ON [edfi].[Path] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Path_TR_UpdateChangeVersion] ON [edfi].[Path] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Path]
@@ -1197,7 +1197,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_PathMilestone_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_PathMilestone_TR_UpdateChangeVersion] ON [edfi].[PathMilestone] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_PathMilestone_TR_UpdateChangeVersion] ON [edfi].[PathMilestone] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[PathMilestone]
@@ -1210,7 +1210,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_PathPhase_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_PathPhase_TR_UpdateChangeVersion] ON [edfi].[PathPhase] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_PathPhase_TR_UpdateChangeVersion] ON [edfi].[PathPhase] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[PathPhase]
@@ -1223,7 +1223,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_PerformanceEvaluation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_PerformanceEvaluation_TR_UpdateChangeVersion] ON [edfi].[PerformanceEvaluation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_PerformanceEvaluation_TR_UpdateChangeVersion] ON [edfi].[PerformanceEvaluation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[PerformanceEvaluation]
@@ -1236,7 +1236,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_PerformanceEvaluationRating_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_PerformanceEvaluationRating_TR_UpdateChangeVersion] ON [edfi].[PerformanceEvaluationRating] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_PerformanceEvaluationRating_TR_UpdateChangeVersion] ON [edfi].[PerformanceEvaluationRating] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[PerformanceEvaluationRating]
@@ -1249,7 +1249,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Person_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Person_TR_UpdateChangeVersion] ON [edfi].[Person] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Person_TR_UpdateChangeVersion] ON [edfi].[Person] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Person]
@@ -1262,7 +1262,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_PostSecondaryEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_PostSecondaryEvent_TR_UpdateChangeVersion] ON [edfi].[PostSecondaryEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_PostSecondaryEvent_TR_UpdateChangeVersion] ON [edfi].[PostSecondaryEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[PostSecondaryEvent]
@@ -1275,7 +1275,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ProfessionalDevelopmentEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ProfessionalDevelopmentEvent_TR_UpdateChangeVersion] ON [edfi].[ProfessionalDevelopmentEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ProfessionalDevelopmentEvent_TR_UpdateChangeVersion] ON [edfi].[ProfessionalDevelopmentEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ProfessionalDevelopmentEvent]
@@ -1288,7 +1288,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion] ON [edfi].[ProfessionalDevelopmentEventAttendance] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion] ON [edfi].[ProfessionalDevelopmentEventAttendance] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ProfessionalDevelopmentEventAttendance]
@@ -1301,7 +1301,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Program_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Program_TR_UpdateChangeVersion] ON [edfi].[Program] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Program_TR_UpdateChangeVersion] ON [edfi].[Program] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Program]
@@ -1314,7 +1314,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ProgramDimension_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ProgramDimension_TR_UpdateChangeVersion] ON [edfi].[ProgramDimension] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ProgramDimension_TR_UpdateChangeVersion] ON [edfi].[ProgramDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ProgramDimension]
@@ -1327,7 +1327,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ProgramEvaluation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ProgramEvaluation_TR_UpdateChangeVersion] ON [edfi].[ProgramEvaluation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ProgramEvaluation_TR_UpdateChangeVersion] ON [edfi].[ProgramEvaluation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ProgramEvaluation]
@@ -1340,7 +1340,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ProgramEvaluationElement_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ProgramEvaluationElement_TR_UpdateChangeVersion] ON [edfi].[ProgramEvaluationElement] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ProgramEvaluationElement_TR_UpdateChangeVersion] ON [edfi].[ProgramEvaluationElement] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ProgramEvaluationElement]
@@ -1353,7 +1353,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ProgramEvaluationObjective_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ProgramEvaluationObjective_TR_UpdateChangeVersion] ON [edfi].[ProgramEvaluationObjective] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ProgramEvaluationObjective_TR_UpdateChangeVersion] ON [edfi].[ProgramEvaluationObjective] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ProgramEvaluationObjective]
@@ -1366,7 +1366,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ProjectDimension_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ProjectDimension_TR_UpdateChangeVersion] ON [edfi].[ProjectDimension] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ProjectDimension_TR_UpdateChangeVersion] ON [edfi].[ProjectDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ProjectDimension]
@@ -1379,7 +1379,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_QuantitativeMeasure_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_QuantitativeMeasure_TR_UpdateChangeVersion] ON [edfi].[QuantitativeMeasure] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_QuantitativeMeasure_TR_UpdateChangeVersion] ON [edfi].[QuantitativeMeasure] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[QuantitativeMeasure]
@@ -1392,7 +1392,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_QuantitativeMeasureScore_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_QuantitativeMeasureScore_TR_UpdateChangeVersion] ON [edfi].[QuantitativeMeasureScore] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_QuantitativeMeasureScore_TR_UpdateChangeVersion] ON [edfi].[QuantitativeMeasureScore] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[QuantitativeMeasureScore]
@@ -1405,7 +1405,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_RecruitmentEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_RecruitmentEvent_TR_UpdateChangeVersion] ON [edfi].[RecruitmentEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_RecruitmentEvent_TR_UpdateChangeVersion] ON [edfi].[RecruitmentEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[RecruitmentEvent]
@@ -1418,7 +1418,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_RecruitmentEventAttendance_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_RecruitmentEventAttendance_TR_UpdateChangeVersion] ON [edfi].[RecruitmentEventAttendance] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_RecruitmentEventAttendance_TR_UpdateChangeVersion] ON [edfi].[RecruitmentEventAttendance] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[RecruitmentEventAttendance]
@@ -1431,7 +1431,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ReportCard_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_ReportCard_TR_UpdateChangeVersion] ON [edfi].[ReportCard] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ReportCard_TR_UpdateChangeVersion] ON [edfi].[ReportCard] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[ReportCard]
@@ -1444,7 +1444,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_RestraintEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_RestraintEvent_TR_UpdateChangeVersion] ON [edfi].[RestraintEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_RestraintEvent_TR_UpdateChangeVersion] ON [edfi].[RestraintEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[RestraintEvent]
@@ -1457,7 +1457,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_RubricDimension_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_RubricDimension_TR_UpdateChangeVersion] ON [edfi].[RubricDimension] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_RubricDimension_TR_UpdateChangeVersion] ON [edfi].[RubricDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[RubricDimension]
@@ -1470,7 +1470,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SchoolYearType_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SchoolYearType_TR_UpdateChangeVersion] ON [edfi].[SchoolYearType] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SchoolYearType_TR_UpdateChangeVersion] ON [edfi].[SchoolYearType] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SchoolYearType]
@@ -1483,7 +1483,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Section_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Section_TR_UpdateChangeVersion] ON [edfi].[Section] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Section_TR_UpdateChangeVersion] ON [edfi].[Section] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Section]
@@ -1510,7 +1510,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SectionAttendanceTakenEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SectionAttendanceTakenEvent_TR_UpdateChangeVersion] ON [edfi].[SectionAttendanceTakenEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SectionAttendanceTakenEvent_TR_UpdateChangeVersion] ON [edfi].[SectionAttendanceTakenEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SectionAttendanceTakenEvent]
@@ -1537,7 +1537,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Session_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Session_TR_UpdateChangeVersion] ON [edfi].[Session] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Session_TR_UpdateChangeVersion] ON [edfi].[Session] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Session]
@@ -1564,7 +1564,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SourceDimension_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SourceDimension_TR_UpdateChangeVersion] ON [edfi].[SourceDimension] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SourceDimension_TR_UpdateChangeVersion] ON [edfi].[SourceDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SourceDimension]
@@ -1577,7 +1577,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Staff_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Staff_TR_UpdateChangeVersion] ON [edfi].[Staff] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Staff_TR_UpdateChangeVersion] ON [edfi].[Staff] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Staff]
@@ -1602,7 +1602,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffAbsenceEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffAbsenceEvent_TR_UpdateChangeVersion] ON [edfi].[StaffAbsenceEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffAbsenceEvent_TR_UpdateChangeVersion] ON [edfi].[StaffAbsenceEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffAbsenceEvent]
@@ -1615,7 +1615,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffCohortAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffCohortAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffCohortAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffCohortAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffCohortAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffCohortAssociation]
@@ -1628,7 +1628,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffDemographic_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffDemographic_TR_UpdateChangeVersion] ON [edfi].[StaffDemographic] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffDemographic_TR_UpdateChangeVersion] ON [edfi].[StaffDemographic] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffDemographic]
@@ -1641,7 +1641,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffDirectory_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffDirectory_TR_UpdateChangeVersion] ON [edfi].[StaffDirectory] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffDirectory_TR_UpdateChangeVersion] ON [edfi].[StaffDirectory] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffDirectory]
@@ -1654,7 +1654,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffDisciplineIncidentAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffDisciplineIncidentAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffDisciplineIncidentAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffDisciplineIncidentAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffDisciplineIncidentAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffDisciplineIncidentAssociation]
@@ -1667,7 +1667,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducationOrganizationAssignmentAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffEducationOrganizationAssignmentAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffEducationOrganizationAssignmentAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffEducationOrganizationAssignmentAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffEducationOrganizationAssignmentAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffEducationOrganizationAssignmentAssociation]
@@ -1680,7 +1680,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducationOrganizationContactAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffEducationOrganizationContactAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffEducationOrganizationContactAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffEducationOrganizationContactAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffEducationOrganizationContactAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffEducationOrganizationContactAssociation]
@@ -1693,7 +1693,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducationOrganizationEmploymentAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffEducationOrganizationEmploymentAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffEducationOrganizationEmploymentAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffEducationOrganizationEmploymentAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffEducationOrganizationEmploymentAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffEducationOrganizationEmploymentAssociation]
@@ -1706,7 +1706,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducatorPreparationProgramAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffEducatorPreparationProgramAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffEducatorPreparationProgramAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffEducatorPreparationProgramAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffEducatorPreparationProgramAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffEducatorPreparationProgramAssociation]
@@ -1719,7 +1719,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffIdentity_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffIdentity_TR_UpdateChangeVersion] ON [edfi].[StaffIdentity] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffIdentity_TR_UpdateChangeVersion] ON [edfi].[StaffIdentity] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffIdentity]
@@ -1732,7 +1732,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffLeave_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffLeave_TR_UpdateChangeVersion] ON [edfi].[StaffLeave] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffLeave_TR_UpdateChangeVersion] ON [edfi].[StaffLeave] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffLeave]
@@ -1745,7 +1745,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffProgramAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffProgramAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffProgramAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffProgramAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffProgramAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffProgramAssociation]
@@ -1758,7 +1758,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffSchoolAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffSchoolAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffSchoolAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffSchoolAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffSchoolAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffSchoolAssociation]
@@ -1771,7 +1771,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffSectionAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StaffSectionAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffSectionAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffSectionAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffSectionAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StaffSectionAssociation]
@@ -1802,7 +1802,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Student_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Student_TR_UpdateChangeVersion] ON [edfi].[Student] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Student_TR_UpdateChangeVersion] ON [edfi].[Student] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Student]
@@ -1827,7 +1827,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentAcademicRecord_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentAcademicRecord_TR_UpdateChangeVersion] ON [edfi].[StudentAcademicRecord] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentAcademicRecord_TR_UpdateChangeVersion] ON [edfi].[StudentAcademicRecord] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentAcademicRecord]
@@ -1840,7 +1840,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentAssessment_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentAssessment_TR_UpdateChangeVersion] ON [edfi].[StudentAssessment] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentAssessment_TR_UpdateChangeVersion] ON [edfi].[StudentAssessment] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentAssessment]
@@ -1853,7 +1853,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentAssessmentEducationOrganizationAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentAssessmentEducationOrganizationAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentAssessmentEducationOrganizationAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentAssessmentEducationOrganizationAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentAssessmentEducationOrganizationAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentAssessmentEducationOrganizationAssociation]
@@ -1866,7 +1866,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentAssessmentRegistration_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentAssessmentRegistration_TR_UpdateChangeVersion] ON [edfi].[StudentAssessmentRegistration] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentAssessmentRegistration_TR_UpdateChangeVersion] ON [edfi].[StudentAssessmentRegistration] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentAssessmentRegistration]
@@ -1879,7 +1879,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentAssessmentRegistrationBatteryPartAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentAssessmentRegistrationBatteryPartAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentAssessmentRegistrationBatteryPartAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentAssessmentRegistrationBatteryPartAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentAssessmentRegistrationBatteryPartAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentAssessmentRegistrationBatteryPartAssociation]
@@ -1892,7 +1892,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentCohortAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentCohortAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentCohortAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentCohortAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentCohortAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentCohortAssociation]
@@ -1905,7 +1905,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentCompetencyObjective_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentCompetencyObjective_TR_UpdateChangeVersion] ON [edfi].[StudentCompetencyObjective] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentCompetencyObjective_TR_UpdateChangeVersion] ON [edfi].[StudentCompetencyObjective] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentCompetencyObjective]
@@ -1918,7 +1918,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentContactAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentContactAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentContactAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentContactAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentContactAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentContactAssociation]
@@ -1931,7 +1931,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentDemographic_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentDemographic_TR_UpdateChangeVersion] ON [edfi].[StudentDemographic] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentDemographic_TR_UpdateChangeVersion] ON [edfi].[StudentDemographic] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentDemographic]
@@ -1944,7 +1944,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentDirectory_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentDirectory_TR_UpdateChangeVersion] ON [edfi].[StudentDirectory] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentDirectory_TR_UpdateChangeVersion] ON [edfi].[StudentDirectory] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentDirectory]
@@ -1957,7 +1957,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentDisciplineIncidentBehaviorAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentDisciplineIncidentBehaviorAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentDisciplineIncidentBehaviorAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentDisciplineIncidentBehaviorAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentDisciplineIncidentBehaviorAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentDisciplineIncidentBehaviorAssociation]
@@ -1970,7 +1970,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentDisciplineIncidentNonOffenderAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentDisciplineIncidentNonOffenderAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentDisciplineIncidentNonOffenderAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentDisciplineIncidentNonOffenderAssociation]
@@ -1983,7 +1983,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentEducationOrganizationAssessmentAccommodation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentEducationOrganizationAssessmentAccommodation_TR_UpdateChangeVersion] ON [edfi].[StudentEducationOrganizationAssessmentAccommodation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentEducationOrganizationAssessmentAccommodation_TR_UpdateChangeVersion] ON [edfi].[StudentEducationOrganizationAssessmentAccommodation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentEducationOrganizationAssessmentAccommodation]
@@ -1996,7 +1996,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentEducationOrganizationAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentEducationOrganizationAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentEducationOrganizationAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentEducationOrganizationAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentEducationOrganizationAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentEducationOrganizationAssociation]
@@ -2009,7 +2009,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentEducationOrganizationResponsibilityAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentEducationOrganizationResponsibilityAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentEducationOrganizationResponsibilityAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentEducationOrganizationResponsibilityAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentEducationOrganizationResponsibilityAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentEducationOrganizationResponsibilityAssociation]
@@ -2022,7 +2022,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentGradebookEntry_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentGradebookEntry_TR_UpdateChangeVersion] ON [edfi].[StudentGradebookEntry] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentGradebookEntry_TR_UpdateChangeVersion] ON [edfi].[StudentGradebookEntry] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentGradebookEntry]
@@ -2053,7 +2053,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentHealth_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentHealth_TR_UpdateChangeVersion] ON [edfi].[StudentHealth] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentHealth_TR_UpdateChangeVersion] ON [edfi].[StudentHealth] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentHealth]
@@ -2066,7 +2066,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentIdentity_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentIdentity_TR_UpdateChangeVersion] ON [edfi].[StudentIdentity] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentIdentity_TR_UpdateChangeVersion] ON [edfi].[StudentIdentity] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentIdentity]
@@ -2079,7 +2079,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentInterventionAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentInterventionAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentInterventionAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentInterventionAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentInterventionAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentInterventionAssociation]
@@ -2092,7 +2092,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentInterventionAttendanceEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentInterventionAttendanceEvent_TR_UpdateChangeVersion] ON [edfi].[StudentInterventionAttendanceEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentInterventionAttendanceEvent_TR_UpdateChangeVersion] ON [edfi].[StudentInterventionAttendanceEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentInterventionAttendanceEvent]
@@ -2105,7 +2105,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentPath_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentPath_TR_UpdateChangeVersion] ON [edfi].[StudentPath] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentPath_TR_UpdateChangeVersion] ON [edfi].[StudentPath] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentPath]
@@ -2118,7 +2118,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentPathMilestoneStatus_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentPathMilestoneStatus_TR_UpdateChangeVersion] ON [edfi].[StudentPathMilestoneStatus] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentPathMilestoneStatus_TR_UpdateChangeVersion] ON [edfi].[StudentPathMilestoneStatus] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentPathMilestoneStatus]
@@ -2131,7 +2131,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentPathPhaseStatus_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentPathPhaseStatus_TR_UpdateChangeVersion] ON [edfi].[StudentPathPhaseStatus] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentPathPhaseStatus_TR_UpdateChangeVersion] ON [edfi].[StudentPathPhaseStatus] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentPathPhaseStatus]
@@ -2144,7 +2144,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentProgramAttendanceEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentProgramAttendanceEvent_TR_UpdateChangeVersion] ON [edfi].[StudentProgramAttendanceEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentProgramAttendanceEvent_TR_UpdateChangeVersion] ON [edfi].[StudentProgramAttendanceEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentProgramAttendanceEvent]
@@ -2157,7 +2157,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentProgramEvaluation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentProgramEvaluation_TR_UpdateChangeVersion] ON [edfi].[StudentProgramEvaluation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentProgramEvaluation_TR_UpdateChangeVersion] ON [edfi].[StudentProgramEvaluation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentProgramEvaluation]
@@ -2170,7 +2170,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentSchoolAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentSchoolAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentSchoolAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentSchoolAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentSchoolAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentSchoolAssociation]
@@ -2201,7 +2201,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentSchoolAttendanceEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentSchoolAttendanceEvent_TR_UpdateChangeVersion] ON [edfi].[StudentSchoolAttendanceEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentSchoolAttendanceEvent_TR_UpdateChangeVersion] ON [edfi].[StudentSchoolAttendanceEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentSchoolAttendanceEvent]
@@ -2236,7 +2236,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentSectionAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentSectionAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentSectionAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentSectionAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentSectionAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentSectionAssociation]
@@ -2267,7 +2267,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentSectionAttendanceEvent_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentSectionAttendanceEvent_TR_UpdateChangeVersion] ON [edfi].[StudentSectionAttendanceEvent] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentSectionAttendanceEvent_TR_UpdateChangeVersion] ON [edfi].[StudentSectionAttendanceEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentSectionAttendanceEvent]
@@ -2302,7 +2302,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentSpecialEducationProgramEligibilityAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentSpecialEducationProgramEligibilityAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentSpecialEducationProgramEligibilityAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentSpecialEducationProgramEligibilityAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentSpecialEducationProgramEligibilityAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentSpecialEducationProgramEligibilityAssociation]
@@ -2315,7 +2315,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentTransportation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_StudentTransportation_TR_UpdateChangeVersion] ON [edfi].[StudentTransportation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentTransportation_TR_UpdateChangeVersion] ON [edfi].[StudentTransportation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[StudentTransportation]
@@ -2328,7 +2328,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Survey_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_Survey_TR_UpdateChangeVersion] ON [edfi].[Survey] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_Survey_TR_UpdateChangeVersion] ON [edfi].[Survey] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[Survey]
@@ -2341,7 +2341,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveyCourseAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveyCourseAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveyCourseAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveyCourseAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveyCourseAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveyCourseAssociation]
@@ -2354,7 +2354,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveyProgramAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveyProgramAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveyProgramAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveyProgramAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveyProgramAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveyProgramAssociation]
@@ -2367,7 +2367,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveyQuestion_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveyQuestion_TR_UpdateChangeVersion] ON [edfi].[SurveyQuestion] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveyQuestion_TR_UpdateChangeVersion] ON [edfi].[SurveyQuestion] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveyQuestion]
@@ -2380,7 +2380,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveyQuestionResponse_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveyQuestionResponse_TR_UpdateChangeVersion] ON [edfi].[SurveyQuestionResponse] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveyQuestionResponse_TR_UpdateChangeVersion] ON [edfi].[SurveyQuestionResponse] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveyQuestionResponse]
@@ -2393,7 +2393,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveyResponse_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveyResponse_TR_UpdateChangeVersion] ON [edfi].[SurveyResponse] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveyResponse_TR_UpdateChangeVersion] ON [edfi].[SurveyResponse] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveyResponse]
@@ -2406,7 +2406,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveyResponseEducationOrganizationTargetAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveyResponseEducationOrganizationTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveyResponseEducationOrganizationTargetAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveyResponseEducationOrganizationTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveyResponseEducationOrganizationTargetAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveyResponseEducationOrganizationTargetAssociation]
@@ -2419,7 +2419,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveyResponsePersonTargetAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveyResponsePersonTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveyResponsePersonTargetAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveyResponsePersonTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveyResponsePersonTargetAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveyResponsePersonTargetAssociation]
@@ -2432,7 +2432,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveyResponseStaffTargetAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveyResponseStaffTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveyResponseStaffTargetAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveyResponseStaffTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveyResponseStaffTargetAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveyResponseStaffTargetAssociation]
@@ -2445,7 +2445,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveySection_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveySection_TR_UpdateChangeVersion] ON [edfi].[SurveySection] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveySection_TR_UpdateChangeVersion] ON [edfi].[SurveySection] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveySection]
@@ -2458,7 +2458,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveySectionAggregateResponse_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveySectionAggregateResponse_TR_UpdateChangeVersion] ON [edfi].[SurveySectionAggregateResponse] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveySectionAggregateResponse_TR_UpdateChangeVersion] ON [edfi].[SurveySectionAggregateResponse] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveySectionAggregateResponse]
@@ -2471,7 +2471,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveySectionAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveySectionAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveySectionAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveySectionAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveySectionAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveySectionAssociation]
@@ -2498,7 +2498,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveySectionResponse_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveySectionResponse_TR_UpdateChangeVersion] ON [edfi].[SurveySectionResponse] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveySectionResponse_TR_UpdateChangeVersion] ON [edfi].[SurveySectionResponse] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveySectionResponse]
@@ -2511,7 +2511,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveySectionResponseEducationOrganizationTargetAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveySectionResponseEducationOrganizationTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveySectionResponseEducationOrganizationTargetAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveySectionResponseEducationOrganizationTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveySectionResponseEducationOrganizationTargetAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveySectionResponseEducationOrganizationTargetAssociation]
@@ -2524,7 +2524,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveySectionResponsePersonTargetAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveySectionResponsePersonTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveySectionResponsePersonTargetAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveySectionResponsePersonTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveySectionResponsePersonTargetAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveySectionResponsePersonTargetAssociation]
@@ -2537,7 +2537,7 @@ GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveySectionResponseStaffTargetAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE OR ALTER TRIGGER [edfi].[edfi_SurveySectionResponseStaffTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveySectionResponseStaffTargetAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_SurveySectionResponseStaffTargetAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveySectionResponseStaffTargetAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [edfi].[SurveySectionResponseStaffTargetAssociation]
