@@ -22,7 +22,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER InsertAuthTuples AFTER INSERT ON edfi.communityorganization
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.communityorganization
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_communityorganization_tr_insert();
 
 DROP TRIGGER IF EXISTS DeleteAuthTuples ON edfi.communityorganization;
@@ -43,7 +43,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.communityorganization
+CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.communityorganization
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_communityorganization_tr_delete();
 
 
@@ -84,7 +84,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER InsertAuthTuples AFTER INSERT ON edfi.communityprovider
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.communityprovider
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_communityprovider_tr_insert();
 
 DROP TRIGGER IF EXISTS UpdateAuthTuples ON edfi.communityprovider;
@@ -154,7 +154,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.communityprovider
+CREATE TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.communityprovider
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_communityprovider_tr_update();
 
 DROP TRIGGER IF EXISTS DeleteAuthTuples ON edfi.communityprovider;
@@ -198,7 +198,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.communityprovider
+CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.communityprovider
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_communityprovider_tr_delete();
 
 
@@ -221,7 +221,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER InsertAuthTuples AFTER INSERT ON edfi.educationorganizationnetwork
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.educationorganizationnetwork
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_educationorganizationnetwork_tr_insert();
 
 DROP TRIGGER IF EXISTS DeleteAuthTuples ON edfi.educationorganizationnetwork;
@@ -242,7 +242,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.educationorganizationnetwork
+CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.educationorganizationnetwork
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_educationorganizationnetwork_tr_delete();
 
 
@@ -283,7 +283,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER InsertAuthTuples AFTER INSERT ON edfi.educationservicecenter
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.educationservicecenter
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_educationservicecenter_tr_insert();
 
 DROP TRIGGER IF EXISTS UpdateAuthTuples ON edfi.educationservicecenter;
@@ -353,7 +353,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.educationservicecenter
+CREATE TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.educationservicecenter
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_educationservicecenter_tr_update();
 
 DROP TRIGGER IF EXISTS DeleteAuthTuples ON edfi.educationservicecenter;
@@ -397,7 +397,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.educationservicecenter
+CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.educationservicecenter
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_educationservicecenter_tr_delete();
 
 
@@ -454,7 +454,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER InsertAuthTuples AFTER INSERT ON edfi.localeducationagency
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.localeducationagency
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_localeducationagency_tr_insert();
 
 DROP TRIGGER IF EXISTS UpdateAuthTuples ON edfi.localeducationagency;
@@ -574,7 +574,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.localeducationagency
+CREATE TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.localeducationagency
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_localeducationagency_tr_update();
 
 DROP TRIGGER IF EXISTS DeleteAuthTuples ON edfi.localeducationagency;
@@ -634,7 +634,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.localeducationagency
+CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.localeducationagency
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_localeducationagency_tr_delete();
 
 
@@ -675,7 +675,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER InsertAuthTuples AFTER INSERT ON edfi.organizationdepartment
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.organizationdepartment
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_organizationdepartment_tr_insert();
 
 DROP TRIGGER IF EXISTS UpdateAuthTuples ON edfi.organizationdepartment;
@@ -745,7 +745,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.organizationdepartment
+CREATE TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.organizationdepartment
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_organizationdepartment_tr_update();
 
 DROP TRIGGER IF EXISTS DeleteAuthTuples ON edfi.organizationdepartment;
@@ -789,7 +789,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.organizationdepartment
+CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.organizationdepartment
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_organizationdepartment_tr_delete();
 
 
@@ -812,7 +812,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER InsertAuthTuples AFTER INSERT ON edfi.postsecondaryinstitution
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.postsecondaryinstitution
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_postsecondaryinstitution_tr_insert();
 
 DROP TRIGGER IF EXISTS DeleteAuthTuples ON edfi.postsecondaryinstitution;
@@ -833,7 +833,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.postsecondaryinstitution
+CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.postsecondaryinstitution
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_postsecondaryinstitution_tr_delete();
 
 
@@ -874,7 +874,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER InsertAuthTuples AFTER INSERT ON edfi.school
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.school
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_school_tr_insert();
 
 DROP TRIGGER IF EXISTS UpdateAuthTuples ON edfi.school;
@@ -944,7 +944,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.school
+CREATE TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.school
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_school_tr_update();
 
 DROP TRIGGER IF EXISTS DeleteAuthTuples ON edfi.school;
@@ -988,7 +988,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.school
+CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.school
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_school_tr_delete();
 
 
@@ -1011,7 +1011,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER InsertAuthTuples AFTER INSERT ON edfi.stateeducationagency
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.stateeducationagency
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_stateeducationagency_tr_insert();
 
 DROP TRIGGER IF EXISTS DeleteAuthTuples ON edfi.stateeducationagency;
@@ -1032,7 +1032,5 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR ALTER TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.stateeducationagency
+CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.stateeducationagency
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_stateeducationagency_tr_delete();
-
-
