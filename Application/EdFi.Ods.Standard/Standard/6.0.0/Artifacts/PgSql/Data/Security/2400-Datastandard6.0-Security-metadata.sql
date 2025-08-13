@@ -682,9 +682,9 @@ BEGIN
     
     
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -697,13 +697,13 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('educatorPreparationProgram', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram', parent_resource_claim_id)
+        VALUES ('epdm', 'http://ed-fi.org/ods/identity/claims/domains/epdm', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/epdm
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi Sandbox'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -907,11 +907,11 @@ BEGIN
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/performanceEvaluation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/performanceEvaluation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/performanceEvaluation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm/performanceEvaluation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -924,7 +924,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('performanceEvaluation', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/performanceEvaluation', parent_resource_claim_id)
+        VALUES ('performanceEvaluation', 'http://ed-fi.org/ods/identity/claims/domains/epdm/performanceEvaluation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -1035,11 +1035,11 @@ BEGIN
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/performanceEvaluation
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/performanceEvaluation
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/performanceEvaluation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/performanceEvaluation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/performanceEvaluation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/performanceEvaluation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1052,16 +1052,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('performanceEvaluation', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/performanceEvaluation', parent_resource_claim_id)
+        VALUES ('performanceEvaluation', 'http://ed-fi.org/ods/identity/claims/epdm/performanceEvaluation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/evaluation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/evaluation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1074,16 +1074,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('evaluation', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluation', parent_resource_claim_id)
+        VALUES ('evaluation', 'http://ed-fi.org/ods/identity/claims/epdm/evaluation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationObjective'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/evaluationObjective'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationObjective';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/evaluationObjective';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1096,16 +1096,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('evaluationObjective', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationObjective', parent_resource_claim_id)
+        VALUES ('evaluationObjective', 'http://ed-fi.org/ods/identity/claims/epdm/evaluationObjective', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationElement'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/evaluationElement'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationElement';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/evaluationElement';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1118,16 +1118,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('evaluationElement', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationElement', parent_resource_claim_id)
+        VALUES ('evaluationElement', 'http://ed-fi.org/ods/identity/claims/epdm/evaluationElement', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/rubricDimension'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/rubricDimension'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/rubricDimension';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/rubricDimension';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1140,16 +1140,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('rubricDimension', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/rubricDimension', parent_resource_claim_id)
+        VALUES ('rubricDimension', 'http://ed-fi.org/ods/identity/claims/epdm/rubricDimension', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationRating'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/evaluationRating'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationRating';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/evaluationRating';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1162,16 +1162,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('evaluationRating', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationRating', parent_resource_claim_id)
+        VALUES ('evaluationRating', 'http://ed-fi.org/ods/identity/claims/epdm/evaluationRating', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationObjectiveRating'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/evaluationObjectiveRating'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationObjectiveRating';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/evaluationObjectiveRating';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1184,16 +1184,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('evaluationObjectiveRating', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationObjectiveRating', parent_resource_claim_id)
+        VALUES ('evaluationObjectiveRating', 'http://ed-fi.org/ods/identity/claims/epdm/evaluationObjectiveRating', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationElementRating'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/evaluationElementRating'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationElementRating';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/evaluationElementRating';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1206,16 +1206,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('evaluationElementRating', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationElementRating', parent_resource_claim_id)
+        VALUES ('evaluationElementRating', 'http://ed-fi.org/ods/identity/claims/epdm/evaluationElementRating', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/performanceEvaluationRating'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/performanceEvaluationRating'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/performanceEvaluationRating';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/performanceEvaluationRating';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1228,16 +1228,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('performanceEvaluationRating', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/performanceEvaluationRating', parent_resource_claim_id)
+        VALUES ('performanceEvaluationRating', 'http://ed-fi.org/ods/identity/claims/epdm/performanceEvaluationRating', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/quantitativeMeasure'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasure'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/quantitativeMeasure';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasure';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1250,16 +1250,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('quantitativeMeasure', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/quantitativeMeasure', parent_resource_claim_id)
+        VALUES ('quantitativeMeasure', 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasure', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/quantitativeMeasureScore'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureScore'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/quantitativeMeasureScore';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureScore';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1272,16 +1272,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('quantitativeMeasureScore', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/quantitativeMeasureScore', parent_resource_claim_id)
+        VALUES ('quantitativeMeasureScore', 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureScore', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/goal'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/goal'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/goal';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/goal';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1294,7 +1294,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('goal', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/goal', parent_resource_claim_id)
+        VALUES ('goal', 'http://ed-fi.org/ods/identity/claims/epdm/goal', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -1403,9 +1403,9 @@ BEGIN
     VALUES (resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/path'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/path'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/path';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm/path';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1418,7 +1418,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('path', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/path', parent_resource_claim_id)
+        VALUES ('path', 'http://ed-fi.org/ods/identity/claims/domains/epdm/path', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -1529,11 +1529,11 @@ BEGIN
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/path
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/path
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/path'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/path'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/path';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/path';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1546,16 +1546,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('path', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/path', parent_resource_claim_id)
+        VALUES ('path', 'http://ed-fi.org/ods/identity/claims/epdm/path', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathPhase'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/pathPhase'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathPhase';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/pathPhase';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1568,16 +1568,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('pathPhase', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathPhase', parent_resource_claim_id)
+        VALUES ('pathPhase', 'http://ed-fi.org/ods/identity/claims/epdm/pathPhase', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPath'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/studentPath'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPath';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/studentPath';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1590,16 +1590,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('studentPath', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPath', parent_resource_claim_id)
+        VALUES ('studentPath', 'http://ed-fi.org/ods/identity/claims/epdm/studentPath', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathMilestoneStatus'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/studentPathMilestoneStatus'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathMilestoneStatus';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/studentPathMilestoneStatus';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1612,16 +1612,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('studentPathMilestoneStatus', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathMilestoneStatus', parent_resource_claim_id)
+        VALUES ('studentPathMilestoneStatus', 'http://ed-fi.org/ods/identity/claims/epdm/studentPathMilestoneStatus', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathPhaseStatus'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/studentPathPhaseStatus'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathPhaseStatus';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/studentPathPhaseStatus';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1634,7 +1634,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('studentPathPhaseStatus', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathPhaseStatus', parent_resource_claim_id)
+        VALUES ('studentPathPhaseStatus', 'http://ed-fi.org/ods/identity/claims/epdm/studentPathPhaseStatus', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -1751,9 +1751,9 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/noFurtherAuthorizationRequiredData'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/noFurtherAuthorizationRequiredData'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/noFurtherAuthorizationRequiredData';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm/noFurtherAuthorizationRequiredData';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1766,7 +1766,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('noFurtherAuthorizationRequiredData', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/noFurtherAuthorizationRequiredData', parent_resource_claim_id)
+        VALUES ('noFurtherAuthorizationRequiredData', 'http://ed-fi.org/ods/identity/claims/domains/epdm/noFurtherAuthorizationRequiredData', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -1877,11 +1877,11 @@ BEGIN
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/noFurtherAuthorizationRequiredData
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/noFurtherAuthorizationRequiredData
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/candidatePreparation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/candidatePreparation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/candidatePreparation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm/candidatePreparation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1894,13 +1894,13 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('candidatePreparation', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/candidatePreparation', parent_resource_claim_id)
+        VALUES ('candidatePreparation', 'http://ed-fi.org/ods/identity/claims/domains/epdm/candidatePreparation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/candidatePreparation
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/epdm/candidatePreparation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Education Preparation Program'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1978,11 +1978,11 @@ BEGIN
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/candidatePreparation
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/candidatePreparation
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidateEducatorPreparationProgramAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/candidateepdmAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidateEducatorPreparationProgramAssociation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/candidateepdmAssociation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1995,7 +1995,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('candidateEducatorPreparationProgramAssociation', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidateEducatorPreparationProgramAssociation', parent_resource_claim_id)
+        VALUES ('candidateepdmAssociation', 'http://ed-fi.org/ods/identity/claims/epdm/candidateepdmAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -2006,9 +2006,9 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/students'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/students'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/students';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm/students';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2021,7 +2021,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('students', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/students', parent_resource_claim_id)
+        VALUES ('students', 'http://ed-fi.org/ods/identity/claims/domains/epdm/students', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -2030,11 +2030,11 @@ BEGIN
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/students
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/students
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/financialAid'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/financialAid'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/financialAid';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/financialAid';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2047,16 +2047,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('financialAid', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/financialAid', parent_resource_claim_id)
+        VALUES ('financialAid', 'http://ed-fi.org/ods/identity/claims/epdm/financialAid', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/fieldworkExperience'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/fieldworkExperience'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/fieldworkExperience';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/fieldworkExperience';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2069,16 +2069,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('fieldworkExperience', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/fieldworkExperience', parent_resource_claim_id)
+        VALUES ('fieldworkExperience', 'http://ed-fi.org/ods/identity/claims/epdm/fieldworkExperience', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/fieldworkExperienceSectionAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/fieldworkExperienceSectionAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/fieldworkExperienceSectionAssociation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/fieldworkExperienceSectionAssociation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2091,7 +2091,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('fieldworkExperienceSectionAssociation', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/fieldworkExperienceSectionAssociation', parent_resource_claim_id)
+        VALUES ('fieldworkExperienceSectionAssociation', 'http://ed-fi.org/ods/identity/claims/epdm/fieldworkExperienceSectionAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -2102,9 +2102,9 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathMilestone'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/pathMilestone'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathMilestone';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/pathMilestone';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2117,7 +2117,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('pathMilestone', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathMilestone', parent_resource_claim_id)
+        VALUES ('pathMilestone', 'http://ed-fi.org/ods/identity/claims/epdm/pathMilestone', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -2150,9 +2150,9 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/personRoleAssociations
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/staffEducatorPreparationProgramAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/staffepdmAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/staffEducatorPreparationProgramAssociation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/staffepdmAssociation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2165,16 +2165,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('staffEducatorPreparationProgramAssociation', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/staffEducatorPreparationProgramAssociation', parent_resource_claim_id)
+        VALUES ('staffepdmAssociation', 'http://ed-fi.org/ods/identity/claims/epdm/staffepdmAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidateRelationshipToStaffAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/candidateRelationshipToStaffAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidateRelationshipToStaffAssociation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/candidateRelationshipToStaffAssociation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2187,7 +2187,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('candidateRelationshipToStaffAssociation', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidateRelationshipToStaffAssociation', parent_resource_claim_id)
+        VALUES ('candidateRelationshipToStaffAssociation', 'http://ed-fi.org/ods/identity/claims/epdm/candidateRelationshipToStaffAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -2202,9 +2202,9 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2217,7 +2217,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('educatorPreparationProgram', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram', parent_resource_claim_id)
+        VALUES ('epdm', 'http://ed-fi.org/ods/identity/claims/domains/epdm', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -2325,7 +2325,7 @@ BEGIN
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (resource_claim_action_id, authorization_strategy_id);
 
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/epdm
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Bootstrap Descriptors and EdOrgs'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -2368,9 +2368,9 @@ BEGIN
     
     
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/path'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/path'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/path';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm/path';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2383,7 +2383,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('path', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/path', parent_resource_claim_id)
+        VALUES ('path', 'http://ed-fi.org/ods/identity/claims/domains/epdm/path', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -2494,11 +2494,11 @@ BEGIN
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/path
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/path
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/path'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/path'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/path';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/path';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2511,16 +2511,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('path', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/path', parent_resource_claim_id)
+        VALUES ('path', 'http://ed-fi.org/ods/identity/claims/epdm/path', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathPhase'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/pathPhase'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathPhase';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/pathPhase';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2533,16 +2533,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('pathPhase', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathPhase', parent_resource_claim_id)
+        VALUES ('pathPhase', 'http://ed-fi.org/ods/identity/claims/epdm/pathPhase', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPath'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/studentPath'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPath';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/studentPath';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2555,16 +2555,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('studentPath', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPath', parent_resource_claim_id)
+        VALUES ('studentPath', 'http://ed-fi.org/ods/identity/claims/epdm/studentPath', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathMilestoneStatus'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/studentPathMilestoneStatus'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathMilestoneStatus';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/studentPathMilestoneStatus';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2577,16 +2577,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('studentPathMilestoneStatus', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathMilestoneStatus', parent_resource_claim_id)
+        VALUES ('studentPathMilestoneStatus', 'http://ed-fi.org/ods/identity/claims/epdm/studentPathMilestoneStatus', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathPhaseStatus'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/studentPathPhaseStatus'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathPhaseStatus';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/studentPathPhaseStatus';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2599,7 +2599,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('studentPathPhaseStatus', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathPhaseStatus', parent_resource_claim_id)
+        VALUES ('studentPathPhaseStatus', 'http://ed-fi.org/ods/identity/claims/epdm/studentPathPhaseStatus', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -2712,9 +2712,9 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/credentials'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/credentials'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/credentials';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm/credentials';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2727,7 +2727,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('credentials', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/credentials', parent_resource_claim_id)
+        VALUES ('credentials', 'http://ed-fi.org/ods/identity/claims/domains/epdm/credentials', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -2838,11 +2838,11 @@ BEGIN
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/credentials
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/credentials
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certification'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/certification'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certification';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/certification';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2855,16 +2855,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('certification', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certification', parent_resource_claim_id)
+        VALUES ('certification', 'http://ed-fi.org/ods/identity/claims/epdm/certification', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certificationExam'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/certificationExam'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certificationExam';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/certificationExam';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2877,16 +2877,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('certificationExam', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certificationExam', parent_resource_claim_id)
+        VALUES ('certificationExam', 'http://ed-fi.org/ods/identity/claims/epdm/certificationExam', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certificationExamResult'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/certificationExamResult'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certificationExamResult';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/certificationExamResult';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2899,16 +2899,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('certificationExamResult', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certificationExamResult', parent_resource_claim_id)
+        VALUES ('certificationExamResult', 'http://ed-fi.org/ods/identity/claims/epdm/certificationExamResult', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/credentialEvent'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/credentialEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/credentialEvent';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/credentialEvent';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -2921,7 +2921,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('credentialEvent', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/credentialEvent', parent_resource_claim_id)
+        VALUES ('credentialEvent', 'http://ed-fi.org/ods/identity/claims/epdm/credentialEvent', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -3034,9 +3034,9 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/professionalDevelopment'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/professionalDevelopment'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/professionalDevelopment';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm/professionalDevelopment';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3049,7 +3049,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('professionalDevelopment', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/professionalDevelopment', parent_resource_claim_id)
+        VALUES ('professionalDevelopment', 'http://ed-fi.org/ods/identity/claims/domains/epdm/professionalDevelopment', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -3160,11 +3160,11 @@ BEGIN
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/professionalDevelopment
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/professionalDevelopment
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/professionalDevelopmentEvent'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/professionalDevelopmentEvent';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentEvent';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3177,16 +3177,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('professionalDevelopmentEvent', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/professionalDevelopmentEvent', parent_resource_claim_id)
+        VALUES ('professionalDevelopmentEvent', 'http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentEvent', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/professionalDevelopmentEventAttendance'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentEventAttendance'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/professionalDevelopmentEventAttendance';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentEventAttendance';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3199,7 +3199,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('professionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/professionalDevelopmentEventAttendance', parent_resource_claim_id)
+        VALUES ('professionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentEventAttendance', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -3210,9 +3210,9 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/recruiting'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/recruiting'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/recruiting';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm/recruiting';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3225,7 +3225,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('recruiting', 'http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/recruiting', parent_resource_claim_id)
+        VALUES ('recruiting', 'http://ed-fi.org/ods/identity/claims/domains/epdm/recruiting', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -3336,11 +3336,11 @@ BEGIN
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/recruiting
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/recruiting
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/application'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/application'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/application';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/application';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3353,16 +3353,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('application', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/application', parent_resource_claim_id)
+        VALUES ('application', 'http://ed-fi.org/ods/identity/claims/epdm/application', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/applicationEvent'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/applicationEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/applicationEvent';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/applicationEvent';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3375,16 +3375,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('applicationEvent', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/applicationEvent', parent_resource_claim_id)
+        VALUES ('applicationEvent', 'http://ed-fi.org/ods/identity/claims/epdm/applicationEvent', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/openStaffPositionEvent'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/openStaffPositionEvent';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEvent';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3397,16 +3397,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('openStaffPositionEvent', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/openStaffPositionEvent', parent_resource_claim_id)
+        VALUES ('openStaffPositionEvent', 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEvent', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/recruitmentEvent'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/recruitmentEvent';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEvent';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3419,16 +3419,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('recruitmentEvent', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/recruitmentEvent', parent_resource_claim_id)
+        VALUES ('recruitmentEvent', 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEvent', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/recruitmentEventAttendance'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventAttendance'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/recruitmentEventAttendance';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventAttendance';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3441,16 +3441,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('recruitmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/recruitmentEventAttendance', parent_resource_claim_id)
+        VALUES ('recruitmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventAttendance', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/applicantProfile'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/applicantProfile'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/applicantProfile';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/applicantProfile';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3463,7 +3463,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('applicantProfile', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/applicantProfile', parent_resource_claim_id)
+        VALUES ('applicantProfile', 'http://ed-fi.org/ods/identity/claims/epdm/applicantProfile', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -4577,9 +4577,9 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/surveyDomain
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveyResponsePersonTargetAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/surveyResponsePersonTargetAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveyResponsePersonTargetAssociation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/surveyResponsePersonTargetAssociation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -4592,16 +4592,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('surveyResponsePersonTargetAssociation', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveyResponsePersonTargetAssociation', parent_resource_claim_id)
+        VALUES ('surveyResponsePersonTargetAssociation', 'http://ed-fi.org/ods/identity/claims/epdm/surveyResponsePersonTargetAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveySectionResponsePersonTargetAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/surveySectionResponsePersonTargetAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveySectionResponsePersonTargetAssociation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/surveySectionResponsePersonTargetAssociation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -4614,16 +4614,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('surveySectionResponsePersonTargetAssociation', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveySectionResponsePersonTargetAssociation', parent_resource_claim_id)
+        VALUES ('surveySectionResponsePersonTargetAssociation', 'http://ed-fi.org/ods/identity/claims/epdm/surveySectionResponsePersonTargetAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveySectionAggregateResponse'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/surveySectionAggregateResponse'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveySectionAggregateResponse';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/surveySectionAggregateResponse';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -4636,7 +4636,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('surveySectionAggregateResponse', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveySectionAggregateResponse', parent_resource_claim_id)
+        VALUES ('surveySectionAggregateResponse', 'http://ed-fi.org/ods/identity/claims/epdm/surveySectionAggregateResponse', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -5162,9 +5162,9 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/people
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidate'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/candidate'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidate';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/candidate';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -5177,7 +5177,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('candidate', 'http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidate', parent_resource_claim_id)
+        VALUES ('candidate', 'http://ed-fi.org/ods/identity/claims/epdm/candidate', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
@@ -5308,7 +5308,7 @@ BEGIN
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (resource_claim_action_id, authorization_strategy_id);
 
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidate
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/epdm/candidate
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Education Preparation Program'
     ----------------------------------------------------------------------------------------------------------------------------

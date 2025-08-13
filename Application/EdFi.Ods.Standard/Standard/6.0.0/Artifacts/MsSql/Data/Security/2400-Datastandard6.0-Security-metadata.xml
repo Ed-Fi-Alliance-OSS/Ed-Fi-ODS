@@ -99,60 +99,60 @@
 				</ClaimSet>
 			</ClaimSets>
 
-			<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram">
+			<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors">
 				<Claims>
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/englishLanguageExamDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/ePPProgramPathwayDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/certificationRouteDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/aidTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/credentialStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/educatorRoleDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/accreditationStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/pathPhaseStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/pathMilestoneTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/pathMilestoneStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/staffToCandidateRelationshipDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/lengthOfContractDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/applicationEventResultDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/applicationEventTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/applicationSourceDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/applicationStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/backgroundCheckStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/backgroundCheckTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/certificationExamStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/certificationExamTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/certificationFieldDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/certificationLevelDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/certificationStandardDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/credentialEventTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/degreeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/federalLocaleCodeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/fieldworkTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/fundingSourceDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/goalTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/hireStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/hiringSourceDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/instructionalSettingDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/openStaffPositionEventStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/openStaffPositionEventTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/openStaffPositionReasonDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/previousCareerDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/professionalDevelopmentOfferedByDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/programGatewayDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/recruitmentEventAttendeeTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/quantitativeMeasureDatatypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/quantitativeMeasureTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/recruitmentEventTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/salaryTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/candidateCharacteristicDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/educatorPreparationProgramTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/ePPDegreeTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/withdrawReasonDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/englishLanguageExamDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/ePPProgramPathwayDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationRouteDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/aidTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/credentialStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/educatorRoleDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/accreditationStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathPhaseStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/staffToCandidateRelationshipDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/lengthOfContractDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationEventResultDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationEventTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationSourceDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationExamStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationExamTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationFieldDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationLevelDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationStandardDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/credentialEventTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/degreeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/federalLocaleCodeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/fieldworkTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/fundingSourceDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/goalTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/hireStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/hiringSourceDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/instructionalSettingDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionReasonDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/previousCareerDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentOfferedByDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/programGatewayDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventAttendeeTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureDatatypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/salaryTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/candidateCharacteristicDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/epdmTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/ePPDegreeTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/withdrawReasonDescriptor" />
 				</Claims>
 			</Claim>
 		</Claim>
 
-		<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram">
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm">
 			<ClaimSets>
 				<ClaimSet name="Ed-Fi Sandbox">
 					<Actions>
@@ -178,7 +178,7 @@
 				</ClaimSet>
 			</ClaimSets>
 			<Claims>
-				<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/performanceEvaluation">
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/performanceEvaluation">
 					<DefaultAuthorization>
 						<Action name="Create">
 							<AuthorizationStrategies>
@@ -202,18 +202,18 @@
 						</Action>
 					</DefaultAuthorization>
 					<Claims>
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/performanceEvaluation" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluation" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationObjective" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationElement" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/rubricDimension" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationRating" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationObjectiveRating" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/evaluationElementRating" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/performanceEvaluationRating" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/quantitativeMeasure" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/quantitativeMeasureScore" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/goal">
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/performanceEvaluation" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/evaluation" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/evaluationObjective" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/evaluationElement" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/rubricDimension" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/evaluationRating" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/evaluationObjectiveRating" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/evaluationElementRating" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/performanceEvaluationRating" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasure" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureScore" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/goal">
 							<DefaultAuthorization>
 								<Action name="Create">
 									<AuthorizationStrategies>
@@ -237,7 +237,7 @@
 								</Action>
 							</DefaultAuthorization>
 						</Claim>
-						<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/path">
+						<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/path">
 							<DefaultAuthorization>
 								<Action name="Create">
 									<AuthorizationStrategies>
@@ -261,11 +261,11 @@
 								</Action>
 							</DefaultAuthorization>
 							<Claims>
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/path" />
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathPhase" />
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPath" />
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathMilestoneStatus" />
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathPhaseStatus">
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/path" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathPhase" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/studentPath" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/studentPathMilestoneStatus" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/studentPathPhaseStatus">
 									<DefaultAuthorization>
 										<Action name="Create">
 											<AuthorizationStrategies>
@@ -293,7 +293,7 @@
 						</Claim>
 					</Claims>
 				</Claim>
-				<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/noFurtherAuthorizationRequiredData">
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/noFurtherAuthorizationRequiredData">
 					<DefaultAuthorization>
 						<Action name="Create">
 							<AuthorizationStrategies>
@@ -317,7 +317,7 @@
 						</Action>
 					</DefaultAuthorization>
 					<Claims>
-						<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/candidatePreparation">
+						<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/candidatePreparation">
 							<ClaimSets>
 								<ClaimSet name="Education Preparation Program">
 									<Actions>
@@ -329,26 +329,26 @@
 								</ClaimSet>
 							</ClaimSets>
 							<Claims>
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidateEducatorPreparationProgramAssociation" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/candidateepdmAssociation" />
 							</Claims>
 						</Claim>
-						<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/students">
+						<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/students">
 							<Claims>
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/financialAid" />
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/fieldworkExperience" />
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/fieldworkExperienceSectionAssociation" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/financialAid" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/fieldworkExperience" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/fieldworkExperienceSectionAssociation" />
 							</Claims>
 						</Claim>
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathMilestone" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathMilestone" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/domains/personRoleAssociations">
 							<Claims>
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/staffEducatorPreparationProgramAssociation" />
-								<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidateRelationshipToStaffAssociation" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/staffepdmAssociation" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/epdm/candidateRelationshipToStaffAssociation" />
 							</Claims>
 						</Claim>
 					</Claims>
 				</Claim>
-				<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram">
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm">
 					<DefaultAuthorization>
 						<Action name="Create">
 							<AuthorizationStrategies>
@@ -379,7 +379,7 @@
 						</ClaimSet>
 					</ClaimSets>
 				</Claim>
-				<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/path">
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/path">
 					<DefaultAuthorization>
 						<Action name="Create">
 							<AuthorizationStrategies>
@@ -403,11 +403,11 @@
 						</Action>
 					</DefaultAuthorization>
 					<Claims>
-						<Claim claimId="426" name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/path" />
-						<Claim claimId="427" name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/pathPhase" />
-						<Claim claimId="428" name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPath" />
-						<Claim claimId="429" name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathMilestoneStatus" />
-						<Claim claimId="430" name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/studentPathPhaseStatus">
+						<Claim claimId="426" name="http://ed-fi.org/ods/identity/claims/epdm/path" />
+						<Claim claimId="427" name="http://ed-fi.org/ods/identity/claims/epdm/pathPhase" />
+						<Claim claimId="428" name="http://ed-fi.org/ods/identity/claims/epdm/studentPath" />
+						<Claim claimId="429" name="http://ed-fi.org/ods/identity/claims/epdm/studentPathMilestoneStatus" />
+						<Claim claimId="430" name="http://ed-fi.org/ods/identity/claims/epdm/studentPathPhaseStatus">
 							<DefaultAuthorization>
 								<Action name="Create">
 									<AuthorizationStrategies>
@@ -433,7 +433,7 @@
 						</Claim>
 					</Claims>
 				</Claim>
-				<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/credentials">
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/credentials">
 					<DefaultAuthorization>
 						<Action name="Create">
 							<AuthorizationStrategies>
@@ -457,10 +457,10 @@
 						</Action>
 					</DefaultAuthorization>
 					<Claims>
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certification" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certificationExam" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/certificationExamResult" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/credentialEvent">
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certification" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationExam" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationExamResult" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/credentialEvent">
 							<DefaultAuthorization>
 								<Action name="Create">
 									<AuthorizationStrategies>
@@ -486,7 +486,7 @@
 						</Claim>
 					</Claims>
 				</Claim>
-				<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/professionalDevelopment">
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/professionalDevelopment">
 					<DefaultAuthorization>
 						<Action name="Create">
 							<AuthorizationStrategies>
@@ -510,11 +510,11 @@
 						</Action>
 					</DefaultAuthorization>
 					<Claims>
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/professionalDevelopmentEvent" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/professionalDevelopmentEventAttendance" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentEvent" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentEventAttendance" />
 					</Claims>
 				</Claim>
-				<Claim name="http://ed-fi.org/ods/identity/claims/domains/educatorPreparationProgram/recruiting">
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/recruiting">
 					<DefaultAuthorization>
 						<Action name="Create">
 							<AuthorizationStrategies>
@@ -538,12 +538,12 @@
 						</Action>
 					</DefaultAuthorization>
 					<Claims>
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/application" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/applicationEvent" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/openStaffPositionEvent" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/recruitmentEvent" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/recruitmentEventAttendance" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/applicantProfile">
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/application" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationEvent" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEvent" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/recruitmentEvent" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventAttendance" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicantProfile">
 							<DefaultAuthorization>
 								<Action name="Create">
 									<AuthorizationStrategies>
@@ -719,9 +719,9 @@
 						</ClaimSet>
 					</ClaimSets>
 					<Claims>
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveyResponsePersonTargetAssociation" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveySectionResponsePersonTargetAssociation" />
-						<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/surveySectionAggregateResponse" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/surveyResponsePersonTargetAssociation" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/surveySectionResponsePersonTargetAssociation" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/surveySectionAggregateResponse" />
 					</Claims>
 				</Claim>
 			</Claims>
@@ -797,7 +797,7 @@
 				</ClaimSet>
 			</ClaimSets>
 			<Claims>
-					<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgram/candidate">
+					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/candidate">
 						<DefaultAuthorization>
 							<Action name="Create">
 								<AuthorizationStrategies>
