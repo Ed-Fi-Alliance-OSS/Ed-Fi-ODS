@@ -43,645 +43,6 @@ BEGIN
 
     -- Processing children of root
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors'
-    ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors';
-    claim_id := NULL;
-
-    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
-    FROM dbo.ResourceClaims
-    WHERE ClaimName = claim_name;
-
-    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
-
-    IF claim_id IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', claim_name;
-
-        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', parent_resource_claim_id)
-        RETURNING ResourceClaimId
-        INTO claim_id;
-
-    END IF;
-  
-    -- Setting default authorization metadata
-    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-
-    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies
-    WHERE ResourceClaimActionId IN (SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id);
-
-    DELETE FROM dbo.ResourceClaimActions
-    WHERE ResourceClaimId = claim_id;
-
-    
-    -- Default Create authorization
-    RAISE NOTICE USING MESSAGE = 'Creating action ''Create'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-
-    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
-    VALUES (claim_id, Create_action_id)
-    RETURNING ResourceClaimActionId
-    INTO resource_claim_action_id;
-
-    
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
-    END IF;
-
-    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NamespaceBased'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (resource_claim_action_id, authorization_strategy_id);
-
-    -- Default Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating action ''Read'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-
-    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
-    VALUES (claim_id, Read_action_id)
-    RETURNING ResourceClaimActionId
-    INTO resource_claim_action_id;
-
-    
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (resource_claim_action_id, authorization_strategy_id);
-
-    -- Default Update authorization
-    RAISE NOTICE USING MESSAGE = 'Creating action ''Update'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-
-    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
-    VALUES (claim_id, Update_action_id)
-    RETURNING ResourceClaimActionId
-    INTO resource_claim_action_id;
-
-    
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
-    END IF;
-
-    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NamespaceBased'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (resource_claim_action_id, authorization_strategy_id);
-
-    -- Default Delete authorization
-    RAISE NOTICE USING MESSAGE = 'Creating action ''Delete'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-
-    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
-    VALUES (claim_id, Delete_action_id)
-    RETURNING ResourceClaimActionId
-    INTO resource_claim_action_id;
-
-    
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
-    END IF;
-
-    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NamespaceBased'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (resource_claim_action_id, authorization_strategy_id);
-
-    -- Default ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating action ''ReadChanges'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-
-    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
-    VALUES (claim_id, ReadChanges_action_id)
-    RETURNING ResourceClaimActionId
-    INTO resource_claim_action_id;
-
-    
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (resource_claim_action_id, authorization_strategy_id);
-
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'SIS Vendor'
-    ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'SIS Vendor';
-    claim_set_id := NULL;
-
-    SELECT ClaimSetId INTO claim_set_id
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = claim_set_name;
-
-    IF claim_set_id IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (claim_set_name)
-        RETURNING ClaimSetId
-        INTO claim_set_id;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-
-    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    WHERE ClaimSetResourceClaimActionId IN (
-        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
-    DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
-
-    
-
-    -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
-    ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Ed-Fi Sandbox';
-    claim_set_id := NULL;
-
-    SELECT ClaimSetId INTO claim_set_id
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = claim_set_name;
-
-    IF claim_set_id IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (claim_set_name)
-        RETURNING ClaimSetId
-        INTO claim_set_id;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-
-    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    WHERE ClaimSetResourceClaimActionId IN (
-        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
-    DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
-
-    
-
-    -- Claim set-specific Create authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Create_action_id) -- Create
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-
-    -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-
-    -- Claim set-specific Update authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Update_action_id) -- Update
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-
-    -- Claim set-specific Delete authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Delete_action_id) -- Delete
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-
-    -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Assessment Vendor'
-    ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Assessment Vendor';
-    claim_set_id := NULL;
-
-    SELECT ClaimSetId INTO claim_set_id
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = claim_set_name;
-
-    IF claim_set_id IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (claim_set_name)
-        RETURNING ClaimSetId
-        INTO claim_set_id;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-
-    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    WHERE ClaimSetResourceClaimActionId IN (
-        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
-    DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
-
-    
-
-    -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Bootstrap Descriptors and EdOrgs'
-    ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Bootstrap Descriptors and EdOrgs';
-    claim_set_id := NULL;
-
-    SELECT ClaimSetId INTO claim_set_id
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = claim_set_name;
-
-    IF claim_set_id IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (claim_set_name)
-        RETURNING ClaimSetId
-        INTO claim_set_id;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-
-    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    WHERE ClaimSetResourceClaimActionId IN (
-        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
-    DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
-
-    
-
-    -- Claim set-specific Create authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Create_action_id) -- Create
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
-
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'District Hosted SIS Vendor'
-    ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'District Hosted SIS Vendor';
-    claim_set_id := NULL;
-
-    SELECT ClaimSetId INTO claim_set_id
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = claim_set_name;
-
-    IF claim_set_id IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (claim_set_name)
-        RETURNING ClaimSetId
-        INTO claim_set_id;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-
-    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    WHERE ClaimSetResourceClaimActionId IN (
-        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
-    DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
-
-    
-
-    -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi API Publisher - Reader'
-    ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Ed-Fi API Publisher - Reader';
-    claim_set_id := NULL;
-
-    SELECT ClaimSetId INTO claim_set_id
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = claim_set_name;
-
-    IF claim_set_id IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (claim_set_name)
-        RETURNING ClaimSetId
-        INTO claim_set_id;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-
-    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    WHERE ClaimSetResourceClaimActionId IN (
-        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
-    DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
-
-    
-
-    -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-
-    -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi API Publisher - Writer'
-    ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Ed-Fi API Publisher - Writer';
-    claim_set_id := NULL;
-
-    SELECT ClaimSetId INTO claim_set_id
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = claim_set_name;
-
-    IF claim_set_id IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (claim_set_name)
-        RETURNING ClaimSetId
-        INTO claim_set_id;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-
-    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    WHERE ClaimSetResourceClaimActionId IN (
-        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
-    DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
-
-    
-
-    -- Claim set-specific Create authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Create_action_id) -- Create
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
-
-
-    -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
-
-
-    -- Claim set-specific Update authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Update_action_id) -- Update
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
-
-
-    -- Claim set-specific Delete authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Delete_action_id) -- Delete
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
-
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Education Preparation Program'
-    ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Education Preparation Program';
-    claim_set_id := NULL;
-
-    SELECT ClaimSetId INTO claim_set_id
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = claim_set_name;
-
-    IF claim_set_id IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (claim_set_name)
-        RETURNING ClaimSetId
-        INTO claim_set_id;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-
-    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    WHERE ClaimSetResourceClaimActionId IN (
-        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
-    DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
-
-    
-
-    -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
-    RETURNING ClaimSetResourceClaimActionId
-    INTO claim_set_resource_claim_action_id;
-
-    
-    
-    ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm'
     ----------------------------------------------------------------------------------------------------------------------------
     claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm';
@@ -5383,6 +4744,1717 @@ BEGIN
 
     
     
+
+    -- Pop the stack
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
+
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    -- Setting default authorization metadata
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionId IN (SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id);
+
+    DELETE FROM dbo.ResourceClaimActions
+    WHERE ResourceClaimId = claim_id;
+
+    
+    -- Default Create authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Create'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Create_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NamespaceBased'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
+    -- Default Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Read'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Read_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
+    -- Default Update authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Update'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Update_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NamespaceBased'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
+    -- Default Delete authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Delete'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Delete_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NamespaceBased'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''ReadChanges'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, ReadChanges_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'SIS Vendor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'SIS Vendor';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (
+        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    
+
+    -- Claim set-specific Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Ed-Fi Sandbox'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'Ed-Fi Sandbox';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (
+        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    
+
+    -- Claim set-specific Create authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Create_action_id) -- Create
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+
+    -- Claim set-specific Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+
+    -- Claim set-specific Update authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Update_action_id) -- Update
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+
+    -- Claim set-specific Delete authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Delete_action_id) -- Delete
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+
+    -- Claim set-specific ReadChanges authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Assessment Vendor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'Assessment Vendor';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (
+        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    
+
+    -- Claim set-specific Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Bootstrap Descriptors and EdOrgs'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'Bootstrap Descriptors and EdOrgs';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (
+        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    
+
+    -- Claim set-specific Create authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Create_action_id) -- Create
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
+
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'District Hosted SIS Vendor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'District Hosted SIS Vendor';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (
+        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    
+
+    -- Claim set-specific Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Ed-Fi API Publisher - Reader'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'Ed-Fi API Publisher - Reader';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (
+        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    
+
+    -- Claim set-specific Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+
+    -- Claim set-specific ReadChanges authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Ed-Fi API Publisher - Writer'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'Ed-Fi API Publisher - Writer';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (
+        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    
+
+    -- Claim set-specific Create authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Create_action_id) -- Create
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
+
+
+    -- Claim set-specific Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
+
+
+    -- Claim set-specific Update authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Update_action_id) -- Update
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
+
+
+    -- Claim set-specific Delete authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Delete_action_id) -- Delete
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
+
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Education Preparation Program'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'Education Preparation Program';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (
+        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    
+
+    -- Claim set-specific Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    -- Push claimId to the stack
+    claim_id_stack := array_append(claim_id_stack, claim_id);
+
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('descriptors', 'http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    -- Push claimId to the stack
+    claim_id_stack := array_append(claim_id_stack, claim_id);
+
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/englishLanguageExamDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/englishLanguageExamDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('englishLanguageExamDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/englishLanguageExamDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/ePPProgramPathwayDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/ePPProgramPathwayDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('ePPProgramPathwayDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/ePPProgramPathwayDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/certificationRouteDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/certificationRouteDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('certificationRouteDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/certificationRouteDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/aidTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/aidTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('aidTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/aidTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/credentialStatusDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/credentialStatusDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('credentialStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/credentialStatusDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/educatorRoleDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/educatorRoleDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('educatorRoleDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/educatorRoleDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/accreditationStatusDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/accreditationStatusDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('accreditationStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/accreditationStatusDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/pathPhaseStatusDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/pathPhaseStatusDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('pathPhaseStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/pathPhaseStatusDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('pathMilestoneTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneStatusDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneStatusDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('pathMilestoneStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneStatusDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/staffToCandidateRelationshipDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/staffToCandidateRelationshipDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('staffToCandidateRelationshipDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/staffToCandidateRelationshipDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/lengthOfContractDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/lengthOfContractDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('lengthOfContractDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/lengthOfContractDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/applicationEventResultDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/applicationEventResultDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('applicationEventResultDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/applicationEventResultDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/applicationEventTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/applicationEventTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('applicationEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/applicationEventTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/applicationSourceDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/applicationSourceDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('applicationSourceDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/applicationSourceDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/applicationStatusDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/applicationStatusDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('applicationStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/applicationStatusDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckStatusDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckStatusDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('backgroundCheckStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckStatusDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('backgroundCheckTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/certificationExamStatusDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/certificationExamStatusDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('certificationExamStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/certificationExamStatusDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/certificationExamTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/certificationExamTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('certificationExamTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/certificationExamTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/certificationFieldDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/certificationFieldDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('certificationFieldDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/certificationFieldDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/certificationLevelDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/certificationLevelDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('certificationLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/certificationLevelDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/certificationStandardDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/certificationStandardDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('certificationStandardDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/certificationStandardDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/credentialEventTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/credentialEventTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('credentialEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/credentialEventTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/degreeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/degreeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('degreeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/degreeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/federalLocaleCodeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/federalLocaleCodeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('federalLocaleCodeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/federalLocaleCodeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/fieldworkTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/fieldworkTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('fieldworkTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/fieldworkTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/fundingSourceDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/fundingSourceDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('fundingSourceDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/fundingSourceDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/goalTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/goalTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('goalTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/goalTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/hireStatusDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/hireStatusDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('hireStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/hireStatusDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/hiringSourceDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/hiringSourceDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('hiringSourceDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/hiringSourceDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/instructionalSettingDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/instructionalSettingDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('instructionalSettingDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/instructionalSettingDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventStatusDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventStatusDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('openStaffPositionEventStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventStatusDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('openStaffPositionEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionReasonDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionReasonDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('openStaffPositionReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionReasonDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/previousCareerDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/previousCareerDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('previousCareerDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/previousCareerDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentOfferedByDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentOfferedByDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('professionalDevelopmentOfferedByDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentOfferedByDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/programGatewayDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/programGatewayDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('programGatewayDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/programGatewayDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventAttendeeTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventAttendeeTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('recruitmentEventAttendeeTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventAttendeeTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureDatatypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureDatatypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('quantitativeMeasureDatatypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureDatatypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('quantitativeMeasureTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('recruitmentEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/salaryTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/salaryTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('salaryTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/salaryTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/candidateCharacteristicDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/candidateCharacteristicDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('candidateCharacteristicDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/candidateCharacteristicDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/epdmTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/epdmTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('epdmTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/epdmTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/ePPDegreeTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/ePPDegreeTypeDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('ePPDegreeTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/ePPDegreeTypeDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/epdm/withdrawReasonDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/epdm/withdrawReasonDescriptor';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('withdrawReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/epdm/withdrawReasonDescriptor', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    END IF;
+  
+
+    -- Pop the stack
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
+
 
     -- Pop the stack
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);

@@ -1,156 +1,5 @@
 ﻿<SecurityMetadata>
 	<Claims>
-		<Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
-			<DefaultAuthorization>
-				<Action name="Create">
-					<AuthorizationStrategies>
-						<AuthorizationStrategy name="NamespaceBased" />
-					</AuthorizationStrategies>
-				</Action>
-				<Action name="Read">
-					<AuthorizationStrategies>
-						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-					</AuthorizationStrategies>
-				</Action>
-				<Action name="Update">
-					<AuthorizationStrategies>
-						<AuthorizationStrategy name="NamespaceBased" />
-					</AuthorizationStrategies>
-				</Action>
-				<Action name="Delete">
-					<AuthorizationStrategies>
-						<AuthorizationStrategy name="NamespaceBased" />
-					</AuthorizationStrategies>
-				</Action>
-				<Action name="ReadChanges">
-					<AuthorizationStrategies>
-						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-					</AuthorizationStrategies>
-				</Action>
-			</DefaultAuthorization>
-			<ClaimSets>
-				<ClaimSet name="SIS Vendor">
-					<Actions>
-						<Action name="Read" />
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="Ed-Fi Sandbox">
-					<Actions>
-						<Action name="Create" />
-						<Action name="Read" />
-						<Action name="Update" />
-						<Action name="Delete" />
-						<Action name="ReadChanges" />
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="Assessment Vendor">
-					<Actions>
-						<Action name="Read" />
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="Bootstrap Descriptors and EdOrgs">
-					<Actions>
-						<Action name="Create">
-							<AuthorizationStrategyOverrides>
-								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-							</AuthorizationStrategyOverrides>
-						</Action>
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="District Hosted SIS Vendor">
-					<Actions>
-						<Action name="Read" />
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="Ed-Fi API Publisher - Reader">
-					<Actions>
-						<Action name="Read" />
-						<Action name="ReadChanges" />
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="Ed-Fi API Publisher - Writer">
-					<Actions>
-						<Action name="Create">
-							<AuthorizationStrategyOverrides>
-								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-							</AuthorizationStrategyOverrides>
-						</Action>
-						<Action name="Read">
-							<AuthorizationStrategyOverrides>
-								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-							</AuthorizationStrategyOverrides>
-						</Action>
-						<Action name="Update">
-							<AuthorizationStrategyOverrides>
-								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-							</AuthorizationStrategyOverrides>
-						</Action>
-						<Action name="Delete">
-							<AuthorizationStrategyOverrides>
-								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-							</AuthorizationStrategyOverrides>
-						</Action>
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="Education Preparation Program">
-					<Actions>
-						<Action name="Read" />
-					</Actions>
-				</ClaimSet>
-			</ClaimSets>
-
-			<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors">
-				<Claims>
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/englishLanguageExamDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/ePPProgramPathwayDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationRouteDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/aidTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/credentialStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/educatorRoleDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/accreditationStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathPhaseStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/staffToCandidateRelationshipDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/lengthOfContractDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationEventResultDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationEventTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationSourceDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationExamStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationExamTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationFieldDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationLevelDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationStandardDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/credentialEventTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/degreeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/federalLocaleCodeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/fieldworkTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/fundingSourceDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/goalTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/hireStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/hiringSourceDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/instructionalSettingDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventStatusDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionReasonDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/previousCareerDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentOfferedByDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/programGatewayDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventAttendeeTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureDatatypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/salaryTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/candidateCharacteristicDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/epdmTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/ePPDegreeTypeDescriptor" />
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/withdrawReasonDescriptor" />
-				</Claims>
-			</Claim>
-		</Claim>
 
 		<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm">
 			<ClaimSets>
@@ -797,47 +646,201 @@
 				</ClaimSet>
 			</ClaimSets>
 			<Claims>
-					<Claim name="http://ed-fi.org/ods/identity/claims/epdm/candidate">
-						<DefaultAuthorization>
-							<Action name="Create">
-								<AuthorizationStrategies>
-									<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-								</AuthorizationStrategies>
-							</Action>
-							<Action name="Read">
-								<AuthorizationStrategies>
-									<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-								</AuthorizationStrategies>
-							</Action>
-							<Action name="Update">
-								<AuthorizationStrategies>
-									<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-								</AuthorizationStrategies>
-							</Action>
-							<Action name="Delete">
-								<AuthorizationStrategies>
-									<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-								</AuthorizationStrategies>
-							</Action>
-							<Action name="ReadChanges">
-								<AuthorizationStrategies>
-									<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-								</AuthorizationStrategies>
-							</Action>
-						</DefaultAuthorization>
-						<ClaimSets>
-							<ClaimSet name="Education Preparation Program">
-								<Actions>
-									<Action name="Create" />
-									<Action name="Read" />
-									<Action name="Update" />
-									<Action name="Delete" />
-								</Actions>
-							</ClaimSet>
-						</ClaimSets>
-					</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/epdm/candidate">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<ClaimSets>
+						<ClaimSet name="Education Preparation Program">
+							<Actions>
+								<Action name="Create" />
+								<Action name="Read" />
+								<Action name="Update" />
+								<Action name="Delete" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
 			</Claims>
 		</Claim>
+		
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="ReadChanges">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Assessment Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+					<Actions>
+						<Action name="Create">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Reader">
+					<Actions>
+						<Action name="Read" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Writer">
+					<Actions>
+						<Action name="Create">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Education Preparation Program">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				  <Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors">
+						<Claims>
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/englishLanguageExamDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/ePPProgramPathwayDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationRouteDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/aidTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/credentialStatusDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/educatorRoleDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/accreditationStatusDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathPhaseStatusDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/pathMilestoneStatusDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/staffToCandidateRelationshipDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/lengthOfContractDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationEventResultDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationEventTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationSourceDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/applicationStatusDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckStatusDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/backgroundCheckTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationExamStatusDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationExamTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationFieldDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationLevelDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/certificationStandardDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/credentialEventTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/degreeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/federalLocaleCodeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/fieldworkTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/fundingSourceDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/goalTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/hireStatusDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/hiringSourceDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/instructionalSettingDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventStatusDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionEventTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/openStaffPositionReasonDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/previousCareerDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/professionalDevelopmentOfferedByDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/programGatewayDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventAttendeeTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureDatatypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/quantitativeMeasureTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/recruitmentEventTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/salaryTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/candidateCharacteristicDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/epdmTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/ePPDegreeTypeDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/epdm/withdrawReasonDescriptor" />
+					</Claims>
+				  </Claim>
+			</Claims>
+		</Claim>
+
 	</Claims>
 </SecurityMetadata>
 
