@@ -98,6 +98,11 @@
 					</Actions>
 				</ClaimSet>
 			</ClaimSets>
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/PathPhaseStatusDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/EnglishLanguageExamDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/CredentialEventTypeDescriptor" />
+			</Claims>
 			<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/descriptors">
 				<Claims>
 					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/pathPhaseStatusDescriptor" />
