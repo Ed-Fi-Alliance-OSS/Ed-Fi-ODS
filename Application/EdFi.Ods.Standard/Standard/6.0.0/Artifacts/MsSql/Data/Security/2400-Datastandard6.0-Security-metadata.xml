@@ -99,9 +99,46 @@
 				</ClaimSet>
 			</ClaimSets>
 			<Claims>
-				<Claim name="http://ed-fi.org/ods/identity/claims/PathPhaseStatusDescriptor" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/EnglishLanguageExamDescriptor" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/CredentialEventTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/pathPhaseStatusDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/pathMilestoneTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/pathMilestoneStatusDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffToCandidateRelationshipDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/lengthOfContractDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/applicationEventResultDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/applicationEventTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/applicationSourceDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/applicationStatusDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/backgroundCheckStatusDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/backgroundCheckTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/certificationExamStatusDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/certificationExamTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/certificationFieldDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/certificationLevelDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/certificationStandardDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/credentialEventTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/degreeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/federalLocaleCodeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/fieldworkTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/fundingSourceDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/goalTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/hireStatusDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/hiringSourceDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/instructionalSettingDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/openStaffPositionEventStatusDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/openStaffPositionEventTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/openStaffPositionReasonDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/previousCareerDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/professionalDevelopmentOfferedByDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/programGatewayDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/recruitmentEventAttendeeTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/quantitativeMeasureDatatypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/quantitativeMeasureTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/recruitmentEventTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/salaryTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/candidateCharacteristicDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/educatorPreparationProgramTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ePPDegreeTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/withdrawReasonDescriptor" />
 			</Claims>
 			<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/descriptors">
 				<Claims>
