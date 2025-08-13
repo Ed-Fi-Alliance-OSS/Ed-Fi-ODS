@@ -1,0 +1,836 @@
+﻿<SecurityMetadata>
+	<Claims>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="ReadChanges">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Assessment Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+					<Actions>
+						<Action name="Create">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Reader">
+					<Actions>
+						<Action name="Read" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Writer">
+					<Actions>
+						<Action name="Create">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Education Preparation Program">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/descriptors">
+				<Claims>
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/pathPhaseStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/pathMilestoneTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/pathMilestoneStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/staffToCandidateRelationshipDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/lengthOfContractDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/applicationEventResultDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/applicationEventTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/applicationSourceDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/applicationStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/certificationExamStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/certificationExamTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/certificationFieldDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/certificationLevelDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/certificationStandardDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/credentialEventTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/degreeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/federalLocaleCodeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/fieldworkTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/fundingSourceDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/goalTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/hireStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/hiringSourceDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/instructionalSettingDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventStatusDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionReasonDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/previousCareerDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentOfferedByDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/programGatewayDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEventAttendeeTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureDatatypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEventTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/salaryTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/candidateCharacteristicDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/educatorPreparationProgramTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/ePPDegreeTypeDescriptor" />
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/withdrawReasonDescriptor" />
+				</Claims>
+			</Claim>
+		</Claim>
+
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm">
+			<ClaimSets>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Reader">
+					<Actions>
+						<Action name="Read" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Writer">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/performanceEvaluation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<Claims>
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluation" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/evaluation" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjective" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/evaluationElement" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/rubricDimension" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/evaluationRating" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjectiveRating" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRating" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRating" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasure" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureScore" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/goal">
+							<DefaultAuthorization>
+								<Action name="Create">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Read">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Update">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Delete">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+							</DefaultAuthorization>
+						</Claim>
+						<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/path">
+							<DefaultAuthorization>
+								<Action name="Create">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Read">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Update">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Delete">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+									</AuthorizationStrategies>
+								</Action>
+							</DefaultAuthorization>
+							<Claims>
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/path" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/pathPhase" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/studentPath" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/studentPathMilestoneStatus" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/studentPathPhaseStatus">
+									<DefaultAuthorization>
+										<Action name="Create">
+											<AuthorizationStrategies>
+												<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+											</AuthorizationStrategies>
+										</Action>
+										<Action name="Read">
+											<AuthorizationStrategies>
+												<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+											</AuthorizationStrategies>
+										</Action>
+										<Action name="Update">
+											<AuthorizationStrategies>
+												<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+											</AuthorizationStrategies>
+										</Action>
+										<Action name="Delete">
+											<AuthorizationStrategies>
+												<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+											</AuthorizationStrategies>
+										</Action>
+									</DefaultAuthorization>
+								</Claim>
+							</Claims>
+						</Claim>
+					</Claims>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/noFurtherAuthorizationRequiredData">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<Claims>
+						<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/candidatePreparation">
+							<ClaimSets>
+								<ClaimSet name="Education Preparation Program">
+									<Actions>
+										<Action name="Create" />
+										<Action name="Read" />
+										<Action name="Update" />
+										<Action name="Delete" />
+									</Actions>
+								</ClaimSet>
+							</ClaimSets>
+							<Claims>
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/candidateEducatorPreparationProgramAssociation" />
+							</Claims>
+						</Claim>
+						<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/students">
+							<Claims>
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/financialAid" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperience" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperienceSectionAssociation" />
+							</Claims>
+						</Claim>
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/pathMilestone" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/domains/personRoleAssociations">
+							<Claims>
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/staffEducatorPreparationProgramAssociation" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/candidateRelationshipToStaffAssociation" />
+							</Claims>
+						</Claim>
+					</Claims>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/educatorPreparationProgram">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/path">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<Claims>
+						<Claim claimId="426" name="http://ed-fi.org/ods/identity/claims/tpdm/path" />
+						<Claim claimId="427" name="http://ed-fi.org/ods/identity/claims/tpdm/pathPhase" />
+						<Claim claimId="428" name="http://ed-fi.org/ods/identity/claims/tpdm/studentPath" />
+						<Claim claimId="429" name="http://ed-fi.org/ods/identity/claims/tpdm/studentPathMilestoneStatus" />
+						<Claim claimId="430" name="http://ed-fi.org/ods/identity/claims/tpdm/studentPathPhaseStatus">
+							<DefaultAuthorization>
+								<Action name="Create">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Read">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Update">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Delete">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+							</DefaultAuthorization>
+						</Claim>
+					</Claims>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/credentials">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NamespaceBased" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NamespaceBased" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NamespaceBased" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NamespaceBased" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<Claims>
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/certification" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/certificationExam" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/certificationExamResult" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/credentialEvent">
+							<DefaultAuthorization>
+								<Action name="Create">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Read">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Update">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Delete">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+							</DefaultAuthorization>
+						</Claim>
+					</Claims>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/professionalDevelopment">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<Claims>
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEvent" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEventAttendance" />
+					</Claims>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm/recruiting">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<Claims>
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/application" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/applicationEvent" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEvent" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEvent" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEventAttendance" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/applicantProfile">
+							<DefaultAuthorization>
+								<Action name="Create">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Read">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Update">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="Delete">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+							</DefaultAuthorization>
+						</Claim>
+					</Claims>
+				</Claim>
+			</Claims>
+		</Claim>
+
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="ReadChanges">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Assessment Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Reader">
+					<Actions>
+						<Action name="Read" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Writer">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/surveyDomain">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NamespaceBased" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NamespaceBased" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NamespaceBased" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NamespaceBased" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NamespaceBased" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<ClaimSets>
+						<ClaimSet name="Ed-Fi Sandbox">
+							<Actions>
+								<Action name="Create" />
+								<Action name="Read" />
+								<Action name="Update" />
+								<Action name="Delete" />
+								<Action name="ReadChanges" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Ed-Fi API Publisher - Writer">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+								<Action name="Read">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+								<Action name="Update">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+								<Action name="Delete">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Education Preparation Program">
+							<Actions>
+								<Action name="Create" />
+								<Action name="Read" />
+								<Action name="Update" />
+								<Action name="Delete" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+					<Claims>
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/surveyResponsePersonTargetAssociation" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponsePersonTargetAssociation" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/surveySectionAggregateResponse" />
+					</Claims>
+				</Claim>
+			</Claims>
+		</Claim>
+
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/people">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="ReadChanges">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Reader">
+					<Actions>
+						<Action name="Read" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Writer">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+					<Claim name="http://ed-fi.org/ods/identity/claims/tpdm/candidate">
+						<DefaultAuthorization>
+							<Action name="Create">
+								<AuthorizationStrategies>
+									<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+								</AuthorizationStrategies>
+							</Action>
+							<Action name="Read">
+								<AuthorizationStrategies>
+									<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+								</AuthorizationStrategies>
+							</Action>
+							<Action name="Update">
+								<AuthorizationStrategies>
+									<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+								</AuthorizationStrategies>
+							</Action>
+							<Action name="Delete">
+								<AuthorizationStrategies>
+									<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+								</AuthorizationStrategies>
+							</Action>
+							<Action name="ReadChanges">
+								<AuthorizationStrategies>
+									<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+								</AuthorizationStrategies>
+							</Action>
+						</DefaultAuthorization>
+						<ClaimSets>
+							<ClaimSet name="Education Preparation Program">
+								<Actions>
+									<Action name="Create" />
+									<Action name="Read" />
+									<Action name="Update" />
+									<Action name="Delete" />
+								</Actions>
+							</ClaimSet>
+						</ClaimSets>
+					</Claim>
+			</Claims>
+		</Claim>
+	</Claims>
+</SecurityMetadata>
+
+
