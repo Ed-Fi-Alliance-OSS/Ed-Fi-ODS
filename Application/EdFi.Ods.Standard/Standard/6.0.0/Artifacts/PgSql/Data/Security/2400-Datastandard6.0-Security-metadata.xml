@@ -99,6 +99,13 @@
 				</ClaimSet>
 			</ClaimSets>
 			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/englishLanguageExamDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ePPProgramPathwayDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/certificationRouteDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/aidTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/credentialStatusDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/educatorRoleDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/accreditationStatusDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/pathPhaseStatusDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/pathMilestoneTypeDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/pathMilestoneStatusDescriptor" />
