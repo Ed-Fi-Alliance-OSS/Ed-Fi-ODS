@@ -841,6 +841,68 @@
 			</Claims>
 		</Claim>
 
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentIdentity" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentDemographics" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentContactInformation" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffIdentity" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffDemographics" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffContactInformation" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/candidateIdentity" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/candidateDemographics" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/canidateContactInformation" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/educationOrganizationIdentity" />
+			</Claims>
+		</Claim>
 	</Claims>
 </SecurityMetadata>
 
