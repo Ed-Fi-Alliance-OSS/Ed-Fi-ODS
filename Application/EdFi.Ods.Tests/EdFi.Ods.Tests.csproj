@@ -3,7 +3,7 @@
     <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Tests</AssemblyName>
     <RootNamespace>EdFi.Ods.Tests</RootNamespace>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
@@ -27,8 +27,8 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.1.21" />
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.1.9" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.2.6" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.2.1" />
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -40,7 +40,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NUnit.ConsoleRunner" Version="3.16.2" />    
+    <PackageReference Include="NUnit.ConsoleRunner" Version="3.16.2" />
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.36" />
     <PackageReference Include="Shouldly" Version="4.1.0" />
   </ItemGroup>

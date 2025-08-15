@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>EdFi.Ods.Features</RootNamespace>
     <AssemblyName>EdFi.Ods.Features</AssemblyName>
     <Configurations>Debug;Release</Configurations>
@@ -17,9 +16,9 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.19" />
-    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.13" />
     <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.8" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.2" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\ChangeQueries.json" />
