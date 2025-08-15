@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: [main, 'b-v*-patch*','feature-*']
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
@@ -21,14 +25,11 @@ jobs:
 
   analyze-code:
     name: Analyze Code Dependencies
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
       security-events: write
-
-    strategy:
-      fail-fast: false
 
     steps:
       - name: Checkout code
@@ -44,4 +45,4 @@ jobs:
         run: |
              .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
       - name: Dependency Review ("Dependabot on PR")
-        uses: actions/dependency-review-action@9129d7d40b8c12c1ed0f60400d00c92d437adcce  # v4.1.3
+        uses: actions/dependency-review-action@a9c83d3af6b9031e20feba03b904645bb23d1dab  # v1.0.2
