@@ -1,6 +1,7 @@
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.10.34825.169
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.LoadTools.Test", "EdFi.LoadTools.Test\EdFi.LoadTools.Test.csproj", "{19033DEE-B743-4611-9DBF-47700C084073}"
 EndProject
