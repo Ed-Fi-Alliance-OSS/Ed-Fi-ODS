@@ -12,6 +12,7 @@ using EdFi.LoadTools.SmokeTest.SdkTests;
 using EdFi.OdsApi.Sdk.Apis.All;
 using NUnit.Framework;
 using Moq;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
