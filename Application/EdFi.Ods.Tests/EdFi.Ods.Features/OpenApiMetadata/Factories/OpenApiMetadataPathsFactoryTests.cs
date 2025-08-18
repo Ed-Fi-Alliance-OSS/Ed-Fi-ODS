@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
@@ -20,6 +21,7 @@ using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
@@ -52,7 +54,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
                         DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), 
                         _resourceIdentificationCodePropertiesProvider,
-                        new FakeFeatureManager())
+                        new FakeFeatureManager(),
+                        new OpenApiMetadataDomainFilter(null))
                     .Create(openApiMetadataResources, false);
             }
 
@@ -190,7 +193,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 featureManager.SetState("ChangeQueries", false);
 
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), _resourceIdentificationCodePropertiesProvider, featureManager)
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext,
+                        new FakeOpenApiIdentityProvider(),
+                        _resourceIdentificationCodePropertiesProvider,
+                        featureManager,
+                        new OpenApiMetadataDomainFilter(null))
                     .Create(openApiMetadataResources, false);
             }
 
@@ -286,7 +293,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             protected override void Act()
             {
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper
-                    .CreateOpenApiMetadataPathsFactory(_openApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), _resourceIdentificationCodePropertiesProvider, new FakeFeatureManager())
+                    .CreateOpenApiMetadataPathsFactory(
+                        _openApiMetadataDocumentContext,
+                        new FakeOpenApiIdentityProvider(),
+                        _resourceIdentificationCodePropertiesProvider,
+                        new FakeFeatureManager(),
+                        new OpenApiMetadataDomainFilter(null))
                     .Create(_openApiMetadataResources, false);
             }
 
@@ -372,6 +384,187 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                     Is.True,
                     $@"Resource property {filteredParameterName} 
                      was not correctly filtered from parameter list in get operation for path {getPath.Key}");
+            }
+        }
+
+        public class When_creating_paths_with_domain_filtering_excluding_single_domain : TestFixtureBase
+        {
+            private IDictionary<string, PathItem> _actualPaths;
+
+            protected override void Act()
+            {
+                var apiSettings = new ApiSettings
+                {
+                    DomainsExcludedFromOpenApi = "Assessment"
+                };
+
+                var openApiMetadataResources = ResourceModelProvider.GetResourceModel()
+                    .GetAllResources()
+                    .Select(r => new OpenApiMetadataResource(r))
+                    .ToList();
+
+                _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext,
+                        new FakeOpenApiIdentityProvider(),
+                        _resourceIdentificationCodePropertiesProvider,
+                        new FakeFeatureManager(),
+                        new OpenApiMetadataDomainFilter(apiSettings))
+                    .Create(openApiMetadataResources, false);
+            }
+
+            [Assert]
+            public void Should_create_the_paths()
+            {
+                Assert.That(_actualPaths, Is.Not.Null);
+            }
+
+            [Assert]
+            public void Should_not_be_empty()
+            {
+                Assert.That(_actualPaths, Is.Not.Empty);
+            }
+
+            [Assert]
+            public void Should_include_resources_with_empty_or_null_domains()
+            {
+                // AbsenceEventCategoryDescriptor(Domains: Empty) paths should still be included
+                var absenceEventCategoryDescriptorPaths = _actualPaths.Keys.Where(k => k.Contains("absenceEventCategoryDescriptors")).ToList();
+                Assert.That(absenceEventCategoryDescriptorPaths, Is.Not.Empty);
+            }
+
+            [Assert]
+            public void Should_include_resources_with_mixed_domains_when_not_all_domains_are_excluded()
+            {
+                // StudentAssessment(Domains: Assessment, StudentAssessment) paths should still be included
+                var studentAssessmentPaths = _actualPaths.Keys.Where(k => k.Contains("studentAssessments")).ToList();
+                Assert.That(studentAssessmentPaths, Is.Not.Empty);
+            }
+
+            [Assert]
+            public void Should_exclude_resources_where_all_domains_are_excluded()
+            {
+                // AssessmentScoreRangeLearningStandard(Domains: Assessment) paths should be excluded
+                var assessmentScoreRangeLearningStandardPaths = _actualPaths.Keys.Where(k => k.Contains("assessmentScoreRangeLearningStandards")).ToList();
+                Assert.That(assessmentScoreRangeLearningStandardPaths, Is.Empty);
+            }
+        }
+
+        public class When_creating_paths_with_domain_filtering_excluding_multiple_domains : TestFixtureBase
+        {
+            private IDictionary<string, PathItem> _actualPaths;
+
+            protected override void Act()
+            {
+                // Create API settings that exclude multiple domains
+                var apiSettings = new ApiSettings
+                {
+                    DomainsExcludedFromOpenApi = "Assessment, AssessmentMetadata"
+                };
+
+                var openApiMetadataResources = ResourceModelProvider.GetResourceModel()
+                    .GetAllResources()
+                    .Select(r => new OpenApiMetadataResource(r))
+                    .ToList();
+
+                _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext,
+                        new FakeOpenApiIdentityProvider(),
+                        _resourceIdentificationCodePropertiesProvider,
+                        new FakeFeatureManager(),
+                        new OpenApiMetadataDomainFilter(apiSettings))
+                    .Create(openApiMetadataResources, false);
+            }
+
+            [Assert]
+            public void Should_exclude_resources_from_excluded_domains()
+            {
+                // AssessmentItem(Domains: Assessment, AssessmentMetadata) paths should be excluded
+                var assessmentItemPaths = _actualPaths.Keys.Where(k => k.Contains("assessmentItems")).ToList();
+                Assert.That(assessmentItemPaths, Is.Empty);
+            }
+
+            [Assert]
+            public void Should_include_resources_from_non_excluded_domains()
+            {
+                // StudentAssessment(Domains: Assessment, StudentAssessment) paths should still be included
+                var studentAssessmentPaths = _actualPaths.Keys.Where(k => k.Contains("studentAssessments")).ToList();
+                Assert.That(studentAssessmentPaths, Is.Not.Empty);
+            }
+        }
+
+        public class When_creating_paths_with_empty_domain_exclusion_list : TestFixtureBase
+        {
+            private IDictionary<string, PathItem> _actualPaths;
+
+            protected override void Act()
+            {
+                // Create API settings with empty exclusion list
+                var apiSettings = new ApiSettings
+                {
+                    DomainsExcludedFromOpenApi = ""
+                };
+
+                var openApiMetadataResources = ResourceModelProvider.GetResourceModel()
+                    .GetAllResources()
+                    .Select(r => new OpenApiMetadataResource(r))
+                    .ToList();
+
+                _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext,
+                        new FakeOpenApiIdentityProvider(),
+                        _resourceIdentificationCodePropertiesProvider,
+                        new FakeFeatureManager(),
+                        new OpenApiMetadataDomainFilter(apiSettings))
+                    .Create(openApiMetadataResources, false);
+            }
+
+            [Assert]
+            public void Should_include_all_resources_when_no_domains_are_excluded()
+            {
+                var allResources = ResourceModelProvider.GetResourceModel().GetAllResources().ToList();
+
+                // Every resource should have at least one path generated
+                foreach (var resource in allResources)
+                {
+                    var matchingPaths = _actualPaths.Keys.Where(k => k.Contains(resource.PluralName.ToCamelCase())).ToList();
+                    Assert.That(matchingPaths, Is.Not.Empty,
+                        $"Resource '{resource.Name}' should have paths when no domains are excluded");
+                }
+            }
+        }
+
+        public class When_creating_paths_with_null_api_settings : TestFixtureBase
+        {
+            private IDictionary<string, PathItem> _actualPaths;
+
+            protected override void Act()
+            {
+                var openApiMetadataResources = ResourceModelProvider.GetResourceModel()
+                    .GetAllResources()
+                    .Select(r => new OpenApiMetadataResource(r))
+                    .ToList();
+
+                _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext,
+                        new FakeOpenApiIdentityProvider(),
+                        _resourceIdentificationCodePropertiesProvider,
+                        new FakeFeatureManager(),
+                        new OpenApiMetadataDomainFilter(null))
+                    .Create(openApiMetadataResources, false);
+            }
+
+            [Assert]
+            public void Should_include_all_resources_when_api_settings_is_null()
+            {
+                var allResources = ResourceModelProvider.GetResourceModel().GetAllResources().ToList();
+
+                // Every resource should have at least one path generated
+                foreach (var resource in allResources)
+                {
+                    var matchingPaths = _actualPaths.Keys.Where(k => k.Contains(resource.PluralName.ToCamelCase())).ToList();
+                    Assert.That(matchingPaths, Is.Not.Empty,
+                        $"Resource '{resource.Name}' should have paths when no domains are excluded");
+                }
             }
         }
     }

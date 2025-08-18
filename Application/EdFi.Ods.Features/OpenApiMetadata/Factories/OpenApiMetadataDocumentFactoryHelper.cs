@@ -6,6 +6,7 @@
 using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
 using Microsoft.FeatureManagement;
 
@@ -81,7 +82,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             OpenApiMetadataDocumentContext openApiMetadataDocumentContext,
             IOpenApiIdentityProvider openApiIdentityProvider,
             IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider,
-            IFeatureManager featureManager)
+            IFeatureManager featureManager,
+            IOpenApiMetadataDomainFilter domainFilter)
         {
             if (openApiMetadataDocumentContext.IsProfileContext)
             {
@@ -89,7 +91,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 //Profile strategy implements each of the interfaces in the signature of the paths factory constructor
                 //Hence the odd parameter repetition.
-                return new OpenApiMetadataPathsFactory(profileStrategy, profileStrategy, profileStrategy, openApiIdentityProvider, resourceIdentificationCodePropertiesProvider, featureManager);
+                return new OpenApiMetadataPathsFactory(profileStrategy, profileStrategy, profileStrategy, openApiIdentityProvider, resourceIdentificationCodePropertiesProvider, featureManager, domainFilter);
             }
 
             IOpenApiMetadataPathsFactorySelectorStrategy selectorStrategy = null;
@@ -113,7 +115,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             selectorStrategy ??= defaultStrategy;
             resourceNamingStrategy ??= defaultResourceDefinitionNamingStrategy;
 
-            return new OpenApiMetadataPathsFactory(selectorStrategy, contentTypeStrategy, resourceNamingStrategy, openApiIdentityProvider, resourceIdentificationCodePropertiesProvider, featureManager);
+            return new OpenApiMetadataPathsFactory(
+                selectorStrategy,
+                contentTypeStrategy,
+                resourceNamingStrategy,
+                openApiIdentityProvider,
+                resourceIdentificationCodePropertiesProvider,
+                featureManager,
+                domainFilter);
         }
 
         public static OpenApiMetadataTagsFactory CreateOpenApiMetadataTagsFactory(OpenApiMetadataDocumentContext documentContext)

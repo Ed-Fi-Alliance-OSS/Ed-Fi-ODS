@@ -61,7 +61,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 var pathsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        documentContext, _openApiIdentityProvider, _resourceIdentificationCodePropertiesProvider, _featureManager);
+                        documentContext, _openApiIdentityProvider, _resourceIdentificationCodePropertiesProvider, _featureManager, _domainFilter);
 
                 var tagsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(documentContext);
