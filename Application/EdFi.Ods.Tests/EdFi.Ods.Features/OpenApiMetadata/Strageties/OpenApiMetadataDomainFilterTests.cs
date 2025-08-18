@@ -18,7 +18,7 @@ using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Strageties
+namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Strategies
 {
     [TestFixture]
     public class OpenApiMetadataDomainFilterTests : TestFixtureBase

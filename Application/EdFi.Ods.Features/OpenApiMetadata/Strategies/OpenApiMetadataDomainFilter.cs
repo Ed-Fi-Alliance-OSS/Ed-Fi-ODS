@@ -61,7 +61,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies
             }
 
             // Exclude only if ALL domains are in the exclusion set
-            return domains.All(d => _excludedDomains.Contains(d));
+            return _excludedDomains.IsSupersetOf(domains);
         }
 
         public bool HasExclusions => _hasExclusions;

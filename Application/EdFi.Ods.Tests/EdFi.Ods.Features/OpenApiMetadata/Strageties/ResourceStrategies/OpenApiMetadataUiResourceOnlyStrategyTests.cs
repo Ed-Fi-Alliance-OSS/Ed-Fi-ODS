@@ -14,7 +14,7 @@ using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Strageties.ResourceStrategies
+namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
 {
     [TestFixture]
     public class OpenApiMetadataUiResourceOnlyStrategyTests
