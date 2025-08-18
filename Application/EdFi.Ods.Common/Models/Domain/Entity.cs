@@ -62,6 +62,7 @@ namespace EdFi.Ods.Common.Models.Domain
             IsAbstract = entityDefinition.IsAbstract;
             IsDeprecated = entityDefinition.IsDeprecated;
             DeprecationReasons = entityDefinition.DeprecationReasons;
+            Domains = entityDefinition.Domains;
 
             _locallyDefinedProperties = entityDefinition.LocallyDefinedProperties.Select(x => new EntityProperty(x))
                                                         .ToList();
@@ -336,6 +337,11 @@ namespace EdFi.Ods.Common.Models.Domain
         /// Indicates reasons over the entity when it is deprecated.
         /// </summary>
         public string[] DeprecationReasons { get; set; }
+
+        /// <summary>
+        /// The domains this entity belongs to. Null or empty if unspecified.
+        /// </summary>
+        public string[] Domains { get; set; }
 
         /// <summary>
         /// Indicates whether the current entity is a base type from which other entities are derived.

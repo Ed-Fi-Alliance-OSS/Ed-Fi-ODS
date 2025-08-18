@@ -378,7 +378,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 required = requiredProperties.Any()
                     ? requiredProperties
                     : null,
-                properties = propertyDict
+                properties = propertyDict,
+                domains = resource.Entity?.Domains
             };
         }
 

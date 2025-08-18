@@ -139,6 +139,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
 
         [JsonProperty("x-Ed-Fi-isUpdatable")]
         public bool? isUpdatable;
+
+        [JsonProperty("x-Ed-Fi-domains")]
+        public string[] domains;
     }
 
     public class Tag
@@ -147,6 +150,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
 
         public ExternalDocs externalDocs;
         public string name;
+
+        [JsonProperty("x-Ed-Fi-domains")]
+        public string[] domains;
     }
 
     public class ExternalDocs
@@ -255,6 +261,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
 
         [JsonProperty("x-Ed-Fi-deprecatedReasons")]
         public string deprecatedReasons;
+
+        [JsonProperty("x-Ed-Fi-domains")]
+        public string[] domains;
     }
 
     public class PartialSchema

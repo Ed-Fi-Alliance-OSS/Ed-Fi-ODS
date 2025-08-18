@@ -28,7 +28,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     x => new Tag
                     {
                         name = OpenApiMetadataDocumentHelper.GetResourcePluralName(x.Resource).ToCamelCase(),
-                        description = x.Description
+                        description = x.Description,
+                        domains = x.Resource.Entity?.Domains
                     })
                 .GroupBy(t => t.name)
                 .Select(g => g.First())
