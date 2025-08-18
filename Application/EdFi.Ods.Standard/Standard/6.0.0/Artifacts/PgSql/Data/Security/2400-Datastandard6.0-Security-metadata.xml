@@ -884,6 +884,7 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/objectiveRatingLevelDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/performanceEvaluationTypeDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/rubricRatingLevelDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/evaluationPeriodDescriptor" />
 			</Claims>
 		</Claim>
 
