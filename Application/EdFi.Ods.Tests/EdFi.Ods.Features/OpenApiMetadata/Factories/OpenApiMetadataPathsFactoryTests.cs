@@ -395,7 +395,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             {
                 var apiSettings = new ApiSettings
                 {
-                    DomainsExcludedFromOpenApi = "Assessment"
+                    DomainsExcludedFromOpenApi = "SchoolCalendar"
                 };
 
                 var openApiMetadataResources = ResourceModelProvider.GetResourceModel()
@@ -435,17 +435,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             [Assert]
             public void Should_include_resources_with_mixed_domains_when_not_all_domains_are_excluded()
             {
-                // StudentAssessment(Domains: Assessment, StudentAssessment) paths should still be included
-                var studentAssessmentPaths = _actualPaths.Keys.Where(k => k.Contains("studentAssessments")).ToList();
-                Assert.That(studentAssessmentPaths, Is.Not.Empty);
+                // GradingPeriod(Domains: SchoolCalendar, StudentAcademicRecord, ReportCard) tags should still be included
+                var gradingPeriodPaths = _actualPaths.Keys.Where(k => k.Contains("gradingPeriods")).ToList();
+                Assert.That(gradingPeriodPaths, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_exclude_resources_where_all_domains_are_excluded()
             {
-                // AssessmentScoreRangeLearningStandard(Domains: Assessment) paths should be excluded
-                var assessmentScoreRangeLearningStandardPaths = _actualPaths.Keys.Where(k => k.Contains("assessmentScoreRangeLearningStandards")).ToList();
-                Assert.That(assessmentScoreRangeLearningStandardPaths, Is.Empty);
+                // AcademicWeek(Domains: SchoolCalendar) tags should be excluded
+                var academicWeekPaths = _actualPaths.Keys.Where(k => k.Contains("academicWeeks")).ToList();
+                Assert.That(academicWeekPaths, Is.Empty);
             }
         }
 
@@ -458,7 +458,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 // Create API settings that exclude multiple domains
                 var apiSettings = new ApiSettings
                 {
-                    DomainsExcludedFromOpenApi = "Assessment, AssessmentMetadata"
+                    DomainsExcludedFromOpenApi = "SchoolCalendar, StudentAcademicRecord, ReportCard"
                 };
 
                 var openApiMetadataResources = ResourceModelProvider.GetResourceModel()
@@ -478,15 +478,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             [Assert]
             public void Should_exclude_resources_from_excluded_domains()
             {
-                // AssessmentItem(Domains: Assessment, AssessmentMetadata) paths should be excluded
-                var assessmentItemPaths = _actualPaths.Keys.Where(k => k.Contains("assessmentItems")).ToList();
-                Assert.That(assessmentItemPaths, Is.Empty);
+                // GradingPeriod(Domains: SchoolCalendar, StudentAcademicRecord, ReportCard) tags should be excluded
+                var gradingPeriodPaths = _actualPaths.Keys.Where(k => k.Contains("gradingPeriods")).ToList();
+                Assert.That(gradingPeriodPaths, Is.Empty);
             }
 
             [Assert]
             public void Should_include_resources_from_non_excluded_domains()
             {
-                // StudentAssessment(Domains: Assessment, StudentAssessment) paths should still be included
+                // StudentAssessment(Domains: Assessment, StudentAssessment) tags should still be included
                 var studentAssessmentPaths = _actualPaths.Keys.Where(k => k.Contains("studentAssessments")).ToList();
                 Assert.That(studentAssessmentPaths, Is.Not.Empty);
             }
