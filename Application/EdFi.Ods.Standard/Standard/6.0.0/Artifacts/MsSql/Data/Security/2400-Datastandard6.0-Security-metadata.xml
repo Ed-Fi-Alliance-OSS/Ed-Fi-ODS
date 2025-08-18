@@ -50,6 +50,7 @@
 						</Action>
 					</DefaultAuthorization>
 					<Claims>
+						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/educatorPreparationProgram" />
 					</Claims>
 				</Claim>
 				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/performanceEvaluation">
@@ -166,6 +167,7 @@
 							</Claims>
 						</Claim>
 					</Claims>
+					
 				</Claim>
 				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/noFurtherAuthorizationRequiredData">
 					<DefaultAuthorization>

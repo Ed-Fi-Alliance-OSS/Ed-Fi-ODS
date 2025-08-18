@@ -429,6 +429,42 @@ BEGIN
     INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/educatorPreparationProgram
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/educatorPreparationProgram'
+    ----------------------------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/educatorPreparationProgram'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    SELECT @parentResourceClaimId = ResourceClaimId
+    FROM @claimIdStack
+    WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
+
+    IF @claimId IS NULL
+        BEGIN
+            PRINT 'Creating new claim: ' + @claimName
+
+            INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+            VALUES ('educatorPreparationProgram', 'http://ed-fi.org/ods/identity/claims/ed-fi/educatorPreparationProgram', @parentResourceClaimId)
+
+            SET @claimId = SCOPE_IDENTITY()
+        END
+
+    ELSE
+        BEGIN
+            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
+            BEGIN
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+
+                UPDATE dbo.ResourceClaims
+                SET ParentResourceClaimId = @parentResourceClaimId
+                WHERE ResourceClaimId = @claimId
+            END
+        END
+
 
     -- Pop the stack
     DELETE FROM @claimIdStack WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
