@@ -13,6 +13,7 @@ using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -73,11 +74,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(A<OpenApiMetadataDocumentContext>._))
                     .Returns(openApiMetadataResources);
 
+                var apiSettings = A.Fake<ApiSettings>();
+
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     new FakeFeatureManager(), defaultPageSizeLimitProvider, OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(apiSettings));
             }
 
             protected override void Act()
@@ -187,11 +191,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
+                var apiSettings = A.Fake<ApiSettings>();
+
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     new FakeFeatureManager(), defaultPageSizeLimitProvider,
                     OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(apiSettings));
             }
 
             protected override void Act()

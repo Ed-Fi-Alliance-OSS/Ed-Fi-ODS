@@ -27,6 +27,7 @@ using EdFi.Ods.Features.Extensions;
 using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies;
 using EdFi.Ods.Features.OpenApiMetadataContentProviders;
 using EdFi.Ods.Features.RouteInformations;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
@@ -107,11 +108,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
+                var apiSettings = A.Fake<ApiSettings>();
+
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     new FakeFeatureManager(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(apiSettings));
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
                     compositesMetadataProvider, ResourceModelProvider, openApiMetadataDocumentFactory);
@@ -211,11 +215,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
+                var apiSettings = A.Fake<ApiSettings>();
+
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     new FakeFeatureManager(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(apiSettings));
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
 
@@ -290,11 +297,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
+                var apiSettings = A.Fake<ApiSettings>();
+
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     new FakeFeatureManager(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(apiSettings));
 
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
@@ -402,11 +412,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 _resourceIdentificationCodePropertiesProvider = Stub<IResourceIdentificationCodePropertiesProvider>();
 
+                var apiSettings = A.Fake<ApiSettings>();
+
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     new FakeFeatureManager(), defaultPageSizeLimitProvider,
                     OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(apiSettings));
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
 
@@ -473,7 +486,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             private List<OpenApiContent> _actualMetadata;
             private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
 
-
             protected override void Arrange()
             {
                 ICompositesMetadataStreamsProvider[] compositesMetadataStreamsProviders =
@@ -505,11 +517,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 _resourceIdentificationCodePropertiesProvider = Stub<IResourceIdentificationCodePropertiesProvider>();
 
+                var apiSettings = A.Fake<ApiSettings>();
+
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     new FakeFeatureManager(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(apiSettings));
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
                     compositemetadataprovider, ResourceModelProvider, openApiMetadataDocumentFactory);
@@ -597,7 +612,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             
             private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
 
-
             protected override void Arrange()
             {
                 _schemaNameMapProvider =
@@ -630,11 +644,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
+                var apiSettings = A.Fake<ApiSettings>();
+
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     new FakeFeatureManager(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(apiSettings));
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
                     compositemetadataprovider, ResourceModelProvider, openApiMetadataDocumentFactory);
@@ -715,11 +732,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
+                var apiSettings = A.Fake<ApiSettings>();
+
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     new FakeFeatureManager(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodeProperties,
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(apiSettings));
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
 
@@ -728,7 +748,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 A.CallTo(() => resourceModelProvider.GetResourceModel()).Returns(resourcemodeldata);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
-                    resourceModelProvider, _openAPIMetadataRouteInformation, _openApiContentProviders, openApiMetadataDocumentFactory);
+                    resourceModelProvider,
+                    _openAPIMetadataRouteInformation,
+                    _openApiContentProviders,
+                    openApiMetadataDocumentFactory);
             }
 
             protected override void Act()
