@@ -7,6 +7,7 @@ using System;
 using EdFi.Ods.Common.Utils.Extensions;
 using NUnit.Framework;
 using Shouldly;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Extensions
 {
