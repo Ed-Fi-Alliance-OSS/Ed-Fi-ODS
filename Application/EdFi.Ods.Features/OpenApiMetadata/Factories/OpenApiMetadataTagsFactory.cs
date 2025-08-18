@@ -3,11 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
@@ -15,15 +18,20 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
     public class OpenApiMetadataTagsFactory
     {
         private readonly IOpenApiMetadataFactoryResourceFilterStrategy _filterStrategy;
+        private readonly IOpenApiMetadataDomainFilter _domainFilter;
 
-        public OpenApiMetadataTagsFactory(IOpenApiMetadataFactoryResourceFilterStrategy filterStrategy)
+        public OpenApiMetadataTagsFactory(
+            IOpenApiMetadataFactoryResourceFilterStrategy filterStrategy,
+            IOpenApiMetadataDomainFilter domainFilter)
         {
             _filterStrategy = filterStrategy;
+            _domainFilter = domainFilter;
         }
 
         public IList<Tag> Create(IEnumerable<OpenApiMetadataResource> openApiMetadataResources)
         {
-            return openApiMetadataResources.Where(x => _filterStrategy.ShouldInclude(x.Resource))
+            return openApiMetadataResources
+                .Where(x => _filterStrategy.ShouldInclude(x.Resource) && !_domainFilter.ShouldExcludeByDomain(x.Resource.Entity))
                 .Select(
                     x => new Tag
                     {

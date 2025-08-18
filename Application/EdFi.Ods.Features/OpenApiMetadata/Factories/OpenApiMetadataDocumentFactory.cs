@@ -64,7 +64,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         documentContext, _openApiIdentityProvider, _resourceIdentificationCodePropertiesProvider, _featureManager, _domainFilter);
 
                 var tagsFactory =
-                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(documentContext);
+                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(documentContext, _domainFilter);
 
                 var resources = resourceStrategy.GetFilteredResources(documentContext)
                     .ToList();

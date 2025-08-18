@@ -125,14 +125,16 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 domainFilter);
         }
 
-        public static OpenApiMetadataTagsFactory CreateOpenApiMetadataTagsFactory(OpenApiMetadataDocumentContext documentContext)
+        public static OpenApiMetadataTagsFactory CreateOpenApiMetadataTagsFactory(
+            OpenApiMetadataDocumentContext documentContext,
+            IOpenApiMetadataDomainFilter domainFilter)
         {
             var filter = documentContext.RenderType == RenderType.ExtensionArtifactsOnly
                 ? new OpenApiMetadataFactoryResourceFilterSchemaStrategy(documentContext) as
                     IOpenApiMetadataFactoryResourceFilterStrategy
                 : new OpenApiMetadataFactoryResourceFilterDefaultStrategy();
 
-            return new OpenApiMetadataTagsFactory(filter);
+            return new OpenApiMetadataTagsFactory(filter, domainFilter);
         }
 
         private static IOpenApiMetadataDefinitionsFactoryNamingStrategy GetOpenApiMetadataDefinitionsFactoryNamingStrategy(
