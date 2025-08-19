@@ -870,6 +870,7 @@
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/epdmTypeDescriptor" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/ePPDegreeTypeDescriptor" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/withdrawReasonDescriptor" />
+						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/performanceEvaluationRatingLevelDescriptor" />
 					</Claims>
 				  </Claim>
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/coteachingStyleObservedDescriptor" />
@@ -887,6 +888,7 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/performanceEvaluationTypeDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/rubricRatingLevelDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/evaluationPeriodDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/performanceEvaluationRatingLevelDescriptor" />
 			</Claims>
 		</Claim>
 
