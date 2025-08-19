@@ -2,7 +2,7 @@
 
     <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.BusAggregate.Sample.BusReferenceData" table="Bus" lazy="true"  schema="sample" >
-        <id name="BusId" column="BusId" type="string"  length="60" >
+        <id name="BusId" column="BusId" type="string"  length="120" >
             <generator class="assigned" />
         </id>
 
@@ -14,7 +14,7 @@
 
   <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.BusAggregate.Sample.Bus" table="Bus" lazy="false" schema="sample" discriminator-value="null">
-    <id name="BusId" column="BusId" type="string" length="60">
+    <id name="BusId" column="BusId" type="string" length="120">
       <generator class="assigned" />
     </id>
 
@@ -45,7 +45,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample.BusRouteReferenceData" table="BusRoute" lazy="true"  schema="sample" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="BusId" column="BusId" type="string"  length="60"  />
+            <key-property name="BusId" column="BusId" type="string"  length="120"  />
             <key-property name="BusRouteNumber" column="BusRouteNumber" type="int"  />
         </composite-id>
 
@@ -59,7 +59,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample.BusRoute" table="BusRoute" lazy="false" schema="sample" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="BusId" column="BusId" type="string" length="60" />
+      <key-property name="BusId" column="BusId" type="string" length="120" />
       <key-property name="BusRouteNumber" column="BusRouteNumber" type="int" />
     </composite-id>
 
@@ -348,7 +348,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample.ContactAuthor" table="ContactAuthor" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="Author" column="Author" type="string" length="100" />
+      <key-property name="Author" column="Author" type="string" length="255" />
       <key-many-to-one name="Contact">
         <column name="ContactUSI" />
       </key-many-to-one>
@@ -630,7 +630,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample.SchoolDirectlyOwnedBus" table="SchoolDirectlyOwnedBus" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="DirectlyOwnedBusId" column="DirectlyOwnedBusId" type="string" length="60" />
+      <key-property name="DirectlyOwnedBusId" column="DirectlyOwnedBusId" type="string" length="120" />
       <key-many-to-one name="School">
         <column name="SchoolId" />
       </key-many-to-one>
@@ -1259,7 +1259,7 @@
     <property name="BookBudget" column="BookBudget" type="Currency" />
     <property name="BooksBorrowed" column="BooksBorrowed" type="int" />
     <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
-    <property name="InterventionStudyIdentificationCode" column="InterventionStudyIdentificationCode" type="string" length="60" />
+    <property name="InterventionStudyIdentificationCode" column="InterventionStudyIdentificationCode" type="string" length="120" />
     <property name="LibraryDuration" column="LibraryDuration" type="int" />
     <property name="LibraryTime" column="LibraryTime" type="TimeAsTimeSpan" />
     <property name="LibraryVisits" column="LibraryVisits" type="short" />

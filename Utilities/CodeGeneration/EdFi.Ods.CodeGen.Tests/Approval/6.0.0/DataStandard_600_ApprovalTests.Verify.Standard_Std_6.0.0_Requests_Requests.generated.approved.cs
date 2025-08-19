@@ -19482,57 +19482,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StaffEducationOrganizationAssignme
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi
-{
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEducationOrganizationContactAssociationGetByExample
-    {
-        public string ContactTitle { get; set; }
-        public string ContactTypeDescriptor { get; set; }
-        public long EducationOrganizationId { get; set; }
-        public string ElectronicMailAddress { get; set; }
-        public Guid Id { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEducationOrganizationContactAssociationGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffEducationOrganizationContactAssociationGetByIds() { }
-
-        public StaffEducationOrganizationContactAssociationGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEducationOrganizationContactAssociationPost : Resources.StaffEducationOrganizationContactAssociation.EdFi.StaffEducationOrganizationContactAssociation
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEducationOrganizationContactAssociationPut : Resources.StaffEducationOrganizationContactAssociation.EdFi.StaffEducationOrganizationContactAssociation
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEducationOrganizationContactAssociationDelete : IHasIdentifier
-    {
-        public StaffEducationOrganizationContactAssociationDelete() { }
-
-        public StaffEducationOrganizationContactAssociationDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
 namespace EdFi.Ods.Api.Common.Models.Requests.StaffEducationOrganizationEmploymentAssociations.EdFi
 {
 

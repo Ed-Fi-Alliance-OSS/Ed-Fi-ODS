@@ -13690,41 +13690,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAssociations.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffEducationOrganizationContactAssociations")]
-    public partial class StaffEducationOrganizationContactAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StaffEducationOrganizationContactAssociation.EdFi.StaffEducationOrganizationContactAssociation,
-        Entities.Common.EdFi.IStaffEducationOrganizationContactAssociation,
-        Entities.NHibernate.StaffEducationOrganizationContactAssociationAggregate.EdFi.StaffEducationOrganizationContactAssociation,
-        Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationPut,
-        Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationPost,
-        Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationDelete,
-        Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationGetByExample>
-    {
-        public StaffEducationOrganizationContactAssociationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
-            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationGetByExample request, Entities.Common.EdFi.IStaffEducationOrganizationContactAssociation specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.ContactTitle = request.ContactTitle;
-            specification.ContactTypeDescriptor = request.ContactTypeDescriptor;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.ElectronicMailAddress = request.ElectronicMailAddress;
-            specification.Id = request.Id;
-            specification.StaffUniqueId = request.StaffUniqueId;
-        }
-    }
-}
-
 namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmploymentAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]

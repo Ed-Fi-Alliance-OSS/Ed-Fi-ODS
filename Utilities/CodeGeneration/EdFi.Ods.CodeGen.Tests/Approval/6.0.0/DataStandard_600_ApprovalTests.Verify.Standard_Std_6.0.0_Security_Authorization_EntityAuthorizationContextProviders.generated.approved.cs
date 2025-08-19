@@ -104,7 +104,6 @@ using EdFi.Ods.Entities.NHibernate.StaffDemographicAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StaffDirectoryAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StaffDisciplineIncidentAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationContactAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StaffEducatorPreparationProgramAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StaffIdentityAggregate.EdFi;
@@ -4429,51 +4428,6 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public RelationshipsAuthorizationContextData GetContextData(object resource)
         {
             return GetContextData((StaffEducationOrganizationAssignmentAssociation) resource);
-        }
-    }
-
-    /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffEducationOrganizationContactAssociation table of the StaffEducationOrganizationContactAssociation aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class StaffEducationOrganizationContactAssociationRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IStaffEducationOrganizationContactAssociation>
-    {
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public RelationshipsAuthorizationContextData GetContextData(IStaffEducationOrganizationContactAssociation resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'staffEducationOrganizationContactAssociation' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as StaffEducationOrganizationContactAssociation;
-
-            var contextData = new RelationshipsAuthorizationContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
-            contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
-            return contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "EducationOrganizationId",
-                    "StaffUSI",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public RelationshipsAuthorizationContextData GetContextData(object resource)
-        {
-            return GetContextData((StaffEducationOrganizationContactAssociation) resource);
         }
     }
 

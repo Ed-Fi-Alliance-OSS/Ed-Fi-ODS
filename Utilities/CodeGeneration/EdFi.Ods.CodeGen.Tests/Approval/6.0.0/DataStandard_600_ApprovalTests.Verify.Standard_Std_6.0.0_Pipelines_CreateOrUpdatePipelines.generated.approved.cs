@@ -2183,12 +2183,6 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffEducationOrganizationContactAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffEducationOrganizationContactAssociation.EdFi.StaffEducationOrganizationContactAssociation, Entities.NHibernate.StaffEducationOrganizationContactAssociationAggregate.EdFi.StaffEducationOrganizationContactAssociation>
-    {
-        public StaffEducationOrganizationContactAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
     public class StaffEducationOrganizationEmploymentAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi.StaffEducationOrganizationEmploymentAssociation, Entities.NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociation>
     {
         public StaffEducationOrganizationEmploymentAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
