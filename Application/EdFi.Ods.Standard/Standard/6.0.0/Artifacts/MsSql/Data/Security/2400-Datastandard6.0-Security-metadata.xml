@@ -602,7 +602,9 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/candidateIdentity" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/candidateDemographics" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/canidateContactInformation" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/candidateEducatorPreparationProgramAssociation" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/educationOrganizationIdentity" />
+				
 			</Claims>
 		</Claim>
 
