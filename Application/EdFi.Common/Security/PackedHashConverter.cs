@@ -44,14 +44,14 @@ namespace EdFi.Common.Security
 
             if (bytes.Length < 13)
             {
-                throw new FormatException($"Invalid value of {nameof(base64EncodedPackedHashValue)}:{base64EncodedPackedHashValue}");
+                throw new FormatException("Invalid packed hash format: insufficient data length.");
             }
 
             var saltLength = BitConverter.ToInt32(bytes, 9);
 
             if (bytes.Length < 13 + saltLength + 1)
             {
-                throw new FormatException($"Invalid value of {nameof(base64EncodedPackedHashValue)}:{base64EncodedPackedHashValue}");
+                throw new FormatException("Invalid packed hash format: insufficient data length.");
             }
 
             return new PackedHash
