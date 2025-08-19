@@ -235,8 +235,6 @@ CREATE INDEX IF NOT EXISTS UX_af86db_ChangeVersion ON edfi.StaffDisciplineIncide
 
 CREATE INDEX IF NOT EXISTS UX_b9be24_ChangeVersion ON edfi.StaffEducationOrganizationAssignmentAssociation(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_735dd8_ChangeVersion ON edfi.StaffEducationOrganizationContactAssociation(ChangeVersion);
-
 CREATE INDEX IF NOT EXISTS UX_4e79b9_ChangeVersion ON edfi.StaffEducationOrganizationEmploymentAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_2c9294_ChangeVersion ON edfi.StaffEducatorPreparationProgramAssociation(ChangeVersion);

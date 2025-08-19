@@ -584,11 +584,6 @@ ALTER TABLE edfi.StaffEducationOrganizationAssignmentAssociation ADD COLUMN Aggr
 CREATE INDEX ix_StaffEducationOrganizationAssignmentAssociation_aggid ON edfi.StaffEducationOrganizationAssignmentAssociation (AggregateId);
 
 
-CREATE SEQUENCE edfi.StaffEducationOrganizationContactAssociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StaffEducationOrganizationContactAssociation_aggseq'), ADD COLUMN AggregateData bytea;
-CREATE INDEX ix_StaffEducationOrganizationContactAssociation_aggid ON edfi.StaffEducationOrganizationContactAssociation (AggregateId);
-
-
 CREATE SEQUENCE edfi.StaffEducationOrganizationEmploymentAssociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.StaffEducationOrganizationEmploymentAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StaffEducationOrganizationEmploymentAssociation_aggseq'), ADD COLUMN AggregateData bytea;
 CREATE INDEX ix_StaffEducationOrganizationEmploymentAssociation_aggid ON edfi.StaffEducationOrganizationEmploymentAssociation (AggregateId);

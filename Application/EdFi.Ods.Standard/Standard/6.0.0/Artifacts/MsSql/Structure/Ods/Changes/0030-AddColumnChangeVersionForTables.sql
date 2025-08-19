@@ -933,14 +933,6 @@ ALTER TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] ADD CONSTRA
 END
 
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StaffEducationOrganizationContactAssociation]') AND name = 'ChangeVersion')
-BEGIN
-ALTER TABLE [edfi].[StaffEducationOrganizationContactAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StaffEducationOrganizationContactAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [edfi].[StaffEducationOrganizationContactAssociation] DROP CONSTRAINT StaffEducationOrganizationContactAssociation_DF_ChangeVersion;
-ALTER TABLE [edfi].[StaffEducationOrganizationContactAssociation] ADD CONSTRAINT StaffEducationOrganizationContactAssociation_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
-END
-
-
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StaffEducationOrganizationEmploymentAssociation]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [edfi].[StaffEducationOrganizationEmploymentAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StaffEducationOrganizationEmploymentAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;

@@ -306,11 +306,6 @@ CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationAssignmentAssociation_Ed
 
 CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationAssignmentAssociation_StaffUSI ON edfi.StaffEducationOrganizationAssignmentAssociation(StaffUSI) INCLUDE (AggregateId);
 
-DROP INDEX IF EXISTS IX_StaffEducationOrganizationContactAssociation_EducationOrganizationId;
-CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationContactAssociation_EducationOrganizationId ON edfi.StaffEducationOrganizationContactAssociation(EducationOrganizationId) INCLUDE (AggregateId);
-
-CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationContactAssociation_StaffUSI ON edfi.StaffEducationOrganizationContactAssociation(StaffUSI) INCLUDE (AggregateId);
-
 DROP INDEX IF EXISTS IX_StaffEducationOrganizationEmploymentAssociation_EducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationEmploymentAssociation_EducationOrganizationId ON edfi.StaffEducationOrganizationEmploymentAssociation(EducationOrganizationId) INCLUDE (AggregateId);
 

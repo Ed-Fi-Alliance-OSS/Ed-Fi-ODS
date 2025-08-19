@@ -235,8 +235,6 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_af86db_Id ON edfi.StaffDisciplineIncidentAs
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_b9be24_Id ON edfi.StaffEducationOrganizationAssignmentAssociation(Id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS UX_735dd8_Id ON edfi.StaffEducationOrganizationContactAssociation(Id);
-
 CREATE UNIQUE INDEX IF NOT EXISTS UX_4e79b9_Id ON edfi.StaffEducationOrganizationEmploymentAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_2c9294_Id ON edfi.StaffEducatorPreparationProgramAssociation(Id);

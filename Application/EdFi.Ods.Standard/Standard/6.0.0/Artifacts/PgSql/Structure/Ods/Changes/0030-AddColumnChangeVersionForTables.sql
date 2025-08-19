@@ -586,11 +586,6 @@ ALTER TABLE edfi.StaffEducationOrganizationAssignmentAssociation ADD ChangeVersi
 ALTER TABLE edfi.StaffEducationOrganizationAssignmentAssociation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
 END IF;
 
-IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='staffeducationorganizationcontactassociation' AND column_name='changeversion') THEN
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociation ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
-END IF;
-
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='staffeducationorganizationemploymentassociation' AND column_name='changeversion') THEN
 ALTER TABLE edfi.StaffEducationOrganizationEmploymentAssociation ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
 ALTER TABLE edfi.StaffEducationOrganizationEmploymentAssociation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');

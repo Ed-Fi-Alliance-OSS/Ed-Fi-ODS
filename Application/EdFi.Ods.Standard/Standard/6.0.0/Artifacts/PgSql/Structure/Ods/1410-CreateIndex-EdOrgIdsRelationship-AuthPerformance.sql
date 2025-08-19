@@ -172,8 +172,6 @@ CREATE INDEX IF NOT EXISTS IX_StaffDisciplineIncidentAssociation_SchoolId ON edf
 
 CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationAssignmentAssociation_EducationOrganizationId ON edfi.StaffEducationOrganizationAssignmentAssociation(EducationOrganizationId) INCLUDE (Id);
 
-CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationContactAssociation_EducationOrganizationId ON edfi.StaffEducationOrganizationContactAssociation(EducationOrganizationId) INCLUDE (Id);
-
 CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationEmploymentAssociation_EducationOrganizationId ON edfi.StaffEducationOrganizationEmploymentAssociation(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_StaffEducatorPreparationProgramAssociation_EducationOrganizationId ON edfi.StaffEducatorPreparationProgramAssociation(EducationOrganizationId) INCLUDE (Id);

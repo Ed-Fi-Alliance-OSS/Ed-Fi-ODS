@@ -1677,19 +1677,6 @@ BEGIN
 END	
 GO
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducationOrganizationContactAssociation_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_StaffEducationOrganizationContactAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffEducationOrganizationContactAssociation] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[StaffEducationOrganizationContactAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[StaffEducationOrganizationContactAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducationOrganizationEmploymentAssociation_TR_UpdateChangeVersion]
 GO
 

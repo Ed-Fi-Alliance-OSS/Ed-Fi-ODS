@@ -4570,53 +4570,6 @@ COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.PositionT
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.YearsOfExperienceAtCurrentEducationOrganization IS 'The total number of years that an individual has previously held a teaching position in one or more education institutions.';
 
--- Extended Properties [edfi].[StaffEducationOrganizationContactAssociation] --
-COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociation IS 'This association provides the contact information of the staff associated with the education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.ContactTitle IS 'The title of the contact in the context of the education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.ContactTypeDescriptorId IS 'Indicates the type for the contact information.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.ElectronicMailAddress IS 'The email for the contact associated with the education organization.';
-
--- Extended Properties [edfi].[StaffEducationOrganizationContactAssociationAddress] --
-COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociationAddress IS 'The optional address for the contact associated with the education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.ContactTitle IS 'The title of the contact in the context of the education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.ApartmentRoomSuiteNumber IS 'The apartment, room, or suite number of an address.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.BuildingSiteNumber IS 'The number of the building on the site, if more than one building shares the same address.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.CongressionalDistrict IS 'The congressional district in which an address is located.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.CountyFIPSCode IS 'The Federal Information Processing Standards (FIPS) numeric code for the county issued by the National Institute of Standards and Technology (NIST). Counties are considered to be the "first-order subdivisions" of each State and statistically equivalent entity, regardless of their local designations (county, parish, borough, etc.) Counties in different States will have the same code. A unique county number is created when combined with the 2-digit FIPS State Code.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.DoNotPublishIndicator IS 'An indication that the address should not be published.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.Latitude IS 'The geographic latitude of the physical address.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.LocaleDescriptorId IS 'A general geographic indicator that categorizes U.S. territory (e.g., City, Suburban).';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.Longitude IS 'The geographic longitude of the physical address.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-
--- Extended Properties [edfi].[StaffEducationOrganizationContactAssociationAddressPeriod] --
-COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociationAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.ContactTitle IS 'The title of the contact in the context of the education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.BeginDate IS 'The month, day, and year for the start of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-
--- Extended Properties [edfi].[StaffEducationOrganizationContactAssociationTelephone] --
-COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociationTelephone IS 'The optional telephone for the contact associated with the education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.ContactTitle IS 'The title of the contact in the context of the education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.TelephoneNumber IS 'The telephone number including the area code, and extension, if applicable.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.TelephoneNumberTypeDescriptorId IS 'The type of communication number listed for an individual or organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.DoNotPublishIndicator IS 'An indication that the telephone number should not be published.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.OrderOfPriority IS 'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.TextMessageCapabilityIndicator IS 'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.';
-
 -- Extended Properties [edfi].[StaffEducationOrganizationEmploymentAssociation] --
 COMMENT ON TABLE edfi.StaffEducationOrganizationEmploymentAssociation IS 'This association indicates the education organization an employee, contractor, volunteer, or other service provider is formally associated with typically indicated by which organization the staff member has a services contract with or receives compensation from.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';

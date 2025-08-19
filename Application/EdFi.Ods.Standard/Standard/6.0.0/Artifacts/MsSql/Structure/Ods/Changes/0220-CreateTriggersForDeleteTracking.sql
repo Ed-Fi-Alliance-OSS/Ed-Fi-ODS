@@ -7583,28 +7583,6 @@ ALTER TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] ENABLE TRIG
 GO
 
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducationOrganizationContactAssociation_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [edfi].[edfi_StaffEducationOrganizationContactAssociation_TR_DeleteTracking] ON [edfi].[StaffEducationOrganizationContactAssociation] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_changes_edfi].[StaffEducationOrganizationContactAssociation](OldContactTitle, OldEducationOrganizationId, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.ContactTitle, d.EducationOrganizationId, d.StaffUSI, j0.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-        INNER JOIN edfi.Staff j0
-            ON d.StaffUSI = j0.StaffUSI
-END
-GO
-
-ALTER TABLE [edfi].[StaffEducationOrganizationContactAssociation] ENABLE TRIGGER [edfi_StaffEducationOrganizationContactAssociation_TR_DeleteTracking]
-GO
-
-
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducationOrganizationEmploymentAssociation_TR_DeleteTracking]
 GO
 

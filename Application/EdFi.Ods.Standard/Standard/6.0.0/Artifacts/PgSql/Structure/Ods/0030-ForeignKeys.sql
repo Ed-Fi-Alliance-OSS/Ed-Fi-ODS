@@ -6795,64 +6795,6 @@ REFERENCES edfi.StaffEducationOrganizationEmploymentAssociation (EducationOrgani
 CREATE INDEX FK_b9be24_StaffEducationOrganizationEmploymentAssociation
 ON edfi.StaffEducationOrganizationAssignmentAssociation (EmploymentEducationOrganizationId ASC, EmploymentStatusDescriptorId ASC, EmploymentHireDate ASC, StaffUSI ASC);
 
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociation ADD CONSTRAINT FK_735dd8_ContactTypeDescriptor FOREIGN KEY (ContactTypeDescriptorId)
-REFERENCES edfi.ContactTypeDescriptor (ContactTypeDescriptorId)
-;
-
-CREATE INDEX FK_735dd8_ContactTypeDescriptor
-ON edfi.StaffEducationOrganizationContactAssociation (ContactTypeDescriptorId ASC);
-
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociation ADD CONSTRAINT FK_735dd8_EducationOrganization FOREIGN KEY (EducationOrganizationId)
-REFERENCES edfi.EducationOrganization (EducationOrganizationId)
-;
-
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociation ADD CONSTRAINT FK_735dd8_Staff FOREIGN KEY (StaffUSI)
-REFERENCES edfi.Staff (StaffUSI)
-;
-
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociationAddress ADD CONSTRAINT FK_893629_AddressTypeDescriptor FOREIGN KEY (AddressTypeDescriptorId)
-REFERENCES edfi.AddressTypeDescriptor (AddressTypeDescriptorId)
-;
-
-CREATE INDEX FK_893629_AddressTypeDescriptor
-ON edfi.StaffEducationOrganizationContactAssociationAddress (AddressTypeDescriptorId ASC);
-
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociationAddress ADD CONSTRAINT FK_893629_LocaleDescriptor FOREIGN KEY (LocaleDescriptorId)
-REFERENCES edfi.LocaleDescriptor (LocaleDescriptorId)
-;
-
-CREATE INDEX FK_893629_LocaleDescriptor
-ON edfi.StaffEducationOrganizationContactAssociationAddress (LocaleDescriptorId ASC);
-
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociationAddress ADD CONSTRAINT FK_893629_StaffEducationOrganizationContactAssociation FOREIGN KEY (ContactTitle, EducationOrganizationId, StaffUSI)
-REFERENCES edfi.StaffEducationOrganizationContactAssociation (ContactTitle, EducationOrganizationId, StaffUSI)
-ON DELETE CASCADE
-;
-
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociationAddress ADD CONSTRAINT FK_893629_StateAbbreviationDescriptor FOREIGN KEY (StateAbbreviationDescriptorId)
-REFERENCES edfi.StateAbbreviationDescriptor (StateAbbreviationDescriptorId)
-;
-
-CREATE INDEX FK_893629_StateAbbreviationDescriptor
-ON edfi.StaffEducationOrganizationContactAssociationAddress (StateAbbreviationDescriptorId ASC);
-
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociationAddressPeriod ADD CONSTRAINT FK_afd39a_StaffEducationOrganizationContactAssociationAddress FOREIGN KEY (ContactTitle, EducationOrganizationId, StaffUSI)
-REFERENCES edfi.StaffEducationOrganizationContactAssociationAddress (ContactTitle, EducationOrganizationId, StaffUSI)
-ON DELETE CASCADE
-;
-
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociationTelephone ADD CONSTRAINT FK_742dd2_StaffEducationOrganizationContactAssociation FOREIGN KEY (ContactTitle, EducationOrganizationId, StaffUSI)
-REFERENCES edfi.StaffEducationOrganizationContactAssociation (ContactTitle, EducationOrganizationId, StaffUSI)
-ON DELETE CASCADE
-;
-
-ALTER TABLE edfi.StaffEducationOrganizationContactAssociationTelephone ADD CONSTRAINT FK_742dd2_TelephoneNumberTypeDescriptor FOREIGN KEY (TelephoneNumberTypeDescriptorId)
-REFERENCES edfi.TelephoneNumberTypeDescriptor (TelephoneNumberTypeDescriptorId)
-;
-
-CREATE INDEX FK_742dd2_TelephoneNumberTypeDescriptor
-ON edfi.StaffEducationOrganizationContactAssociationTelephone (TelephoneNumberTypeDescriptorId ASC);
-
 ALTER TABLE edfi.StaffEducationOrganizationEmploymentAssociation ADD CONSTRAINT FK_4e79b9_Credential FOREIGN KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
 REFERENCES edfi.Credential (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
 ;

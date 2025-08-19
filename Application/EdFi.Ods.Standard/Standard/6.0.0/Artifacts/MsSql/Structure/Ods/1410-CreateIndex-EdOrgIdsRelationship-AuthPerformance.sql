@@ -424,11 +424,6 @@ BEGIN
     CREATE INDEX IX_StaffEducationOrganizationAssignmentAssociation_EducationOrganizationId ON [edfi].[StaffEducationOrganizationAssignmentAssociation](EducationOrganizationId) INCLUDE (Id)
 END;
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffEducationOrganizationContactAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StaffEducationOrganizationContactAssociation')) 
-BEGIN
-    CREATE INDEX IX_StaffEducationOrganizationContactAssociation_EducationOrganizationId ON [edfi].[StaffEducationOrganizationContactAssociation](EducationOrganizationId) INCLUDE (Id)
-END;
-
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffEducationOrganizationEmploymentAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StaffEducationOrganizationEmploymentAssociation')) 
 BEGIN
     CREATE INDEX IX_StaffEducationOrganizationEmploymentAssociation_EducationOrganizationId ON [edfi].[StaffEducationOrganizationEmploymentAssociation](EducationOrganizationId) INCLUDE (Id)

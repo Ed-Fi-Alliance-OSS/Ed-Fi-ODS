@@ -6768,30 +6768,6 @@ CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.staffeducationorganizationassig
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.staffeducationorganizationassignmentassociation_deleted();
 END IF;
 
-CREATE OR REPLACE FUNCTION tracked_changes_edfi.staffeducationorganizationcontactassociation_deleted()
-    RETURNS trigger AS
-$BODY$
-DECLARE
-    dj0 edfi.staff%ROWTYPE;
-BEGIN
-    SELECT INTO dj0 * FROM edfi.staff j0 WHERE staffusi = old.staffusi;
-
-    INSERT INTO tracked_changes_edfi.staffeducationorganizationcontactassociation(
-        oldcontacttitle, oldeducationorganizationid, oldstaffusi, oldstaffuniqueid,
-        id, discriminator, changeversion)
-    VALUES (
-        OLD.contacttitle, OLD.educationorganizationid, OLD.staffusi, dj0.staffuniqueid, 
-        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
-
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'staffeducationorganizationcontactassociation') THEN
-CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.staffeducationorganizationcontactassociation 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.staffeducationorganizationcontactassociation_deleted();
-END IF;
-
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.staffeducationorganizationemploymentassociation_deleted()
     RETURNS trigger AS
 $BODY$

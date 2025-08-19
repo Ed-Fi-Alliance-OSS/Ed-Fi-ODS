@@ -235,8 +235,6 @@ ALTER TABLE [edfi].[StaffDisciplineIncidentAssociation] ADD [CreatedByOwnershipT
 
 ALTER TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [edfi].[StaffEducationOrganizationContactAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
-
 ALTER TABLE [edfi].[StaffEducationOrganizationEmploymentAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StaffEducatorPreparationProgramAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
