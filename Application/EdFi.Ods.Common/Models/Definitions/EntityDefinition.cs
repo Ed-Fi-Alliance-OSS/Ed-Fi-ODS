@@ -34,6 +34,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         /// <param name="description">Documentation for the entity.</param>
         /// <param name="isDeprecated">If the property is deprecated.</param>
         /// <param name="deprecationReasons">The deprecation reason messages.</param>
+        /// <param name="domains">The domains this entity belongs to.</param>
         public EntityDefinition(
             string schema,
             string name,
@@ -43,7 +44,8 @@ namespace EdFi.Ods.Common.Models.Definitions
             string description = "",
             bool isDeprecated = false,
             string[] deprecationReasons = null,
-            IDictionary<DatabaseEngine, string> tableNameByDatabaseEngine = null)
+            IDictionary<DatabaseEngine, string> tableNameByDatabaseEngine = null,
+            string[] domains = null)
         {
             Schema = schema;
             Name = name;
@@ -54,6 +56,7 @@ namespace EdFi.Ods.Common.Models.Definitions
             Description = description;
             IsDeprecated = isDeprecated;
             DeprecationReasons = deprecationReasons;
+            Domains = domains;
         }
 
         public string Schema { get; set; }
@@ -91,6 +94,8 @@ namespace EdFi.Ods.Common.Models.Definitions
         public bool IsDeprecated { get; set; }
 
         public string[] DeprecationReasons { get; set; }
+
+        public string[] Domains { get; set; }
 
         public override string ToString() => new FullName(Schema, Name).ToString();
     }

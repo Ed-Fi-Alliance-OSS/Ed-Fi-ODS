@@ -12,6 +12,7 @@ using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using log4net;
 using Microsoft.FeatureManagement;
@@ -28,19 +29,22 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
         private readonly IOpenApiUpconversionProvider _openApiUpconversionProvider;
         private readonly IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
+        private readonly IOpenApiMetadataDomainFilter _domainFilter;
 
         public OpenApiMetadataDocumentFactory(
             IFeatureManager featureManager,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             IOpenApiUpconversionProvider openApiUpconversionProvider,
             IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider,
-            IOpenApiIdentityProvider openApiIdentityProvider)
+            IOpenApiIdentityProvider openApiIdentityProvider,
+            IOpenApiMetadataDomainFilter domainFilter)
         {
             _featureManager = featureManager;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
             _openApiIdentityProvider = openApiIdentityProvider;
             _resourceIdentificationCodePropertiesProvider = resourceIdentificationCodePropertiesProvider;
             _openApiUpconversionProvider = openApiUpconversionProvider;
+            _domainFilter = domainFilter;
         }
 
         public string Create(IOpenApiMetadataResourceStrategy resourceStrategy, OpenApiMetadataDocumentContext documentContext, OpenApiSpecVersion openApiSpecVersion)
@@ -57,10 +61,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 var pathsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        documentContext, _openApiIdentityProvider, _resourceIdentificationCodePropertiesProvider, _featureManager);
+                        documentContext, _openApiIdentityProvider, _resourceIdentificationCodePropertiesProvider, _featureManager, _domainFilter);
 
                 var tagsFactory =
-                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(documentContext);
+                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(documentContext, _domainFilter);
 
                 var resources = resourceStrategy.GetFilteredResources(documentContext)
                     .ToList();

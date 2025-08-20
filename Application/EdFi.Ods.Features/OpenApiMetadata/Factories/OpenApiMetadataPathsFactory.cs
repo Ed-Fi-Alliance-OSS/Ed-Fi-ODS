@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -19,6 +20,7 @@ using EdFi.Ods.Features.ChangeQueries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
 using Microsoft.FeatureManagement;
 using Schema = EdFi.Ods.Features.OpenApiMetadata.Models.Schema;
@@ -33,6 +35,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
         private readonly IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
         private readonly IFeatureManager _featureManager;
+        private readonly IOpenApiMetadataDomainFilter _domainFilter;
 
         public OpenApiMetadataPathsFactory(
             IOpenApiMetadataPathsFactorySelectorStrategy openApiMetadataPathsFactorySelectorStrategy,
@@ -40,7 +43,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             IOpenApiMetadataPathsFactoryNamingStrategy pathsFactoryNamingStrategy,
             IOpenApiIdentityProvider openApiIdentityProvider,
             IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider,
-            IFeatureManager featureManager)
+            IFeatureManager featureManager,
+            IOpenApiMetadataDomainFilter domainFilter)
         {
             _openApiMetadataPathsFactorySelectorStrategy = openApiMetadataPathsFactorySelectorStrategy;
             _contentTypeStrategy = contentTypeStrategy;
@@ -48,6 +52,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             _openApiIdentityProvider = openApiIdentityProvider;
             _resourceIdentificationCodePropertiesProvider = resourceIdentificationCodePropertiesProvider;
             _featureManager = featureManager;
+            _domainFilter = domainFilter;
         }
 
         public IDictionary<string, PathItem> Create(IList<OpenApiMetadataResource> openApiMetadataResources,
@@ -56,6 +61,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             return _openApiMetadataPathsFactorySelectorStrategy
                 .ApplyStrategy(openApiMetadataResources)
                 .Where(r => r.Readable || r.Writable)
+                .Where(r => !_domainFilter.ShouldExcludeByDomain(r.Resource.Entity))
                 .OrderBy(r => r.Name)
                 .SelectMany(
                     r =>
@@ -190,7 +196,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = CreateGetByExampleParameters(openApiMetadataResource, isCompositeContext, true),
-                responses = responses
+                responses = responses,
+                domains = openApiMetadataResource.Resource.Entity?.Domains
             };
 
             return operation;
@@ -224,7 +231,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = parameters.ToList(),
-                responses = responses
+                responses = responses,
+                domains = openApiMetadataResource.Resource.Entity?.Domains
             };
 
             return operation;
@@ -272,7 +280,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = parameters,
-                responses = CreateReadResponses(openApiMetadataResource, false)
+                responses = CreateReadResponses(openApiMetadataResource, false),
+                domains = openApiMetadataResource.Resource.Entity?.Domains
             };
         }
 
@@ -457,7 +466,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 },
                 parameters = CreatePutParameters(openApiMetadataResource),
                 responses = responses,
-                isUpdatable = GetIsUpdatableCustomMetadataValue(openApiMetadataResource)
+                isUpdatable = GetIsUpdatableCustomMetadataValue(openApiMetadataResource),
+                domains = openApiMetadataResource.Resource.Entity?.Domains
             };
         }
 
@@ -521,7 +531,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     OpenApiMetadataDocumentHelper.CreateIdParameter(),
                     CreateIfMatchParameter("DELETE from removing")
                 },
-                responses = responses
+                responses = responses,
+                domains = openApiMetadataResource.Resource.Entity?.Domains
             };
         }
 
@@ -582,7 +593,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[] { "application/json" },
                 parameters = parameters,
-                responses = responses
+                responses = responses,
+                domains = openApiMetadataResource.Resource.Entity?.Domains
             };
         }
 
@@ -643,7 +655,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[] { "application/json" },
                 parameters = parameters,
-                responses = responses
+                responses = responses,
+                domains = openApiMetadataResource.Resource.Entity?.Domains
             };
         }
 
@@ -679,7 +692,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable)
                 },
                 parameters = CreatePostParameters(openApiMetadataResource),
-                responses = responses
+                responses = responses,
+                domains = openApiMetadataResource.Resource.Entity?.Domains
             };
         }
 

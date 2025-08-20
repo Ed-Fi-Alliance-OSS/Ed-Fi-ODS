@@ -64,6 +64,8 @@ namespace EdFi.Ods.Common.Configuration
 
         public ServiceSettings Services { get; set; } = new();
 
+        public string DomainsExcludedFromOpenApi { get; set; }
+
         public string OdsConnectionStringEncryptionKey
         {
             get => _odsConnectionStringEncryptionKey;

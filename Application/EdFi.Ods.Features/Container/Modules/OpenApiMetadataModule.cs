@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.OpenApiMetadata;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies;
 using EdFi.Ods.Features.RouteInformations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.FeatureManagement;
@@ -64,6 +65,10 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<OpenApiMetadataDocumentFactory>()
                 .As<IOpenApiMetadataDocumentFactory>()
+                .SingleInstance();
+
+            builder.RegisterType<OpenApiMetadataDomainFilter>()
+                .As<IOpenApiMetadataDomainFilter>()
                 .SingleInstance();
 
             builder.RegisterType<OpenApiV3UpconversionProvider>()

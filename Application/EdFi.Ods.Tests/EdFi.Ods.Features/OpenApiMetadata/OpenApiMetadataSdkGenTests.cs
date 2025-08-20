@@ -16,6 +16,7 @@ using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
 using EdFi.TestFixture;
@@ -67,12 +68,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
 
                 _resourceIdentificationCodePropertiesProvider = A.Fake<IResourceIdentificationCodePropertiesProvider>();
-                
+
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     new FakeFeatureManager(), defaultPageSieLimitProvider,
                     upconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(null));
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
             }
@@ -189,7 +191,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                     new FakeFeatureManager(), defaultPageSieLimitProvider,
                     upconversionProvider,
                     Stub<IResourceIdentificationCodePropertiesProvider>(),
-                    new FakeOpenApiIdentityProvider());
+                    new FakeOpenApiIdentityProvider(),
+                    new OpenApiMetadataDomainFilter(null));
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
             }

@@ -13,6 +13,7 @@ using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
@@ -64,11 +65,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
             _openApiMetadataResourceFilters =
                 new Dictionary<string, IOpenApiMetadataResourceStrategy>(StringComparer.OrdinalIgnoreCase)
-                {
-                    { Descriptors, new OpenApiMetadataUiDescriptorOnlyStrategy() },
-                    { Resources, new OpenApiMetadataUiResourceOnlyStrategy() },
-                    { All, new SdkGenAllResourceStrategy() }
-                };
+            {
+                { Descriptors, new OpenApiMetadataUiDescriptorOnlyStrategy() },
+                { Resources, new OpenApiMetadataUiResourceOnlyStrategy() },
+                { All, new SdkGenAllResourceStrategy() }
+            };
 
             _openApiMetadataMetadataCache = new Lazy<ConcurrentDictionary<string, OpenApiContent>>();
 
