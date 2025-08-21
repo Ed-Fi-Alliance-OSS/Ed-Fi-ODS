@@ -114,6 +114,12 @@ namespace EdFi.Ods.Common.UnitTests.Security
             {
                 Assert.That(ActualException, Is.TypeOf<FormatException>());
             }
+
+            [Test]
+            public virtual void Should_not_include_supplied_value_in_exception()
+            {
+                Assert.That(ActualException.Message, Does.Not.Contains(_base64String));
+            }
         }
 
         public class When_converting_short_string : TestFixtureBase
@@ -126,6 +132,12 @@ namespace EdFi.Ods.Common.UnitTests.Security
             public virtual void Should_throw_a_format_exception()
             {
                 Assert.That(ActualException, Is.TypeOf<FormatException>());
+            }
+
+            [Test]
+            public virtual void Should_not_include_supplied_value_in_exception()
+            {
+                Assert.That(ActualException.Message, Does.Not.Contains(_base64String));
             }
         }
     }
