@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
 using EdFi.Ods.Common.Utils.Profiles;
 
 namespace EdFi.Ods.Common.Exceptions;
@@ -26,9 +25,6 @@ public class ProfileContentTypeUsageException : Exception
         ProfileName = profileName;
         ContentTypeUsage = contentTypeUsage;
     }
-
-    protected ProfileContentTypeUsageException(SerializationInfo info, StreamingContext context)
-        : base(info, context) { }
 
     public string ProfileName { get; }
 

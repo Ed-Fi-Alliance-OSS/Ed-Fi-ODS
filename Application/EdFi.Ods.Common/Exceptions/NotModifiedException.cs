@@ -4,11 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Exceptions
 {
-    [Serializable]
     public class NotModifiedException : Exception
     {
         // For guidelines regarding the creation of new exception types, see
@@ -21,10 +19,5 @@ namespace EdFi.Ods.Common.Exceptions
 
         public NotModifiedException(string message, Exception inner)
             : base(message, inner) { }
-
-        protected NotModifiedException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }

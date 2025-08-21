@@ -19,11 +19,6 @@ namespace EdFi.Ods.Common.Exceptions
 
         public DistributedCacheException(string message, Exception inner)
             : base(message, inner) { }
-
-        protected DistributedCacheException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 
     [Serializable]
