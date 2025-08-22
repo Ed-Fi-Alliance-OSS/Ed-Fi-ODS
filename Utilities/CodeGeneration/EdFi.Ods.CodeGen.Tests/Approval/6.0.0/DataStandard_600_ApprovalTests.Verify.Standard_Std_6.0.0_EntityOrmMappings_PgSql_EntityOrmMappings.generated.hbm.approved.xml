@@ -5617,6 +5617,7 @@
     <!-- Properties -->
     <property name="BoardCertificationIndicator" column="BoardCertificationIndicator" type="bool" />
     <property name="CertificationIdentifier" column="CertificationIdentifier" type="string" length="120" />
+    <property name="CertificationNamespace" column="CertificationNamespace" type="string" length="255" />
     <property name="CertificationRouteDescriptorId" column="CertificationRouteDescriptorId" type="int" />
     <property name="CertificationTitle" column="CertificationTitle" type="string" length="64" />
     <property name="CredentialFieldDescriptorId" column="CredentialFieldDescriptorId" type="int" />
@@ -5636,7 +5637,7 @@
     <!-- Aggregate references -->
     <many-to-one name="CertificationReferenceData" class="EdFi.Ods.Entities.NHibernate.CertificationAggregate.EdFi.CertificationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="CertificationIdentifier" />
-      <column name="Namespace" />
+      <column name="CertificationNamespace" />
     </many-to-one>
     <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="PersonId" />
@@ -7291,6 +7292,22 @@
 
           <!-- PK properties -->
           <property name="DualCreditTypeDescriptorId" column="DualCreditTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptor" lazy="false" discriminator-value="edfi.EconomicDisadvantageDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EconomicDisadvantageDescriptor" >
+          <key>
+            <column name="EconomicDisadvantageDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="EconomicDisadvantageDescriptorId" column="EconomicDisadvantageDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -24143,6 +24160,7 @@
 
     <!-- Properties -->
     <property name="CitizenshipStatusDescriptorId" column="CitizenshipStatusDescriptorId" type="int" />
+    <property name="EconomicDisadvantageDescriptorId" column="EconomicDisadvantageDescriptorId" type="int" />
     <property name="GenderIdentity" column="GenderIdentity" type="string" length="60" />
     <property name="HispanicLatinoEthnicity" column="HispanicLatinoEthnicity" type="bool" />
     <property name="LimitedEnglishProficiencyDescriptorId" column="LimitedEnglishProficiencyDescriptorId" type="int" />

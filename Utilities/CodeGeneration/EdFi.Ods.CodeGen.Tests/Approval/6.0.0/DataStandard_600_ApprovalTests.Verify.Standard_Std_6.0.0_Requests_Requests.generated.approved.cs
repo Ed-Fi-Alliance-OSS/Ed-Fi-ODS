@@ -5243,6 +5243,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Credentials.EdFi
     {
         public bool BoardCertificationIndicator { get; set; }
         public string CertificationIdentifier { get; set; }
+        public string CertificationNamespace { get; set; }
         public string CertificationRouteDescriptor { get; set; }
         public string CertificationTitle { get; set; }
         public string CredentialFieldDescriptor { get; set; }
@@ -6776,6 +6777,59 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DualCreditTypeDescriptors.EdFi
         public DualCreditTypeDescriptorDelete() { }
 
         public DualCreditTypeDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class EconomicDisadvantageDescriptorGetByExample
+    {
+        public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public int EconomicDisadvantageDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EconomicDisadvantageDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public EconomicDisadvantageDescriptorGetByIds() { }
+
+        public EconomicDisadvantageDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EconomicDisadvantageDescriptorPost : Resources.EconomicDisadvantageDescriptor.EdFi.EconomicDisadvantageDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EconomicDisadvantageDescriptorPut : Resources.EconomicDisadvantageDescriptor.EdFi.EconomicDisadvantageDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EconomicDisadvantageDescriptorDelete : IHasIdentifier
+    {
+        public EconomicDisadvantageDescriptorDelete() { }
+
+        public EconomicDisadvantageDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -20768,6 +20822,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentDemographics.EdFi
     public class StudentDemographicGetByExample
     {
         public string CitizenshipStatusDescriptor { get; set; }
+        public string EconomicDisadvantageDescriptor { get; set; }
         public long EducationOrganizationId { get; set; }
         public string GenderIdentity { get; set; }
         public bool HispanicLatinoEthnicity { get; set; }

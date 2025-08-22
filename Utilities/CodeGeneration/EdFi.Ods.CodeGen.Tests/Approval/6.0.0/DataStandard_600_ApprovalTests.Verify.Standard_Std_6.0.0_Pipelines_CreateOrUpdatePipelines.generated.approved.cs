@@ -761,6 +761,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class EconomicDisadvantageDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EconomicDisadvantageDescriptor.EdFi.EconomicDisadvantageDescriptor, Entities.NHibernate.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptor>
+    {
+        public EconomicDisadvantageDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class EducationalEnvironmentDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EducationalEnvironmentDescriptor.EdFi.EducationalEnvironmentDescriptor, Entities.NHibernate.EducationalEnvironmentDescriptorAggregate.EdFi.EducationalEnvironmentDescriptor>
     {
         public EducationalEnvironmentDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }

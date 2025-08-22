@@ -3947,7 +3947,7 @@
     <set name="Credentials" cascade="none" lazy="true">
       <key>
         <column name="CertificationIdentifier" />
-        <column name="Namespace" />
+        <column name="CertificationNamespace" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CredentialAggregate.EdFi.CredentialQ" />
     </set>
@@ -6072,6 +6072,7 @@
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
     <property name="BoardCertificationIndicator" column="BoardCertificationIndicator" type="bool" />
     <property name="CertificationIdentifier" column="CertificationIdentifier" type="string" length="120" />
+    <property name="CertificationNamespace" column="CertificationNamespace" type="string" length="255" />
     <property name="CertificationRouteDescriptorId" column="CertificationRouteDescriptorId" type="int" />
     <property name="CertificationTitle" column="CertificationTitle" type="string" length="64" />
     <property name="CredentialFieldDescriptorId" column="CredentialFieldDescriptorId" type="int" />
@@ -6093,7 +6094,7 @@
     <!-- Back references -->
     <many-to-one name="Certification" class="EdFi.Ods.Entities.NHibernate.QueryModels.CertificationAggregate.EdFi.CertificationQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="CertificationIdentifier" />
-        <column name="Namespace" />
+        <column name="CertificationNamespace" />
     </many-to-one>
     <many-to-one name="CertificationRouteDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CertificationRouteDescriptorAggregate.EdFi.CertificationRouteDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="CertificationRouteDescriptorId" />
@@ -9352,6 +9353,29 @@
               <column name="DualCreditTypeDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociationQ" />
+          </set>
+
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptorQ" lazy="false" discriminator-value="edfi.EconomicDisadvantageDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EconomicDisadvantageDescriptor" >
+          <key>
+            <column name="EconomicDisadvantageDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="EconomicDisadvantageDescriptorId" column="EconomicDisadvantageDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="StudentDemographics" cascade="none" lazy="true">
+            <key>
+              <column name="EconomicDisadvantageDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicQ" />
           </set>
 
       </join>
@@ -31211,6 +31235,7 @@
     <!-- Readonly property to surface the discriminator value -->
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
     <property name="CitizenshipStatusDescriptorId" column="CitizenshipStatusDescriptorId" type="int" />
+    <property name="EconomicDisadvantageDescriptorId" column="EconomicDisadvantageDescriptorId" type="int" />
     <property name="GenderIdentity" column="GenderIdentity" type="string" length="60" />
     <property name="HispanicLatinoEthnicity" column="HispanicLatinoEthnicity" type="bool" />
     <property name="LimitedEnglishProficiencyDescriptorId" column="LimitedEnglishProficiencyDescriptorId" type="int" />
@@ -31222,6 +31247,9 @@
     <!-- Back references -->
     <many-to-one name="CitizenshipStatusDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="CitizenshipStatusDescriptorId" />
+    </many-to-one>
+    <many-to-one name="EconomicDisadvantageDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="EconomicDisadvantageDescriptorId" />
     </many-to-one>
     <many-to-one name="EducationOrganization" class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="EducationOrganizationId" />

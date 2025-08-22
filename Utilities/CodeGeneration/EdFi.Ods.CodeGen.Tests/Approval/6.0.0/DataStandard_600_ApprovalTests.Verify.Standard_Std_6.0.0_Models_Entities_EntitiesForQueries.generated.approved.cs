@@ -9782,6 +9782,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialAggregate.EdFi
         // -------------------------------------------------------------
         public virtual bool? BoardCertificationIndicator  { get; set; }
         public virtual string CertificationIdentifier  { get; set; }
+        public virtual string CertificationNamespace  { get; set; }
         public virtual int? CertificationRouteDescriptorId  { get; set; }
         public virtual string CertificationTitle  { get; set; }
         public virtual int? CredentialFieldDescriptorId  { get; set; }
@@ -11745,6 +11746,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DualCreditTypeDescriptorAggre
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociationQ> StudentSectionAssociations  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: EconomicDisadvantageDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.EconomicDisadvantageDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.EconomicDisadvantageDescriptor table of the EconomicDisadvantageDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class EconomicDisadvantageDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int EconomicDisadvantageDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicQ> StudentDemographics  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -34476,6 +34519,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.E
         //                          Properties
         // -------------------------------------------------------------
         public virtual int? CitizenshipStatusDescriptorId  { get; set; }
+        public virtual int? EconomicDisadvantageDescriptorId  { get; set; }
         public virtual string GenderIdentity  { get; set; }
         public virtual bool? HispanicLatinoEthnicity  { get; set; }
         public virtual int? LimitedEnglishProficiencyDescriptorId  { get; set; }
@@ -34507,6 +34551,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.E
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ CitizenshipStatusDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptorQ EconomicDisadvantageDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.LimitedEnglishProficiencyDescriptorAggregate.EdFi.LimitedEnglishProficiencyDescriptorQ LimitedEnglishProficiencyDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }

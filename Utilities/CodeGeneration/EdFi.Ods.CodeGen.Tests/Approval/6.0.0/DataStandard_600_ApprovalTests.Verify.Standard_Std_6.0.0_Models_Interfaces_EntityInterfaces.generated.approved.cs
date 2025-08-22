@@ -17275,6 +17275,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Non-PK properties
         bool? BoardCertificationIndicator { get; set; }
         string CertificationIdentifier { get; set; }
+        string CertificationNamespace { get; set; }
         string CertificationRouteDescriptor { get; set; }
         string CertificationTitle { get; set; }
         string CredentialFieldDescriptor { get; set; }
@@ -17315,6 +17316,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public CredentialMappingContract(
             bool isBoardCertificationIndicatorSupported,
             bool isCertificationIdentifierSupported,
+            bool isCertificationNamespaceSupported,
             bool isCertificationReferenceSupported,
             bool isCertificationRouteDescriptorSupported,
             bool isCertificationTitleSupported,
@@ -17349,6 +17351,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             IsBoardCertificationIndicatorSupported = isBoardCertificationIndicatorSupported;
             IsCertificationIdentifierSupported = isCertificationIdentifierSupported;
+            IsCertificationNamespaceSupported = isCertificationNamespaceSupported;
             IsCertificationReferenceSupported = isCertificationReferenceSupported;
             IsCertificationRouteDescriptorSupported = isCertificationRouteDescriptorSupported;
             IsCertificationTitleSupported = isCertificationTitleSupported;
@@ -17383,6 +17386,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         public bool IsBoardCertificationIndicatorSupported { get; }
         public bool IsCertificationIdentifierSupported { get; }
+        public bool IsCertificationNamespaceSupported { get; }
         public bool IsCertificationReferenceSupported { get; }
         public bool IsCertificationRouteDescriptorSupported { get; }
         public bool IsCertificationTitleSupported { get; }
@@ -17421,6 +17425,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsBoardCertificationIndicatorSupported;
                 case "CertificationIdentifier":
                     return IsCertificationIdentifierSupported;
+                case "CertificationNamespace":
+                    return IsCertificationNamespaceSupported;
                 case "CertificationReference":
                     return IsCertificationReferenceSupported;
                 case "CertificationRouteDescriptor":
@@ -20561,6 +20567,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortDescriptionSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DualCreditTypeDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EconomicDisadvantageDescriptor model.
+    /// </summary>
+    public interface IEconomicDisadvantageDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int EconomicDisadvantageDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class EconomicDisadvantageDescriptorMappingContract : IMappingContract
+    {
+        public EconomicDisadvantageDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EconomicDisadvantageDescriptorId":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -59314,6 +59396,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         string CitizenshipStatusDescriptor { get; set; }
+        string EconomicDisadvantageDescriptor { get; set; }
         string GenderIdentity { get; set; }
         bool? HispanicLatinoEthnicity { get; set; }
         string LimitedEnglishProficiencyDescriptor { get; set; }
@@ -59346,6 +59429,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         public StudentDemographicMappingContract(
             bool isCitizenshipStatusDescriptorSupported,
+            bool isEconomicDisadvantageDescriptorSupported,
             bool isEducationOrganizationReferenceSupported,
             bool isGenderIdentitySupported,
             bool isHispanicLatinoEthnicitySupported,
@@ -59378,6 +59462,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             )
         {
             IsCitizenshipStatusDescriptorSupported = isCitizenshipStatusDescriptorSupported;
+            IsEconomicDisadvantageDescriptorSupported = isEconomicDisadvantageDescriptorSupported;
             IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
             IsGenderIdentitySupported = isGenderIdentitySupported;
             IsHispanicLatinoEthnicitySupported = isHispanicLatinoEthnicitySupported;
@@ -59410,6 +59495,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         }
 
         public bool IsCitizenshipStatusDescriptorSupported { get; }
+        public bool IsEconomicDisadvantageDescriptorSupported { get; }
         public bool IsEducationOrganizationReferenceSupported { get; }
         public bool IsGenderIdentitySupported { get; }
         public bool IsHispanicLatinoEthnicitySupported { get; }
@@ -59445,6 +59531,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "CitizenshipStatusDescriptor":
                     return IsCitizenshipStatusDescriptorSupported;
+                case "EconomicDisadvantageDescriptor":
+                    return IsEconomicDisadvantageDescriptorSupported;
                 case "EducationOrganizationReference":
                     return IsEducationOrganizationReferenceSupported;
                 case "GenderIdentity":

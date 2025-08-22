@@ -3726,6 +3726,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.BoardCertificationIndicator = request.BoardCertificationIndicator;
             specification.CertificationIdentifier = request.CertificationIdentifier;
+            specification.CertificationNamespace = request.CertificationNamespace;
             specification.CertificationRouteDescriptor = request.CertificationRouteDescriptor;
             specification.CertificationTitle = request.CertificationTitle;
             specification.CredentialFieldDescriptor = request.CredentialFieldDescriptor;
@@ -4775,6 +4776,43 @@ namespace EdFi.Ods.Api.Services.Controllers.DualCreditTypeDescriptors.EdFi
             specification.CodeValue = request.CodeValue;
             specification.Description = request.Description;
             specification.DualCreditTypeDescriptorId = request.DualCreditTypeDescriptorId;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EconomicDisadvantageDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/economicDisadvantageDescriptors")]
+    public partial class EconomicDisadvantageDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EconomicDisadvantageDescriptor.EdFi.EconomicDisadvantageDescriptor,
+        Entities.Common.EdFi.IEconomicDisadvantageDescriptor,
+        Entities.NHibernate.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptor,
+        Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi.EconomicDisadvantageDescriptorPut,
+        Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi.EconomicDisadvantageDescriptorPost,
+        Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi.EconomicDisadvantageDescriptorDelete,
+        Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi.EconomicDisadvantageDescriptorGetByExample>
+    {
+        public EconomicDisadvantageDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi.EconomicDisadvantageDescriptorGetByExample request, Entities.Common.EdFi.IEconomicDisadvantageDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EconomicDisadvantageDescriptorId = request.EconomicDisadvantageDescriptorId;
             specification.EffectiveBeginDate = request.EffectiveBeginDate;
             specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
@@ -14627,6 +14665,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDemographics.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.EconomicDisadvantageDescriptor = request.EconomicDisadvantageDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.GenderIdentity = request.GenderIdentity;
             specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
