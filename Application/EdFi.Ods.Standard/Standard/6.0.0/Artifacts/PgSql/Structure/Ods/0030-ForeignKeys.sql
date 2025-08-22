@@ -2454,12 +2454,12 @@ ON UPDATE CASCADE
 CREATE INDEX FK_cd2ae9_Section
 ON edfi.CourseTranscriptSection (LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
 
-ALTER TABLE edfi.Credential ADD CONSTRAINT FK_b1c42b_Certification FOREIGN KEY (CertificationIdentifier, Namespace)
+ALTER TABLE edfi.Credential ADD CONSTRAINT FK_b1c42b_Certification FOREIGN KEY (CertificationIdentifier, CertificationNamespace)
 REFERENCES edfi.Certification (CertificationIdentifier, Namespace)
 ;
 
 CREATE INDEX FK_b1c42b_Certification
-ON edfi.Credential (CertificationIdentifier ASC, Namespace ASC);
+ON edfi.Credential (CertificationIdentifier ASC, CertificationNamespace ASC);
 
 ALTER TABLE edfi.Credential ADD CONSTRAINT FK_b1c42b_CertificationRouteDescriptor FOREIGN KEY (CertificationRouteDescriptorId)
 REFERENCES edfi.CertificationRouteDescriptor (CertificationRouteDescriptorId)
@@ -2824,6 +2824,11 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.DualCreditTypeDescriptor ADD CONSTRAINT FK_0ccb1b_Descriptor FOREIGN KEY (DualCreditTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.EconomicDisadvantageDescriptor ADD CONSTRAINT FK_143b51_Descriptor FOREIGN KEY (EconomicDisadvantageDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -7922,6 +7927,13 @@ REFERENCES edfi.CitizenshipStatusDescriptor (CitizenshipStatusDescriptorId)
 
 CREATE INDEX FK_576573_CitizenshipStatusDescriptor
 ON edfi.StudentDemographic (CitizenshipStatusDescriptorId ASC);
+
+ALTER TABLE edfi.StudentDemographic ADD CONSTRAINT FK_576573_EconomicDisadvantageDescriptor FOREIGN KEY (EconomicDisadvantageDescriptorId)
+REFERENCES edfi.EconomicDisadvantageDescriptor (EconomicDisadvantageDescriptorId)
+;
+
+CREATE INDEX FK_576573_EconomicDisadvantageDescriptor
+ON edfi.StudentDemographic (EconomicDisadvantageDescriptorId ASC);
 
 ALTER TABLE edfi.StudentDemographic ADD CONSTRAINT FK_576573_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)

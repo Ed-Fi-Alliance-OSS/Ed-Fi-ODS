@@ -2361,6 +2361,7 @@ CREATE TABLE edfi.Credential (
     StateOfIssueStateAbbreviationDescriptorId INT NOT NULL,
     BoardCertificationIndicator BOOLEAN NULL,
     CertificationIdentifier VARCHAR(120) NULL,
+    CertificationNamespace VARCHAR(255) NULL,
     CertificationRouteDescriptorId INT NULL,
     CertificationTitle VARCHAR(64) NULL,
     CredentialFieldDescriptorId INT NULL,
@@ -2763,6 +2764,12 @@ CREATE TABLE edfi.DualCreditInstitutionDescriptor (
 CREATE TABLE edfi.DualCreditTypeDescriptor (
     DualCreditTypeDescriptorId INT NOT NULL,
     CONSTRAINT DualCreditTypeDescriptor_PK PRIMARY KEY (DualCreditTypeDescriptorId)
+);
+
+-- Table edfi.EconomicDisadvantageDescriptor --
+CREATE TABLE edfi.EconomicDisadvantageDescriptor (
+    EconomicDisadvantageDescriptorId INT NOT NULL,
+    CONSTRAINT EconomicDisadvantageDescriptor_PK PRIMARY KEY (EconomicDisadvantageDescriptorId)
 );
 
 -- Table edfi.EducationalEnvironmentDescriptor --
@@ -8151,6 +8158,7 @@ CREATE TABLE edfi.StudentDemographic (
     EducationOrganizationId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     CitizenshipStatusDescriptorId INT NULL,
+    EconomicDisadvantageDescriptorId INT NULL,
     GenderIdentity VARCHAR(60) NULL,
     HispanicLatinoEthnicity BOOLEAN NULL,
     LimitedEnglishProficiencyDescriptorId INT NULL,

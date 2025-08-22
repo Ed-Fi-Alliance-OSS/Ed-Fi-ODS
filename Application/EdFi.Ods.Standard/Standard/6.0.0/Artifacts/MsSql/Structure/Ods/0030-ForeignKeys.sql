@@ -2675,12 +2675,12 @@ CREATE NONCLUSTERED INDEX [FK_CourseTranscriptSection_Section]
 ON [edfi].[CourseTranscriptSection] ([LocalCourseCode] ASC, [SchoolId] ASC, [SchoolYear] ASC, [SectionIdentifier] ASC, [SessionName] ASC)
 GO
 
-ALTER TABLE [edfi].[Credential] WITH CHECK ADD CONSTRAINT [FK_Credential_Certification] FOREIGN KEY ([CertificationIdentifier], [Namespace])
+ALTER TABLE [edfi].[Credential] WITH CHECK ADD CONSTRAINT [FK_Credential_Certification] FOREIGN KEY ([CertificationIdentifier], [CertificationNamespace])
 REFERENCES [edfi].[Certification] ([CertificationIdentifier], [Namespace])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_Credential_Certification]
-ON [edfi].[Credential] ([CertificationIdentifier] ASC, [Namespace] ASC)
+ON [edfi].[Credential] ([CertificationIdentifier] ASC, [CertificationNamespace] ASC)
 GO
 
 ALTER TABLE [edfi].[Credential] WITH CHECK ADD CONSTRAINT [FK_Credential_CertificationRouteDescriptor] FOREIGN KEY ([CertificationRouteDescriptorId])
@@ -3073,6 +3073,11 @@ ON DELETE CASCADE
 GO
 
 ALTER TABLE [edfi].[DualCreditTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_DualCreditTypeDescriptor_Descriptor] FOREIGN KEY ([DualCreditTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[EconomicDisadvantageDescriptor] WITH CHECK ADD CONSTRAINT [FK_EconomicDisadvantageDescriptor_Descriptor] FOREIGN KEY ([EconomicDisadvantageDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
@@ -8613,6 +8618,14 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentDemographic_CitizenshipStatusDescriptor]
 ON [edfi].[StudentDemographic] ([CitizenshipStatusDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentDemographic] WITH CHECK ADD CONSTRAINT [FK_StudentDemographic_EconomicDisadvantageDescriptor] FOREIGN KEY ([EconomicDisadvantageDescriptorId])
+REFERENCES [edfi].[EconomicDisadvantageDescriptor] ([EconomicDisadvantageDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentDemographic_EconomicDisadvantageDescriptor]
+ON [edfi].[StudentDemographic] ([EconomicDisadvantageDescriptorId] ASC)
 GO
 
 ALTER TABLE [edfi].[StudentDemographic] WITH CHECK ADD CONSTRAINT [FK_StudentDemographic_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])

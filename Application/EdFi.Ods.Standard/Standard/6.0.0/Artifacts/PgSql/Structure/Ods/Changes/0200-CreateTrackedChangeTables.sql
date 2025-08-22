@@ -606,6 +606,7 @@ CREATE TABLE tracked_changes_edfi.credential
        newstateofissuestateabbreviationdescriptornamespace VARCHAR(255) NULL,
        newstateofissuestateabbreviationdescriptorcodevalue VARCHAR(50) NULL,
        id uuid NOT NULL,
+       oldnamespace varchar(255) NOT NULL,
        changeversion bigint NOT NULL,
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),

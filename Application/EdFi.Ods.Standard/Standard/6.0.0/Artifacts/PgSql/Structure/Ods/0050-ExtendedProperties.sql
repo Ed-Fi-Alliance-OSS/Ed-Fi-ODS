@@ -1550,6 +1550,7 @@ COMMENT ON COLUMN edfi.Credential.CredentialIdentifier IS 'Identifier or serial 
 COMMENT ON COLUMN edfi.Credential.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
 COMMENT ON COLUMN edfi.Credential.BoardCertificationIndicator IS 'Indicator that the credential was granted under the authority of a national board certification.';
 COMMENT ON COLUMN edfi.Credential.CertificationIdentifier IS 'Identifier or serial number assigned to the certification.';
+COMMENT ON COLUMN edfi.Credential.CertificationNamespace IS 'The namespace for the certification, typically associated with the issuing authority.';
 COMMENT ON COLUMN edfi.Credential.CertificationRouteDescriptorId IS 'The process, program, or pathway used to obtain certification.';
 COMMENT ON COLUMN edfi.Credential.CertificationTitle IS 'The title of the certification obtained by the person.';
 COMMENT ON COLUMN edfi.Credential.CredentialFieldDescriptorId IS 'The field of certification for the credential.';
@@ -1797,6 +1798,10 @@ COMMENT ON COLUMN edfi.DualCreditInstitutionDescriptor.DualCreditInstitutionDesc
 -- Extended Properties [edfi].[DualCreditTypeDescriptor] --
 COMMENT ON TABLE edfi.DualCreditTypeDescriptor IS 'Indicates the type of the dual credit program.';
 COMMENT ON COLUMN edfi.DualCreditTypeDescriptor.DualCreditTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[EconomicDisadvantageDescriptor] --
+COMMENT ON TABLE edfi.EconomicDisadvantageDescriptor IS 'This descriptor defines the type of economic disadvantage experienced by an individual.';
+COMMENT ON COLUMN edfi.EconomicDisadvantageDescriptor.EconomicDisadvantageDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[EducationalEnvironmentDescriptor] --
 COMMENT ON TABLE edfi.EducationalEnvironmentDescriptor IS 'The setting in which a child receives education and related services.';
@@ -5292,6 +5297,7 @@ COMMENT ON TABLE edfi.StudentDemographic IS 'The demographic information associa
 COMMENT ON COLUMN edfi.StudentDemographic.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentDemographic.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentDemographic.CitizenshipStatusDescriptorId IS 'An indicator of whether or not the person is a U.S. citizen.';
+COMMENT ON COLUMN edfi.StudentDemographic.EconomicDisadvantageDescriptorId IS 'The indication of an inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.';
 COMMENT ON COLUMN edfi.StudentDemographic.GenderIdentity IS 'The student''s gender as last reported to the education organization.';
 COMMENT ON COLUMN edfi.StudentDemographic.HispanicLatinoEthnicity IS 'An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race, as last reported to the education organization. The term "Spanish origin", can be used in addition to "Hispanic or Latino".';
 COMMENT ON COLUMN edfi.StudentDemographic.LimitedEnglishProficiencyDescriptorId IS 'An indication that the student has been identified as limited English proficient by the Language Proficiency Assessment Committee (LPAC), or English proficient.';

@@ -3496,6 +3496,7 @@ CREATE TABLE [edfi].[Credential] (
     [StateOfIssueStateAbbreviationDescriptorId] [INT] NOT NULL,
     [BoardCertificationIndicator] [BIT] NULL,
     [CertificationIdentifier] [NVARCHAR](120) NULL,
+    [CertificationNamespace] [NVARCHAR](255) NULL,
     [CertificationRouteDescriptorId] [INT] NULL,
     [CertificationTitle] [NVARCHAR](64) NULL,
     [CredentialFieldDescriptorId] [INT] NULL,
@@ -4099,6 +4100,15 @@ CREATE TABLE [edfi].[DualCreditTypeDescriptor] (
     [DualCreditTypeDescriptorId] [INT] NOT NULL,
     CONSTRAINT [DualCreditTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
         [DualCreditTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[EconomicDisadvantageDescriptor] --
+CREATE TABLE [edfi].[EconomicDisadvantageDescriptor] (
+    [EconomicDisadvantageDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [EconomicDisadvantageDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [EconomicDisadvantageDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -12240,6 +12250,7 @@ CREATE TABLE [edfi].[StudentDemographic] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CitizenshipStatusDescriptorId] [INT] NULL,
+    [EconomicDisadvantageDescriptorId] [INT] NULL,
     [GenderIdentity] [NVARCHAR](60) NULL,
     [HispanicLatinoEthnicity] [BIT] NULL,
     [LimitedEnglishProficiencyDescriptorId] [INT] NULL,

@@ -1998,8 +1998,8 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_edfi].[Credential](OldCredentialIdentifier, OldStateOfIssueStateAbbreviationDescriptorId, OldStateOfIssueStateAbbreviationDescriptorNamespace, OldStateOfIssueStateAbbreviationDescriptorCodeValue, Id, Discriminator, ChangeVersion)
-    SELECT d.CredentialIdentifier, d.StateOfIssueStateAbbreviationDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_changes_edfi].[Credential](OldCredentialIdentifier, OldStateOfIssueStateAbbreviationDescriptorId, OldStateOfIssueStateAbbreviationDescriptorNamespace, OldStateOfIssueStateAbbreviationDescriptorCodeValue, Id, OldNamespace, Discriminator, ChangeVersion)
+    SELECT d.CredentialIdentifier, d.StateOfIssueStateAbbreviationDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Namespace, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
         INNER JOIN edfi.Descriptor j0
             ON d.StateOfIssueStateAbbreviationDescriptorId = j0.DescriptorId
@@ -2596,6 +2596,27 @@ END
 GO
 
 ALTER TABLE [edfi].[DualCreditTypeDescriptor] ENABLE TRIGGER [edfi_DualCreditTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EconomicDisadvantageDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EconomicDisadvantageDescriptor_TR_DeleteTracking] ON [edfi].[EconomicDisadvantageDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EconomicDisadvantageDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EconomicDisadvantageDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EconomicDisadvantageDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EconomicDisadvantageDescriptor] ENABLE TRIGGER [edfi_EconomicDisadvantageDescriptor_TR_DeleteTracking]
 GO
 
 

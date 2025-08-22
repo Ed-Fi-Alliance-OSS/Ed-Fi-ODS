@@ -539,6 +539,7 @@ CREATE TABLE [tracked_changes_edfi].[Credential]
        NewStateOfIssueStateAbbreviationDescriptorNamespace [NVARCHAR](255) NULL,
        NewStateOfIssueStateAbbreviationDescriptorCodeValue [NVARCHAR](50) NULL,
        Id uniqueidentifier NOT NULL,
+       OldNamespace [NVARCHAR](255) NOT NULL,
        ChangeVersion bigint NOT NULL,
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),

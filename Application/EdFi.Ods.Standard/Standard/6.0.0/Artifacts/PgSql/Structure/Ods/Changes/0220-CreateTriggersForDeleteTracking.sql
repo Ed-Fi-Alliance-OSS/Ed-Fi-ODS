@@ -1767,10 +1767,10 @@ BEGIN
 
     INSERT INTO tracked_changes_edfi.credential(
         oldcredentialidentifier, oldstateofissuestateabbreviationdescriptorid, oldstateofissuestateabbreviationdescriptornamespace, oldstateofissuestateabbreviationdescriptorcodevalue,
-        id, discriminator, changeversion)
+        id, oldnamespace, discriminator, changeversion)
     VALUES (
         OLD.credentialidentifier, OLD.stateofissuestateabbreviationdescriptorid, dj0.namespace, dj0.codevalue, 
-        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
+        OLD.id, OLD.namespace, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;
 END;
@@ -2281,6 +2281,23 @@ $BODY$ LANGUAGE plpgsql;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'dualcredittypedescriptor') THEN
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.dualcredittypedescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.dualcredittypedescriptor_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.economicdisadvantagedescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.EconomicDisadvantageDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.EconomicDisadvantageDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.EconomicDisadvantageDescriptorId = b.descriptorid ;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'economicdisadvantagedescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.economicdisadvantagedescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.economicdisadvantagedescriptor_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.educationalenvironmentdescriptor_deleted()
