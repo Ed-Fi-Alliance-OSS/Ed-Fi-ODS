@@ -663,7 +663,7 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/candidateContactInformation" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/candidateEducatorPreparationProgramAssociation" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/educationOrganizationIdentity" />
-
+				<Claim name="http://ed-fi.org/ods/identity/claims/contactIdentity" />
 			</Claims>
 		</Claim>
 
