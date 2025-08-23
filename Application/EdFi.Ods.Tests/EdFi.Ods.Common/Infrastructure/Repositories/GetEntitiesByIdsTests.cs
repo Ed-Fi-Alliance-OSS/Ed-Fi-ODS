@@ -99,7 +99,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
                     _actualHqlQueries.First(),
                     Is.EqualTo($"from {typeof(School).FullName} a" +
                         $" left join fetch a.LocalEducationAgencyReferenceData b" +
-                        $" left join fetch a.CharterApprovalSchoolYearTypeReferenceData c" +
+                        $" left join fetch a.PostSecondaryInstitutionReferenceData c" +
+                        $" left join fetch a.CharterApprovalSchoolYearTypeReferenceData d" +
                         $" where a.Id = :id"));
             }
 
