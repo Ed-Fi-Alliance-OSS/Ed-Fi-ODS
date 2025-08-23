@@ -26,8 +26,36 @@
 					</Actions>
 				</ClaimSet>
 			</ClaimSets>
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="ReadChanges">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
 			<Claims>
-	   			<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/educatorPreparationProgram">
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/application" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/educatorPreparationProgram">
 					<DefaultAuthorization>
 						<Action name="Create">
 							<AuthorizationStrategies>
@@ -168,7 +196,7 @@
 							</Claims>
 						</Claim>
 					</Claims>
-					
+
 				</Claim>
 				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/noFurtherAuthorizationRequiredData">
 					<DefaultAuthorization>
@@ -246,7 +274,7 @@
 								<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/staffepdmAssociation" />
 								<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/candidateRelationshipToStaffAssociation" />
 								<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/staffEducatorPreparationProgramAssociation" />
-								
+
 							</Claims>
 						</Claim>
 					</Claims>
@@ -328,30 +356,30 @@
 							</AuthorizationStrategies>
 						</Action>
 					</DefaultAuthorization>
-						<ClaimSets>
-								<ClaimSet name="Ed-Fi Sandbox">
-									<Actions>
-										<Action name="Create" />
-										<Action name="Read" />
-										<Action name="Update" />
-										<Action name="Delete" />
-									</Actions>
-								</ClaimSet>
-								<ClaimSet name="Ed-Fi API Publisher - Reader">
-									<Actions>
-										<Action name="Read" />
-										<Action name="ReadChanges" />
-									</Actions>
-								</ClaimSet>
-								<ClaimSet name="Ed-Fi API Publisher - Writer">
-									<Actions>
-										<Action name="Create" />
-										<Action name="Read" />
-										<Action name="Update" />
-										<Action name="Delete" />
-									</Actions>
-								</ClaimSet>
-							</ClaimSets>
+					<ClaimSets>
+						<ClaimSet name="Ed-Fi Sandbox">
+							<Actions>
+								<Action name="Create" />
+								<Action name="Read" />
+								<Action name="Update" />
+								<Action name="Delete" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Ed-Fi API Publisher - Reader">
+							<Actions>
+								<Action name="Read" />
+								<Action name="ReadChanges" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Ed-Fi API Publisher - Writer">
+							<Actions>
+								<Action name="Create" />
+								<Action name="Read" />
+								<Action name="Update" />
+								<Action name="Delete" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
 					<Claims>
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/certification" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/certificationExam" />
@@ -434,7 +462,6 @@
 						</Action>
 					</DefaultAuthorization>
 					<Claims>
-						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/application" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/applicationEvent" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/openStaffPositionEvent" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/recruitmentEvent" />
@@ -457,6 +484,11 @@
 									</AuthorizationStrategies>
 								</Action>
 								<Action name="Delete">
+									<AuthorizationStrategies>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategies>
+								</Action>
+								<Action name="ReadChanges">
 									<AuthorizationStrategies>
 										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
 									</AuthorizationStrategies>
@@ -628,10 +660,10 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/staffContactInformation" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/candidateIdentity" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/candidateDemographics" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/canidateContactInformation" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/candidateContactInformation" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/candidateEducatorPreparationProgramAssociation" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/educationOrganizationIdentity" />
-				
+
 			</Claims>
 		</Claim>
 
@@ -748,7 +780,7 @@
 				</Claim>
 			</Claims>
 		</Claim>
-		
+
 		<Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
 			<DefaultAuthorization>
 				<Action name="Create">
@@ -848,8 +880,8 @@
 				</ClaimSet>
 			</ClaimSets>
 			<Claims>
-				  <Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors">
-						<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors">
+					<Claims>
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/englishLanguageExamDescriptor" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/ePPProgramPathwayDescriptor" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/certificationRouteDescriptor" />
@@ -899,7 +931,7 @@
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/withdrawReasonDescriptor" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/performanceEvaluationRatingLevelDescriptor" />
 					</Claims>
-				  </Claim>
+				</Claim>
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/coteachingStyleObservedDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/evaluationElementRatingLevelDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/evaluationRatingLevelDescriptor" />
@@ -924,5 +956,3 @@
 
 	</Claims>
 </SecurityMetadata>
-
-

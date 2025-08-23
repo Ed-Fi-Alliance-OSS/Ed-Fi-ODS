@@ -73,6 +73,131 @@ BEGIN
 
     END IF;
   
+    -- Setting default authorization metadata
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionId IN (SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id);
+
+    DELETE FROM dbo.ResourceClaimActions
+    WHERE ResourceClaimId = claim_id;
+
+    
+    -- Default Create authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Create'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Create_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
+    -- Default Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Read'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Read_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
+    -- Default Update authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Update'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Update_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
+    -- Default Delete authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Delete'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Delete_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''ReadChanges'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, ReadChanges_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/epdm
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi Sandbox'
@@ -289,6 +414,37 @@ BEGIN
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/application'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/ed-fi/application';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('application', 'http://ed-fi.org/ods/identity/claims/ed-fi/application', parent_resource_claim_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+
+    ELSE
+        IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+
+            UPDATE dbo.ResourceClaims
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
+        END IF;
+
+    END IF;
+  
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/educatorPreparationProgram'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -3563,37 +3719,6 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/recruiting
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/application'
-    ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/ed-fi/application';
-    claim_id := NULL;
-
-    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
-    FROM dbo.ResourceClaims
-    WHERE ClaimName = claim_name;
-
-    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
-
-    IF claim_id IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', claim_name;
-
-        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('application', 'http://ed-fi.org/ods/identity/claims/ed-fi/application', parent_resource_claim_id)
-        RETURNING ResourceClaimId
-        INTO claim_id;
-
-    ELSE
-        IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = parent_resource_claim_id
-            WHERE ResourceClaimId = claim_id;
-        END IF;
-
-    END IF;
-  
-    ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/applicationEvent'
     ----------------------------------------------------------------------------------------------------------------------------
     claim_name := 'http://ed-fi.org/ods/identity/claims/ed-fi/applicationEvent';
@@ -3832,6 +3957,29 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
     VALUES (claim_id, Delete_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''ReadChanges'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, ReadChanges_action_id)
     RETURNING ResourceClaimActionId
     INTO resource_claim_action_id;
 
@@ -5219,9 +5367,9 @@ BEGIN
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/canidateContactInformation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/candidateContactInformation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/canidateContactInformation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/candidateContactInformation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -5234,7 +5382,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('canidateContactInformation', 'http://ed-fi.org/ods/identity/claims/canidateContactInformation', parent_resource_claim_id)
+        VALUES ('candidateContactInformation', 'http://ed-fi.org/ods/identity/claims/candidateContactInformation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
