@@ -8,6 +8,7 @@
 						<Action name="Read" />
 						<Action name="Update" />
 						<Action name="Delete" />
+						<Action name="ReadChanges" />
 					</Actions>
 				</ClaimSet>
 				<ClaimSet name="Ed-Fi API Publisher - Reader">
@@ -225,7 +226,7 @@
 										<Action name="Read" />
 										<Action name="Update" />
 										<Action name="Delete" />
-									</Actions>ProfessionalDevelopmentEvent
+									</Actions>
 								</ClaimSet>
 							</ClaimSets>
 							<Claims>
@@ -244,6 +245,8 @@
 							<Claims>
 								<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/staffepdmAssociation" />
 								<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/candidateRelationshipToStaffAssociation" />
+								<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/staffEducatorPreparationProgramAssociation" />
+								
 							</Claims>
 						</Claim>
 					</Claims>
@@ -325,6 +328,30 @@
 							</AuthorizationStrategies>
 						</Action>
 					</DefaultAuthorization>
+						<ClaimSets>
+							<ClaimSet name="Ed-Fi Sandbox">
+								<Actions>
+									<Action name="Create" />
+									<Action name="Read" />
+									<Action name="Update" />
+									<Action name="Delete" />
+								</Actions>
+							</ClaimSet>
+							<ClaimSet name="Ed-Fi API Publisher - Reader">
+								<Actions>
+									<Action name="Read" />
+									<Action name="ReadChanges" />
+								</Actions>
+							</ClaimSet>
+							<ClaimSet name="Ed-Fi API Publisher - Writer">
+								<Actions>
+									<Action name="Create" />
+									<Action name="Read" />
+									<Action name="Update" />
+									<Action name="Delete" />
+								</Actions>
+							</ClaimSet>
+			            </ClaimSets>
 					<Claims>
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/certification" />
 						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/certificationExam" />
@@ -889,6 +916,10 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/rubricRatingLevelDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/evaluationPeriodDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/performanceEvaluationRatingLevelDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/candidateIdentificationSystemDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/contactIdentificationSystemDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/economicDisadvantageDescriptor" />
+	
 			</Claims>
 		</Claim>
 
