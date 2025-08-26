@@ -65,8 +65,8 @@ namespace EdFi.LoadTools.Test
                 Console.WriteLine(wi.IdentityXElement);
             }
 
-            Assert.AreEqual(3, items.Count);
-            Assert.AreEqual(2, hashIdentities.Count);
+            Assert.That(items.Count, Is.EqualTo(3));
+            Assert.That(hashIdentities.Count, Is.EqualTo(2));
         }
     }
 }

@@ -34,10 +34,10 @@
       <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
       <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.2" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-      <PackageReference Include="log4net" Version="2.0.15" />
+      <PackageReference Include="log4net" Version="2.0.17" />
       <PackageReference Include="Moq" Version="4.20.70" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-      <PackageReference Include="NUnit" Version="4.0.1" />
+      <PackageReference Include="NUnit" Version="4.4.0" />
       <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
       <PackageReference Include="Shouldly" Version="4.2.1" />
     </ItemGroup>
