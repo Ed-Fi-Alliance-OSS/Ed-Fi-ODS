@@ -1034,5 +1034,3 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON edfi.stateeducationagency
     FOR EACH ROW EXECUTE PROCEDURE edfi.edfi_stateeducationagency_tr_delete();
-
-

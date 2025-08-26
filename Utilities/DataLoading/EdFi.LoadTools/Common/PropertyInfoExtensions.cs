@@ -24,6 +24,7 @@ namespace EdFi.LoadTools.Common
                 p => new[] {Inflector.MakeInitialUpperCase(p.Name)},
                 p => new[] {Inflector.CollapseNames(p.DeclaringType?.Name, p.Name)},
                 p => Inflector.StripLeftTerms(p.Name)
+                    .Reverse()
                     .ToArray()
             };
 

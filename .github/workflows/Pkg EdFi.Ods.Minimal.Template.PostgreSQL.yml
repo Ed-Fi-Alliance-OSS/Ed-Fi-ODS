@@ -138,7 +138,12 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
-        rm -R ./Plugin/Extensions.*
+        if (Test-Path "./Plugin/Extensions.*") {
+            Remove-Item -Recurse -Force "./Plugin/Extensions.*"
+            Write-Host "Removed Plug-in Extensions."
+        } else {
+            Write-Host "No Plug-in Extensions found. Skipping removal."
+        }
       shell: pwsh 
     - name: Create Database Template (no extensions)
       working-directory: ./

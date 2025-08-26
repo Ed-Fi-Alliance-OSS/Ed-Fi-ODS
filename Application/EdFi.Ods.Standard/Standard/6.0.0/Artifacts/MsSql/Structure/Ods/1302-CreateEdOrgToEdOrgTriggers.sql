@@ -4,7 +4,7 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 -- edfi.CommunityOrganization
-CREATE OR ALTER TRIGGER edfi.edfi_CommunityOrganization_TR_Insert ON edfi.CommunityOrganization AFTER INSERT AS
+CREATE TRIGGER edfi.edfi_CommunityOrganization_TR_Insert ON edfi.CommunityOrganization AFTER INSERT AS
 BEGIN
     SET NOCOUNT ON
 
@@ -17,7 +17,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_CommunityOrganization_TR_Delete ON edfi.CommunityOrganization AFTER DELETE AS
+CREATE TRIGGER edfi.edfi_CommunityOrganization_TR_Delete ON edfi.CommunityOrganization AFTER DELETE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -33,7 +33,7 @@ END
 GO
 
 -- edfi.CommunityProvider
-CREATE OR ALTER TRIGGER edfi.edfi_CommunityProvider_TR_Insert ON edfi.CommunityProvider AFTER INSERT AS
+CREATE TRIGGER edfi.edfi_CommunityProvider_TR_Insert ON edfi.CommunityProvider AFTER INSERT AS
 BEGIN
     SET NOCOUNT ON
 
@@ -66,7 +66,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_CommunityProvider_TR_Update ON edfi.CommunityProvider AFTER UPDATE AS
+CREATE TRIGGER edfi.edfi_CommunityProvider_TR_Update ON edfi.CommunityProvider AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -143,7 +143,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_CommunityProvider_TR_Delete ON edfi.CommunityProvider AFTER DELETE AS
+CREATE TRIGGER edfi.edfi_CommunityProvider_TR_Delete ON edfi.CommunityProvider AFTER DELETE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -184,7 +184,7 @@ END
 GO
 
 -- edfi.EducationOrganizationNetwork
-CREATE OR ALTER TRIGGER edfi.edfi_EducationOrganizationNetwork_TR_Insert ON edfi.EducationOrganizationNetwork AFTER INSERT AS
+CREATE TRIGGER edfi.edfi_EducationOrganizationNetwork_TR_Insert ON edfi.EducationOrganizationNetwork AFTER INSERT AS
 BEGIN
     SET NOCOUNT ON
 
@@ -197,7 +197,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_EducationOrganizationNetwork_TR_Delete ON edfi.EducationOrganizationNetwork AFTER DELETE AS
+CREATE TRIGGER edfi.edfi_EducationOrganizationNetwork_TR_Delete ON edfi.EducationOrganizationNetwork AFTER DELETE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -213,7 +213,7 @@ END
 GO
 
 -- edfi.EducationServiceCenter
-CREATE OR ALTER TRIGGER edfi.edfi_EducationServiceCenter_TR_Insert ON edfi.EducationServiceCenter AFTER INSERT AS
+CREATE TRIGGER edfi.edfi_EducationServiceCenter_TR_Insert ON edfi.EducationServiceCenter AFTER INSERT AS
 BEGIN
     SET NOCOUNT ON
 
@@ -246,7 +246,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_EducationServiceCenter_TR_Update ON edfi.EducationServiceCenter AFTER UPDATE AS
+CREATE TRIGGER edfi.edfi_EducationServiceCenter_TR_Update ON edfi.EducationServiceCenter AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -323,7 +323,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_EducationServiceCenter_TR_Delete ON edfi.EducationServiceCenter AFTER DELETE AS
+CREATE TRIGGER edfi.edfi_EducationServiceCenter_TR_Delete ON edfi.EducationServiceCenter AFTER DELETE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -364,7 +364,7 @@ END
 GO
 
 -- edfi.LocalEducationAgency
-CREATE OR ALTER TRIGGER edfi.edfi_LocalEducationAgency_TR_Insert ON edfi.LocalEducationAgency AFTER INSERT AS
+CREATE TRIGGER edfi.edfi_LocalEducationAgency_TR_Insert ON edfi.LocalEducationAgency AFTER INSERT AS
 BEGIN
     SET NOCOUNT ON
 
@@ -415,7 +415,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_LocalEducationAgency_TR_Update ON edfi.LocalEducationAgency AFTER UPDATE AS
+CREATE TRIGGER edfi.edfi_LocalEducationAgency_TR_Update ON edfi.LocalEducationAgency AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -558,7 +558,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_LocalEducationAgency_TR_Delete ON edfi.LocalEducationAgency AFTER DELETE AS
+CREATE TRIGGER edfi.edfi_LocalEducationAgency_TR_Delete ON edfi.LocalEducationAgency AFTER DELETE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -617,7 +617,7 @@ END
 GO
 
 -- edfi.OrganizationDepartment
-CREATE OR ALTER TRIGGER edfi.edfi_OrganizationDepartment_TR_Insert ON edfi.OrganizationDepartment AFTER INSERT AS
+CREATE TRIGGER edfi.edfi_OrganizationDepartment_TR_Insert ON edfi.OrganizationDepartment AFTER INSERT AS
 BEGIN
     SET NOCOUNT ON
 
@@ -650,7 +650,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_OrganizationDepartment_TR_Update ON edfi.OrganizationDepartment AFTER UPDATE AS
+CREATE TRIGGER edfi.edfi_OrganizationDepartment_TR_Update ON edfi.OrganizationDepartment AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -727,7 +727,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_OrganizationDepartment_TR_Delete ON edfi.OrganizationDepartment AFTER DELETE AS
+CREATE TRIGGER edfi.edfi_OrganizationDepartment_TR_Delete ON edfi.OrganizationDepartment AFTER DELETE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -768,7 +768,7 @@ END
 GO
 
 -- edfi.PostSecondaryInstitution
-CREATE OR ALTER TRIGGER edfi.edfi_PostSecondaryInstitution_TR_Insert ON edfi.PostSecondaryInstitution AFTER INSERT AS
+CREATE TRIGGER edfi.edfi_PostSecondaryInstitution_TR_Insert ON edfi.PostSecondaryInstitution AFTER INSERT AS
 BEGIN
     SET NOCOUNT ON
 
@@ -781,7 +781,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_PostSecondaryInstitution_TR_Delete ON edfi.PostSecondaryInstitution AFTER DELETE AS
+CREATE TRIGGER edfi.edfi_PostSecondaryInstitution_TR_Delete ON edfi.PostSecondaryInstitution AFTER DELETE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -797,7 +797,7 @@ END
 GO
 
 -- edfi.School
-CREATE OR ALTER TRIGGER edfi.edfi_School_TR_Insert ON edfi.School AFTER INSERT AS
+CREATE TRIGGER edfi.edfi_School_TR_Insert ON edfi.School AFTER INSERT AS
 BEGIN
     SET NOCOUNT ON
 
@@ -830,7 +830,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_School_TR_Update ON edfi.School AFTER UPDATE AS
+CREATE TRIGGER edfi.edfi_School_TR_Update ON edfi.School AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -907,7 +907,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_School_TR_Delete ON edfi.School AFTER DELETE AS
+CREATE TRIGGER edfi.edfi_School_TR_Delete ON edfi.School AFTER DELETE AS
 BEGIN
     SET NOCOUNT ON
 
@@ -948,7 +948,7 @@ END
 GO
 
 -- edfi.StateEducationAgency
-CREATE OR ALTER TRIGGER edfi.edfi_StateEducationAgency_TR_Insert ON edfi.StateEducationAgency AFTER INSERT AS
+CREATE TRIGGER edfi.edfi_StateEducationAgency_TR_Insert ON edfi.StateEducationAgency AFTER INSERT AS
 BEGIN
     SET NOCOUNT ON
 
@@ -961,7 +961,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER TRIGGER edfi.edfi_StateEducationAgency_TR_Delete ON edfi.StateEducationAgency AFTER DELETE AS
+CREATE TRIGGER edfi.edfi_StateEducationAgency_TR_Delete ON edfi.StateEducationAgency AFTER DELETE AS
 BEGIN
     SET NOCOUNT ON
 

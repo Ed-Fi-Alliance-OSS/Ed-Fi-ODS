@@ -128,6 +128,7 @@ namespace EdFi.LoadTools
 
                 if (i == responseCount - 1)
                 {
+                     _log.Error($"{contextPrefix} Request content: {resource.Json}");
                     _log.Error($"{contextPrefix} #{response.RequestNumber} {response.Message} - {(int)response.StatusCode} - {response.Content}");
                 }
                 else

@@ -438,7 +438,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(60, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(120, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="busId")]
         public string BusId { get; set; }
         // -------------------------------------------------------------
@@ -3869,7 +3869,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(100, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="author")]
         public string Author { get; set; }
         // -------------------------------------------------------------
@@ -11147,7 +11147,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// A unique identification code used to identify the student's artwork produced in the program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(60, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(120, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="identificationCode")]
         public string IdentificationCode { get; set; }
 

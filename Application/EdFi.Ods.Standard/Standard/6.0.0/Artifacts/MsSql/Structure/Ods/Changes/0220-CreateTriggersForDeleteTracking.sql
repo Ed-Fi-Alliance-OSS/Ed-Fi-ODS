@@ -148,6 +148,27 @@ ALTER TABLE [edfi].[AccountTypeDescriptor] ENABLE TRIGGER [edfi_AccountTypeDescr
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_AccreditationStatusDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_AccreditationStatusDescriptor_TR_DeleteTracking] ON [edfi].[AccreditationStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.AccreditationStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.AccreditationStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.AccreditationStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[AccreditationStatusDescriptor] ENABLE TRIGGER [edfi_AccreditationStatusDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_AchievementCategoryDescriptor_TR_DeleteTracking]
 GO
 
@@ -253,6 +274,27 @@ ALTER TABLE [edfi].[AdministrativeFundingControlDescriptor] ENABLE TRIGGER [edfi
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_AidTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_AidTypeDescriptor_TR_DeleteTracking] ON [edfi].[AidTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.AidTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.AidTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.AidTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[AidTypeDescriptor] ENABLE TRIGGER [edfi_AidTypeDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_AncestryEthnicOriginDescriptor_TR_DeleteTracking]
 GO
 
@@ -271,6 +313,152 @@ END
 GO
 
 ALTER TABLE [edfi].[AncestryEthnicOriginDescriptor] ENABLE TRIGGER [edfi_AncestryEthnicOriginDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ApplicantProfile_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ApplicantProfile_TR_DeleteTracking] ON [edfi].[ApplicantProfile] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[ApplicantProfile](OldApplicantProfileIdentifier, Id, Discriminator, ChangeVersion)
+    SELECT d.ApplicantProfileIdentifier, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[ApplicantProfile] ENABLE TRIGGER [edfi_ApplicantProfile_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_Application_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_Application_TR_DeleteTracking] ON [edfi].[Application] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Application](OldApplicantProfileIdentifier, OldApplicationIdentifier, OldEducationOrganizationId, Id, Discriminator, ChangeVersion)
+    SELECT d.ApplicantProfileIdentifier, d.ApplicationIdentifier, d.EducationOrganizationId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[Application] ENABLE TRIGGER [edfi_Application_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ApplicationEvent_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ApplicationEvent_TR_DeleteTracking] ON [edfi].[ApplicationEvent] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[ApplicationEvent](OldApplicantProfileIdentifier, OldApplicationEventTypeDescriptorId, OldApplicationEventTypeDescriptorNamespace, OldApplicationEventTypeDescriptorCodeValue, OldApplicationIdentifier, OldEducationOrganizationId, OldEventDate, OldSequenceNumber, Id, Discriminator, ChangeVersion)
+    SELECT d.ApplicantProfileIdentifier, d.ApplicationEventTypeDescriptorId, j0.Namespace, j0.CodeValue, d.ApplicationIdentifier, d.EducationOrganizationId, d.EventDate, d.SequenceNumber, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.ApplicationEventTypeDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ApplicationEvent] ENABLE TRIGGER [edfi_ApplicationEvent_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ApplicationEventResultDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ApplicationEventResultDescriptor_TR_DeleteTracking] ON [edfi].[ApplicationEventResultDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.ApplicationEventResultDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.ApplicationEventResultDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ApplicationEventResultDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ApplicationEventResultDescriptor] ENABLE TRIGGER [edfi_ApplicationEventResultDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ApplicationEventTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ApplicationEventTypeDescriptor_TR_DeleteTracking] ON [edfi].[ApplicationEventTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.ApplicationEventTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.ApplicationEventTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ApplicationEventTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ApplicationEventTypeDescriptor] ENABLE TRIGGER [edfi_ApplicationEventTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ApplicationSourceDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ApplicationSourceDescriptor_TR_DeleteTracking] ON [edfi].[ApplicationSourceDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.ApplicationSourceDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.ApplicationSourceDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ApplicationSourceDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ApplicationSourceDescriptor] ENABLE TRIGGER [edfi_ApplicationSourceDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ApplicationStatusDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ApplicationStatusDescriptor_TR_DeleteTracking] ON [edfi].[ApplicationStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.ApplicationStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.ApplicationStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ApplicationStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ApplicationStatusDescriptor] ENABLE TRIGGER [edfi_ApplicationStatusDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -583,6 +771,48 @@ ALTER TABLE [edfi].[AttendanceEventCategoryDescriptor] ENABLE TRIGGER [edfi_Atte
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_BackgroundCheckStatusDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_BackgroundCheckStatusDescriptor_TR_DeleteTracking] ON [edfi].[BackgroundCheckStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.BackgroundCheckStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.BackgroundCheckStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.BackgroundCheckStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[BackgroundCheckStatusDescriptor] ENABLE TRIGGER [edfi_BackgroundCheckStatusDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_BackgroundCheckTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_BackgroundCheckTypeDescriptor_TR_DeleteTracking] ON [edfi].[BackgroundCheckTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.BackgroundCheckTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.BackgroundCheckTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.BackgroundCheckTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[BackgroundCheckTypeDescriptor] ENABLE TRIGGER [edfi_BackgroundCheckTypeDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_BalanceSheetDimension_TR_DeleteTracking]
 GO
 
@@ -768,6 +998,134 @@ ALTER TABLE [edfi].[CalendarTypeDescriptor] ENABLE TRIGGER [edfi_CalendarTypeDes
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_Candidate_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_Candidate_TR_DeleteTracking] ON [edfi].[Candidate] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Candidate](OldCandidateIdentifier, Id, Discriminator, ChangeVersion)
+    SELECT d.CandidateIdentifier, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[Candidate] ENABLE TRIGGER [edfi_Candidate_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateCharacteristicDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CandidateCharacteristicDescriptor_TR_DeleteTracking] ON [edfi].[CandidateCharacteristicDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CandidateCharacteristicDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CandidateCharacteristicDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CandidateCharacteristicDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CandidateCharacteristicDescriptor] ENABLE TRIGGER [edfi_CandidateCharacteristicDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateEducatorPreparationProgramAssociation_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CandidateEducatorPreparationProgramAssociation_TR_DeleteTracking] ON [edfi].[CandidateEducatorPreparationProgramAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[CandidateEducatorPreparationProgramAssociation](OldBeginDate, OldCandidateIdentifier, OldEducationOrganizationId, OldProgramName, OldProgramTypeDescriptorId, OldProgramTypeDescriptorNamespace, OldProgramTypeDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.BeginDate, d.CandidateIdentifier, d.EducationOrganizationId, d.ProgramName, d.ProgramTypeDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.ProgramTypeDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CandidateEducatorPreparationProgramAssociation] ENABLE TRIGGER [edfi_CandidateEducatorPreparationProgramAssociation_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateIdentificationSystemDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CandidateIdentificationSystemDescriptor_TR_DeleteTracking] ON [edfi].[CandidateIdentificationSystemDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CandidateIdentificationSystemDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CandidateIdentificationSystemDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CandidateIdentificationSystemDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CandidateIdentificationSystemDescriptor] ENABLE TRIGGER [edfi_CandidateIdentificationSystemDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateIdentity_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CandidateIdentity_TR_DeleteTracking] ON [edfi].[CandidateIdentity] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[CandidateIdentity](OldCandidateIdentificationSystemDescriptorId, OldCandidateIdentificationSystemDescriptorNamespace, OldCandidateIdentificationSystemDescriptorCodeValue, OldCandidateIdentifier, OldEducationOrganizationId, Id, Discriminator, ChangeVersion)
+    SELECT d.CandidateIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.CandidateIdentifier, d.EducationOrganizationId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.CandidateIdentificationSystemDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CandidateIdentity] ENABLE TRIGGER [edfi_CandidateIdentity_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateRelationshipToStaffAssociation_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CandidateRelationshipToStaffAssociation_TR_DeleteTracking] ON [edfi].[CandidateRelationshipToStaffAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[CandidateRelationshipToStaffAssociation](OldCandidateIdentifier, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.CandidateIdentifier, d.StaffUSI, j0.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Staff j0
+            ON d.StaffUSI = j0.StaffUSI
+END
+GO
+
+ALTER TABLE [edfi].[CandidateRelationshipToStaffAssociation] ENABLE TRIGGER [edfi_CandidateRelationshipToStaffAssociation_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_CareerPathwayDescriptor_TR_DeleteTracking]
 GO
 
@@ -786,6 +1144,194 @@ END
 GO
 
 ALTER TABLE [edfi].[CareerPathwayDescriptor] ENABLE TRIGGER [edfi_CareerPathwayDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_Certification_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_Certification_TR_DeleteTracking] ON [edfi].[Certification] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Certification](OldCertificationIdentifier, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT d.CertificationIdentifier, d.Namespace, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[Certification] ENABLE TRIGGER [edfi_Certification_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CertificationExam_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CertificationExam_TR_DeleteTracking] ON [edfi].[CertificationExam] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[CertificationExam](OldCertificationExamIdentifier, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT d.CertificationExamIdentifier, d.Namespace, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[CertificationExam] ENABLE TRIGGER [edfi_CertificationExam_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CertificationExamResult_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CertificationExamResult_TR_DeleteTracking] ON [edfi].[CertificationExamResult] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[CertificationExamResult](OldCertificationExamDate, OldCertificationExamIdentifier, OldNamespace, OldPersonId, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.CertificationExamDate, d.CertificationExamIdentifier, d.Namespace, d.PersonId, d.SourceSystemDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.SourceSystemDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CertificationExamResult] ENABLE TRIGGER [edfi_CertificationExamResult_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CertificationExamStatusDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CertificationExamStatusDescriptor_TR_DeleteTracking] ON [edfi].[CertificationExamStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CertificationExamStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CertificationExamStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CertificationExamStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CertificationExamStatusDescriptor] ENABLE TRIGGER [edfi_CertificationExamStatusDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CertificationExamTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CertificationExamTypeDescriptor_TR_DeleteTracking] ON [edfi].[CertificationExamTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CertificationExamTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CertificationExamTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CertificationExamTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CertificationExamTypeDescriptor] ENABLE TRIGGER [edfi_CertificationExamTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CertificationFieldDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CertificationFieldDescriptor_TR_DeleteTracking] ON [edfi].[CertificationFieldDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CertificationFieldDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CertificationFieldDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CertificationFieldDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CertificationFieldDescriptor] ENABLE TRIGGER [edfi_CertificationFieldDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CertificationLevelDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CertificationLevelDescriptor_TR_DeleteTracking] ON [edfi].[CertificationLevelDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CertificationLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CertificationLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CertificationLevelDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CertificationLevelDescriptor] ENABLE TRIGGER [edfi_CertificationLevelDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CertificationRouteDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CertificationRouteDescriptor_TR_DeleteTracking] ON [edfi].[CertificationRouteDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CertificationRouteDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CertificationRouteDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CertificationRouteDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CertificationRouteDescriptor] ENABLE TRIGGER [edfi_CertificationRouteDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CertificationStandardDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CertificationStandardDescriptor_TR_DeleteTracking] ON [edfi].[CertificationStandardDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CertificationStandardDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CertificationStandardDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CertificationStandardDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CertificationStandardDescriptor] ENABLE TRIGGER [edfi_CertificationStandardDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -1079,6 +1625,51 @@ ALTER TABLE [edfi].[Contact] ENABLE TRIGGER [edfi_Contact_TR_DeleteTracking]
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_ContactIdentificationSystemDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ContactIdentificationSystemDescriptor_TR_DeleteTracking] ON [edfi].[ContactIdentificationSystemDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.ContactIdentificationSystemDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.ContactIdentificationSystemDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ContactIdentificationSystemDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ContactIdentificationSystemDescriptor] ENABLE TRIGGER [edfi_ContactIdentificationSystemDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ContactIdentity_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ContactIdentity_TR_DeleteTracking] ON [edfi].[ContactIdentity] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[ContactIdentity](OldContactIdentificationSystemDescriptorId, OldContactIdentificationSystemDescriptorNamespace, OldContactIdentificationSystemDescriptorCodeValue, OldContactUSI, OldContactUniqueId, OldEducationOrganizationId, Id, Discriminator, ChangeVersion)
+    SELECT d.ContactIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.ContactUSI, j1.ContactUniqueId, d.EducationOrganizationId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.ContactIdentificationSystemDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Contact j1
+            ON d.ContactUSI = j1.ContactUSI
+END
+GO
+
+ALTER TABLE [edfi].[ContactIdentity] ENABLE TRIGGER [edfi_ContactIdentity_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_ContactTypeDescriptor_TR_DeleteTracking]
 GO
 
@@ -1160,6 +1751,27 @@ END
 GO
 
 ALTER TABLE [edfi].[CostRateDescriptor] ENABLE TRIGGER [edfi_CostRateDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CoteachingStyleObservedDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CoteachingStyleObservedDescriptor_TR_DeleteTracking] ON [edfi].[CoteachingStyleObservedDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CoteachingStyleObservedDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CoteachingStyleObservedDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CoteachingStyleObservedDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CoteachingStyleObservedDescriptor] ENABLE TRIGGER [edfi_CoteachingStyleObservedDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -1398,6 +2010,51 @@ ALTER TABLE [edfi].[Credential] ENABLE TRIGGER [edfi_Credential_TR_DeleteTrackin
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_CredentialEvent_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CredentialEvent_TR_DeleteTracking] ON [edfi].[CredentialEvent] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[CredentialEvent](OldCredentialEventDate, OldCredentialEventTypeDescriptorId, OldCredentialEventTypeDescriptorNamespace, OldCredentialEventTypeDescriptorCodeValue, OldCredentialIdentifier, OldStateOfIssueStateAbbreviationDescriptorId, OldStateOfIssueStateAbbreviationDescriptorNamespace, OldStateOfIssueStateAbbreviationDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.CredentialEventDate, d.CredentialEventTypeDescriptorId, j0.Namespace, j0.CodeValue, d.CredentialIdentifier, d.StateOfIssueStateAbbreviationDescriptorId, j1.Namespace, j1.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.CredentialEventTypeDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.StateOfIssueStateAbbreviationDescriptorId = j1.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CredentialEvent] ENABLE TRIGGER [edfi_CredentialEvent_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CredentialEventTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CredentialEventTypeDescriptor_TR_DeleteTracking] ON [edfi].[CredentialEventTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CredentialEventTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CredentialEventTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CredentialEventTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CredentialEventTypeDescriptor] ENABLE TRIGGER [edfi_CredentialEventTypeDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_CredentialFieldDescriptor_TR_DeleteTracking]
 GO
 
@@ -1416,6 +2073,27 @@ END
 GO
 
 ALTER TABLE [edfi].[CredentialFieldDescriptor] ENABLE TRIGGER [edfi_CredentialFieldDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_CredentialStatusDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CredentialStatusDescriptor_TR_DeleteTracking] ON [edfi].[CredentialStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.CredentialStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.CredentialStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CredentialStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CredentialStatusDescriptor] ENABLE TRIGGER [edfi_CredentialStatusDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -1562,6 +2240,27 @@ END
 GO
 
 ALTER TABLE [edfi].[CurriculumUsedDescriptor] ENABLE TRIGGER [edfi_CurriculumUsedDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_DegreeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_DegreeDescriptor_TR_DeleteTracking] ON [edfi].[DegreeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.DegreeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.DegreeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.DegreeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[DegreeDescriptor] ENABLE TRIGGER [edfi_DegreeDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -1900,6 +2599,27 @@ ALTER TABLE [edfi].[DualCreditTypeDescriptor] ENABLE TRIGGER [edfi_DualCreditTyp
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_EconomicDisadvantageDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EconomicDisadvantageDescriptor_TR_DeleteTracking] ON [edfi].[EconomicDisadvantageDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EconomicDisadvantageDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EconomicDisadvantageDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EconomicDisadvantageDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EconomicDisadvantageDescriptor] ENABLE TRIGGER [edfi_EconomicDisadvantageDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducationalEnvironmentDescriptor_TR_DeleteTracking]
 GO
 
@@ -2024,6 +2744,28 @@ ALTER TABLE [edfi].[EducationOrganizationIdentificationSystemDescriptor] ENABLE 
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationIdentity_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EducationOrganizationIdentity_TR_DeleteTracking] ON [edfi].[EducationOrganizationIdentity] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[EducationOrganizationIdentity](OldEducationOrganizationId, OldEducationOrganizationIdentificationSystemDescriptorId, OldEducationOrganizationIdentificationSystemDescriptorNamespace, OldEducationOrganizationIdentificationSystemDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EducationOrganizationIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EducationOrganizationIdentificationSystemDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EducationOrganizationIdentity] ENABLE TRIGGER [edfi_EducationOrganizationIdentity_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationInterventionPrescriptionAssociation_TR_DeleteTracking]
 GO
 
@@ -2102,6 +2844,49 @@ END
 GO
 
 ALTER TABLE [edfi].[EducationPlanDescriptor] ENABLE TRIGGER [edfi_EducationPlanDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EducatorPreparationProgram_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EducatorPreparationProgram_TR_DeleteTracking] ON [edfi].[EducatorPreparationProgram] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[EducatorPreparationProgram](OldEducationOrganizationId, OldProgramName, OldProgramTypeDescriptorId, OldProgramTypeDescriptorNamespace, OldProgramTypeDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.ProgramName, d.ProgramTypeDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.ProgramTypeDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EducatorPreparationProgram] ENABLE TRIGGER [edfi_EducatorPreparationProgram_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EducatorRoleDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EducatorRoleDescriptor_TR_DeleteTracking] ON [edfi].[EducatorRoleDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EducatorRoleDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EducatorRoleDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EducatorRoleDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EducatorRoleDescriptor] ENABLE TRIGGER [edfi_EducatorRoleDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -2189,6 +2974,27 @@ ALTER TABLE [edfi].[EmploymentStatusDescriptor] ENABLE TRIGGER [edfi_EmploymentS
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_EnglishLanguageExamDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EnglishLanguageExamDescriptor_TR_DeleteTracking] ON [edfi].[EnglishLanguageExamDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EnglishLanguageExamDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EnglishLanguageExamDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EnglishLanguageExamDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EnglishLanguageExamDescriptor] ENABLE TRIGGER [edfi_EnglishLanguageExamDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_EnrollmentTypeDescriptor_TR_DeleteTracking]
 GO
 
@@ -2252,6 +3058,74 @@ ALTER TABLE [edfi].[EntryTypeDescriptor] ENABLE TRIGGER [edfi_EntryTypeDescripto
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_EPPDegreeTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EPPDegreeTypeDescriptor_TR_DeleteTracking] ON [edfi].[EPPDegreeTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EPPDegreeTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EPPDegreeTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EPPDegreeTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EPPDegreeTypeDescriptor] ENABLE TRIGGER [edfi_EPPDegreeTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EPPProgramPathwayDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EPPProgramPathwayDescriptor_TR_DeleteTracking] ON [edfi].[EPPProgramPathwayDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EPPProgramPathwayDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EPPProgramPathwayDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EPPProgramPathwayDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EPPProgramPathwayDescriptor] ENABLE TRIGGER [edfi_EPPProgramPathwayDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_Evaluation_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_Evaluation_TR_DeleteTracking] ON [edfi].[Evaluation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Evaluation](OldEducationOrganizationId, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldEvaluationTitle, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldSchoolYear, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.EvaluationTitle, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.SchoolYear, d.TermDescriptorId, j2.Namespace, j2.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.TermDescriptorId = j2.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[Evaluation] ENABLE TRIGGER [edfi_Evaluation_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationDelayReasonDescriptor_TR_DeleteTracking]
 GO
 
@@ -2270,6 +3144,226 @@ END
 GO
 
 ALTER TABLE [edfi].[EvaluationDelayReasonDescriptor] ENABLE TRIGGER [edfi_EvaluationDelayReasonDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationElement_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationElement_TR_DeleteTracking] ON [edfi].[EvaluationElement] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[EvaluationElement](OldEducationOrganizationId, OldEvaluationElementTitle, OldEvaluationObjectiveTitle, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldEvaluationTitle, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldSchoolYear, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationElementTitle, d.EvaluationObjectiveTitle, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.EvaluationTitle, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.SchoolYear, d.TermDescriptorId, j2.Namespace, j2.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.TermDescriptorId = j2.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EvaluationElement] ENABLE TRIGGER [edfi_EvaluationElement_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationElementRating_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationElementRating_TR_DeleteTracking] ON [edfi].[EvaluationElementRating] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[EvaluationElementRating](OldEducationOrganizationId, OldEvaluationDate, OldEvaluationElementTitle, OldEvaluationObjectiveTitle, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldEvaluationTitle, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldPersonId, OldSchoolYear, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationDate, d.EvaluationElementTitle, d.EvaluationObjectiveTitle, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.EvaluationTitle, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.PersonId, d.SchoolYear, d.SourceSystemDescriptorId, j2.Namespace, j2.CodeValue, d.TermDescriptorId, j3.Namespace, j3.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.SourceSystemDescriptorId = j2.DescriptorId
+        INNER JOIN edfi.Descriptor j3
+            ON d.TermDescriptorId = j3.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EvaluationElementRating] ENABLE TRIGGER [edfi_EvaluationElementRating_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationElementRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationElementRatingLevelDescriptor_TR_DeleteTracking] ON [edfi].[EvaluationElementRatingLevelDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EvaluationElementRatingLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EvaluationElementRatingLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EvaluationElementRatingLevelDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EvaluationElementRatingLevelDescriptor] ENABLE TRIGGER [edfi_EvaluationElementRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationObjective_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationObjective_TR_DeleteTracking] ON [edfi].[EvaluationObjective] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[EvaluationObjective](OldEducationOrganizationId, OldEvaluationObjectiveTitle, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldEvaluationTitle, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldSchoolYear, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationObjectiveTitle, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.EvaluationTitle, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.SchoolYear, d.TermDescriptorId, j2.Namespace, j2.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.TermDescriptorId = j2.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EvaluationObjective] ENABLE TRIGGER [edfi_EvaluationObjective_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationObjectiveRating_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationObjectiveRating_TR_DeleteTracking] ON [edfi].[EvaluationObjectiveRating] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[EvaluationObjectiveRating](OldEducationOrganizationId, OldEvaluationDate, OldEvaluationObjectiveTitle, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldEvaluationTitle, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldPersonId, OldSchoolYear, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationDate, d.EvaluationObjectiveTitle, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.EvaluationTitle, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.PersonId, d.SchoolYear, d.SourceSystemDescriptorId, j2.Namespace, j2.CodeValue, d.TermDescriptorId, j3.Namespace, j3.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.SourceSystemDescriptorId = j2.DescriptorId
+        INNER JOIN edfi.Descriptor j3
+            ON d.TermDescriptorId = j3.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EvaluationObjectiveRating] ENABLE TRIGGER [edfi_EvaluationObjectiveRating_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationPeriodDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationPeriodDescriptor_TR_DeleteTracking] ON [edfi].[EvaluationPeriodDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EvaluationPeriodDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EvaluationPeriodDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EvaluationPeriodDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EvaluationPeriodDescriptor] ENABLE TRIGGER [edfi_EvaluationPeriodDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationRating_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationRating_TR_DeleteTracking] ON [edfi].[EvaluationRating] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[EvaluationRating](OldEducationOrganizationId, OldEvaluationDate, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldEvaluationTitle, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldPersonId, OldSchoolYear, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationDate, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.EvaluationTitle, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.PersonId, d.SchoolYear, d.SourceSystemDescriptorId, j2.Namespace, j2.CodeValue, d.TermDescriptorId, j3.Namespace, j3.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.SourceSystemDescriptorId = j2.DescriptorId
+        INNER JOIN edfi.Descriptor j3
+            ON d.TermDescriptorId = j3.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EvaluationRating] ENABLE TRIGGER [edfi_EvaluationRating_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationRatingLevelDescriptor_TR_DeleteTracking] ON [edfi].[EvaluationRatingLevelDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EvaluationRatingLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EvaluationRatingLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EvaluationRatingLevelDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EvaluationRatingLevelDescriptor] ENABLE TRIGGER [edfi_EvaluationRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationRatingStatusDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationRatingStatusDescriptor_TR_DeleteTracking] ON [edfi].[EvaluationRatingStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EvaluationRatingStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EvaluationRatingStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EvaluationRatingStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EvaluationRatingStatusDescriptor] ENABLE TRIGGER [edfi_EvaluationRatingStatusDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -2296,6 +3390,27 @@ END
 GO
 
 ALTER TABLE [edfi].[EvaluationRubricDimension] ENABLE TRIGGER [edfi_EvaluationRubricDimension_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationTypeDescriptor_TR_DeleteTracking] ON [edfi].[EvaluationTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EvaluationTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EvaluationTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EvaluationTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EvaluationTypeDescriptor] ENABLE TRIGGER [edfi_EvaluationTypeDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -2341,6 +3456,27 @@ ALTER TABLE [edfi].[ExitWithdrawTypeDescriptor] ENABLE TRIGGER [edfi_ExitWithdra
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_FederalLocaleCodeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_FederalLocaleCodeDescriptor_TR_DeleteTracking] ON [edfi].[FederalLocaleCodeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.FederalLocaleCodeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.FederalLocaleCodeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.FederalLocaleCodeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[FederalLocaleCodeDescriptor] ENABLE TRIGGER [edfi_FederalLocaleCodeDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_FeederSchoolAssociation_TR_DeleteTracking]
 GO
 
@@ -2358,6 +3494,95 @@ END
 GO
 
 ALTER TABLE [edfi].[FeederSchoolAssociation] ENABLE TRIGGER [edfi_FeederSchoolAssociation_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_FieldworkExperience_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_FieldworkExperience_TR_DeleteTracking] ON [edfi].[FieldworkExperience] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[FieldworkExperience](OldBeginDate, OldFieldworkIdentifier, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.BeginDate, d.FieldworkIdentifier, d.StudentUSI, j0.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Student j0
+            ON d.StudentUSI = j0.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[FieldworkExperience] ENABLE TRIGGER [edfi_FieldworkExperience_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_FieldworkExperienceSectionAssociation_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_FieldworkExperienceSectionAssociation_TR_DeleteTracking] ON [edfi].[FieldworkExperienceSectionAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[FieldworkExperienceSectionAssociation](OldBeginDate, OldFieldworkIdentifier, OldLocalCourseCode, OldSchoolId, OldSchoolYear, OldSectionIdentifier, OldSessionName, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.BeginDate, d.FieldworkIdentifier, d.LocalCourseCode, d.SchoolId, d.SchoolYear, d.SectionIdentifier, d.SessionName, d.StudentUSI, j0.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Student j0
+            ON d.StudentUSI = j0.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[FieldworkExperienceSectionAssociation] ENABLE TRIGGER [edfi_FieldworkExperienceSectionAssociation_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_FieldworkTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_FieldworkTypeDescriptor_TR_DeleteTracking] ON [edfi].[FieldworkTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.FieldworkTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.FieldworkTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.FieldworkTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[FieldworkTypeDescriptor] ENABLE TRIGGER [edfi_FieldworkTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_FinancialAid_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_FinancialAid_TR_DeleteTracking] ON [edfi].[FinancialAid] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[FinancialAid](OldAidTypeDescriptorId, OldAidTypeDescriptorNamespace, OldAidTypeDescriptorCodeValue, OldBeginDate, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.AidTypeDescriptorId, j0.Namespace, j0.CodeValue, d.BeginDate, d.StudentUSI, j1.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.AidTypeDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Student j1
+            ON d.StudentUSI = j1.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[FinancialAid] ENABLE TRIGGER [edfi_FinancialAid_TR_DeleteTracking]
 GO
 
 
@@ -2422,6 +3647,27 @@ ALTER TABLE [edfi].[FundDimension] ENABLE TRIGGER [edfi_FundDimension_TR_DeleteT
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_FundingSourceDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_FundingSourceDescriptor_TR_DeleteTracking] ON [edfi].[FundingSourceDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.FundingSourceDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.FundingSourceDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.FundingSourceDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[FundingSourceDescriptor] ENABLE TRIGGER [edfi_FundingSourceDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_GeneralStudentProgramAssociation_TR_DeleteTracking]
 GO
 
@@ -2443,6 +3689,49 @@ END
 GO
 
 ALTER TABLE [edfi].[GeneralStudentProgramAssociation] ENABLE TRIGGER [edfi_GeneralStudentProgramAssociation_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_Goal_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_Goal_TR_DeleteTracking] ON [edfi].[Goal] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Goal](OldAssignmentDate, OldGoalTitle, OldPersonId, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.AssignmentDate, d.GoalTitle, d.PersonId, d.SourceSystemDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.SourceSystemDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[Goal] ENABLE TRIGGER [edfi_Goal_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_GoalTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_GoalTypeDescriptor_TR_DeleteTracking] ON [edfi].[GoalTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.GoalTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.GoalTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.GoalTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[GoalTypeDescriptor] ENABLE TRIGGER [edfi_GoalTypeDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -2683,6 +3972,48 @@ ALTER TABLE [edfi].[GunFreeSchoolsActReportingStatusDescriptor] ENABLE TRIGGER [
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_HireStatusDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_HireStatusDescriptor_TR_DeleteTracking] ON [edfi].[HireStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.HireStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.HireStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.HireStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[HireStatusDescriptor] ENABLE TRIGGER [edfi_HireStatusDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_HiringSourceDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_HiringSourceDescriptor_TR_DeleteTracking] ON [edfi].[HiringSourceDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.HiringSourceDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.HiringSourceDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.HiringSourceDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[HiringSourceDescriptor] ENABLE TRIGGER [edfi_HiringSourceDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_HomelessPrimaryNighttimeResidenceDescriptor_TR_DeleteTracking]
 GO
 
@@ -2890,6 +4221,27 @@ END
 GO
 
 ALTER TABLE [edfi].[InstitutionTelephoneNumberTypeDescriptor] ENABLE TRIGGER [edfi_InstitutionTelephoneNumberTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_InstructionalSettingDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_InstructionalSettingDescriptor_TR_DeleteTracking] ON [edfi].[InstructionalSettingDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.InstructionalSettingDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.InstructionalSettingDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.InstructionalSettingDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[InstructionalSettingDescriptor] ENABLE TRIGGER [edfi_InstructionalSettingDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -3242,6 +4594,27 @@ END
 GO
 
 ALTER TABLE [edfi].[LearningStandardScopeDescriptor] ENABLE TRIGGER [edfi_LearningStandardScopeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_LengthOfContractDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_LengthOfContractDescriptor_TR_DeleteTracking] ON [edfi].[LengthOfContractDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.LengthOfContractDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.LengthOfContractDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.LengthOfContractDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[LengthOfContractDescriptor] ENABLE TRIGGER [edfi_LengthOfContractDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -3765,6 +5138,27 @@ ALTER TABLE [edfi].[ObjectiveAssessment] ENABLE TRIGGER [edfi_ObjectiveAssessmen
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_ObjectiveRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ObjectiveRatingLevelDescriptor_TR_DeleteTracking] ON [edfi].[ObjectiveRatingLevelDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.ObjectiveRatingLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.ObjectiveRatingLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ObjectiveRatingLevelDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ObjectiveRatingLevelDescriptor] ENABLE TRIGGER [edfi_ObjectiveRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_OpenStaffPosition_TR_DeleteTracking]
 GO
 
@@ -3782,6 +5176,91 @@ END
 GO
 
 ALTER TABLE [edfi].[OpenStaffPosition] ENABLE TRIGGER [edfi_OpenStaffPosition_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_OpenStaffPositionEvent_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_OpenStaffPositionEvent_TR_DeleteTracking] ON [edfi].[OpenStaffPositionEvent] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[OpenStaffPositionEvent](OldEducationOrganizationId, OldEventDate, OldOpenStaffPositionEventTypeDescriptorId, OldOpenStaffPositionEventTypeDescriptorNamespace, OldOpenStaffPositionEventTypeDescriptorCodeValue, OldRequisitionNumber, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EventDate, d.OpenStaffPositionEventTypeDescriptorId, j0.Namespace, j0.CodeValue, d.RequisitionNumber, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.OpenStaffPositionEventTypeDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[OpenStaffPositionEvent] ENABLE TRIGGER [edfi_OpenStaffPositionEvent_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_OpenStaffPositionEventStatusDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_OpenStaffPositionEventStatusDescriptor_TR_DeleteTracking] ON [edfi].[OpenStaffPositionEventStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.OpenStaffPositionEventStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.OpenStaffPositionEventStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.OpenStaffPositionEventStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[OpenStaffPositionEventStatusDescriptor] ENABLE TRIGGER [edfi_OpenStaffPositionEventStatusDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_OpenStaffPositionEventTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_OpenStaffPositionEventTypeDescriptor_TR_DeleteTracking] ON [edfi].[OpenStaffPositionEventTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.OpenStaffPositionEventTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.OpenStaffPositionEventTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.OpenStaffPositionEventTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[OpenStaffPositionEventTypeDescriptor] ENABLE TRIGGER [edfi_OpenStaffPositionEventTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_OpenStaffPositionReasonDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_OpenStaffPositionReasonDescriptor_TR_DeleteTracking] ON [edfi].[OpenStaffPositionReasonDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.OpenStaffPositionReasonDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.OpenStaffPositionReasonDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.OpenStaffPositionReasonDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[OpenStaffPositionReasonDescriptor] ENABLE TRIGGER [edfi_OpenStaffPositionReasonDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -3889,6 +5368,131 @@ ALTER TABLE [edfi].[ParticipationStatusDescriptor] ENABLE TRIGGER [edfi_Particip
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_Path_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_Path_TR_DeleteTracking] ON [edfi].[Path] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Path](OldEducationOrganizationId, OldPathName, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.PathName, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[Path] ENABLE TRIGGER [edfi_Path_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_PathMilestone_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PathMilestone_TR_DeleteTracking] ON [edfi].[PathMilestone] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[PathMilestone](OldPathMilestoneName, OldPathMilestoneTypeDescriptorId, OldPathMilestoneTypeDescriptorNamespace, OldPathMilestoneTypeDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.PathMilestoneName, d.PathMilestoneTypeDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.PathMilestoneTypeDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PathMilestone] ENABLE TRIGGER [edfi_PathMilestone_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_PathMilestoneStatusDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PathMilestoneStatusDescriptor_TR_DeleteTracking] ON [edfi].[PathMilestoneStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.PathMilestoneStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.PathMilestoneStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PathMilestoneStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PathMilestoneStatusDescriptor] ENABLE TRIGGER [edfi_PathMilestoneStatusDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_PathMilestoneTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PathMilestoneTypeDescriptor_TR_DeleteTracking] ON [edfi].[PathMilestoneTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.PathMilestoneTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.PathMilestoneTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PathMilestoneTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PathMilestoneTypeDescriptor] ENABLE TRIGGER [edfi_PathMilestoneTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_PathPhase_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PathPhase_TR_DeleteTracking] ON [edfi].[PathPhase] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[PathPhase](OldEducationOrganizationId, OldPathName, OldPathPhaseName, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.PathName, d.PathPhaseName, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[PathPhase] ENABLE TRIGGER [edfi_PathPhase_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_PathPhaseStatusDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PathPhaseStatusDescriptor_TR_DeleteTracking] ON [edfi].[PathPhaseStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.PathPhaseStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.PathPhaseStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PathPhaseStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PathPhaseStatusDescriptor] ENABLE TRIGGER [edfi_PathPhaseStatusDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_PerformanceBaseConversionDescriptor_TR_DeleteTracking]
 GO
 
@@ -3907,6 +5511,102 @@ END
 GO
 
 ALTER TABLE [edfi].[PerformanceBaseConversionDescriptor] ENABLE TRIGGER [edfi_PerformanceBaseConversionDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_PerformanceEvaluation_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PerformanceEvaluation_TR_DeleteTracking] ON [edfi].[PerformanceEvaluation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[PerformanceEvaluation](OldEducationOrganizationId, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldSchoolYear, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.SchoolYear, d.TermDescriptorId, j2.Namespace, j2.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.TermDescriptorId = j2.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PerformanceEvaluation] ENABLE TRIGGER [edfi_PerformanceEvaluation_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_PerformanceEvaluationRating_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PerformanceEvaluationRating_TR_DeleteTracking] ON [edfi].[PerformanceEvaluationRating] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[PerformanceEvaluationRating](OldEducationOrganizationId, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldPersonId, OldSchoolYear, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.PersonId, d.SchoolYear, d.SourceSystemDescriptorId, j2.Namespace, j2.CodeValue, d.TermDescriptorId, j3.Namespace, j3.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.SourceSystemDescriptorId = j2.DescriptorId
+        INNER JOIN edfi.Descriptor j3
+            ON d.TermDescriptorId = j3.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PerformanceEvaluationRating] ENABLE TRIGGER [edfi_PerformanceEvaluationRating_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_PerformanceEvaluationRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PerformanceEvaluationRatingLevelDescriptor_TR_DeleteTracking] ON [edfi].[PerformanceEvaluationRatingLevelDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.PerformanceEvaluationRatingLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.PerformanceEvaluationRatingLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PerformanceEvaluationRatingLevelDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PerformanceEvaluationRatingLevelDescriptor] ENABLE TRIGGER [edfi_PerformanceEvaluationRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_PerformanceEvaluationTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PerformanceEvaluationTypeDescriptor_TR_DeleteTracking] ON [edfi].[PerformanceEvaluationTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.PerformanceEvaluationTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.PerformanceEvaluationTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PerformanceEvaluationTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PerformanceEvaluationTypeDescriptor] ENABLE TRIGGER [edfi_PerformanceEvaluationTypeDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -4103,6 +5803,27 @@ ALTER TABLE [edfi].[PostSecondaryInstitutionLevelDescriptor] ENABLE TRIGGER [edf
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_PreviousCareerDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PreviousCareerDescriptor_TR_DeleteTracking] ON [edfi].[PreviousCareerDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.PreviousCareerDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.PreviousCareerDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PreviousCareerDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PreviousCareerDescriptor] ENABLE TRIGGER [edfi_PreviousCareerDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_PrimaryLearningDeviceAccessDescriptor_TR_DeleteTracking]
 GO
 
@@ -4163,6 +5884,69 @@ END
 GO
 
 ALTER TABLE [edfi].[PrimaryLearningDeviceProviderDescriptor] ENABLE TRIGGER [edfi_PrimaryLearningDeviceProviderDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ProfessionalDevelopmentEvent_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ProfessionalDevelopmentEvent_TR_DeleteTracking] ON [edfi].[ProfessionalDevelopmentEvent] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[ProfessionalDevelopmentEvent](OldNamespace, OldProfessionalDevelopmentTitle, Id, Discriminator, ChangeVersion)
+    SELECT d.Namespace, d.ProfessionalDevelopmentTitle, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[ProfessionalDevelopmentEvent] ENABLE TRIGGER [edfi_ProfessionalDevelopmentEvent_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ProfessionalDevelopmentEventAttendance_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ProfessionalDevelopmentEventAttendance_TR_DeleteTracking] ON [edfi].[ProfessionalDevelopmentEventAttendance] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[ProfessionalDevelopmentEventAttendance](OldAttendanceDate, OldNamespace, OldPersonId, OldProfessionalDevelopmentTitle, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.AttendanceDate, d.Namespace, d.PersonId, d.ProfessionalDevelopmentTitle, d.SourceSystemDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.SourceSystemDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ProfessionalDevelopmentEventAttendance] ENABLE TRIGGER [edfi_ProfessionalDevelopmentEventAttendance_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ProfessionalDevelopmentOfferedByDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ProfessionalDevelopmentOfferedByDescriptor_TR_DeleteTracking] ON [edfi].[ProfessionalDevelopmentOfferedByDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.ProfessionalDevelopmentOfferedByDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.ProfessionalDevelopmentOfferedByDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ProfessionalDevelopmentOfferedByDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ProfessionalDevelopmentOfferedByDescriptor] ENABLE TRIGGER [edfi_ProfessionalDevelopmentOfferedByDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -4579,6 +6363,102 @@ ALTER TABLE [edfi].[PublicationStatusDescriptor] ENABLE TRIGGER [edfi_Publicatio
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_QuantitativeMeasure_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_QuantitativeMeasure_TR_DeleteTracking] ON [edfi].[QuantitativeMeasure] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[QuantitativeMeasure](OldEducationOrganizationId, OldEvaluationElementTitle, OldEvaluationObjectiveTitle, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldEvaluationTitle, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldQuantitativeMeasureIdentifier, OldSchoolYear, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationElementTitle, d.EvaluationObjectiveTitle, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.EvaluationTitle, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.QuantitativeMeasureIdentifier, d.SchoolYear, d.TermDescriptorId, j2.Namespace, j2.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.TermDescriptorId = j2.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[QuantitativeMeasure] ENABLE TRIGGER [edfi_QuantitativeMeasure_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_QuantitativeMeasureDatatypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_QuantitativeMeasureDatatypeDescriptor_TR_DeleteTracking] ON [edfi].[QuantitativeMeasureDatatypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.QuantitativeMeasureDatatypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.QuantitativeMeasureDatatypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.QuantitativeMeasureDatatypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[QuantitativeMeasureDatatypeDescriptor] ENABLE TRIGGER [edfi_QuantitativeMeasureDatatypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_QuantitativeMeasureScore_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_QuantitativeMeasureScore_TR_DeleteTracking] ON [edfi].[QuantitativeMeasureScore] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[QuantitativeMeasureScore](OldEducationOrganizationId, OldEvaluationDate, OldEvaluationElementTitle, OldEvaluationObjectiveTitle, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldEvaluationTitle, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldPersonId, OldQuantitativeMeasureIdentifier, OldSchoolYear, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationDate, d.EvaluationElementTitle, d.EvaluationObjectiveTitle, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.EvaluationTitle, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.PersonId, d.QuantitativeMeasureIdentifier, d.SchoolYear, d.SourceSystemDescriptorId, j2.Namespace, j2.CodeValue, d.TermDescriptorId, j3.Namespace, j3.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.SourceSystemDescriptorId = j2.DescriptorId
+        INNER JOIN edfi.Descriptor j3
+            ON d.TermDescriptorId = j3.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[QuantitativeMeasureScore] ENABLE TRIGGER [edfi_QuantitativeMeasureScore_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_QuantitativeMeasureTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_QuantitativeMeasureTypeDescriptor_TR_DeleteTracking] ON [edfi].[QuantitativeMeasureTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.QuantitativeMeasureTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.QuantitativeMeasureTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.QuantitativeMeasureTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[QuantitativeMeasureTypeDescriptor] ENABLE TRIGGER [edfi_QuantitativeMeasureTypeDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_QuestionFormDescriptor_TR_DeleteTracking]
 GO
 
@@ -4702,6 +6582,88 @@ END
 GO
 
 ALTER TABLE [edfi].[RecognitionTypeDescriptor] ENABLE TRIGGER [edfi_RecognitionTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_RecruitmentEvent_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_RecruitmentEvent_TR_DeleteTracking] ON [edfi].[RecruitmentEvent] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[RecruitmentEvent](OldEducationOrganizationId, OldEventDate, OldEventTitle, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EventDate, d.EventTitle, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[RecruitmentEvent] ENABLE TRIGGER [edfi_RecruitmentEvent_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_RecruitmentEventAttendance_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_RecruitmentEventAttendance_TR_DeleteTracking] ON [edfi].[RecruitmentEventAttendance] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[RecruitmentEventAttendance](OldEducationOrganizationId, OldEventDate, OldEventTitle, OldRecruitmentEventAttendeeIdentifier, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EventDate, d.EventTitle, d.RecruitmentEventAttendeeIdentifier, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[RecruitmentEventAttendance] ENABLE TRIGGER [edfi_RecruitmentEventAttendance_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_RecruitmentEventAttendeeTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_RecruitmentEventAttendeeTypeDescriptor_TR_DeleteTracking] ON [edfi].[RecruitmentEventAttendeeTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.RecruitmentEventAttendeeTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.RecruitmentEventAttendeeTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.RecruitmentEventAttendeeTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[RecruitmentEventAttendeeTypeDescriptor] ENABLE TRIGGER [edfi_RecruitmentEventAttendeeTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_RecruitmentEventTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_RecruitmentEventTypeDescriptor_TR_DeleteTracking] ON [edfi].[RecruitmentEventTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.RecruitmentEventTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.RecruitmentEventTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.RecruitmentEventTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[RecruitmentEventTypeDescriptor] ENABLE TRIGGER [edfi_RecruitmentEventTypeDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -4958,6 +6920,74 @@ END
 GO
 
 ALTER TABLE [edfi].[RetestIndicatorDescriptor] ENABLE TRIGGER [edfi_RetestIndicatorDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_RubricDimension_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_RubricDimension_TR_DeleteTracking] ON [edfi].[RubricDimension] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[RubricDimension](OldEducationOrganizationId, OldEvaluationElementTitle, OldEvaluationObjectiveTitle, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldEvaluationTitle, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldRubricRating, OldSchoolYear, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationElementTitle, d.EvaluationObjectiveTitle, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.EvaluationTitle, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.RubricRating, d.SchoolYear, d.TermDescriptorId, j2.Namespace, j2.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.TermDescriptorId = j2.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[RubricDimension] ENABLE TRIGGER [edfi_RubricDimension_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_RubricRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_RubricRatingLevelDescriptor_TR_DeleteTracking] ON [edfi].[RubricRatingLevelDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.RubricRatingLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.RubricRatingLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.RubricRatingLevelDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[RubricRatingLevelDescriptor] ENABLE TRIGGER [edfi_RubricRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_SalaryTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_SalaryTypeDescriptor_TR_DeleteTracking] ON [edfi].[SalaryTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.SalaryTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.SalaryTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.SalaryTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[SalaryTypeDescriptor] ENABLE TRIGGER [edfi_SalaryTypeDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -5484,6 +7514,50 @@ ALTER TABLE [edfi].[StaffCohortAssociation] ENABLE TRIGGER [edfi_StaffCohortAsso
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_StaffDemographic_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StaffDemographic_TR_DeleteTracking] ON [edfi].[StaffDemographic] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StaffDemographic](OldEducationOrganizationId, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.StaffUSI, j0.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Staff j0
+            ON d.StaffUSI = j0.StaffUSI
+END
+GO
+
+ALTER TABLE [edfi].[StaffDemographic] ENABLE TRIGGER [edfi_StaffDemographic_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StaffDirectory_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StaffDirectory_TR_DeleteTracking] ON [edfi].[StaffDirectory] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StaffDirectory](OldEducationOrganizationId, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.StaffUSI, j0.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Staff j0
+            ON d.StaffUSI = j0.StaffUSI
+END
+GO
+
+ALTER TABLE [edfi].[StaffDirectory] ENABLE TRIGGER [edfi_StaffDirectory_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffDisciplineIncidentAssociation_TR_DeleteTracking]
 GO
 
@@ -5530,28 +7604,6 @@ ALTER TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] ENABLE TRIG
 GO
 
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducationOrganizationContactAssociation_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [edfi].[edfi_StaffEducationOrganizationContactAssociation_TR_DeleteTracking] ON [edfi].[StaffEducationOrganizationContactAssociation] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_changes_edfi].[StaffEducationOrganizationContactAssociation](OldContactTitle, OldEducationOrganizationId, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.ContactTitle, d.EducationOrganizationId, d.StaffUSI, j0.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-        INNER JOIN edfi.Staff j0
-            ON d.StaffUSI = j0.StaffUSI
-END
-GO
-
-ALTER TABLE [edfi].[StaffEducationOrganizationContactAssociation] ENABLE TRIGGER [edfi_StaffEducationOrganizationContactAssociation_TR_DeleteTracking]
-GO
-
-
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducationOrganizationEmploymentAssociation_TR_DeleteTracking]
 GO
 
@@ -5576,6 +7628,30 @@ ALTER TABLE [edfi].[StaffEducationOrganizationEmploymentAssociation] ENABLE TRIG
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_StaffEducatorPreparationProgramAssociation_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StaffEducatorPreparationProgramAssociation_TR_DeleteTracking] ON [edfi].[StaffEducatorPreparationProgramAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StaffEducatorPreparationProgramAssociation](OldEducationOrganizationId, OldProgramName, OldProgramTypeDescriptorId, OldProgramTypeDescriptorNamespace, OldProgramTypeDescriptorCodeValue, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.ProgramName, d.ProgramTypeDescriptorId, j0.Namespace, j0.CodeValue, d.StaffUSI, j1.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.ProgramTypeDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Staff j1
+            ON d.StaffUSI = j1.StaffUSI
+END
+GO
+
+ALTER TABLE [edfi].[StaffEducatorPreparationProgramAssociation] ENABLE TRIGGER [edfi_StaffEducatorPreparationProgramAssociation_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffIdentificationSystemDescriptor_TR_DeleteTracking]
 GO
 
@@ -5594,6 +7670,30 @@ END
 GO
 
 ALTER TABLE [edfi].[StaffIdentificationSystemDescriptor] ENABLE TRIGGER [edfi_StaffIdentificationSystemDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StaffIdentity_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StaffIdentity_TR_DeleteTracking] ON [edfi].[StaffIdentity] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StaffIdentity](OldEducationOrganizationId, OldStaffIdentificationSystemDescriptorId, OldStaffIdentificationSystemDescriptorNamespace, OldStaffIdentificationSystemDescriptorCodeValue, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.StaffIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.StaffUSI, j1.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.StaffIdentificationSystemDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Staff j1
+            ON d.StaffUSI = j1.StaffUSI
+END
+GO
+
+ALTER TABLE [edfi].[StaffIdentity] ENABLE TRIGGER [edfi_StaffIdentity_TR_DeleteTracking]
 GO
 
 
@@ -5709,6 +7809,27 @@ END
 GO
 
 ALTER TABLE [edfi].[StaffSectionAssociation] ENABLE TRIGGER [edfi_StaffSectionAssociation_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StaffToCandidateRelationshipDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StaffToCandidateRelationshipDescriptor_TR_DeleteTracking] ON [edfi].[StaffToCandidateRelationshipDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.StaffToCandidateRelationshipDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.StaffToCandidateRelationshipDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.StaffToCandidateRelationshipDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[StaffToCandidateRelationshipDescriptor] ENABLE TRIGGER [edfi_StaffToCandidateRelationshipDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -5960,6 +8081,50 @@ ALTER TABLE [edfi].[StudentContactAssociation] ENABLE TRIGGER [edfi_StudentConta
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentDemographic_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentDemographic_TR_DeleteTracking] ON [edfi].[StudentDemographic] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StudentDemographic](OldEducationOrganizationId, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.StudentUSI, j0.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Student j0
+            ON d.StudentUSI = j0.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[StudentDemographic] ENABLE TRIGGER [edfi_StudentDemographic_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentDirectory_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentDirectory_TR_DeleteTracking] ON [edfi].[StudentDirectory] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StudentDirectory](OldEducationOrganizationId, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.StudentUSI, j0.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Student j0
+            ON d.StudentUSI = j0.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[StudentDirectory] ENABLE TRIGGER [edfi_StudentDirectory_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentDisciplineIncidentBehaviorAssociation_TR_DeleteTracking]
 GO
 
@@ -6139,6 +8304,30 @@ ALTER TABLE [edfi].[StudentIdentificationSystemDescriptor] ENABLE TRIGGER [edfi_
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentIdentity_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentIdentity_TR_DeleteTracking] ON [edfi].[StudentIdentity] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StudentIdentity](OldEducationOrganizationId, OldStudentIdentificationSystemDescriptorId, OldStudentIdentificationSystemDescriptorNamespace, OldStudentIdentificationSystemDescriptorCodeValue, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.StudentIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.StudentUSI, j1.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.StudentIdentificationSystemDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Student j1
+            ON d.StudentUSI = j1.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[StudentIdentity] ENABLE TRIGGER [edfi_StudentIdentity_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentInterventionAssociation_TR_DeleteTracking]
 GO
 
@@ -6182,6 +8371,74 @@ END
 GO
 
 ALTER TABLE [edfi].[StudentInterventionAttendanceEvent] ENABLE TRIGGER [edfi_StudentInterventionAttendanceEvent_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentPath_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentPath_TR_DeleteTracking] ON [edfi].[StudentPath] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StudentPath](OldEducationOrganizationId, OldPathName, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.PathName, d.StudentUSI, j0.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Student j0
+            ON d.StudentUSI = j0.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[StudentPath] ENABLE TRIGGER [edfi_StudentPath_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentPathMilestoneStatus_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentPathMilestoneStatus_TR_DeleteTracking] ON [edfi].[StudentPathMilestoneStatus] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StudentPathMilestoneStatus](OldEducationOrganizationId, OldPathMilestoneName, OldPathMilestoneTypeDescriptorId, OldPathMilestoneTypeDescriptorNamespace, OldPathMilestoneTypeDescriptorCodeValue, OldPathName, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.PathMilestoneName, d.PathMilestoneTypeDescriptorId, j0.Namespace, j0.CodeValue, d.PathName, d.StudentUSI, j1.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.PathMilestoneTypeDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Student j1
+            ON d.StudentUSI = j1.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[StudentPathMilestoneStatus] ENABLE TRIGGER [edfi_StudentPathMilestoneStatus_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentPathPhaseStatus_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentPathPhaseStatus_TR_DeleteTracking] ON [edfi].[StudentPathPhaseStatus] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StudentPathPhaseStatus](OldEducationOrganizationId, OldPathName, OldPathPhaseName, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.PathName, d.PathPhaseName, d.StudentUSI, j0.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Student j0
+            ON d.StudentUSI = j0.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[StudentPathPhaseStatus] ENABLE TRIGGER [edfi_StudentPathPhaseStatus_TR_DeleteTracking]
 GO
 
 
@@ -6603,6 +8860,28 @@ ALTER TABLE [edfi].[SurveyResponseEducationOrganizationTargetAssociation] ENABLE
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_SurveyResponsePersonTargetAssociation_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_SurveyResponsePersonTargetAssociation_TR_DeleteTracking] ON [edfi].[SurveyResponsePersonTargetAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[SurveyResponsePersonTargetAssociation](OldNamespace, OldPersonId, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, OldSurveyIdentifier, OldSurveyResponseIdentifier, Id, Discriminator, ChangeVersion)
+    SELECT d.Namespace, d.PersonId, d.SourceSystemDescriptorId, j0.Namespace, j0.CodeValue, d.SurveyIdentifier, d.SurveyResponseIdentifier, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.SourceSystemDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[SurveyResponsePersonTargetAssociation] ENABLE TRIGGER [edfi_SurveyResponsePersonTargetAssociation_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_SurveyResponseStaffTargetAssociation_TR_DeleteTracking]
 GO
 
@@ -6642,6 +8921,34 @@ END
 GO
 
 ALTER TABLE [edfi].[SurveySection] ENABLE TRIGGER [edfi_SurveySection_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_SurveySectionAggregateResponse_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_SurveySectionAggregateResponse_TR_DeleteTracking] ON [edfi].[SurveySectionAggregateResponse] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[SurveySectionAggregateResponse](OldEducationOrganizationId, OldEvaluationDate, OldEvaluationElementTitle, OldEvaluationObjectiveTitle, OldEvaluationPeriodDescriptorId, OldEvaluationPeriodDescriptorNamespace, OldEvaluationPeriodDescriptorCodeValue, OldEvaluationTitle, OldNamespace, OldPerformanceEvaluationTitle, OldPerformanceEvaluationTypeDescriptorId, OldPerformanceEvaluationTypeDescriptorNamespace, OldPerformanceEvaluationTypeDescriptorCodeValue, OldPersonId, OldSchoolYear, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, OldSurveyIdentifier, OldSurveySectionTitle, OldTermDescriptorId, OldTermDescriptorNamespace, OldTermDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EvaluationDate, d.EvaluationElementTitle, d.EvaluationObjectiveTitle, d.EvaluationPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.EvaluationTitle, d.Namespace, d.PerformanceEvaluationTitle, d.PerformanceEvaluationTypeDescriptorId, j1.Namespace, j1.CodeValue, d.PersonId, d.SchoolYear, d.SourceSystemDescriptorId, j2.Namespace, j2.CodeValue, d.SurveyIdentifier, d.SurveySectionTitle, d.TermDescriptorId, j3.Namespace, j3.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EvaluationPeriodDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Descriptor j1
+            ON d.PerformanceEvaluationTypeDescriptorId = j1.DescriptorId
+        INNER JOIN edfi.Descriptor j2
+            ON d.SourceSystemDescriptorId = j2.DescriptorId
+        INNER JOIN edfi.Descriptor j3
+            ON d.TermDescriptorId = j3.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[SurveySectionAggregateResponse] ENABLE TRIGGER [edfi_SurveySectionAggregateResponse_TR_DeleteTracking]
 GO
 
 
@@ -6702,6 +9009,28 @@ END
 GO
 
 ALTER TABLE [edfi].[SurveySectionResponseEducationOrganizationTargetAssociation] ENABLE TRIGGER [edfi_SurveySectionResponseEducationOrganizationTargetAssociation_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_SurveySectionResponsePersonTargetAssociation_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_SurveySectionResponsePersonTargetAssociation_TR_DeleteTracking] ON [edfi].[SurveySectionResponsePersonTargetAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[SurveySectionResponsePersonTargetAssociation](OldNamespace, OldPersonId, OldSourceSystemDescriptorId, OldSourceSystemDescriptorNamespace, OldSourceSystemDescriptorCodeValue, OldSurveyIdentifier, OldSurveyResponseIdentifier, OldSurveySectionTitle, Id, Discriminator, ChangeVersion)
+    SELECT d.Namespace, d.PersonId, d.SourceSystemDescriptorId, j0.Namespace, j0.CodeValue, d.SurveyIdentifier, d.SurveyResponseIdentifier, d.SurveySectionTitle, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.SourceSystemDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[SurveySectionResponsePersonTargetAssociation] ENABLE TRIGGER [edfi_SurveySectionResponsePersonTargetAssociation_TR_DeleteTracking]
 GO
 
 
@@ -7039,6 +9368,27 @@ END
 GO
 
 ALTER TABLE [edfi].[WeaponDescriptor] ENABLE TRIGGER [edfi_WeaponDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_WithdrawReasonDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_WithdrawReasonDescriptor_TR_DeleteTracking] ON [edfi].[WithdrawReasonDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.WithdrawReasonDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.WithdrawReasonDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.WithdrawReasonDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[WithdrawReasonDescriptor] ENABLE TRIGGER [edfi_WithdrawReasonDescriptor_TR_DeleteTracking]
 GO
 
 

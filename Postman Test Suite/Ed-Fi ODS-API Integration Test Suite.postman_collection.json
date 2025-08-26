@@ -3167,7 +3167,7 @@
 									"response": []
 								},
 								{
-									"name": "Include total count in Get request ,Set limit to 100",
+									"name": "Include total count in Get request ,Set limit to 500",
 									"event": [
 										{
 											"listen": "test",
@@ -3178,8 +3178,8 @@
 													"});",
 													"const __ = require('lodash');",
 													"const responseItems = pm.response.json();",
-													"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-													"     pm.expect(responseItems.length).to.be.at.most(100);",
+													"pm.test(\"Should return less than or equal to 500  item in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.most(500);",
 													"});",
 													"const courses = __.takeRight(responseItems, 25);",
 													"const courseCodes = __.map(courses, course => course.courseCode);",
@@ -3195,7 +3195,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?limit=100",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?limit=500",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -3208,7 +3208,7 @@
 											"query": [
 												{
 													"key": "limit",
-													"value": "100"
+													"value": "500"
 												}
 											]
 										}
@@ -3547,7 +3547,7 @@
 									"response": []
 								},
 								{
-									"name": "Include total count in Get request ,Set limit to 100",
+									"name": "Include total count in Get request ,Set limit to 500",
 									"event": [
 										{
 											"listen": "test",
@@ -3558,8 +3558,8 @@
 													"});",
 													"const __ = require('lodash');",
 													"const responseItems = pm.response.json();",
-													"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-													"     pm.expect(responseItems.length).to.be.at.most(100);",
+													"pm.test(\"Should return less than or equal to 500  item in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.most(500);",
 													"});",
 													"const students = __.takeRight(responseItems, 25);",
 													"const studentUniqueIds = __.map(students, student => student.studentUniqueId);",
@@ -3575,7 +3575,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=100",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=500",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -3588,7 +3588,7 @@
 											"query": [
 												{
 													"key": "limit",
-													"value": "100"
+													"value": "500"
 												}
 											]
 										}
@@ -3724,7 +3724,7 @@
 													"     pm.expect(responseItems).to.have.lengthOf(25);",
 													"});",
 													"",
-													"pm.test(\"Should match with each  item course  in response\", () => {",
+													"pm.test(\"Should match with each student item in response\", () => {",
 													"    const studentUniqueIds= pm.environment.get(\"known:studentUniqueIds\");",
 													"     \t__.each(responseItems, responseItem => {",
 													"        \t      pm.expect(__.includes(studentUniqueIds, responseItem.studentUniqueId)).to.equal(true);",
@@ -3739,7 +3739,7 @@
 											"script": {
 												"exec": [
 													"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
-													"pm.environment.set(\"known:studentOffset\", 100 - 25);"
+													"pm.environment.set(\"known:studentOffset\", 500 - 25);"
 												],
 												"type": "text/javascript"
 											}
@@ -3829,7 +3829,7 @@
 									"response": []
 								},
 								{
-									"name": "Include total count in Get request ,Set limit to 100",
+									"name": "Include total count in Get request ,Set limit to 500",
 									"event": [
 										{
 											"listen": "test",
@@ -3840,8 +3840,8 @@
 													"});",
 													"const __ = require('lodash');",
 													"const responseItems = pm.response.json();",
-													"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-													"     pm.expect(responseItems.length).to.be.at.most(100);",
+													"pm.test(\"Should return less than or equal to 500  item in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.most(500);",
 													"});",
 													"const staffs = __.takeRight(responseItems, 25);",
 													"const staffUniqueIds = __.map(staffs, staff => staff.staffUniqueId);",
@@ -3857,7 +3857,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?limit=100",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?limit=500",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -3870,7 +3870,7 @@
 											"query": [
 												{
 													"key": "limit",
-													"value": "100"
+													"value": "500"
 												}
 											]
 										}
@@ -4006,7 +4006,7 @@
 													"     pm.expect(responseItems).to.have.lengthOf(25);",
 													"});",
 													"",
-													"pm.test(\"Should match with each  item course  in response\", () => {",
+													"pm.test(\"Should match with each staff item in response\", () => {",
 													"    const staffUniqueIds= pm.environment.get(\"known:staffUniqueIds\");",
 													"     \t__.each(responseItems, responseItem => {",
 													"        \t      pm.expect(__.includes(staffUniqueIds, responseItem.staffUniqueId)).to.equal(true);",
