@@ -949,9 +949,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The number of hours per week in which the bus route is operational.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="hoursPerWeek")]
         public decimal HoursPerWeek 
         { 
-        [DataMember(Name="hoursPerWeek")]
             get => _hoursPerWeek;
             set 
             { 
@@ -968,9 +968,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The approximate annual cost for the bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="operatingCost")]
         public decimal OperatingCost 
         { 
-        [DataMember(Name="operatingCost")]
             get => _operatingCost;
             set 
             { 
@@ -2885,9 +2885,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         /// An indicator if the address is on a bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="onBusRoute")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool OnBusRoute 
         { 
-        [DataMember(Name="onBusRoute")][JsonConverter(typeof(StrictBooleanConverter))]
             get => _onBusRoute;
             set 
             { 
@@ -4740,9 +4740,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         /// An indication as to whether the contact is a sports fan.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="isSportsFan")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool IsSportsFan 
         { 
-        [DataMember(Name="isSportsFan")][JsonConverter(typeof(StrictBooleanConverter))]
             get => _isSportsFan;
             set 
             { 
@@ -8114,9 +8114,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// The preferred maximum weight of a household pet.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="maximumWeight")]
         public int MaximumWeight 
         { 
-        [DataMember(Name="maximumWeight")]
             get => _maximumWeight;
             set 
             { 
@@ -8133,9 +8133,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// The preferred minimum weight of a household pet.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="minimumWeight")]
         public int MinimumWeight 
         { 
-        [DataMember(Name="minimumWeight")]
             get => _minimumWeight;
             set 
             { 
@@ -9820,9 +9820,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// The preferred maximum weight of a household pet.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="maximumWeight")]
         public int MaximumWeight 
         { 
-        [DataMember(Name="maximumWeight")]
             get => _maximumWeight;
             set 
             { 
@@ -9839,9 +9839,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// The preferred minimum weight of a household pet.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="minimumWeight")]
         public int MinimumWeight 
         { 
-        [DataMember(Name="minimumWeight")]
             get => _minimumWeight;
             set 
             { 
@@ -10550,9 +10550,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Indicator that the student participated in art education at a private agency or institution.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="privateArtProgram")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool PrivateArtProgram 
         { 
-        [DataMember(Name="privateArtProgram")][JsonConverter(typeof(StrictBooleanConverter))]
             get => _privateArtProgram;
             set 
             { 
@@ -12324,9 +12324,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
         /// An indication as to whether the contact regularly reads to the student before bed.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="bedtimeReader")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool BedtimeReader 
         { 
-        [DataMember(Name="bedtimeReader")][JsonConverter(typeof(StrictBooleanConverter))]
             get => _bedtimeReader;
             set 
             { 
@@ -14587,9 +14587,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// An indicator if the address is on a bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="onBusRoute")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool OnBusRoute 
         { 
-        [DataMember(Name="onBusRoute")][JsonConverter(typeof(StrictBooleanConverter))]
             get => _onBusRoute;
             set 
             { 
@@ -16644,9 +16644,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The number of hours per week the student will attend to graduate.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="hoursPerWeek")]
         public decimal HoursPerWeek 
         { 
-        [DataMember(Name="hoursPerWeek")]
             get => _hoursPerWeek;
             set 
             { 
@@ -16705,9 +16705,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The GPA the student is working toward.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="targetGPA")]
         public decimal TargetGPA 
         { 
-        [DataMember(Name="targetGPA")]
             get => _targetGPA;
             set 
             { 

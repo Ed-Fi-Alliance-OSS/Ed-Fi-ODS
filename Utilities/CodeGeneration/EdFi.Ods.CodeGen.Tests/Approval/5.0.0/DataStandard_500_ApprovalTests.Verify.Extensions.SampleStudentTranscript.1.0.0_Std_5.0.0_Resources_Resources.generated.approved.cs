@@ -753,9 +753,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         /// An indication of acceptance.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="acceptanceIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool AcceptanceIndicator 
         { 
-        [DataMember(Name="acceptanceIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
             get => _acceptanceIndicator;
             set 
             { 
