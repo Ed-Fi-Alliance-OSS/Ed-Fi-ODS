@@ -21,7 +21,8 @@ namespace EdFi.LoadTools.ApiClient
     {
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly ITokenRetriever _tokenRetriever;
-        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1); private string _cachedToken;
+        private readonly SemaphoreSlim _semaphore = new(1, 1);
+        private string _cachedToken;
         private DateTime _tokenExpiration = DateTime.MinValue;
 
         // Buffer time before expiration to request a new token (1 minute)
