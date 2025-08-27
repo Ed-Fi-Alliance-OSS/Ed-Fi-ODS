@@ -11,6 +11,48 @@
 			"name": "Initialize Known Data",
 			"item": [
 				{
+					"name": "Initialize StandardVersion-specific",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"var standardVersion = response[\"dataModels\"].filter(dm => dm.name === 'Ed-Fi').map(dm => dm.version)[0];\r",
+									"var majorVersion = Number(standardVersion.split('.')[0]);\r",
+									"var minorVersion = Number(standardVersion.split('.')[1]);\r",
+									"var revision = Number(standardVersion.split('.')[2]);\r",
+									"\r",
+									"pm.environment.set('test-suite:known:standardVersion', standardVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:major', majorVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:minor', minorVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:revision', revision);\r",
+									"\r",
+									"// Set Standard-version specific values\r",
+									"\r",
+									"// Some tests depend on the populated template's data; they expect specific records to \r",
+									"// appear on the first page of the resource. However, DS6 introduced records in the \r",
+									"// first pages, so we have to use an offset to find the old records.\r",
+									"pm.environment.set(\"test-suite:known:offset\", majorVersion >= 6 ? 1900 : 0);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Initialize Known School Ids",
 					"event": [
 						{
@@ -6281,7 +6323,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/SchoolFlattenedReferenceWithCollections",
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/SchoolFlattenedReferenceWithCollections?offset={{test-suite:known:offset}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -6291,6 +6333,12 @@
 												"ed-fi",
 												"test",
 												"SchoolFlattenedReferenceWithCollections"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{test-suite:known:offset}}"
+												}
 											]
 										},
 										"description": "# Flattened Reference -> Collection\r\nScenario: Composites include flattened references with collection\r\n    When building a composite resource for the \"SchoolFlattenedReferenceWithCollection\" composite \r\n    Then the composite resource should have Collection \"SchoolCategories\" with only properties [SchoolCategoryDescriptor]\r\n    And the composite resource should have Collection \"SchoolGradeLevels\" with only properties [GradeLevelDescriptor]"
@@ -6821,7 +6869,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentSchoolUnflattenedReferences",
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentSchoolUnflattenedReferences?offset={{test-suite:known:offset}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -6831,6 +6879,12 @@
 												"ed-fi",
 												"test",
 												"StudentSchoolUnflattenedReferences"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{test-suite:known:offset}}"
+												}
 											]
 										},
 										"description": "# Base -> Unflattened Reference\r\nScenario: Composite includes unflattened reference\r\n    Given the subject of the request is a StudentSchoolAssociation\r\n    When a GET (by id) request is submitted to the \"StudentSchoolUnflattenedReference\" composite\r\n    Then the response model should have only unflattened member studentReference with properties [firstName,middleName,lastSurname]\r\n    And the queries generated should all match previously approved values"
@@ -6889,7 +6943,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentSchoolFlattenedReferences/",
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentSchoolFlattenedReferences?offset={{test-suite:known:offset}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -6898,8 +6952,13 @@
 												"v1",
 												"ed-fi",
 												"test",
-												"StudentSchoolFlattenedReferences",
-												""
+												"StudentSchoolFlattenedReferences"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{test-suite:known:offset}}"
+												}
 											]
 										},
 										"description": "# Base -> Flattened Reference\r\nScenario: Composite includes flattened reference\r\n    Given the subject of the request is a StudentSchoolAssociation\r\n    When a GET (by id) request is submitted to the \"StudentSchoolFlattenedReference\" composite\r\n    Then the response model should have only the specific members [firstName,middleName,lastSurname]\r\n    And the queries generated should all match previously approved values"
@@ -7170,7 +7229,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentLinkedCollectionWithLinkedCollections/",
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentLinkedCollectionWithLinkedCollections?offset={{test-suite:known:offset}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -7179,8 +7238,13 @@
 												"v1",
 												"ed-fi",
 												"test",
-												"StudentLinkedCollectionWithLinkedCollections",
-												""
+												"StudentLinkedCollectionWithLinkedCollections"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{test-suite:known:offset}}"
+												}
 											]
 										},
 										"description": "# Linked Collection -> Linked Collection\r\nScenario: Composite includes linked collection containing a linked collection\r\n    Given the subject of the request is a student with a StudentAcademicRecord\r\n    When a GET (by id) request is submitted to the \"StudentLinkedCollectionWithLinkedCollection\" composite\r\n    Then the response model should have only Linked Collection studentAcademicRecords with Linked Collection courseTranscripts\r\n    And the queries generated should all match previously approved values"
@@ -7242,7 +7306,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentLinkedCollectionWithFlattenedPropertyReferences/",
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentLinkedCollectionWithFlattenedPropertyReferences?offset={{test-suite:known:offset}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -7251,8 +7315,13 @@
 												"v1",
 												"ed-fi",
 												"test",
-												"StudentLinkedCollectionWithFlattenedPropertyReferences",
-												""
+												"StudentLinkedCollectionWithFlattenedPropertyReferences"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{test-suite:known:offset}}"
+												}
 											]
 										},
 										"description": "# Linked Collection -> Flattened Reference\r\nScenario: Composite includes linked collection containing flattened reference\r\n    Given the subject of the request is a student with a StudentAcademicRecord\r\n    When a GET (by id) request is submitted to the \"StudentLinkedCollectionWithFlattenedPropertyReference\" composite\r\n    Then the response model should have only Linked Collection studentAcademicRecords with flattened member properties [schoolYear]\r\n    And the queries generated should all match previously approved values"
@@ -7321,7 +7390,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentLinkedCollectionWithUnflattenedReferences/",
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentLinkedCollectionWithUnflattenedReferences?offset={{test-suite:known:offset}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -7330,8 +7399,13 @@
 												"v1",
 												"ed-fi",
 												"test",
-												"StudentLinkedCollectionWithUnflattenedReferences",
-												""
+												"StudentLinkedCollectionWithUnflattenedReferences"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{test-suite:known:offset}}"
+												}
 											]
 										},
 										"description": "# Linked Collection -> Unflattened Reference\r\nScenario: Composite includes linked collection containing unflattened reference\r\n    Given the subject of the request is a student with a StudentAcademicRecord\r\n    When a GET (by id) request is submitted to the \"StudentLinkedCollectionWithUnflattenedReference\" composite\r\n    Then the response model should have only Linked Collection studentAcademicRecords containing member schoolYearTypeReference with unflattened member properties [schoolYear]\r\n    And the queries generated should all match previously approved values"
@@ -7993,7 +8067,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentLinkedCollectionWithProperties/",
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentLinkedCollectionWithProperties?offset={{test-suite:known:offset}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -8002,8 +8076,13 @@
 												"v1",
 												"ed-fi",
 												"test",
-												"StudentLinkedCollectionWithProperties",
-												""
+												"StudentLinkedCollectionWithProperties"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{test-suite:known:offset}}"
+												}
 											]
 										},
 										"description": "# Linked collection -> properties\r\nScenario: Composite includes linked collection with properties\r\n    Given the subject of the request is a student with a StudentSchoolAssociation\r\n    When a GET (by id) request is submitted to the \"StudentLinkedCollectionWithProperty\" composite\r\n    Then the response model should have only linked collection studentAcademicRecords with properties [cumulativeEarnedCredits,termDescriptor]\r\n    And the queries generated should all match previously approved values"
@@ -8289,7 +8368,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/SchoolFlattenedReferenceWithCollections/",
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/SchoolFlattenedReferenceWithCollections?offset={{test-suite:known:offset}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -8298,8 +8377,13 @@
 												"v1",
 												"ed-fi",
 												"test",
-												"SchoolFlattenedReferenceWithCollections",
-												""
+												"SchoolFlattenedReferenceWithCollections"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{test-suite:known:offset}}"
+												}
 											]
 										},
 										"description": "# Flattened Reference -> Collection\r\nScenario: Composites include flattened references with collection\r\n    Given the subject of the request is a StudentSchoolAssociation with School\r\n    When a GET (by id) request is submitted to the \"SchoolFlattenedReferenceWithCollection\" composite\r\n    Then the response model should have collection schoolCategories with properties [schoolCategoryDescriptor]\r\n    And the response model should have collection schoolGradeLevels with properties [gradeLevelDescriptor]\r\n    And the queries generated should all match previously approved values"
@@ -8768,7 +8852,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/EdfiShortDescription/",
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/EdfiShortDescription?offset={{test-suite:known:offset}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -8777,8 +8861,13 @@
 												"v1",
 												"ed-fi",
 												"test",
-												"EdfiShortDescription",
-												""
+												"EdfiShortDescription"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{test-suite:known:offset}}"
+												}
 											]
 										},
 										"description": "Scenario: Edfi types use short description\r\n    Given the subject of the request is a student with a StudentSchoolAssociation\r\n    When a GET (by id) request is submitted to the \"EdfiShortDescription\" composite\r\n    Then the response model should use the short description in [Alternative,Regular,Special Education,Career and Technical Education] for property schoolType"
