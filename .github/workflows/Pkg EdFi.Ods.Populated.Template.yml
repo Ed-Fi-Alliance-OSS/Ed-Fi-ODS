@@ -55,12 +55,12 @@ jobs:
     - name: Support longpaths
       run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
@@ -72,7 +72,7 @@ jobs:
         Write-host "Ed-Fi-Standard Tag is  $standardTag"
       shell: powershell
     - name: Checkout Ed-Fi-Data-Standard
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Data-Standard
           path: Ed-Fi-Data-Standard/
@@ -92,7 +92,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/.github/workflows
       run: sudo ./install-mono.sh
     - name: Cache Nuget packages
-      uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
@@ -180,7 +180,7 @@ jobs:
       shell: powershell      
     - name: Upload EdFi.Ods.Populated.Template Artifacts
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.*.nupkg
@@ -201,7 +201,7 @@ jobs:
       shell: pwsh       
     - name: Upload Create Database Template Logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: Create Database Template Logs
         path: |
