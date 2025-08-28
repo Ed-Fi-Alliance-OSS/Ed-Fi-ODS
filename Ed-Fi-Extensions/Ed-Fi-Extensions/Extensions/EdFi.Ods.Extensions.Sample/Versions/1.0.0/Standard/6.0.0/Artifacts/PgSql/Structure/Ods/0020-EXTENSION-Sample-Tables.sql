@@ -11,7 +11,7 @@ CREATE TABLE sample.ArtMediumDescriptor (
 
 -- Table sample.Bus --
 CREATE TABLE sample.Bus (
-    BusId VARCHAR(60) NOT NULL,
+    BusId VARCHAR(120) NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -24,7 +24,7 @@ ALTER TABLE sample.Bus ALTER COLUMN LastModifiedDate SET DEFAULT current_timesta
 
 -- Table sample.BusRoute --
 CREATE TABLE sample.BusRoute (
-    BusId VARCHAR(60) NOT NULL,
+    BusId VARCHAR(120) NOT NULL,
     BusRouteNumber INT NOT NULL,
     BeginDate DATE NULL,
     BusRouteDirection VARCHAR(15) NOT NULL,
@@ -52,7 +52,7 @@ ALTER TABLE sample.BusRoute ALTER COLUMN LastModifiedDate SET DEFAULT current_ti
 
 -- Table sample.BusRouteBusYear --
 CREATE TABLE sample.BusRouteBusYear (
-    BusId VARCHAR(60) NOT NULL,
+    BusId VARCHAR(120) NOT NULL,
     BusRouteNumber INT NOT NULL,
     BusYear SMALLINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -62,7 +62,7 @@ ALTER TABLE sample.BusRouteBusYear ALTER COLUMN CreateDate SET DEFAULT current_t
 
 -- Table sample.BusRouteProgram --
 CREATE TABLE sample.BusRouteProgram (
-    BusId VARCHAR(60) NOT NULL,
+    BusId VARCHAR(120) NOT NULL,
     BusRouteNumber INT NOT NULL,
     EducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
@@ -74,7 +74,7 @@ ALTER TABLE sample.BusRouteProgram ALTER COLUMN CreateDate SET DEFAULT current_t
 
 -- Table sample.BusRouteServiceAreaPostalCode --
 CREATE TABLE sample.BusRouteServiceAreaPostalCode (
-    BusId VARCHAR(60) NOT NULL,
+    BusId VARCHAR(120) NOT NULL,
     BusRouteNumber INT NOT NULL,
     ServiceAreaPostalCode VARCHAR(17) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -84,7 +84,7 @@ ALTER TABLE sample.BusRouteServiceAreaPostalCode ALTER COLUMN CreateDate SET DEF
 
 -- Table sample.BusRouteStartTime --
 CREATE TABLE sample.BusRouteStartTime (
-    BusId VARCHAR(60) NOT NULL,
+    BusId VARCHAR(120) NOT NULL,
     BusRouteNumber INT NOT NULL,
     StartTime TIME NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -94,7 +94,7 @@ ALTER TABLE sample.BusRouteStartTime ALTER COLUMN CreateDate SET DEFAULT current
 
 -- Table sample.BusRouteTelephone --
 CREATE TABLE sample.BusRouteTelephone (
-    BusId VARCHAR(60) NOT NULL,
+    BusId VARCHAR(120) NOT NULL,
     BusRouteNumber INT NOT NULL,
     TelephoneNumber VARCHAR(24) NOT NULL,
     TelephoneNumberTypeDescriptorId INT NOT NULL,
@@ -152,7 +152,7 @@ ALTER TABLE sample.ContactAddressTerm ALTER COLUMN CreateDate SET DEFAULT curren
 -- Table sample.ContactAuthor --
 CREATE TABLE sample.ContactAuthor (
     ContactUSI INT NOT NULL,
-    Author VARCHAR(100) NOT NULL,
+    Author VARCHAR(255) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactAuthor_PK PRIMARY KEY (ContactUSI, Author)
 );
@@ -270,7 +270,7 @@ ALTER TABLE sample.SchoolCTEProgramService ALTER COLUMN CreateDate SET DEFAULT c
 -- Table sample.SchoolDirectlyOwnedBus --
 CREATE TABLE sample.SchoolDirectlyOwnedBus (
     SchoolId BIGINT NOT NULL,
-    DirectlyOwnedBusId VARCHAR(60) NOT NULL,
+    DirectlyOwnedBusId VARCHAR(120) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT SchoolDirectlyOwnedBus_PK PRIMARY KEY (SchoolId, DirectlyOwnedBusId)
 );
@@ -336,7 +336,7 @@ CREATE TABLE sample.StudentArtProgramAssociation (
     ArtPieces INT NULL,
     ExhibitDate DATE NULL,
     HoursPerDay DECIMAL(5, 2) NULL,
-    IdentificationCode VARCHAR(60) NULL,
+    IdentificationCode VARCHAR(120) NULL,
     KilnReservation TIME NULL,
     KilnReservationLength VARCHAR(30) NULL,
     MasteredMediums DECIMAL(5, 4) NULL,
@@ -455,7 +455,7 @@ CREATE TABLE sample.StudentContactAssociationExtension (
     BookBudget MONEY NULL,
     BooksBorrowed INT NULL,
     EducationOrganizationId BIGINT NULL,
-    InterventionStudyIdentificationCode VARCHAR(60) NULL,
+    InterventionStudyIdentificationCode VARCHAR(120) NULL,
     LibraryDuration INT NULL,
     LibraryTime TIME NULL,
     LibraryVisits SMALLINT NULL,
@@ -794,7 +794,7 @@ CREATE TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72
     SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
+    SessionName VARCHAR(120) NOT NULL,
     StudentUSI INT NOT NULL,
     RelatedBeginDate DATE NOT NULL,
     RelatedEducationOrganizationId BIGINT NOT NULL,

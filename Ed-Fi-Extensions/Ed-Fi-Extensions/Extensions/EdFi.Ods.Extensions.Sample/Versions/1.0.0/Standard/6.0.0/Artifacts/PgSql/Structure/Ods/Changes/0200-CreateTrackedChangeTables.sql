@@ -13,8 +13,8 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_sample' AND table_name = 'bus') THEN
 CREATE TABLE tracked_changes_sample.bus
 (
-       oldbusid VARCHAR(60) NOT NULL,
-       newbusid VARCHAR(60) NULL,
+       oldbusid VARCHAR(120) NOT NULL,
+       newbusid VARCHAR(120) NULL,
        id uuid NOT NULL,
        changeversion bigint NOT NULL,
        discriminator varchar(128) NULL,
@@ -26,9 +26,9 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_sample' AND table_name = 'busroute') THEN
 CREATE TABLE tracked_changes_sample.busroute
 (
-       oldbusid VARCHAR(60) NOT NULL,
+       oldbusid VARCHAR(120) NOT NULL,
        oldbusroutenumber INT NOT NULL,
-       newbusid VARCHAR(60) NULL,
+       newbusid VARCHAR(120) NULL,
        newbusroutenumber INT NULL,
        id uuid NOT NULL,
        changeversion bigint NOT NULL,

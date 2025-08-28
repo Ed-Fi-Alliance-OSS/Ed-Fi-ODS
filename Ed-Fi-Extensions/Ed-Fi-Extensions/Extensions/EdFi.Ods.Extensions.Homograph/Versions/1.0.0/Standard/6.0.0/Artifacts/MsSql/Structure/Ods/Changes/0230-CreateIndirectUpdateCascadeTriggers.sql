@@ -3,6 +3,9 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+DROP TRIGGER IF EXISTS [homograph].[homograph_ContactStudentSchoolAssociation_TR_Contact_Update]
+GO
+
 CREATE TRIGGER [homograph].[homograph_ContactStudentSchoolAssociation_TR_Contact_Update]
 ON [homograph].[ContactStudentSchoolAssociation]
 AFTER UPDATE
@@ -24,6 +27,9 @@ BEGIN
                AND rt.ContactLastSurname = i.ContactLastSurname;
     END
 END;
+GO
+
+DROP TRIGGER IF EXISTS [homograph].[homograph_StaffStudentSchoolAssociation_TR_Staff_Update]
 GO
 
 CREATE TRIGGER [homograph].[homograph_StaffStudentSchoolAssociation_TR_Staff_Update]

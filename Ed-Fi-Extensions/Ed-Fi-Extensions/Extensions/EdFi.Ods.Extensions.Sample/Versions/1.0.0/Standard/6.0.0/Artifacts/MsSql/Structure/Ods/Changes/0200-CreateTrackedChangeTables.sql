@@ -10,8 +10,8 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_sample].[Bus]'))
 CREATE TABLE [tracked_changes_sample].[Bus]
 (
-       OldBusId [NVARCHAR](60) NOT NULL,
-       NewBusId [NVARCHAR](60) NULL,
+       OldBusId [NVARCHAR](120) NOT NULL,
+       NewBusId [NVARCHAR](120) NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        Discriminator [NVARCHAR](128) NULL,
@@ -21,9 +21,9 @@ CREATE TABLE [tracked_changes_sample].[Bus]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_sample].[BusRoute]'))
 CREATE TABLE [tracked_changes_sample].[BusRoute]
 (
-       OldBusId [NVARCHAR](60) NOT NULL,
+       OldBusId [NVARCHAR](120) NOT NULL,
        OldBusRouteNumber [INT] NOT NULL,
-       NewBusId [NVARCHAR](60) NULL,
+       NewBusId [NVARCHAR](120) NULL,
        NewBusRouteNumber [INT] NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,

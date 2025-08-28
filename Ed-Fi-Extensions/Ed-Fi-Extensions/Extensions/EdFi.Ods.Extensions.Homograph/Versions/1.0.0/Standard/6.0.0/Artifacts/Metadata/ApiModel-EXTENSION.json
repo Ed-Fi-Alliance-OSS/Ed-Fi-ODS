@@ -3,7 +3,7 @@
   "schemaDefinition": {
     "logicalName": "Homograph",
     "physicalName": "homograph",
-    "description": "(copied from 5.2)",
+    "description": "",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [
@@ -203,6 +203,7 @@
       ],
       "isAbstract": false,
       "description": "This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "Contact",
         "postgreSql": "Contact"
@@ -266,6 +267,7 @@
       ],
       "isAbstract": false,
       "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ContactAddress",
         "postgreSql": "ContactAddress"
@@ -313,6 +315,7 @@
       ],
       "isAbstract": false,
       "description": "The students association with the contact.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ContactStudentSchoolAssociation",
         "postgreSql": "ContactStudentSchoolAssociation"
@@ -439,6 +442,7 @@
       ],
       "isAbstract": false,
       "description": "The set of elements that comprise a person's legal name.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "Name",
         "postgreSql": "Name"
@@ -546,6 +550,7 @@
       ],
       "isAbstract": false,
       "description": "This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "School",
         "postgreSql": "School"
@@ -607,6 +612,7 @@
       ],
       "isAbstract": false,
       "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SchoolAddress",
         "postgreSql": "SchoolAddress"
@@ -714,6 +720,7 @@
       ],
       "isAbstract": false,
       "description": "Identifier for a school year.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SchoolYearType",
         "postgreSql": "SchoolYearType"
@@ -804,6 +811,7 @@
       ],
       "isAbstract": false,
       "description": "same name as a core domain entity",
+      "domains": [],
       "tableNames": {
         "sqlServer": "Staff",
         "postgreSql": "Staff"
@@ -867,6 +875,7 @@
       ],
       "isAbstract": false,
       "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StaffAddress",
         "postgreSql": "StaffAddress"
@@ -914,6 +923,7 @@
       ],
       "isAbstract": false,
       "description": "The students under the instruction of the staff member",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StaffStudentSchoolAssociation",
         "postgreSql": "StaffStudentSchoolAssociation"
@@ -1004,6 +1014,7 @@
       ],
       "isAbstract": false,
       "description": "This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "Student",
         "postgreSql": "Student"
@@ -1067,6 +1078,7 @@
       ],
       "isAbstract": false,
       "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentAddress",
         "postgreSql": "StudentAddress"
@@ -1158,6 +1170,7 @@
       ],
       "isAbstract": false,
       "description": "This association represents the School in which a student is enrolled. The semantics of enrollment may differ slightly by state. Non-enrollment relationships between a student and an education organization may be described using the StudentEducationOrganizationAssociation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentSchoolAssociation",
         "postgreSql": "StudentSchoolAssociation"
@@ -2564,5 +2577,5 @@
       "potentiallyLogical": false
     }
   ],
-  "edFiVersion": "5.2.0"
+  "edFiVersion": "6.0.0"
 }

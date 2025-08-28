@@ -3,7 +3,7 @@
   "schemaDefinition": {
     "logicalName": "SampleAlternativeEducationProgram",
     "physicalName": "samplealternativeeducationprogram",
-    "description": "(copied from 5.2)",
+    "description": "",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [
@@ -58,6 +58,7 @@
       ],
       "isAbstract": false,
       "description": "This descriptor describes the reason a student is eligible for an Alternative Education Program",
+      "domains": [],
       "tableNames": {
         "sqlServer": "AlternativeEducationEligibilityReasonDescriptor",
         "postgreSql": "AlternativeEducationEligibilityReasonDescriptor"
@@ -88,6 +89,7 @@
       ],
       "isAbstract": false,
       "description": "This association represents Students in an Alternative Education Program.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentAlternativeEducationProgramAssociation",
         "postgreSql": "StudentAlternativeEducationProgramAssociation"
@@ -174,6 +176,7 @@
       ],
       "isAbstract": false,
       "description": "The times at which this Alternative Education Program is scheduled to meet.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentAlternativeEducationProgramAssociationMeetingTime",
         "postgreSql": "StudentAlternativeEducationProgramAssociationMeetingTime"
@@ -769,5 +772,5 @@
       "potentiallyLogical": false
     }
   ],
-  "edFiVersion": "5.2.0"
+  "edFiVersion": "6.0.0"
 }

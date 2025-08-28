@@ -14,7 +14,7 @@ GO
 
 -- Table [sample].[Bus] --
 CREATE TABLE [sample].[Bus] (
-    [BusId] [NVARCHAR](60) NOT NULL,
+    [BusId] [NVARCHAR](120) NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -33,7 +33,7 @@ GO
 
 -- Table [sample].[BusRoute] --
 CREATE TABLE [sample].[BusRoute] (
-    [BusId] [NVARCHAR](60) NOT NULL,
+    [BusId] [NVARCHAR](120) NOT NULL,
     [BusRouteNumber] [INT] NOT NULL,
     [BeginDate] [DATE] NULL,
     [BusRouteDirection] [NVARCHAR](15) NOT NULL,
@@ -68,7 +68,7 @@ GO
 
 -- Table [sample].[BusRouteBusYear] --
 CREATE TABLE [sample].[BusRouteBusYear] (
-    [BusId] [NVARCHAR](60) NOT NULL,
+    [BusId] [NVARCHAR](120) NOT NULL,
     [BusRouteNumber] [INT] NOT NULL,
     [BusYear] [SMALLINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -84,7 +84,7 @@ GO
 
 -- Table [sample].[BusRouteProgram] --
 CREATE TABLE [sample].[BusRouteProgram] (
-    [BusId] [NVARCHAR](60) NOT NULL,
+    [BusId] [NVARCHAR](120) NOT NULL,
     [BusRouteNumber] [INT] NOT NULL,
     [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
@@ -104,7 +104,7 @@ GO
 
 -- Table [sample].[BusRouteServiceAreaPostalCode] --
 CREATE TABLE [sample].[BusRouteServiceAreaPostalCode] (
-    [BusId] [NVARCHAR](60) NOT NULL,
+    [BusId] [NVARCHAR](120) NOT NULL,
     [BusRouteNumber] [INT] NOT NULL,
     [ServiceAreaPostalCode] [NVARCHAR](17) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -120,7 +120,7 @@ GO
 
 -- Table [sample].[BusRouteStartTime] --
 CREATE TABLE [sample].[BusRouteStartTime] (
-    [BusId] [NVARCHAR](60) NOT NULL,
+    [BusId] [NVARCHAR](120) NOT NULL,
     [BusRouteNumber] [INT] NOT NULL,
     [StartTime] [TIME](7) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -136,7 +136,7 @@ GO
 
 -- Table [sample].[BusRouteTelephone] --
 CREATE TABLE [sample].[BusRouteTelephone] (
-    [BusId] [NVARCHAR](60) NOT NULL,
+    [BusId] [NVARCHAR](120) NOT NULL,
     [BusRouteNumber] [INT] NOT NULL,
     [TelephoneNumber] [NVARCHAR](24) NOT NULL,
     [TelephoneNumberTypeDescriptorId] [INT] NOT NULL,
@@ -230,7 +230,7 @@ GO
 -- Table [sample].[ContactAuthor] --
 CREATE TABLE [sample].[ContactAuthor] (
     [ContactUSI] [INT] NOT NULL,
-    [Author] [NVARCHAR](100) NOT NULL,
+    [Author] [NVARCHAR](255) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ContactAuthor_PK] PRIMARY KEY CLUSTERED (
         [ContactUSI] ASC,
@@ -400,7 +400,7 @@ GO
 -- Table [sample].[SchoolDirectlyOwnedBus] --
 CREATE TABLE [sample].[SchoolDirectlyOwnedBus] (
     [SchoolId] [BIGINT] NOT NULL,
-    [DirectlyOwnedBusId] [NVARCHAR](60) NOT NULL,
+    [DirectlyOwnedBusId] [NVARCHAR](120) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [SchoolDirectlyOwnedBus_PK] PRIMARY KEY CLUSTERED (
         [SchoolId] ASC,
@@ -494,7 +494,7 @@ CREATE TABLE [sample].[StudentArtProgramAssociation] (
     [ArtPieces] [INT] NULL,
     [ExhibitDate] [DATE] NULL,
     [HoursPerDay] [DECIMAL](5, 2) NULL,
-    [IdentificationCode] [NVARCHAR](60) NULL,
+    [IdentificationCode] [NVARCHAR](120) NULL,
     [KilnReservation] [TIME](7) NULL,
     [KilnReservationLength] [NVARCHAR](30) NULL,
     [MasteredMediums] [DECIMAL](5, 4) NULL,
@@ -686,7 +686,7 @@ CREATE TABLE [sample].[StudentContactAssociationExtension] (
     [BookBudget] [MONEY] NULL,
     [BooksBorrowed] [INT] NULL,
     [EducationOrganizationId] [BIGINT] NULL,
-    [InterventionStudyIdentificationCode] [NVARCHAR](60) NULL,
+    [InterventionStudyIdentificationCode] [NVARCHAR](120) NULL,
     [LibraryDuration] [INT] NULL,
     [LibraryTime] [TIME](7) NULL,
     [LibraryVisits] [SMALLINT] NULL,
@@ -1213,7 +1213,7 @@ CREATE TABLE [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAsso
     [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
+    [SessionName] [NVARCHAR](120) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [RelatedBeginDate] [DATE] NOT NULL,
     [RelatedEducationOrganizationId] [BIGINT] NOT NULL,
