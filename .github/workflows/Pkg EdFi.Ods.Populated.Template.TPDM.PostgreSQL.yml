@@ -15,6 +15,7 @@ on:
         required: false
         default: 'distinct_id'
 
+permissions: read-all    
 
 env:
   INFORMATIONAL_VERSION: "7.1"
@@ -168,10 +169,11 @@ jobs:
       if: success() || failure()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
-        name: NugetPackages.Artifacts
+        name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: |
          ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.*.PostgreSQL*.nupkg
     - name: Move Log Files
+      if: success() || failure()    
       run: |
         $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/net8.0/logfile.txt"
         $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessLog.log"
@@ -190,6 +192,6 @@ jobs:
       if: success() || failure()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
-        name: Create Database Template Logs
+        name: Create Database Template Logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/CreateDatabaseTemplateLogs/*.*                 
