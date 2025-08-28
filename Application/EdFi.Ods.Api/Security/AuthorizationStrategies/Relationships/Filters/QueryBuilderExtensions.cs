@@ -80,7 +80,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             var cte = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
             cte.From($"auth.{viewName} AS av");
             cte.Select($"av.{viewTargetEndpointName}");
-            cte.Distinct();
 
             // Apply claims to the CTE query
             if (value is object[] arrayOfValues)
@@ -100,9 +99,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             // Apply join to the authorization CTE
             if (joinType == JoinType.InnerJoin)
             {
-                queryBuilder.Join(
-                    authViewAlias,
-                    j => j.On($"{subjectJoin.tableAlias}.{subjectJoin.endpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
+                queryBuilder.WhereRaw($"{subjectJoin.tableAlias}.{subjectJoin.endpointName} IN (SELECT * FROM {authViewAlias})");
             }
             else if (joinType == JoinType.LeftOuterJoin)
             {

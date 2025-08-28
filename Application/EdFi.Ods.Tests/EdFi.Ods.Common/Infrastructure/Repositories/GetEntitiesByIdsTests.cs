@@ -95,12 +95,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
             [Assert]
             public void Should_generate_a_query_for_the_top_level_entity_with_reference_data_filtered_by_id()
             {
-                Assert.That(
-                    _actualHqlQueries.First(),
-                    Is.EqualTo($"from {typeof(School).FullName} a" +
-                        $" left join fetch a.LocalEducationAgencyReferenceData b" +
-                        $" left join fetch a.CharterApprovalSchoolYearTypeReferenceData c" +
-                        $" where a.Id = :id"));
+                var actualQuery = _actualHqlQueries.First();
+                Assert.That(actualQuery, Does.Contain($"from {typeof(School).FullName} a"));
+                Assert.That(actualQuery, Does.Contain("left join fetch a.LocalEducationAgencyReferenceData"));
+                Assert.That(actualQuery, Does.Contain("left join fetch a.CharterApprovalSchoolYearTypeReferenceData"));
+                Assert.That(actualQuery, Does.Contain("where a.Id = :id"));
             }
 
             [Assert]

@@ -278,6 +278,43 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountTypeDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.AccreditationStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/accreditationStatusDescriptors")]
+    public partial class AccreditationStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.AccreditationStatusDescriptor.EdFi.AccreditationStatusDescriptor,
+        Entities.Common.EdFi.IAccreditationStatusDescriptor,
+        Entities.NHibernate.AccreditationStatusDescriptorAggregate.EdFi.AccreditationStatusDescriptor,
+        Api.Common.Models.Requests.AccreditationStatusDescriptors.EdFi.AccreditationStatusDescriptorPut,
+        Api.Common.Models.Requests.AccreditationStatusDescriptors.EdFi.AccreditationStatusDescriptorPost,
+        Api.Common.Models.Requests.AccreditationStatusDescriptors.EdFi.AccreditationStatusDescriptorDelete,
+        Api.Common.Models.Requests.AccreditationStatusDescriptors.EdFi.AccreditationStatusDescriptorGetByExample>
+    {
+        public AccreditationStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.AccreditationStatusDescriptors.EdFi.AccreditationStatusDescriptorGetByExample request, Entities.Common.EdFi.IAccreditationStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AccreditationStatusDescriptorId = request.AccreditationStatusDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -463,6 +500,43 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.AidTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/aidTypeDescriptors")]
+    public partial class AidTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.AidTypeDescriptor.EdFi.AidTypeDescriptor,
+        Entities.Common.EdFi.IAidTypeDescriptor,
+        Entities.NHibernate.AidTypeDescriptorAggregate.EdFi.AidTypeDescriptor,
+        Api.Common.Models.Requests.AidTypeDescriptors.EdFi.AidTypeDescriptorPut,
+        Api.Common.Models.Requests.AidTypeDescriptors.EdFi.AidTypeDescriptorPost,
+        Api.Common.Models.Requests.AidTypeDescriptors.EdFi.AidTypeDescriptorDelete,
+        Api.Common.Models.Requests.AidTypeDescriptors.EdFi.AidTypeDescriptorGetByExample>
+    {
+        public AidTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.AidTypeDescriptors.EdFi.AidTypeDescriptorGetByExample request, Entities.Common.EdFi.IAidTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AidTypeDescriptorId = request.AidTypeDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.AncestryEthnicOriginDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -489,6 +563,291 @@ namespace EdFi.Ods.Api.Services.Controllers.AncestryEthnicOriginDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AncestryEthnicOriginDescriptorId = request.AncestryEthnicOriginDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ApplicantProfiles.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/applicantProfiles")]
+    public partial class ApplicantProfilesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ApplicantProfile.EdFi.ApplicantProfile,
+        Entities.Common.EdFi.IApplicantProfile,
+        Entities.NHibernate.ApplicantProfileAggregate.EdFi.ApplicantProfile,
+        Api.Common.Models.Requests.ApplicantProfiles.EdFi.ApplicantProfilePut,
+        Api.Common.Models.Requests.ApplicantProfiles.EdFi.ApplicantProfilePost,
+        Api.Common.Models.Requests.ApplicantProfiles.EdFi.ApplicantProfileDelete,
+        Api.Common.Models.Requests.ApplicantProfiles.EdFi.ApplicantProfileGetByExample>
+    {
+        public ApplicantProfilesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ApplicantProfiles.EdFi.ApplicantProfileGetByExample request, Entities.Common.EdFi.IApplicantProfile specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ApplicantProfileIdentifier = request.ApplicantProfileIdentifier;
+            specification.BirthDate = request.BirthDate;
+            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.EconomicDisadvantaged = request.EconomicDisadvantaged;
+            specification.FirstGenerationStudent = request.FirstGenerationStudent;
+            specification.FirstName = request.FirstName;
+            specification.GenderIdentity = request.GenderIdentity;
+            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
+            specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
+            specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
+            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.Id = request.Id;
+            specification.LastSurname = request.LastSurname;
+            specification.MaidenName = request.MaidenName;
+            specification.MiddleName = request.MiddleName;
+            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PreferredFirstName = request.PreferredFirstName;
+            specification.PreferredLastSurname = request.PreferredLastSurname;
+            specification.SexDescriptor = request.SexDescriptor;
+            specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
+            specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.Applications.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/applications")]
+    public partial class ApplicationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Application.EdFi.Application,
+        Entities.Common.EdFi.IApplication,
+        Entities.NHibernate.ApplicationAggregate.EdFi.Application,
+        Api.Common.Models.Requests.Applications.EdFi.ApplicationPut,
+        Api.Common.Models.Requests.Applications.EdFi.ApplicationPost,
+        Api.Common.Models.Requests.Applications.EdFi.ApplicationDelete,
+        Api.Common.Models.Requests.Applications.EdFi.ApplicationGetByExample>
+    {
+        public ApplicationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.Applications.EdFi.ApplicationGetByExample request, Entities.Common.EdFi.IApplication specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
+            specification.AcceptedDate = request.AcceptedDate;
+            specification.ApplicantProfileIdentifier = request.ApplicantProfileIdentifier;
+            specification.ApplicationDate = request.ApplicationDate;
+            specification.ApplicationIdentifier = request.ApplicationIdentifier;
+            specification.ApplicationSourceDescriptor = request.ApplicationSourceDescriptor;
+            specification.ApplicationStatusDescriptor = request.ApplicationStatusDescriptor;
+            specification.CurrentEmployee = request.CurrentEmployee;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.FirstContactDate = request.FirstContactDate;
+            specification.HighNeedsAcademicSubjectDescriptor = request.HighNeedsAcademicSubjectDescriptor;
+            specification.HireStatusDescriptor = request.HireStatusDescriptor;
+            specification.HiringSourceDescriptor = request.HiringSourceDescriptor;
+            specification.Id = request.Id;
+            specification.RequisitionNumber = request.RequisitionNumber;
+            specification.WithdrawDate = request.WithdrawDate;
+            specification.WithdrawReasonDescriptor = request.WithdrawReasonDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ApplicationEvents.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/applicationEvents")]
+    public partial class ApplicationEventsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ApplicationEvent.EdFi.ApplicationEvent,
+        Entities.Common.EdFi.IApplicationEvent,
+        Entities.NHibernate.ApplicationEventAggregate.EdFi.ApplicationEvent,
+        Api.Common.Models.Requests.ApplicationEvents.EdFi.ApplicationEventPut,
+        Api.Common.Models.Requests.ApplicationEvents.EdFi.ApplicationEventPost,
+        Api.Common.Models.Requests.ApplicationEvents.EdFi.ApplicationEventDelete,
+        Api.Common.Models.Requests.ApplicationEvents.EdFi.ApplicationEventGetByExample>
+    {
+        public ApplicationEventsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ApplicationEvents.EdFi.ApplicationEventGetByExample request, Entities.Common.EdFi.IApplicationEvent specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ApplicantProfileIdentifier = request.ApplicantProfileIdentifier;
+            specification.ApplicationEvaluationScore = request.ApplicationEvaluationScore;
+            specification.ApplicationEventResultDescriptor = request.ApplicationEventResultDescriptor;
+            specification.ApplicationEventTypeDescriptor = request.ApplicationEventTypeDescriptor;
+            specification.ApplicationIdentifier = request.ApplicationIdentifier;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EventDate = request.EventDate;
+            specification.EventEndDate = request.EventEndDate;
+            specification.Id = request.Id;
+            specification.SchoolYear = request.SchoolYear;
+            specification.SequenceNumber = request.SequenceNumber;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ApplicationEventResultDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/applicationEventResultDescriptors")]
+    public partial class ApplicationEventResultDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ApplicationEventResultDescriptor.EdFi.ApplicationEventResultDescriptor,
+        Entities.Common.EdFi.IApplicationEventResultDescriptor,
+        Entities.NHibernate.ApplicationEventResultDescriptorAggregate.EdFi.ApplicationEventResultDescriptor,
+        Api.Common.Models.Requests.ApplicationEventResultDescriptors.EdFi.ApplicationEventResultDescriptorPut,
+        Api.Common.Models.Requests.ApplicationEventResultDescriptors.EdFi.ApplicationEventResultDescriptorPost,
+        Api.Common.Models.Requests.ApplicationEventResultDescriptors.EdFi.ApplicationEventResultDescriptorDelete,
+        Api.Common.Models.Requests.ApplicationEventResultDescriptors.EdFi.ApplicationEventResultDescriptorGetByExample>
+    {
+        public ApplicationEventResultDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ApplicationEventResultDescriptors.EdFi.ApplicationEventResultDescriptorGetByExample request, Entities.Common.EdFi.IApplicationEventResultDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ApplicationEventResultDescriptorId = request.ApplicationEventResultDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ApplicationEventTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/applicationEventTypeDescriptors")]
+    public partial class ApplicationEventTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ApplicationEventTypeDescriptor.EdFi.ApplicationEventTypeDescriptor,
+        Entities.Common.EdFi.IApplicationEventTypeDescriptor,
+        Entities.NHibernate.ApplicationEventTypeDescriptorAggregate.EdFi.ApplicationEventTypeDescriptor,
+        Api.Common.Models.Requests.ApplicationEventTypeDescriptors.EdFi.ApplicationEventTypeDescriptorPut,
+        Api.Common.Models.Requests.ApplicationEventTypeDescriptors.EdFi.ApplicationEventTypeDescriptorPost,
+        Api.Common.Models.Requests.ApplicationEventTypeDescriptors.EdFi.ApplicationEventTypeDescriptorDelete,
+        Api.Common.Models.Requests.ApplicationEventTypeDescriptors.EdFi.ApplicationEventTypeDescriptorGetByExample>
+    {
+        public ApplicationEventTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ApplicationEventTypeDescriptors.EdFi.ApplicationEventTypeDescriptorGetByExample request, Entities.Common.EdFi.IApplicationEventTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ApplicationEventTypeDescriptorId = request.ApplicationEventTypeDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ApplicationSourceDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/applicationSourceDescriptors")]
+    public partial class ApplicationSourceDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ApplicationSourceDescriptor.EdFi.ApplicationSourceDescriptor,
+        Entities.Common.EdFi.IApplicationSourceDescriptor,
+        Entities.NHibernate.ApplicationSourceDescriptorAggregate.EdFi.ApplicationSourceDescriptor,
+        Api.Common.Models.Requests.ApplicationSourceDescriptors.EdFi.ApplicationSourceDescriptorPut,
+        Api.Common.Models.Requests.ApplicationSourceDescriptors.EdFi.ApplicationSourceDescriptorPost,
+        Api.Common.Models.Requests.ApplicationSourceDescriptors.EdFi.ApplicationSourceDescriptorDelete,
+        Api.Common.Models.Requests.ApplicationSourceDescriptors.EdFi.ApplicationSourceDescriptorGetByExample>
+    {
+        public ApplicationSourceDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ApplicationSourceDescriptors.EdFi.ApplicationSourceDescriptorGetByExample request, Entities.Common.EdFi.IApplicationSourceDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ApplicationSourceDescriptorId = request.ApplicationSourceDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ApplicationStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/applicationStatusDescriptors")]
+    public partial class ApplicationStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ApplicationStatusDescriptor.EdFi.ApplicationStatusDescriptor,
+        Entities.Common.EdFi.IApplicationStatusDescriptor,
+        Entities.NHibernate.ApplicationStatusDescriptorAggregate.EdFi.ApplicationStatusDescriptor,
+        Api.Common.Models.Requests.ApplicationStatusDescriptors.EdFi.ApplicationStatusDescriptorPut,
+        Api.Common.Models.Requests.ApplicationStatusDescriptors.EdFi.ApplicationStatusDescriptorPost,
+        Api.Common.Models.Requests.ApplicationStatusDescriptors.EdFi.ApplicationStatusDescriptorDelete,
+        Api.Common.Models.Requests.ApplicationStatusDescriptors.EdFi.ApplicationStatusDescriptorGetByExample>
+    {
+        public ApplicationStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ApplicationStatusDescriptors.EdFi.ApplicationStatusDescriptorGetByExample request, Entities.Common.EdFi.IApplicationStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ApplicationStatusDescriptorId = request.ApplicationStatusDescriptorId;
             specification.CodeValue = request.CodeValue;
             specification.Description = request.Description;
             specification.EffectiveBeginDate = request.EffectiveBeginDate;
@@ -1053,6 +1412,80 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.BackgroundCheckStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/backgroundCheckStatusDescriptors")]
+    public partial class BackgroundCheckStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BackgroundCheckStatusDescriptor.EdFi.BackgroundCheckStatusDescriptor,
+        Entities.Common.EdFi.IBackgroundCheckStatusDescriptor,
+        Entities.NHibernate.BackgroundCheckStatusDescriptorAggregate.EdFi.BackgroundCheckStatusDescriptor,
+        Api.Common.Models.Requests.BackgroundCheckStatusDescriptors.EdFi.BackgroundCheckStatusDescriptorPut,
+        Api.Common.Models.Requests.BackgroundCheckStatusDescriptors.EdFi.BackgroundCheckStatusDescriptorPost,
+        Api.Common.Models.Requests.BackgroundCheckStatusDescriptors.EdFi.BackgroundCheckStatusDescriptorDelete,
+        Api.Common.Models.Requests.BackgroundCheckStatusDescriptors.EdFi.BackgroundCheckStatusDescriptorGetByExample>
+    {
+        public BackgroundCheckStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.BackgroundCheckStatusDescriptors.EdFi.BackgroundCheckStatusDescriptorGetByExample request, Entities.Common.EdFi.IBackgroundCheckStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BackgroundCheckStatusDescriptorId = request.BackgroundCheckStatusDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.BackgroundCheckTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/backgroundCheckTypeDescriptors")]
+    public partial class BackgroundCheckTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BackgroundCheckTypeDescriptor.EdFi.BackgroundCheckTypeDescriptor,
+        Entities.Common.EdFi.IBackgroundCheckTypeDescriptor,
+        Entities.NHibernate.BackgroundCheckTypeDescriptorAggregate.EdFi.BackgroundCheckTypeDescriptor,
+        Api.Common.Models.Requests.BackgroundCheckTypeDescriptors.EdFi.BackgroundCheckTypeDescriptorPut,
+        Api.Common.Models.Requests.BackgroundCheckTypeDescriptors.EdFi.BackgroundCheckTypeDescriptorPost,
+        Api.Common.Models.Requests.BackgroundCheckTypeDescriptors.EdFi.BackgroundCheckTypeDescriptorDelete,
+        Api.Common.Models.Requests.BackgroundCheckTypeDescriptors.EdFi.BackgroundCheckTypeDescriptorGetByExample>
+    {
+        public BackgroundCheckTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.BackgroundCheckTypeDescriptors.EdFi.BackgroundCheckTypeDescriptorGetByExample request, Entities.Common.EdFi.IBackgroundCheckTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BackgroundCheckTypeDescriptorId = request.BackgroundCheckTypeDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.BalanceSheetDimensions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -1375,6 +1808,252 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.Candidates.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/candidates")]
+    public partial class CandidatesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Candidate.EdFi.Candidate,
+        Entities.Common.EdFi.ICandidate,
+        Entities.NHibernate.CandidateAggregate.EdFi.Candidate,
+        Api.Common.Models.Requests.Candidates.EdFi.CandidatePut,
+        Api.Common.Models.Requests.Candidates.EdFi.CandidatePost,
+        Api.Common.Models.Requests.Candidates.EdFi.CandidateDelete,
+        Api.Common.Models.Requests.Candidates.EdFi.CandidateGetByExample>
+    {
+        public CandidatesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.Candidates.EdFi.CandidateGetByExample request, Entities.Common.EdFi.ICandidate specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BirthCity = request.BirthCity;
+            specification.BirthCountryDescriptor = request.BirthCountryDescriptor;
+            specification.BirthDate = request.BirthDate;
+            specification.BirthInternationalProvince = request.BirthInternationalProvince;
+            specification.BirthSexDescriptor = request.BirthSexDescriptor;
+            specification.BirthStateAbbreviationDescriptor = request.BirthStateAbbreviationDescriptor;
+            specification.CandidateIdentifier = request.CandidateIdentifier;
+            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.DateEnteredUS = request.DateEnteredUS;
+            specification.DisplacementStatus = request.DisplacementStatus;
+            specification.EconomicDisadvantaged = request.EconomicDisadvantaged;
+            specification.EnglishLanguageExamDescriptor = request.EnglishLanguageExamDescriptor;
+            specification.FirstGenerationStudent = request.FirstGenerationStudent;
+            specification.FirstName = request.FirstName;
+            specification.GenderIdentity = request.GenderIdentity;
+            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
+            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.Id = request.Id;
+            specification.LastSurname = request.LastSurname;
+            specification.LimitedEnglishProficiencyDescriptor = request.LimitedEnglishProficiencyDescriptor;
+            specification.LoginId = request.LoginId;
+            specification.MaidenName = request.MaidenName;
+            specification.MiddleName = request.MiddleName;
+            specification.MultipleBirthStatus = request.MultipleBirthStatus;
+            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
+            specification.PreferredFirstName = request.PreferredFirstName;
+            specification.PreferredLastSurname = request.PreferredLastSurname;
+            specification.PreviousCareerDescriptor = request.PreviousCareerDescriptor;
+            specification.ProfileThumbnail = request.ProfileThumbnail;
+            specification.SexDescriptor = request.SexDescriptor;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.TuitionCost = request.TuitionCost;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CandidateCharacteristicDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/candidateCharacteristicDescriptors")]
+    public partial class CandidateCharacteristicDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CandidateCharacteristicDescriptor.EdFi.CandidateCharacteristicDescriptor,
+        Entities.Common.EdFi.ICandidateCharacteristicDescriptor,
+        Entities.NHibernate.CandidateCharacteristicDescriptorAggregate.EdFi.CandidateCharacteristicDescriptor,
+        Api.Common.Models.Requests.CandidateCharacteristicDescriptors.EdFi.CandidateCharacteristicDescriptorPut,
+        Api.Common.Models.Requests.CandidateCharacteristicDescriptors.EdFi.CandidateCharacteristicDescriptorPost,
+        Api.Common.Models.Requests.CandidateCharacteristicDescriptors.EdFi.CandidateCharacteristicDescriptorDelete,
+        Api.Common.Models.Requests.CandidateCharacteristicDescriptors.EdFi.CandidateCharacteristicDescriptorGetByExample>
+    {
+        public CandidateCharacteristicDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CandidateCharacteristicDescriptors.EdFi.CandidateCharacteristicDescriptorGetByExample request, Entities.Common.EdFi.ICandidateCharacteristicDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CandidateCharacteristicDescriptorId = request.CandidateCharacteristicDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CandidateEducatorPreparationProgramAssociations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/candidateEducatorPreparationProgramAssociations")]
+    public partial class CandidateEducatorPreparationProgramAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.EdFi.CandidateEducatorPreparationProgramAssociation,
+        Entities.Common.EdFi.ICandidateEducatorPreparationProgramAssociation,
+        Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.EdFi.CandidateEducatorPreparationProgramAssociation,
+        Api.Common.Models.Requests.CandidateEducatorPreparationProgramAssociations.EdFi.CandidateEducatorPreparationProgramAssociationPut,
+        Api.Common.Models.Requests.CandidateEducatorPreparationProgramAssociations.EdFi.CandidateEducatorPreparationProgramAssociationPost,
+        Api.Common.Models.Requests.CandidateEducatorPreparationProgramAssociations.EdFi.CandidateEducatorPreparationProgramAssociationDelete,
+        Api.Common.Models.Requests.CandidateEducatorPreparationProgramAssociations.EdFi.CandidateEducatorPreparationProgramAssociationGetByExample>
+    {
+        public CandidateEducatorPreparationProgramAssociationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CandidateEducatorPreparationProgramAssociations.EdFi.CandidateEducatorPreparationProgramAssociationGetByExample request, Entities.Common.EdFi.ICandidateEducatorPreparationProgramAssociation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ApplicantProfileIdentifier = request.ApplicantProfileIdentifier;
+            specification.ApplicationIdentifier = request.ApplicationIdentifier;
+            specification.BeginDate = request.BeginDate;
+            specification.CandidateIdentifier = request.CandidateIdentifier;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EndDate = request.EndDate;
+            specification.EPPProgramPathwayDescriptor = request.EPPProgramPathwayDescriptor;
+            specification.Id = request.Id;
+            specification.ProgramName = request.ProgramName;
+            specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+            specification.ReasonExitedDescriptor = request.ReasonExitedDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CandidateIdentificationSystemDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/candidateIdentificationSystemDescriptors")]
+    public partial class CandidateIdentificationSystemDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CandidateIdentificationSystemDescriptor.EdFi.CandidateIdentificationSystemDescriptor,
+        Entities.Common.EdFi.ICandidateIdentificationSystemDescriptor,
+        Entities.NHibernate.CandidateIdentificationSystemDescriptorAggregate.EdFi.CandidateIdentificationSystemDescriptor,
+        Api.Common.Models.Requests.CandidateIdentificationSystemDescriptors.EdFi.CandidateIdentificationSystemDescriptorPut,
+        Api.Common.Models.Requests.CandidateIdentificationSystemDescriptors.EdFi.CandidateIdentificationSystemDescriptorPost,
+        Api.Common.Models.Requests.CandidateIdentificationSystemDescriptors.EdFi.CandidateIdentificationSystemDescriptorDelete,
+        Api.Common.Models.Requests.CandidateIdentificationSystemDescriptors.EdFi.CandidateIdentificationSystemDescriptorGetByExample>
+    {
+        public CandidateIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CandidateIdentificationSystemDescriptors.EdFi.CandidateIdentificationSystemDescriptorGetByExample request, Entities.Common.EdFi.ICandidateIdentificationSystemDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CandidateIdentificationSystemDescriptorId = request.CandidateIdentificationSystemDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CandidateIdentities.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/candidateIdentities")]
+    public partial class CandidateIdentitiesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CandidateIdentity.EdFi.CandidateIdentity,
+        Entities.Common.EdFi.ICandidateIdentity,
+        Entities.NHibernate.CandidateIdentityAggregate.EdFi.CandidateIdentity,
+        Api.Common.Models.Requests.CandidateIdentities.EdFi.CandidateIdentityPut,
+        Api.Common.Models.Requests.CandidateIdentities.EdFi.CandidateIdentityPost,
+        Api.Common.Models.Requests.CandidateIdentities.EdFi.CandidateIdentityDelete,
+        Api.Common.Models.Requests.CandidateIdentities.EdFi.CandidateIdentityGetByExample>
+    {
+        public CandidateIdentitiesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CandidateIdentities.EdFi.CandidateIdentityGetByExample request, Entities.Common.EdFi.ICandidateIdentity specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
+            specification.CandidateIdentificationSystemDescriptor = request.CandidateIdentificationSystemDescriptor;
+            specification.CandidateIdentifier = request.CandidateIdentifier;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CandidateRelationshipToStaffAssociations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/candidateRelationshipToStaffAssociations")]
+    public partial class CandidateRelationshipToStaffAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CandidateRelationshipToStaffAssociation.EdFi.CandidateRelationshipToStaffAssociation,
+        Entities.Common.EdFi.ICandidateRelationshipToStaffAssociation,
+        Entities.NHibernate.CandidateRelationshipToStaffAssociationAggregate.EdFi.CandidateRelationshipToStaffAssociation,
+        Api.Common.Models.Requests.CandidateRelationshipToStaffAssociations.EdFi.CandidateRelationshipToStaffAssociationPut,
+        Api.Common.Models.Requests.CandidateRelationshipToStaffAssociations.EdFi.CandidateRelationshipToStaffAssociationPost,
+        Api.Common.Models.Requests.CandidateRelationshipToStaffAssociations.EdFi.CandidateRelationshipToStaffAssociationDelete,
+        Api.Common.Models.Requests.CandidateRelationshipToStaffAssociations.EdFi.CandidateRelationshipToStaffAssociationGetByExample>
+    {
+        public CandidateRelationshipToStaffAssociationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CandidateRelationshipToStaffAssociations.EdFi.CandidateRelationshipToStaffAssociationGetByExample request, Entities.Common.EdFi.ICandidateRelationshipToStaffAssociation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BeginDate = request.BeginDate;
+            specification.CandidateIdentifier = request.CandidateIdentifier;
+            specification.EndDate = request.EndDate;
+            specification.Id = request.Id;
+            specification.StaffToCandidateRelationshipDescriptor = request.StaffToCandidateRelationshipDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -1401,6 +2080,351 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CareerPathwayDescriptorId = request.CareerPathwayDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.Certifications.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/certifications")]
+    public partial class CertificationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Certification.EdFi.Certification,
+        Entities.Common.EdFi.ICertification,
+        Entities.NHibernate.CertificationAggregate.EdFi.Certification,
+        Api.Common.Models.Requests.Certifications.EdFi.CertificationPut,
+        Api.Common.Models.Requests.Certifications.EdFi.CertificationPost,
+        Api.Common.Models.Requests.Certifications.EdFi.CertificationDelete,
+        Api.Common.Models.Requests.Certifications.EdFi.CertificationGetByExample>
+    {
+        public CertificationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.Certifications.EdFi.CertificationGetByExample request, Entities.Common.EdFi.ICertification specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationFieldDescriptor = request.CertificationFieldDescriptor;
+            specification.CertificationIdentifier = request.CertificationIdentifier;
+            specification.CertificationLevelDescriptor = request.CertificationLevelDescriptor;
+            specification.CertificationStandardDescriptor = request.CertificationStandardDescriptor;
+            specification.CertificationTitle = request.CertificationTitle;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EducatorRoleDescriptor = request.EducatorRoleDescriptor;
+            specification.EffectiveDate = request.EffectiveDate;
+            specification.EndDate = request.EndDate;
+            specification.Id = request.Id;
+            specification.InstructionalSettingDescriptor = request.InstructionalSettingDescriptor;
+            specification.MinimumDegreeDescriptor = request.MinimumDegreeDescriptor;
+            specification.Namespace = request.Namespace;
+            specification.PopulationServedDescriptor = request.PopulationServedDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CertificationExams.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/certificationExams")]
+    public partial class CertificationExamsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CertificationExam.EdFi.CertificationExam,
+        Entities.Common.EdFi.ICertificationExam,
+        Entities.NHibernate.CertificationExamAggregate.EdFi.CertificationExam,
+        Api.Common.Models.Requests.CertificationExams.EdFi.CertificationExamPut,
+        Api.Common.Models.Requests.CertificationExams.EdFi.CertificationExamPost,
+        Api.Common.Models.Requests.CertificationExams.EdFi.CertificationExamDelete,
+        Api.Common.Models.Requests.CertificationExams.EdFi.CertificationExamGetByExample>
+    {
+        public CertificationExamsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CertificationExams.EdFi.CertificationExamGetByExample request, Entities.Common.EdFi.ICertificationExam specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationExamIdentifier = request.CertificationExamIdentifier;
+            specification.CertificationExamTitle = request.CertificationExamTitle;
+            specification.CertificationExamTypeDescriptor = request.CertificationExamTypeDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EffectiveDate = request.EffectiveDate;
+            specification.EndDate = request.EndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CertificationExamResults.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/certificationExamResults")]
+    public partial class CertificationExamResultsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CertificationExamResult.EdFi.CertificationExamResult,
+        Entities.Common.EdFi.ICertificationExamResult,
+        Entities.NHibernate.CertificationExamResultAggregate.EdFi.CertificationExamResult,
+        Api.Common.Models.Requests.CertificationExamResults.EdFi.CertificationExamResultPut,
+        Api.Common.Models.Requests.CertificationExamResults.EdFi.CertificationExamResultPost,
+        Api.Common.Models.Requests.CertificationExamResults.EdFi.CertificationExamResultDelete,
+        Api.Common.Models.Requests.CertificationExamResults.EdFi.CertificationExamResultGetByExample>
+    {
+        public CertificationExamResultsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CertificationExamResults.EdFi.CertificationExamResultGetByExample request, Entities.Common.EdFi.ICertificationExamResult specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AttemptNumber = request.AttemptNumber;
+            specification.CertificationExamAssessmentIdentifier = request.CertificationExamAssessmentIdentifier;
+            specification.CertificationExamDate = request.CertificationExamDate;
+            specification.CertificationExamIdentifier = request.CertificationExamIdentifier;
+            specification.CertificationExamNamespace = request.CertificationExamNamespace;
+            specification.CertificationExamPassIndicator = request.CertificationExamPassIndicator;
+            specification.CertificationExamScore = request.CertificationExamScore;
+            specification.CertificationExamStatusDescriptor = request.CertificationExamStatusDescriptor;
+            specification.CertificationExamStudentAssessmentIdentifier = request.CertificationExamStudentAssessmentIdentifier;
+            specification.CertificationExamStudentUniqueId = request.CertificationExamStudentUniqueId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CertificationExamStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/certificationExamStatusDescriptors")]
+    public partial class CertificationExamStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CertificationExamStatusDescriptor.EdFi.CertificationExamStatusDescriptor,
+        Entities.Common.EdFi.ICertificationExamStatusDescriptor,
+        Entities.NHibernate.CertificationExamStatusDescriptorAggregate.EdFi.CertificationExamStatusDescriptor,
+        Api.Common.Models.Requests.CertificationExamStatusDescriptors.EdFi.CertificationExamStatusDescriptorPut,
+        Api.Common.Models.Requests.CertificationExamStatusDescriptors.EdFi.CertificationExamStatusDescriptorPost,
+        Api.Common.Models.Requests.CertificationExamStatusDescriptors.EdFi.CertificationExamStatusDescriptorDelete,
+        Api.Common.Models.Requests.CertificationExamStatusDescriptors.EdFi.CertificationExamStatusDescriptorGetByExample>
+    {
+        public CertificationExamStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CertificationExamStatusDescriptors.EdFi.CertificationExamStatusDescriptorGetByExample request, Entities.Common.EdFi.ICertificationExamStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationExamStatusDescriptorId = request.CertificationExamStatusDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CertificationExamTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/certificationExamTypeDescriptors")]
+    public partial class CertificationExamTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CertificationExamTypeDescriptor.EdFi.CertificationExamTypeDescriptor,
+        Entities.Common.EdFi.ICertificationExamTypeDescriptor,
+        Entities.NHibernate.CertificationExamTypeDescriptorAggregate.EdFi.CertificationExamTypeDescriptor,
+        Api.Common.Models.Requests.CertificationExamTypeDescriptors.EdFi.CertificationExamTypeDescriptorPut,
+        Api.Common.Models.Requests.CertificationExamTypeDescriptors.EdFi.CertificationExamTypeDescriptorPost,
+        Api.Common.Models.Requests.CertificationExamTypeDescriptors.EdFi.CertificationExamTypeDescriptorDelete,
+        Api.Common.Models.Requests.CertificationExamTypeDescriptors.EdFi.CertificationExamTypeDescriptorGetByExample>
+    {
+        public CertificationExamTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CertificationExamTypeDescriptors.EdFi.CertificationExamTypeDescriptorGetByExample request, Entities.Common.EdFi.ICertificationExamTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationExamTypeDescriptorId = request.CertificationExamTypeDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CertificationFieldDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/certificationFieldDescriptors")]
+    public partial class CertificationFieldDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CertificationFieldDescriptor.EdFi.CertificationFieldDescriptor,
+        Entities.Common.EdFi.ICertificationFieldDescriptor,
+        Entities.NHibernate.CertificationFieldDescriptorAggregate.EdFi.CertificationFieldDescriptor,
+        Api.Common.Models.Requests.CertificationFieldDescriptors.EdFi.CertificationFieldDescriptorPut,
+        Api.Common.Models.Requests.CertificationFieldDescriptors.EdFi.CertificationFieldDescriptorPost,
+        Api.Common.Models.Requests.CertificationFieldDescriptors.EdFi.CertificationFieldDescriptorDelete,
+        Api.Common.Models.Requests.CertificationFieldDescriptors.EdFi.CertificationFieldDescriptorGetByExample>
+    {
+        public CertificationFieldDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CertificationFieldDescriptors.EdFi.CertificationFieldDescriptorGetByExample request, Entities.Common.EdFi.ICertificationFieldDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationFieldDescriptorId = request.CertificationFieldDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CertificationLevelDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/certificationLevelDescriptors")]
+    public partial class CertificationLevelDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CertificationLevelDescriptor.EdFi.CertificationLevelDescriptor,
+        Entities.Common.EdFi.ICertificationLevelDescriptor,
+        Entities.NHibernate.CertificationLevelDescriptorAggregate.EdFi.CertificationLevelDescriptor,
+        Api.Common.Models.Requests.CertificationLevelDescriptors.EdFi.CertificationLevelDescriptorPut,
+        Api.Common.Models.Requests.CertificationLevelDescriptors.EdFi.CertificationLevelDescriptorPost,
+        Api.Common.Models.Requests.CertificationLevelDescriptors.EdFi.CertificationLevelDescriptorDelete,
+        Api.Common.Models.Requests.CertificationLevelDescriptors.EdFi.CertificationLevelDescriptorGetByExample>
+    {
+        public CertificationLevelDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CertificationLevelDescriptors.EdFi.CertificationLevelDescriptorGetByExample request, Entities.Common.EdFi.ICertificationLevelDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationLevelDescriptorId = request.CertificationLevelDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CertificationRouteDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/certificationRouteDescriptors")]
+    public partial class CertificationRouteDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CertificationRouteDescriptor.EdFi.CertificationRouteDescriptor,
+        Entities.Common.EdFi.ICertificationRouteDescriptor,
+        Entities.NHibernate.CertificationRouteDescriptorAggregate.EdFi.CertificationRouteDescriptor,
+        Api.Common.Models.Requests.CertificationRouteDescriptors.EdFi.CertificationRouteDescriptorPut,
+        Api.Common.Models.Requests.CertificationRouteDescriptors.EdFi.CertificationRouteDescriptorPost,
+        Api.Common.Models.Requests.CertificationRouteDescriptors.EdFi.CertificationRouteDescriptorDelete,
+        Api.Common.Models.Requests.CertificationRouteDescriptors.EdFi.CertificationRouteDescriptorGetByExample>
+    {
+        public CertificationRouteDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CertificationRouteDescriptors.EdFi.CertificationRouteDescriptorGetByExample request, Entities.Common.EdFi.ICertificationRouteDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationRouteDescriptorId = request.CertificationRouteDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CertificationStandardDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/certificationStandardDescriptors")]
+    public partial class CertificationStandardDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CertificationStandardDescriptor.EdFi.CertificationStandardDescriptor,
+        Entities.Common.EdFi.ICertificationStandardDescriptor,
+        Entities.NHibernate.CertificationStandardDescriptorAggregate.EdFi.CertificationStandardDescriptor,
+        Api.Common.Models.Requests.CertificationStandardDescriptors.EdFi.CertificationStandardDescriptorPut,
+        Api.Common.Models.Requests.CertificationStandardDescriptors.EdFi.CertificationStandardDescriptorPost,
+        Api.Common.Models.Requests.CertificationStandardDescriptors.EdFi.CertificationStandardDescriptorDelete,
+        Api.Common.Models.Requests.CertificationStandardDescriptors.EdFi.CertificationStandardDescriptorGetByExample>
+    {
+        public CertificationStandardDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CertificationStandardDescriptors.EdFi.CertificationStandardDescriptorGetByExample request, Entities.Common.EdFi.ICertificationStandardDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationStandardDescriptorId = request.CertificationStandardDescriptorId;
             specification.CodeValue = request.CodeValue;
             specification.Description = request.Description;
             specification.EffectiveBeginDate = request.EffectiveBeginDate;
@@ -2018,6 +3042,78 @@ namespace EdFi.Ods.Api.Services.Controllers.Contacts.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.ContactIdentificationSystemDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/contactIdentificationSystemDescriptors")]
+    public partial class ContactIdentificationSystemDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ContactIdentificationSystemDescriptor.EdFi.ContactIdentificationSystemDescriptor,
+        Entities.Common.EdFi.IContactIdentificationSystemDescriptor,
+        Entities.NHibernate.ContactIdentificationSystemDescriptorAggregate.EdFi.ContactIdentificationSystemDescriptor,
+        Api.Common.Models.Requests.ContactIdentificationSystemDescriptors.EdFi.ContactIdentificationSystemDescriptorPut,
+        Api.Common.Models.Requests.ContactIdentificationSystemDescriptors.EdFi.ContactIdentificationSystemDescriptorPost,
+        Api.Common.Models.Requests.ContactIdentificationSystemDescriptors.EdFi.ContactIdentificationSystemDescriptorDelete,
+        Api.Common.Models.Requests.ContactIdentificationSystemDescriptors.EdFi.ContactIdentificationSystemDescriptorGetByExample>
+    {
+        public ContactIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ContactIdentificationSystemDescriptors.EdFi.ContactIdentificationSystemDescriptorGetByExample request, Entities.Common.EdFi.IContactIdentificationSystemDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.ContactIdentificationSystemDescriptorId = request.ContactIdentificationSystemDescriptorId;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ContactIdentities.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/contactIdentities")]
+    public partial class ContactIdentitiesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ContactIdentity.EdFi.ContactIdentity,
+        Entities.Common.EdFi.IContactIdentity,
+        Entities.NHibernate.ContactIdentityAggregate.EdFi.ContactIdentity,
+        Api.Common.Models.Requests.ContactIdentities.EdFi.ContactIdentityPut,
+        Api.Common.Models.Requests.ContactIdentities.EdFi.ContactIdentityPost,
+        Api.Common.Models.Requests.ContactIdentities.EdFi.ContactIdentityDelete,
+        Api.Common.Models.Requests.ContactIdentities.EdFi.ContactIdentityGetByExample>
+    {
+        public ContactIdentitiesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ContactIdentities.EdFi.ContactIdentityGetByExample request, Entities.Common.EdFi.IContactIdentity specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
+            specification.ContactIdentificationSystemDescriptor = request.ContactIdentificationSystemDescriptor;
+            specification.ContactUniqueId = request.ContactUniqueId;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -2156,6 +3252,43 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
             specification.CostRateDescriptorId = request.CostRateDescriptorId;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CoteachingStyleObservedDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/coteachingStyleObservedDescriptors")]
+    public partial class CoteachingStyleObservedDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.EdFi.CoteachingStyleObservedDescriptor,
+        Entities.Common.EdFi.ICoteachingStyleObservedDescriptor,
+        Entities.NHibernate.CoteachingStyleObservedDescriptorAggregate.EdFi.CoteachingStyleObservedDescriptor,
+        Api.Common.Models.Requests.CoteachingStyleObservedDescriptors.EdFi.CoteachingStyleObservedDescriptorPut,
+        Api.Common.Models.Requests.CoteachingStyleObservedDescriptors.EdFi.CoteachingStyleObservedDescriptorPost,
+        Api.Common.Models.Requests.CoteachingStyleObservedDescriptors.EdFi.CoteachingStyleObservedDescriptorDelete,
+        Api.Common.Models.Requests.CoteachingStyleObservedDescriptors.EdFi.CoteachingStyleObservedDescriptorGetByExample>
+    {
+        public CoteachingStyleObservedDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CoteachingStyleObservedDescriptors.EdFi.CoteachingStyleObservedDescriptorGetByExample request, Entities.Common.EdFi.ICoteachingStyleObservedDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.CoteachingStyleObservedDescriptorId = request.CoteachingStyleObservedDescriptorId;
             specification.Description = request.Description;
             specification.EffectiveBeginDate = request.EffectiveBeginDate;
             specification.EffectiveEndDate = request.EffectiveEndDate;
@@ -2591,17 +3724,99 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.BoardCertificationIndicator = request.BoardCertificationIndicator;
+            specification.CertificationIdentifier = request.CertificationIdentifier;
+            specification.CertificationNamespace = request.CertificationNamespace;
+            specification.CertificationRouteDescriptor = request.CertificationRouteDescriptor;
+            specification.CertificationTitle = request.CertificationTitle;
             specification.CredentialFieldDescriptor = request.CredentialFieldDescriptor;
             specification.CredentialIdentifier = request.CredentialIdentifier;
+            specification.CredentialStatusDate = request.CredentialStatusDate;
+            specification.CredentialStatusDescriptor = request.CredentialStatusDescriptor;
             specification.CredentialTypeDescriptor = request.CredentialTypeDescriptor;
+            specification.EducatorRoleDescriptor = request.EducatorRoleDescriptor;
             specification.EffectiveDate = request.EffectiveDate;
             specification.ExpirationDate = request.ExpirationDate;
             specification.Id = request.Id;
             specification.IssuanceDate = request.IssuanceDate;
             specification.Namespace = request.Namespace;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
             specification.TeachingCredentialBasisDescriptor = request.TeachingCredentialBasisDescriptor;
             specification.TeachingCredentialDescriptor = request.TeachingCredentialDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CredentialEvents.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/credentialEvents")]
+    public partial class CredentialEventsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CredentialEvent.EdFi.CredentialEvent,
+        Entities.Common.EdFi.ICredentialEvent,
+        Entities.NHibernate.CredentialEventAggregate.EdFi.CredentialEvent,
+        Api.Common.Models.Requests.CredentialEvents.EdFi.CredentialEventPut,
+        Api.Common.Models.Requests.CredentialEvents.EdFi.CredentialEventPost,
+        Api.Common.Models.Requests.CredentialEvents.EdFi.CredentialEventDelete,
+        Api.Common.Models.Requests.CredentialEvents.EdFi.CredentialEventGetByExample>
+    {
+        public CredentialEventsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CredentialEvents.EdFi.CredentialEventGetByExample request, Entities.Common.EdFi.ICredentialEvent specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CredentialEventDate = request.CredentialEventDate;
+            specification.CredentialEventReason = request.CredentialEventReason;
+            specification.CredentialEventTypeDescriptor = request.CredentialEventTypeDescriptor;
+            specification.CredentialIdentifier = request.CredentialIdentifier;
+            specification.Id = request.Id;
+            specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CredentialEventTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/credentialEventTypeDescriptors")]
+    public partial class CredentialEventTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CredentialEventTypeDescriptor.EdFi.CredentialEventTypeDescriptor,
+        Entities.Common.EdFi.ICredentialEventTypeDescriptor,
+        Entities.NHibernate.CredentialEventTypeDescriptorAggregate.EdFi.CredentialEventTypeDescriptor,
+        Api.Common.Models.Requests.CredentialEventTypeDescriptors.EdFi.CredentialEventTypeDescriptorPut,
+        Api.Common.Models.Requests.CredentialEventTypeDescriptors.EdFi.CredentialEventTypeDescriptorPost,
+        Api.Common.Models.Requests.CredentialEventTypeDescriptors.EdFi.CredentialEventTypeDescriptorDelete,
+        Api.Common.Models.Requests.CredentialEventTypeDescriptors.EdFi.CredentialEventTypeDescriptorGetByExample>
+    {
+        public CredentialEventTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CredentialEventTypeDescriptors.EdFi.CredentialEventTypeDescriptorGetByExample request, Entities.Common.EdFi.ICredentialEventTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.CredentialEventTypeDescriptorId = request.CredentialEventTypeDescriptorId;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -2633,6 +3848,43 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
             specification.CredentialFieldDescriptorId = request.CredentialFieldDescriptorId;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.CredentialStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/credentialStatusDescriptors")]
+    public partial class CredentialStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CredentialStatusDescriptor.EdFi.CredentialStatusDescriptor,
+        Entities.Common.EdFi.ICredentialStatusDescriptor,
+        Entities.NHibernate.CredentialStatusDescriptorAggregate.EdFi.CredentialStatusDescriptor,
+        Api.Common.Models.Requests.CredentialStatusDescriptors.EdFi.CredentialStatusDescriptorPut,
+        Api.Common.Models.Requests.CredentialStatusDescriptors.EdFi.CredentialStatusDescriptorPost,
+        Api.Common.Models.Requests.CredentialStatusDescriptors.EdFi.CredentialStatusDescriptorDelete,
+        Api.Common.Models.Requests.CredentialStatusDescriptors.EdFi.CredentialStatusDescriptorGetByExample>
+    {
+        public CredentialStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CredentialStatusDescriptors.EdFi.CredentialStatusDescriptorGetByExample request, Entities.Common.EdFi.ICredentialStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.CredentialStatusDescriptorId = request.CredentialStatusDescriptorId;
             specification.Description = request.Description;
             specification.EffectiveBeginDate = request.EffectiveBeginDate;
             specification.EffectiveEndDate = request.EffectiveEndDate;
@@ -2890,6 +4142,43 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
             specification.CurriculumUsedDescriptorId = request.CurriculumUsedDescriptorId;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.DegreeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/degreeDescriptors")]
+    public partial class DegreeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.DegreeDescriptor.EdFi.DegreeDescriptor,
+        Entities.Common.EdFi.IDegreeDescriptor,
+        Entities.NHibernate.DegreeDescriptorAggregate.EdFi.DegreeDescriptor,
+        Api.Common.Models.Requests.DegreeDescriptors.EdFi.DegreeDescriptorPut,
+        Api.Common.Models.Requests.DegreeDescriptors.EdFi.DegreeDescriptorPost,
+        Api.Common.Models.Requests.DegreeDescriptors.EdFi.DegreeDescriptorDelete,
+        Api.Common.Models.Requests.DegreeDescriptors.EdFi.DegreeDescriptorGetByExample>
+    {
+        public DegreeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.DegreeDescriptors.EdFi.DegreeDescriptorGetByExample request, Entities.Common.EdFi.IDegreeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.DegreeDescriptorId = request.DegreeDescriptorId;
             specification.Description = request.Description;
             specification.EffectiveBeginDate = request.EffectiveBeginDate;
             specification.EffectiveEndDate = request.EffectiveEndDate;
@@ -3496,6 +4785,43 @@ namespace EdFi.Ods.Api.Services.Controllers.DualCreditTypeDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.EconomicDisadvantageDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/economicDisadvantageDescriptors")]
+    public partial class EconomicDisadvantageDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EconomicDisadvantageDescriptor.EdFi.EconomicDisadvantageDescriptor,
+        Entities.Common.EdFi.IEconomicDisadvantageDescriptor,
+        Entities.NHibernate.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptor,
+        Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi.EconomicDisadvantageDescriptorPut,
+        Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi.EconomicDisadvantageDescriptorPost,
+        Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi.EconomicDisadvantageDescriptorDelete,
+        Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi.EconomicDisadvantageDescriptorGetByExample>
+    {
+        public EconomicDisadvantageDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EconomicDisadvantageDescriptors.EdFi.EconomicDisadvantageDescriptorGetByExample request, Entities.Common.EdFi.IEconomicDisadvantageDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EconomicDisadvantageDescriptorId = request.EconomicDisadvantageDescriptorId;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -3687,6 +5013,40 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentities.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationIdentities")]
+    public partial class EducationOrganizationIdentitiesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EducationOrganizationIdentity.EdFi.EducationOrganizationIdentity,
+        Entities.Common.EdFi.IEducationOrganizationIdentity,
+        Entities.NHibernate.EducationOrganizationIdentityAggregate.EdFi.EducationOrganizationIdentity,
+        Api.Common.Models.Requests.EducationOrganizationIdentities.EdFi.EducationOrganizationIdentityPut,
+        Api.Common.Models.Requests.EducationOrganizationIdentities.EdFi.EducationOrganizationIdentityPost,
+        Api.Common.Models.Requests.EducationOrganizationIdentities.EdFi.EducationOrganizationIdentityDelete,
+        Api.Common.Models.Requests.EducationOrganizationIdentities.EdFi.EducationOrganizationIdentityGetByExample>
+    {
+        public EducationOrganizationIdentitiesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationIdentities.EdFi.EducationOrganizationIdentityGetByExample request, Entities.Common.EdFi.IEducationOrganizationIdentity specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EducationOrganizationIdentificationSystemDescriptor = request.EducationOrganizationIdentificationSystemDescriptor;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
         }
     }
 }
@@ -3901,6 +5261,78 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.EducatorPreparationPrograms.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educatorPreparationPrograms")]
+    public partial class EducatorPreparationProgramsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EducatorPreparationProgram.EdFi.EducatorPreparationProgram,
+        Entities.Common.EdFi.IEducatorPreparationProgram,
+        Entities.NHibernate.EducatorPreparationProgramAggregate.EdFi.EducatorPreparationProgram,
+        Api.Common.Models.Requests.EducatorPreparationPrograms.EdFi.EducatorPreparationProgramPut,
+        Api.Common.Models.Requests.EducatorPreparationPrograms.EdFi.EducatorPreparationProgramPost,
+        Api.Common.Models.Requests.EducatorPreparationPrograms.EdFi.EducatorPreparationProgramDelete,
+        Api.Common.Models.Requests.EducatorPreparationPrograms.EdFi.EducatorPreparationProgramGetByExample>
+    {
+        public EducatorPreparationProgramsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EducatorPreparationPrograms.EdFi.EducatorPreparationProgramGetByExample request, Entities.Common.EdFi.IEducatorPreparationProgram specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AccreditationStatusDescriptor = request.AccreditationStatusDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.ProgramId = request.ProgramId;
+            specification.ProgramName = request.ProgramName;
+            specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EducatorRoleDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educatorRoleDescriptors")]
+    public partial class EducatorRoleDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EducatorRoleDescriptor.EdFi.EducatorRoleDescriptor,
+        Entities.Common.EdFi.IEducatorRoleDescriptor,
+        Entities.NHibernate.EducatorRoleDescriptorAggregate.EdFi.EducatorRoleDescriptor,
+        Api.Common.Models.Requests.EducatorRoleDescriptors.EdFi.EducatorRoleDescriptorPut,
+        Api.Common.Models.Requests.EducatorRoleDescriptors.EdFi.EducatorRoleDescriptorPost,
+        Api.Common.Models.Requests.EducatorRoleDescriptors.EdFi.EducatorRoleDescriptorDelete,
+        Api.Common.Models.Requests.EducatorRoleDescriptors.EdFi.EducatorRoleDescriptorGetByExample>
+    {
+        public EducatorRoleDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EducatorRoleDescriptors.EdFi.EducatorRoleDescriptorGetByExample request, Entities.Common.EdFi.IEducatorRoleDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EducatorRoleDescriptorId = request.EducatorRoleDescriptorId;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -4049,6 +5481,43 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.EnglishLanguageExamDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/englishLanguageExamDescriptors")]
+    public partial class EnglishLanguageExamDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EnglishLanguageExamDescriptor.EdFi.EnglishLanguageExamDescriptor,
+        Entities.Common.EdFi.IEnglishLanguageExamDescriptor,
+        Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.EdFi.EnglishLanguageExamDescriptor,
+        Api.Common.Models.Requests.EnglishLanguageExamDescriptors.EdFi.EnglishLanguageExamDescriptorPut,
+        Api.Common.Models.Requests.EnglishLanguageExamDescriptors.EdFi.EnglishLanguageExamDescriptorPost,
+        Api.Common.Models.Requests.EnglishLanguageExamDescriptors.EdFi.EnglishLanguageExamDescriptorDelete,
+        Api.Common.Models.Requests.EnglishLanguageExamDescriptors.EdFi.EnglishLanguageExamDescriptorGetByExample>
+    {
+        public EnglishLanguageExamDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EnglishLanguageExamDescriptors.EdFi.EnglishLanguageExamDescriptorGetByExample request, Entities.Common.EdFi.IEnglishLanguageExamDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.EnglishLanguageExamDescriptorId = request.EnglishLanguageExamDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.EnrollmentTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -4160,6 +5629,122 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.EPPDegreeTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/eppDegreeTypeDescriptors")]
+    public partial class EPPDegreeTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EPPDegreeTypeDescriptor.EdFi.EPPDegreeTypeDescriptor,
+        Entities.Common.EdFi.IEPPDegreeTypeDescriptor,
+        Entities.NHibernate.EPPDegreeTypeDescriptorAggregate.EdFi.EPPDegreeTypeDescriptor,
+        Api.Common.Models.Requests.EPPDegreeTypeDescriptors.EdFi.EPPDegreeTypeDescriptorPut,
+        Api.Common.Models.Requests.EPPDegreeTypeDescriptors.EdFi.EPPDegreeTypeDescriptorPost,
+        Api.Common.Models.Requests.EPPDegreeTypeDescriptors.EdFi.EPPDegreeTypeDescriptorDelete,
+        Api.Common.Models.Requests.EPPDegreeTypeDescriptors.EdFi.EPPDegreeTypeDescriptorGetByExample>
+    {
+        public EPPDegreeTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EPPDegreeTypeDescriptors.EdFi.EPPDegreeTypeDescriptorGetByExample request, Entities.Common.EdFi.IEPPDegreeTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.EPPDegreeTypeDescriptorId = request.EPPDegreeTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EPPProgramPathwayDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/eppProgramPathwayDescriptors")]
+    public partial class EPPProgramPathwayDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EPPProgramPathwayDescriptor.EdFi.EPPProgramPathwayDescriptor,
+        Entities.Common.EdFi.IEPPProgramPathwayDescriptor,
+        Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.EdFi.EPPProgramPathwayDescriptor,
+        Api.Common.Models.Requests.EPPProgramPathwayDescriptors.EdFi.EPPProgramPathwayDescriptorPut,
+        Api.Common.Models.Requests.EPPProgramPathwayDescriptors.EdFi.EPPProgramPathwayDescriptorPost,
+        Api.Common.Models.Requests.EPPProgramPathwayDescriptors.EdFi.EPPProgramPathwayDescriptorDelete,
+        Api.Common.Models.Requests.EPPProgramPathwayDescriptors.EdFi.EPPProgramPathwayDescriptorGetByExample>
+    {
+        public EPPProgramPathwayDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EPPProgramPathwayDescriptors.EdFi.EPPProgramPathwayDescriptorGetByExample request, Entities.Common.EdFi.IEPPProgramPathwayDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.EPPProgramPathwayDescriptorId = request.EPPProgramPathwayDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.Evaluations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluations")]
+    public partial class EvaluationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Evaluation.EdFi.Evaluation,
+        Entities.Common.EdFi.IEvaluation,
+        Entities.NHibernate.EvaluationAggregate.EdFi.Evaluation,
+        Api.Common.Models.Requests.Evaluations.EdFi.EvaluationPut,
+        Api.Common.Models.Requests.Evaluations.EdFi.EvaluationPost,
+        Api.Common.Models.Requests.Evaluations.EdFi.EvaluationDelete,
+        Api.Common.Models.Requests.Evaluations.EdFi.EvaluationGetByExample>
+    {
+        public EvaluationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.Evaluations.EdFi.EvaluationGetByExample request, Entities.Common.EdFi.IEvaluation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationDescription = request.EvaluationDescription;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.EvaluationTypeDescriptor = request.EvaluationTypeDescriptor;
+            specification.Id = request.Id;
+            specification.InterRaterReliabilityScore = request.InterRaterReliabilityScore;
+            specification.MaxNumericRating = request.MaxNumericRating;
+            specification.MinNumericRating = request.MinNumericRating;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.EvaluationDelayReasonDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -4190,6 +5775,378 @@ namespace EdFi.Ods.Api.Services.Controllers.EvaluationDelayReasonDescriptors.EdF
             specification.EffectiveBeginDate = request.EffectiveBeginDate;
             specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.EvaluationDelayReasonDescriptorId = request.EvaluationDelayReasonDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationElements.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationElements")]
+    public partial class EvaluationElementsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationElement.EdFi.EvaluationElement,
+        Entities.Common.EdFi.IEvaluationElement,
+        Entities.NHibernate.EvaluationElementAggregate.EdFi.EvaluationElement,
+        Api.Common.Models.Requests.EvaluationElements.EdFi.EvaluationElementPut,
+        Api.Common.Models.Requests.EvaluationElements.EdFi.EvaluationElementPost,
+        Api.Common.Models.Requests.EvaluationElements.EdFi.EvaluationElementDelete,
+        Api.Common.Models.Requests.EvaluationElements.EdFi.EvaluationElementGetByExample>
+    {
+        public EvaluationElementsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationElements.EdFi.EvaluationElementGetByExample request, Entities.Common.EdFi.IEvaluationElement specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.EvaluationTypeDescriptor = request.EvaluationTypeDescriptor;
+            specification.Id = request.Id;
+            specification.MaxNumericRating = request.MaxNumericRating;
+            specification.MinNumericRating = request.MinNumericRating;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
+            specification.SortOrder = request.SortOrder;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationElementRatings.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationElementRatings")]
+    public partial class EvaluationElementRatingsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationElementRating.EdFi.EvaluationElementRating,
+        Entities.Common.EdFi.IEvaluationElementRating,
+        Entities.NHibernate.EvaluationElementRatingAggregate.EdFi.EvaluationElementRating,
+        Api.Common.Models.Requests.EvaluationElementRatings.EdFi.EvaluationElementRatingPut,
+        Api.Common.Models.Requests.EvaluationElementRatings.EdFi.EvaluationElementRatingPost,
+        Api.Common.Models.Requests.EvaluationElementRatings.EdFi.EvaluationElementRatingDelete,
+        Api.Common.Models.Requests.EvaluationElementRatings.EdFi.EvaluationElementRatingGetByExample>
+    {
+        public EvaluationElementRatingsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationElementRatings.EdFi.EvaluationElementRatingGetByExample request, Entities.Common.EdFi.IEvaluationElementRating specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AreaOfRefinement = request.AreaOfRefinement;
+            specification.AreaOfReinforcement = request.AreaOfReinforcement;
+            specification.Comments = request.Comments;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationElementRatingLevelDescriptor = request.EvaluationElementRatingLevelDescriptor;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Feedback = request.Feedback;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.SchoolYear = request.SchoolYear;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationElementRatingLevelDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationElementRatingLevelDescriptors")]
+    public partial class EvaluationElementRatingLevelDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.EdFi.EvaluationElementRatingLevelDescriptor,
+        Entities.Common.EdFi.IEvaluationElementRatingLevelDescriptor,
+        Entities.NHibernate.EvaluationElementRatingLevelDescriptorAggregate.EdFi.EvaluationElementRatingLevelDescriptor,
+        Api.Common.Models.Requests.EvaluationElementRatingLevelDescriptors.EdFi.EvaluationElementRatingLevelDescriptorPut,
+        Api.Common.Models.Requests.EvaluationElementRatingLevelDescriptors.EdFi.EvaluationElementRatingLevelDescriptorPost,
+        Api.Common.Models.Requests.EvaluationElementRatingLevelDescriptors.EdFi.EvaluationElementRatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.EvaluationElementRatingLevelDescriptors.EdFi.EvaluationElementRatingLevelDescriptorGetByExample>
+    {
+        public EvaluationElementRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationElementRatingLevelDescriptors.EdFi.EvaluationElementRatingLevelDescriptorGetByExample request, Entities.Common.EdFi.IEvaluationElementRatingLevelDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.EvaluationElementRatingLevelDescriptorId = request.EvaluationElementRatingLevelDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationObjectives.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationObjectives")]
+    public partial class EvaluationObjectivesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationObjective.EdFi.EvaluationObjective,
+        Entities.Common.EdFi.IEvaluationObjective,
+        Entities.NHibernate.EvaluationObjectiveAggregate.EdFi.EvaluationObjective,
+        Api.Common.Models.Requests.EvaluationObjectives.EdFi.EvaluationObjectivePut,
+        Api.Common.Models.Requests.EvaluationObjectives.EdFi.EvaluationObjectivePost,
+        Api.Common.Models.Requests.EvaluationObjectives.EdFi.EvaluationObjectiveDelete,
+        Api.Common.Models.Requests.EvaluationObjectives.EdFi.EvaluationObjectiveGetByExample>
+    {
+        public EvaluationObjectivesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationObjectives.EdFi.EvaluationObjectiveGetByExample request, Entities.Common.EdFi.IEvaluationObjective specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationObjectiveDescription = request.EvaluationObjectiveDescription;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.EvaluationTypeDescriptor = request.EvaluationTypeDescriptor;
+            specification.Id = request.Id;
+            specification.MaxNumericRating = request.MaxNumericRating;
+            specification.MinNumericRating = request.MinNumericRating;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
+            specification.SortOrder = request.SortOrder;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationObjectiveRatings.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationObjectiveRatings")]
+    public partial class EvaluationObjectiveRatingsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationObjectiveRating.EdFi.EvaluationObjectiveRating,
+        Entities.Common.EdFi.IEvaluationObjectiveRating,
+        Entities.NHibernate.EvaluationObjectiveRatingAggregate.EdFi.EvaluationObjectiveRating,
+        Api.Common.Models.Requests.EvaluationObjectiveRatings.EdFi.EvaluationObjectiveRatingPut,
+        Api.Common.Models.Requests.EvaluationObjectiveRatings.EdFi.EvaluationObjectiveRatingPost,
+        Api.Common.Models.Requests.EvaluationObjectiveRatings.EdFi.EvaluationObjectiveRatingDelete,
+        Api.Common.Models.Requests.EvaluationObjectiveRatings.EdFi.EvaluationObjectiveRatingGetByExample>
+    {
+        public EvaluationObjectiveRatingsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationObjectiveRatings.EdFi.EvaluationObjectiveRatingGetByExample request, Entities.Common.EdFi.IEvaluationObjectiveRating specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Comments = request.Comments;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.ObjectiveRatingLevelDescriptor = request.ObjectiveRatingLevelDescriptor;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.SchoolYear = request.SchoolYear;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationPeriodDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationPeriodDescriptors")]
+    public partial class EvaluationPeriodDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationPeriodDescriptor.EdFi.EvaluationPeriodDescriptor,
+        Entities.Common.EdFi.IEvaluationPeriodDescriptor,
+        Entities.NHibernate.EvaluationPeriodDescriptorAggregate.EdFi.EvaluationPeriodDescriptor,
+        Api.Common.Models.Requests.EvaluationPeriodDescriptors.EdFi.EvaluationPeriodDescriptorPut,
+        Api.Common.Models.Requests.EvaluationPeriodDescriptors.EdFi.EvaluationPeriodDescriptorPost,
+        Api.Common.Models.Requests.EvaluationPeriodDescriptors.EdFi.EvaluationPeriodDescriptorDelete,
+        Api.Common.Models.Requests.EvaluationPeriodDescriptors.EdFi.EvaluationPeriodDescriptorGetByExample>
+    {
+        public EvaluationPeriodDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationPeriodDescriptors.EdFi.EvaluationPeriodDescriptorGetByExample request, Entities.Common.EdFi.IEvaluationPeriodDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.EvaluationPeriodDescriptorId = request.EvaluationPeriodDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationRatings.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationRatings")]
+    public partial class EvaluationRatingsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationRating.EdFi.EvaluationRating,
+        Entities.Common.EdFi.IEvaluationRating,
+        Entities.NHibernate.EvaluationRatingAggregate.EdFi.EvaluationRating,
+        Api.Common.Models.Requests.EvaluationRatings.EdFi.EvaluationRatingPut,
+        Api.Common.Models.Requests.EvaluationRatings.EdFi.EvaluationRatingPost,
+        Api.Common.Models.Requests.EvaluationRatings.EdFi.EvaluationRatingDelete,
+        Api.Common.Models.Requests.EvaluationRatings.EdFi.EvaluationRatingGetByExample>
+    {
+        public EvaluationRatingsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationRatings.EdFi.EvaluationRatingGetByExample request, Entities.Common.EdFi.IEvaluationRating specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ActualDuration = request.ActualDuration;
+            specification.Comments = request.Comments;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationRatingLevelDescriptor = request.EvaluationRatingLevelDescriptor;
+            specification.EvaluationRatingStatusDescriptor = request.EvaluationRatingStatusDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.LocalCourseCode = request.LocalCourseCode;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.SchoolId = request.SchoolId;
+            specification.SchoolYear = request.SchoolYear;
+            specification.SectionIdentifier = request.SectionIdentifier;
+            specification.SessionName = request.SessionName;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationRatingLevelDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationRatingLevelDescriptors")]
+    public partial class EvaluationRatingLevelDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.EdFi.EvaluationRatingLevelDescriptor,
+        Entities.Common.EdFi.IEvaluationRatingLevelDescriptor,
+        Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.EdFi.EvaluationRatingLevelDescriptor,
+        Api.Common.Models.Requests.EvaluationRatingLevelDescriptors.EdFi.EvaluationRatingLevelDescriptorPut,
+        Api.Common.Models.Requests.EvaluationRatingLevelDescriptors.EdFi.EvaluationRatingLevelDescriptorPost,
+        Api.Common.Models.Requests.EvaluationRatingLevelDescriptors.EdFi.EvaluationRatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.EvaluationRatingLevelDescriptors.EdFi.EvaluationRatingLevelDescriptorGetByExample>
+    {
+        public EvaluationRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationRatingLevelDescriptors.EdFi.EvaluationRatingLevelDescriptorGetByExample request, Entities.Common.EdFi.IEvaluationRatingLevelDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.EvaluationRatingLevelDescriptorId = request.EvaluationRatingLevelDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationRatingStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationRatingStatusDescriptors")]
+    public partial class EvaluationRatingStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.EdFi.EvaluationRatingStatusDescriptor,
+        Entities.Common.EdFi.IEvaluationRatingStatusDescriptor,
+        Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate.EdFi.EvaluationRatingStatusDescriptor,
+        Api.Common.Models.Requests.EvaluationRatingStatusDescriptors.EdFi.EvaluationRatingStatusDescriptorPut,
+        Api.Common.Models.Requests.EvaluationRatingStatusDescriptors.EdFi.EvaluationRatingStatusDescriptorPost,
+        Api.Common.Models.Requests.EvaluationRatingStatusDescriptors.EdFi.EvaluationRatingStatusDescriptorDelete,
+        Api.Common.Models.Requests.EvaluationRatingStatusDescriptors.EdFi.EvaluationRatingStatusDescriptorGetByExample>
+    {
+        public EvaluationRatingStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationRatingStatusDescriptors.EdFi.EvaluationRatingStatusDescriptorGetByExample request, Entities.Common.EdFi.IEvaluationRatingStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.EvaluationRatingStatusDescriptorId = request.EvaluationRatingStatusDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
@@ -4234,6 +6191,43 @@ namespace EdFi.Ods.Api.Services.Controllers.EvaluationRubricDimensions.EdFi
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.RubricDimensionSortOrder = request.RubricDimensionSortOrder;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationTypeDescriptors")]
+    public partial class EvaluationTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationTypeDescriptor.EdFi.EvaluationTypeDescriptor,
+        Entities.Common.EdFi.IEvaluationTypeDescriptor,
+        Entities.NHibernate.EvaluationTypeDescriptorAggregate.EdFi.EvaluationTypeDescriptor,
+        Api.Common.Models.Requests.EvaluationTypeDescriptors.EdFi.EvaluationTypeDescriptorPut,
+        Api.Common.Models.Requests.EvaluationTypeDescriptors.EdFi.EvaluationTypeDescriptorPost,
+        Api.Common.Models.Requests.EvaluationTypeDescriptors.EdFi.EvaluationTypeDescriptorDelete,
+        Api.Common.Models.Requests.EvaluationTypeDescriptors.EdFi.EvaluationTypeDescriptorGetByExample>
+    {
+        public EvaluationTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationTypeDescriptors.EdFi.EvaluationTypeDescriptorGetByExample request, Entities.Common.EdFi.IEvaluationTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.EvaluationTypeDescriptorId = request.EvaluationTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -4312,6 +6306,43 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.FederalLocaleCodeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/federalLocaleCodeDescriptors")]
+    public partial class FederalLocaleCodeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FederalLocaleCodeDescriptor.EdFi.FederalLocaleCodeDescriptor,
+        Entities.Common.EdFi.IFederalLocaleCodeDescriptor,
+        Entities.NHibernate.FederalLocaleCodeDescriptorAggregate.EdFi.FederalLocaleCodeDescriptor,
+        Api.Common.Models.Requests.FederalLocaleCodeDescriptors.EdFi.FederalLocaleCodeDescriptorPut,
+        Api.Common.Models.Requests.FederalLocaleCodeDescriptors.EdFi.FederalLocaleCodeDescriptorPost,
+        Api.Common.Models.Requests.FederalLocaleCodeDescriptors.EdFi.FederalLocaleCodeDescriptorDelete,
+        Api.Common.Models.Requests.FederalLocaleCodeDescriptors.EdFi.FederalLocaleCodeDescriptorGetByExample>
+    {
+        public FederalLocaleCodeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.FederalLocaleCodeDescriptors.EdFi.FederalLocaleCodeDescriptorGetByExample request, Entities.Common.EdFi.IFederalLocaleCodeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.FederalLocaleCodeDescriptorId = request.FederalLocaleCodeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -4343,6 +6374,158 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
             specification.FeederSchoolId = request.FeederSchoolId;
             specification.Id = request.Id;
             specification.SchoolId = request.SchoolId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.FieldworkExperiences.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/fieldworkExperiences")]
+    public partial class FieldworkExperiencesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FieldworkExperience.EdFi.FieldworkExperience,
+        Entities.Common.EdFi.IFieldworkExperience,
+        Entities.NHibernate.FieldworkExperienceAggregate.EdFi.FieldworkExperience,
+        Api.Common.Models.Requests.FieldworkExperiences.EdFi.FieldworkExperiencePut,
+        Api.Common.Models.Requests.FieldworkExperiences.EdFi.FieldworkExperiencePost,
+        Api.Common.Models.Requests.FieldworkExperiences.EdFi.FieldworkExperienceDelete,
+        Api.Common.Models.Requests.FieldworkExperiences.EdFi.FieldworkExperienceGetByExample>
+    {
+        public FieldworkExperiencesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.FieldworkExperiences.EdFi.FieldworkExperienceGetByExample request, Entities.Common.EdFi.IFieldworkExperience specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BeginDate = request.BeginDate;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EndDate = request.EndDate;
+            specification.FieldworkIdentifier = request.FieldworkIdentifier;
+            specification.FieldworkTypeDescriptor = request.FieldworkTypeDescriptor;
+            specification.HoursCompleted = request.HoursCompleted;
+            specification.Id = request.Id;
+            specification.ProgramName = request.ProgramName;
+            specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+            specification.SchoolId = request.SchoolId;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.FieldworkExperienceSectionAssociations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/fieldworkExperienceSectionAssociations")]
+    public partial class FieldworkExperienceSectionAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FieldworkExperienceSectionAssociation.EdFi.FieldworkExperienceSectionAssociation,
+        Entities.Common.EdFi.IFieldworkExperienceSectionAssociation,
+        Entities.NHibernate.FieldworkExperienceSectionAssociationAggregate.EdFi.FieldworkExperienceSectionAssociation,
+        Api.Common.Models.Requests.FieldworkExperienceSectionAssociations.EdFi.FieldworkExperienceSectionAssociationPut,
+        Api.Common.Models.Requests.FieldworkExperienceSectionAssociations.EdFi.FieldworkExperienceSectionAssociationPost,
+        Api.Common.Models.Requests.FieldworkExperienceSectionAssociations.EdFi.FieldworkExperienceSectionAssociationDelete,
+        Api.Common.Models.Requests.FieldworkExperienceSectionAssociations.EdFi.FieldworkExperienceSectionAssociationGetByExample>
+    {
+        public FieldworkExperienceSectionAssociationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.FieldworkExperienceSectionAssociations.EdFi.FieldworkExperienceSectionAssociationGetByExample request, Entities.Common.EdFi.IFieldworkExperienceSectionAssociation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BeginDate = request.BeginDate;
+            specification.FieldworkIdentifier = request.FieldworkIdentifier;
+            specification.Id = request.Id;
+            specification.LocalCourseCode = request.LocalCourseCode;
+            specification.SchoolId = request.SchoolId;
+            specification.SchoolYear = request.SchoolYear;
+            specification.SectionIdentifier = request.SectionIdentifier;
+            specification.SessionName = request.SessionName;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.FieldworkTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/fieldworkTypeDescriptors")]
+    public partial class FieldworkTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FieldworkTypeDescriptor.EdFi.FieldworkTypeDescriptor,
+        Entities.Common.EdFi.IFieldworkTypeDescriptor,
+        Entities.NHibernate.FieldworkTypeDescriptorAggregate.EdFi.FieldworkTypeDescriptor,
+        Api.Common.Models.Requests.FieldworkTypeDescriptors.EdFi.FieldworkTypeDescriptorPut,
+        Api.Common.Models.Requests.FieldworkTypeDescriptors.EdFi.FieldworkTypeDescriptorPost,
+        Api.Common.Models.Requests.FieldworkTypeDescriptors.EdFi.FieldworkTypeDescriptorDelete,
+        Api.Common.Models.Requests.FieldworkTypeDescriptors.EdFi.FieldworkTypeDescriptorGetByExample>
+    {
+        public FieldworkTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.FieldworkTypeDescriptors.EdFi.FieldworkTypeDescriptorGetByExample request, Entities.Common.EdFi.IFieldworkTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.FieldworkTypeDescriptorId = request.FieldworkTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.FinancialAids.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/financialAids")]
+    public partial class FinancialAidsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FinancialAid.EdFi.FinancialAid,
+        Entities.Common.EdFi.IFinancialAid,
+        Entities.NHibernate.FinancialAidAggregate.EdFi.FinancialAid,
+        Api.Common.Models.Requests.FinancialAids.EdFi.FinancialAidPut,
+        Api.Common.Models.Requests.FinancialAids.EdFi.FinancialAidPost,
+        Api.Common.Models.Requests.FinancialAids.EdFi.FinancialAidDelete,
+        Api.Common.Models.Requests.FinancialAids.EdFi.FinancialAidGetByExample>
+    {
+        public FinancialAidsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.FinancialAids.EdFi.FinancialAidGetByExample request, Entities.Common.EdFi.IFinancialAid specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AidAmount = request.AidAmount;
+            specification.AidConditionDescription = request.AidConditionDescription;
+            specification.AidTypeDescriptor = request.AidTypeDescriptor;
+            specification.BeginDate = request.BeginDate;
+            specification.EndDate = request.EndDate;
+            specification.Id = request.Id;
+            specification.PellGrantRecipient = request.PellGrantRecipient;
+            specification.StudentUniqueId = request.StudentUniqueId;
         }
     }
 }
@@ -4446,6 +6629,133 @@ namespace EdFi.Ods.Api.Services.Controllers.FundDimensions.EdFi
             specification.CodeName = request.CodeName;
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.FundingSourceDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/fundingSourceDescriptors")]
+    public partial class FundingSourceDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FundingSourceDescriptor.EdFi.FundingSourceDescriptor,
+        Entities.Common.EdFi.IFundingSourceDescriptor,
+        Entities.NHibernate.FundingSourceDescriptorAggregate.EdFi.FundingSourceDescriptor,
+        Api.Common.Models.Requests.FundingSourceDescriptors.EdFi.FundingSourceDescriptorPut,
+        Api.Common.Models.Requests.FundingSourceDescriptors.EdFi.FundingSourceDescriptorPost,
+        Api.Common.Models.Requests.FundingSourceDescriptors.EdFi.FundingSourceDescriptorDelete,
+        Api.Common.Models.Requests.FundingSourceDescriptors.EdFi.FundingSourceDescriptorGetByExample>
+    {
+        public FundingSourceDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.FundingSourceDescriptors.EdFi.FundingSourceDescriptorGetByExample request, Entities.Common.EdFi.IFundingSourceDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.FundingSourceDescriptorId = request.FundingSourceDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.Goals.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/goals")]
+    public partial class GoalsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Goal.EdFi.Goal,
+        Entities.Common.EdFi.IGoal,
+        Entities.NHibernate.GoalAggregate.EdFi.Goal,
+        Api.Common.Models.Requests.Goals.EdFi.GoalPut,
+        Api.Common.Models.Requests.Goals.EdFi.GoalPost,
+        Api.Common.Models.Requests.Goals.EdFi.GoalDelete,
+        Api.Common.Models.Requests.Goals.EdFi.GoalGetByExample>
+    {
+        public GoalsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.Goals.EdFi.GoalGetByExample request, Entities.Common.EdFi.IGoal specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssignmentDate = request.AssignmentDate;
+            specification.Comments = request.Comments;
+            specification.CompletedDate = request.CompletedDate;
+            specification.CompletedIndicator = request.CompletedIndicator;
+            specification.DueDate = request.DueDate;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.GoalDescription = request.GoalDescription;
+            specification.GoalTitle = request.GoalTitle;
+            specification.GoalTypeDescriptor = request.GoalTypeDescriptor;
+            specification.Id = request.Id;
+            specification.ParentAssignmentDate = request.ParentAssignmentDate;
+            specification.ParentGoalTitle = request.ParentGoalTitle;
+            specification.ParentPersonId = request.ParentPersonId;
+            specification.ParentSourceSystemDescriptor = request.ParentSourceSystemDescriptor;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.SchoolYear = request.SchoolYear;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.GoalTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/goalTypeDescriptors")]
+    public partial class GoalTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.GoalTypeDescriptor.EdFi.GoalTypeDescriptor,
+        Entities.Common.EdFi.IGoalTypeDescriptor,
+        Entities.NHibernate.GoalTypeDescriptorAggregate.EdFi.GoalTypeDescriptor,
+        Api.Common.Models.Requests.GoalTypeDescriptors.EdFi.GoalTypeDescriptorPut,
+        Api.Common.Models.Requests.GoalTypeDescriptors.EdFi.GoalTypeDescriptorPost,
+        Api.Common.Models.Requests.GoalTypeDescriptors.EdFi.GoalTypeDescriptorDelete,
+        Api.Common.Models.Requests.GoalTypeDescriptors.EdFi.GoalTypeDescriptorGetByExample>
+    {
+        public GoalTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.GoalTypeDescriptors.EdFi.GoalTypeDescriptorGetByExample request, Entities.Common.EdFi.IGoalTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.GoalTypeDescriptorId = request.GoalTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -4879,6 +7189,80 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.HireStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/hireStatusDescriptors")]
+    public partial class HireStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.HireStatusDescriptor.EdFi.HireStatusDescriptor,
+        Entities.Common.EdFi.IHireStatusDescriptor,
+        Entities.NHibernate.HireStatusDescriptorAggregate.EdFi.HireStatusDescriptor,
+        Api.Common.Models.Requests.HireStatusDescriptors.EdFi.HireStatusDescriptorPut,
+        Api.Common.Models.Requests.HireStatusDescriptors.EdFi.HireStatusDescriptorPost,
+        Api.Common.Models.Requests.HireStatusDescriptors.EdFi.HireStatusDescriptorDelete,
+        Api.Common.Models.Requests.HireStatusDescriptors.EdFi.HireStatusDescriptorGetByExample>
+    {
+        public HireStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.HireStatusDescriptors.EdFi.HireStatusDescriptorGetByExample request, Entities.Common.EdFi.IHireStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.HireStatusDescriptorId = request.HireStatusDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.HiringSourceDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/hiringSourceDescriptors")]
+    public partial class HiringSourceDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.HiringSourceDescriptor.EdFi.HiringSourceDescriptor,
+        Entities.Common.EdFi.IHiringSourceDescriptor,
+        Entities.NHibernate.HiringSourceDescriptorAggregate.EdFi.HiringSourceDescriptor,
+        Api.Common.Models.Requests.HiringSourceDescriptors.EdFi.HiringSourceDescriptorPut,
+        Api.Common.Models.Requests.HiringSourceDescriptors.EdFi.HiringSourceDescriptorPost,
+        Api.Common.Models.Requests.HiringSourceDescriptors.EdFi.HiringSourceDescriptorDelete,
+        Api.Common.Models.Requests.HiringSourceDescriptors.EdFi.HiringSourceDescriptorGetByExample>
+    {
+        public HiringSourceDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.HiringSourceDescriptors.EdFi.HiringSourceDescriptorGetByExample request, Entities.Common.EdFi.IHiringSourceDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.HiringSourceDescriptorId = request.HiringSourceDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -5243,6 +7627,43 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
             specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.InstitutionTelephoneNumberTypeDescriptorId = request.InstitutionTelephoneNumberTypeDescriptorId;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.InstructionalSettingDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/instructionalSettingDescriptors")]
+    public partial class InstructionalSettingDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.InstructionalSettingDescriptor.EdFi.InstructionalSettingDescriptor,
+        Entities.Common.EdFi.IInstructionalSettingDescriptor,
+        Entities.NHibernate.InstructionalSettingDescriptorAggregate.EdFi.InstructionalSettingDescriptor,
+        Api.Common.Models.Requests.InstructionalSettingDescriptors.EdFi.InstructionalSettingDescriptorPut,
+        Api.Common.Models.Requests.InstructionalSettingDescriptors.EdFi.InstructionalSettingDescriptorPost,
+        Api.Common.Models.Requests.InstructionalSettingDescriptors.EdFi.InstructionalSettingDescriptorDelete,
+        Api.Common.Models.Requests.InstructionalSettingDescriptors.EdFi.InstructionalSettingDescriptorGetByExample>
+    {
+        public InstructionalSettingDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.InstructionalSettingDescriptors.EdFi.InstructionalSettingDescriptorGetByExample request, Entities.Common.EdFi.IInstructionalSettingDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.InstructionalSettingDescriptorId = request.InstructionalSettingDescriptorId;
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
         }
@@ -5882,6 +8303,43 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.LengthOfContractDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/lengthOfContractDescriptors")]
+    public partial class LengthOfContractDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.LengthOfContractDescriptor.EdFi.LengthOfContractDescriptor,
+        Entities.Common.EdFi.ILengthOfContractDescriptor,
+        Entities.NHibernate.LengthOfContractDescriptorAggregate.EdFi.LengthOfContractDescriptor,
+        Api.Common.Models.Requests.LengthOfContractDescriptors.EdFi.LengthOfContractDescriptorPut,
+        Api.Common.Models.Requests.LengthOfContractDescriptors.EdFi.LengthOfContractDescriptorPost,
+        Api.Common.Models.Requests.LengthOfContractDescriptors.EdFi.LengthOfContractDescriptorDelete,
+        Api.Common.Models.Requests.LengthOfContractDescriptors.EdFi.LengthOfContractDescriptorGetByExample>
+    {
+        public LengthOfContractDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.LengthOfContractDescriptors.EdFi.LengthOfContractDescriptorGetByExample request, Entities.Common.EdFi.ILengthOfContractDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.LengthOfContractDescriptorId = request.LengthOfContractDescriptorId;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -6239,6 +8697,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CharterStatusDescriptor = request.CharterStatusDescriptor;
             specification.EducationServiceCenterId = request.EducationServiceCenterId;
+            specification.FederalLocaleCodeDescriptor = request.FederalLocaleCodeDescriptor;
             specification.Id = request.Id;
             specification.LocalEducationAgencyCategoryDescriptor = request.LocalEducationAgencyCategoryDescriptor;
             specification.LocalEducationAgencyId = request.LocalEducationAgencyId;
@@ -6838,6 +9297,43 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.ObjectiveRatingLevelDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/objectiveRatingLevelDescriptors")]
+    public partial class ObjectiveRatingLevelDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.EdFi.ObjectiveRatingLevelDescriptor,
+        Entities.Common.EdFi.IObjectiveRatingLevelDescriptor,
+        Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.EdFi.ObjectiveRatingLevelDescriptor,
+        Api.Common.Models.Requests.ObjectiveRatingLevelDescriptors.EdFi.ObjectiveRatingLevelDescriptorPut,
+        Api.Common.Models.Requests.ObjectiveRatingLevelDescriptors.EdFi.ObjectiveRatingLevelDescriptorPost,
+        Api.Common.Models.Requests.ObjectiveRatingLevelDescriptors.EdFi.ObjectiveRatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.ObjectiveRatingLevelDescriptors.EdFi.ObjectiveRatingLevelDescriptorGetByExample>
+    {
+        public ObjectiveRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ObjectiveRatingLevelDescriptors.EdFi.ObjectiveRatingLevelDescriptorGetByExample request, Entities.Common.EdFi.IObjectiveRatingLevelDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ObjectiveRatingLevelDescriptorId = request.ObjectiveRatingLevelDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -6867,12 +9363,169 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
             specification.DatePostingRemoved = request.DatePostingRemoved;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EmploymentStatusDescriptor = request.EmploymentStatusDescriptor;
+            specification.FullTimeEquivalency = request.FullTimeEquivalency;
+            specification.FundingSourceDescriptor = request.FundingSourceDescriptor;
+            specification.HighNeedAcademicSubject = request.HighNeedAcademicSubject;
             specification.Id = request.Id;
+            specification.IsActive = request.IsActive;
+            specification.MaxSalary = request.MaxSalary;
+            specification.MinSalary = request.MinSalary;
+            specification.OpenStaffPositionReasonDescriptor = request.OpenStaffPositionReasonDescriptor;
+            specification.PositionControlNumber = request.PositionControlNumber;
             specification.PositionTitle = request.PositionTitle;
             specification.PostingResultDescriptor = request.PostingResultDescriptor;
             specification.ProgramAssignmentDescriptor = request.ProgramAssignmentDescriptor;
             specification.RequisitionNumber = request.RequisitionNumber;
+            specification.SchoolYear = request.SchoolYear;
             specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+            specification.TotalBudgeted = request.TotalBudgeted;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositionEvents.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/openStaffPositionEvents")]
+    public partial class OpenStaffPositionEventsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.OpenStaffPositionEvent.EdFi.OpenStaffPositionEvent,
+        Entities.Common.EdFi.IOpenStaffPositionEvent,
+        Entities.NHibernate.OpenStaffPositionEventAggregate.EdFi.OpenStaffPositionEvent,
+        Api.Common.Models.Requests.OpenStaffPositionEvents.EdFi.OpenStaffPositionEventPut,
+        Api.Common.Models.Requests.OpenStaffPositionEvents.EdFi.OpenStaffPositionEventPost,
+        Api.Common.Models.Requests.OpenStaffPositionEvents.EdFi.OpenStaffPositionEventDelete,
+        Api.Common.Models.Requests.OpenStaffPositionEvents.EdFi.OpenStaffPositionEventGetByExample>
+    {
+        public OpenStaffPositionEventsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.OpenStaffPositionEvents.EdFi.OpenStaffPositionEventGetByExample request, Entities.Common.EdFi.IOpenStaffPositionEvent specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EventDate = request.EventDate;
+            specification.Id = request.Id;
+            specification.OpenStaffPositionEventStatusDescriptor = request.OpenStaffPositionEventStatusDescriptor;
+            specification.OpenStaffPositionEventTypeDescriptor = request.OpenStaffPositionEventTypeDescriptor;
+            specification.RequisitionNumber = request.RequisitionNumber;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositionEventStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/openStaffPositionEventStatusDescriptors")]
+    public partial class OpenStaffPositionEventStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.OpenStaffPositionEventStatusDescriptor.EdFi.OpenStaffPositionEventStatusDescriptor,
+        Entities.Common.EdFi.IOpenStaffPositionEventStatusDescriptor,
+        Entities.NHibernate.OpenStaffPositionEventStatusDescriptorAggregate.EdFi.OpenStaffPositionEventStatusDescriptor,
+        Api.Common.Models.Requests.OpenStaffPositionEventStatusDescriptors.EdFi.OpenStaffPositionEventStatusDescriptorPut,
+        Api.Common.Models.Requests.OpenStaffPositionEventStatusDescriptors.EdFi.OpenStaffPositionEventStatusDescriptorPost,
+        Api.Common.Models.Requests.OpenStaffPositionEventStatusDescriptors.EdFi.OpenStaffPositionEventStatusDescriptorDelete,
+        Api.Common.Models.Requests.OpenStaffPositionEventStatusDescriptors.EdFi.OpenStaffPositionEventStatusDescriptorGetByExample>
+    {
+        public OpenStaffPositionEventStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.OpenStaffPositionEventStatusDescriptors.EdFi.OpenStaffPositionEventStatusDescriptorGetByExample request, Entities.Common.EdFi.IOpenStaffPositionEventStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.OpenStaffPositionEventStatusDescriptorId = request.OpenStaffPositionEventStatusDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositionEventTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/openStaffPositionEventTypeDescriptors")]
+    public partial class OpenStaffPositionEventTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.OpenStaffPositionEventTypeDescriptor.EdFi.OpenStaffPositionEventTypeDescriptor,
+        Entities.Common.EdFi.IOpenStaffPositionEventTypeDescriptor,
+        Entities.NHibernate.OpenStaffPositionEventTypeDescriptorAggregate.EdFi.OpenStaffPositionEventTypeDescriptor,
+        Api.Common.Models.Requests.OpenStaffPositionEventTypeDescriptors.EdFi.OpenStaffPositionEventTypeDescriptorPut,
+        Api.Common.Models.Requests.OpenStaffPositionEventTypeDescriptors.EdFi.OpenStaffPositionEventTypeDescriptorPost,
+        Api.Common.Models.Requests.OpenStaffPositionEventTypeDescriptors.EdFi.OpenStaffPositionEventTypeDescriptorDelete,
+        Api.Common.Models.Requests.OpenStaffPositionEventTypeDescriptors.EdFi.OpenStaffPositionEventTypeDescriptorGetByExample>
+    {
+        public OpenStaffPositionEventTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.OpenStaffPositionEventTypeDescriptors.EdFi.OpenStaffPositionEventTypeDescriptorGetByExample request, Entities.Common.EdFi.IOpenStaffPositionEventTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.OpenStaffPositionEventTypeDescriptorId = request.OpenStaffPositionEventTypeDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositionReasonDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/openStaffPositionReasonDescriptors")]
+    public partial class OpenStaffPositionReasonDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.OpenStaffPositionReasonDescriptor.EdFi.OpenStaffPositionReasonDescriptor,
+        Entities.Common.EdFi.IOpenStaffPositionReasonDescriptor,
+        Entities.NHibernate.OpenStaffPositionReasonDescriptorAggregate.EdFi.OpenStaffPositionReasonDescriptor,
+        Api.Common.Models.Requests.OpenStaffPositionReasonDescriptors.EdFi.OpenStaffPositionReasonDescriptorPut,
+        Api.Common.Models.Requests.OpenStaffPositionReasonDescriptors.EdFi.OpenStaffPositionReasonDescriptorPost,
+        Api.Common.Models.Requests.OpenStaffPositionReasonDescriptors.EdFi.OpenStaffPositionReasonDescriptorDelete,
+        Api.Common.Models.Requests.OpenStaffPositionReasonDescriptors.EdFi.OpenStaffPositionReasonDescriptorGetByExample>
+    {
+        public OpenStaffPositionReasonDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.OpenStaffPositionReasonDescriptors.EdFi.OpenStaffPositionReasonDescriptorGetByExample request, Entities.Common.EdFi.IOpenStaffPositionReasonDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.OpenStaffPositionReasonDescriptorId = request.OpenStaffPositionReasonDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -7095,6 +9748,220 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.Paths.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/paths")]
+    public partial class PathsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Path.EdFi.Path,
+        Entities.Common.EdFi.IPath,
+        Entities.NHibernate.PathAggregate.EdFi.Path,
+        Api.Common.Models.Requests.Paths.EdFi.PathPut,
+        Api.Common.Models.Requests.Paths.EdFi.PathPost,
+        Api.Common.Models.Requests.Paths.EdFi.PathDelete,
+        Api.Common.Models.Requests.Paths.EdFi.PathGetByExample>
+    {
+        public PathsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.Paths.EdFi.PathGetByExample request, Entities.Common.EdFi.IPath specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.GraduationPlanTypeDescriptor = request.GraduationPlanTypeDescriptor;
+            specification.GraduationSchoolYear = request.GraduationSchoolYear;
+            specification.Id = request.Id;
+            specification.PathName = request.PathName;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PathMilestones.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/pathMilestones")]
+    public partial class PathMilestonesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PathMilestone.EdFi.PathMilestone,
+        Entities.Common.EdFi.IPathMilestone,
+        Entities.NHibernate.PathMilestoneAggregate.EdFi.PathMilestone,
+        Api.Common.Models.Requests.PathMilestones.EdFi.PathMilestonePut,
+        Api.Common.Models.Requests.PathMilestones.EdFi.PathMilestonePost,
+        Api.Common.Models.Requests.PathMilestones.EdFi.PathMilestoneDelete,
+        Api.Common.Models.Requests.PathMilestones.EdFi.PathMilestoneGetByExample>
+    {
+        public PathMilestonesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PathMilestones.EdFi.PathMilestoneGetByExample request, Entities.Common.EdFi.IPathMilestone specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Id = request.Id;
+            specification.PathMilestoneCode = request.PathMilestoneCode;
+            specification.PathMilestoneDescription = request.PathMilestoneDescription;
+            specification.PathMilestoneName = request.PathMilestoneName;
+            specification.PathMilestoneTypeDescriptor = request.PathMilestoneTypeDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PathMilestoneStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/pathMilestoneStatusDescriptors")]
+    public partial class PathMilestoneStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PathMilestoneStatusDescriptor.EdFi.PathMilestoneStatusDescriptor,
+        Entities.Common.EdFi.IPathMilestoneStatusDescriptor,
+        Entities.NHibernate.PathMilestoneStatusDescriptorAggregate.EdFi.PathMilestoneStatusDescriptor,
+        Api.Common.Models.Requests.PathMilestoneStatusDescriptors.EdFi.PathMilestoneStatusDescriptorPut,
+        Api.Common.Models.Requests.PathMilestoneStatusDescriptors.EdFi.PathMilestoneStatusDescriptorPost,
+        Api.Common.Models.Requests.PathMilestoneStatusDescriptors.EdFi.PathMilestoneStatusDescriptorDelete,
+        Api.Common.Models.Requests.PathMilestoneStatusDescriptors.EdFi.PathMilestoneStatusDescriptorGetByExample>
+    {
+        public PathMilestoneStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PathMilestoneStatusDescriptors.EdFi.PathMilestoneStatusDescriptorGetByExample request, Entities.Common.EdFi.IPathMilestoneStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PathMilestoneStatusDescriptorId = request.PathMilestoneStatusDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PathMilestoneTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/pathMilestoneTypeDescriptors")]
+    public partial class PathMilestoneTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PathMilestoneTypeDescriptor.EdFi.PathMilestoneTypeDescriptor,
+        Entities.Common.EdFi.IPathMilestoneTypeDescriptor,
+        Entities.NHibernate.PathMilestoneTypeDescriptorAggregate.EdFi.PathMilestoneTypeDescriptor,
+        Api.Common.Models.Requests.PathMilestoneTypeDescriptors.EdFi.PathMilestoneTypeDescriptorPut,
+        Api.Common.Models.Requests.PathMilestoneTypeDescriptors.EdFi.PathMilestoneTypeDescriptorPost,
+        Api.Common.Models.Requests.PathMilestoneTypeDescriptors.EdFi.PathMilestoneTypeDescriptorDelete,
+        Api.Common.Models.Requests.PathMilestoneTypeDescriptors.EdFi.PathMilestoneTypeDescriptorGetByExample>
+    {
+        public PathMilestoneTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PathMilestoneTypeDescriptors.EdFi.PathMilestoneTypeDescriptorGetByExample request, Entities.Common.EdFi.IPathMilestoneTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PathMilestoneTypeDescriptorId = request.PathMilestoneTypeDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PathPhases.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/pathPhases")]
+    public partial class PathPhasesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PathPhase.EdFi.PathPhase,
+        Entities.Common.EdFi.IPathPhase,
+        Entities.NHibernate.PathPhaseAggregate.EdFi.PathPhase,
+        Api.Common.Models.Requests.PathPhases.EdFi.PathPhasePut,
+        Api.Common.Models.Requests.PathPhases.EdFi.PathPhasePost,
+        Api.Common.Models.Requests.PathPhases.EdFi.PathPhaseDelete,
+        Api.Common.Models.Requests.PathPhases.EdFi.PathPhaseGetByExample>
+    {
+        public PathPhasesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PathPhases.EdFi.PathPhaseGetByExample request, Entities.Common.EdFi.IPathPhase specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.PathName = request.PathName;
+            specification.PathPhaseName = request.PathPhaseName;
+            specification.PathPhaseSequence = request.PathPhaseSequence;
+            specification.PhasePathDescription = request.PhasePathDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PathPhaseStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/pathPhaseStatusDescriptors")]
+    public partial class PathPhaseStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PathPhaseStatusDescriptor.EdFi.PathPhaseStatusDescriptor,
+        Entities.Common.EdFi.IPathPhaseStatusDescriptor,
+        Entities.NHibernate.PathPhaseStatusDescriptorAggregate.EdFi.PathPhaseStatusDescriptor,
+        Api.Common.Models.Requests.PathPhaseStatusDescriptors.EdFi.PathPhaseStatusDescriptorPut,
+        Api.Common.Models.Requests.PathPhaseStatusDescriptors.EdFi.PathPhaseStatusDescriptorPost,
+        Api.Common.Models.Requests.PathPhaseStatusDescriptors.EdFi.PathPhaseStatusDescriptorDelete,
+        Api.Common.Models.Requests.PathPhaseStatusDescriptors.EdFi.PathPhaseStatusDescriptorGetByExample>
+    {
+        public PathPhaseStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PathPhaseStatusDescriptors.EdFi.PathPhaseStatusDescriptorGetByExample request, Entities.Common.EdFi.IPathPhaseStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PathPhaseStatusDescriptorId = request.PathPhaseStatusDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -7127,6 +9994,164 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.PerformanceBaseConversionDescriptorId = request.PerformanceBaseConversionDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PerformanceEvaluations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/performanceEvaluations")]
+    public partial class PerformanceEvaluationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PerformanceEvaluation.EdFi.PerformanceEvaluation,
+        Entities.Common.EdFi.IPerformanceEvaluation,
+        Entities.NHibernate.PerformanceEvaluationAggregate.EdFi.PerformanceEvaluation,
+        Api.Common.Models.Requests.PerformanceEvaluations.EdFi.PerformanceEvaluationPut,
+        Api.Common.Models.Requests.PerformanceEvaluations.EdFi.PerformanceEvaluationPost,
+        Api.Common.Models.Requests.PerformanceEvaluations.EdFi.PerformanceEvaluationDelete,
+        Api.Common.Models.Requests.PerformanceEvaluations.EdFi.PerformanceEvaluationGetByExample>
+    {
+        public PerformanceEvaluationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PerformanceEvaluations.EdFi.PerformanceEvaluationGetByExample request, Entities.Common.EdFi.IPerformanceEvaluation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationDescription = request.PerformanceEvaluationDescription;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PerformanceEvaluationRatings.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/performanceEvaluationRatings")]
+    public partial class PerformanceEvaluationRatingsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PerformanceEvaluationRating.EdFi.PerformanceEvaluationRating,
+        Entities.Common.EdFi.IPerformanceEvaluationRating,
+        Entities.NHibernate.PerformanceEvaluationRatingAggregate.EdFi.PerformanceEvaluationRating,
+        Api.Common.Models.Requests.PerformanceEvaluationRatings.EdFi.PerformanceEvaluationRatingPut,
+        Api.Common.Models.Requests.PerformanceEvaluationRatings.EdFi.PerformanceEvaluationRatingPost,
+        Api.Common.Models.Requests.PerformanceEvaluationRatings.EdFi.PerformanceEvaluationRatingDelete,
+        Api.Common.Models.Requests.PerformanceEvaluationRatings.EdFi.PerformanceEvaluationRatingGetByExample>
+    {
+        public PerformanceEvaluationRatingsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PerformanceEvaluationRatings.EdFi.PerformanceEvaluationRatingGetByExample request, Entities.Common.EdFi.IPerformanceEvaluationRating specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ActualDate = request.ActualDate;
+            specification.ActualDuration = request.ActualDuration;
+            specification.ActualTime = request.ActualTime;
+            specification.Announced = request.Announced;
+            specification.Comments = request.Comments;
+            specification.CoteachingStyleObservedDescriptor = request.CoteachingStyleObservedDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationRatingLevelDescriptor = request.PerformanceEvaluationRatingLevelDescriptor;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.ScheduleDate = request.ScheduleDate;
+            specification.SchoolYear = request.SchoolYear;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PerformanceEvaluationRatingLevelDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/performanceEvaluationRatingLevelDescriptors")]
+    public partial class PerformanceEvaluationRatingLevelDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.EdFi.PerformanceEvaluationRatingLevelDescriptor,
+        Entities.Common.EdFi.IPerformanceEvaluationRatingLevelDescriptor,
+        Entities.NHibernate.PerformanceEvaluationRatingLevelDescriptorAggregate.EdFi.PerformanceEvaluationRatingLevelDescriptor,
+        Api.Common.Models.Requests.PerformanceEvaluationRatingLevelDescriptors.EdFi.PerformanceEvaluationRatingLevelDescriptorPut,
+        Api.Common.Models.Requests.PerformanceEvaluationRatingLevelDescriptors.EdFi.PerformanceEvaluationRatingLevelDescriptorPost,
+        Api.Common.Models.Requests.PerformanceEvaluationRatingLevelDescriptors.EdFi.PerformanceEvaluationRatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.PerformanceEvaluationRatingLevelDescriptors.EdFi.PerformanceEvaluationRatingLevelDescriptorGetByExample>
+    {
+        public PerformanceEvaluationRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PerformanceEvaluationRatingLevelDescriptors.EdFi.PerformanceEvaluationRatingLevelDescriptorGetByExample request, Entities.Common.EdFi.IPerformanceEvaluationRatingLevelDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PerformanceEvaluationRatingLevelDescriptorId = request.PerformanceEvaluationRatingLevelDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PerformanceEvaluationTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/performanceEvaluationTypeDescriptors")]
+    public partial class PerformanceEvaluationTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.EdFi.PerformanceEvaluationTypeDescriptor,
+        Entities.Common.EdFi.IPerformanceEvaluationTypeDescriptor,
+        Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggregate.EdFi.PerformanceEvaluationTypeDescriptor,
+        Api.Common.Models.Requests.PerformanceEvaluationTypeDescriptors.EdFi.PerformanceEvaluationTypeDescriptorPut,
+        Api.Common.Models.Requests.PerformanceEvaluationTypeDescriptors.EdFi.PerformanceEvaluationTypeDescriptorPost,
+        Api.Common.Models.Requests.PerformanceEvaluationTypeDescriptors.EdFi.PerformanceEvaluationTypeDescriptorDelete,
+        Api.Common.Models.Requests.PerformanceEvaluationTypeDescriptors.EdFi.PerformanceEvaluationTypeDescriptorGetByExample>
+    {
+        public PerformanceEvaluationTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PerformanceEvaluationTypeDescriptors.EdFi.PerformanceEvaluationTypeDescriptorGetByExample request, Entities.Common.EdFi.IPerformanceEvaluationTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PerformanceEvaluationTypeDescriptorId = request.PerformanceEvaluationTypeDescriptorId;
             specification.ShortDescription = request.ShortDescription;
         }
     }
@@ -7446,6 +10471,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrativeFundingControlDescriptor = request.AdministrativeFundingControlDescriptor;
+            specification.FederalLocaleCodeDescriptor = request.FederalLocaleCodeDescriptor;
             specification.Id = request.Id;
             specification.NameOfInstitution = request.NameOfInstitution;
             specification.OperationalStatusDescriptor = request.OperationalStatusDescriptor;
@@ -7489,6 +10515,43 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.PostSecondaryInstitutionLevelDescriptorId = request.PostSecondaryInstitutionLevelDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PreviousCareerDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/previousCareerDescriptors")]
+    public partial class PreviousCareerDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PreviousCareerDescriptor.EdFi.PreviousCareerDescriptor,
+        Entities.Common.EdFi.IPreviousCareerDescriptor,
+        Entities.NHibernate.PreviousCareerDescriptorAggregate.EdFi.PreviousCareerDescriptor,
+        Api.Common.Models.Requests.PreviousCareerDescriptors.EdFi.PreviousCareerDescriptorPut,
+        Api.Common.Models.Requests.PreviousCareerDescriptors.EdFi.PreviousCareerDescriptorPost,
+        Api.Common.Models.Requests.PreviousCareerDescriptors.EdFi.PreviousCareerDescriptorDelete,
+        Api.Common.Models.Requests.PreviousCareerDescriptors.EdFi.PreviousCareerDescriptorGetByExample>
+    {
+        public PreviousCareerDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PreviousCareerDescriptors.EdFi.PreviousCareerDescriptorGetByExample request, Entities.Common.EdFi.IPreviousCareerDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PreviousCareerDescriptorId = request.PreviousCareerDescriptorId;
             specification.ShortDescription = request.ShortDescription;
         }
     }
@@ -7600,6 +10663,117 @@ namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceProviderDescrip
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.PrimaryLearningDeviceProviderDescriptorId = request.PrimaryLearningDeviceProviderDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ProfessionalDevelopmentEvents.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/professionalDevelopmentEvents")]
+    public partial class ProfessionalDevelopmentEventsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProfessionalDevelopmentEvent.EdFi.ProfessionalDevelopmentEvent,
+        Entities.Common.EdFi.IProfessionalDevelopmentEvent,
+        Entities.NHibernate.ProfessionalDevelopmentEventAggregate.EdFi.ProfessionalDevelopmentEvent,
+        Api.Common.Models.Requests.ProfessionalDevelopmentEvents.EdFi.ProfessionalDevelopmentEventPut,
+        Api.Common.Models.Requests.ProfessionalDevelopmentEvents.EdFi.ProfessionalDevelopmentEventPost,
+        Api.Common.Models.Requests.ProfessionalDevelopmentEvents.EdFi.ProfessionalDevelopmentEventDelete,
+        Api.Common.Models.Requests.ProfessionalDevelopmentEvents.EdFi.ProfessionalDevelopmentEventGetByExample>
+    {
+        public ProfessionalDevelopmentEventsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProfessionalDevelopmentEvents.EdFi.ProfessionalDevelopmentEventGetByExample request, Entities.Common.EdFi.IProfessionalDevelopmentEvent specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Id = request.Id;
+            specification.MultipleSession = request.MultipleSession;
+            specification.Namespace = request.Namespace;
+            specification.ProfessionalDevelopmentOfferedByDescriptor = request.ProfessionalDevelopmentOfferedByDescriptor;
+            specification.ProfessionalDevelopmentReason = request.ProfessionalDevelopmentReason;
+            specification.ProfessionalDevelopmentTitle = request.ProfessionalDevelopmentTitle;
+            specification.Required = request.Required;
+            specification.TotalHours = request.TotalHours;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ProfessionalDevelopmentEventAttendances.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/professionalDevelopmentEventAttendances")]
+    public partial class ProfessionalDevelopmentEventAttendancesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProfessionalDevelopmentEventAttendance.EdFi.ProfessionalDevelopmentEventAttendance,
+        Entities.Common.EdFi.IProfessionalDevelopmentEventAttendance,
+        Entities.NHibernate.ProfessionalDevelopmentEventAttendanceAggregate.EdFi.ProfessionalDevelopmentEventAttendance,
+        Api.Common.Models.Requests.ProfessionalDevelopmentEventAttendances.EdFi.ProfessionalDevelopmentEventAttendancePut,
+        Api.Common.Models.Requests.ProfessionalDevelopmentEventAttendances.EdFi.ProfessionalDevelopmentEventAttendancePost,
+        Api.Common.Models.Requests.ProfessionalDevelopmentEventAttendances.EdFi.ProfessionalDevelopmentEventAttendanceDelete,
+        Api.Common.Models.Requests.ProfessionalDevelopmentEventAttendances.EdFi.ProfessionalDevelopmentEventAttendanceGetByExample>
+    {
+        public ProfessionalDevelopmentEventAttendancesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProfessionalDevelopmentEventAttendances.EdFi.ProfessionalDevelopmentEventAttendanceGetByExample request, Entities.Common.EdFi.IProfessionalDevelopmentEventAttendance specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AttendanceDate = request.AttendanceDate;
+            specification.AttendanceEventCategoryDescriptor = request.AttendanceEventCategoryDescriptor;
+            specification.AttendanceEventReason = request.AttendanceEventReason;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PersonId = request.PersonId;
+            specification.ProfessionalDevelopmentTitle = request.ProfessionalDevelopmentTitle;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ProfessionalDevelopmentOfferedByDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/professionalDevelopmentOfferedByDescriptors")]
+    public partial class ProfessionalDevelopmentOfferedByDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProfessionalDevelopmentOfferedByDescriptor.EdFi.ProfessionalDevelopmentOfferedByDescriptor,
+        Entities.Common.EdFi.IProfessionalDevelopmentOfferedByDescriptor,
+        Entities.NHibernate.ProfessionalDevelopmentOfferedByDescriptorAggregate.EdFi.ProfessionalDevelopmentOfferedByDescriptor,
+        Api.Common.Models.Requests.ProfessionalDevelopmentOfferedByDescriptors.EdFi.ProfessionalDevelopmentOfferedByDescriptorPut,
+        Api.Common.Models.Requests.ProfessionalDevelopmentOfferedByDescriptors.EdFi.ProfessionalDevelopmentOfferedByDescriptorPost,
+        Api.Common.Models.Requests.ProfessionalDevelopmentOfferedByDescriptors.EdFi.ProfessionalDevelopmentOfferedByDescriptorDelete,
+        Api.Common.Models.Requests.ProfessionalDevelopmentOfferedByDescriptors.EdFi.ProfessionalDevelopmentOfferedByDescriptorGetByExample>
+    {
+        public ProfessionalDevelopmentOfferedByDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProfessionalDevelopmentOfferedByDescriptors.EdFi.ProfessionalDevelopmentOfferedByDescriptorGetByExample request, Entities.Common.EdFi.IProfessionalDevelopmentOfferedByDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ProfessionalDevelopmentOfferedByDescriptorId = request.ProfessionalDevelopmentOfferedByDescriptorId;
             specification.ShortDescription = request.ShortDescription;
         }
     }
@@ -8308,6 +11482,167 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.QuantitativeMeasures.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/quantitativeMeasures")]
+    public partial class QuantitativeMeasuresController : DataManagementControllerBase<
+        Api.Common.Models.Resources.QuantitativeMeasure.EdFi.QuantitativeMeasure,
+        Entities.Common.EdFi.IQuantitativeMeasure,
+        Entities.NHibernate.QuantitativeMeasureAggregate.EdFi.QuantitativeMeasure,
+        Api.Common.Models.Requests.QuantitativeMeasures.EdFi.QuantitativeMeasurePut,
+        Api.Common.Models.Requests.QuantitativeMeasures.EdFi.QuantitativeMeasurePost,
+        Api.Common.Models.Requests.QuantitativeMeasures.EdFi.QuantitativeMeasureDelete,
+        Api.Common.Models.Requests.QuantitativeMeasures.EdFi.QuantitativeMeasureGetByExample>
+    {
+        public QuantitativeMeasuresController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.QuantitativeMeasures.EdFi.QuantitativeMeasureGetByExample request, Entities.Common.EdFi.IQuantitativeMeasure specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.QuantitativeMeasureDatatypeDescriptor = request.QuantitativeMeasureDatatypeDescriptor;
+            specification.QuantitativeMeasureIdentifier = request.QuantitativeMeasureIdentifier;
+            specification.QuantitativeMeasureTypeDescriptor = request.QuantitativeMeasureTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.QuantitativeMeasureDatatypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/quantitativeMeasureDatatypeDescriptors")]
+    public partial class QuantitativeMeasureDatatypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.QuantitativeMeasureDatatypeDescriptor.EdFi.QuantitativeMeasureDatatypeDescriptor,
+        Entities.Common.EdFi.IQuantitativeMeasureDatatypeDescriptor,
+        Entities.NHibernate.QuantitativeMeasureDatatypeDescriptorAggregate.EdFi.QuantitativeMeasureDatatypeDescriptor,
+        Api.Common.Models.Requests.QuantitativeMeasureDatatypeDescriptors.EdFi.QuantitativeMeasureDatatypeDescriptorPut,
+        Api.Common.Models.Requests.QuantitativeMeasureDatatypeDescriptors.EdFi.QuantitativeMeasureDatatypeDescriptorPost,
+        Api.Common.Models.Requests.QuantitativeMeasureDatatypeDescriptors.EdFi.QuantitativeMeasureDatatypeDescriptorDelete,
+        Api.Common.Models.Requests.QuantitativeMeasureDatatypeDescriptors.EdFi.QuantitativeMeasureDatatypeDescriptorGetByExample>
+    {
+        public QuantitativeMeasureDatatypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.QuantitativeMeasureDatatypeDescriptors.EdFi.QuantitativeMeasureDatatypeDescriptorGetByExample request, Entities.Common.EdFi.IQuantitativeMeasureDatatypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.QuantitativeMeasureDatatypeDescriptorId = request.QuantitativeMeasureDatatypeDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.QuantitativeMeasureScores.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/quantitativeMeasureScores")]
+    public partial class QuantitativeMeasureScoresController : DataManagementControllerBase<
+        Api.Common.Models.Resources.QuantitativeMeasureScore.EdFi.QuantitativeMeasureScore,
+        Entities.Common.EdFi.IQuantitativeMeasureScore,
+        Entities.NHibernate.QuantitativeMeasureScoreAggregate.EdFi.QuantitativeMeasureScore,
+        Api.Common.Models.Requests.QuantitativeMeasureScores.EdFi.QuantitativeMeasureScorePut,
+        Api.Common.Models.Requests.QuantitativeMeasureScores.EdFi.QuantitativeMeasureScorePost,
+        Api.Common.Models.Requests.QuantitativeMeasureScores.EdFi.QuantitativeMeasureScoreDelete,
+        Api.Common.Models.Requests.QuantitativeMeasureScores.EdFi.QuantitativeMeasureScoreGetByExample>
+    {
+        public QuantitativeMeasureScoresController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.QuantitativeMeasureScores.EdFi.QuantitativeMeasureScoreGetByExample request, Entities.Common.EdFi.IQuantitativeMeasureScore specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.QuantitativeMeasureIdentifier = request.QuantitativeMeasureIdentifier;
+            specification.SchoolYear = request.SchoolYear;
+            specification.ScoreValue = request.ScoreValue;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.StandardError = request.StandardError;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.QuantitativeMeasureTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/quantitativeMeasureTypeDescriptors")]
+    public partial class QuantitativeMeasureTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.QuantitativeMeasureTypeDescriptor.EdFi.QuantitativeMeasureTypeDescriptor,
+        Entities.Common.EdFi.IQuantitativeMeasureTypeDescriptor,
+        Entities.NHibernate.QuantitativeMeasureTypeDescriptorAggregate.EdFi.QuantitativeMeasureTypeDescriptor,
+        Api.Common.Models.Requests.QuantitativeMeasureTypeDescriptors.EdFi.QuantitativeMeasureTypeDescriptorPut,
+        Api.Common.Models.Requests.QuantitativeMeasureTypeDescriptors.EdFi.QuantitativeMeasureTypeDescriptorPost,
+        Api.Common.Models.Requests.QuantitativeMeasureTypeDescriptors.EdFi.QuantitativeMeasureTypeDescriptorDelete,
+        Api.Common.Models.Requests.QuantitativeMeasureTypeDescriptors.EdFi.QuantitativeMeasureTypeDescriptorGetByExample>
+    {
+        public QuantitativeMeasureTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.QuantitativeMeasureTypeDescriptors.EdFi.QuantitativeMeasureTypeDescriptorGetByExample request, Entities.Common.EdFi.IQuantitativeMeasureTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.QuantitativeMeasureTypeDescriptorId = request.QuantitativeMeasureTypeDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -8525,6 +11860,171 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.RecognitionTypeDescriptorId = request.RecognitionTypeDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.RecruitmentEvents.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/recruitmentEvents")]
+    public partial class RecruitmentEventsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.RecruitmentEvent.EdFi.RecruitmentEvent,
+        Entities.Common.EdFi.IRecruitmentEvent,
+        Entities.NHibernate.RecruitmentEventAggregate.EdFi.RecruitmentEvent,
+        Api.Common.Models.Requests.RecruitmentEvents.EdFi.RecruitmentEventPut,
+        Api.Common.Models.Requests.RecruitmentEvents.EdFi.RecruitmentEventPost,
+        Api.Common.Models.Requests.RecruitmentEvents.EdFi.RecruitmentEventDelete,
+        Api.Common.Models.Requests.RecruitmentEvents.EdFi.RecruitmentEventGetByExample>
+    {
+        public RecruitmentEventsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.RecruitmentEvents.EdFi.RecruitmentEventGetByExample request, Entities.Common.EdFi.IRecruitmentEvent specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EventDate = request.EventDate;
+            specification.EventDescription = request.EventDescription;
+            specification.EventLocation = request.EventLocation;
+            specification.EventTitle = request.EventTitle;
+            specification.Id = request.Id;
+            specification.RecruitmentEventTypeDescriptor = request.RecruitmentEventTypeDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.RecruitmentEventAttendances.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/recruitmentEventAttendances")]
+    public partial class RecruitmentEventAttendancesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.RecruitmentEventAttendance.EdFi.RecruitmentEventAttendance,
+        Entities.Common.EdFi.IRecruitmentEventAttendance,
+        Entities.NHibernate.RecruitmentEventAttendanceAggregate.EdFi.RecruitmentEventAttendance,
+        Api.Common.Models.Requests.RecruitmentEventAttendances.EdFi.RecruitmentEventAttendancePut,
+        Api.Common.Models.Requests.RecruitmentEventAttendances.EdFi.RecruitmentEventAttendancePost,
+        Api.Common.Models.Requests.RecruitmentEventAttendances.EdFi.RecruitmentEventAttendanceDelete,
+        Api.Common.Models.Requests.RecruitmentEventAttendances.EdFi.RecruitmentEventAttendanceGetByExample>
+    {
+        public RecruitmentEventAttendancesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.RecruitmentEventAttendances.EdFi.RecruitmentEventAttendanceGetByExample request, Entities.Common.EdFi.IRecruitmentEventAttendance specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Applied = request.Applied;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.ElectronicMailAddress = request.ElectronicMailAddress;
+            specification.EventDate = request.EventDate;
+            specification.EventTitle = request.EventTitle;
+            specification.FirstName = request.FirstName;
+            specification.GenderIdentity = request.GenderIdentity;
+            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
+            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.Id = request.Id;
+            specification.LastSurname = request.LastSurname;
+            specification.MaidenName = request.MaidenName;
+            specification.Met = request.Met;
+            specification.MiddleName = request.MiddleName;
+            specification.Notes = request.Notes;
+            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PreferredFirstName = request.PreferredFirstName;
+            specification.PreferredLastSurname = request.PreferredLastSurname;
+            specification.PreScreeningRating = request.PreScreeningRating;
+            specification.RecruitmentEventAttendeeIdentifier = request.RecruitmentEventAttendeeIdentifier;
+            specification.RecruitmentEventAttendeeTypeDescriptor = request.RecruitmentEventAttendeeTypeDescriptor;
+            specification.Referral = request.Referral;
+            specification.ReferredBy = request.ReferredBy;
+            specification.SexDescriptor = request.SexDescriptor;
+            specification.SocialMediaNetworkName = request.SocialMediaNetworkName;
+            specification.SocialMediaUserName = request.SocialMediaUserName;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.RecruitmentEventAttendeeTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/recruitmentEventAttendeeTypeDescriptors")]
+    public partial class RecruitmentEventAttendeeTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.RecruitmentEventAttendeeTypeDescriptor.EdFi.RecruitmentEventAttendeeTypeDescriptor,
+        Entities.Common.EdFi.IRecruitmentEventAttendeeTypeDescriptor,
+        Entities.NHibernate.RecruitmentEventAttendeeTypeDescriptorAggregate.EdFi.RecruitmentEventAttendeeTypeDescriptor,
+        Api.Common.Models.Requests.RecruitmentEventAttendeeTypeDescriptors.EdFi.RecruitmentEventAttendeeTypeDescriptorPut,
+        Api.Common.Models.Requests.RecruitmentEventAttendeeTypeDescriptors.EdFi.RecruitmentEventAttendeeTypeDescriptorPost,
+        Api.Common.Models.Requests.RecruitmentEventAttendeeTypeDescriptors.EdFi.RecruitmentEventAttendeeTypeDescriptorDelete,
+        Api.Common.Models.Requests.RecruitmentEventAttendeeTypeDescriptors.EdFi.RecruitmentEventAttendeeTypeDescriptorGetByExample>
+    {
+        public RecruitmentEventAttendeeTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.RecruitmentEventAttendeeTypeDescriptors.EdFi.RecruitmentEventAttendeeTypeDescriptorGetByExample request, Entities.Common.EdFi.IRecruitmentEventAttendeeTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.RecruitmentEventAttendeeTypeDescriptorId = request.RecruitmentEventAttendeeTypeDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.RecruitmentEventTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/recruitmentEventTypeDescriptors")]
+    public partial class RecruitmentEventTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.RecruitmentEventTypeDescriptor.EdFi.RecruitmentEventTypeDescriptor,
+        Entities.Common.EdFi.IRecruitmentEventTypeDescriptor,
+        Entities.NHibernate.RecruitmentEventTypeDescriptorAggregate.EdFi.RecruitmentEventTypeDescriptor,
+        Api.Common.Models.Requests.RecruitmentEventTypeDescriptors.EdFi.RecruitmentEventTypeDescriptorPut,
+        Api.Common.Models.Requests.RecruitmentEventTypeDescriptors.EdFi.RecruitmentEventTypeDescriptorPost,
+        Api.Common.Models.Requests.RecruitmentEventTypeDescriptors.EdFi.RecruitmentEventTypeDescriptorDelete,
+        Api.Common.Models.Requests.RecruitmentEventTypeDescriptors.EdFi.RecruitmentEventTypeDescriptorGetByExample>
+    {
+        public RecruitmentEventTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.RecruitmentEventTypeDescriptors.EdFi.RecruitmentEventTypeDescriptorGetByExample request, Entities.Common.EdFi.IRecruitmentEventTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.RecruitmentEventTypeDescriptorId = request.RecruitmentEventTypeDescriptorId;
             specification.ShortDescription = request.ShortDescription;
         }
     }
@@ -8975,6 +12475,123 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.RubricDimensions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/rubricDimensions")]
+    public partial class RubricDimensionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.RubricDimension.EdFi.RubricDimension,
+        Entities.Common.EdFi.IRubricDimension,
+        Entities.NHibernate.RubricDimensionAggregate.EdFi.RubricDimension,
+        Api.Common.Models.Requests.RubricDimensions.EdFi.RubricDimensionPut,
+        Api.Common.Models.Requests.RubricDimensions.EdFi.RubricDimensionPost,
+        Api.Common.Models.Requests.RubricDimensions.EdFi.RubricDimensionDelete,
+        Api.Common.Models.Requests.RubricDimensions.EdFi.RubricDimensionGetByExample>
+    {
+        public RubricDimensionsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.RubricDimensions.EdFi.RubricDimensionGetByExample request, Entities.Common.EdFi.IRubricDimension specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CriterionDescription = request.CriterionDescription;
+            specification.DimensionOrder = request.DimensionOrder;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.RubricRating = request.RubricRating;
+            specification.RubricRatingLevelDescriptor = request.RubricRatingLevelDescriptor;
+            specification.SchoolYear = request.SchoolYear;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.RubricRatingLevelDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/rubricRatingLevelDescriptors")]
+    public partial class RubricRatingLevelDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.RubricRatingLevelDescriptor.EdFi.RubricRatingLevelDescriptor,
+        Entities.Common.EdFi.IRubricRatingLevelDescriptor,
+        Entities.NHibernate.RubricRatingLevelDescriptorAggregate.EdFi.RubricRatingLevelDescriptor,
+        Api.Common.Models.Requests.RubricRatingLevelDescriptors.EdFi.RubricRatingLevelDescriptorPut,
+        Api.Common.Models.Requests.RubricRatingLevelDescriptors.EdFi.RubricRatingLevelDescriptorPost,
+        Api.Common.Models.Requests.RubricRatingLevelDescriptors.EdFi.RubricRatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.RubricRatingLevelDescriptors.EdFi.RubricRatingLevelDescriptorGetByExample>
+    {
+        public RubricRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.RubricRatingLevelDescriptors.EdFi.RubricRatingLevelDescriptorGetByExample request, Entities.Common.EdFi.IRubricRatingLevelDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.RubricRatingLevelDescriptorId = request.RubricRatingLevelDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.SalaryTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/salaryTypeDescriptors")]
+    public partial class SalaryTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.SalaryTypeDescriptor.EdFi.SalaryTypeDescriptor,
+        Entities.Common.EdFi.ISalaryTypeDescriptor,
+        Entities.NHibernate.SalaryTypeDescriptorAggregate.EdFi.SalaryTypeDescriptor,
+        Api.Common.Models.Requests.SalaryTypeDescriptors.EdFi.SalaryTypeDescriptorPut,
+        Api.Common.Models.Requests.SalaryTypeDescriptors.EdFi.SalaryTypeDescriptorPost,
+        Api.Common.Models.Requests.SalaryTypeDescriptors.EdFi.SalaryTypeDescriptorDelete,
+        Api.Common.Models.Requests.SalaryTypeDescriptors.EdFi.SalaryTypeDescriptorGetByExample>
+    {
+        public SalaryTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.SalaryTypeDescriptors.EdFi.SalaryTypeDescriptorGetByExample request, Entities.Common.EdFi.ISalaryTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.SalaryTypeDescriptorId = request.SalaryTypeDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -9000,16 +12617,20 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.AccreditationStatusDescriptor = request.AccreditationStatusDescriptor;
             specification.AdministrativeFundingControlDescriptor = request.AdministrativeFundingControlDescriptor;
             specification.CharterApprovalAgencyTypeDescriptor = request.CharterApprovalAgencyTypeDescriptor;
             specification.CharterApprovalSchoolYear = request.CharterApprovalSchoolYear;
             specification.CharterStatusDescriptor = request.CharterStatusDescriptor;
+            specification.FederalLocaleCodeDescriptor = request.FederalLocaleCodeDescriptor;
             specification.Id = request.Id;
+            specification.ImprovingSchool = request.ImprovingSchool;
             specification.InternetAccessDescriptor = request.InternetAccessDescriptor;
             specification.LocalEducationAgencyId = request.LocalEducationAgencyId;
             specification.MagnetSpecialProgramEmphasisSchoolDescriptor = request.MagnetSpecialProgramEmphasisSchoolDescriptor;
             specification.NameOfInstitution = request.NameOfInstitution;
             specification.OperationalStatusDescriptor = request.OperationalStatusDescriptor;
+            specification.PostSecondaryInstitutionId = request.PostSecondaryInstitutionId;
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.ShortNameOfInstitution = request.ShortNameOfInstitution;
@@ -9828,6 +13449,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.FirstName = request.FirstName;
             specification.GenderIdentity = request.GenderIdentity;
             specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
@@ -9843,6 +13465,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
             specification.PersonId = request.PersonId;
             specification.PreferredFirstName = request.PreferredFirstName;
             specification.PreferredLastSurname = request.PreferredLastSurname;
+            specification.RequisitionNumber = request.RequisitionNumber;
             specification.SexDescriptor = request.SexDescriptor;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
@@ -9960,6 +13583,74 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.StaffDemographics.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffDemographics")]
+    public partial class StaffDemographicsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StaffDemographic.EdFi.StaffDemographic,
+        Entities.Common.EdFi.IStaffDemographic,
+        Entities.NHibernate.StaffDemographicAggregate.EdFi.StaffDemographic,
+        Api.Common.Models.Requests.StaffDemographics.EdFi.StaffDemographicPut,
+        Api.Common.Models.Requests.StaffDemographics.EdFi.StaffDemographicPost,
+        Api.Common.Models.Requests.StaffDemographics.EdFi.StaffDemographicDelete,
+        Api.Common.Models.Requests.StaffDemographics.EdFi.StaffDemographicGetByExample>
+    {
+        public StaffDemographicsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StaffDemographics.EdFi.StaffDemographicGetByExample request, Entities.Common.EdFi.IStaffDemographic specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.GenderIdentity = request.GenderIdentity;
+            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.Id = request.Id;
+            specification.SexDescriptor = request.SexDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StaffDirectories.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffDirectories")]
+    public partial class StaffDirectoriesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StaffDirectory.EdFi.StaffDirectory,
+        Entities.Common.EdFi.IStaffDirectory,
+        Entities.NHibernate.StaffDirectoryAggregate.EdFi.StaffDirectory,
+        Api.Common.Models.Requests.StaffDirectories.EdFi.StaffDirectoryPut,
+        Api.Common.Models.Requests.StaffDirectories.EdFi.StaffDirectoryPost,
+        Api.Common.Models.Requests.StaffDirectories.EdFi.StaffDirectoryDelete,
+        Api.Common.Models.Requests.StaffDirectories.EdFi.StaffDirectoryGetByExample>
+    {
+        public StaffDirectoriesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StaffDirectories.EdFi.StaffDirectoryGetByExample request, Entities.Common.EdFi.IStaffDirectory specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.StaffUniqueId = request.StaffUniqueId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -10032,41 +13723,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
             specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAssociations.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffEducationOrganizationContactAssociations")]
-    public partial class StaffEducationOrganizationContactAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StaffEducationOrganizationContactAssociation.EdFi.StaffEducationOrganizationContactAssociation,
-        Entities.Common.EdFi.IStaffEducationOrganizationContactAssociation,
-        Entities.NHibernate.StaffEducationOrganizationContactAssociationAggregate.EdFi.StaffEducationOrganizationContactAssociation,
-        Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationPut,
-        Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationPost,
-        Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationDelete,
-        Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationGetByExample>
-    {
-        public StaffEducationOrganizationContactAssociationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
-            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationGetByExample request, Entities.Common.EdFi.IStaffEducationOrganizationContactAssociation specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.ContactTitle = request.ContactTitle;
-            specification.ContactTypeDescriptor = request.ContactTypeDescriptor;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.ElectronicMailAddress = request.ElectronicMailAddress;
-            specification.Id = request.Id;
-            specification.StaffUniqueId = request.StaffUniqueId;
+            specification.YearsOfExperienceAtCurrentEducationOrganization = request.YearsOfExperienceAtCurrentEducationOrganization;
         }
     }
 }
@@ -10106,11 +13763,52 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
             specification.HireDate = request.HireDate;
             specification.HourlyWage = request.HourlyWage;
             specification.Id = request.Id;
+            specification.LengthOfContractDescriptor = request.LengthOfContractDescriptor;
             specification.OfferDate = request.OfferDate;
+            specification.ProbationCompleteDate = request.ProbationCompleteDate;
             specification.SeparationDescriptor = request.SeparationDescriptor;
             specification.SeparationReasonDescriptor = request.SeparationReasonDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
+            specification.Tenured = request.Tenured;
+            specification.TenureTrack = request.TenureTrack;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StaffEducatorPreparationProgramAssociations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffEducatorPreparationProgramAssociations")]
+    public partial class StaffEducatorPreparationProgramAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StaffEducatorPreparationProgramAssociation.EdFi.StaffEducatorPreparationProgramAssociation,
+        Entities.Common.EdFi.IStaffEducatorPreparationProgramAssociation,
+        Entities.NHibernate.StaffEducatorPreparationProgramAssociationAggregate.EdFi.StaffEducatorPreparationProgramAssociation,
+        Api.Common.Models.Requests.StaffEducatorPreparationProgramAssociations.EdFi.StaffEducatorPreparationProgramAssociationPut,
+        Api.Common.Models.Requests.StaffEducatorPreparationProgramAssociations.EdFi.StaffEducatorPreparationProgramAssociationPost,
+        Api.Common.Models.Requests.StaffEducatorPreparationProgramAssociations.EdFi.StaffEducatorPreparationProgramAssociationDelete,
+        Api.Common.Models.Requests.StaffEducatorPreparationProgramAssociations.EdFi.StaffEducatorPreparationProgramAssociationGetByExample>
+    {
+        public StaffEducatorPreparationProgramAssociationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StaffEducatorPreparationProgramAssociations.EdFi.StaffEducatorPreparationProgramAssociationGetByExample request, Entities.Common.EdFi.IStaffEducatorPreparationProgramAssociation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BeginDate = request.BeginDate;
+            specification.Completer = request.Completer;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EndDate = request.EndDate;
+            specification.Id = request.Id;
+            specification.ProgramName = request.ProgramName;
+            specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
         }
     }
 }
@@ -10148,6 +13846,41 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
             specification.StaffIdentificationSystemDescriptorId = request.StaffIdentificationSystemDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StaffIdentities.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffIdentities")]
+    public partial class StaffIdentitiesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StaffIdentity.EdFi.StaffIdentity,
+        Entities.Common.EdFi.IStaffIdentity,
+        Entities.NHibernate.StaffIdentityAggregate.EdFi.StaffIdentity,
+        Api.Common.Models.Requests.StaffIdentities.EdFi.StaffIdentityPut,
+        Api.Common.Models.Requests.StaffIdentities.EdFi.StaffIdentityPost,
+        Api.Common.Models.Requests.StaffIdentities.EdFi.StaffIdentityDelete,
+        Api.Common.Models.Requests.StaffIdentities.EdFi.StaffIdentityGetByExample>
+    {
+        public StaffIdentitiesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StaffIdentities.EdFi.StaffIdentityGetByExample request, Entities.Common.EdFi.IStaffIdentity specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
+            specification.StaffIdentificationSystemDescriptor = request.StaffIdentificationSystemDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
         }
     }
 }
@@ -10339,6 +14072,43 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.StaffToCandidateRelationshipDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffToCandidateRelationshipDescriptors")]
+    public partial class StaffToCandidateRelationshipDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StaffToCandidateRelationshipDescriptor.EdFi.StaffToCandidateRelationshipDescriptor,
+        Entities.Common.EdFi.IStaffToCandidateRelationshipDescriptor,
+        Entities.NHibernate.StaffToCandidateRelationshipDescriptorAggregate.EdFi.StaffToCandidateRelationshipDescriptor,
+        Api.Common.Models.Requests.StaffToCandidateRelationshipDescriptors.EdFi.StaffToCandidateRelationshipDescriptorPut,
+        Api.Common.Models.Requests.StaffToCandidateRelationshipDescriptors.EdFi.StaffToCandidateRelationshipDescriptorPost,
+        Api.Common.Models.Requests.StaffToCandidateRelationshipDescriptors.EdFi.StaffToCandidateRelationshipDescriptorDelete,
+        Api.Common.Models.Requests.StaffToCandidateRelationshipDescriptors.EdFi.StaffToCandidateRelationshipDescriptorGetByExample>
+    {
+        public StaffToCandidateRelationshipDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StaffToCandidateRelationshipDescriptors.EdFi.StaffToCandidateRelationshipDescriptorGetByExample request, Entities.Common.EdFi.IStaffToCandidateRelationshipDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+            specification.StaffToCandidateRelationshipDescriptorId = request.StaffToCandidateRelationshipDescriptorId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -10401,6 +14171,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.FederalLocaleCodeDescriptor = request.FederalLocaleCodeDescriptor;
             specification.Id = request.Id;
             specification.NameOfInstitution = request.NameOfInstitution;
             specification.OperationalStatusDescriptor = request.OperationalStatusDescriptor;
@@ -10868,6 +14639,77 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.StudentDemographics.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentDemographics")]
+    public partial class StudentDemographicsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentDemographic.EdFi.StudentDemographic,
+        Entities.Common.EdFi.IStudentDemographic,
+        Entities.NHibernate.StudentDemographicAggregate.EdFi.StudentDemographic,
+        Api.Common.Models.Requests.StudentDemographics.EdFi.StudentDemographicPut,
+        Api.Common.Models.Requests.StudentDemographics.EdFi.StudentDemographicPost,
+        Api.Common.Models.Requests.StudentDemographics.EdFi.StudentDemographicDelete,
+        Api.Common.Models.Requests.StudentDemographics.EdFi.StudentDemographicGetByExample>
+    {
+        public StudentDemographicsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentDemographics.EdFi.StudentDemographicGetByExample request, Entities.Common.EdFi.IStudentDemographic specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.EconomicDisadvantageDescriptor = request.EconomicDisadvantageDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.GenderIdentity = request.GenderIdentity;
+            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.Id = request.Id;
+            specification.LimitedEnglishProficiencyDescriptor = request.LimitedEnglishProficiencyDescriptor;
+            specification.SexDescriptor = request.SexDescriptor;
+            specification.StudentUniqueId = request.StudentUniqueId;
+            specification.SupporterMilitaryConnectionDescriptor = request.SupporterMilitaryConnectionDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentDirectories.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentDirectories")]
+    public partial class StudentDirectoriesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentDirectory.EdFi.StudentDirectory,
+        Entities.Common.EdFi.IStudentDirectory,
+        Entities.NHibernate.StudentDirectoryAggregate.EdFi.StudentDirectory,
+        Api.Common.Models.Requests.StudentDirectories.EdFi.StudentDirectoryPut,
+        Api.Common.Models.Requests.StudentDirectories.EdFi.StudentDirectoryPost,
+        Api.Common.Models.Requests.StudentDirectories.EdFi.StudentDirectoryDelete,
+        Api.Common.Models.Requests.StudentDirectories.EdFi.StudentDirectoryGetByExample>
+    {
+        public StudentDirectoriesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentDirectories.EdFi.StudentDirectoryGetByExample request, Entities.Common.EdFi.IStudentDirectory specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentBehaviorAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -11075,7 +14917,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssignmentLateStatusDescriptor = request.AssignmentLateStatusDescriptor;
+            specification.AssignmentPassed = request.AssignmentPassed;
             specification.CompetencyLevelDescriptor = request.CompetencyLevelDescriptor;
+            specification.DateCompleted = request.DateCompleted;
             specification.DateFulfilled = request.DateFulfilled;
             specification.DiagnosticStatement = request.DiagnosticStatement;
             specification.GradebookEntryIdentifier = request.GradebookEntryIdentifier;
@@ -11201,6 +15045,41 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
             specification.StudentIdentificationSystemDescriptorId = request.StudentIdentificationSystemDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentIdentities.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentIdentities")]
+    public partial class StudentIdentitiesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentIdentity.EdFi.StudentIdentity,
+        Entities.Common.EdFi.IStudentIdentity,
+        Entities.NHibernate.StudentIdentityAggregate.EdFi.StudentIdentity,
+        Api.Common.Models.Requests.StudentIdentities.EdFi.StudentIdentityPut,
+        Api.Common.Models.Requests.StudentIdentities.EdFi.StudentIdentityPost,
+        Api.Common.Models.Requests.StudentIdentities.EdFi.StudentIdentityDelete,
+        Api.Common.Models.Requests.StudentIdentities.EdFi.StudentIdentityGetByExample>
+    {
+        public StudentIdentitiesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentIdentities.EdFi.StudentIdentityGetByExample request, Entities.Common.EdFi.IStudentIdentity specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
+            specification.StudentIdentificationSystemDescriptor = request.StudentIdentificationSystemDescriptor;
+            specification.StudentUniqueId = request.StudentUniqueId;
         }
     }
 }
@@ -11407,6 +15286,111 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.ReasonExitedDescriptor = request.ReasonExitedDescriptor;
             specification.ServedOutsideOfRegularSession = request.ServedOutsideOfRegularSession;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentPaths.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentPaths")]
+    public partial class StudentPathsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentPath.EdFi.StudentPath,
+        Entities.Common.EdFi.IStudentPath,
+        Entities.NHibernate.StudentPathAggregate.EdFi.StudentPath,
+        Api.Common.Models.Requests.StudentPaths.EdFi.StudentPathPut,
+        Api.Common.Models.Requests.StudentPaths.EdFi.StudentPathPost,
+        Api.Common.Models.Requests.StudentPaths.EdFi.StudentPathDelete,
+        Api.Common.Models.Requests.StudentPaths.EdFi.StudentPathGetByExample>
+    {
+        public StudentPathsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentPaths.EdFi.StudentPathGetByExample request, Entities.Common.EdFi.IStudentPath specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.PathName = request.PathName;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentPathMilestoneStatuses.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentPathMilestoneStatuses")]
+    public partial class StudentPathMilestoneStatusesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentPathMilestoneStatus.EdFi.StudentPathMilestoneStatus,
+        Entities.Common.EdFi.IStudentPathMilestoneStatus,
+        Entities.NHibernate.StudentPathMilestoneStatusAggregate.EdFi.StudentPathMilestoneStatus,
+        Api.Common.Models.Requests.StudentPathMilestoneStatuses.EdFi.StudentPathMilestoneStatusPut,
+        Api.Common.Models.Requests.StudentPathMilestoneStatuses.EdFi.StudentPathMilestoneStatusPost,
+        Api.Common.Models.Requests.StudentPathMilestoneStatuses.EdFi.StudentPathMilestoneStatusDelete,
+        Api.Common.Models.Requests.StudentPathMilestoneStatuses.EdFi.StudentPathMilestoneStatusGetByExample>
+    {
+        public StudentPathMilestoneStatusesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentPathMilestoneStatuses.EdFi.StudentPathMilestoneStatusGetByExample request, Entities.Common.EdFi.IStudentPathMilestoneStatus specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CompletionIndicator = request.CompletionIndicator;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.PathMilestoneName = request.PathMilestoneName;
+            specification.PathMilestoneTypeDescriptor = request.PathMilestoneTypeDescriptor;
+            specification.PathName = request.PathName;
+            specification.PathPhaseName = request.PathPhaseName;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentPathPhaseStatuses.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentPathPhaseStatuses")]
+    public partial class StudentPathPhaseStatusesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentPathPhaseStatus.EdFi.StudentPathPhaseStatus,
+        Entities.Common.EdFi.IStudentPathPhaseStatus,
+        Entities.NHibernate.StudentPathPhaseStatusAggregate.EdFi.StudentPathPhaseStatus,
+        Api.Common.Models.Requests.StudentPathPhaseStatuses.EdFi.StudentPathPhaseStatusPut,
+        Api.Common.Models.Requests.StudentPathPhaseStatuses.EdFi.StudentPathPhaseStatusPost,
+        Api.Common.Models.Requests.StudentPathPhaseStatuses.EdFi.StudentPathPhaseStatusDelete,
+        Api.Common.Models.Requests.StudentPathPhaseStatuses.EdFi.StudentPathPhaseStatusGetByExample>
+    {
+        public StudentPathPhaseStatusesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentPathPhaseStatuses.EdFi.StudentPathPhaseStatusGetByExample request, Entities.Common.EdFi.IStudentPathPhaseStatus specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CompletionIndicator = request.CompletionIndicator;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.PathName = request.PathName;
+            specification.PathPhaseName = request.PathPhaseName;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
     }
@@ -11841,8 +15825,10 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             specification.IdeaEligibility = request.IdeaEligibility;
             specification.IEPBeginDate = request.IEPBeginDate;
             specification.IEPEndDate = request.IEPEndDate;
-            specification.IEPReviewDate = request.IEPReviewDate;
-            specification.LastEvaluationDate = request.LastEvaluationDate;
+            specification.IEPEvaluationDueDate = request.IEPEvaluationDueDate;
+            specification.IEPLastEvaluationDate = request.IEPLastEvaluationDate;
+            specification.IEPLastReviewDate = request.IEPLastReviewDate;
+            specification.IEPReviewDueDate = request.IEPReviewDueDate;
             specification.MedicallyFragile = request.MedicallyFragile;
             specification.MultiplyDisabled = request.MultiplyDisabled;
             specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
@@ -12348,8 +16334,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
             specification.Id = request.Id;
             specification.Location = request.Location;
             specification.Namespace = request.Namespace;
+            specification.PersonId = request.PersonId;
             specification.ResponseDate = request.ResponseDate;
             specification.ResponseTime = request.ResponseTime;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.SurveyIdentifier = request.SurveyIdentifier;
@@ -12386,6 +16374,41 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationT
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.SurveyIdentifier = request.SurveyIdentifier;
+            specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.SurveyResponsePersonTargetAssociations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyResponsePersonTargetAssociations")]
+    public partial class SurveyResponsePersonTargetAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.SurveyResponsePersonTargetAssociation.EdFi.SurveyResponsePersonTargetAssociation,
+        Entities.Common.EdFi.ISurveyResponsePersonTargetAssociation,
+        Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.EdFi.SurveyResponsePersonTargetAssociation,
+        Api.Common.Models.Requests.SurveyResponsePersonTargetAssociations.EdFi.SurveyResponsePersonTargetAssociationPut,
+        Api.Common.Models.Requests.SurveyResponsePersonTargetAssociations.EdFi.SurveyResponsePersonTargetAssociationPost,
+        Api.Common.Models.Requests.SurveyResponsePersonTargetAssociations.EdFi.SurveyResponsePersonTargetAssociationDelete,
+        Api.Common.Models.Requests.SurveyResponsePersonTargetAssociations.EdFi.SurveyResponsePersonTargetAssociationGetByExample>
+    {
+        public SurveyResponsePersonTargetAssociationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.SurveyResponsePersonTargetAssociations.EdFi.SurveyResponsePersonTargetAssociationGetByExample request, Entities.Common.EdFi.ISurveyResponsePersonTargetAssociation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
         }
@@ -12451,10 +16474,65 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
+            specification.TermDescriptor = request.TermDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAggregateResponses.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySectionAggregateResponses")]
+    public partial class SurveySectionAggregateResponsesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.SurveySectionAggregateResponse.EdFi.SurveySectionAggregateResponse,
+        Entities.Common.EdFi.ISurveySectionAggregateResponse,
+        Entities.NHibernate.SurveySectionAggregateResponseAggregate.EdFi.SurveySectionAggregateResponse,
+        Api.Common.Models.Requests.SurveySectionAggregateResponses.EdFi.SurveySectionAggregateResponsePut,
+        Api.Common.Models.Requests.SurveySectionAggregateResponses.EdFi.SurveySectionAggregateResponsePost,
+        Api.Common.Models.Requests.SurveySectionAggregateResponses.EdFi.SurveySectionAggregateResponseDelete,
+        Api.Common.Models.Requests.SurveySectionAggregateResponses.EdFi.SurveySectionAggregateResponseGetByExample>
+    {
+        public SurveySectionAggregateResponsesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.SurveySectionAggregateResponses.EdFi.SurveySectionAggregateResponseGetByExample request, Entities.Common.EdFi.ISurveySectionAggregateResponse specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.SchoolYear = request.SchoolYear;
+            specification.ScoreValue = request.ScoreValue;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.SurveyIdentifier = request.SurveyIdentifier;
+            specification.SurveySectionTitle = request.SurveySectionTitle;
+            specification.TermDescriptor = request.TermDescriptor;
         }
     }
 }
@@ -12559,6 +16637,42 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.SurveyIdentifier = request.SurveyIdentifier;
+            specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
+            specification.SurveySectionTitle = request.SurveySectionTitle;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponsePersonTargetAssociations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySectionResponsePersonTargetAssociations")]
+    public partial class SurveySectionResponsePersonTargetAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.EdFi.SurveySectionResponsePersonTargetAssociation,
+        Entities.Common.EdFi.ISurveySectionResponsePersonTargetAssociation,
+        Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.EdFi.SurveySectionResponsePersonTargetAssociation,
+        Api.Common.Models.Requests.SurveySectionResponsePersonTargetAssociations.EdFi.SurveySectionResponsePersonTargetAssociationPut,
+        Api.Common.Models.Requests.SurveySectionResponsePersonTargetAssociations.EdFi.SurveySectionResponsePersonTargetAssociationPost,
+        Api.Common.Models.Requests.SurveySectionResponsePersonTargetAssociations.EdFi.SurveySectionResponsePersonTargetAssociationDelete,
+        Api.Common.Models.Requests.SurveySectionResponsePersonTargetAssociations.EdFi.SurveySectionResponsePersonTargetAssociationGetByExample>
+    {
+        public SurveySectionResponsePersonTargetAssociationsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.SurveySectionResponsePersonTargetAssociations.EdFi.SurveySectionResponsePersonTargetAssociationGetByExample request, Entities.Common.EdFi.ISurveySectionResponsePersonTargetAssociation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
@@ -13152,6 +17266,43 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
             specification.WeaponDescriptorId = request.WeaponDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.WithdrawReasonDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/withdrawReasonDescriptors")]
+    public partial class WithdrawReasonDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.WithdrawReasonDescriptor.EdFi.WithdrawReasonDescriptor,
+        Entities.Common.EdFi.IWithdrawReasonDescriptor,
+        Entities.NHibernate.WithdrawReasonDescriptorAggregate.EdFi.WithdrawReasonDescriptor,
+        Api.Common.Models.Requests.WithdrawReasonDescriptors.EdFi.WithdrawReasonDescriptorPut,
+        Api.Common.Models.Requests.WithdrawReasonDescriptors.EdFi.WithdrawReasonDescriptorPost,
+        Api.Common.Models.Requests.WithdrawReasonDescriptors.EdFi.WithdrawReasonDescriptorDelete,
+        Api.Common.Models.Requests.WithdrawReasonDescriptors.EdFi.WithdrawReasonDescriptorGetByExample>
+    {
+        public WithdrawReasonDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.WithdrawReasonDescriptors.EdFi.WithdrawReasonDescriptorGetByExample request, Entities.Common.EdFi.IWithdrawReasonDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+            specification.WithdrawReasonDescriptorId = request.WithdrawReasonDescriptorId;
         }
     }
 }

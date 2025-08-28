@@ -3167,7 +3167,7 @@
 									"response": []
 								},
 								{
-									"name": "Include total count in Get request ,Set limit to 100",
+									"name": "Include total count in Get request ,Set limit to 500",
 									"event": [
 										{
 											"listen": "test",
@@ -3178,8 +3178,8 @@
 													"});",
 													"const __ = require('lodash');",
 													"const responseItems = pm.response.json();",
-													"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-													"     pm.expect(responseItems.length).to.be.at.most(100);",
+													"pm.test(\"Should return less than or equal to 500  item in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.most(500);",
 													"});",
 													"const courses = __.takeRight(responseItems, 25);",
 													"const courseCodes = __.map(courses, course => course.courseCode);",
@@ -3195,7 +3195,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?limit=100",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?limit=500",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -3208,7 +3208,7 @@
 											"query": [
 												{
 													"key": "limit",
-													"value": "100"
+													"value": "500"
 												}
 											]
 										}
@@ -3547,7 +3547,7 @@
 									"response": []
 								},
 								{
-									"name": "Include total count in Get request ,Set limit to 100",
+									"name": "Include total count in Get request ,Set limit to 500",
 									"event": [
 										{
 											"listen": "test",
@@ -3558,8 +3558,8 @@
 													"});",
 													"const __ = require('lodash');",
 													"const responseItems = pm.response.json();",
-													"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-													"     pm.expect(responseItems.length).to.be.at.most(100);",
+													"pm.test(\"Should return less than or equal to 500  item in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.most(500);",
 													"});",
 													"const students = __.takeRight(responseItems, 25);",
 													"const studentUniqueIds = __.map(students, student => student.studentUniqueId);",
@@ -3575,7 +3575,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=100",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=500",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -3588,7 +3588,7 @@
 											"query": [
 												{
 													"key": "limit",
-													"value": "100"
+													"value": "500"
 												}
 											]
 										}
@@ -3724,7 +3724,7 @@
 													"     pm.expect(responseItems).to.have.lengthOf(25);",
 													"});",
 													"",
-													"pm.test(\"Should match with each  item course  in response\", () => {",
+													"pm.test(\"Should match with each student item in response\", () => {",
 													"    const studentUniqueIds= pm.environment.get(\"known:studentUniqueIds\");",
 													"     \t__.each(responseItems, responseItem => {",
 													"        \t      pm.expect(__.includes(studentUniqueIds, responseItem.studentUniqueId)).to.equal(true);",
@@ -3739,7 +3739,7 @@
 											"script": {
 												"exec": [
 													"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
-													"pm.environment.set(\"known:studentOffset\", 100 - 25);"
+													"pm.environment.set(\"known:studentOffset\", 500 - 25);"
 												],
 												"type": "text/javascript"
 											}
@@ -3829,7 +3829,7 @@
 									"response": []
 								},
 								{
-									"name": "Include total count in Get request ,Set limit to 100",
+									"name": "Include total count in Get request ,Set limit to 500",
 									"event": [
 										{
 											"listen": "test",
@@ -3840,8 +3840,8 @@
 													"});",
 													"const __ = require('lodash');",
 													"const responseItems = pm.response.json();",
-													"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-													"     pm.expect(responseItems.length).to.be.at.most(100);",
+													"pm.test(\"Should return less than or equal to 500  item in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.most(500);",
 													"});",
 													"const staffs = __.takeRight(responseItems, 25);",
 													"const staffUniqueIds = __.map(staffs, staff => staff.staffUniqueId);",
@@ -3857,7 +3857,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?limit=100",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?limit=500",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -3870,7 +3870,7 @@
 											"query": [
 												{
 													"key": "limit",
-													"value": "100"
+													"value": "500"
 												}
 											]
 										}
@@ -4006,7 +4006,7 @@
 													"     pm.expect(responseItems).to.have.lengthOf(25);",
 													"});",
 													"",
-													"pm.test(\"Should match with each  item course  in response\", () => {",
+													"pm.test(\"Should match with each staff item in response\", () => {",
 													"    const staffUniqueIds= pm.environment.get(\"known:staffUniqueIds\");",
 													"     \t__.each(responseItems, responseItem => {",
 													"        \t      pm.expect(__.includes(staffUniqueIds, responseItem.staffUniqueId)).to.equal(true);",
@@ -11234,7 +11234,10 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should include validation errors for string properties too long on embedded object and it's child collection item.\", () => {\r",
-													"  if(pm.environment.get(\"ParentOrContactProperName\") === 'Parent') {  //Length > 0 requirement was removed in DS 5.1.0, so only check if the error response includes that in the validation message if this test if running against DS 4.x\r",
+													"\r",
+													"  const standardMajorVersion = pm.variables.get(\"test-suite:known:standardVersion:major\");\r",
+													"\r",
+													"  if(standardMajorVersion === 4) {  \r",
 													"    pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
 													"        \"$.contentStandard.title\": [\r",
 													"        \"Title must be between 1 and 75 characters in length.\"\r",
@@ -11243,13 +11246,23 @@
 													"        \"Author must be between 1 and 100 characters in length.\"\r",
 													"        ]\r",
 													"    });\r",
-													"  } else { \r",
+													"  } else if (standardMajorVersion === 5) { \r",
+													"    // Length > 0 requirement was removed in DS 5.1.0\r",
 													"    pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
 													"            \"$.contentStandard.title\": [\r",
 													"            \"Title must be at most 75 characters in length.\"\r",
 													"            ],\r",
 													"            \"$.contentStandard.authors[0].author\": [\r",
 													"            \"Author must be at most 100 characters in length.\"\r",
+													"            ]\r",
+													"        });\r",
+													"  } else {\r",
+													"    pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+													"            \"$.contentStandard.title\": [\r",
+													"            \"Title must be at most 100 characters in length.\"\r",
+													"            ],\r",
+													"            \"$.contentStandard.authors[0].author\": [\r",
+													"            \"Author must be at most 255 characters in length.\"\r",
 													"            ]\r",
 													"        });\r",
 													"  }\r",
@@ -11264,7 +11277,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"learningStandardId\": \"REQUIRED-TEST\",\r\n  \"contentStandard\": {\r\n    \"title\": \"State Standard with a Very Long Name that Actually Exceeds 75 characters in Length\",\r\n    \"authors\": [\r\n      {\r\n        \"author\": \"John Jacob Jingleheimer Schmidt John Jacob Jingleheimer Schmidt John Jacob Jingleheimer Schmidt Jingleheimer Schmidt\"\r\n      }\r\n    ]\r\n  },\r\n  \"description\": \"Reading/Beginning Reading Skills/Print Awareness. Students understand how English is written and printed.\",\r\n  \"namespace\": \"uri://ed-fi.org/LearningStandard/LearningStandard.xml\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Second grade\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"learningStandardId\": \"REQUIRED-TEST\",\r\n  \"contentStandard\": {\r\n    \"title\": \"Long name that exceeds 100 characters in length lorem ipsum dolor sit amet, consectetur adipiscing elit\",\r\n    \"authors\": [\r\n      {\r\n        \"author\": \"Long name that exceeds 255 characters in length John Jacob Jingleheimer Schmidt John Jacob Jingleheimer Schmidt John Jacob Jingleheimer Schmidt Jingleheimer Schmidt John Jacob Jingleheimer Schmidt John Jacob Jingleheimer Schmidt John Jacob Jingleheimer Schmidt\"\r\n      }\r\n    ]\r\n  },\r\n  \"description\": \"Reading/Beginning Reading Skills/Print Awareness. Students understand how English is written and printed.\",\r\n  \"namespace\": \"uri://ed-fi.org/LearningStandard/LearningStandard.xml\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Second grade\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -18277,7 +18290,7 @@
 							"response": []
 						},
 						{
-							"name": "Include total count in Get request ,Set limit to 100",
+							"name": "Include total count in Get request ,Set limit to 500",
 							"event": [
 								{
 									"listen": "test",
@@ -18288,8 +18301,8 @@
 											"});",
 											"const __ = require('lodash');",
 											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-											"     pm.expect(responseItems.length).to.be.at.most(100);",
+											"pm.test(\"Should return less than or equal to 500  item in response\", () => {",
+											"     pm.expect(responseItems.length).to.be.at.most(500);",
 											"});",
 											"const staffs = __.takeRight(responseItems, 25);",
 											"const staffUniqueIds = __.map(staffs, staff => staff.staffUniqueId);",
@@ -18316,7 +18329,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?limit=100",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?limit=500",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -18329,7 +18342,7 @@
 									"query": [
 										{
 											"key": "limit",
-											"value": "100"
+											"value": "500"
 										}
 									]
 								}
@@ -18488,7 +18501,7 @@
 											"     pm.expect(responseItems).to.have.lengthOf(25);",
 											"});",
 											"",
-											"pm.test(\"Should match with each  item course  in response\", () => {",
+											"pm.test(\"Should match with each staff item in response\", () => {",
 											"    const staffUniqueIds= pm.environment.get(\"known:staffUniqueIds\");",
 											"     \t__.each(responseItems, responseItem => {",
 											"        \t      pm.expect(__.includes(staffUniqueIds, responseItem.staffUniqueId)).to.equal(true);",
@@ -18892,7 +18905,7 @@
 							"response": []
 						},
 						{
-							"name": "Include total count in Get request ,Set limit to 100",
+							"name": "Include total count in Get request ,Set limit to 500",
 							"event": [
 								{
 									"listen": "test",
@@ -18903,8 +18916,8 @@
 											"});",
 											"const __ = require('lodash');",
 											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-											"     pm.expect(responseItems.length).to.be.at.most(100);",
+											"pm.test(\"Should return less than or equal to 500 item in response\", () => {",
+											"     pm.expect(responseItems.length).to.be.at.most(500);",
 											"});",
 											"const students = __.takeRight(responseItems, 25);",
 											"const studentUniqueIds = __.map(students, student => student.studentUniqueId);",
@@ -18931,7 +18944,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=100",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=500",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -18944,7 +18957,7 @@
 									"query": [
 										{
 											"key": "limit",
-											"value": "100"
+											"value": "500"
 										}
 									]
 								}
@@ -19119,7 +19132,7 @@
 									"script": {
 										"exec": [
 											"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
-											"pm.environment.set(\"known:studentOffset\", 100 - 25);"
+											"pm.environment.set(\"known:studentOffset\", 500 - 25);"
 										],
 										"type": "text/javascript",
 										"packages": {}

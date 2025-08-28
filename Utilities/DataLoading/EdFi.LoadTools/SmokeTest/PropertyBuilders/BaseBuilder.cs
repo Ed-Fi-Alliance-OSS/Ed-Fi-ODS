@@ -15,7 +15,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
     public abstract class BaseBuilder : IPropertyBuilder
     {
         protected static readonly Random Random = new Random(1);
-        private int _counter = 50; // Start from 50 to not collide with existing EdOrgIds if running over the populated template
+        private int _counter = 1000; // Start at 1000 to avoid colliding with existing EdOrgIds if running on the populated template
         private readonly int _defaultStringLength = 7;
         private readonly IPropertyInfoMetadataLookup _metadataLookup;
 

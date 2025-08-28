@@ -7695,6 +7695,53 @@
 									"response": []
 								},
 								{
+									"name": "Create studentDisciplineIncidentBehaviorAssociation for 001",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201])\r",
+													" });\r",
+													"\r",
+													"if (pm.response.code === 201) {\r",
+													"    pm.environment.set('known:sdiba:001:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"} "
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"disciplineIncidentReference\": {\r\n        \"incidentIdentifier\": \"1\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"behaviorDescriptor\": \"uri://ed-fi.org/BehaviorDescriptor#School Code of Conduct\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentDisciplineIncidentBehaviorAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentDisciplineIncidentBehaviorAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "Create disciplineIncident for 044",
 									"event": [
 										{
@@ -7785,6 +7832,53 @@
 									"response": []
 								},
 								{
+									"name": "Create studentDisciplineIncidentBehaviorAssociation for 044",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201])\r",
+													" });\r",
+													"\r",
+													"if (pm.response.code === 201) {\r",
+													"    pm.environment.set('known:sdiba:044:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"} "
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"disciplineIncidentReference\": {\r\n        \"incidentIdentifier\": \"1\",\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:044}}\"\r\n    },\r\n    \"behaviorDescriptor\": \"uri://ed-fi.org/BehaviorDescriptor#School Code of Conduct\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentDisciplineIncidentBehaviorAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentDisciplineIncidentBehaviorAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "Create DisciplineAction for 001",
 									"event": [
 										{
@@ -7806,7 +7900,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-001\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 1.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:001}}\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
+											"raw": "{\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-001\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 1.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:001}}\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentBehaviorAssociationReference\": {\r\n                \"behaviorDescriptor\": \"uri://ed-fi.org/BehaviorDescriptor#School Code of Conduct\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001,\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n            }\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7850,7 +7944,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:044}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-044\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 1.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:044}}\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901044\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
+											"raw": "{\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:044}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-044\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 1.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:044}}\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901044\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentBehaviorAssociationReference\": {\r\n                \"behaviorDescriptor\": \"uri://ed-fi.org/BehaviorDescriptor#School Code of Conduct\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901044,\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:044}}\"\r\n            }\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -8603,7 +8697,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901107\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-001\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 1.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"604822\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
+											"raw": "{\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901107\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-001\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 1.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"604822\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001\r\n            }\r\n        }\r\n    ],\r\n \"studentDisciplineIncidentBehaviorAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentBehaviorAssociationReference\": {\r\n                \"behaviorDescriptor\": \"uri://ed-fi.org/BehaviorDescriptor#School Code of Conduct\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001,\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n            }\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -8673,7 +8767,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:044}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-044\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 2.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:044}}\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901044\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
+											"raw": "{\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:044}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-044\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 2.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:044}}\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901044\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentBehaviorAssociationReference\": {\r\n                \"behaviorDescriptor\": \"uri://ed-fi.org/BehaviorDescriptor#School Code of Conduct\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901044,\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:044}}\"\r\n            }\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -8738,7 +8832,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901107\r\n    },\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-001\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 2.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"604822\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
+											"raw": "{\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901107\r\n    },\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-001\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 2.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"604822\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentBehaviorAssociationReference\": {\r\n                \"behaviorDescriptor\": \"uri://ed-fi.org/BehaviorDescriptor#School Code of Conduct\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001,\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n            }\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -9182,6 +9276,41 @@
 									"response": []
 								},
 								{
+									"name": "Delete studentDisciplineIncidentBehaviorAssociation for 044",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204]) \r",
+													" });"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentDisciplineIncidentBehaviorAssociations/{{known:sdiba:044:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentDisciplineIncidentBehaviorAssociations",
+												"{{known:sdiba:044:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "Delete studentDisciplineIncidentAssociation for 044",
 									"event": [
 										{
@@ -9245,6 +9374,41 @@
 												"ed-fi",
 												"disciplineIncidents",
 												"{{known:disciplineIncidents:044:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete studentDisciplineIncidentBehaviorAssociation for 001",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204]) \r",
+													" });"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentDisciplineIncidentBehaviorAssociations/{{known:sdiba:001:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentDisciplineIncidentBehaviorAssociations",
+												"{{known:sdiba:001:id}}"
 											]
 										}
 									},
