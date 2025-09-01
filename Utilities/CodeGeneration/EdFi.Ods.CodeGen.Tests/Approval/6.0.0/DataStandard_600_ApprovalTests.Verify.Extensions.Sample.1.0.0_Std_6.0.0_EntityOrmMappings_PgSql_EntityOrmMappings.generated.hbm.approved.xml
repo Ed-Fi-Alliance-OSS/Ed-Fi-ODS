@@ -887,6 +887,33 @@
 
 
   <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.Sample.StudentAcademicRecordExtension" table="StudentAcademicRecordExtension" lazy="false" schema="sample">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="StudentAcademicRecord">
+        <column name="EducationOrganizationId" />
+        <column name="SchoolYear" />
+        <column name="StudentUSI" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="Notes" column="Notes" type="string" length="280" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationArtMedium" table="StudentArtProgramAssociationArtMedium" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
