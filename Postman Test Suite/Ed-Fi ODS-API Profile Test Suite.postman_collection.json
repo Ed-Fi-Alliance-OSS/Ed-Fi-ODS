@@ -5525,6 +5525,93 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Ensure Submission Certification Descriptor Exists",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"codeValue\": \"Technical\",\r\n  \"description\": \"Technical\",\r\n  \"namespace\": \"uri://ed-fi.org/submissionCertificationDescriptors\",\r\n  \"shortDescription\": \"Technical\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample-student-transcript/submissionCertificationDescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample-student-transcript",
+												"submissionCertificationDescriptors"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Ensure Institution Control Descriptor Exists",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"codeValue\": \"Preventive\",\r\n  \"description\": \"Preventive\",\r\n  \"namespace\": \"uri://ed-fi.org/institutionControlDescriptors\",\r\n  \"shortDescription\": \"Preventive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample-student-transcript/institutionControlDescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample-student-transcript",
+												"institutionControlDescriptors"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Ensure Institution Level Descriptor Exists",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"codeValue\": \"Regional\",\r\n  \"description\": \"Regional\",\r\n  \"namespace\": \"uri://ed-fi.org/institutionLevelDescriptors\",\r\n  \"shortDescription\": \"Regional\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample-student-transcript/institutionLevelDescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample-student-transcript",
+												"institutionLevelDescriptors"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -5723,7 +5810,7 @@
 							"response": []
 						},
 						{
-							"name": "Create School",
+							"name": "Create Post Secondary Organization",
 							"event": [
 								{
 									"listen": "test",
@@ -5733,7 +5820,7 @@
 											"  pm.expect(pm.response.code).to.equal(201);\r",
 											"});\r",
 											"\r",
-											"pm.environment.set('known:school:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+											"pm.environment.set('known:postSecondaryOrganization:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -5755,7 +5842,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false\r\n    }\r\n  }\r\n}",
+									"raw": "{\r\n  \"nameOfInstitution\": \"Test Institution\",\r\n  \"acceptanceIndicator\": true,\r\n  \"institutionControlDescriptor\": \"uri://ed-fi.org/institutionControlDescriptors#Preventive\",\r\n  \"institutionLevelDescriptor\": \"uri://ed-fi.org/institutionLevelDescriptors#Regional\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5763,7 +5850,62 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"raw": "{{ApiBaseUrl}}/data/v3/sample-student-transcript/postSecondaryOrganizations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"sample-student-transcript",
+										"postSecondaryOrganizations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Student Academic Record",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:studentAcademicRecord:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n  \"schoolYearTypeReference\": {\r\n    \"schoolYear\": 2022\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"Notes\": \"Transfer student from State University - 45 credits accepted.\"\r\n    },\r\n    \"sampleStudentTranscript\": {\r\n      \"submissionCertificationDescriptor\": \"uri://ed-fi.org/submissionCertificationDescriptors#Technical\",\r\n      \"postSecondaryOrganizationReference\": {\r\n        \"nameOfInstitution\": \"Test Institution\"\r\n      }\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAcademicRecords",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5771,7 +5913,7 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"schools"
+										"studentAcademicRecords"
 									]
 								}
 							},
@@ -6530,13 +6672,13 @@
 							]
 						},
 						{
-							"name": "School",
+							"name": "Student Academic Record",
 							"item": [
 								{
 									"name": "Multiple Extensions (with no Profile)",
 									"item": [
 										{
-											"name": "Get School",
+											"name": "Get Student Academic Record",
 											"event": [
 												{
 													"listen": "test",
@@ -6549,8 +6691,7 @@
 															"const responseItem = pm.response.json();\r",
 															"\r",
 															"pm.test(\"Should have multiple extensions present with no Profile supplied\", () => {\r",
-															"  // pm.expect(responseItem._ext).to.have.all.keys([\"sample\", \"extension2\"]);\r",
-															"  console.warn(\"Test disabled, it requires at least two extensions. It must be reenable after ODS-6676\");\r",
+															"  pm.expect(responseItem._ext).to.have.all.keys([\"sample\", \"sampleStudentTranscript\"]);\r",
 															"});"
 														],
 														"type": "text/javascript",
@@ -6562,7 +6703,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAcademicRecords/{{known:studentAcademicRecord:id}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -6570,8 +6711,8 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"schools",
-														"{{known:school:id}}"
+														"studentAcademicRecords",
+														"{{known:studentAcademicRecord:id}}"
 													]
 												}
 											},
@@ -6583,7 +6724,7 @@
 									"name": "Multiple-Extensions-IncludeOnly",
 									"item": [
 										{
-											"name": "Get School",
+											"name": "Get Student Academic Record",
 											"event": [
 												{
 													"listen": "test",
@@ -6598,13 +6739,13 @@
 															"pm.test(\"Should only have the included extension present\", () => {\r",
 															"  pm.expect(responseItem._ext).to.deep.equal({\r",
 															"    \"sample\": {\r",
-															"      \"isExemplary\": false,\r",
-															"      \"directlyOwnedBuses\": []\r",
+															"      \"notes\": \"Transfer student from State University - 45 credits accepted.\"\r",
 															"    }\r",
 															"  });\r",
 															"});"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -6613,13 +6754,13 @@
 												"header": [
 													{
 														"key": "Accept",
-														"value": "application/vnd.ed-fi.school.sample-school-multiple-extensions-includeonly.readable+json",
-														"description": "sample-school-multiple-extensions-includeonly",
+														"value": "application/vnd.ed-fi.studentacademicrecord.sample-studentacademicrecord-multiple-extensions-includeonly.readable+json",
+														"description": "sample-studentacademicrecord-multiple-extensions-includeonly",
 														"type": "text"
 													}
 												],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAcademicRecords/{{known:studentAcademicRecord:id}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -6627,8 +6768,8 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"schools",
-														"{{known:school:id}}"
+														"studentAcademicRecords",
+														"{{known:studentAcademicRecord:id}}"
 													]
 												}
 											},
@@ -6640,7 +6781,7 @@
 									"name": "Multiple-Extensions-ExcludeOnly",
 									"item": [
 										{
-											"name": "Get School",
+											"name": "Get Student Academic Record",
 											"event": [
 												{
 													"listen": "test",
@@ -6653,8 +6794,7 @@
 															"const responseItem = pm.response.json();\r",
 															"\r",
 															"pm.test(\"Should not have the excluded extension present\", () => {\r",
-															"  //pm.expect(responseItem._ext).to.contain.all.keys([\"testExtension\"]);\r",
-															"  console.warn(\"Test disabled, it requires at least two extensions. It must be reenable after ODS-6676\");\r",
+															"  pm.expect(responseItem._ext).to.contain.all.keys([\"sampleStudentTranscript\"]);\r",
 															"});"
 														],
 														"type": "text/javascript",
@@ -6677,13 +6817,13 @@
 												"header": [
 													{
 														"key": "Accept",
-														"value": "application/vnd.ed-fi.school.sample-school-multiple-extensions-excludeonly.readable+json",
-														"description": "sample-school-multiple-extensions-excludeonly",
+														"value": "application/vnd.ed-fi.studentacademicrecord.sample-studentacademicrecord-multiple-extensions-excludeonly.readable+json",
+														"description": "sample-studentacademicrecord-multiple-extensions-excludeonly",
 														"type": "text"
 													}
 												],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAcademicRecords/{{known:studentAcademicRecord:id}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -6691,8 +6831,8 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"schools",
-														"{{known:school:id}}"
+														"studentAcademicRecords",
+														"{{known:studentAcademicRecord:id}}"
 													]
 												}
 											},
@@ -7756,6 +7896,78 @@
 							"response": []
 						},
 						{
+							"name": "Delete Student Academic Record",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAcademicRecords/{{known:studentAcademicRecord:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentAcademicRecords",
+										"{{known:studentAcademicRecord:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Post Secondary Organization",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/sample-student-transcript/postSecondaryOrganizations/{{known:postSecondaryOrganization:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"sample-student-transcript",
+										"postSecondaryOrganizations",
+										"{{known:postSecondaryOrganization:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Delete Student School Association",
 							"event": [
 								{
@@ -7820,41 +8032,6 @@
 										"ed-fi",
 										"students",
 										"{{known:student:id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete School",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 204\", () => {\r",
-											"  pm.expect(pm.response.code).to.equal(204);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"schools",
-										"{{known:school:id}}"
 									]
 								}
 							},
