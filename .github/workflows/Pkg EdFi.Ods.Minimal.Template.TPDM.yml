@@ -54,7 +54,7 @@ jobs:
         echo "::error::Missing Azure Token"
         exit 1 
     - name: Support longpaths
-      run: git config --system core.longpaths true
+      run: git config --global core.longpaths true
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
