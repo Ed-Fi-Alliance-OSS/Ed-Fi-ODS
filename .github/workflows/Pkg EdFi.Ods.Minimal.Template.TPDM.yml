@@ -27,6 +27,7 @@ env:
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
+  DB_PASS: temporaryDbP@ssw0rd!
 
 jobs:
 
@@ -39,6 +40,23 @@ jobs:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
     runs-on: ubuntu-24.04
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        volumes:
+          - /MssqlBackupVolume:/DatabaseBackups
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: ${{ env.DB_PASS }}
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "exit 0" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 3
+          --name mssql
+          --user root
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
@@ -53,8 +71,9 @@ jobs:
       run: | 
         echo "::error::Missing Azure Token"
         exit 1 
-    - name: Support longpaths
-      run: git config --global core.longpaths true
+    - name: Set permissions for database server container backup directory
+      run: docker exec --user root mssql chmod 777 /DatabaseBackups
+      shell: pwsh
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
@@ -71,7 +90,7 @@ jobs:
         $standardTag = .\build.githubactions.ps1 StandardTag -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
         echo "EDFI_STANDARD_REFERENCE=$standardTag">> $env:GITHUB_ENV
         Write-host "Ed-Fi-Standard Tag is  $standardTag"
-      shell: powershell
+      shell: pwsh
     - name: Checkout Ed-Fi-Data-Standard
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
@@ -84,7 +103,7 @@ jobs:
         $tpdmTag = .\build.githubactions.ps1 TpdmTag -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
         echo "EDFI_TPDM_REFERENCE=$tpdmTag">> $env:GITHUB_ENV
         Write-host "EdFi-Tpdm Tag is  $tpdmTag"
-      shell: powershell
+      shell: pwsh
     - name: Checkout Ed-Fi-TPDM-Artifacts
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
@@ -93,7 +112,7 @@ jobs:
           ref: ${{ env.EDFI_TPDM_REFERENCE }}
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
-      shell: powershell
+      shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
     - name: update BUILD_INCREMENTER 
@@ -104,15 +123,6 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
-    - name: Install sql-server-2019 & sqlpackage
-      shell: powershell
-      run: |
-          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
-          choco install sqlpackage
-    # This step shall be removed in ODS-6572
-    - name: Install Mono and Nuget
-      working-directory: ./Ed-Fi-ODS/.github/workflows
-      run: sudo ./install-mono.sh
     - name: Cache Nuget packages
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
@@ -124,7 +134,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
-      shell: powershell
+      shell: pwsh
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -132,60 +142,37 @@ jobs:
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}') 
         $PSVersionTable
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy -NoRestore -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }}
-      shell: powershell
+        Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy -NoRestore -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -MssqlSaPassword ${{ env.DB_PASS }}
+      shell: pwsh
     - name: Create Database Template (no extensions)
       working-directory: ./
       run: |
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')        
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-tpdm-minimal-template.psm1"
-        Initialize-TPDMMinimalTemplate -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }}
-      shell: powershell
+        Initialize-TPDMMinimalTemplate -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
+      shell: pwsh
+    - name: Set permissions for database backup file
+      working-directory: ./
+      run: sudo chmod -R 777 Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/
+      shell: pwsh
     - name: pack
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName  "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
-      shell: powershell
+      shell: pwsh
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/cross-platform.psm1"
-         if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
-              Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
-         }
-
-          # using WebClient is faster then Invoke-WebRequest but shows no progress
-          $sourceUrl = ' https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
-          $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
-          Write-host "Downloading file from $sourceUrl..."
-          $webClient = New-Object System.Net.WebClient
-          $webClient.DownloadFile($sourceUrl, "$env:temp/$fileName")
-
-          Write-host "Download complete." 
-
-          if (-not (Test-Path "$env:temp/$fileName")) {
-              Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
-              exit 0
-          }
-
-          $packageFolder = "$env:temp/Microsoft.NuGet.CredentialProvider/"
-
-          if ($fileName.EndsWith('.zip')) {
-              Write-host "Extracting $fileName..."
-              $zipFilePath = "$env:temp/$fileName"
-              if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
-              Copy-Item -Path $packageFolder\* -Destination "$env:UserProfile/.nuget/" -Recurse -Force
-              Write-Host "Extracted to: $env:UserProfile\.nuget\plugins\" -ForegroundColor Green
-          }
-      shell: powershell
+        .\build.githubactions.ps1 InstallCredentialHandler
+      shell: pwsh
     - name: publish 
       working-directory: ./Ed-Fi-ODS/
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       run: |
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
-      shell: powershell      
+      shell: pwsh      
     - name: Upload EdFi.Ods.Minimal.Template.TPDM.Core Artifacts
       if: success() || failure()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
