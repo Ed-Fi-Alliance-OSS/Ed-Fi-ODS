@@ -817,84 +817,6 @@ GO
 ALTER TABLE [sample].[StudentCTEProgramAssociationExtension] ADD CONSTRAINT [StudentCTEProgramAssociationExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
--- Table [sample].[StudentEducationOrganizationAssociationAddressExtension] --
-CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressExtension] (
-    [EducationOrganizationId] [BIGINT] NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
-    [AddressTypeDescriptorId] [INT] NOT NULL,
-    [City] [NVARCHAR](30) NOT NULL,
-    [PostalCode] [NVARCHAR](17) NOT NULL,
-    [StateAbbreviationDescriptorId] [INT] NOT NULL,
-    [StreetNumberName] [NVARCHAR](150) NOT NULL,
-    [Complex] [NVARCHAR](255) NULL,
-    [OnBusRoute] [BIT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StudentEducationOrganizationAssociationAddressExtension_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [StudentUSI] ASC,
-        [AddressTypeDescriptorId] ASC,
-        [City] ASC,
-        [PostalCode] ASC,
-        [StateAbbreviationDescriptorId] ASC,
-        [StreetNumberName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [sample].[StudentEducationOrganizationAssociationAddressExtension] ADD CONSTRAINT [StudentEducationOrganizationAssociationAddressExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
-GO
-
--- Table [sample].[StudentEducationOrganizationAssociationAddressSchoolDistrict] --
-CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressSchoolDistrict] (
-    [EducationOrganizationId] [BIGINT] NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
-    [AddressTypeDescriptorId] [INT] NOT NULL,
-    [City] [NVARCHAR](30) NOT NULL,
-    [PostalCode] [NVARCHAR](17) NOT NULL,
-    [StateAbbreviationDescriptorId] [INT] NOT NULL,
-    [StreetNumberName] [NVARCHAR](150) NOT NULL,
-    [SchoolDistrict] [NVARCHAR](250) NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StudentEducationOrganizationAssociationAddressSchoolDistrict_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [StudentUSI] ASC,
-        [AddressTypeDescriptorId] ASC,
-        [City] ASC,
-        [PostalCode] ASC,
-        [StateAbbreviationDescriptorId] ASC,
-        [StreetNumberName] ASC,
-        [SchoolDistrict] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [sample].[StudentEducationOrganizationAssociationAddressSchoolDistrict] ADD CONSTRAINT [StudentEducationOrganizationAssociationAddressSchoolDistrict_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
-GO
-
--- Table [sample].[StudentEducationOrganizationAssociationAddressTerm] --
-CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressTerm] (
-    [EducationOrganizationId] [BIGINT] NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
-    [AddressTypeDescriptorId] [INT] NOT NULL,
-    [City] [NVARCHAR](30) NOT NULL,
-    [PostalCode] [NVARCHAR](17) NOT NULL,
-    [StateAbbreviationDescriptorId] [INT] NOT NULL,
-    [StreetNumberName] [NVARCHAR](150) NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StudentEducationOrganizationAssociationAddressTerm_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [StudentUSI] ASC,
-        [AddressTypeDescriptorId] ASC,
-        [City] ASC,
-        [PostalCode] ASC,
-        [StateAbbreviationDescriptorId] ASC,
-        [StreetNumberName] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [sample].[StudentEducationOrganizationAssociationAddressTerm] ADD CONSTRAINT [StudentEducationOrganizationAssociationAddressTerm_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
-GO
-
 -- Table [sample].[StudentEducationOrganizationAssociationExtension] --
 CREATE TABLE [sample].[StudentEducationOrganizationAssociationExtension] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
@@ -909,26 +831,6 @@ CREATE TABLE [sample].[StudentEducationOrganizationAssociationExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [sample].[StudentEducationOrganizationAssociationExtension] ADD CONSTRAINT [StudentEducationOrganizationAssociationExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
-GO
-
--- Table [sample].[StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed] --
-CREATE TABLE [sample].[StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed] (
-    [EducationOrganizationId] [BIGINT] NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
-    [StudentCharacteristicDescriptorId] [INT] NOT NULL,
-    [BeginDate] [DATE] NOT NULL,
-    [EndDate] [DATE] NULL,
-    [PrimaryStudentNeedIndicator] [BIT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [StudentUSI] ASC,
-        [StudentCharacteristicDescriptorId] ASC,
-        [BeginDate] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [sample].[StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed] ADD CONSTRAINT [StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentFavoriteBook] --

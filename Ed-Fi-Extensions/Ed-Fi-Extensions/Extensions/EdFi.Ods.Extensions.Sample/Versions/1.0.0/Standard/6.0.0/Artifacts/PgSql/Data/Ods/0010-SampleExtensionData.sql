@@ -391,53 +391,53 @@ WHERE EXISTS
            AND SchoolId = ssae.SchoolId
            AND StudentUSI = ssae.StudentUSI);
 
-INSERT INTO sample.StudentEducationOrganizationAssociationAddressExtension
-    (AddressTypeDescriptorId
-    , City
-    , EducationOrganizationId
-    , PostalCode
-    , StateAbbreviationDescriptorId
-    , StreetNumberName
-    , StudentUSI
-    , Complex
-    , OnBusRoute)
-SELECT
-    AddressTypeDescriptorId
-    , City
-    , EducationOrganizationId
-    , PostalCode
-    , seoaa.StateAbbreviationDescriptorId
-    , StreetNumberName
-    , StudentUSI
-    , NULL
-    , '0'
-FROM edfi.StudentEducationOrganizationAssociationAddress seoaa
-WHERE NOT EXISTS
-    (SELECT EntryDate, SchoolId, StudentUSI
-    FROM sample.StudentSchoolAssociationExtension ssae
-    WHERE EntryDate = ssae.EntryDate
-    AND SchoolId = ssae.SchoolId
-    AND StudentUSI = ssae.StudentUSI);
+-- INSERT INTO sample.StudentEducationOrganizationAssociationAddressExtension
+--     (AddressTypeDescriptorId
+--     , City
+--     , EducationOrganizationId
+--     , PostalCode
+--     , StateAbbreviationDescriptorId
+--     , StreetNumberName
+--     , StudentUSI
+--     , Complex
+--     , OnBusRoute)
+-- SELECT
+--     AddressTypeDescriptorId
+--     , City
+--     , EducationOrganizationId
+--     , PostalCode
+--     , seoaa.StateAbbreviationDescriptorId
+--     , StreetNumberName
+--     , StudentUSI
+--     , NULL
+--     , '0'
+-- FROM edfi.StudentEducationOrganizationAssociationAddress seoaa
+-- WHERE NOT EXISTS
+--     (SELECT EntryDate, SchoolId, StudentUSI
+--     FROM sample.StudentSchoolAssociationExtension ssae
+--     WHERE EntryDate = ssae.EntryDate
+--     AND SchoolId = ssae.SchoolId
+--     AND StudentUSI = ssae.StudentUSI);
 
-INSERT INTO sample.StudentEducationOrganizationAssociationAddressSchoolDistrict
-    (AddressTypeDescriptorId
-    , City
-    , EducationOrganizationId
-    , PostalCode
-    , StateAbbreviationDescriptorId
-    , StreetNumberName
-    , StudentUSI
-    , SchoolDistrict)
-SELECT
-    AddressTypeDescriptorId
-    , City
-    , EducationOrganizationId
-    , PostalCode
-    , seoaae.StateAbbreviationDescriptorId
-    , StreetNumberName
-    , StudentUSI
-    , 'Test District'
-FROM sample.StudentEducationOrganizationAssociationAddressExtension seoaae;
+-- INSERT INTO sample.StudentEducationOrganizationAssociationAddressSchoolDistrict
+--     (AddressTypeDescriptorId
+--     , City
+--     , EducationOrganizationId
+--     , PostalCode
+--     , StateAbbreviationDescriptorId
+--     , StreetNumberName
+--     , StudentUSI
+--     , SchoolDistrict)
+-- SELECT
+--     AddressTypeDescriptorId
+--     , City
+--     , EducationOrganizationId
+--     , PostalCode
+--     , seoaae.StateAbbreviationDescriptorId
+--     , StreetNumberName
+--     , StudentUSI
+--     , 'Test District'
+-- FROM sample.StudentEducationOrganizationAssociationAddressExtension seoaae;
 
 UPDATE edfi.StudentEducationOrganizationAssociation
 SET
