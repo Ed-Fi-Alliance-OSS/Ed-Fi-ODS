@@ -10598,6 +10598,231 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     // -----------------------------------------------------------------
 
 }
+// Aggregate: StudentAcademicRecord
+
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extensions.Sample
+{
+    /// <summary>
+    /// A class which represents the sample.StudentAcademicRecordExtension table of the StudentAcademicRecord aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
+    public class StudentAcademicRecordExtension : Entities.Common.Sample.IStudentAcademicRecordExtension, IChildEntity
+    {
+        private static FullName _fullName = new FullName("sample", "StudentAcademicRecordExtension");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentAcademicRecordExtensionPutPostRequestValidator _validator = new StudentAcademicRecordExtensionPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IStudentAcademicRecord _studentAcademicRecord;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IStudentAcademicRecord Entities.Common.Sample.IStudentAcademicRecordExtension.StudentAcademicRecord
+        {
+            get { return _studentAcademicRecord; }
+            set { SetStudentAcademicRecord(value); }
+        }
+
+        public Entities.Common.EdFi.IStudentAcademicRecord StudentAcademicRecord
+        {
+            set { SetStudentAcademicRecord(value); }
+        }
+
+        private void SetStudentAcademicRecord(Entities.Common.EdFi.IStudentAcademicRecord value)
+        {
+            _studentAcademicRecord = value;
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.Sample.IStudentAcademicRecordExtension;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentAcademicRecord == null || !_studentAcademicRecord.Equals(compareTo.StudentAcademicRecord))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentAcademicRecord != null)
+                hash.Add(_studentAcademicRecord);
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Free-text field for contextual information
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [NonDefaultStringLength(280, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="notes")]
+        public string Notes { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.Sample.StudentAcademicRecordExtensionMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentAcademicRecordExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.Sample.StudentAcademicRecordExtensionMapper.MapTo(this, (Entities.Common.Sample.IStudentAcademicRecordExtension)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentAcademicRecord = (IStudentAcademicRecord)value;
+        }
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentAcademicRecordExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentAcademicRecordExtension>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentAcademicRecordExtension> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
 // Aggregate: StudentArtProgramAssociation
 
 namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Sample

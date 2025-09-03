@@ -891,19 +891,17 @@
     </Resource>
   </Profile>
 
-  <Profile name="Sample-School-Multiple-Extensions-IncludeOnly">
-    <Resource name="School">
+  <Profile name="Sample-StudentAcademicRecord-Multiple-Extensions-IncludeOnly">
+    <Resource name="StudentAcademicRecord">
       <ReadContentType memberSelection="IncludeOnly">
-        <Property name="NameOfInstitution" />
         <Extension name="Sample" memberSelection="IncludeAll" />
       </ReadContentType>
     </Resource>
   </Profile>
 
-  <Profile name="Sample-School-Multiple-Extensions-ExcludeOnly">
-    <Resource name="School">
+  <Profile name="Sample-StudentAcademicRecord-Multiple-Extensions-ExcludeOnly">
+    <Resource name="StudentAcademicRecord">
       <ReadContentType memberSelection="ExcludeOnly">
-        <Property name="NameOfInstitution" />
         <Extension name="Sample" memberSelection="IncludeAll" />
       </ReadContentType>
     </Resource>
