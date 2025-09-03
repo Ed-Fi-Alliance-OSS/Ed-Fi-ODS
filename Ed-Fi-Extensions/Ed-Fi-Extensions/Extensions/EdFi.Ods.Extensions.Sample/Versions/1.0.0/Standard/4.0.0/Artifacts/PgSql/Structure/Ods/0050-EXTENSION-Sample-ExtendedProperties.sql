@@ -202,6 +202,14 @@ COMMENT ON COLUMN sample.StaffPetPreference.StaffUSI IS 'A unique alphanumeric c
 COMMENT ON COLUMN sample.StaffPetPreference.MaximumWeight IS 'The preferred maximum weight of a household pet.';
 COMMENT ON COLUMN sample.StaffPetPreference.MinimumWeight IS 'The preferred minimum weight of a household pet.';
 
+-- Extended Properties [sample].[StudentAcademicRecordExtension] --
+COMMENT ON TABLE sample.StudentAcademicRecordExtension IS '';
+COMMENT ON COLUMN sample.StudentAcademicRecordExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentAcademicRecordExtension.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN sample.StudentAcademicRecordExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentAcademicRecordExtension.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN sample.StudentAcademicRecordExtension.Notes IS 'Free-text field for contextual information';
+
 -- Extended Properties [sample].[StudentAquaticPet] --
 COMMENT ON TABLE sample.StudentAquaticPet IS 'Details about aquatic pets in the student''s household';
 COMMENT ON COLUMN sample.StudentAquaticPet.StudentUSI IS 'A unique alphanumeric code assigned to a student.';

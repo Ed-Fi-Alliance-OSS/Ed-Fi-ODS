@@ -359,6 +359,7 @@
       ],
       "isAbstract": false,
       "description": "Art medium used in a section or program (i.e. paint, pencils, clay, etc.).",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ArtMediumDescriptor",
         "postgreSql": "ArtMediumDescriptor"
@@ -466,6 +467,7 @@
       ],
       "isAbstract": false,
       "description": "This is an example of a new domain entity.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "Bus",
         "postgreSql": "Bus"
@@ -737,6 +739,7 @@
       ],
       "isAbstract": false,
       "description": "This is an example of a new domain entity.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "BusRoute",
         "postgreSql": "BusRoute"
@@ -804,6 +807,7 @@
       ],
       "isAbstract": false,
       "description": "The years in which the bus route has been in active.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "BusRouteBusYear",
         "postgreSql": "BusRouteBusYear"
@@ -855,6 +859,7 @@
       ],
       "isAbstract": false,
       "description": "Programs served by the bus route.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "BusRouteProgram",
         "postgreSql": "BusRouteProgram"
@@ -922,6 +927,7 @@
       ],
       "isAbstract": false,
       "description": "The postal codes served by the bus route.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "BusRouteServiceAreaPostalCode",
         "postgreSql": "BusRouteServiceAreaPostalCode"
@@ -989,6 +995,7 @@
       ],
       "isAbstract": false,
       "description": "The time the bus route begins.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "BusRouteStartTime",
         "postgreSql": "BusRouteStartTime"
@@ -1111,6 +1118,7 @@
       ],
       "isAbstract": false,
       "description": "Telephone numbers at which dispatchers may be reached for this bus route.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "BusRouteTelephone",
         "postgreSql": "BusRouteTelephone"
@@ -1140,6 +1148,7 @@
       ],
       "isAbstract": false,
       "description": "The category of an individual's favorite book.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "FavoriteBookCategoryDescriptor",
         "postgreSql": "FavoriteBookCategoryDescriptor"
@@ -1165,6 +1174,7 @@
       ],
       "isAbstract": false,
       "description": "Membership Type identifies whether a school has primary responsibility for managing a specific student's curriculum or not.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "MembershipTypeDescriptor",
         "postgreSql": "MembershipTypeDescriptor"
@@ -1249,6 +1259,7 @@
       ],
       "isAbstract": false,
       "description": "Additional details on the parent's address.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentAddressExtension",
         "postgreSql": "ParentAddressExtension"
@@ -1316,6 +1327,7 @@
       ],
       "isAbstract": false,
       "description": "The school district in which the address is located.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentAddressSchoolDistrict",
         "postgreSql": "ParentAddressSchoolDistrict"
@@ -1365,6 +1377,7 @@
       ],
       "isAbstract": false,
       "description": "Terms applicable to this address.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentAddressTerm",
         "postgreSql": "ParentAddressTerm"
@@ -1427,6 +1440,7 @@
       ],
       "isAbstract": false,
       "description": "The parent's favorite authors.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentAuthor",
         "postgreSql": "ParentAuthor"
@@ -1488,6 +1502,7 @@
       ],
       "isAbstract": false,
       "description": "The height of the ceiling in the rooms of the parent's home.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentCeilingHeight",
         "postgreSql": "ParentCeilingHeight"
@@ -1603,6 +1618,7 @@
       ],
       "isAbstract": false,
       "description": "A CTE program the parent has completed.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentCTEProgramService",
         "postgreSql": "ParentCTEProgramService"
@@ -1647,6 +1663,7 @@
       ],
       "isAbstract": false,
       "description": "Education content to which the parent has been referred.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentEducationContent",
         "postgreSql": "ParentEducationContent"
@@ -1869,6 +1886,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentExtension",
         "postgreSql": "ParentExtension"
@@ -1931,6 +1949,7 @@
       ],
       "isAbstract": false,
       "description": "The title of the parent's favorite book.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentFavoriteBookTitle",
         "postgreSql": "ParentFavoriteBookTitle"
@@ -1980,6 +1999,7 @@
       ],
       "isAbstract": false,
       "description": "Programs the parent's child or children are enrolled in for which the parent provides volunteer services.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentStudentProgramAssociation",
         "postgreSql": "ParentStudentProgramAssociation"
@@ -2077,6 +2097,7 @@
       ],
       "isAbstract": false,
       "description": "The parent's preferred day of the week and time for parent-teacher conferences.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ParentTeacherConference",
         "postgreSql": "ParentTeacherConference"
@@ -2192,6 +2213,7 @@
       ],
       "isAbstract": false,
       "description": "A CTE program the school is known for.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SchoolCTEProgramService",
         "postgreSql": "SchoolCTEProgramService"
@@ -2236,6 +2258,7 @@
       ],
       "isAbstract": false,
       "description": "Buses owned by the School directly.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SchoolDirectlyOwnedBus",
         "postgreSql": "SchoolDirectlyOwnedBus"
@@ -2297,6 +2320,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SchoolExtension",
         "postgreSql": "SchoolExtension"
@@ -2358,6 +2382,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StaffExtension",
         "postgreSql": "StaffExtension"
@@ -2438,6 +2463,7 @@
       ],
       "isAbstract": false,
       "description": "Details about pets in the staff member's household.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StaffPet",
         "postgreSql": "StaffPet"
@@ -2515,9 +2541,75 @@
       ],
       "isAbstract": false,
       "description": "Details about the staff member's pet preferences.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StaffPetPreference",
         "postgreSql": "StaffPetPreference"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentAcademicRecordExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Notes",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 280,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Free-text field for contextual information",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Notes",
+            "postgreSql": "Notes"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentAcademicRecordExtension_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "SchoolYear",
+            "StudentUSI",
+            "TermDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentAcademicRecordExtension_PK",
+            "postgreSql": "StudentAcademicRecordExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "",
+      "domains": [],
+      "tableNames": {
+        "sqlServer": "StudentAcademicRecordExtension",
+        "postgreSql": "StudentAcademicRecordExtension"
       }
     },
     {
@@ -2613,6 +2705,7 @@
       ],
       "isAbstract": false,
       "description": "Details about aquatic pets in the student's household",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentAquaticPet",
         "postgreSql": "StudentAquaticPet"
@@ -2843,6 +2936,7 @@
       ],
       "isAbstract": false,
       "description": "This is an example of a subclass of an association.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentArtProgramAssociation",
         "postgreSql": "StudentArtProgramAssociation"
@@ -2892,6 +2986,7 @@
       ],
       "isAbstract": false,
       "description": "The art mediums used in the program (i.e., paint, pencils, clay, etc.).",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentArtProgramAssociationArtMedium",
         "postgreSql": "StudentArtProgramAssociationArtMedium"
@@ -2958,6 +3053,7 @@
       ],
       "isAbstract": false,
       "description": "The student's favorite art book. Used to test support for Common fields in extension subclasses of EdFi.GeneralStudentProgramAssociation, EdFi.EducationOrganization.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentArtProgramAssociationFavoriteBook",
         "postgreSql": "StudentArtProgramAssociationFavoriteBook"
@@ -3026,6 +3122,7 @@
       ],
       "isAbstract": false,
       "description": "This is documentation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentArtProgramAssociationFavoriteBookArtMedium",
         "postgreSql": "StudentArtProgramAssociationFavoriteBookArtMedium"
@@ -3093,6 +3190,7 @@
       ],
       "isAbstract": false,
       "description": "The of year(s) of work included in the student's portfolio.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentArtProgramAssociationPortfolioYears",
         "postgreSql": "StudentArtProgramAssociationPortfolioYears"
@@ -3196,6 +3294,7 @@
       ],
       "isAbstract": false,
       "description": "Indicates the Service(s) being provided to the Student by the Program.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentArtProgramAssociationService",
         "postgreSql": "StudentArtProgramAssociationService"
@@ -3263,6 +3362,7 @@
       ],
       "isAbstract": false,
       "description": "The art style(s) exhibited by the student in the program.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentArtProgramAssociationStyle",
         "postgreSql": "StudentArtProgramAssociationStyle"
@@ -3347,6 +3447,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentCTEProgramAssociationExtension",
         "postgreSql": "StudentCTEProgramAssociationExtension"
@@ -3432,6 +3533,7 @@
       ],
       "isAbstract": false,
       "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentEducationOrganizationAssociationAddressExtension",
         "postgreSql": "StudentEducationOrganizationAssociationAddressExtension"
@@ -3500,6 +3602,7 @@
       ],
       "isAbstract": false,
       "description": "The school district in which the address is located.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentEducationOrganizationAssociationAddressSchoolDistrict",
         "postgreSql": "StudentEducationOrganizationAssociationAddressSchoolDistrict"
@@ -3550,6 +3653,7 @@
       ],
       "isAbstract": false,
       "description": "Terms applicable to this address.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentEducationOrganizationAssociationAddressTerm",
         "postgreSql": "StudentEducationOrganizationAssociationAddressTerm"
@@ -3594,6 +3698,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentEducationOrganizationAssociationExtension",
         "postgreSql": "StudentEducationOrganizationAssociationExtension"
@@ -3694,6 +3799,7 @@
       ],
       "isAbstract": false,
       "description": "The time period of student need.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed",
         "postgreSql": "StudentEducationOrganizationAssociationStudentCharacteri_17d152"
@@ -3756,6 +3862,7 @@
       ],
       "isAbstract": false,
       "description": "This is documentation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentFavoriteBook",
         "postgreSql": "StudentFavoriteBook"
@@ -3820,6 +3927,7 @@
       ],
       "isAbstract": false,
       "description": "This is documentation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentFavoriteBookArtMedium",
         "postgreSql": "StudentFavoriteBookArtMedium"
@@ -4054,6 +4162,7 @@
       ],
       "isAbstract": false,
       "description": "This is an example of a new Association.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentGraduationPlanAssociation",
         "postgreSql": "StudentGraduationPlanAssociation"
@@ -4101,6 +4210,7 @@
       ],
       "isAbstract": false,
       "description": "The student's favorite academic subjects.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentGraduationPlanAssociationAcademicSubject",
         "postgreSql": "StudentGraduationPlanAssociationAcademicSubject"
@@ -4165,6 +4275,7 @@
       ],
       "isAbstract": false,
       "description": "The code representing the student's intended career pathway after graduation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentGraduationPlanAssociationCareerPathwayCode",
         "postgreSql": "StudentGraduationPlanAssociationCareerPathwayCode"
@@ -4283,6 +4394,7 @@
       ],
       "isAbstract": false,
       "description": "The career and technical program in which the student participates.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentGraduationPlanAssociationCTEProgramService",
         "postgreSql": "StudentGraduationPlanAssociationCTEProgramService"
@@ -4348,6 +4460,7 @@
       ],
       "isAbstract": false,
       "description": "A description of the graduation plan.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentGraduationPlanAssociationDescription",
         "postgreSql": "StudentGraduationPlanAssociationDescription"
@@ -4413,6 +4526,7 @@
       ],
       "isAbstract": false,
       "description": "The entity governing this graduation plan.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentGraduationPlanAssociationDesignatedBy",
         "postgreSql": "StudentGraduationPlanAssociationDesignatedBy"
@@ -4478,6 +4592,7 @@
       ],
       "isAbstract": false,
       "description": "Industry-recognized credentials the student will have earned at graduation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentGraduationPlanAssociationIndustryCredential",
         "postgreSql": "StudentGraduationPlanAssociationIndustryCredential"
@@ -4525,6 +4640,7 @@
       ],
       "isAbstract": false,
       "description": "Parent responsible for graduation plan.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentGraduationPlanAssociationStudentParentAssociation",
         "postgreSql": "StudentGraduationPlanAssociationStudentParentAssociation"
@@ -4590,6 +4706,7 @@
       ],
       "isAbstract": false,
       "description": "The number of years the student will have attended high school by the time of graduation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentGraduationPlanAssociationYearsAttended",
         "postgreSql": "StudentGraduationPlanAssociationYearsAttended"
@@ -4635,6 +4752,7 @@
       ],
       "isAbstract": false,
       "description": "The type of action used to discipline the student preferred by the parent.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentParentAssociationDiscipline",
         "postgreSql": "StudentParentAssociationDiscipline"
@@ -4875,6 +4993,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentParentAssociationExtension",
         "postgreSql": "StudentParentAssociationExtension"
@@ -4938,6 +5057,7 @@
       ],
       "isAbstract": false,
       "description": "The title of the student's favorite book.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentParentAssociationFavoriteBookTitle",
         "postgreSql": "StudentParentAssociationFavoriteBookTitle"
@@ -5000,6 +5120,7 @@
       ],
       "isAbstract": false,
       "description": "Total number of hours per week a student and parent dedicates to reading.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentParentAssociationHoursPerWeek",
         "postgreSql": "StudentParentAssociationHoursPerWeek"
@@ -5062,6 +5183,7 @@
       ],
       "isAbstract": false,
       "description": "Total number of pages the parent has read the student.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentParentAssociationPagesRead",
         "postgreSql": "StudentParentAssociationPagesRead"
@@ -5110,6 +5232,7 @@
       ],
       "isAbstract": false,
       "description": "A reference to the staff member and education organization assigned to help track the student's reading abilities with the parent's involvement.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation",
         "postgreSql": "StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c"
@@ -5226,6 +5349,7 @@
       ],
       "isAbstract": false,
       "description": "The preferred telephone number for contact if the person is listed as an emergency contact for the student.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentParentAssociationTelephone",
         "postgreSql": "StudentParentAssociationTelephone"
@@ -5306,6 +5430,7 @@
       ],
       "isAbstract": false,
       "description": "Details about pets in the student's household.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentPet",
         "postgreSql": "StudentPet"
@@ -5383,6 +5508,7 @@
       ],
       "isAbstract": false,
       "description": "Details about the student's pet preferences.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentPetPreference",
         "postgreSql": "StudentPetPreference"
@@ -5428,6 +5554,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentSchoolAssociationExtension",
         "postgreSql": "StudentSchoolAssociationExtension"
@@ -5482,6 +5609,7 @@
       ],
       "isAbstract": false,
       "description": "Programs which this student is participating in that is supported by this coursework.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentSectionAssociationRelatedGeneralStudentProgramAssociation",
         "postgreSql": "StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02"
@@ -8807,6 +8935,167 @@
         "postgreSql": "FK_c50bc3_Staff"
       },
       "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentAcademicRecordExtension_StudentAcademicRecord"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentAcademicRecord"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "TermDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The term for the session during the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermDescriptorId",
+            "postgreSql": "TermDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentAcademicRecordExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "TermDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The term for the session during the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermDescriptorId",
+            "postgreSql": "TermDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentAcademicRecordExtension_StudentAcademicRecord",
+        "postgreSql": "FK_ee832f_StudentAcademicRecord"
+      }
     },
     {
       "fullName": {

@@ -380,6 +380,25 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentAcademicRecordExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StudentAcademicRecord">
+        <xs:sequence>
+          <xs:element name="Notes" type="EXTENSION-Notes" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Free-text field for contextual information</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-StudentExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -1465,6 +1484,17 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-Notes">
+    <xs:annotation>
+      <xs:documentation>Free-text field for contextual information</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="280" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-PetName">
