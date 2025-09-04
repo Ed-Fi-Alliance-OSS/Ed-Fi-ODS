@@ -1209,10 +1209,11 @@
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authentication\");",
 															"  pm.expect(problemDetails.detail).to.equal(\"The caller could not be authenticated.\");",
 															"",
-															"  pm.expect(problemDetails.errors).contains(\"Invalid Authorization header.\");",
+															"  pm.expect(problemDetails.errors).contains(\"Invalid token\");",
 															"});"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -1221,7 +1222,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
