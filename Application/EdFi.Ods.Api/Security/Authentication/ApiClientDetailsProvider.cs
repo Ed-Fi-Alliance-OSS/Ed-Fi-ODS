@@ -36,7 +36,13 @@ namespace EdFi.Ods.Api.Security.Authentication
         {
             var rawApiClientDetailsData = await _edFiAdminRawApiClientDetailsProvider.GetRawClientDetailsDataAsync(key);
 
-            return CreateApiClientDetails(rawApiClientDetailsData);
+            // Are we able to construct the API client details from the raw data returned from the provider?
+            if (TryCreateApiClientDetails(rawApiClientDetailsData, out var apiClientDetails))
+            {
+                return apiClientDetails;
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -44,9 +50,9 @@ namespace EdFi.Ods.Api.Security.Authentication
         /// </summary>
         /// <param name="token">The OAuth security token for which API client details should be retrieved.</param>
         /// <returns>A <see cref="ApiClientDetails"/> instance if a matching token is found; otherwise <b>null</b>.</returns>
-        /// <exception cref="FormatException">Occurs when the token is not a parseable as a GUID.</exception>
         public async Task<ApiClientDetails> GetApiClientDetailsForTokenAsync(string token)
         {
+            // Return null if the token is not a valid GUID
             if (!Guid.TryParse(token, out Guid tokenAsGuid))
             {
                 return null;
@@ -54,26 +60,26 @@ namespace EdFi.Ods.Api.Security.Authentication
 
             var rawApiClientDetailsData = await _edFiAdminRawApiClientDetailsProvider.GetRawClientDetailsDataAsync(tokenAsGuid);
 
-            return CreateApiClientDetails(rawApiClientDetailsData);
-        }
-        
-        private ApiClientDetails CreateApiClientDetails(IReadOnlyList<RawApiClientDetailsDataRow> apiClientRawDataRows)
-        {
-            if(!apiClientRawDataRows.Any())
+            // Are we able to construct the API client details from the raw data returned from the provider?
+            if (TryCreateApiClientDetails(rawApiClientDetailsData, out var apiClientDetails))
             {
-                apiClientRawDataRows = null;
+                return apiClientDetails;
             }
 
-            ArgumentNullException.ThrowIfNull(apiClientRawDataRows);
+            return null;
+        }
 
-            var firstRow = apiClientRawDataRows.FirstOrDefault();
-            
+        private bool TryCreateApiClientDetails(IReadOnlyList<RawApiClientDetailsDataRow> apiClientRawDataRows, out ApiClientDetails apiClientDetails)
+        {
+            var firstRow = apiClientRawDataRows?.FirstOrDefault();
+
             if (firstRow == null)
             {
-                return null;
+                apiClientDetails = null;
+                return false;
             }
 
-            var apiClientDetails = new ApiClientDetails
+            apiClientDetails = new ApiClientDetails
             (
                 // Initialize properties
                 apiClientId: firstRow.ApiClientId,
@@ -93,7 +99,7 @@ namespace EdFi.Ods.Api.Security.Authentication
                 odsInstanceIds: GetOdsInstanceIds().ToArray()
             );
 
-            return apiClientDetails;
+            return true;
 
             IEnumerable<long> GetEducationOrganizationIds()
             {
