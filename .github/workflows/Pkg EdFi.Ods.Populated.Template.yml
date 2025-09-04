@@ -98,7 +98,7 @@ jobs:
           path: Ed-Fi-Data-Standard/
           ref: ${{ env.EDFI_STANDARD_REFERENCE }}
     - name: Remove XML files from eng/testing
-      working-directory: ./Ed-Fi-ODS/Ed-Fi-Data-Standard
+      working-directory: ./Ed-Fi-Data-Standard
       shell: pwsh
       run: |
         $path = "eng/testing"
