@@ -104,17 +104,24 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Data-Standard
           path: Ed-Fi-Data-Standard/
           ref: ${{ env.EDFI_STANDARD_REFERENCE }}
-    - name: Remove XML files from eng/testing
+    - name: Remove XML and XSD files from eng/testing
       working-directory: ./Ed-Fi-Data-Standard
       shell: pwsh
       run: |
         $path = "eng/testing"
         if (Test-Path $path) {
-            Get-ChildItem -Path $path -Filter *.xml -File -Recurse | ForEach-Object {
-                Write-Host "Deleting file: $($_.FullName)"
-                Remove-Item -LiteralPath $_.FullName -Force
+            $files = Get-ChildItem -Path $path -Include *.xml, *.xsd -File -Recurse
+            if ($files.Count -gt 0) {
+                $count = 0
+                foreach ($file in $files) {
+                    Write-Host "Deleting file: $($file.FullName)"
+                    Remove-Item -LiteralPath $file.FullName -Force
+                    $count++
+                }
+                Write-Host "Deleted $count files (.xml & .xsd) from $path"
+            } else {
+                Write-Host "No .xml or .xsd files found in $path"
             }
-            Write-Host "All XML files removed from $path"
         } else {
             Write-Host "$path does not exist."
         }
