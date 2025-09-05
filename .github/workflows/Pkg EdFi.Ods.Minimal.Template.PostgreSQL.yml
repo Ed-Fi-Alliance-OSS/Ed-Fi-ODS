@@ -97,10 +97,13 @@ jobs:
       run: |
         $path = "eng/testing"
         if (Test-Path $path) {
-            Get-ChildItem -Path $path -Filter *.xml -File -Recurse | Remove-Item -Force
-            Write-Host "✅ All XML files removed from $path"
+            Get-ChildItem -Path $path -Filter *.xml -File -Recurse | ForEach-Object {
+                Write-Host "Deleting file: $($_.FullName)"
+                Remove-Item -LiteralPath $_.FullName -Force
+            }
+            Write-Host "All XML files removed from $path"
         } else {
-            Write-Host "⚠️ $path does not exist."
+            Write-Host "$path does not exist."
         }
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
