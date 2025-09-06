@@ -451,6 +451,7 @@ namespace EdFi.Ods.Api.Startup
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IDescriptorResolver>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<DataPolicyException>>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<ISessionFactoryImplementor>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<ApiSettings>().Behaviors);
 
                 // netcore has removed the claims principal from the thread, to be on the controller.
                 // as a workaround for our current application we can resolve the IHttpContextAccessor.
