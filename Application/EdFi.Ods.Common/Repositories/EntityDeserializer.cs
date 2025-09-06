@@ -46,6 +46,8 @@ public class EntityDeserializer : IEntityDeserializer
     {
         TEntity entity;
 
+        _logger.Debug("Deserializing aggregate data from storage...");
+
         // Indicate that deserialization is starting
         _deserializationContextProvider.SetState(true);
 

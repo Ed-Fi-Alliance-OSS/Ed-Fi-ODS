@@ -89,6 +89,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 }
 
                 // Load the item from the ODS
+                _logger.Debug("Loading resource from ODS using NHibernate...");
+
                 results = await GetAggregateResultsAsync(
                     "where a.Id = :id",
                     q => q.SetParameter("id", ids[0]), cancellationToken);
