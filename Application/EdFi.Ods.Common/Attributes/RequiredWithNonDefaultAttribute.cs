@@ -5,6 +5,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Common.Attributes
@@ -20,7 +21,7 @@ namespace EdFi.Ods.Common.Attributes
         {
             if (value is string s)
             {
-                if (s.Equals(string.Empty) || IsWhiteSpace(s))
+                if (s.Equals(string.Empty) || (!GeneratedArtifactStaticDependencies.Behaviors.AllowWhitespaceOnlyValues && IsWhiteSpace(s)))
                 {
                     return BuildValidationResult($"{validationContext.DisplayName} is required and should not be left empty.");
                 }
@@ -37,7 +38,7 @@ namespace EdFi.Ods.Common.Attributes
                 // In case of decimal types, accept default values
                 return ValidationResult.Success;
             }
-            else if (value is DateTime dt && dt.Equals(value.GetType().GetDefaultValue()))
+            else if (value is DateTime dt && dt == default)
             {
                 // DateTime default value is very specific (1/1/0001 12:00:00 AM), so it can be confusing for users
                 // if they didn't used that value; no need to inform more than "the field is required"
