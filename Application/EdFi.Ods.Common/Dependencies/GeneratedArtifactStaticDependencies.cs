@@ -5,6 +5,7 @@
 
 using System;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
@@ -38,6 +39,7 @@ namespace EdFi.Ods.Common.Dependencies
         private static Lazy<IEntityExtensionRegistrar> _entityExtensionRegistrar;
         private static Lazy<IEntityExtensionsFactory> _entityExtensionsFactory;
         private static Lazy<ISessionFactoryImplementor> _sessionFactory;
+        private static Lazy<Behaviors> _behaviors;
 
         private static bool _serializedDataEnabled;
         private static bool _resourceLinksEnabled;
@@ -58,6 +60,7 @@ namespace EdFi.Ods.Common.Dependencies
         public static IEntityExtensionRegistrar EntityExtensionRegistrar => _entityExtensionRegistrar?.Value;
         public static IEntityExtensionsFactory EntityExtensionsFactory => _entityExtensionsFactory?.Value;
         public static ISessionFactoryImplementor SessionFactory => _sessionFactory?.Value;
+        public static Behaviors Behaviors => _behaviors?.Value;
         public static bool SerializedDataEnabled => _serializedDataEnabled;
         public static bool ResourceLinksEnabled => _resourceLinksEnabled;
 
@@ -145,6 +148,11 @@ namespace EdFi.Ods.Common.Dependencies
             public static void Set(Func<ISessionFactoryImplementor> resolver)
             {
                 _sessionFactory = new Lazy<ISessionFactoryImplementor>(resolver);
+            }
+
+            public static void Set(Func<Behaviors> resolver)
+            {
+                _behaviors = new Lazy<Behaviors>(resolver);
             }
 
             public static void SetEnabledFeatures(bool? serializedDataEnabled = null, bool? resourceLinksEnabled = null)
