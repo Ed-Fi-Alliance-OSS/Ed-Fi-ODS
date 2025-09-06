@@ -893,7 +893,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
-                    BusSerializedReferenceData ??= new NHibernate.BusAggregate.Sample.BusReferenceData(true);
+                    BusSerializedReferenceData ??= new NHibernate.BusAggregate.Sample.BusReferenceData(trackLookupContext: true);
                     BusSerializedReferenceData.BusId = value;
                 }
             }
