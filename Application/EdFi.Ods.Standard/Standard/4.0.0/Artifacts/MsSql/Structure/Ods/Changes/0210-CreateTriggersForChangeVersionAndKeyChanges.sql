@@ -218,10 +218,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_CourseOffering_TR_UpdateChangeVersion] ON [edfi].[CourseOffering] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[CourseOffering]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[CourseOffering] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.CourseOffering(
@@ -440,10 +447,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_Grade_TR_UpdateChangeVersion] ON [edfi].[Grade] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[Grade]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[Grade] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.Grade(
@@ -479,10 +493,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_GradebookEntry_TR_UpdateChangeVersion] ON [edfi].[GradebookEntry] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[GradebookEntry]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[GradebookEntry] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.GradebookEntry(
@@ -896,10 +917,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_Section_TR_UpdateChangeVersion] ON [edfi].[Section] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[Section]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[Section] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.Section(
@@ -923,10 +951,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_SectionAttendanceTakenEvent_TR_UpdateChangeVersion] ON [edfi].[SectionAttendanceTakenEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[SectionAttendanceTakenEvent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[SectionAttendanceTakenEvent] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.SectionAttendanceTakenEvent(
@@ -1132,10 +1167,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_StaffSectionAssociation_TR_UpdateChangeVersion] ON [edfi].[StaffSectionAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[StaffSectionAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[StaffSectionAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.StaffSectionAssociation(
@@ -1318,10 +1360,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_StudentGradebookEntry_TR_UpdateChangeVersion] ON [edfi].[StudentGradebookEntry] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[StudentGradebookEntry]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[StudentGradebookEntry] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.StudentGradebookEntry(
@@ -1445,10 +1494,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_StudentSchoolAttendanceEvent_TR_UpdateChangeVersion] ON [edfi].[StudentSchoolAttendanceEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[StudentSchoolAttendanceEvent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[StudentSchoolAttendanceEvent] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.StudentSchoolAttendanceEvent(
@@ -1480,10 +1536,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_StudentSectionAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentSectionAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[StudentSectionAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[StudentSectionAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.StudentSectionAssociation(
@@ -1511,10 +1574,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_StudentSectionAttendanceEvent_TR_UpdateChangeVersion] ON [edfi].[StudentSectionAttendanceEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[StudentSectionAttendanceEvent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[StudentSectionAttendanceEvent] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.StudentSectionAttendanceEvent(
@@ -1546,10 +1616,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_Survey_TR_UpdateChangeVersion] ON [edfi].[Survey] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[Survey]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[Survey] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 END	
 GO
 
@@ -1663,10 +1740,17 @@ GO
 CREATE TRIGGER [edfi].[edfi_SurveySectionAssociation_TR_UpdateChangeVersion] ON [edfi].[SurveySectionAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[SurveySectionAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [edfi].[SurveySectionAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.SurveySectionAssociation(
