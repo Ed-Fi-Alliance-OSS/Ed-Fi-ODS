@@ -13,7 +13,7 @@
                 if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
 {{#SerializedReferenceDataMappings}}
-                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{> Entities_PropertyAccessors_ReferenceData }}
                     {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = value{{#IsNullable}} ?? default{{/IsNullable}};
 {{/SerializedReferenceDataMappings}}
                 }
@@ -36,7 +36,7 @@
                     if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                     {
             {{#SerializedReferenceDataMappings}}
-                        {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                        {{> Entities_PropertyAccessors_ReferenceData }}
                         {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{IdFieldName}}{{#IsNullable}} ?? default{{/IsNullable}};
             {{/SerializedReferenceDataMappings}}
                     }
@@ -54,7 +54,7 @@
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
             {{#SerializedReferenceDataMappings}}
-                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{> Entities_PropertyAccessors_ReferenceData }}
                     {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = value{{#IsNullable}} ?? default{{/IsNullable}};
             {{/SerializedReferenceDataMappings}}
                 }
@@ -84,7 +84,7 @@
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
             {{#SerializedReferenceDataMappings}}
-                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{> Entities_PropertyAccessors_ReferenceData }}
                     {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("{{LookupEntityName}}", {{ValueFieldName}});
             {{/SerializedReferenceDataMappings}}
                 }
@@ -108,7 +108,7 @@
                         if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                         {
             {{#SerializedReferenceDataMappings}}
-                            {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                            {{> Entities_PropertyAccessors_ReferenceData }}
                             {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{UsiFieldName}}{{#IsNullable}} ?? default{{/IsNullable}};
             {{/SerializedReferenceDataMappings}}
                         }
@@ -137,7 +137,7 @@
                 if ({{#IsNullable}}value != null && {{/IsNullable}}GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
                 {{#SerializedReferenceDataMappings}}
-                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{> Entities_PropertyAccessors_ReferenceData }}
                     {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = value{{#IsNullable}} ?? default{{/IsNullable}};
                 {{/SerializedReferenceDataMappings}}
                 }
@@ -188,7 +188,7 @@
                         && usiByUniqueId.TryGetValue({{UniqueIdFieldName}}, out var usi))
                     {
             {{#SerializedReferenceDataMappings}}
-                        {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                        {{> Entities_PropertyAccessors_ReferenceData }}
                         {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = usi;
             {{/SerializedReferenceDataMappings}}
                     }
@@ -243,7 +243,7 @@
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
             {{#SerializedReferenceDataMappings}}
-                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{> Entities_PropertyAccessors_ReferenceData }}
                     {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{FieldName}} ?? default;
             {{/SerializedReferenceDataMappings}}
                 }
@@ -267,7 +267,7 @@
                 if ({{FieldName}} != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
             {{#SerializedReferenceDataMappings}}
-                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{> Entities_PropertyAccessors_ReferenceData }}
                     {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{FieldName}};
             {{/SerializedReferenceDataMappings}}
                 }
@@ -298,7 +298,7 @@
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
             {{#SerializedReferenceDataMappings}}
-                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{> Entities_PropertyAccessors_ReferenceData }}
                     {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{FieldName}} ?? default;
             {{/SerializedReferenceDataMappings}}
                 }
@@ -325,7 +325,7 @@
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
             {{#SerializedReferenceDataMappings}}
-                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{> Entities_PropertyAccessors_ReferenceData }}
                     {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{FieldName}};
             {{/SerializedReferenceDataMappings}}
                 }
@@ -351,7 +351,7 @@
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
                 {
             {{#SerializedReferenceDataMappings}}
-                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{> Entities_PropertyAccessors_ReferenceData }}
                     {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = value{{#IsNullable}} ?? default{{/IsNullable}};
             {{/SerializedReferenceDataMappings}}
                 }
