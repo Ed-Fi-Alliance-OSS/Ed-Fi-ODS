@@ -669,8 +669,9 @@ namespace EdFi.Ods.Common.Models.Resource
                 () => LazyInitializeAllMembers()
                    .ToList());
 
-            _memberByName = new Lazy<IReadOnlyDictionary<string, ResourceMemberBase>>(
-                () => AllMembers.ToDictionary(x => x.PropertyName, x => x, StringComparer.InvariantCultureIgnoreCase));
+            _memberByName = new Lazy<IReadOnlyDictionary<string, ResourceMemberBase>>(()
+                => LazyInitializeMemberByNameTuples()
+                    .ToDictionary(x => x.Item1, x => x.Item2, StringComparer.InvariantCultureIgnoreCase));
 
             _memberNamesInvolvedInJsonCollisions = new Lazy<IReadOnlyList<string>>(
                 () =>
@@ -708,6 +709,15 @@ namespace EdFi.Ods.Common.Models.Resource
                   .Concat<ResourceMemberBase>(Collections)
                   .Concat(References)
                   .Concat(EmbeddedObjects);
+        }
+
+        protected virtual IEnumerable<(string, ResourceMemberBase)> LazyInitializeMemberByNameTuples()
+        {
+            return
+                    PropertyByName.Select(p => (p.Key, (ResourceMemberBase) p.Value))
+                        .Concat(CollectionByName.Select(p => (p.Key, (ResourceMemberBase) p.Value)))
+                        .Concat(ReferenceByName.Select(p => (p.Key, (ResourceMemberBase) p.Value)))
+                        .Concat(EmbeddedObjectByName.Select(p => (p.Key, (ResourceMemberBase) p.Value)));
         }
 
         private Lazy<IReadOnlyList<ResourceChildItem>> LazyInitializeContainedTypes()
