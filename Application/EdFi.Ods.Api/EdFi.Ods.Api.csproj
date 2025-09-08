@@ -26,9 +26,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.2.6" />
-        <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="7.2.6" />
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.2.1" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.1.38" />
+        <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="7.1.27" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.1.14" />
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -41,7 +41,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.13" />
     <PackageReference Include="NHibernate" Version="5.5.2" />
-    <PackageReference Include="Polly" Version="8.3.0" />
+    <PackageReference Include="Polly" Version="8.3.1" />
     <PackageReference Include="Quartz.AspNetCore" Version="3.8.1" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
     <PackageReference Include="Standart.Hash.xxHash" Version="4.0.5" />

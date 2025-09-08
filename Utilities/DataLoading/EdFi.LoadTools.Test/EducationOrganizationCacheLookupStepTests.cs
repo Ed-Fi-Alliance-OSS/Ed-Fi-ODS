@@ -31,10 +31,11 @@ namespace EdFi.LoadTools.Test
             var xelement = XElement.Parse(_educationOrganizationReferenceElement);
 
             var item = new XmlLookupWorkItem(xelement)
-                       {
-                           ResourceName = "EducationOrganization", LookupName = "EducationOrganizationLookup",
-                           IdentityName = "EducationOrganizationIdentity"
-                       };
+            {
+                ResourceName = "EducationOrganization",
+                LookupName = "EducationOrganizationLookup",
+                IdentityName = "EducationOrganizationIdentity"
+            };
 
             var step = new EducationOrganizationCacheLookupStep(
                 new TestEducationOrganizationIdentityCache(
@@ -45,15 +46,17 @@ namespace EdFi.LoadTools.Test
 
             step.Process(item);
 
-            Assert.AreEqual(_lookupPropertyValuesByName.Count, 4);
+            Assert.That(_lookupPropertyValuesByName.Count, Is.EqualTo(4));
 
             foreach (var expectedKey in new List<string>
-                                        {
-                                            "EducationOrganizationCategory", "EducationOrganizationIdentificationSystem", "IdentificationCode",
-                                            "NameOfInstitution"
-                                        })
             {
-                Assert.IsTrue(_lookupPropertyValuesByName.ContainsKey(expectedKey));
+                "EducationOrganizationCategory",
+                "EducationOrganizationIdentificationSystem",
+                "IdentificationCode",
+                "NameOfInstitution"
+            })
+            {
+                Assert.That(_lookupPropertyValuesByName.ContainsKey(expectedKey), Is.True);
             }
         }
 
@@ -63,10 +66,11 @@ namespace EdFi.LoadTools.Test
             var xelement = XElement.Parse(_educationOrganizationReferenceElement);
 
             var item = new XmlLookupWorkItem(xelement)
-                       {
-                           ResourceName = "EducationOrganization", LookupName = "EducationOrganizationLookup",
-                           IdentityName = "EducationOrganizationIdentity"
-                       };
+            {
+                ResourceName = "EducationOrganization",
+                LookupName = "EducationOrganizationLookup",
+                IdentityName = "EducationOrganizationIdentity"
+            };
 
             var step = new EducationOrganizationCacheLookupStep(
                 new TestEducationOrganizationIdentityCache(
@@ -77,9 +81,10 @@ namespace EdFi.LoadTools.Test
 
             step.Process(item);
 
-            Assert.AreEqual(
+            Assert.That(
                 item.IdentityXElement.ToString(),
-                new XElement(item.IdentityName, new XElement($"{item.ResourceName}Id", 9999)).ToString());
+                Is.EqualTo(new XElement(item.IdentityName, new XElement($"{item.ResourceName}Id", 9999)).ToString())
+            );
         }
 
         [Test]
@@ -88,17 +93,18 @@ namespace EdFi.LoadTools.Test
             var xelement = XElement.Parse(_educationOrganizationReferenceElement);
 
             var item = new XmlLookupWorkItem(xelement)
-                       {
-                           ResourceName = "EducationOrganization", LookupName = "EducationOrganizationLookup",
-                           IdentityName = "EducationOrganizationIdentity"
-                       };
+            {
+                ResourceName = "EducationOrganization",
+                LookupName = "EducationOrganizationLookup",
+                IdentityName = "EducationOrganizationIdentity"
+            };
 
             var step = new EducationOrganizationCacheLookupStep(
                 new TestEducationOrganizationIdentityCache(new List<int>()));
 
             step.Process(item);
 
-            Assert.IsNull(item.IdentityXElement);
+            Assert.That(item.IdentityXElement, Is.Null);
         }
 
         [Test]
@@ -107,10 +113,11 @@ namespace EdFi.LoadTools.Test
             var xelement = XElement.Parse(_educationOrganizationReferenceElement);
 
             var item = new XmlLookupWorkItem(xelement)
-                       {
-                           ResourceName = "EducationOrganization", LookupName = "EducationOrganizationLookup",
-                           IdentityName = "EducationOrganizationIdentity"
-                       };
+            {
+                ResourceName = "EducationOrganization",
+                LookupName = "EducationOrganizationLookup",
+                IdentityName = "EducationOrganizationIdentity"
+            };
 
             var step = new EducationOrganizationCacheLookupStep(
                 new TestEducationOrganizationIdentityCache(
@@ -121,7 +128,7 @@ namespace EdFi.LoadTools.Test
 
             step.Process(item);
 
-            Assert.IsNull(item.IdentityXElement);
+            Assert.That(item.IdentityXElement, Is.Null);
         }
 
         [Test]
@@ -130,10 +137,11 @@ namespace EdFi.LoadTools.Test
             var xelement = XElement.Parse(_educationOrganizationReferenceElement);
 
             var item = new XmlLookupWorkItem(xelement)
-                       {
-                           ResourceName = "EducationOrganization", LookupName = "NotEducationOrganizationLookup",
-                           IdentityName = "EducationOrganizationIdentity"
-                       };
+            {
+                ResourceName = "EducationOrganization",
+                LookupName = "NotEducationOrganizationLookup",
+                IdentityName = "EducationOrganizationIdentity"
+            };
 
             var step = new EducationOrganizationCacheLookupStep(
                 new TestEducationOrganizationIdentityCache(
@@ -144,7 +152,7 @@ namespace EdFi.LoadTools.Test
 
             step.Process(item);
 
-            Assert.IsNull(item.IdentityXElement);
+            Assert.That(item.IdentityXElement, Is.Null);
         }
 
         private class TestEducationOrganizationIdentityCache : IEducationOrganizationIdentityCache

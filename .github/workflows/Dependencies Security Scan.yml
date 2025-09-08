@@ -25,7 +25,7 @@ jobs:
 
   analyze-code:
     name: Analyze Code Dependencies
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       actions: read
       contents: read
@@ -33,9 +33,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Checkout Ed-Fi-ODS
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
             path: Ed-Fi-ODS/

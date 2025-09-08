@@ -164,21 +164,21 @@ namespace EdFi.LoadTools.Test.XmlLookupPipeline
         public void Should_have_one_work_items_lookup()
         {
             var items = TestWorkItems(_resolvedLookup);
-            Assert.AreEqual(1, items.Length);
+            Assert.That(items.Length, Is.EqualTo(1));
         }
 
         [Test]
         public void Should_have_two_work_items_lookup()
         {
             var items = TestWorkItems(_lookupInsideIdentity);
-            Assert.AreEqual(2, items.Length);
+            Assert.That(items.Length, Is.EqualTo(2));
         }
 
         [Test]
         public void Should_have_three_work_items_lookups()
         {
             var items = TestWorkItems(_nestedLookups);
-            Assert.AreEqual(3, items.Length);
+            Assert.That(items.Length, Is.EqualTo(3));
         }
     }
 }

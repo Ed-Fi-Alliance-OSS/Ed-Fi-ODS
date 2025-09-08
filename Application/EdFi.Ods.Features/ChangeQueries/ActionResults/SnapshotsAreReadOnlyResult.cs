@@ -6,7 +6,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Models;
-using EdFi.Ods.Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

@@ -15,10 +15,11 @@ on:
         required: false
         default: 'distinct_id'
 
+permissions: read-all    
 
 env:
-  INFORMATIONAL_VERSION: "7.2"
-  BUILD_INCREMENTER: "-548"
+  INFORMATIONAL_VERSION: "7.1"
+  BUILD_INCREMENTER: "-503"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
@@ -38,7 +39,7 @@ jobs:
   build:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
@@ -67,12 +68,12 @@ jobs:
         echo "::error::Missing Azure Token"
         exit 1 
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
@@ -84,7 +85,7 @@ jobs:
         Write-host "Ed-Fi-Standard Tag is  $standardTag"
       shell: pwsh
     - name: Checkout Ed-Fi-Data-Standard
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Data-Standard
           path: Ed-Fi-Data-Standard/
@@ -97,7 +98,7 @@ jobs:
         Write-host "EdFi-Tpdm Tag is  $tpdmTag"
       shell: pwsh
     - name: Checkout Ed-Fi-TPDM-Artifacts
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-TPDM-Artifacts
           path: Ed-Fi-TPDM-Artifacts/
@@ -115,8 +116,12 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
+    # This step shall be removed in ODS-6572
+    - name: Install Mono and Nuget
+      working-directory: ./Ed-Fi-ODS/.github/workflows
+      run: sudo ./install-mono.sh
     - name: Cache Nuget packages
-      uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
@@ -162,12 +167,13 @@ jobs:
       shell: pwsh
     - name: Upload EdFi.Ods.Populated.Template.TPDM.PostgreSQL Artifacts
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
-        name: NugetPackages.Artifacts
+        name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: |
          ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.*.PostgreSQL*.nupkg
     - name: Move Log Files
+      if: success() || failure()    
       run: |
         $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/net8.0/logfile.txt"
         $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessLog.log"
@@ -184,8 +190,8 @@ jobs:
       shell: pwsh        
     - name: Upload Create Database Template Logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
-        name: Create Database Template Logs
+        name: Create Database Template Logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/CreateDatabaseTemplateLogs/*.*                 

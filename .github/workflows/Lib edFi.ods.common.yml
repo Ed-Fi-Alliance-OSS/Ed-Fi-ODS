@@ -14,8 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  INFORMATIONAL_VERSION: "7.2"
-  BUILD_INCREMENTER: "3"
+  INFORMATIONAL_VERSION: "7.1"
+  BUILD_INCREMENTER: "-1078"
   CONFIGURATION: "Release"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
@@ -25,7 +25,7 @@ env:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Check for Azure token
@@ -33,9 +33,16 @@ jobs:
       run: | 
         echo "::error::Missing Azure Token" 
         exit 1 
-    - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      with:
+        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+    # This step shall be removed in ODS-6572
+    - name: Install Mono and Nuget
+      working-directory: ./.github/workflows
+      run: sudo ./install-mono.sh
     - name: Cache Nuget packages       
-      uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
@@ -77,7 +84,7 @@ jobs:
       shell: pwsh
     - name: Upload EdFi.Ods.Common Artifacts
       if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/NugetPackages/*.*

@@ -850,7 +850,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication of inadequate financial condition of an individual's family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="economicDisadvantaged")]
+        [DataMember(Name="economicDisadvantaged")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? EconomicDisadvantaged { get; set; }
 
         /// <summary>
@@ -864,7 +864,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// Indicator of whether individual is a first generation college student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="firstGenerationStudent")]
+        [DataMember(Name="firstGenerationStudent")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? FirstGenerationStudent { get; set; }
 
         /// <summary>
@@ -892,7 +892,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, \"Spanish origin,\" can be used in addition to \"Hispanic or Latino.\"
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="hispanicLatinoEthnicity")]
+        [DataMember(Name="hispanicLatinoEthnicity")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? HispanicLatinoEthnicity { get; set; }
 
         /// <summary>
@@ -927,7 +927,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// Indicator of whether the student was born with other siblings (i.e., twins, triplets, etc.)
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="multipleBirthStatus")]
+        [DataMember(Name="multipleBirthStatus")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? MultipleBirthStatus { get; set; }
 
         /// <summary>
@@ -1040,7 +1040,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidateAddress> _candidateAddresses;
         private ICollection<Entities.Common.TPDM.ICandidateAddress> _candidateAddressesCovariant;
 
-        [DataMember(Name="addresses"), NoDuplicateMembers]
+        [DataMember(Name="addresses"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateAddress> CandidateAddresses
         {
             get { return _candidateAddresses; }
@@ -1069,7 +1069,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidateDisability> _candidateDisabilities;
         private ICollection<Entities.Common.TPDM.ICandidateDisability> _candidateDisabilitiesCovariant;
 
-        [DataMember(Name="disabilities"), NoDuplicateMembers]
+        [DataMember(Name="disabilities"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateDisability> CandidateDisabilities
         {
             get { return _candidateDisabilities; }
@@ -1098,7 +1098,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidateElectronicMail> _candidateElectronicMails;
         private ICollection<Entities.Common.TPDM.ICandidateElectronicMail> _candidateElectronicMailsCovariant;
 
-        [DataMember(Name="electronicMails"), NoDuplicateMembers]
+        [DataMember(Name="electronicMails"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateElectronicMail> CandidateElectronicMails
         {
             get { return _candidateElectronicMails; }
@@ -1127,7 +1127,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidateLanguage> _candidateLanguages;
         private ICollection<Entities.Common.TPDM.ICandidateLanguage> _candidateLanguagesCovariant;
 
-        [DataMember(Name="languages"), NoDuplicateMembers]
+        [DataMember(Name="languages"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateLanguage> CandidateLanguages
         {
             get { return _candidateLanguages; }
@@ -1156,7 +1156,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidateOtherName> _candidateOtherNames;
         private ICollection<Entities.Common.TPDM.ICandidateOtherName> _candidateOtherNamesCovariant;
 
-        [DataMember(Name="otherNames"), NoDuplicateMembers]
+        [DataMember(Name="otherNames"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateOtherName> CandidateOtherNames
         {
             get { return _candidateOtherNames; }
@@ -1185,7 +1185,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocuments;
         private ICollection<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocumentsCovariant;
 
-        [DataMember(Name="personalIdentificationDocuments"), NoDuplicateMembers]
+        [DataMember(Name="personalIdentificationDocuments"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidatePersonalIdentificationDocument> CandidatePersonalIdentificationDocuments
         {
             get { return _candidatePersonalIdentificationDocuments; }
@@ -1214,7 +1214,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidateRace> _candidateRaces;
         private ICollection<Entities.Common.TPDM.ICandidateRace> _candidateRacesCovariant;
 
-        [DataMember(Name="races"), NoDuplicateMembers]
+        [DataMember(Name="races"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateRace> CandidateRaces
         {
             get { return _candidateRaces; }
@@ -1243,7 +1243,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidateTelephone> _candidateTelephones;
         private ICollection<Entities.Common.TPDM.ICandidateTelephone> _candidateTelephonesCovariant;
 
-        [DataMember(Name="telephones"), NoDuplicateMembers]
+        [DataMember(Name="telephones"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateTelephone> CandidateTelephones
         {
             get { return _candidateTelephones; }
@@ -1810,7 +1810,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication that the address should not be published.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="doNotPublishIndicator")]
+        [DataMember(Name="doNotPublishIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -1873,7 +1873,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidateAddressPeriod> _candidateAddressPeriods;
         private ICollection<Entities.Common.TPDM.ICandidateAddressPeriod> _candidateAddressPeriodsCovariant;
 
-        [DataMember(Name="periods"), NoDuplicateMembers]
+        [DataMember(Name="periods"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateAddressPeriod> CandidateAddressPeriods
         {
             get { return _candidateAddressPeriods; }
@@ -2423,7 +2423,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidateDisabilityDesignation> _candidateDisabilityDesignations;
         private ICollection<Entities.Common.TPDM.ICandidateDisabilityDesignation> _candidateDisabilityDesignationsCovariant;
 
-        [DataMember(Name="designations"), NoDuplicateMembers]
+        [DataMember(Name="designations"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateDisabilityDesignation> CandidateDisabilityDesignations
         {
             get { return _candidateDisabilityDesignations; }
@@ -2929,14 +2929,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication that the electronic email address should not be published.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="doNotPublishIndicator")]
+        [DataMember(Name="doNotPublishIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
         /// An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryEmailAddressIndicator")]
+        [DataMember(Name="primaryEmailAddressIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryEmailAddressIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -3197,7 +3197,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         private ICollection<CandidateLanguageUse> _candidateLanguageUses;
         private ICollection<Entities.Common.TPDM.ICandidateLanguageUse> _candidateLanguageUsesCovariant;
 
-        [DataMember(Name="uses"), NoDuplicateMembers]
+        [DataMember(Name="uses"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateLanguageUse> CandidateLanguageUses
         {
             get { return _candidateLanguageUses; }
@@ -4455,7 +4455,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication that the telephone number should not be published.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="doNotPublishIndicator")]
+        [DataMember(Name="doNotPublishIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -4469,7 +4469,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="textMessageCapabilityIndicator")]
+        [DataMember(Name="textMessageCapabilityIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? TextMessageCapabilityIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -5056,7 +5056,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         private ICollection<CandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYears;
         private ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYearsCovariant;
 
-        [DataMember(Name="cohortYears"), NoDuplicateMembers]
+        [DataMember(Name="cohortYears"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateEducatorPreparationProgramAssociationCohortYear> CandidateEducatorPreparationProgramAssociationCohortYears
         {
             get { return _candidateEducatorPreparationProgramAssociationCohortYears; }
@@ -5085,7 +5085,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         private ICollection<CandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializations;
         private ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant;
 
-        [DataMember(Name="degreeSpecializations"), NoDuplicateMembers]
+        [DataMember(Name="degreeSpecializations"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CandidateEducatorPreparationProgramAssociationDegreeSpecialization> CandidateEducatorPreparationProgramAssociationDegreeSpecializations
         {
             get { return _candidateEducatorPreparationProgramAssociationDegreeSpecializations; }
@@ -6508,7 +6508,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// Indicator that the credential was granted under the authority of a national Board Certification.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="boardCertificationIndicator")]
+        [DataMember(Name="boardCertificationIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? BoardCertificationIndicator { get; set; }
 
         /// <summary>
@@ -6628,7 +6628,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         private ICollection<CredentialStudentAcademicRecord> _credentialStudentAcademicRecords;
         private ICollection<Entities.Common.TPDM.ICredentialStudentAcademicRecord> _credentialStudentAcademicRecordsCovariant;
 
-        [DataMember(Name="studentAcademicRecords"), NoDuplicateMembers]
+        [DataMember(Name="studentAcademicRecords"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<CredentialStudentAcademicRecord> CredentialStudentAcademicRecords
         {
             get { return _credentialStudentAcademicRecords; }
@@ -7784,7 +7784,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         private ICollection<EducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevels;
         private ICollection<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevelsCovariant;
 
-        [DataMember(Name="gradeLevels"), NoDuplicateMembers]
+        [DataMember(Name="gradeLevels"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<EducatorPreparationProgramGradeLevel> EducatorPreparationProgramGradeLevels
         {
             get { return _educatorPreparationProgramGradeLevels; }
@@ -9501,7 +9501,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         private ICollection<EvaluationRatingLevel> _evaluationRatingLevels;
         private ICollection<Entities.Common.TPDM.IEvaluationRatingLevel> _evaluationRatingLevelsCovariant;
 
-        [DataMember(Name="ratingLevels"), NoDuplicateMembers]
+        [DataMember(Name="ratingLevels"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<EvaluationRatingLevel> EvaluationRatingLevels
         {
             get { return _evaluationRatingLevels; }
@@ -10515,7 +10515,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         private ICollection<EvaluationElementRatingLevel> _evaluationElementRatingLevels;
         private ICollection<Entities.Common.TPDM.IEvaluationElementRatingLevel> _evaluationElementRatingLevelsCovariant;
 
-        [DataMember(Name="ratingLevels"), NoDuplicateMembers]
+        [DataMember(Name="ratingLevels"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<EvaluationElementRatingLevel> EvaluationElementRatingLevels
         {
             get { return _evaluationElementRatingLevels; }
@@ -11729,7 +11729,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         private ICollection<EvaluationElementRatingResult> _evaluationElementRatingResults;
         private ICollection<Entities.Common.TPDM.IEvaluationElementRatingResult> _evaluationElementRatingResultsCovariant;
 
-        [DataMember(Name="results"), NoDuplicateMembers]
+        [DataMember(Name="results"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<EvaluationElementRatingResult> EvaluationElementRatingResults
         {
             get { return _evaluationElementRatingResults; }
@@ -13233,7 +13233,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         private ICollection<EvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevels;
         private ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevelsCovariant;
 
-        [DataMember(Name="ratingLevels"), NoDuplicateMembers]
+        [DataMember(Name="ratingLevels"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<EvaluationObjectiveRatingLevel> EvaluationObjectiveRatingLevels
         {
             get { return _evaluationObjectiveRatingLevels; }
@@ -14381,7 +14381,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         private ICollection<EvaluationObjectiveRatingResult> _evaluationObjectiveRatingResults;
         private ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingResult> _evaluationObjectiveRatingResultsCovariant;
 
-        [DataMember(Name="results"), NoDuplicateMembers]
+        [DataMember(Name="results"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<EvaluationObjectiveRatingResult> EvaluationObjectiveRatingResults
         {
             get { return _evaluationObjectiveRatingResults; }
@@ -16110,7 +16110,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         private ICollection<EvaluationRatingResult> _evaluationRatingResults;
         private ICollection<Entities.Common.TPDM.IEvaluationRatingResult> _evaluationRatingResultsCovariant;
 
-        [DataMember(Name="results"), NoDuplicateMembers]
+        [DataMember(Name="results"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<EvaluationRatingResult> EvaluationRatingResults
         {
             get { return _evaluationRatingResults; }
@@ -16139,7 +16139,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         private ICollection<EvaluationRatingReviewer> _evaluationRatingReviewers;
         private ICollection<Entities.Common.TPDM.IEvaluationRatingReviewer> _evaluationRatingReviewersCovariant;
 
-        [DataMember(Name="reviewers"), NoDuplicateMembers]
+        [DataMember(Name="reviewers"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<EvaluationRatingReviewer> EvaluationRatingReviewers
         {
             get { return _evaluationRatingReviewers; }
@@ -17021,7 +17021,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// <summary>
         /// receivedTraining
         /// </summary>
-        [DataMember(Name = "receivedTraining")]
+        [DataMember(Name = "receivedTraining"), ValidateObject]
         public EvaluationRatingReviewerReceivedTraining EvaluationRatingReviewerReceivedTraining { get; set; }
 
         Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining Entities.Common.TPDM.IEvaluationRatingReviewer.EvaluationRatingReviewerReceivedTraining
@@ -18484,7 +18484,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// Indicates a person who receives Pell Grant aid.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="pellGrantRecipient")]
+        [DataMember(Name="pellGrantRecipient")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PellGrantRecipient { get; set; }
         // -------------------------------------------------------------
 
@@ -19606,7 +19606,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         private ICollection<PerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevels;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevelsCovariant;
 
-        [DataMember(Name="gradeLevels"), NoDuplicateMembers]
+        [DataMember(Name="gradeLevels"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<PerformanceEvaluationGradeLevel> PerformanceEvaluationGradeLevels
         {
             get { return _performanceEvaluationGradeLevels; }
@@ -19635,7 +19635,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         private ICollection<PerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevels;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevelsCovariant;
 
-        [DataMember(Name="ratingLevels"), NoDuplicateMembers]
+        [DataMember(Name="ratingLevels"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<PerformanceEvaluationRatingLevel> PerformanceEvaluationRatingLevels
         {
             get { return _performanceEvaluationRatingLevels; }
@@ -20876,7 +20876,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// An indicator of whether the performance evaluation was announced or not.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="announced")]
+        [DataMember(Name="announced")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? Announced { get; set; }
 
         /// <summary>
@@ -20939,7 +20939,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         private ICollection<PerformanceEvaluationRatingResult> _performanceEvaluationRatingResults;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingResult> _performanceEvaluationRatingResultsCovariant;
 
-        [DataMember(Name="results"), NoDuplicateMembers]
+        [DataMember(Name="results"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<PerformanceEvaluationRatingResult> PerformanceEvaluationRatingResults
         {
             get { return _performanceEvaluationRatingResults; }
@@ -20968,7 +20968,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         private ICollection<PerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewers;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewersCovariant;
 
-        [DataMember(Name="reviewers"), NoDuplicateMembers]
+        [DataMember(Name="reviewers"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<PerformanceEvaluationRatingReviewer> PerformanceEvaluationRatingReviewers
         {
             get { return _performanceEvaluationRatingReviewers; }
@@ -21666,7 +21666,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// <summary>
         /// receivedTraining
         /// </summary>
-        [DataMember(Name = "receivedTraining")]
+        [DataMember(Name = "receivedTraining"), ValidateObject]
         public PerformanceEvaluationRatingReviewerReceivedTraining PerformanceEvaluationRatingReviewerReceivedTraining { get; set; }
 
         Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRatingReviewerReceivedTraining

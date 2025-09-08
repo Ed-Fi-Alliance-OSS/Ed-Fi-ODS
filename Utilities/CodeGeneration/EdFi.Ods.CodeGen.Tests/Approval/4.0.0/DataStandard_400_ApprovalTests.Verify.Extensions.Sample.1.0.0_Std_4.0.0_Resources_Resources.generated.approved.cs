@@ -898,7 +898,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// An indication as to whether the bus route operates every weekday.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="daily")]
+        [DataMember(Name="daily")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? Daily { get; set; }
 
         /// <summary>
@@ -1096,7 +1096,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         private ICollection<BusRouteBusYear> _busRouteBusYears;
         private ICollection<Entities.Common.Sample.IBusRouteBusYear> _busRouteBusYearsCovariant;
 
-        [DataMember(Name="busYears"), NoDuplicateMembers]
+        [DataMember(Name="busYears"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<BusRouteBusYear> BusRouteBusYears
         {
             get { return _busRouteBusYears; }
@@ -1125,7 +1125,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         private ICollection<BusRouteProgram> _busRoutePrograms;
         private ICollection<Entities.Common.Sample.IBusRouteProgram> _busRouteProgramsCovariant;
 
-        [DataMember(Name="programs"), NoDuplicateMembers]
+        [DataMember(Name="programs"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<BusRouteProgram> BusRoutePrograms
         {
             get { return _busRoutePrograms; }
@@ -1154,7 +1154,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         private ICollection<BusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodes;
         private ICollection<Entities.Common.Sample.IBusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodesCovariant;
 
-        [DataMember(Name="serviceAreaPostalCodes"), NoDuplicateMembers]
+        [DataMember(Name="serviceAreaPostalCodes"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<BusRouteServiceAreaPostalCode> BusRouteServiceAreaPostalCodes
         {
             get { return _busRouteServiceAreaPostalCodes; }
@@ -1183,7 +1183,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         private ICollection<BusRouteStartTime> _busRouteStartTimes;
         private ICollection<Entities.Common.Sample.IBusRouteStartTime> _busRouteStartTimesCovariant;
 
-        [DataMember(Name="startTimes"), NoDuplicateMembers]
+        [DataMember(Name="startTimes"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<BusRouteStartTime> BusRouteStartTimes
         {
             get { return _busRouteStartTimes; }
@@ -1212,7 +1212,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         private ICollection<BusRouteTelephone> _busRouteTelephones;
         private ICollection<Entities.Common.Sample.IBusRouteTelephone> _busRouteTelephonesCovariant;
 
-        [DataMember(Name="telephones"), NoDuplicateMembers]
+        [DataMember(Name="telephones"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<BusRouteTelephone> BusRouteTelephones
         {
             get { return _busRouteTelephones; }
@@ -2637,7 +2637,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// An indication that the telephone number should not be published.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="doNotPublishIndicator")]
+        [DataMember(Name="doNotPublishIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -2651,7 +2651,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="textMessageCapabilityIndicator")]
+        [DataMember(Name="textMessageCapabilityIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? TextMessageCapabilityIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -3413,7 +3413,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// An indicator if the address is on a bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="onBusRoute")]
+        [DataMember(Name="onBusRoute")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool OnBusRoute 
         { 
             get => _onBusRoute;
@@ -3465,7 +3465,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentAddressSchoolDistrict> _parentAddressSchoolDistricts;
         private ICollection<Entities.Common.Sample.IParentAddressSchoolDistrict> _parentAddressSchoolDistrictsCovariant;
 
-        [DataMember(Name="schoolDistricts"), NoDuplicateMembers]
+        [DataMember(Name="schoolDistricts"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<ParentAddressSchoolDistrict> ParentAddressSchoolDistricts
         {
             get { return _parentAddressSchoolDistricts; }
@@ -3494,7 +3494,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentAddressTerm> _parentAddressTerms;
         private ICollection<Entities.Common.Sample.IParentAddressTerm> _parentAddressTermsCovariant;
 
-        [DataMember(Name="terms"), NoDuplicateMembers]
+        [DataMember(Name="terms"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<ParentAddressTerm> ParentAddressTerms
         {
             get { return _parentAddressTerms; }
@@ -4700,14 +4700,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// A boolean indicator of whether the student has completed the CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="cteProgramCompletionIndicator")]
+        [DataMember(Name="cteProgramCompletionIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? CTEProgramCompletionIndicator { get; set; }
 
         /// <summary>
         /// A boolean indicator of whether this CTE program is the student's primary CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryCTEProgramIndicator")]
+        [DataMember(Name="primaryCTEProgramIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryCTEProgramIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -5268,7 +5268,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// An indication as to whether the parent is a sports fan.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isSportsFan")]
+        [DataMember(Name="isSportsFan")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool IsSportsFan 
         { 
             get => _isSportsFan;
@@ -5316,7 +5316,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// <summary>
         /// cteProgram
         /// </summary>
-        [DataMember(Name = "cteProgram")]
+        [DataMember(Name = "cteProgram"), ValidateObject]
         public ParentCTEProgram ParentCTEProgram { get; set; }
 
         Entities.Common.Sample.IParentCTEProgram Entities.Common.Sample.IParentExtension.ParentCTEProgram
@@ -5328,7 +5328,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// <summary>
         /// teacherConference
         /// </summary>
-        [DataMember(Name = "teacherConference")]
+        [DataMember(Name = "teacherConference"), ValidateObject]
         public ParentTeacherConference ParentTeacherConference { get; set; }
 
         Entities.Common.Sample.IParentTeacherConference Entities.Common.Sample.IParentExtension.ParentTeacherConference
@@ -5365,7 +5365,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentAuthor> _parentAuthors;
         private ICollection<Entities.Common.Sample.IParentAuthor> _parentAuthorsCovariant;
 
-        [DataMember(Name="authors"), NoDuplicateMembers]
+        [DataMember(Name="authors"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<ParentAuthor> ParentAuthors
         {
             get { return _parentAuthors; }
@@ -5394,7 +5394,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentCeilingHeight> _parentCeilingHeights;
         private ICollection<Entities.Common.Sample.IParentCeilingHeight> _parentCeilingHeightsCovariant;
 
-        [DataMember(Name="ceilingHeights"), NoDuplicateMembers]
+        [DataMember(Name="ceilingHeights"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<ParentCeilingHeight> ParentCeilingHeights
         {
             get { return _parentCeilingHeights; }
@@ -5423,7 +5423,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentEducationContent> _parentEducationContents;
         private ICollection<Entities.Common.Sample.IParentEducationContent> _parentEducationContentsCovariant;
 
-        [DataMember(Name="educationContents"), NoDuplicateMembers]
+        [DataMember(Name="educationContents"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<ParentEducationContent> ParentEducationContents
         {
             get { return _parentEducationContents; }
@@ -5452,7 +5452,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentFavoriteBookTitle> _parentFavoriteBookTitles;
         private ICollection<Entities.Common.Sample.IParentFavoriteBookTitle> _parentFavoriteBookTitlesCovariant;
 
-        [DataMember(Name="favoriteBookTitles"), NoDuplicateMembers]
+        [DataMember(Name="favoriteBookTitles"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<ParentFavoriteBookTitle> ParentFavoriteBookTitles
         {
             get { return _parentFavoriteBookTitles; }
@@ -5481,7 +5481,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentStudentProgramAssociation> _parentStudentProgramAssociations;
         private ICollection<Entities.Common.Sample.IParentStudentProgramAssociation> _parentStudentProgramAssociationsCovariant;
 
-        [DataMember(Name="studentProgramAssociations"), NoDuplicateMembers]
+        [DataMember(Name="studentProgramAssociations"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<ParentStudentProgramAssociation> ParentStudentProgramAssociations
         {
             get { return _parentStudentProgramAssociations; }
@@ -6753,14 +6753,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// A boolean indicator of whether the student has completed the CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="cteProgramCompletionIndicator")]
+        [DataMember(Name="cteProgramCompletionIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? CTEProgramCompletionIndicator { get; set; }
 
         /// <summary>
         /// A boolean indicator of whether this CTE program is the student's primary CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryCTEProgramIndicator")]
+        [DataMember(Name="primaryCTEProgramIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryCTEProgramIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -7264,7 +7264,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// An indication as to whether the school is exemplary.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isExemplary")]
+        [DataMember(Name="isExemplary")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? IsExemplary { get; set; }
         // -------------------------------------------------------------
 
@@ -7274,7 +7274,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// <summary>
         /// cteProgram
         /// </summary>
-        [DataMember(Name = "cteProgram")]
+        [DataMember(Name = "cteProgram"), ValidateObject]
         public SchoolCTEProgram SchoolCTEProgram { get; set; }
 
         Entities.Common.Sample.ISchoolCTEProgram Entities.Common.Sample.ISchoolExtension.SchoolCTEProgram
@@ -7311,7 +7311,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         private ICollection<SchoolDirectlyOwnedBus> _schoolDirectlyOwnedBuses;
         private ICollection<Entities.Common.Sample.ISchoolDirectlyOwnedBus> _schoolDirectlyOwnedBusesCovariant;
 
-        [DataMember(Name="directlyOwnedBuses"), NoDuplicateMembers]
+        [DataMember(Name="directlyOwnedBuses"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<SchoolDirectlyOwnedBus> SchoolDirectlyOwnedBuses
         {
             get { return _schoolDirectlyOwnedBuses; }
@@ -7587,7 +7587,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// <summary>
         /// petPreference
         /// </summary>
-        [DataMember(Name = "petPreference")]
+        [DataMember(Name = "petPreference"), ValidateObject]
         public StaffPetPreference StaffPetPreference { get; set; }
 
         Entities.Common.Sample.IStaffPetPreference Entities.Common.Sample.IStaffExtension.StaffPetPreference
@@ -7624,7 +7624,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         private ICollection<StaffPet> _staffPets;
         private ICollection<Entities.Common.Sample.IStaffPet> _staffPetsCovariant;
 
-        [DataMember(Name="pets"), NoDuplicateMembers]
+        [DataMember(Name="pets"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StaffPet> StaffPets
         {
             get { return _staffPets; }
@@ -7897,7 +7897,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// An indication as to whether the pet has been spayed/neutered.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isFixed")]
+        [DataMember(Name="isFixed")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? IsFixed { get; set; }
         // -------------------------------------------------------------
 
@@ -8417,7 +8417,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// An indication as to whether the pet has been spayed/neutered.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isFixed")]
+        [DataMember(Name="isFixed")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? IsFixed { get; set; }
         // -------------------------------------------------------------
 
@@ -8647,7 +8647,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// <summary>
         /// petPreference
         /// </summary>
-        [DataMember(Name = "petPreference")]
+        [DataMember(Name = "petPreference"), ValidateObject]
         public StudentPetPreference StudentPetPreference { get; set; }
 
         Entities.Common.Sample.IStudentPetPreference Entities.Common.Sample.IStudentExtension.StudentPetPreference
@@ -8684,7 +8684,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         private ICollection<StudentAquaticPet> _studentAquaticPets;
         private ICollection<Entities.Common.Sample.IStudentAquaticPet> _studentAquaticPetsCovariant;
 
-        [DataMember(Name="aquaticPets"), NoDuplicateMembers]
+        [DataMember(Name="aquaticPets"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentAquaticPet> StudentAquaticPets
         {
             get { return _studentAquaticPets; }
@@ -8713,7 +8713,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         private ICollection<StudentFavoriteBook> _studentFavoriteBooks;
         private ICollection<Entities.Common.Sample.IStudentFavoriteBook> _studentFavoriteBooksCovariant;
 
-        [DataMember(Name="favoriteBooks"), NoDuplicateMembers]
+        [DataMember(Name="favoriteBooks"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentFavoriteBook> StudentFavoriteBooks
         {
             get { return _studentFavoriteBooks; }
@@ -8742,7 +8742,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         private ICollection<StudentPet> _studentPets;
         private ICollection<Entities.Common.Sample.IStudentPet> _studentPetsCovariant;
 
-        [DataMember(Name="pets"), NoDuplicateMembers]
+        [DataMember(Name="pets"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentPet> StudentPets
         {
             get { return _studentPets; }
@@ -9106,7 +9106,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         private ICollection<StudentFavoriteBookArtMedium> _studentFavoriteBookArtMedia;
         private ICollection<Entities.Common.Sample.IStudentFavoriteBookArtMedium> _studentFavoriteBookArtMediaCovariant;
 
-        [DataMember(Name="artMedia"), NoDuplicateMembers]
+        [DataMember(Name="artMedia"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentFavoriteBookArtMedium> StudentFavoriteBookArtMedia
         {
             get { return _studentFavoriteBookArtMedia; }
@@ -9603,7 +9603,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// An indication as to whether the pet has been spayed/neutered.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isFixed")]
+        [DataMember(Name="isFixed")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? IsFixed { get; set; }
         // -------------------------------------------------------------
 
@@ -10472,7 +10472,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Indicates whether the student received services during the summer session or between sessions.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="servedOutsideOfRegularSession")]
+        [DataMember(Name="servedOutsideOfRegularSession")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? ServedOutsideOfRegularSession { get; set; }
         // -------------------------------------------------------------
 
@@ -10550,7 +10550,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Indicator that the student participated in art education at a private agency or institution.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="privateArtProgram")]
+        [DataMember(Name="privateArtProgram")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool PrivateArtProgram 
         { 
             get => _privateArtProgram;
@@ -10589,7 +10589,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// <summary>
         /// participationStatus
         /// </summary>
-        [DataMember(Name = "participationStatus")]
+        [DataMember(Name = "participationStatus"), ValidateObject]
         public Api.Common.Models.Resources.GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationParticipationStatus GeneralStudentProgramAssociationParticipationStatus { get; set; }
 
         Entities.Common.EdFi.IGeneralStudentProgramAssociationParticipationStatus Entities.Common.EdFi.IGeneralStudentProgramAssociation.GeneralStudentProgramAssociationParticipationStatus
@@ -10606,7 +10606,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         private ICollection<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus> _generalStudentProgramAssociationProgramParticipationStatuses;
         private ICollection<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus> _generalStudentProgramAssociationProgramParticipationStatusesCovariant;
 
-        [DataMember(Name="programParticipationStatuses"), NoDuplicateMembers]
+        [DataMember(Name="programParticipationStatuses"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus> GeneralStudentProgramAssociationProgramParticipationStatuses
         {
             get { return _generalStudentProgramAssociationProgramParticipationStatuses; }
@@ -10641,7 +10641,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         private ICollection<StudentArtProgramAssociationArtMedium> _studentArtProgramAssociationArtMedia;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium> _studentArtProgramAssociationArtMediaCovariant;
 
-        [DataMember(Name="artMedia"), NoDuplicateMembers]
+        [DataMember(Name="artMedia"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentArtProgramAssociationArtMedium> StudentArtProgramAssociationArtMedia
         {
             get { return _studentArtProgramAssociationArtMedia; }
@@ -10670,7 +10670,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         private ICollection<StudentArtProgramAssociationPortfolioYears> _studentArtProgramAssociationPortfolioYears;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears> _studentArtProgramAssociationPortfolioYearsCovariant;
 
-        [DataMember(Name="portfolioYears"), NoDuplicateMembers]
+        [DataMember(Name="portfolioYears"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentArtProgramAssociationPortfolioYears> StudentArtProgramAssociationPortfolioYears
         {
             get { return _studentArtProgramAssociationPortfolioYears; }
@@ -10699,7 +10699,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         private ICollection<StudentArtProgramAssociationService> _studentArtProgramAssociationServices;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationService> _studentArtProgramAssociationServicesCovariant;
 
-        [DataMember(Name="services"), NoDuplicateMembers]
+        [DataMember(Name="services"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentArtProgramAssociationService> StudentArtProgramAssociationServices
         {
             get { return _studentArtProgramAssociationServices; }
@@ -10728,7 +10728,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         private ICollection<StudentArtProgramAssociationStyle> _studentArtProgramAssociationStyles;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationStyle> _studentArtProgramAssociationStylesCovariant;
 
-        [DataMember(Name="styles"), NoDuplicateMembers]
+        [DataMember(Name="styles"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentArtProgramAssociationStyle> StudentArtProgramAssociationStyles
         {
             get { return _studentArtProgramAssociationStyles; }
@@ -11614,7 +11614,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// True if service is a primary service.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryIndicator")]
+        [DataMember(Name="primaryIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryIndicator { get; set; }
 
         /// <summary>
@@ -12068,7 +12068,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
         /// A unique identification code used to identify the student's artwork produced in the program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="analysisCompleted")]
+        [DataMember(Name="analysisCompleted")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? AnalysisCompleted { get; set; }
 
         /// <summary>
@@ -12314,7 +12314,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// An indicator if the address is on a bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="onBusRoute")]
+        [DataMember(Name="onBusRoute")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool OnBusRoute 
         { 
             get => _onBusRoute;
@@ -12366,7 +12366,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         private ICollection<StudentEducationOrganizationAssociationAddressSchoolDistrict> _studentEducationOrganizationAssociationAddressSchoolDistricts;
         private ICollection<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict> _studentEducationOrganizationAssociationAddressSchoolDistrictsCovariant;
 
-        [DataMember(Name="schoolDistricts"), NoDuplicateMembers]
+        [DataMember(Name="schoolDistricts"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentEducationOrganizationAssociationAddressSchoolDistrict> StudentEducationOrganizationAssociationAddressSchoolDistricts
         {
             get { return _studentEducationOrganizationAssociationAddressSchoolDistricts; }
@@ -12395,7 +12395,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         private ICollection<StudentEducationOrganizationAssociationAddressTerm> _studentEducationOrganizationAssociationAddressTerms;
         private ICollection<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm> _studentEducationOrganizationAssociationAddressTermsCovariant;
 
-        [DataMember(Name="terms"), NoDuplicateMembers]
+        [DataMember(Name="terms"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentEducationOrganizationAssociationAddressTerm> StudentEducationOrganizationAssociationAddressTerms
         {
             get { return _studentEducationOrganizationAssociationAddressTerms; }
@@ -13497,7 +13497,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         private ICollection<StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed> _studentEducationOrganizationAssociationStudentCharacteristicStudentNeeds;
         private ICollection<Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed> _studentEducationOrganizationAssociationStudentCharacteristicStudentNeedsCovariant;
 
-        [DataMember(Name="studentNeeds"), NoDuplicateMembers]
+        [DataMember(Name="studentNeeds"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed> StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds
         {
             get { return _studentEducationOrganizationAssociationStudentCharacteristicStudentNeeds; }
@@ -13777,7 +13777,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// Indicates the parent characteristic is a primary student need.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryStudentNeedIndicator")]
+        [DataMember(Name="primaryStudentNeedIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryStudentNeedIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -14387,7 +14387,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// An indication as to whether the plan is active.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isActivePlan")]
+        [DataMember(Name="isActivePlan")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? IsActivePlan { get; set; }
 
         /// <summary>
@@ -14463,7 +14463,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// <summary>
         /// cteProgram
         /// </summary>
-        [DataMember(Name = "cteProgram")]
+        [DataMember(Name = "cteProgram"), ValidateObject]
         public StudentGraduationPlanAssociationCTEProgram StudentGraduationPlanAssociationCTEProgram { get; set; }
 
         Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentGraduationPlanAssociationCTEProgram
@@ -14500,7 +14500,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationAcademicSubject> _studentGraduationPlanAssociationAcademicSubjects;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject> _studentGraduationPlanAssociationAcademicSubjectsCovariant;
 
-        [DataMember(Name="academicSubjects"), NoDuplicateMembers]
+        [DataMember(Name="academicSubjects"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentGraduationPlanAssociationAcademicSubject> StudentGraduationPlanAssociationAcademicSubjects
         {
             get { return _studentGraduationPlanAssociationAcademicSubjects; }
@@ -14529,7 +14529,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationCareerPathwayCode> _studentGraduationPlanAssociationCareerPathwayCodes;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode> _studentGraduationPlanAssociationCareerPathwayCodesCovariant;
 
-        [DataMember(Name="careerPathwayCodes"), NoDuplicateMembers]
+        [DataMember(Name="careerPathwayCodes"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentGraduationPlanAssociationCareerPathwayCode> StudentGraduationPlanAssociationCareerPathwayCodes
         {
             get { return _studentGraduationPlanAssociationCareerPathwayCodes; }
@@ -14558,7 +14558,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationDescription> _studentGraduationPlanAssociationDescriptions;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationDescription> _studentGraduationPlanAssociationDescriptionsCovariant;
 
-        [DataMember(Name="descriptions"), NoDuplicateMembers]
+        [DataMember(Name="descriptions"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentGraduationPlanAssociationDescription> StudentGraduationPlanAssociationDescriptions
         {
             get { return _studentGraduationPlanAssociationDescriptions; }
@@ -14587,7 +14587,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationDesignatedBy> _studentGraduationPlanAssociationDesignatedBies;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy> _studentGraduationPlanAssociationDesignatedBiesCovariant;
 
-        [DataMember(Name="designatedBies"), NoDuplicateMembers]
+        [DataMember(Name="designatedBies"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentGraduationPlanAssociationDesignatedBy> StudentGraduationPlanAssociationDesignatedBies
         {
             get { return _studentGraduationPlanAssociationDesignatedBies; }
@@ -14616,7 +14616,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationIndustryCredential> _studentGraduationPlanAssociationIndustryCredentials;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential> _studentGraduationPlanAssociationIndustryCredentialsCovariant;
 
-        [DataMember(Name="industryCredentials"), NoDuplicateMembers]
+        [DataMember(Name="industryCredentials"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentGraduationPlanAssociationIndustryCredential> StudentGraduationPlanAssociationIndustryCredentials
         {
             get { return _studentGraduationPlanAssociationIndustryCredentials; }
@@ -14645,7 +14645,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationStudentParentAssociation> _studentGraduationPlanAssociationStudentParentAssociations;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation> _studentGraduationPlanAssociationStudentParentAssociationsCovariant;
 
-        [DataMember(Name="studentParentAssociations"), NoDuplicateMembers]
+        [DataMember(Name="studentParentAssociations"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentGraduationPlanAssociationStudentParentAssociation> StudentGraduationPlanAssociationStudentParentAssociations
         {
             get { return _studentGraduationPlanAssociationStudentParentAssociations; }
@@ -14674,7 +14674,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationYearsAttended> _studentGraduationPlanAssociationYearsAttendeds;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended> _studentGraduationPlanAssociationYearsAttendedsCovariant;
 
-        [DataMember(Name="yearsAttendeds"), NoDuplicateMembers]
+        [DataMember(Name="yearsAttendeds"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentGraduationPlanAssociationYearsAttended> StudentGraduationPlanAssociationYearsAttendeds
         {
             get { return _studentGraduationPlanAssociationYearsAttendeds; }
@@ -15610,14 +15610,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// A boolean indicator of whether the student has completed the CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="cteProgramCompletionIndicator")]
+        [DataMember(Name="cteProgramCompletionIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? CTEProgramCompletionIndicator { get; set; }
 
         /// <summary>
         /// A boolean indicator of whether this CTE program is the student's primary CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryCTEProgramIndicator")]
+        [DataMember(Name="primaryCTEProgramIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryCTEProgramIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -17334,7 +17334,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// An indication as to whether the parent regularly reads to the student before bed.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="bedtimeReader")]
+        [DataMember(Name="bedtimeReader")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool BedtimeReader 
         { 
             get => _bedtimeReader;
@@ -17485,7 +17485,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// <summary>
         /// telephone
         /// </summary>
-        [DataMember(Name = "telephone")]
+        [DataMember(Name = "telephone"), ValidateObject]
         public StudentParentAssociationTelephone StudentParentAssociationTelephone { get; set; }
 
         Entities.Common.Sample.IStudentParentAssociationTelephone Entities.Common.Sample.IStudentParentAssociationExtension.StudentParentAssociationTelephone
@@ -17522,7 +17522,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         private ICollection<StudentParentAssociationDiscipline> _studentParentAssociationDisciplines;
         private ICollection<Entities.Common.Sample.IStudentParentAssociationDiscipline> _studentParentAssociationDisciplinesCovariant;
 
-        [DataMember(Name="disciplines"), NoDuplicateMembers]
+        [DataMember(Name="disciplines"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentParentAssociationDiscipline> StudentParentAssociationDisciplines
         {
             get { return _studentParentAssociationDisciplines; }
@@ -17551,7 +17551,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         private ICollection<StudentParentAssociationFavoriteBookTitle> _studentParentAssociationFavoriteBookTitles;
         private ICollection<Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle> _studentParentAssociationFavoriteBookTitlesCovariant;
 
-        [DataMember(Name="favoriteBookTitles"), NoDuplicateMembers]
+        [DataMember(Name="favoriteBookTitles"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentParentAssociationFavoriteBookTitle> StudentParentAssociationFavoriteBookTitles
         {
             get { return _studentParentAssociationFavoriteBookTitles; }
@@ -17580,7 +17580,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         private ICollection<StudentParentAssociationHoursPerWeek> _studentParentAssociationHoursPerWeeks;
         private ICollection<Entities.Common.Sample.IStudentParentAssociationHoursPerWeek> _studentParentAssociationHoursPerWeeksCovariant;
 
-        [DataMember(Name="hoursPerWeeks"), NoDuplicateMembers]
+        [DataMember(Name="hoursPerWeeks"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentParentAssociationHoursPerWeek> StudentParentAssociationHoursPerWeeks
         {
             get { return _studentParentAssociationHoursPerWeeks; }
@@ -17609,7 +17609,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         private ICollection<StudentParentAssociationPagesRead> _studentParentAssociationPagesReads;
         private ICollection<Entities.Common.Sample.IStudentParentAssociationPagesRead> _studentParentAssociationPagesReadsCovariant;
 
-        [DataMember(Name="pagesReads"), NoDuplicateMembers]
+        [DataMember(Name="pagesReads"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentParentAssociationPagesRead> StudentParentAssociationPagesReads
         {
             get { return _studentParentAssociationPagesReads; }
@@ -17638,7 +17638,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         private ICollection<StudentParentAssociationStaffEducationOrganizationEmploymentAssociation> _studentParentAssociationStaffEducationOrganizationEmploymentAssociations;
         private ICollection<Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation> _studentParentAssociationStaffEducationOrganizationEmploymentAssociationsCovariant;
 
-        [DataMember(Name="staffEducationOrganizationEmploymentAssociations"), NoDuplicateMembers]
+        [DataMember(Name="staffEducationOrganizationEmploymentAssociations"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentParentAssociationStaffEducationOrganizationEmploymentAssociation> StudentParentAssociationStaffEducationOrganizationEmploymentAssociations
         {
             get { return _studentParentAssociationStaffEducationOrganizationEmploymentAssociations; }
@@ -19105,7 +19105,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// An indication that the telephone number should not be published.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="doNotPublishIndicator")]
+        [DataMember(Name="doNotPublishIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -19133,7 +19133,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="textMessageCapabilityIndicator")]
+        [DataMember(Name="textMessageCapabilityIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? TextMessageCapabilityIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -19606,7 +19606,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         private ICollection<StudentSectionAssociationRelatedGeneralStudentProgramAssociation> _studentSectionAssociationRelatedGeneralStudentProgramAssociations;
         private ICollection<Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation> _studentSectionAssociationRelatedGeneralStudentProgramAssociationsCovariant;
 
-        [DataMember(Name="relatedGeneralStudentProgramAssociations"), NoDuplicateMembers]
+        [DataMember(Name="relatedGeneralStudentProgramAssociations"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StudentSectionAssociationRelatedGeneralStudentProgramAssociation> StudentSectionAssociationRelatedGeneralStudentProgramAssociations
         {
             get { return _studentSectionAssociationRelatedGeneralStudentProgramAssociations; }

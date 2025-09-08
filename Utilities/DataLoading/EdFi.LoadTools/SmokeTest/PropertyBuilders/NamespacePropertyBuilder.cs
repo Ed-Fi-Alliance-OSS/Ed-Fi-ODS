@@ -27,7 +27,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         {
             var typeName = obj.GetType().Name;
 
-            if (propertyInfo.PropertyType != typeof(string) || propertyInfo.Name != $"Var{EdFiConstants.Namespace}")
+            if (propertyInfo.PropertyType != typeof(string) || propertyInfo.Name != EdFiConstants.Namespace)
             {
                 return false;
             }

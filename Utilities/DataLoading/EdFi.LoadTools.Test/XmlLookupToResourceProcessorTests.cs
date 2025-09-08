@@ -34,14 +34,10 @@ namespace EdFi.LoadTools.Test
             get
             {
                 var result = new Dictionary<string, XElement>
-                             {
-                                 {
-                                     _x2Hs(_hashProvider, _a1Lookup), _a1Identity
-                                 },
-                                 {
-                                     _x2Hs(_hashProvider, _a2Lookup), _a2Identity
-                                 }
-                             };
+                {
+                    { _x2Hs(_hashProvider, _a1Lookup), _a1Identity },
+                    { _x2Hs(_hashProvider, _a2Lookup), _a2Identity }
+                };
 
                 return result;
             }
@@ -69,7 +65,8 @@ namespace EdFi.LoadTools.Test
             var xmlSource = XElement.Parse("<AReference>" + _a1Lookup + "</AReference>");
             var xmlResult = RunProcessorOnInputElement(xmlSource);
             Console.WriteLine($"xmlSource:\r\n {xmlSource}\r\n\r\nxmlResult:\r\n {xmlResult}");
-            Assert.IsNotNull(xmlResult.Element("AIdentity"));
+
+            Assert.That(xmlResult.Element("AIdentity"), Is.Not.Null);
         }
 
         [Test]
@@ -78,7 +75,8 @@ namespace EdFi.LoadTools.Test
             var xmlSource = XElement.Parse("<AReference>" + _a1Identity + "</AReference>");
             var xmlResult = RunProcessorOnInputElement(xmlSource);
             Console.WriteLine($"xmlSource:\r\n {xmlSource}\r\n\r\nxmlResult:\r\n {xmlResult}");
-            Assert.IsFalse(xmlResult.Nodes().Any(x => x.NodeType == XmlNodeType.Comment));
+
+            Assert.That(xmlResult.Nodes().Any(x => x.NodeType == XmlNodeType.Comment), Is.False);
         }
 
         [Test]
@@ -87,8 +85,9 @@ namespace EdFi.LoadTools.Test
             var xmlSource = XElement.Parse("<AReference>" + _a1Identity + _a1Lookup + "</AReference>");
             var xmlResult = RunProcessorOnInputElement(xmlSource);
             Console.WriteLine($"xmlSource:\r\n {xmlSource}\r\n\r\nxmlResult:\r\n {xmlResult}");
+
             var identities = xmlResult.Descendants("AIdentity").ToArray();
-            Assert.IsTrue(identities.All(x => x.PreviousNode == null));
+            Assert.That(identities.All(x => x.PreviousNode == null), Is.True);
         }
 
         [Test]
@@ -97,9 +96,10 @@ namespace EdFi.LoadTools.Test
             var xmlSource = XElement.Parse("<BReference>" + _bLookup + "</BReference>");
             var xmlResult = RunProcessorOnInputElement(xmlSource);
             Console.WriteLine($"xmlSource:\r\n {xmlSource}\r\n\r\nxmlResult:\r\n {xmlResult}");
-            Assert.IsNull(xmlResult.Element("BIdentity"));
-            Assert.IsTrue(xmlResult.Nodes().Any(x => x.NodeType == XmlNodeType.Comment));
-            Assert.IsTrue(xmlResult.ToString().Contains("No BIdentity could be retrieved"));
+
+            Assert.That(xmlResult.Element("BIdentity"), Is.Null);
+            Assert.That(xmlResult.Nodes().Any(x => x.NodeType == XmlNodeType.Comment), Is.True);
+            Assert.That(xmlResult.ToString(), Does.Contain("No BIdentity could be retrieved"));
         }
 
         [Test]
@@ -114,9 +114,10 @@ namespace EdFi.LoadTools.Test
 
             var xmlResult = RunProcessorOnInputElement(xmlSource);
             Console.WriteLine($"xmlSource:\r\n {xmlSource}\r\n\r\nxmlResult:\r\n {xmlResult}");
+
             var identities = xmlResult.Descendants("AIdentity").ToArray();
-            Assert.AreEqual(3, identities.Length);
-            Assert.IsTrue(identities.All(x => x.PreviousNode.NodeType == XmlNodeType.Comment));
+            Assert.That(identities.Length, Is.EqualTo(3));
+            Assert.That(identities.All(x => x.PreviousNode.NodeType == XmlNodeType.Comment), Is.True);
         }
     }
 }

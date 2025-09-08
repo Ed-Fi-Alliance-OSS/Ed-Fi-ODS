@@ -22,115 +22,107 @@ namespace EdFi.LoadTools.Test
         public void Setup()
         {
             var mappings = new[]
-                           {
-                               new MetadataMapping
-                               {
-                                   RootName = "Simple", SourceName = "Abc", TargetName = "alphabet", Properties = new List<PropertyMapping>
-                                                                                                                  {
-                                                                                                                      new PropertyMapping
-                                                                                                                      {
-                                                                                                                          IsArray = false,
-                                                                                                                          SourceName = "A",
-                                                                                                                          SourceType = "String",
-                                                                                                                          TargetName = "a",
-                                                                                                                          TargetType = "string",
-                                                                                                                          MappingStrategy =
-                                                                                                                              new
-                                                                                                                                  CopySimplePropertyMappingStrategy()
-                                                                                                                      },
-                                                                                                                      new PropertyMapping
-                                                                                                                      {
-                                                                                                                          IsArray = false,
-                                                                                                                          SourceName = "B",
-                                                                                                                          SourceType = "String",
-                                                                                                                          TargetName = "b",
-                                                                                                                          TargetType = "string",
-                                                                                                                          MappingStrategy =
-                                                                                                                              new
-                                                                                                                                  CopySimplePropertyMappingStrategy()
-                                                                                                                      },
-                                                                                                                      new PropertyMapping
-                                                                                                                      {
-                                                                                                                          IsArray = false,
-                                                                                                                          SourceName = "C",
-                                                                                                                          SourceType = "String",
-                                                                                                                          TargetName = "c",
-                                                                                                                          TargetType = "string",
-                                                                                                                          MappingStrategy =
-                                                                                                                              new
-                                                                                                                                  CopySimplePropertyMappingStrategy()
-                                                                                                                      }
-                                                                                                                  }
-                               },
-                               new MetadataMapping
-                               {
-                                   RootName = "Descriptor", SourceName = "Foo", TargetName = "foo", Properties = new List<PropertyMapping>
-                                                                                                                 {
-                                                                                                                     new PropertyMapping
-                                                                                                                     {
-                                                                                                                         IsArray = false,
-                                                                                                                         SourceName = "FooDescriptor",
-                                                                                                                         SourceType =
-                                                                                                                             "FooDescriptorReferenceType",
-                                                                                                                         TargetName = "fooDescriptor",
-                                                                                                                         TargetType = "string",
-                                                                                                                         MappingStrategy =
-                                                                                                                             new
-                                                                                                                                 DescriptorReferenceTypeToStringMappingStrategy()
-                                                                                                                     },
-                                                                                                                     new PropertyMapping
-                                                                                                                     {
-                                                                                                                         IsArray = false, SourceName =
-                                                                                                                             "FooDescriptor/Namespace",
-                                                                                                                         SourceType = "String",
-                                                                                                                         TargetName = "{none}",
-                                                                                                                         TargetType = "{none}",
-                                                                                                                         MappingStrategy =
-                                                                                                                             new
-                                                                                                                                 NoOperationMappingStrategy()
-                                                                                                                     },
-                                                                                                                     new PropertyMapping
-                                                                                                                     {
-                                                                                                                         IsArray = false, SourceName =
-                                                                                                                             "FooDescriptor/CodeValue",
-                                                                                                                         SourceType = "String",
-                                                                                                                         TargetName = "{none}",
-                                                                                                                         TargetType = "{none}",
-                                                                                                                         MappingStrategy =
-                                                                                                                             new
-                                                                                                                                 NoOperationMappingStrategy()
-                                                                                                                     }
-                                                                                                                 }
-                               },
-                               new MetadataMapping
-                               {
-                                   RootName = "Array", SourceName = "MyArray", TargetName = "myArray", Properties = new List<PropertyMapping>
-                                                                                                                    {
-                                                                                                                        new PropertyMapping
-                                                                                                                        {
-                                                                                                                            IsArray = true,
-                                                                                                                            SourceName = "A",
-                                                                                                                            SourceType = "String",
-                                                                                                                            TargetName = "a",
-                                                                                                                            TargetType = "string",
-                                                                                                                            MappingStrategy =
-                                                                                                                                new
-                                                                                                                                    ArrayToArrayMappingStrategy()
-                                                                                                                        },
-                                                                                                                        new PropertyMapping
-                                                                                                                        {
-                                                                                                                            IsArray = true,
-                                                                                                                            SourceName = "A/B",
-                                                                                                                            SourceType = "String",
-                                                                                                                            TargetName = "a/b",
-                                                                                                                            TargetType = "string",
-                                                                                                                            MappingStrategy =
-                                                                                                                                new
-                                                                                                                                    CopySimplePropertyMappingStrategy()
-                                                                                                                        }
-                                                                                                                    }
-                               }
-                           };
+            {
+                new MetadataMapping
+                {
+                    RootName = "Simple",
+                    SourceName = "Abc",
+                    TargetName = "alphabet",
+                    Properties = new List<PropertyMapping>
+                    {
+                        new PropertyMapping
+                        {
+                            IsArray = false,
+                            SourceName = "A",
+                            SourceType = "String",
+                            TargetName = "a",
+                            TargetType = "string",
+                            MappingStrategy = new CopySimplePropertyMappingStrategy()
+                        },
+                        new PropertyMapping
+                        {
+                            IsArray = false,
+                            SourceName = "B",
+                            SourceType = "String",
+                            TargetName = "b",
+                            TargetType = "string",
+                            MappingStrategy = new CopySimplePropertyMappingStrategy()
+                        },
+                        new PropertyMapping
+                        {
+                            IsArray = false,
+                            SourceName = "C",
+                            SourceType = "String",
+                            TargetName = "c",
+                            TargetType = "string",
+                            MappingStrategy = new CopySimplePropertyMappingStrategy()
+                        }
+                    }
+                },
+                new MetadataMapping
+                {
+                    RootName = "Descriptor",
+                    SourceName = "Foo",
+                    TargetName = "foo",
+                    Properties = new List<PropertyMapping>
+                    {
+                        new PropertyMapping
+                        {
+                            IsArray = false,
+                            SourceName = "FooDescriptor",
+                            SourceType = "FooDescriptorReferenceType",
+                            TargetName = "fooDescriptor",
+                            TargetType = "string",
+                            MappingStrategy = new DescriptorReferenceTypeToStringMappingStrategy()
+                        },
+                        new PropertyMapping
+                        {
+                            IsArray = false,
+                            SourceName = "FooDescriptor/Namespace",
+                            SourceType = "String",
+                            TargetName = "{none}",
+                            TargetType = "{none}",
+                            MappingStrategy = new NoOperationMappingStrategy()
+                        },
+                        new PropertyMapping
+                        {
+                            IsArray = false,
+                            SourceName = "FooDescriptor/CodeValue",
+                            SourceType = "String",
+                            TargetName = "{none}",
+                            TargetType = "{none}",
+                            MappingStrategy = new NoOperationMappingStrategy()
+                        }
+                    }
+                },
+                new MetadataMapping
+                {
+                    RootName = "Array",
+                    SourceName = "MyArray",
+                    TargetName = "myArray",
+                    Properties = new List<PropertyMapping>
+                    {
+                        new PropertyMapping
+                        {
+                            IsArray = true,
+                            SourceName = "A",
+                            SourceType = "String",
+                            TargetName = "a",
+                            TargetType = "string",
+                            MappingStrategy = new ArrayToArrayMappingStrategy()
+                        },
+                        new PropertyMapping
+                        {
+                            IsArray = true,
+                            SourceName = "A/B",
+                            SourceType = "String",
+                            TargetName = "a/b",
+                            TargetType = "string",
+                            MappingStrategy = new CopySimplePropertyMappingStrategy()
+                        }
+                    }
+                }
+            };
 
             var mappingFactory = new MockMetadataMappingFactory(mappings);
 
@@ -145,20 +137,20 @@ namespace EdFi.LoadTools.Test
                 new XElement("C", "!!!"));
 
             var item = new XmlLookupWorkItem(xelement)
-                       {
-                           ResourceName = "Simple"
-                       };
+            {
+                ResourceName = "Simple"
+            };
 
             Console.WriteLine(item.LookupXElement);
             var success = _mapStep.Process(item).Result;
-            Assert.IsTrue(success);
+            Assert.That(success, Is.True);
             Console.WriteLine(item.GetByExampleXElement);
 
             var expected = new XElement(
                 "alphabet", new XElement("a", "hello"), new XElement("b", "world"),
                 new XElement("c", "!!!"));
 
-            Assert.AreEqual(expected.ToString(), item.GetByExampleXElement.ToString());
+            Assert.That(item.GetByExampleXElement.ToString(), Is.EqualTo(expected.ToString()));
         }
 
         [Test]
@@ -167,16 +159,17 @@ namespace EdFi.LoadTools.Test
             var xelement = new XElement("Foo", new XElement("FooDescriptor", "NameSpace#descriptor"));
 
             var item = new XmlLookupWorkItem(xelement)
-                       {
-                           ResourceName = "Descriptor"
-                       };
+            {
+                ResourceName = "Descriptor"
+            };
 
             Console.WriteLine(item.LookupXElement);
             var success = _mapStep.Process(item).Result;
-            Assert.IsTrue(success);
+            Assert.That(success, Is.True);
             Console.WriteLine(item.GetByExampleXElement);
+
             var expected = new XElement("foo", new XElement("fooDescriptor", "NameSpace#descriptor"));
-            Assert.AreEqual(expected.ToString(), item.GetByExampleXElement.ToString());
+            Assert.That(item.GetByExampleXElement.ToString(), Is.EqualTo(expected.ToString()));
         }
 
         [Test]
@@ -189,13 +182,13 @@ namespace EdFi.LoadTools.Test
                 new XElement("A", new XElement("B", "1"), new XElement("B", "2"), new XElement("B", "3")));
 
             var item = new XmlLookupWorkItem(xelement)
-                       {
-                           ResourceName = "Array"
-                       };
+            {
+                ResourceName = "Array"
+            };
 
             Console.WriteLine(item.LookupXElement);
             var success = _mapStep.Process(item).Result;
-            Assert.IsTrue(success);
+            Assert.That(success, Is.True);
             Console.WriteLine(item.GetByExampleXElement);
 
             var expected = new XElement(
@@ -204,7 +197,7 @@ namespace EdFi.LoadTools.Test
                     "a", new XAttribute(json + "Array", true), new XElement("b", "1"), new XElement("b", "2"),
                     new XElement("b", "3")));
 
-            Assert.AreEqual(expected.ToString(), item.GetByExampleXElement.ToString());
+            Assert.That(item.GetByExampleXElement.ToString(), Is.EqualTo(expected.ToString()));
         }
     }
 }
