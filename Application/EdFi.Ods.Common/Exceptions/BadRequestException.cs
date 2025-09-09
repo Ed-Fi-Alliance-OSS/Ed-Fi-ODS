@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Exceptions
 {
@@ -17,8 +16,5 @@ namespace EdFi.Ods.Common.Exceptions
 
         public BadRequestException(string message, Exception innerException)
             : base(message, innerException) { }
-
-        protected BadRequestException(SerializationInfo info, StreamingContext context)
-            : base(info, context) { }
     }
 }

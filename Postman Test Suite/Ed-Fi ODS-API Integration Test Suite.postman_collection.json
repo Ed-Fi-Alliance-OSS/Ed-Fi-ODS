@@ -6454,7 +6454,7 @@
 													"        return (message === expectedErrorMessage1);\r",
 													"    });\r",
 													"\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required members were not supplied: FiscalYear\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6531,7 +6531,7 @@
 													"        return (message === expectedErrorMessage1);\r",
 													"    });\r",
 													"\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required members were not supplied: FiscalYear\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6608,7 +6608,7 @@
 													"        return (message === expectedErrorMessage1);\r",
 													"    });\r",
 													"\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required members were not supplied: FiscalYear\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6961,7 +6961,7 @@
 													"    const expectedErrorMessage1 = \"The request is invalid.\";\r",
 													"    pm.expect(responseItem.message).to.equal(expectedErrorMessage1);\r",
 													"\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required members were not supplied: FiscalYear\");\r",
 													"\r",
 													"});"
 												],

@@ -675,7 +675,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         private ICollection<ParentAddress> _parentAddresses;
         private ICollection<Entities.Common.Homograph.IParentAddress> _parentAddressesCovariant;
 
-        [DataMember(Name="addresses"), NoDuplicateMembers]
+        [DataMember(Name="addresses"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<ParentAddress> ParentAddresses
         {
             get { return _parentAddresses; }
@@ -704,7 +704,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         private ICollection<ParentStudentSchoolAssociation> _parentStudentSchoolAssociations;
         private ICollection<Entities.Common.Homograph.IParentStudentSchoolAssociation> _parentStudentSchoolAssociationsCovariant;
 
-        [DataMember(Name="studentSchoolAssociations"), NoDuplicateMembers]
+        [DataMember(Name="studentSchoolAssociations"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<ParentStudentSchoolAssociation> ParentStudentSchoolAssociations
         {
             get { return _parentStudentSchoolAssociations; }
@@ -1734,7 +1734,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// <summary>
         /// address
         /// </summary>
-        [DataMember(Name = "address")]
+        [DataMember(Name = "address"), ValidateObject]
         public SchoolAddress SchoolAddress { get; set; }
 
         Entities.Common.Homograph.ISchoolAddress Entities.Common.Homograph.ISchool.SchoolAddress
@@ -2705,7 +2705,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         private ICollection<StaffAddress> _staffAddresses;
         private ICollection<Entities.Common.Homograph.IStaffAddress> _staffAddressesCovariant;
 
-        [DataMember(Name="addresses"), NoDuplicateMembers]
+        [DataMember(Name="addresses"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StaffAddress> StaffAddresses
         {
             get { return _staffAddresses; }
@@ -2734,7 +2734,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         private ICollection<StaffStudentSchoolAssociation> _staffStudentSchoolAssociations;
         private ICollection<Entities.Common.Homograph.IStaffStudentSchoolAssociation> _staffStudentSchoolAssociationsCovariant;
 
-        [DataMember(Name="studentSchoolAssociations"), NoDuplicateMembers]
+        [DataMember(Name="studentSchoolAssociations"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<StaffStudentSchoolAssociation> StaffStudentSchoolAssociations
         {
             get { return _staffStudentSchoolAssociations; }
@@ -3855,7 +3855,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// <summary>
         /// address
         /// </summary>
-        [DataMember(Name = "address")]
+        [DataMember(Name = "address"), ValidateObject]
         public StudentAddress StudentAddress { get; set; }
 
         Entities.Common.Homograph.IStudentAddress Entities.Common.Homograph.IStudent.StudentAddress

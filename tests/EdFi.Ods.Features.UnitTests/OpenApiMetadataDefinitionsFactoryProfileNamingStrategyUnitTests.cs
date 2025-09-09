@@ -8,7 +8,7 @@ using FakeItEasy;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
-using Assert = NUnit.Framework.Assert;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Features.UnitTests
 {

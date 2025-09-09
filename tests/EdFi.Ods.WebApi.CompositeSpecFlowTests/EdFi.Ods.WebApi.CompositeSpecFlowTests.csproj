@@ -3,7 +3,7 @@
     <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>EdFi.Ods.WebApi.CompositeSpecFlowTests</RootNamespace>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
     <RestorePackages>true</RestorePackages>
@@ -11,7 +11,6 @@
     <IsTestProject>true</IsTestProject>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
@@ -33,35 +32,35 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.1.21" />
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.1.9" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.1.38" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.1.14" />
       </ItemGroup>
     </Otherwise>
   </Choose>
- <Target Name="CopyDirectory" AfterTargets="AfterBuild"  Condition=" '$(StandardVersion)' == '5.0.0' ">
+  <Target Name="CopyDirectory" AfterTargets="AfterBuild" Condition=" '$(StandardVersion)' == '5.0.0' ">
+    <ItemGroup>
+      <MySourceDirectory Include="$(MSBuildProjectDirectory)\5.0.0\**\*" />
+      <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />
+    </ItemGroup>
+    <Copy SourceFiles="@(MySourceDirectory)" DestinationFiles="@(MySourceDirectory->'$(MSBuildProjectDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+  <Target Name="CopyDirectory" AfterTargets="AfterBuild" Condition=" '$(StandardVersion)' == '4.0.0' ">
+    <ItemGroup>
+      <MySourceDirectory Include="$(MSBuildProjectDirectory)\4.0.0\**\*" />
+      <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />
+    </ItemGroup>
+    <Copy SourceFiles="@(MySourceDirectory)" DestinationFiles="@(MySourceDirectory->'$(MSBuildProjectDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
   <ItemGroup>
-    <MySourceDirectory Include="$(MSBuildProjectDirectory)\5.0.0\**\*" />
-    <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />  
-  </ItemGroup>
-  <Copy SourceFiles="@(MySourceDirectory)" DestinationFiles="@(MySourceDirectory->'$(MSBuildProjectDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
-</Target>
- <Target Name="CopyDirectory" AfterTargets="AfterBuild"  Condition=" '$(StandardVersion)' == '4.0.0' ">
-  <ItemGroup>
-    <MySourceDirectory Include="$(MSBuildProjectDirectory)\4.0.0\**\*" />
-    <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />  
-  </ItemGroup>
-  <Copy SourceFiles="@(MySourceDirectory)" DestinationFiles="@(MySourceDirectory->'$(MSBuildProjectDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
-</Target>	
-  <ItemGroup>
-    <PackageReference Include="ApprovalTests" Version="5.8.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
-    <PackageReference Include="NUnit" Version="3.13.3" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.3.1">
+    <PackageReference Include="ApprovalTests" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="NUnit" Version="4.0.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.36" />
-    <PackageReference Include="Shouldly" Version="4.1.0" />
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.39" />
+    <PackageReference Include="Shouldly" Version="4.2.1" />
     <PackageReference Include="SpecFlow" Version="3.9.74" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.9.74" />
   </ItemGroup>

@@ -4,14 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Exceptions
 {
     /// <summary>
     /// Thrown when a problem is detected in the API security configuration that prevents API requests from safely being served.
     /// </summary>
-    [Serializable]
     public class ApiSecurityConfigurationException : Exception
     {
         // For guidelines regarding the creation of new exception types, see
@@ -26,12 +24,6 @@ namespace EdFi.Ods.Common.Exceptions
         }
 
         public ApiSecurityConfigurationException(string message, Exception inner) : base(message, inner)
-        {
-        }
-
-        protected ApiSecurityConfigurationException(
-            SerializationInfo info,
-            StreamingContext context) : base(info, context)
         {
         }
     }

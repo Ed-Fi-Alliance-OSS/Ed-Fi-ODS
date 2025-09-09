@@ -28,10 +28,5 @@ namespace EdFi.Ods.Api.OperationalContext.PersonIdentification
 
         public NoUniqueIdMatchException(string message, Exception inner)
             : base(message, inner) { }
-
-        protected NoUniqueIdMatchException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }

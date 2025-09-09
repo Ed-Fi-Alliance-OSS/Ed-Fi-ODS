@@ -5,7 +5,7 @@
   <PropertyGroup>
     <PackageId>EdFi.Suite3.Ods.Standard</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Standard</AssemblyName>
     <RootNamespace>EdFi.Ods.Standard</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -18,12 +18,12 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="NHibernate" Version="5.4.9" />
+    <PackageReference Include="NHibernate" Version="5.5.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />

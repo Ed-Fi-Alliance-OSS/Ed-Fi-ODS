@@ -4,11 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Exceptions
 {
-    [Serializable]
     public class DistributedCacheException : Exception
     {
         // For guidelines regarding the creation of new exception types, see
@@ -21,11 +19,6 @@ namespace EdFi.Ods.Common.Exceptions
 
         public DistributedCacheException(string message, Exception inner)
             : base(message, inner) { }
-
-        protected DistributedCacheException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 
     [Serializable]
@@ -35,5 +28,13 @@ namespace EdFi.Ods.Common.Exceptions
 
         public SafeDistributedCacheException(string message)
             : base(message) { }
+        
+        public SafeDistributedCacheException() : base()
+        {
+        }
+
+        public SafeDistributedCacheException(string message, Exception inner) : base(message, inner)
+        {
+        }
     }
 }

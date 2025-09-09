@@ -854,9 +854,9 @@ namespace {{ResourceClassesNamespace}}
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}{{#IsBooleanProperty}}[JsonConverter(typeof(StrictBooleanConverter))]{{/IsBooleanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} 
         { 
-        [DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}{{#IsBooleanProperty}}[JsonConverter(typeof(StrictBooleanConverter))]{{/IsBooleanProperty}}
             get => _{{PropertyFieldName}};
             set 
             { 
