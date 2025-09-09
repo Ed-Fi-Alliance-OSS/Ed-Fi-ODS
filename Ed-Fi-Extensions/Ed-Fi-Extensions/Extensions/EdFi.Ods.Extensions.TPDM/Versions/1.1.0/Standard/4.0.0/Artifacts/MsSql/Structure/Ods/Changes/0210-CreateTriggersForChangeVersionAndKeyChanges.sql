@@ -113,10 +113,17 @@ GO
 CREATE TRIGGER [tpdm].[tpdm_EvaluationRating_TR_UpdateChangeVersion] ON [tpdm].[EvaluationRating] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [tpdm].[EvaluationRating]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    UPDATE u
+    SET 
+        ChangeVersion = NEXT VALUE FOR [changes].[ChangeVersionSequence],
+        LastModifiedDate = 
+            CASE 
+                WHEN i.LastModifiedDate = d.LastModifiedDate THEN GETUTCDATE()
+                ELSE i.LastModifiedDate
+            END
     FROM [tpdm].[EvaluationRating] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+    INNER JOIN inserted i ON i.Id = u.Id
+    INNER JOIN deleted d ON d.Id = u.Id;
 END	
 GO
 
