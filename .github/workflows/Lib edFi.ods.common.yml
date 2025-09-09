@@ -7,7 +7,7 @@ name: Lib EdFi.Ods.Common
 
 on:
   pull_request:
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: [main, 'b-v*-patch*']
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}

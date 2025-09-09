@@ -7,7 +7,7 @@ name: Pkg EdFi.Ods.Populated.Template.PostgreSQL
 
 on:
   push:
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: [main, 'b-v*-patch*']
   workflow_dispatch:
     inputs:
       distinct_id:

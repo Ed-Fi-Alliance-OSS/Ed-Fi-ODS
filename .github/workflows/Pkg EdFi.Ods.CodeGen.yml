@@ -2,9 +2,9 @@ name: Pkg EdFi.Ods.CodeGen
 
 on:
   pull_request:
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: [main, 'b-v*-patch*']
   push:
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: [main, 'b-v*-patch*']
   workflow_dispatch:
     inputs:
       distinct_id:
