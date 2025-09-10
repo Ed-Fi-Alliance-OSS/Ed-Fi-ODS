@@ -33,7 +33,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
             Debug.WriteLine(json);
 
             var results = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
-
+            results["applicationName"].ShouldBe(ApiVersionConstants.ApplicationName);
             results["version"].ShouldBe(ApiVersionConstants.Version);
             results["informationalVersion"].ShouldBe(ApiVersionConstants.Version);
             results["suite"].ShouldBe(ApiVersionConstants.Suite);

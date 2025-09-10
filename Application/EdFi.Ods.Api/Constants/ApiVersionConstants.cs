@@ -10,6 +10,11 @@ namespace EdFi.Ods.Api.Constants
     public static class ApiVersionConstants
     {
         /// <summary>
+        /// Application name of the ods api.
+        /// </summary>
+        public const string ApplicationName = "Ed-Fi Alliance ODS/API";
+
+        /// <summary>
         /// Current version of the ods api.
         /// </summary>
         public const string Ods = "3";

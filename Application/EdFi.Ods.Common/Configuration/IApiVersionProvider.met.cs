@@ -7,6 +7,8 @@ namespace EdFi.Ods.Common.Configuration
 {
     public interface IApiVersionProvider
     {
+        string ApplicationName { get; }
+
         string Version { get; }
 
         string InformationalVersion { get; }
