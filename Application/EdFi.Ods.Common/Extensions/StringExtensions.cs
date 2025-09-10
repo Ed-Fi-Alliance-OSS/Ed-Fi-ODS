@@ -36,4 +36,19 @@ public static class StringExtensions
             ArrayPool<byte>.Shared.Return(buffer);
         }
     }
+    
+    public static string ReplaceFirstOccurrence(this string s, string find, string replace)
+    {
+        if (!s.Contains(find))
+        {
+            return s;
+        }
+
+        int place = s.IndexOf(find, StringComparison.Ordinal);
+
+        string result = s.Remove(place, find.Length)
+            .Insert(place, replace);
+
+        return result;
+    }
 }

@@ -140,6 +140,9 @@ namespace EdFi.Ods.Common.Database.Querying
             return With(cteRawSql, nestedTemplate.Parameters);
         }
 
+        public SqlBuilder CrossJoin(string sql, string dialectKeywords, dynamic parameters = null) =>
+            AddClause("crossjoin", sql, parameters, $"\n{dialectKeywords} (", $"\n{dialectKeywords} ", "\n", false);
+
         /// <summary>
         /// Clones the intrinsic state and immutable clauses contained within this instance.
         /// </summary>

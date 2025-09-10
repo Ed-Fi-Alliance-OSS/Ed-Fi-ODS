@@ -69,5 +69,10 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         /// </summary>
         /// <returns>2100</returns>
         public override int GetMaxParameterCount() => 2100;
+
+        public override (string keywords, string aliasedExpression) GetCrossJoinString(string expression, string alias, string[] columnNames = null)
+        {
+            return ("CROSS APPLY", $"{expression} AS {alias}{(columnNames == null ? string.Empty : $"({string.Join(", ", columnNames)})")}");
+        }
     }
 }
