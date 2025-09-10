@@ -587,28 +587,16 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AddressTypeDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationInternationalAddressQ> EducationOrganizationInternationalAddresses  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressQ> StaffAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryAddressQ> StaffDirectoryAddresses  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryInternationalAddressQ> StaffDirectoryInternationalAddresses  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffInternationalAddressQ> StaffInternationalAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryAddressQ> StudentDirectoryAddresses  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryInternationalAddressQ> StudentDirectoryInternationalAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressQ> StudentEducationOrganizationAssociationAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationInternationalAddressQ> StudentEducationOrganizationAssociationInternationalAddresses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -779,16 +767,10 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AncestryEthnicOriginDescripto
 
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffAncestryEthnicOriginQ> StaffAncestryEthnicOrigins  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicAncestryEthnicOriginQ> StaffDemographicAncestryEthnicOrigins  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicAncestryEthnicOriginQ> StudentDemographicAncestryEthnicOrigins  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAncestryEthnicOriginQ> StudentEducationOrganizationAssociationAncestryEthnicOrigins  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -4724,7 +4706,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi
         public virtual ICollection<CandidateDisabilityQ> CandidateDisabilities { get; set; }
         public virtual ICollection<CandidateElectronicMailQ> CandidateElectronicMails { get; set; }
         public virtual ICollection<CandidateEPPProgramDegreeQ> CandidateEPPProgramDegrees { get; set; }
-        public virtual ICollection<CandidateIdentificationCodeQ> CandidateIdentificationCodes { get; set; }
         public virtual ICollection<CandidateIdentificationDocumentQ> CandidateIdentificationDocuments { get; set; }
         public virtual ICollection<CandidateIndicatorQ> CandidateIndicators { get; set; }
         public virtual ICollection<CandidateInternationalAddressQ> CandidateInternationalAddresses { get; set; }
@@ -4746,7 +4727,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.CandidateEducatorPreparationProgramAssociationAggregate.EdFi.CandidateEducatorPreparationProgramAssociationQ> CandidateEducatorPreparationProgramAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.CandidateIdentityAggregate.EdFi.CandidateIdentityQ> CandidateIdentities  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.CandidateIdentificationCodeAggregate.EdFi.CandidateIdentificationCodeQ> CandidateIdentificationCodes  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.CandidateRelationshipToStaffAssociationAggregate.EdFi.CandidateRelationshipToStaffAssociationQ> CandidateRelationshipToStaffAssociations  { get; set; }
@@ -5146,53 +5127,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi
         protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EPPDegreeTypeDescriptorAggregate.EdFi.EPPDegreeTypeDescriptorQ EPPDegreeTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.CandidateIdentificationCode table of the Candidate aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class CandidateIdentificationCodeQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateQ Candidate { get; set; }
-        [DomainSignature]
-        public virtual string AssigningOrganizationIdentificationCode { get; set; }
-        [DomainSignature]
-        public virtual string IdentificationCode { get; set; }
-        [DomainSignature]
-        public virtual int StudentIdentificationSystemDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptorQ StudentIdentificationSystemDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -5910,59 +5844,17 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateEducatorPreparationP
         // -------------------------------------------------------------
     }
 }
-// Aggregate: CandidateIdentificationSystemDescriptor
+// Aggregate: CandidateIdentificationCode
 
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentificationSystemDescriptorAggregate.EdFi
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentificationCodeAggregate.EdFi
 {
 
     /// <summary>
-    /// A class which represents the edfi.CandidateIdentificationSystemDescriptor table of the CandidateIdentificationSystemDescriptor aggregate in the ODS database.
+    /// A class which represents the edfi.CandidateIdentificationCode table of the CandidateIdentificationCode aggregate in the ODS database.
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class CandidateIdentificationSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual int CandidateIdentificationSystemDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.CandidateIdentityAggregate.EdFi.CandidateIdentityQ> CandidateIdentities  { get; set; }
-    #pragma warning restore 114
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: CandidateIdentity
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentityAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.CandidateIdentity table of the CandidateIdentity aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class CandidateIdentityQ : AggregateRootWithCompositeKey
+    public class CandidateIdentificationCodeQ : AggregateRootWithCompositeKey
     {
 
         // =============================================================
@@ -6003,6 +5895,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentityAggregate.Ed
         protected virtual NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateQ Candidate { get; set; }
         protected virtual NHibernate.QueryModels.CandidateIdentificationSystemDescriptorAggregate.EdFi.CandidateIdentificationSystemDescriptorQ CandidateIdentificationSystemDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: CandidateIdentificationSystemDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentificationSystemDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.CandidateIdentificationSystemDescriptor table of the CandidateIdentificationSystemDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class CandidateIdentificationSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int CandidateIdentificationSystemDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.CandidateIdentificationCodeAggregate.EdFi.CandidateIdentificationCodeQ> CandidateIdentificationCodes  { get; set; }
+    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -6946,13 +6880,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CitizenshipStatusDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicQ> StaffDemographics  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ> Staffs  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicQ> StudentDemographics  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ> Students  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -7673,7 +7601,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactAggregate.EdFi
 
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.ContactIdentityAggregate.EdFi.ContactIdentityQ> ContactIdentities  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCodeQ> ContactIdentificationCodes  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentContactAssociationAggregate.EdFi.StudentContactAssociationQ> StudentContactAssociations  { get; set; }
@@ -8128,59 +8056,17 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactAggregate.EdFi
         // -------------------------------------------------------------
     }
 }
-// Aggregate: ContactIdentificationSystemDescriptor
+// Aggregate: ContactIdentificationCode
 
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentificationSystemDescriptorAggregate.EdFi
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentificationCodeAggregate.EdFi
 {
 
     /// <summary>
-    /// A class which represents the edfi.ContactIdentificationSystemDescriptor table of the ContactIdentificationSystemDescriptor aggregate in the ODS database.
+    /// A class which represents the edfi.ContactIdentificationCode table of the ContactIdentificationCode aggregate in the ODS database.
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class ContactIdentificationSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual int ContactIdentificationSystemDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.ContactIdentityAggregate.EdFi.ContactIdentityQ> ContactIdentities  { get; set; }
-    #pragma warning restore 114
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: ContactIdentity
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentityAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.ContactIdentity table of the ContactIdentity aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class ContactIdentityQ : AggregateRootWithCompositeKey
+    public class ContactIdentificationCodeQ : AggregateRootWithCompositeKey
     {
 
         // =============================================================
@@ -8221,6 +8107,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentityAggregate.EdFi
         protected virtual NHibernate.QueryModels.ContactAggregate.EdFi.ContactQ Contact { get; set; }
         protected virtual NHibernate.QueryModels.ContactIdentificationSystemDescriptorAggregate.EdFi.ContactIdentificationSystemDescriptorQ ContactIdentificationSystemDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ContactIdentificationSystemDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentificationSystemDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ContactIdentificationSystemDescriptor table of the ContactIdentificationSystemDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ContactIdentificationSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int ContactIdentificationSystemDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCodeQ> ContactIdentificationCodes  { get; set; }
+    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -8505,12 +8433,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CountryDescriptorAggregate.Ed
         protected virtual ICollection<NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryInternationalAddressQ> StaffDirectoryInternationalAddresses  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationDocumentQ> StaffIdentificationDocuments  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffInternationalAddressQ> StaffInternationalAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffPersonalIdentificationDocumentQ> StaffPersonalIdentificationDocuments  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -8518,12 +8440,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CountryDescriptorAggregate.Ed
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryInternationalAddressQ> StudentDirectoryInternationalAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationInternationalAddressQ> StudentEducationOrganizationAssociationInternationalAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentIdentificationDocumentQ> StudentIdentificationDocuments  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentPersonalIdentificationDocumentQ> StudentPersonalIdentificationDocuments  { get; set; }
@@ -10961,9 +10877,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDescriptorAggregate
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicDisabilityQ> StudentDemographicDisabilities  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityQ> StudentEducationOrganizationAssociationDisabilities  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationDisabilityQ> StudentSpecialEducationProgramAssociationDisabilities  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
@@ -11018,9 +10931,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDesignationDescript
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicDisabilityDesignationQ> StudentDemographicDisabilityDesignations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityDesignationQ> StudentEducationOrganizationAssociationDisabilityDesignations  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationDisabilityDesignationQ> StudentSpecialEducationProgramAssociationDisabilityDesignations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
@@ -11073,9 +10983,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDeterminationSource
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicDisabilityQ> StudentDemographicDisabilities  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityQ> StudentEducationOrganizationAssociationDisabilities  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationDisabilityQ> StudentSpecialEducationProgramAssociationDisabilities  { get; set; }
@@ -12264,7 +12171,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         // -------------------------------------------------------------
         public virtual ICollection<EducationOrganizationAddressQ> EducationOrganizationAddresses { get; set; }
         public virtual ICollection<EducationOrganizationCategoryQ> EducationOrganizationCategories { get; set; }
-        public virtual ICollection<EducationOrganizationIdentificationCodeQ> EducationOrganizationIdentificationCodes { get; set; }
         public virtual ICollection<EducationOrganizationIndicatorQ> EducationOrganizationIndicators { get; set; }
         public virtual ICollection<EducationOrganizationInstitutionTelephoneQ> EducationOrganizationInstitutionTelephones { get; set; }
         public virtual ICollection<EducationOrganizationInternationalAddressQ> EducationOrganizationInternationalAddresses { get; set; }
@@ -12298,7 +12204,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ> Assessments  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.CandidateIdentityAggregate.EdFi.CandidateIdentityQ> CandidateIdentities  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.CandidateIdentificationCodeAggregate.EdFi.CandidateIdentificationCodeQ> CandidateIdentificationCodes  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.CertificationExamAggregate.EdFi.CertificationExamQ> CertificationExams  { get; set; }
@@ -12316,7 +12222,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.CompetencyObjectiveAggregate.EdFi.CompetencyObjectiveQ> CompetencyObjectives  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.ContactIdentityAggregate.EdFi.ContactIdentityQ> ContactIdentities  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCodeQ> ContactIdentificationCodes  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.CourseAggregate.EdFi.CourseQ> Courses  { get; set; }
@@ -12325,7 +12231,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptQ> CourseTranscripts  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationIdentityAggregate.EdFi.EducationOrganizationIdentityQ> EducationOrganizationIdentities  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationIdentificationCodeAggregate.EdFi.EducationOrganizationIdentificationCodeQ> EducationOrganizationIdentificationCodes  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationInterventionPrescriptionAssociationAggregate.EdFi.EducationOrganizationInterventionPrescriptionAssociationQ> EducationOrganizationInterventionPrescriptionAssociations  { get; set; }
@@ -12400,7 +12306,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationQ> StaffEducationOrganizationEmploymentAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffIdentityAggregate.EdFi.StaffIdentityQ> StaffIdentities  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.StaffIdentificationCodeAggregate.EdFi.StaffIdentificationCodeQ> StaffIdentificationCodes  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordQ> StudentAcademicRecords  { get; set; }
@@ -12427,7 +12333,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthQ> StudentHealths  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentIdentityAggregate.EdFi.StudentIdentityQ> StudentIdentities  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.StudentIdentificationCodeAggregate.EdFi.StudentIdentificationCodeQ> StudentIdentificationCodes  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentProgramAttendanceEventAggregate.EdFi.StudentProgramAttendanceEventQ> StudentProgramAttendanceEvents  { get; set; }
@@ -12606,50 +12512,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.EducationOrganizationCategoryDescriptorAggregate.EdFi.EducationOrganizationCategoryDescriptorQ EducationOrganizationCategoryDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.EducationOrganizationIdentificationCode table of the EducationOrganization aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationIdentificationCodeQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
-        [DomainSignature]
-        public virtual int EducationOrganizationIdentificationSystemDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual string IdentificationCode  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptorQ EducationOrganizationIdentificationSystemDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -12925,62 +12787,17 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationCategory
         // -------------------------------------------------------------
     }
 }
-// Aggregate: EducationOrganizationIdentificationSystemDescriptor
+// Aggregate: EducationOrganizationIdentificationCode
 
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentificationCodeAggregate.EdFi
 {
 
     /// <summary>
-    /// A class which represents the edfi.EducationOrganizationIdentificationSystemDescriptor table of the EducationOrganizationIdentificationSystemDescriptor aggregate in the ODS database.
+    /// A class which represents the edfi.EducationOrganizationIdentificationCode table of the EducationOrganizationIdentificationCode aggregate in the ODS database.
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class EducationOrganizationIdentificationSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual int EducationOrganizationIdentificationSystemDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIdentificationCodeQ> EducationOrganizationIdentificationCodes  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationIdentityAggregate.EdFi.EducationOrganizationIdentityQ> EducationOrganizationIdentities  { get; set; }
-    #pragma warning restore 114
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: EducationOrganizationIdentity
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentityAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.EducationOrganizationIdentity table of the EducationOrganizationIdentity aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationIdentityQ : AggregateRootWithCompositeKey
+    public class EducationOrganizationIdentificationCodeQ : AggregateRootWithCompositeKey
     {
 
         // =============================================================
@@ -13018,6 +12835,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentity
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptorQ EducationOrganizationIdentificationSystemDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: EducationOrganizationIdentificationSystemDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIdentificationSystemDescriptor table of the EducationOrganizationIdentificationSystemDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIdentificationSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int EducationOrganizationIdentificationSystemDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationIdentificationCodeAggregate.EdFi.EducationOrganizationIdentificationCodeQ> EducationOrganizationIdentificationCodes  { get; set; }
+    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -13514,13 +13373,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ElectronicMailTypeDescriptorA
         protected virtual ICollection<NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryElectronicMailQ> StaffDirectoryElectronicMails  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffElectronicMailQ> StaffElectronicMails  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryElectronicMailQ> StudentDirectoryElectronicMails  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationElectronicMailQ> StudentEducationOrganizationAssociationElectronicMails  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -17481,16 +17334,10 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IdentificationDocumentUseDesc
         protected virtual ICollection<NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicIdentificationDocumentQ> StaffDemographicIdentificationDocuments  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationDocumentQ> StaffIdentificationDocuments  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffPersonalIdentificationDocumentQ> StaffPersonalIdentificationDocuments  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicIdentificationDocumentQ> StudentDemographicIdentificationDocuments  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentIdentificationDocumentQ> StudentIdentificationDocuments  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentPersonalIdentificationDocumentQ> StudentPersonalIdentificationDocuments  { get; set; }
@@ -19390,16 +19237,10 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LanguageDescriptorAggregate.E
         protected virtual ICollection<NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicLanguageQ> StaffDemographicLanguages  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffLanguageQ> StaffLanguages  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ> StudentAssessments  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicLanguageQ> StudentDemographicLanguages  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageQ> StudentEducationOrganizationAssociationLanguages  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -19495,13 +19336,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LanguageUseDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicLanguageUseQ> StaffDemographicLanguageUses  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffLanguageUseQ> StaffLanguageUses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicLanguageUseQ> StudentDemographicLanguageUses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageUseQ> StudentEducationOrganizationAssociationLanguageUses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -20221,9 +20056,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LimitedEnglishProficiencyDesc
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicQ> StudentDemographics  { get; set; }
     #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
-    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -20560,16 +20392,10 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocaleDescriptorAggregate.EdF
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationAddressQ> EducationOrganizationAddresses  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressQ> StaffAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryAddressQ> StaffDirectoryAddresses  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryAddressQ> StudentDirectoryAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressQ> StudentEducationOrganizationAssociationAddresses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -23474,16 +23300,10 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PersonalInformationVerificati
         protected virtual ICollection<NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicIdentificationDocumentQ> StaffDemographicIdentificationDocuments  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationDocumentQ> StaffIdentificationDocuments  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffPersonalIdentificationDocumentQ> StaffPersonalIdentificationDocuments  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicIdentificationDocumentQ> StudentDemographicIdentificationDocuments  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentIdentificationDocumentQ> StudentIdentificationDocuments  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentPersonalIdentificationDocumentQ> StudentPersonalIdentificationDocuments  { get; set; }
@@ -25838,13 +25658,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RaceDescriptorAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicRaceQ> StaffDemographicRaces  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffRaceQ> StaffRaces  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicRaceQ> StudentDemographicRaces  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationRaceQ> StudentEducationOrganizationAssociationRaces  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -29074,13 +28888,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SexDescriptorAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicQ> StaffDemographics  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ> Staffs  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicQ> StudentDemographics  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ> Students  { get; set; }
@@ -29381,14 +29189,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         //                          Properties
         // -------------------------------------------------------------
         public virtual DateTime? BirthDate  { get; set; }
-        public virtual int? CitizenshipStatusDescriptorId  { get; set; }
         public virtual long? EducationOrganizationId  { get; set; }
         public virtual string FirstName  { get; set; }
-        public virtual string GenderIdentity  { get; set; }
         public virtual string GenerationCodeSuffix  { get; set; }
         public virtual int? HighestCompletedLevelOfEducationDescriptorId  { get; set; }
         public virtual bool? HighlyQualifiedTeacher  { get; set; }
-        public virtual bool? HispanicLatinoEthnicity  { get; set; }
         public virtual string LastSurname  { get; set; }
         public virtual string LoginId  { get; set; }
         public virtual string MaidenName  { get; set; }
@@ -29398,7 +29203,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         public virtual string PreferredFirstName  { get; set; }
         public virtual string PreferredLastSurname  { get; set; }
         public virtual string RequisitionNumber  { get; set; }
-        public virtual int? SexDescriptorId  { get; set; }
         public virtual int? SourceSystemDescriptorId  { get; set; }
         public virtual string StaffUniqueId  { get; set; }
         public virtual decimal? YearsOfPriorProfessionalExperience  { get; set; }
@@ -29414,23 +29218,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // =============================================================
         //                          Collections
         // -------------------------------------------------------------
-        public virtual ICollection<StaffAddressQ> StaffAddresses { get; set; }
-        public virtual ICollection<StaffAncestryEthnicOriginQ> StaffAncestryEthnicOrigins { get; set; }
         public virtual ICollection<StaffCredentialQ> StaffCredentials { get; set; }
         public virtual ICollection<StaffEducatorPreparationProgramQ> StaffEducatorPreparationPrograms { get; set; }
-        public virtual ICollection<StaffElectronicMailQ> StaffElectronicMails { get; set; }
         public virtual ICollection<StaffHighlyQualifiedAcademicSubjectQ> StaffHighlyQualifiedAcademicSubjects { get; set; }
-        public virtual ICollection<StaffIdentificationCodeQ> StaffIdentificationCodes { get; set; }
-        public virtual ICollection<StaffIdentificationDocumentQ> StaffIdentificationDocuments { get; set; }
-        public virtual ICollection<StaffInternationalAddressQ> StaffInternationalAddresses { get; set; }
-        public virtual ICollection<StaffLanguageQ> StaffLanguages { get; set; }
         public virtual ICollection<StaffOtherNameQ> StaffOtherNames { get; set; }
         public virtual ICollection<StaffPersonalIdentificationDocumentQ> StaffPersonalIdentificationDocuments { get; set; }
-        public virtual ICollection<StaffRaceQ> StaffRaces { get; set; }
         public virtual ICollection<StaffRecognitionQ> StaffRecognitions { get; set; }
-        public virtual ICollection<StaffTelephoneQ> StaffTelephones { get; set; }
-        public virtual ICollection<StaffTribalAffiliationQ> StaffTribalAffiliations { get; set; }
-        public virtual ICollection<StaffVisaQ> StaffVisas { get; set; }
 
         // -------------------------------------------------------------
 
@@ -29485,7 +29278,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StaffEducatorPreparationProgramAssociationAggregate.EdFi.StaffEducatorPreparationProgramAssociationQ> StaffEducatorPreparationProgramAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffIdentityAggregate.EdFi.StaffIdentityQ> StaffIdentities  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.StaffIdentificationCodeAggregate.EdFi.StaffIdentificationCodeQ> StaffIdentificationCodes  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffLeaveAggregate.EdFi.StaffLeaveQ> StaffLeaves  { get; set; }
@@ -29519,158 +29312,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
     #pragma warning restore 114
 
         // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ CitizenshipStatusDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.LevelOfEducationDescriptorAggregate.EdFi.LevelOfEducationDescriptorQ HighestCompletedLevelOfEducationDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.OpenStaffPositionAggregate.EdFi.OpenStaffPositionQ OpenStaffPosition { get; set; }
         protected virtual NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ Person { get; set; }
-        protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffAddress table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffAddressQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual int AddressTypeDescriptorId { get; set; }
-        [DomainSignature]
-        public virtual string City { get; set; }
-        [DomainSignature]
-        public virtual string PostalCode { get; set; }
-        [DomainSignature]
-        public virtual int StateAbbreviationDescriptorId { get; set; }
-        [DomainSignature]
-        public virtual string StreetNumberName { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual string ApartmentRoomSuiteNumber  { get; set; }
-        public virtual string BuildingSiteNumber  { get; set; }
-        public virtual string CongressionalDistrict  { get; set; }
-        public virtual string CountyFIPSCode  { get; set; }
-        public virtual bool? DoNotPublishIndicator  { get; set; }
-        public virtual string Latitude  { get; set; }
-        public virtual int? LocaleDescriptorId  { get; set; }
-        public virtual string Longitude  { get; set; }
-        public virtual string NameOfCounty  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        public virtual ICollection<StaffAddressPeriodQ> StaffAddressPeriods { get; set; }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ AddressTypeDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi.LocaleDescriptorQ LocaleDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ StateAbbreviationDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffAddressPeriod table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffAddressPeriodQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressQ StaffAddress { get; set; }
-        [DomainSignature]
-        public virtual DateTime BeginDate { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual DateTime? EndDate  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffAncestryEthnicOrigin table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffAncestryEthnicOriginQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual int AncestryEthnicOriginDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AncestryEthnicOriginDescriptorAggregate.EdFi.AncestryEthnicOriginDescriptorQ AncestryEthnicOriginDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -29808,53 +29452,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
     }
 
     /// <summary>
-    /// A class which represents the edfi.StaffElectronicMail table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffElectronicMailQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual string ElectronicMailAddress { get; set; }
-        [DomainSignature]
-        public virtual int ElectronicMailTypeDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual bool? DoNotPublishIndicator  { get; set; }
-        public virtual bool? PrimaryEmailAddressIndicator  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.ElectronicMailTypeDescriptorAggregate.EdFi.ElectronicMailTypeDescriptorQ ElectronicMailTypeDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
     /// A class which represents the edfi.StaffHighlyQualifiedAcademicSubject table of the Staff aggregate in the ODS database.
     /// </summary>
     [Serializable]
@@ -29894,243 +29491,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffIdentificationCode table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffIdentificationCodeQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual int StaffIdentificationSystemDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual string AssigningOrganizationIdentificationCode  { get; set; }
-        public virtual string IdentificationCode  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.StaffIdentificationSystemDescriptorAggregate.EdFi.StaffIdentificationSystemDescriptorQ StaffIdentificationSystemDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffIdentificationDocument table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffIdentificationDocumentQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual int IdentificationDocumentUseDescriptorId { get; set; }
-        [DomainSignature]
-        public virtual int PersonalInformationVerificationDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual DateTime? DocumentExpirationDate  { get; set; }
-        public virtual string DocumentTitle  { get; set; }
-        public virtual int? IssuerCountryDescriptorId  { get; set; }
-        public virtual string IssuerDocumentIdentificationCode  { get; set; }
-        public virtual string IssuerName  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.IdentificationDocumentUseDescriptorAggregate.EdFi.IdentificationDocumentUseDescriptorQ IdentificationDocumentUseDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ IssuerCountryDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ PersonalInformationVerificationDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffInternationalAddress table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffInternationalAddressQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual int AddressTypeDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual string AddressLine1  { get; set; }
-        public virtual string AddressLine2  { get; set; }
-        public virtual string AddressLine3  { get; set; }
-        public virtual string AddressLine4  { get; set; }
-        public virtual DateTime? BeginDate  { get; set; }
-        public virtual int CountryDescriptorId  { get; set; }
-        public virtual DateTime? EndDate  { get; set; }
-        public virtual string Latitude  { get; set; }
-        public virtual string Longitude  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ AddressTypeDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ CountryDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffLanguage table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffLanguageQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual int LanguageDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        public virtual ICollection<StaffLanguageUseQ> StaffLanguageUses { get; set; }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi.LanguageDescriptorQ LanguageDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffLanguageUse table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffLanguageUseQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffLanguageQ StaffLanguage { get; set; }
-        [DomainSignature]
-        public virtual int LanguageUseDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.LanguageUseDescriptorAggregate.EdFi.LanguageUseDescriptorQ LanguageUseDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -30235,49 +29595,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
     }
 
     /// <summary>
-    /// A class which represents the edfi.StaffRace table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffRaceQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual int RaceDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.RaceDescriptorAggregate.EdFi.RaceDescriptorQ RaceDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
     /// A class which represents the edfi.StaffRecognition table of the Staff aggregate in the ODS database.
     /// </summary>
     [Serializable]
@@ -30330,140 +29647,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AchievementCategoryDescriptorAggregate.EdFi.AchievementCategoryDescriptorQ AchievementCategoryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.RecognitionTypeDescriptorAggregate.EdFi.RecognitionTypeDescriptorQ RecognitionTypeDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffTelephone table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffTelephoneQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual string TelephoneNumber { get; set; }
-        [DomainSignature]
-        public virtual int TelephoneNumberTypeDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual bool? DoNotPublishIndicator  { get; set; }
-        public virtual int? OrderOfPriority  { get; set; }
-        public virtual bool? TextMessageCapabilityIndicator  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptorQ TelephoneNumberTypeDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffTribalAffiliation table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffTribalAffiliationQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual int TribalAffiliationDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.TribalAffiliationDescriptorAggregate.EdFi.TribalAffiliationDescriptorQ TribalAffiliationDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StaffVisa table of the Staff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffVisaQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
-        [DomainSignature]
-        public virtual int VisaDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.VisaDescriptorAggregate.EdFi.VisaDescriptorQ VisaDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -31738,62 +30921,17 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducatorPreparationProgr
         // -------------------------------------------------------------
     }
 }
-// Aggregate: StaffIdentificationSystemDescriptor
+// Aggregate: StaffIdentificationCode
 
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentificationSystemDescriptorAggregate.EdFi
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentificationCodeAggregate.EdFi
 {
 
     /// <summary>
-    /// A class which represents the edfi.StaffIdentificationSystemDescriptor table of the StaffIdentificationSystemDescriptor aggregate in the ODS database.
+    /// A class which represents the edfi.StaffIdentificationCode table of the StaffIdentificationCode aggregate in the ODS database.
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class StaffIdentificationSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual int StaffIdentificationSystemDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationCodeQ> StaffIdentificationCodes  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffIdentityAggregate.EdFi.StaffIdentityQ> StaffIdentities  { get; set; }
-    #pragma warning restore 114
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: StaffIdentity
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentityAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.StaffIdentity table of the StaffIdentity aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StaffIdentityQ : AggregateRootWithCompositeKey
+    public class StaffIdentificationCodeQ : AggregateRootWithCompositeKey
     {
 
         // =============================================================
@@ -31834,6 +30972,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentityAggregate.EdFi
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         protected virtual NHibernate.QueryModels.StaffIdentificationSystemDescriptorAggregate.EdFi.StaffIdentificationSystemDescriptorQ StaffIdentificationSystemDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: StaffIdentificationSystemDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentificationSystemDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.StaffIdentificationSystemDescriptor table of the StaffIdentificationSystemDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StaffIdentificationSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int StaffIdentificationSystemDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StaffIdentificationCodeAggregate.EdFi.StaffIdentificationCodeQ> StaffIdentificationCodes  { get; set; }
+    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -32299,16 +31479,10 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StateAbbreviationDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.InterventionStudyAggregate.EdFi.InterventionStudyStateAbbreviationQ> InterventionStudyStateAbbreviations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressQ> StaffAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryAddressQ> StaffDirectoryAddresses  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryAddressQ> StudentDirectoryAddresses  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressQ> StudentEducationOrganizationAssociationAddresses  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ> Students  { get; set; }
@@ -32475,7 +31649,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         public virtual string BirthInternationalProvince  { get; set; }
         public virtual int? BirthSexDescriptorId  { get; set; }
         public virtual int? BirthStateAbbreviationDescriptorId  { get; set; }
-        public virtual int? CitizenshipStatusDescriptorId  { get; set; }
         public virtual DateTime? DateEnteredUS  { get; set; }
         public virtual string FirstName  { get; set; }
         public virtual string GenerationCodeSuffix  { get; set; }
@@ -32494,10 +31667,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         // =============================================================
         //                          Collections
         // -------------------------------------------------------------
-        public virtual ICollection<StudentIdentificationDocumentQ> StudentIdentificationDocuments { get; set; }
         public virtual ICollection<StudentOtherNameQ> StudentOtherNames { get; set; }
         public virtual ICollection<StudentPersonalIdentificationDocumentQ> StudentPersonalIdentificationDocuments { get; set; }
-        public virtual ICollection<StudentVisaQ> StudentVisas { get; set; }
 
         // -------------------------------------------------------------
 
@@ -32570,7 +31741,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthQ> StudentHealths  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentIdentityAggregate.EdFi.StudentIdentityQ> StudentIdentities  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.StudentIdentificationCodeAggregate.EdFi.StudentIdentificationCodeQ> StudentIdentificationCodes  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentInterventionAssociationAggregate.EdFi.StudentInterventionAssociationQ> StudentInterventionAssociations  { get; set; }
@@ -32613,60 +31784,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ BirthCountryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ BirthSexDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ BirthStateAbbreviationDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ CitizenshipStatusDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ Person { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentIdentificationDocument table of the Student aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentIdentificationDocumentQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
-        [DomainSignature]
-        public virtual int IdentificationDocumentUseDescriptorId { get; set; }
-        [DomainSignature]
-        public virtual int PersonalInformationVerificationDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual DateTime? DocumentExpirationDate  { get; set; }
-        public virtual string DocumentTitle  { get; set; }
-        public virtual int? IssuerCountryDescriptorId  { get; set; }
-        public virtual string IssuerDocumentIdentificationCode  { get; set; }
-        public virtual string IssuerName  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.IdentificationDocumentUseDescriptorAggregate.EdFi.IdentificationDocumentUseDescriptorQ IdentificationDocumentUseDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ IssuerCountryDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ PersonalInformationVerificationDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -32767,49 +31885,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         protected virtual NHibernate.QueryModels.IdentificationDocumentUseDescriptorAggregate.EdFi.IdentificationDocumentUseDescriptorQ IdentificationDocumentUseDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ IssuerCountryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ PersonalInformationVerificationDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentVisa table of the Student aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentVisaQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
-        [DomainSignature]
-        public virtual int VisaDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.VisaDescriptorAggregate.EdFi.VisaDescriptorQ VisaDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -34048,7 +33123,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCharacteristicDescript
         protected virtual ICollection<NHibernate.QueryModels.ApplicantProfileAggregate.EdFi.ApplicantProfileApplicantCharacteristicQ> ApplicantProfileApplicantCharacteristics  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentCharacteristicQ> StudentEducationOrganizationAssociationStudentCharacteristics  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicStudentCharacteristicQ> StudentDemographicStudentCharacteristics  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -34535,6 +33610,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.E
         public virtual ICollection<StudentDemographicIdentificationDocumentQ> StudentDemographicIdentificationDocuments { get; set; }
         public virtual ICollection<StudentDemographicLanguageQ> StudentDemographicLanguages { get; set; }
         public virtual ICollection<StudentDemographicRaceQ> StudentDemographicRaces { get; set; }
+        public virtual ICollection<StudentDemographicStudentCharacteristicQ> StudentDemographicStudentCharacteristics { get; set; }
         public virtual ICollection<StudentDemographicTribalAffiliationQ> StudentDemographicTribalAffiliations { get; set; }
         public virtual ICollection<StudentDemographicVisaQ> StudentDemographicVisas { get; set; }
 
@@ -34873,6 +33949,92 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.E
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.RaceDescriptorAggregate.EdFi.RaceDescriptorQ RaceDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentDemographicStudentCharacteristic table of the StudentDemographic aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentDemographicStudentCharacteristicQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicQ StudentDemographic { get; set; }
+        [DomainSignature]
+        public virtual int StudentCharacteristicDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string DesignatedBy  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<StudentDemographicStudentCharacteristicPeriodQ> StudentDemographicStudentCharacteristicPeriods { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.StudentCharacteristicDescriptorAggregate.EdFi.StudentCharacteristicDescriptorQ StudentCharacteristicDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentDemographicStudentCharacteristicPeriod table of the StudentDemographic aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentDemographicStudentCharacteristicPeriodQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicStudentCharacteristicQ StudentDemographicStudentCharacteristic { get; set; }
+        [DomainSignature]
+        public virtual DateTime BeginDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual DateTime? EndDate  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
         // -------------------------------------------------------------
     }
 
@@ -35640,38 +34802,22 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         //                          Properties
         // -------------------------------------------------------------
         public virtual int? BarrierToInternetAccessInResidenceDescriptorId  { get; set; }
-        public virtual string GenderIdentity  { get; set; }
-        public virtual bool? HispanicLatinoEthnicity  { get; set; }
         public virtual bool? InternetAccessInResidence  { get; set; }
         public virtual int? InternetAccessTypeInResidenceDescriptorId  { get; set; }
         public virtual int? InternetPerformanceInResidenceDescriptorId  { get; set; }
-        public virtual int? LimitedEnglishProficiencyDescriptorId  { get; set; }
         public virtual string LoginId  { get; set; }
         public virtual int? PrimaryLearningDeviceAccessDescriptorId  { get; set; }
         public virtual int? PrimaryLearningDeviceAwayFromSchoolDescriptorId  { get; set; }
         public virtual int? PrimaryLearningDeviceProviderDescriptorId  { get; set; }
         public virtual string ProfileThumbnail  { get; set; }
-        public virtual int? SexDescriptorId  { get; set; }
-        public virtual int? SupporterMilitaryConnectionDescriptorId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
         // -------------------------------------------------------------
-        public virtual ICollection<StudentEducationOrganizationAssociationAddressQ> StudentEducationOrganizationAssociationAddresses { get; set; }
-        public virtual ICollection<StudentEducationOrganizationAssociationAncestryEthnicOriginQ> StudentEducationOrganizationAssociationAncestryEthnicOrigins { get; set; }
         public virtual ICollection<StudentEducationOrganizationAssociationCohortYearQ> StudentEducationOrganizationAssociationCohortYears { get; set; }
-        public virtual ICollection<StudentEducationOrganizationAssociationDisabilityQ> StudentEducationOrganizationAssociationDisabilities { get; set; }
         public virtual ICollection<StudentEducationOrganizationAssociationDisplacedStudentQ> StudentEducationOrganizationAssociationDisplacedStudents { get; set; }
-        public virtual ICollection<StudentEducationOrganizationAssociationElectronicMailQ> StudentEducationOrganizationAssociationElectronicMails { get; set; }
-        public virtual ICollection<StudentEducationOrganizationAssociationInternationalAddressQ> StudentEducationOrganizationAssociationInternationalAddresses { get; set; }
-        public virtual ICollection<StudentEducationOrganizationAssociationLanguageQ> StudentEducationOrganizationAssociationLanguages { get; set; }
-        public virtual ICollection<StudentEducationOrganizationAssociationRaceQ> StudentEducationOrganizationAssociationRaces { get; set; }
-        public virtual ICollection<StudentEducationOrganizationAssociationStudentCharacteristicQ> StudentEducationOrganizationAssociationStudentCharacteristics { get; set; }
-        public virtual ICollection<StudentEducationOrganizationAssociationStudentIdentificationCodeQ> StudentEducationOrganizationAssociationStudentIdentificationCodes { get; set; }
         public virtual ICollection<StudentEducationOrganizationAssociationStudentIndicatorQ> StudentEducationOrganizationAssociationStudentIndicators { get; set; }
-        public virtual ICollection<StudentEducationOrganizationAssociationTelephoneQ> StudentEducationOrganizationAssociationTelephones { get; set; }
-        public virtual ICollection<StudentEducationOrganizationAssociationTribalAffiliationQ> StudentEducationOrganizationAssociationTribalAffiliations { get; set; }
 
         // -------------------------------------------------------------
 
@@ -35684,160 +34830,10 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.InternetAccessTypeInResidenceDescriptorAggregate.EdFi.InternetAccessTypeInResidenceDescriptorQ InternetAccessTypeInResidenceDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptorQ InternetPerformanceInResidenceDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.LimitedEnglishProficiencyDescriptorAggregate.EdFi.LimitedEnglishProficiencyDescriptorQ LimitedEnglishProficiencyDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptorQ PrimaryLearningDeviceAccessDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptorQ PrimaryLearningDeviceAwayFromSchoolDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptorQ PrimaryLearningDeviceProviderDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
-        protected virtual NHibernate.QueryModels.SupporterMilitaryConnectionDescriptorAggregate.EdFi.SupporterMilitaryConnectionDescriptorQ SupporterMilitaryConnectionDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationAddress table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationAddressQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual int AddressTypeDescriptorId { get; set; }
-        [DomainSignature]
-        public virtual string City { get; set; }
-        [DomainSignature]
-        public virtual string PostalCode { get; set; }
-        [DomainSignature]
-        public virtual int StateAbbreviationDescriptorId { get; set; }
-        [DomainSignature]
-        public virtual string StreetNumberName { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual string ApartmentRoomSuiteNumber  { get; set; }
-        public virtual string BuildingSiteNumber  { get; set; }
-        public virtual string CongressionalDistrict  { get; set; }
-        public virtual string CountyFIPSCode  { get; set; }
-        public virtual bool? DoNotPublishIndicator  { get; set; }
-        public virtual string Latitude  { get; set; }
-        public virtual int? LocaleDescriptorId  { get; set; }
-        public virtual string Longitude  { get; set; }
-        public virtual string NameOfCounty  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        public virtual ICollection<StudentEducationOrganizationAssociationAddressPeriodQ> StudentEducationOrganizationAssociationAddressPeriods { get; set; }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ AddressTypeDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi.LocaleDescriptorQ LocaleDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ StateAbbreviationDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationAddressPeriod table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationAddressPeriodQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressQ StudentEducationOrganizationAssociationAddress { get; set; }
-        [DomainSignature]
-        public virtual DateTime BeginDate { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual DateTime? EndDate  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationAncestryEthnicOriginQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual int AncestryEthnicOriginDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AncestryEthnicOriginDescriptorAggregate.EdFi.AncestryEthnicOriginDescriptorQ AncestryEthnicOriginDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -35890,97 +34886,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
     }
 
     /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationDisability table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationDisabilityQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual int DisabilityDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? DisabilityDeterminationSourceTypeDescriptorId  { get; set; }
-        public virtual string DisabilityDiagnosis  { get; set; }
-        public virtual int? OrderOfDisability  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        public virtual ICollection<StudentEducationOrganizationAssociationDisabilityDesignationQ> StudentEducationOrganizationAssociationDisabilityDesignations { get; set; }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.DisabilityDescriptorAggregate.EdFi.DisabilityDescriptorQ DisabilityDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.DisabilityDeterminationSourceTypeDescriptorAggregate.EdFi.DisabilityDeterminationSourceTypeDescriptorQ DisabilityDeterminationSourceTypeDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationDisabilityDesignation table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationDisabilityDesignationQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityQ StudentEducationOrganizationAssociationDisability { get; set; }
-        [DomainSignature]
-        public virtual int DisabilityDesignationDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.DisabilityDesignationDescriptorAggregate.EdFi.DisabilityDesignationDescriptorQ DisabilityDesignationDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationDisplacedStudent table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
     /// </summary>
     [Serializable]
@@ -36025,368 +34930,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CrisisEventAggregate.EdFi.CrisisEventQ CrisisEvent { get; set; }
         protected virtual NHibernate.QueryModels.DisplacedStudentStatusDescriptorAggregate.EdFi.DisplacedStudentStatusDescriptorQ DisplacedStudentStatusDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationElectronicMail table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationElectronicMailQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual string ElectronicMailAddress { get; set; }
-        [DomainSignature]
-        public virtual int ElectronicMailTypeDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual bool? DoNotPublishIndicator  { get; set; }
-        public virtual bool? PrimaryEmailAddressIndicator  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.ElectronicMailTypeDescriptorAggregate.EdFi.ElectronicMailTypeDescriptorQ ElectronicMailTypeDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationInternationalAddress table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationInternationalAddressQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual int AddressTypeDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual string AddressLine1  { get; set; }
-        public virtual string AddressLine2  { get; set; }
-        public virtual string AddressLine3  { get; set; }
-        public virtual string AddressLine4  { get; set; }
-        public virtual DateTime? BeginDate  { get; set; }
-        public virtual int CountryDescriptorId  { get; set; }
-        public virtual DateTime? EndDate  { get; set; }
-        public virtual string Latitude  { get; set; }
-        public virtual string Longitude  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ AddressTypeDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ CountryDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationLanguage table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationLanguageQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual int LanguageDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        public virtual ICollection<StudentEducationOrganizationAssociationLanguageUseQ> StudentEducationOrganizationAssociationLanguageUses { get; set; }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi.LanguageDescriptorQ LanguageDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationLanguageUse table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationLanguageUseQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageQ StudentEducationOrganizationAssociationLanguage { get; set; }
-        [DomainSignature]
-        public virtual int LanguageUseDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.LanguageUseDescriptorAggregate.EdFi.LanguageUseDescriptorQ LanguageUseDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationRace table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationRaceQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual int RaceDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.RaceDescriptorAggregate.EdFi.RaceDescriptorQ RaceDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationStudentCharacteristic table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationStudentCharacteristicQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual int StudentCharacteristicDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual string DesignatedBy  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        public virtual ICollection<StudentEducationOrganizationAssociationStudentCharacteristicPeriodQ> StudentEducationOrganizationAssociationStudentCharacteristicPeriods { get; set; }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.StudentCharacteristicDescriptorAggregate.EdFi.StudentCharacteristicDescriptorQ StudentCharacteristicDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationStudentCharacteristicPeriod table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationStudentCharacteristicPeriodQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentCharacteristicQ StudentEducationOrganizationAssociationStudentCharacteristic { get; set; }
-        [DomainSignature]
-        public virtual DateTime BeginDate { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual DateTime? EndDate  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationStudentIdentificationCode table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationStudentIdentificationCodeQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual string AssigningOrganizationIdentificationCode { get; set; }
-        [DomainSignature]
-        public virtual int StudentIdentificationSystemDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual string IdentificationCode  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptorQ StudentIdentificationSystemDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -36472,97 +35015,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // =============================================================
         //              External references for HQL Queries
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationTelephone table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationTelephoneQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual string TelephoneNumber { get; set; }
-        [DomainSignature]
-        public virtual int TelephoneNumberTypeDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual bool? DoNotPublishIndicator  { get; set; }
-        public virtual int? OrderOfPriority  { get; set; }
-        public virtual bool? TextMessageCapabilityIndicator  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptorQ TelephoneNumberTypeDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.StudentEducationOrganizationAssociationTribalAffiliation table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationTribalAffiliationQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
-        [DomainSignature]
-        public virtual int TribalAffiliationDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.TribalAffiliationDescriptorAggregate.EdFi.TribalAffiliationDescriptorQ TribalAffiliationDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -37002,65 +35454,17 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentHomelessProgramAssocia
         // -------------------------------------------------------------
     }
 }
-// Aggregate: StudentIdentificationSystemDescriptor
+// Aggregate: StudentIdentificationCode
 
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationSystemDescriptorAggregate.EdFi
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationCodeAggregate.EdFi
 {
 
     /// <summary>
-    /// A class which represents the edfi.StudentIdentificationSystemDescriptor table of the StudentIdentificationSystemDescriptor aggregate in the ODS database.
+    /// A class which represents the edfi.StudentIdentificationCode table of the StudentIdentificationCode aggregate in the ODS database.
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class StudentIdentificationSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual int StudentIdentificationSystemDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateIdentificationCodeQ> CandidateIdentificationCodes  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentIdentificationCodeQ> StudentEducationOrganizationAssociationStudentIdentificationCodes  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentIdentityAggregate.EdFi.StudentIdentityQ> StudentIdentities  { get; set; }
-    #pragma warning restore 114
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: StudentIdentity
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentityAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.StudentIdentity table of the StudentIdentity aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentIdentityQ : AggregateRootWithCompositeKey
+    public class StudentIdentificationCodeQ : AggregateRootWithCompositeKey
     {
 
         // =============================================================
@@ -37101,6 +35505,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentityAggregate.EdFi
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         protected virtual NHibernate.QueryModels.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptorQ StudentIdentificationSystemDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: StudentIdentificationSystemDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationSystemDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.StudentIdentificationSystemDescriptor table of the StudentIdentificationSystemDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentIdentificationSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int StudentIdentificationSystemDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentIdentificationCodeAggregate.EdFi.StudentIdentificationCodeQ> StudentIdentificationCodes  { get; set; }
+    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -39662,9 +38108,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SupporterMilitaryConnectionDe
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicQ> StudentDemographics  { get; set; }
     #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
-    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -41130,13 +39573,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TelephoneNumberTypeDescriptor
         protected virtual ICollection<NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryTelephoneQ> StaffDirectoryTelephones  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffTelephoneQ> StaffTelephones  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryTelephoneQ> StudentDirectoryTelephones  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationTelephoneQ> StudentEducationOrganizationAssociationTelephones  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -41538,13 +39975,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TribalAffiliationDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicTribalAffiliationQ> StaffDemographicTribalAffiliations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffTribalAffiliationQ> StaffTribalAffiliations  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicTribalAffiliationQ> StudentDemographicTribalAffiliations  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationTribalAffiliationQ> StudentEducationOrganizationAssociationTribalAffiliations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -41595,13 +40026,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.VisaDescriptorAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicVisaQ> StaffDemographicVisas  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffVisaQ> StaffVisas  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicVisaQ> StudentDemographicVisas  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentVisaQ> StudentVisas  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
