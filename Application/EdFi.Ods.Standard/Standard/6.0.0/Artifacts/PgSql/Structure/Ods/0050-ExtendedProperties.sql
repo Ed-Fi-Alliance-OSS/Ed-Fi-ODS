@@ -837,11 +837,12 @@ COMMENT ON COLUMN edfi.CandidateEPPProgramDegree.EPPDegreeTypeDescriptorId IS 'A
 COMMENT ON COLUMN edfi.CandidateEPPProgramDegree.GradeLevelDescriptorId IS 'The grade level associated with the degree plan for the candidate.';
 
 -- Extended Properties [edfi].[CandidateIdentificationCode] --
-COMMENT ON TABLE edfi.CandidateIdentificationCode IS 'A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a candidate.';
+COMMENT ON TABLE edfi.CandidateIdentificationCode IS 'This entity holds different identity codes for a candidate.';
+COMMENT ON COLUMN edfi.CandidateIdentificationCode.CandidateIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping.';
 COMMENT ON COLUMN edfi.CandidateIdentificationCode.CandidateIdentifier IS 'A unique alphanumeric code assigned to a candidate.';
-COMMENT ON COLUMN edfi.CandidateIdentificationCode.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the StudentIdentificationCode.';
-COMMENT ON COLUMN edfi.CandidateIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code assigned to a person by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN edfi.CandidateIdentificationCode.StudentIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a candidate.';
+COMMENT ON COLUMN edfi.CandidateIdentificationCode.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.CandidateIdentificationCode.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the IdentificationCode.';
+COMMENT ON COLUMN edfi.CandidateIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code assigned to an individual by a school, LEA, SEA, or other agency.';
 
 -- Extended Properties [edfi].[CandidateIdentificationDocument] --
 COMMENT ON TABLE edfi.CandidateIdentificationDocument IS 'Describe the documentation of citizenship.';
@@ -857,14 +858,6 @@ COMMENT ON COLUMN edfi.CandidateIdentificationDocument.IssuerName IS 'Name of th
 -- Extended Properties [edfi].[CandidateIdentificationSystemDescriptor] --
 COMMENT ON TABLE edfi.CandidateIdentificationSystemDescriptor IS 'This descriptor defines the originating record system and code that is used for record-keeping purposes of the student.';
 COMMENT ON COLUMN edfi.CandidateIdentificationSystemDescriptor.CandidateIdentificationSystemDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [edfi].[CandidateIdentity] --
-COMMENT ON TABLE edfi.CandidateIdentity IS 'This entity holds different identity codes for a candidate.';
-COMMENT ON COLUMN edfi.CandidateIdentity.CandidateIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping.';
-COMMENT ON COLUMN edfi.CandidateIdentity.CandidateIdentifier IS 'A unique alphanumeric code assigned to a candidate.';
-COMMENT ON COLUMN edfi.CandidateIdentity.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.CandidateIdentity.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the IdentificationCode.';
-COMMENT ON COLUMN edfi.CandidateIdentity.IdentificationCode IS 'A unique number or alphanumeric code assigned to an individual by a school, LEA, SEA, or other agency.';
 
 -- Extended Properties [edfi].[CandidateIndicator] --
 COMMENT ON TABLE edfi.CandidateIndicator IS 'Indicator(s) or metric(s) computed for the candidate.';
@@ -1217,17 +1210,17 @@ COMMENT ON COLUMN edfi.ContactElectronicMail.ElectronicMailTypeDescriptorId IS '
 COMMENT ON COLUMN edfi.ContactElectronicMail.DoNotPublishIndicator IS 'An indication that the electronic email address should not be published.';
 COMMENT ON COLUMN edfi.ContactElectronicMail.PrimaryEmailAddressIndicator IS 'An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.';
 
+-- Extended Properties [edfi].[ContactIdentificationCode] --
+COMMENT ON TABLE edfi.ContactIdentificationCode IS 'This entity holds different identity codes for a contact.';
+COMMENT ON COLUMN edfi.ContactIdentificationCode.ContactIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping.';
+COMMENT ON COLUMN edfi.ContactIdentificationCode.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactIdentificationCode.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.ContactIdentificationCode.AssigningOrganizationIdentificationCode IS 'the organization code or name assigning the IdentificationCode.';
+COMMENT ON COLUMN edfi.ContactIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code assigned to an individual by a school, LEA, SEA, or other agency.';
+
 -- Extended Properties [edfi].[ContactIdentificationSystemDescriptor] --
 COMMENT ON TABLE edfi.ContactIdentificationSystemDescriptor IS 'This descriptor defines the originating record system and code that is used for record-keeping purposes of the contact.';
 COMMENT ON COLUMN edfi.ContactIdentificationSystemDescriptor.ContactIdentificationSystemDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [edfi].[ContactIdentity] --
-COMMENT ON TABLE edfi.ContactIdentity IS 'This entity holds different identity codes for a contact.';
-COMMENT ON COLUMN edfi.ContactIdentity.ContactIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping.';
-COMMENT ON COLUMN edfi.ContactIdentity.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
-COMMENT ON COLUMN edfi.ContactIdentity.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.ContactIdentity.AssigningOrganizationIdentificationCode IS 'the organization code or name assigning the IdentificationCode.';
-COMMENT ON COLUMN edfi.ContactIdentity.IdentificationCode IS 'A unique number or alphanumeric code assigned to an individual by a school, LEA, SEA, or other agency.';
 
 -- Extended Properties [edfi].[ContactInternationalAddress] --
 COMMENT ON TABLE edfi.ContactInternationalAddress IS 'The set of elements that describes an international address.';
@@ -1913,21 +1906,15 @@ COMMENT ON TABLE edfi.EducationOrganizationCategoryDescriptor IS 'The classifica
 COMMENT ON COLUMN edfi.EducationOrganizationCategoryDescriptor.EducationOrganizationCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[EducationOrganizationIdentificationCode] --
-COMMENT ON TABLE edfi.EducationOrganizationIdentificationCode IS 'A unique number or alphanumeric code assigned to an education organization by a school, school system, a state, or other agency or entity.';
+COMMENT ON TABLE edfi.EducationOrganizationIdentificationCode IS 'This entity holds different identity codes for an education organization.';
 COMMENT ON COLUMN edfi.EducationOrganizationIdentificationCode.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.EducationOrganizationIdentificationCode.EducationOrganizationIdentificationSystemDescriptorId IS 'The school system, state, or agency assigning the identification code.';
-COMMENT ON COLUMN edfi.EducationOrganizationIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code that is assigned to an education organization by a school, school system, state, or other agency or entity.';
+COMMENT ON COLUMN edfi.EducationOrganizationIdentificationCode.EducationOrganizationIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping.';
+COMMENT ON COLUMN edfi.EducationOrganizationIdentificationCode.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the IdentificationCode.';
+COMMENT ON COLUMN edfi.EducationOrganizationIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code assigned to an education organization by an SEA or other agency.';
 
 -- Extended Properties [edfi].[EducationOrganizationIdentificationSystemDescriptor] --
 COMMENT ON TABLE edfi.EducationOrganizationIdentificationSystemDescriptor IS 'This descriptor defines the originating record system and code that is used for record-keeping purposes by education organizations.';
 COMMENT ON COLUMN edfi.EducationOrganizationIdentificationSystemDescriptor.EducationOrganizationIdentificationSystemDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [edfi].[EducationOrganizationIdentity] --
-COMMENT ON TABLE edfi.EducationOrganizationIdentity IS 'This entity holds different identity codes for an education organization.';
-COMMENT ON COLUMN edfi.EducationOrganizationIdentity.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.EducationOrganizationIdentity.EducationOrganizationIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping.';
-COMMENT ON COLUMN edfi.EducationOrganizationIdentity.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the IdentificationCode.';
-COMMENT ON COLUMN edfi.EducationOrganizationIdentity.IdentificationCode IS 'A unique number or alphanumeric code assigned to an education organization by an SEA or other agency.';
 
 -- Extended Properties [edfi].[EducationOrganizationIndicator] --
 COMMENT ON TABLE edfi.EducationOrganizationIndicator IS 'An indicator or metric of an education organization.';
@@ -4333,14 +4320,11 @@ COMMENT ON COLUMN edfi.SpecialEducationSettingDescriptor.SpecialEducationSetting
 COMMENT ON TABLE edfi.Staff IS 'This entity represents an individual who performs specified activities for any public or private education institution or agency that provides instructional and/or support services to students or staff at the early childhood level through high school completion.';
 COMMENT ON COLUMN edfi.Staff.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.Staff.BirthDate IS 'The month, day, and year on which an individual was born.';
-COMMENT ON COLUMN edfi.Staff.CitizenshipStatusDescriptorId IS 'An indicator of whether or not the person is a U.S. citizen.';
 COMMENT ON COLUMN edfi.Staff.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.Staff.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN edfi.Staff.GenderIdentity IS 'The gender the staff member identifies themselves as.';
 COMMENT ON COLUMN edfi.Staff.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
 COMMENT ON COLUMN edfi.Staff.HighestCompletedLevelOfEducationDescriptorId IS 'The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).';
 COMMENT ON COLUMN edfi.Staff.HighlyQualifiedTeacher IS 'An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught.';
-COMMENT ON COLUMN edfi.Staff.HispanicLatinoEthnicity IS 'An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."';
 COMMENT ON COLUMN edfi.Staff.LastSurname IS 'The name borne in common by members of a family.';
 COMMENT ON COLUMN edfi.Staff.LoginId IS 'The login ID for the user; used for security access control interface.';
 COMMENT ON COLUMN edfi.Staff.MaidenName IS 'The individual''s maiden name.';
@@ -4350,7 +4334,6 @@ COMMENT ON COLUMN edfi.Staff.PersonId IS 'A unique alphanumeric code assigned to
 COMMENT ON COLUMN edfi.Staff.PreferredFirstName IS 'The first name the individual prefers, if different from their legal first name';
 COMMENT ON COLUMN edfi.Staff.PreferredLastSurname IS 'The last name the individual prefers, if different from their legal last name';
 COMMENT ON COLUMN edfi.Staff.RequisitionNumber IS 'The number or identifier assigned to an open staff position, typically a requisition number assigned by Human Resources.';
-COMMENT ON COLUMN edfi.Staff.SexDescriptorId IS 'The birth sex of the staff member.';
 COMMENT ON COLUMN edfi.Staff.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 COMMENT ON COLUMN edfi.Staff.StaffUniqueId IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.Staff.YearsOfPriorProfessionalExperience IS 'The total number of years that an individual has previously held a similar professional position in one or more education institutions prior to the current school year.';
@@ -4363,40 +4346,6 @@ COMMENT ON COLUMN edfi.StaffAbsenceEvent.EventDate IS 'Date for this leave event
 COMMENT ON COLUMN edfi.StaffAbsenceEvent.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffAbsenceEvent.AbsenceEventReason IS 'Expanded reason for the staff absence.';
 COMMENT ON COLUMN edfi.StaffAbsenceEvent.HoursAbsent IS 'The hours the staff was absent, if not the entire working day.';
-
--- Extended Properties [edfi].[StaffAddress] --
-COMMENT ON TABLE edfi.StaffAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
-COMMENT ON COLUMN edfi.StaffAddress.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN edfi.StaffAddress.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN edfi.StaffAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
-COMMENT ON COLUMN edfi.StaffAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
-COMMENT ON COLUMN edfi.StaffAddress.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-COMMENT ON COLUMN edfi.StaffAddress.ApartmentRoomSuiteNumber IS 'The apartment, room, or suite number of an address.';
-COMMENT ON COLUMN edfi.StaffAddress.BuildingSiteNumber IS 'The number of the building on the site, if more than one building shares the same address.';
-COMMENT ON COLUMN edfi.StaffAddress.CongressionalDistrict IS 'The congressional district in which an address is located.';
-COMMENT ON COLUMN edfi.StaffAddress.CountyFIPSCode IS 'The Federal Information Processing Standards (FIPS) numeric code for the county issued by the National Institute of Standards and Technology (NIST). Counties are considered to be the "first-order subdivisions" of each State and statistically equivalent entity, regardless of their local designations (county, parish, borough, etc.) Counties in different States will have the same code. A unique county number is created when combined with the 2-digit FIPS State Code.';
-COMMENT ON COLUMN edfi.StaffAddress.DoNotPublishIndicator IS 'An indication that the address should not be published.';
-COMMENT ON COLUMN edfi.StaffAddress.Latitude IS 'The geographic latitude of the physical address.';
-COMMENT ON COLUMN edfi.StaffAddress.LocaleDescriptorId IS 'A general geographic indicator that categorizes U.S. territory (e.g., City, Suburban).';
-COMMENT ON COLUMN edfi.StaffAddress.Longitude IS 'The geographic longitude of the physical address.';
-COMMENT ON COLUMN edfi.StaffAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.';
-
--- Extended Properties [edfi].[StaffAddressPeriod] --
-COMMENT ON TABLE edfi.StaffAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
-COMMENT ON COLUMN edfi.StaffAddressPeriod.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN edfi.StaffAddressPeriod.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN edfi.StaffAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
-COMMENT ON COLUMN edfi.StaffAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
-COMMENT ON COLUMN edfi.StaffAddressPeriod.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-COMMENT ON COLUMN edfi.StaffAddressPeriod.BeginDate IS 'The month, day, and year for the start of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-COMMENT ON COLUMN edfi.StaffAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-
--- Extended Properties [edfi].[StaffAncestryEthnicOrigin] --
-COMMENT ON TABLE edfi.StaffAncestryEthnicOrigin IS 'The original peoples or cultures with which the individual identifies.';
-COMMENT ON COLUMN edfi.StaffAncestryEthnicOrigin.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffAncestryEthnicOrigin.AncestryEthnicOriginDescriptorId IS 'The original peoples or cultures with which the individual identifies.';
 
 -- Extended Properties [edfi].[StaffClassificationDescriptor] --
 COMMENT ON TABLE edfi.StaffClassificationDescriptor IS 'This descriptor defines an individual''s title of employment, official status or rank.';
@@ -4653,73 +4602,22 @@ COMMENT ON COLUMN edfi.StaffEducatorResearch.ResearchExperienceDate IS 'The mont
 COMMENT ON COLUMN edfi.StaffEducatorResearch.ResearchExperienceDescription IS 'The description of the research experience.';
 COMMENT ON COLUMN edfi.StaffEducatorResearch.ResearchExperienceTitle IS 'The title of the research experience.';
 
--- Extended Properties [edfi].[StaffElectronicMail] --
-COMMENT ON TABLE edfi.StaffElectronicMail IS 'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.';
-COMMENT ON COLUMN edfi.StaffElectronicMail.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffElectronicMail.ElectronicMailAddress IS 'The electronic mail (e-mail) address listed for an individual or organization.';
-COMMENT ON COLUMN edfi.StaffElectronicMail.ElectronicMailTypeDescriptorId IS 'The type of email listed for an individual or organization. For example: Home/Personal, Work, etc.)';
-COMMENT ON COLUMN edfi.StaffElectronicMail.DoNotPublishIndicator IS 'An indication that the electronic email address should not be published.';
-COMMENT ON COLUMN edfi.StaffElectronicMail.PrimaryEmailAddressIndicator IS 'An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.';
-
 -- Extended Properties [edfi].[StaffHighlyQualifiedAcademicSubject] --
 COMMENT ON TABLE edfi.StaffHighlyQualifiedAcademicSubject IS 'The academic subject(s) in which the staff is deemed to be "highly qualified".';
 COMMENT ON COLUMN edfi.StaffHighlyQualifiedAcademicSubject.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffHighlyQualifiedAcademicSubject.AcademicSubjectDescriptorId IS 'The academic subject(s) in which the staff is deemed to be "highly qualified".';
 
 -- Extended Properties [edfi].[StaffIdentificationCode] --
-COMMENT ON TABLE edfi.StaffIdentificationCode IS 'A unique number or alphanumeric code assigned to a staff member by a school, school system, a state, or other agency or entity.';
+COMMENT ON TABLE edfi.StaffIdentificationCode IS 'This entity holds different identity codes for staff member.';
+COMMENT ON COLUMN edfi.StaffIdentificationCode.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StaffIdentificationCode.StaffIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping purposes by schools, LEAs, SEAs, or other agencies refer to a staff member.';
 COMMENT ON COLUMN edfi.StaffIdentificationCode.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffIdentificationCode.StaffIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a staff member.';
-COMMENT ON COLUMN edfi.StaffIdentificationCode.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the staff Identification Code.';
-COMMENT ON COLUMN edfi.StaffIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code assigned to a staff member by a school, school system, a state, or other agency or entity.';
-
--- Extended Properties [edfi].[StaffIdentificationDocument] --
-COMMENT ON TABLE edfi.StaffIdentificationDocument IS 'Describe the documentation of citizenship.';
-COMMENT ON COLUMN edfi.StaffIdentificationDocument.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffIdentificationDocument.IdentificationDocumentUseDescriptorId IS 'The primary function of the document used for establishing identity.';
-COMMENT ON COLUMN edfi.StaffIdentificationDocument.PersonalInformationVerificationDescriptorId IS 'The category of the document relative to its purpose.';
-COMMENT ON COLUMN edfi.StaffIdentificationDocument.DocumentExpirationDate IS 'The day when the document  expires, if null then never expires.';
-COMMENT ON COLUMN edfi.StaffIdentificationDocument.DocumentTitle IS 'The title of the document given by the issuer.';
-COMMENT ON COLUMN edfi.StaffIdentificationDocument.IssuerCountryDescriptorId IS 'Country of origin of the document. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
-COMMENT ON COLUMN edfi.StaffIdentificationDocument.IssuerDocumentIdentificationCode IS 'The unique identifier on the issuer''s identification system.';
-COMMENT ON COLUMN edfi.StaffIdentificationDocument.IssuerName IS 'Name of the entity or institution that issued the document.';
+COMMENT ON COLUMN edfi.StaffIdentificationCode.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the IdentificationCode.';
+COMMENT ON COLUMN edfi.StaffIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code assigned to an individual by a school, LEA, SEA, or other agency.';
 
 -- Extended Properties [edfi].[StaffIdentificationSystemDescriptor] --
 COMMENT ON TABLE edfi.StaffIdentificationSystemDescriptor IS 'This descriptor defines the originating record system and code that is used for record-keeping purposes of the staff.';
 COMMENT ON COLUMN edfi.StaffIdentificationSystemDescriptor.StaffIdentificationSystemDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [edfi].[StaffIdentity] --
-COMMENT ON TABLE edfi.StaffIdentity IS 'This entity holds different identity codes for staff member.';
-COMMENT ON COLUMN edfi.StaffIdentity.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StaffIdentity.StaffIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping purposes by schools, LEAs, SEAs, or other agencies refer to a staff member.';
-COMMENT ON COLUMN edfi.StaffIdentity.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffIdentity.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the IdentificationCode.';
-COMMENT ON COLUMN edfi.StaffIdentity.IdentificationCode IS 'A unique number or alphanumeric code assigned to an individual by a school, LEA, SEA, or other agency.';
-
--- Extended Properties [edfi].[StaffInternationalAddress] --
-COMMENT ON TABLE edfi.StaffInternationalAddress IS 'The set of elements that describes an international address.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.AddressLine1 IS 'The first line of the address.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.AddressLine2 IS 'The second line of the address.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.AddressLine3 IS 'The third line of the address.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.AddressLine4 IS 'The fourth line of the address.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the individual moved to that address.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.CountryDescriptorId IS 'The name of the country. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, the date the individual moved from that address.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.Latitude IS 'The geographic latitude of the physical address.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.Longitude IS 'The geographic longitude of the physical address.';
-
--- Extended Properties [edfi].[StaffLanguage] --
-COMMENT ON TABLE edfi.StaffLanguage IS 'The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-2 language codes.';
-COMMENT ON COLUMN edfi.StaffLanguage.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffLanguage.LanguageDescriptorId IS 'A specification of which written or spoken communication is being used.';
-
--- Extended Properties [edfi].[StaffLanguageUse] --
-COMMENT ON TABLE edfi.StaffLanguageUse IS 'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).';
-COMMENT ON COLUMN edfi.StaffLanguageUse.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffLanguageUse.LanguageDescriptorId IS 'A specification of which written or spoken communication is being used.';
-COMMENT ON COLUMN edfi.StaffLanguageUse.LanguageUseDescriptorId IS 'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).';
 
 -- Extended Properties [edfi].[StaffLeave] --
 COMMENT ON TABLE edfi.StaffLeave IS 'This entity represents the recording of the dates of staff leave (e.g., sick leave, personal time, vacation).';
@@ -4764,11 +4662,6 @@ COMMENT ON COLUMN edfi.StaffProgramAssociation.ProgramTypeDescriptorId IS 'The t
 COMMENT ON COLUMN edfi.StaffProgramAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffProgramAssociation.EndDate IS 'End date for the association of staff to this program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.StaffProgramAssociation.StudentRecordAccess IS 'Indicator of whether the staff has access to the student records of the program per district interpretation of FERPA and other privacy laws, regulations, and policies.';
-
--- Extended Properties [edfi].[StaffRace] --
-COMMENT ON TABLE edfi.StaffRace IS 'The general racial category which most clearly reflects the individual''s recognition of his or her community or with which the individual most identifies. The way this data element is listed, it must allow for multiple entries so that each individual can specify all appropriate races.';
-COMMENT ON COLUMN edfi.StaffRace.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffRace.RaceDescriptorId IS 'The general racial category which most clearly reflects the individual''s recognition of his or her community or with which the individual most identifies. The way this data element is listed, it must allow for multiple entries so that each individual can specify all appropriate races.';
 
 -- Extended Properties [edfi].[StaffRecognition] --
 COMMENT ON TABLE edfi.StaffRecognition IS 'Recognitions given to the staff for accomplishments in a co-curricular or extracurricular activity.';
@@ -4824,28 +4717,9 @@ COMMENT ON COLUMN edfi.StaffSectionAssociation.HighlyQualifiedTeacher IS 'An ind
 COMMENT ON COLUMN edfi.StaffSectionAssociation.PercentageContribution IS 'Indicates the percentage of the total scheduled course time, academic standards, and/or learning activities delivered in this section by this staff member. A teacher of record designation may be based solely or partially on this contribution percentage.';
 COMMENT ON COLUMN edfi.StaffSectionAssociation.TeacherStudentDataLinkExclusion IS 'Indicates that the entire section is excluded from calculation of value-added or growth attribution calculations used for a particular teacher evaluation.';
 
--- Extended Properties [edfi].[StaffTelephone] --
-COMMENT ON TABLE edfi.StaffTelephone IS 'The 10-digit telephone number, including the area code, for the person.';
-COMMENT ON COLUMN edfi.StaffTelephone.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffTelephone.TelephoneNumber IS 'The telephone number including the area code, and extension, if applicable.';
-COMMENT ON COLUMN edfi.StaffTelephone.TelephoneNumberTypeDescriptorId IS 'The type of communication number listed for an individual or organization.';
-COMMENT ON COLUMN edfi.StaffTelephone.DoNotPublishIndicator IS 'An indication that the telephone number should not be published.';
-COMMENT ON COLUMN edfi.StaffTelephone.OrderOfPriority IS 'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.';
-COMMENT ON COLUMN edfi.StaffTelephone.TextMessageCapabilityIndicator IS 'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.';
-
 -- Extended Properties [edfi].[StaffToCandidateRelationshipDescriptor] --
 COMMENT ON TABLE edfi.StaffToCandidateRelationshipDescriptor IS 'Defines the staff relationship to the educator candidate.';
 COMMENT ON COLUMN edfi.StaffToCandidateRelationshipDescriptor.StaffToCandidateRelationshipDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [edfi].[StaffTribalAffiliation] --
-COMMENT ON TABLE edfi.StaffTribalAffiliation IS 'An American Indian tribe with which the staff member is affiliated.';
-COMMENT ON COLUMN edfi.StaffTribalAffiliation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffTribalAffiliation.TribalAffiliationDescriptorId IS 'An American Indian tribe with which the staff member is affiliated.';
-
--- Extended Properties [edfi].[StaffVisa] --
-COMMENT ON TABLE edfi.StaffVisa IS 'An indicator of a non-US citizen''s Visa type.';
-COMMENT ON COLUMN edfi.StaffVisa.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffVisa.VisaDescriptorId IS 'An indicator of a non-US citizen''s Visa type.';
 
 -- Extended Properties [edfi].[StateAbbreviationDescriptor] --
 COMMENT ON TABLE edfi.StateAbbreviationDescriptor IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -4877,7 +4751,6 @@ COMMENT ON COLUMN edfi.Student.BirthDate IS 'The month, day, and year on which a
 COMMENT ON COLUMN edfi.Student.BirthInternationalProvince IS 'For students born outside of the U.S., the Province or jurisdiction in which an individual is born.';
 COMMENT ON COLUMN edfi.Student.BirthSexDescriptorId IS 'A person''s sex at birth.';
 COMMENT ON COLUMN edfi.Student.BirthStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which an individual was born.';
-COMMENT ON COLUMN edfi.Student.CitizenshipStatusDescriptorId IS 'An indicator of whether or not the person is a U.S. citizen.';
 COMMENT ON COLUMN edfi.Student.DateEnteredUS IS 'For students born outside of the U.S., the date the student entered the U.S.';
 COMMENT ON COLUMN edfi.Student.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN edfi.Student.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
@@ -5357,6 +5230,21 @@ COMMENT ON COLUMN edfi.StudentDemographicRace.EducationOrganizationId IS 'The id
 COMMENT ON COLUMN edfi.StudentDemographicRace.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentDemographicRace.RaceDescriptorId IS 'The general racial category which most clearly reflects the individual''s recognition of his or her community or with the which the individual most identifies as last reported to the education organization. The data model allows for multiple entries so that each individual can specify all appropriate races.';
 
+-- Extended Properties [edfi].[StudentDemographicStudentCharacteristic] --
+COMMENT ON TABLE edfi.StudentDemographicStudentCharacteristic IS 'Reflects important characteristics of a student. If a student has a characteristic present, that characteristic is considered true or active for that student. If a characteristic is not present, no assumption is made as to the applicability of the characteristic, but local policy may dictate otherwise.';
+COMMENT ON COLUMN edfi.StudentDemographicStudentCharacteristic.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentDemographicStudentCharacteristic.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentDemographicStudentCharacteristic.StudentCharacteristicDescriptorId IS 'The characteristic designated for the student.';
+COMMENT ON COLUMN edfi.StudentDemographicStudentCharacteristic.DesignatedBy IS 'The person, organization, or department that designated the characteristic.';
+
+-- Extended Properties [edfi].[StudentDemographicStudentCharacteristicPeriod] --
+COMMENT ON TABLE edfi.StudentDemographicStudentCharacteristicPeriod IS 'The time periods for which characteristic was effective.';
+COMMENT ON COLUMN edfi.StudentDemographicStudentCharacteristicPeriod.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentDemographicStudentCharacteristicPeriod.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentDemographicStudentCharacteristicPeriod.StudentCharacteristicDescriptorId IS 'The characteristic designated for the student.';
+COMMENT ON COLUMN edfi.StudentDemographicStudentCharacteristicPeriod.BeginDate IS 'The month, day, and year for the start of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentDemographicStudentCharacteristicPeriod.EndDate IS 'The month, day, and year for the end of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+
 -- Extended Properties [edfi].[StudentDemographicTribalAffiliation] --
 COMMENT ON TABLE edfi.StudentDemographicTribalAffiliation IS 'An American Indian tribe with which the student is affiliated as last reported to the education organization.';
 COMMENT ON COLUMN edfi.StudentDemographicTribalAffiliation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -5492,56 +5380,14 @@ COMMENT ON TABLE edfi.StudentEducationOrganizationAssociation IS 'This associati
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.BarrierToInternetAccessInResidenceDescriptorId IS 'An indication of the barrier to having internet access in the student’s primary place of residence.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.GenderIdentity IS 'The student''s gender as last reported to the education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.HispanicLatinoEthnicity IS 'An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race, as last reported to the education organization. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.InternetAccessInResidence IS 'An indication of whether the student is able to access the internet in their primary place of residence.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.InternetAccessTypeInResidenceDescriptorId IS 'The primary type of internet service used in the student’s primary place of residence.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.InternetPerformanceInResidenceDescriptorId IS 'An indication of whether the student can complete the full range of learning activities, including video streaming and assignment upload, without interruptions caused by poor internet performance in their primary place of residence.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.LimitedEnglishProficiencyDescriptorId IS 'An indication that the student has been identified as limited English proficient by the Language Proficiency Assessment Committee (LPAC), or English proficient.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.LoginId IS 'The login ID for the user; used for security access control interface.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.PrimaryLearningDeviceAccessDescriptorId IS 'An indication of whether the primary learning device is shared or not shared with another individual.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.PrimaryLearningDeviceAwayFromSchoolDescriptorId IS 'The type of device the student uses most often to complete learning activities away from school.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.PrimaryLearningDeviceProviderDescriptorId IS 'The provider of the primary learning device.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.ProfileThumbnail IS 'Locator reference for the student photo. The specification for that reference is left to local definition.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.SexDescriptorId IS 'The student''s birth sex as reported to the education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.SupporterMilitaryConnectionDescriptorId IS 'Military connection of the person/people whom the student is a dependent of.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationAddress] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.ApartmentRoomSuiteNumber IS 'The apartment, room, or suite number of an address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.BuildingSiteNumber IS 'The number of the building on the site, if more than one building shares the same address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.CongressionalDistrict IS 'The congressional district in which an address is located.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.CountyFIPSCode IS 'The Federal Information Processing Standards (FIPS) numeric code for the county issued by the National Institute of Standards and Technology (NIST). Counties are considered to be the "first-order subdivisions" of each State and statistically equivalent entity, regardless of their local designations (county, parish, borough, etc.) Counties in different States will have the same code. A unique county number is created when combined with the 2-digit FIPS State Code.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.DoNotPublishIndicator IS 'An indication that the address should not be published.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.Latitude IS 'The geographic latitude of the physical address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.LocaleDescriptorId IS 'A general geographic indicator that categorizes U.S. territory (e.g., City, Suburban).';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.Longitude IS 'The geographic longitude of the physical address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationAddressPeriod] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.BeginDate IS 'The month, day, and year for the start of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationAncestryEthnicOrigin] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin IS 'The original peoples or cultures with which the individual identifies.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin.AncestryEthnicOriginDescriptorId IS 'The original peoples or cultures with which the individual identifies.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationCohortYear] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationCohortYear IS 'The type and year of a cohort (e.g., 9th grade) the student belongs to as determined by the year that student entered a specific grade.';
@@ -5550,22 +5396,6 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.Student
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.CohortYearTypeDescriptorId IS 'The type of cohort year (9th grade, graduation).';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.SchoolYear IS 'The school year associated with the cohort; for example, the intended school year of graduation.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.TermDescriptorId IS 'The term associated with the cohort year; for example, the intended term of graduation.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationDisability] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationDisability IS 'The disability condition(s) that best describes an individual''s impairment, as determined by evaluation(s) conducted by the education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.DisabilityDescriptorId IS 'A disability category that describes a individual''s impairment.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.DisabilityDeterminationSourceTypeDescriptorId IS 'The source that provided the disability determination.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.DisabilityDiagnosis IS 'A description of the disability diagnosis.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.OrderOfDisability IS 'The order by severity of individual''s disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationDisabilityDesignation] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationDisabilityDesignation IS 'Whether the disability is IDEA, Section 504, or other disability designation.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.DisabilityDescriptorId IS 'A disability category that describes a individual''s impairment.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.DisabilityDesignationDescriptorId IS 'Whether the disability is IDEA, Section 504, or other disability designation.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationDisplacedStudent IS 'Information about student who was enrolled, or eligible for enrollment, but has temporarily or permanently enrolled in another school or district because of a crisis-related disruption in educational services.';
@@ -5576,72 +5406,6 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.C
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.DisplacedStudentEndDate IS 'The date marking the end of the period during which a student is considered displaced due to a crisis event.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.DisplacedStudentStartDate IS 'The date on which a student is officially identified as displaced due to a crisis event.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.DisplacedStudentStatusDescriptorId IS 'Indicates whether a student has been displaced as a result of a crisis event.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationElectronicMail] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationElectronicMail IS 'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationElectronicMail.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationElectronicMail.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationElectronicMail.ElectronicMailAddress IS 'The electronic mail (e-mail) address listed for an individual or organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationElectronicMail.ElectronicMailTypeDescriptorId IS 'The type of email listed for an individual or organization. For example: Home/Personal, Work, etc.)';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationElectronicMail.DoNotPublishIndicator IS 'An indication that the electronic email address should not be published.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationElectronicMail.PrimaryEmailAddressIndicator IS 'An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationInternationalAddress] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationInternationalAddress IS 'The set of elements that describes an international address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.AddressLine1 IS 'The first line of the address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.AddressLine2 IS 'The second line of the address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.AddressLine3 IS 'The third line of the address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.AddressLine4 IS 'The fourth line of the address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the individual moved to that address.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.CountryDescriptorId IS 'The name of the country. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, the date the individual moved from that address.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.Latitude IS 'The geographic latitude of the physical address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.Longitude IS 'The geographic longitude of the physical address.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationLanguage] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationLanguage IS 'The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-3 language codes.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationLanguage.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationLanguage.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationLanguage.LanguageDescriptorId IS 'A specification of which written or spoken communication is being used.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationLanguageUse] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationLanguageUse IS 'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationLanguageUse.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationLanguageUse.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationLanguageUse.LanguageDescriptorId IS 'A specification of which written or spoken communication is being used.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationLanguageUse.LanguageUseDescriptorId IS 'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationRace] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationRace IS 'The general racial category which most clearly reflects the individual''s recognition of his or her community or with which the individual most identifies as last reported to the education organization. The data model allows for multiple entries so that each individual can specify all appropriate races.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationRace.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationRace.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationRace.RaceDescriptorId IS 'The general racial category which most clearly reflects the individual''s recognition of his or her community or with which the individual most identifies as last reported to the education organization. The data model allows for multiple entries so that each individual can specify all appropriate races.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationStudentCharacteri_a18fcf] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf IS 'The time periods for which characteristic was effective.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.StudentCharacteristicDescriptorId IS 'The characteristic designated for the student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.BeginDate IS 'The month, day, and year for the start of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.EndDate IS 'The month, day, and year for the end of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationStudentCharacteristic] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationStudentCharacteristic IS 'Reflects important characteristics of a student. If a student has a characteristic present, that characteristic is considered true or active for that student. If a characteristic is not present, no assumption is made as to the applicability of the characteristic, but local policy may dictate otherwise.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.StudentCharacteristicDescriptorId IS 'The characteristic designated for the student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.DesignatedBy IS 'The person, organization, or department that designated the characteristic.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationStudentIdentifica_c15030] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationStudentIdentifica_c15030 IS 'A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIdentifica_c15030.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIdentifica_c15030.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIdentifica_c15030.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the StudentIdentificationCode.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIdentifica_c15030.StudentIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIdentifica_c15030.IdentificationCode IS 'A unique number or alphanumeric code assigned to a student by a school, school system, a state, or other agency or entity.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationStudentIndicator] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationStudentIndicator IS 'An indicator or metric computed for the student (e.g., at risk).';
@@ -5659,22 +5423,6 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIndicatorPe
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIndicatorPeriod.IndicatorName IS 'The name of the indicator or metric.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIndicatorPeriod.BeginDate IS 'The month, day, and year for the start of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIndicatorPeriod.EndDate IS 'The month, day, and year for the end of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationTelephone] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationTelephone IS 'The 10-digit telephone number, including the area code, for the person.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationTelephone.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationTelephone.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationTelephone.TelephoneNumber IS 'The telephone number including the area code, and extension, if applicable.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationTelephone.TelephoneNumberTypeDescriptorId IS 'The type of communication number listed for an individual or organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationTelephone.DoNotPublishIndicator IS 'An indication that the telephone number should not be published.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationTelephone.OrderOfPriority IS 'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationTelephone.TextMessageCapabilityIndicator IS 'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.';
-
--- Extended Properties [edfi].[StudentEducationOrganizationAssociationTribalAffiliation] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationTribalAffiliation IS 'An American Indian tribe with which the student is affiliated as last reported to the education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationTribalAffiliation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationTribalAffiliation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationTribalAffiliation.TribalAffiliationDescriptorId IS 'An American Indian tribe with which the student is affiliated as last reported to the education organization.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationResponsibilityAssociation] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationResponsibilityAssociation IS 'This association indicates a relationship between a student and an education organization other than an enrollment relationship, and generally indicating some kind of responsibility of the education organization for the student. Enrollment relationship semantics are covered by StudentSchoolAssociation.';
@@ -5762,28 +5510,17 @@ COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.P
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 
--- Extended Properties [edfi].[StudentIdentificationDocument] --
-COMMENT ON TABLE edfi.StudentIdentificationDocument IS 'Describe the documentation of citizenship.';
-COMMENT ON COLUMN edfi.StudentIdentificationDocument.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentIdentificationDocument.IdentificationDocumentUseDescriptorId IS 'The primary function of the document used for establishing identity.';
-COMMENT ON COLUMN edfi.StudentIdentificationDocument.PersonalInformationVerificationDescriptorId IS 'The category of the document relative to its purpose.';
-COMMENT ON COLUMN edfi.StudentIdentificationDocument.DocumentExpirationDate IS 'The day when the document  expires, if null then never expires.';
-COMMENT ON COLUMN edfi.StudentIdentificationDocument.DocumentTitle IS 'The title of the document given by the issuer.';
-COMMENT ON COLUMN edfi.StudentIdentificationDocument.IssuerCountryDescriptorId IS 'Country of origin of the document. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
-COMMENT ON COLUMN edfi.StudentIdentificationDocument.IssuerDocumentIdentificationCode IS 'The unique identifier on the issuer''s identification system.';
-COMMENT ON COLUMN edfi.StudentIdentificationDocument.IssuerName IS 'Name of the entity or institution that issued the document.';
+-- Extended Properties [edfi].[StudentIdentificationCode] --
+COMMENT ON TABLE edfi.StudentIdentificationCode IS 'This entity holds different identity codes for a student';
+COMMENT ON COLUMN edfi.StudentIdentificationCode.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIdentificationCode.StudentIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping purposes by schools, LEAs, SEAs, or other agencies refer to a student.';
+COMMENT ON COLUMN edfi.StudentIdentificationCode.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIdentificationCode.AssigningOrganizationIdentificationCode IS 'the organization code or name assigning the IdentificationCode.';
+COMMENT ON COLUMN edfi.StudentIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code assigned to an individual by a school, LEA, SEA, or other agency.';
 
 -- Extended Properties [edfi].[StudentIdentificationSystemDescriptor] --
 COMMENT ON TABLE edfi.StudentIdentificationSystemDescriptor IS 'This descriptor defines the originating record system and code that is used for record-keeping purposes of the student.';
 COMMENT ON COLUMN edfi.StudentIdentificationSystemDescriptor.StudentIdentificationSystemDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [edfi].[StudentIdentity] --
-COMMENT ON TABLE edfi.StudentIdentity IS 'This entity holds different identity codes for a student';
-COMMENT ON COLUMN edfi.StudentIdentity.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentIdentity.StudentIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping purposes by schools, LEAs, SEAs, or other agencies refer to a student.';
-COMMENT ON COLUMN edfi.StudentIdentity.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentIdentity.AssigningOrganizationIdentificationCode IS 'the organization code or name assigning the IdentificationCode.';
-COMMENT ON COLUMN edfi.StudentIdentity.IdentificationCode IS 'A unique number or alphanumeric code assigned to an individual by a school, LEA, SEA, or other agency.';
 
 -- Extended Properties [edfi].[StudentInterventionAssociation] --
 COMMENT ON TABLE edfi.StudentInterventionAssociation IS 'This association indicates the students participating in an intervention.';
@@ -6426,11 +6163,6 @@ COMMENT ON TABLE edfi.StudentTransportationStudentBusDetailsTravelDirection IS '
 COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetailsTravelDirection.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetailsTravelDirection.TransportationEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetailsTravelDirection.TravelDirectionDescriptorId IS 'Indicates the direction of travel for the student transportation route (e.g., to school, from school).';
-
--- Extended Properties [edfi].[StudentVisa] --
-COMMENT ON TABLE edfi.StudentVisa IS 'An indicator of a non-US citizen''s Visa type.';
-COMMENT ON COLUMN edfi.StudentVisa.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentVisa.VisaDescriptorId IS 'An indicator of a non-US citizen''s Visa type.';
 
 -- Extended Properties [edfi].[SubmissionStatusDescriptor] --
 COMMENT ON TABLE edfi.SubmissionStatusDescriptor IS 'The status of the student''s submission.';

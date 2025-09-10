@@ -272,8 +272,8 @@ CREATE TABLE [tracked_changes_edfi].[CandidateEducatorPreparationProgramAssociat
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_CandidateEducatorPreparationProgramAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[CandidateIdentity]'))
-CREATE TABLE [tracked_changes_edfi].[CandidateIdentity]
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[CandidateIdentificationCode]'))
+CREATE TABLE [tracked_changes_edfi].[CandidateIdentificationCode]
 (
        OldCandidateIdentificationSystemDescriptorId [INT] NOT NULL,
        OldCandidateIdentificationSystemDescriptorNamespace [NVARCHAR](255) NOT NULL,
@@ -289,7 +289,7 @@ CREATE TABLE [tracked_changes_edfi].[CandidateIdentity]
        ChangeVersion bigint NOT NULL,
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
-       CONSTRAINT PK_CandidateIdentity PRIMARY KEY CLUSTERED (ChangeVersion)
+       CONSTRAINT PK_CandidateIdentificationCode PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[CandidateRelationshipToStaffAssociation]'))
 CREATE TABLE [tracked_changes_edfi].[CandidateRelationshipToStaffAssociation]
@@ -443,8 +443,8 @@ CREATE TABLE [tracked_changes_edfi].[Contact]
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_Contact PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[ContactIdentity]'))
-CREATE TABLE [tracked_changes_edfi].[ContactIdentity]
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[ContactIdentificationCode]'))
+CREATE TABLE [tracked_changes_edfi].[ContactIdentificationCode]
 (
        OldContactIdentificationSystemDescriptorId [INT] NOT NULL,
        OldContactIdentificationSystemDescriptorNamespace [NVARCHAR](255) NOT NULL,
@@ -462,7 +462,7 @@ CREATE TABLE [tracked_changes_edfi].[ContactIdentity]
        ChangeVersion bigint NOT NULL,
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
-       CONSTRAINT PK_ContactIdentity PRIMARY KEY CLUSTERED (ChangeVersion)
+       CONSTRAINT PK_ContactIdentificationCode PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[Course]'))
 CREATE TABLE [tracked_changes_edfi].[Course]
@@ -667,8 +667,8 @@ CREATE TABLE [tracked_changes_edfi].[EducationOrganization]
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_EducationOrganization PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[EducationOrganizationIdentity]'))
-CREATE TABLE [tracked_changes_edfi].[EducationOrganizationIdentity]
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[EducationOrganizationIdentificationCode]'))
+CREATE TABLE [tracked_changes_edfi].[EducationOrganizationIdentificationCode]
 (
        OldEducationOrganizationId [BIGINT] NOT NULL,
        OldEducationOrganizationIdentificationSystemDescriptorId [INT] NOT NULL,
@@ -682,7 +682,7 @@ CREATE TABLE [tracked_changes_edfi].[EducationOrganizationIdentity]
        ChangeVersion bigint NOT NULL,
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
-       CONSTRAINT PK_EducationOrganizationIdentity PRIMARY KEY CLUSTERED (ChangeVersion)
+       CONSTRAINT PK_EducationOrganizationIdentificationCode PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[EducationOrganizationInterventionPrescriptionAssociation]'))
 CREATE TABLE [tracked_changes_edfi].[EducationOrganizationInterventionPrescriptionAssociation]
@@ -2342,8 +2342,8 @@ CREATE TABLE [tracked_changes_edfi].[StaffEducatorPreparationProgramAssociation]
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_StaffEducatorPreparationProgramAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StaffIdentity]'))
-CREATE TABLE [tracked_changes_edfi].[StaffIdentity]
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StaffIdentificationCode]'))
+CREATE TABLE [tracked_changes_edfi].[StaffIdentificationCode]
 (
        OldEducationOrganizationId [BIGINT] NOT NULL,
        OldStaffIdentificationSystemDescriptorId [INT] NOT NULL,
@@ -2361,7 +2361,7 @@ CREATE TABLE [tracked_changes_edfi].[StaffIdentity]
        ChangeVersion bigint NOT NULL,
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
-       CONSTRAINT PK_StaffIdentity PRIMARY KEY CLUSTERED (ChangeVersion)
+       CONSTRAINT PK_StaffIdentificationCode PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StaffLeave]'))
 CREATE TABLE [tracked_changes_edfi].[StaffLeave]
@@ -2811,8 +2811,8 @@ CREATE TABLE [tracked_changes_edfi].[StudentHealth]
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_StudentHealth PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentIdentity]'))
-CREATE TABLE [tracked_changes_edfi].[StudentIdentity]
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentIdentificationCode]'))
+CREATE TABLE [tracked_changes_edfi].[StudentIdentificationCode]
 (
        OldEducationOrganizationId [BIGINT] NOT NULL,
        OldStudentIdentificationSystemDescriptorId [INT] NOT NULL,
@@ -2830,7 +2830,7 @@ CREATE TABLE [tracked_changes_edfi].[StudentIdentity]
        ChangeVersion bigint NOT NULL,
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
-       CONSTRAINT PK_StudentIdentity PRIMARY KEY CLUSTERED (ChangeVersion)
+       CONSTRAINT PK_StudentIdentificationCode PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentInterventionAssociation]'))
 CREATE TABLE [tracked_changes_edfi].[StudentInterventionAssociation]

@@ -71,9 +71,9 @@ CREATE SEQUENCE [edfi].[CandidateEducatorPreparationProgramAssociation_AggSeq] S
 ALTER TABLE [edfi].[CandidateEducatorPreparationProgramAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[CandidateEducatorPreparationProgramAssociation_AggSeq], AggregateData varbinary(8000);
 CREATE INDEX [IX_CandidateEducatorPreparationProgramAssociation_AggregateId] ON [edfi].[CandidateEducatorPreparationProgramAssociation] (AggregateId);
 
-CREATE SEQUENCE [edfi].[CandidateIdentity_AggSeq] START WITH -2147483648 INCREMENT BY 1;
-ALTER TABLE [edfi].[CandidateIdentity] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[CandidateIdentity_AggSeq], AggregateData varbinary(8000);
-CREATE INDEX [IX_CandidateIdentity_AggregateId] ON [edfi].[CandidateIdentity] (AggregateId);
+CREATE SEQUENCE [edfi].[CandidateIdentificationCode_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[CandidateIdentificationCode] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[CandidateIdentificationCode_AggSeq], AggregateData varbinary(8000);
+CREATE INDEX [IX_CandidateIdentificationCode_AggregateId] ON [edfi].[CandidateIdentificationCode] (AggregateId);
 
 CREATE SEQUENCE [edfi].[CandidateRelationshipToStaffAssociation_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[CandidateRelationshipToStaffAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[CandidateRelationshipToStaffAssociation_AggSeq], AggregateData varbinary(8000);
@@ -115,9 +115,9 @@ CREATE SEQUENCE [edfi].[Contact_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[Contact] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[Contact_AggSeq], AggregateData varbinary(8000);
 CREATE INDEX [IX_Contact_AggregateId] ON [edfi].[Contact] (AggregateId);
 
-CREATE SEQUENCE [edfi].[ContactIdentity_AggSeq] START WITH -2147483648 INCREMENT BY 1;
-ALTER TABLE [edfi].[ContactIdentity] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[ContactIdentity_AggSeq], AggregateData varbinary(8000);
-CREATE INDEX [IX_ContactIdentity_AggregateId] ON [edfi].[ContactIdentity] (AggregateId);
+CREATE SEQUENCE [edfi].[ContactIdentificationCode_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[ContactIdentificationCode] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[ContactIdentificationCode_AggSeq], AggregateData varbinary(8000);
+CREATE INDEX [IX_ContactIdentificationCode_AggregateId] ON [edfi].[ContactIdentificationCode] (AggregateId);
 
 CREATE SEQUENCE [edfi].[Course_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[Course] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[Course_AggSeq], AggregateData varbinary(8000);
@@ -167,9 +167,9 @@ CREATE SEQUENCE [edfi].[EducationOrganization_AggSeq] START WITH -2147483648 INC
 ALTER TABLE [edfi].[EducationOrganization] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[EducationOrganization_AggSeq], AggregateData varbinary(8000);
 CREATE INDEX [IX_EducationOrganization_AggregateId] ON [edfi].[EducationOrganization] (AggregateId);
 
-CREATE SEQUENCE [edfi].[EducationOrganizationIdentity_AggSeq] START WITH -2147483648 INCREMENT BY 1;
-ALTER TABLE [edfi].[EducationOrganizationIdentity] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[EducationOrganizationIdentity_AggSeq], AggregateData varbinary(8000);
-CREATE INDEX [IX_EducationOrganizationIdentity_AggregateId] ON [edfi].[EducationOrganizationIdentity] (AggregateId);
+CREATE SEQUENCE [edfi].[EducationOrganizationIdentificationCode_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[EducationOrganizationIdentificationCode] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[EducationOrganizationIdentificationCode_AggSeq], AggregateData varbinary(8000);
+CREATE INDEX [IX_EducationOrganizationIdentificationCode_AggregateId] ON [edfi].[EducationOrganizationIdentificationCode] (AggregateId);
 
 CREATE SEQUENCE [edfi].[EducationOrganizationInterventionPrescriptionAssociation_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[EducationOrganizationInterventionPrescriptionAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[EducationOrganizationInterventionPrescriptionAssociation_AggSeq], AggregateData varbinary(8000);
@@ -475,9 +475,9 @@ CREATE SEQUENCE [edfi].[StaffEducatorPreparationProgramAssociation_AggSeq] START
 ALTER TABLE [edfi].[StaffEducatorPreparationProgramAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StaffEducatorPreparationProgramAssociation_AggSeq], AggregateData varbinary(8000);
 CREATE INDEX [IX_StaffEducatorPreparationProgramAssociation_AggregateId] ON [edfi].[StaffEducatorPreparationProgramAssociation] (AggregateId);
 
-CREATE SEQUENCE [edfi].[StaffIdentity_AggSeq] START WITH -2147483648 INCREMENT BY 1;
-ALTER TABLE [edfi].[StaffIdentity] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StaffIdentity_AggSeq], AggregateData varbinary(8000);
-CREATE INDEX [IX_StaffIdentity_AggregateId] ON [edfi].[StaffIdentity] (AggregateId);
+CREATE SEQUENCE [edfi].[StaffIdentificationCode_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[StaffIdentificationCode] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StaffIdentificationCode_AggSeq], AggregateData varbinary(8000);
+CREATE INDEX [IX_StaffIdentificationCode_AggregateId] ON [edfi].[StaffIdentificationCode] (AggregateId);
 
 CREATE SEQUENCE [edfi].[StaffLeave_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[StaffLeave] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StaffLeave_AggSeq], AggregateData varbinary(8000);
@@ -567,9 +567,9 @@ CREATE SEQUENCE [edfi].[StudentHealth_AggSeq] START WITH -2147483648 INCREMENT B
 ALTER TABLE [edfi].[StudentHealth] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentHealth_AggSeq], AggregateData varbinary(8000);
 CREATE INDEX [IX_StudentHealth_AggregateId] ON [edfi].[StudentHealth] (AggregateId);
 
-CREATE SEQUENCE [edfi].[StudentIdentity_AggSeq] START WITH -2147483648 INCREMENT BY 1;
-ALTER TABLE [edfi].[StudentIdentity] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentIdentity_AggSeq], AggregateData varbinary(8000);
-CREATE INDEX [IX_StudentIdentity_AggregateId] ON [edfi].[StudentIdentity] (AggregateId);
+CREATE SEQUENCE [edfi].[StudentIdentificationCode_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[StudentIdentificationCode] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentIdentificationCode_AggSeq], AggregateData varbinary(8000);
+CREATE INDEX [IX_StudentIdentificationCode_AggregateId] ON [edfi].[StudentIdentificationCode] (AggregateId);
 
 CREATE SEQUENCE [edfi].[StudentInterventionAssociation_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[StudentInterventionAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentInterventionAssociation_AggSeq], AggregateData varbinary(8000);

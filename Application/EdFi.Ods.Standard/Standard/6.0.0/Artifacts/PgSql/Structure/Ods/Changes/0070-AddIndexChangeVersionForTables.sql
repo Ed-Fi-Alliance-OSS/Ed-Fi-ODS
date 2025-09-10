@@ -37,7 +37,7 @@ CREATE INDEX IF NOT EXISTS UX_b2452d_ChangeVersion ON edfi.Candidate(ChangeVersi
 
 CREATE INDEX IF NOT EXISTS UX_fc61b2_ChangeVersion ON edfi.CandidateEducatorPreparationProgramAssociation(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_fa1b90_ChangeVersion ON edfi.CandidateIdentity(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_a348bc_ChangeVersion ON edfi.CandidateIdentificationCode(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_610f76_ChangeVersion ON edfi.CandidateRelationshipToStaffAssociation(ChangeVersion);
 
@@ -59,7 +59,7 @@ CREATE INDEX IF NOT EXISTS UX_5e9932_ChangeVersion ON edfi.CompetencyObjective(C
 
 CREATE INDEX IF NOT EXISTS UX_2b5c3d_ChangeVersion ON edfi.Contact(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_19b8bf_ChangeVersion ON edfi.ContactIdentity(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_cfb2fd_ChangeVersion ON edfi.ContactIdentificationCode(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_2096ce_ChangeVersion ON edfi.Course(ChangeVersion);
 
@@ -85,7 +85,7 @@ CREATE INDEX IF NOT EXISTS UX_9965a5_ChangeVersion ON edfi.EducationContent(Chan
 
 CREATE INDEX IF NOT EXISTS UX_4525e6_ChangeVersion ON edfi.EducationOrganization(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_1b9f10_ChangeVersion ON edfi.EducationOrganizationIdentity(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_f50f4f_ChangeVersion ON edfi.EducationOrganizationIdentificationCode(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_e670ae_ChangeVersion ON edfi.EducationOrganizationInterventionPrescriptionAssociation(ChangeVersion);
 
@@ -239,7 +239,7 @@ CREATE INDEX IF NOT EXISTS UX_4e79b9_ChangeVersion ON edfi.StaffEducationOrganiz
 
 CREATE INDEX IF NOT EXISTS UX_2c9294_ChangeVersion ON edfi.StaffEducatorPreparationProgramAssociation(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_bb3aab_ChangeVersion ON edfi.StaffIdentity(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_d4ba06_ChangeVersion ON edfi.StaffIdentificationCode(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_debd4f_ChangeVersion ON edfi.StaffLeave(ChangeVersion);
 
@@ -285,7 +285,7 @@ CREATE INDEX IF NOT EXISTS UX_c2efaa_ChangeVersion ON edfi.StudentGradebookEntry
 
 CREATE INDEX IF NOT EXISTS UX_12f7e6_ChangeVersion ON edfi.StudentHealth(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_45727b_ChangeVersion ON edfi.StudentIdentity(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_06688a_ChangeVersion ON edfi.StudentIdentificationCode(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_25cb9c_ChangeVersion ON edfi.StudentInterventionAssociation(ChangeVersion);
 

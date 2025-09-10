@@ -24,7 +24,7 @@ CREATE INDEX IF NOT EXISTS IX_CalendarDate_SchoolId ON edfi.CalendarDate(SchoolI
 
 CREATE INDEX IF NOT EXISTS IX_CandidateEducatorPreparationProgramAssociation_EducationOrganizationId ON edfi.CandidateEducatorPreparationProgramAssociation(EducationOrganizationId) INCLUDE (Id);
 
-CREATE INDEX IF NOT EXISTS IX_CandidateIdentity_EducationOrganizationId ON edfi.CandidateIdentity(EducationOrganizationId) INCLUDE (Id);
+CREATE INDEX IF NOT EXISTS IX_CandidateIdentificationCode_EducationOrganizationId ON edfi.CandidateIdentificationCode(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_Certification_EducationOrganizationId ON edfi.Certification(EducationOrganizationId) INCLUDE (Id);
 
@@ -40,7 +40,7 @@ CREATE INDEX IF NOT EXISTS IX_CommunityProviderLicense_CommunityProviderId ON ed
 
 CREATE INDEX IF NOT EXISTS IX_CompetencyObjective_EducationOrganizationId ON edfi.CompetencyObjective(EducationOrganizationId) INCLUDE (Id);
 
-CREATE INDEX IF NOT EXISTS IX_ContactIdentity_EducationOrganizationId ON edfi.ContactIdentity(EducationOrganizationId) INCLUDE (Id);
+CREATE INDEX IF NOT EXISTS IX_ContactIdentificationCode_EducationOrganizationId ON edfi.ContactIdentificationCode(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_Course_EducationOrganizationId ON edfi.Course(EducationOrganizationId) INCLUDE (Id);
 
@@ -54,7 +54,7 @@ CREATE INDEX IF NOT EXISTS IX_DisciplineIncident_SchoolId ON edfi.DisciplineInci
 
 CREATE INDEX IF NOT EXISTS IX_EducationOrganization_EducationOrganizationId ON edfi.EducationOrganization(EducationOrganizationId) INCLUDE (Id);
 
-CREATE INDEX IF NOT EXISTS IX_EducationOrganizationIdentity_EducationOrganizationId ON edfi.EducationOrganizationIdentity(EducationOrganizationId) INCLUDE (Id);
+CREATE INDEX IF NOT EXISTS IX_EducationOrganizationIdentificationCode_EducationOrganizationId ON edfi.EducationOrganizationIdentificationCode(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_EducationOrganizationInterventionPrescriptionAssociation_EducationOrganizationId ON edfi.EducationOrganizationInterventionPrescriptionAssociation(EducationOrganizationId) INCLUDE (Id);
 
@@ -176,7 +176,7 @@ CREATE INDEX IF NOT EXISTS IX_StaffEducationOrganizationEmploymentAssociation_Ed
 
 CREATE INDEX IF NOT EXISTS IX_StaffEducatorPreparationProgramAssociation_EducationOrganizationId ON edfi.StaffEducatorPreparationProgramAssociation(EducationOrganizationId) INCLUDE (Id);
 
-CREATE INDEX IF NOT EXISTS IX_StaffIdentity_EducationOrganizationId ON edfi.StaffIdentity(EducationOrganizationId) INCLUDE (Id);
+CREATE INDEX IF NOT EXISTS IX_StaffIdentificationCode_EducationOrganizationId ON edfi.StaffIdentificationCode(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_StaffSchoolAssociation_SchoolId ON edfi.StaffSchoolAssociation(SchoolId) INCLUDE (Id);
 
@@ -214,7 +214,7 @@ CREATE INDEX IF NOT EXISTS IX_StudentEducationOrganizationResponsibilityAssociat
 
 CREATE INDEX IF NOT EXISTS IX_StudentHealth_EducationOrganizationId ON edfi.StudentHealth(EducationOrganizationId) INCLUDE (Id);
 
-CREATE INDEX IF NOT EXISTS IX_StudentIdentity_EducationOrganizationId ON edfi.StudentIdentity(EducationOrganizationId) INCLUDE (Id);
+CREATE INDEX IF NOT EXISTS IX_StudentIdentificationCode_EducationOrganizationId ON edfi.StudentIdentificationCode(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_StudentInterventionAssociation_EducationOrganizationId ON edfi.StudentInterventionAssociation(EducationOrganizationId) INCLUDE (Id);
 
