@@ -26,7 +26,7 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.3.700" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.1.70" />
       </ItemGroup>
     </Otherwise>
   </Choose>
