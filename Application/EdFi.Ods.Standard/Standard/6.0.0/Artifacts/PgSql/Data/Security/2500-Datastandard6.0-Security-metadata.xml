@@ -88,6 +88,7 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/studentIdentificationCode" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/contactIdentificationCode" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/staffIdentificationCode" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/candidateIdentificationCode" />
 			</Claims>
 		 </Claim>
 		<Claim name="http://ed-fi.org/ods/identity/claims/domains/people">
