@@ -46,9 +46,9 @@ BEGIN
 
     -- Processing children of root
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -64,7 +64,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', @parentResourceClaimId)
+            VALUES ('relationshipBasedData', 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -102,15 +102,15 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased'
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeople''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''NamespaceBased'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeople'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
@@ -127,15 +127,15 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeople''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeople'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
@@ -152,15 +152,15 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased'
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeople''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''NamespaceBased'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeople'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
@@ -177,15 +177,15 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased'
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeople''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''NamespaceBased'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeople'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
@@ -202,20 +202,20 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
 
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'SIS Vendor'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -245,11 +245,44 @@ BEGIN
     WHERE ClaimSetId = @claimSetId AND ResourceClaimId = @claimId
     
 
+    -- Claim set-specific Create authorization
+    PRINT 'Creating ''Create'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @CreateActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @CreateActionId) -- Create
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+
     -- Claim set-specific Read authorization
     PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
 
     INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
     VALUES (@claimId, @claimSetId, @ReadActionId) -- Read
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+
+    -- Claim set-specific Update authorization
+    PRINT 'Creating ''Update'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @UpdateActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @UpdateActionId) -- Update
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+
+    -- Claim set-specific Delete authorization
+    PRINT 'Creating ''Delete'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @DeleteActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @DeleteActionId) -- Delete
 
     SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
 
@@ -378,9 +411,9 @@ BEGIN
     
     
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Bootstrap Descriptors and EdOrgs'
+    -- Claim set: 'District Hosted SIS Vendor'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimSetName = 'Bootstrap Descriptors and EdOrgs'
+    SET @claimSetName = 'District Hosted SIS Vendor'
     SET @claimSetId = NULL
 
     SELECT @claimSetId = ClaimSetId
@@ -416,57 +449,34 @@ BEGIN
 
     
     
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    PRINT 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ' for ''Create'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @CreateActionId) + ').'
-
-    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
-
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'District Hosted SIS Vendor'
-    ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimSetName = 'District Hosted SIS Vendor'
-    SET @claimSetId = NULL
-
-    SELECT @claimSetId = ClaimSetId
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = @claimSetName
-
-    IF @claimSetId IS NULL
-    BEGIN
-        PRINT 'Creating new claim set: ' + @claimSetName
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
-
-        SET @claimSetId = SCOPE_IDENTITY()
-    END
-  
-    PRINT 'Deleting existing actions for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ') on resource claim ''' + @claimName + '''.'
-
-    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    WHERE ClaimSetResourceClaimActionId IN (SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = @claimSetId AND ResourceClaimId = @claimId)
-
-    DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE ClaimSetId = @claimSetId AND ResourceClaimId = @claimId
-    
 
     -- Claim set-specific Read authorization
     PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
 
     INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
     VALUES (@claimId, @claimSetId, @ReadActionId) -- Read
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+
+    -- Claim set-specific Update authorization
+    PRINT 'Creating ''Update'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @UpdateActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @UpdateActionId) -- Update
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+
+    -- Claim set-specific Delete authorization
+    PRINT 'Creating ''Delete'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @DeleteActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @DeleteActionId) -- Delete
 
     SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
 
@@ -561,23 +571,6 @@ BEGIN
 
     
     
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    PRINT 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ' for ''Create'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @CreateActionId) + ').'
-
-    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
-
 
     -- Claim set-specific Read authorization
     PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
@@ -589,23 +582,6 @@ BEGIN
 
     
     
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    PRINT 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ' for ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
-
-    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
-
 
     -- Claim set-specific Update authorization
     PRINT 'Creating ''Update'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @UpdateActionId) + ').'
@@ -617,23 +593,6 @@ BEGIN
 
     
     
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    PRINT 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ' for ''Update'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @UpdateActionId) + ').'
-
-    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
-
 
     -- Claim set-specific Delete authorization
     PRINT 'Creating ''Delete'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @DeleteActionId) + ').'
@@ -645,70 +604,14 @@ BEGIN
 
     
     
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    PRINT 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ' for ''Delete'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @DeleteActionId) + ').'
-
-    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
-
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Education Preparation Program'
-    ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimSetName = 'Education Preparation Program'
-    SET @claimSetId = NULL
-
-    SELECT @claimSetId = ClaimSetId
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = @claimSetName
-
-    IF @claimSetId IS NULL
-    BEGIN
-        PRINT 'Creating new claim set: ' + @claimSetName
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
-
-        SET @claimSetId = SCOPE_IDENTITY()
-    END
-  
-    PRINT 'Deleting existing actions for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ') on resource claim ''' + @claimName + '''.'
-
-    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    WHERE ClaimSetResourceClaimActionId IN (SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = @claimSetId AND ResourceClaimId = @claimId)
-
-    DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE ClaimSetId = @claimSetId AND ResourceClaimId = @claimId
-    
-
-    -- Claim set-specific Read authorization
-    PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
-
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
-    VALUES (@claimId, @claimSetId, @ReadActionId) -- Read
-
-    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
-
-    
-    
     -- Push claimId to the stack
     INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
 
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educationOrganizationIdentificationCode'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/educationOrganizationIdentificationCode'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -724,87 +627,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('descriptors', 'http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors', @parentResourceClaimId)
-
-            SET @claimId = SCOPE_IDENTITY()
-        END
-
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-
-    -- Push claimId to the stack
-    INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
-
-    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/educationOrganizationIdentificationSystemDescriptor'
-    ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/educationOrganizationIdentificationSystemDescriptor'
-    SET @claimId = NULL
-
-    SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
-    FROM dbo.ResourceClaims 
-    WHERE ClaimName = @claimName
-
-    SELECT @parentResourceClaimId = ResourceClaimId
-    FROM @claimIdStack
-    WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
-
-    IF @claimId IS NULL
-        BEGIN
-            PRINT 'Creating new claim: ' + @claimName
-
-            INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('educationOrganizationIdentificationSystemDescriptor', 'http://ed-fi.org/ods/identity/claims/ed-fi/educationOrganizationIdentificationSystemDescriptor', @parentResourceClaimId)
-
-            SET @claimId = SCOPE_IDENTITY()
-        END
-
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-
-
-    -- Pop the stack
-    DELETE FROM @claimIdStack WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
-
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/educationOrganizationIdentificationSystemDescriptor'
-    ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/educationOrganizationIdentificationSystemDescriptor'
-    SET @claimId = NULL
-
-    SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
-    FROM dbo.ResourceClaims 
-    WHERE ClaimName = @claimName
-
-    SELECT @parentResourceClaimId = ResourceClaimId
-    FROM @claimIdStack
-    WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
-
-    IF @claimId IS NULL
-        BEGIN
-            PRINT 'Creating new claim: ' + @claimName
-
-            INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('educationOrganizationIdentificationSystemDescriptor', 'http://ed-fi.org/ods/identity/claims/ed-fi/educationOrganizationIdentificationSystemDescriptor', @parentResourceClaimId)
+            VALUES ('educationOrganizationIdentificationCode', 'http://ed-fi.org/ods/identity/claims/educationOrganizationIdentificationCode', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END

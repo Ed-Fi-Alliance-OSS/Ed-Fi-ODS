@@ -1,37 +1,40 @@
 ﻿<SecurityMetadata modifyHierarchy = 'true'>
 	<Claims>
-		<Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
 			<DefaultAuthorization>
 				<Action name="Create">
 					<AuthorizationStrategies>
-						<AuthorizationStrategy name="NamespaceBased" />
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
 					</AuthorizationStrategies>
 				</Action>
 				<Action name="Read">
 					<AuthorizationStrategies>
-						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
 					</AuthorizationStrategies>
 				</Action>
 				<Action name="Update">
 					<AuthorizationStrategies>
-						<AuthorizationStrategy name="NamespaceBased" />
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
 					</AuthorizationStrategies>
 				</Action>
 				<Action name="Delete">
 					<AuthorizationStrategies>
-						<AuthorizationStrategy name="NamespaceBased" />
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
 					</AuthorizationStrategies>
 				</Action>
 				<Action name="ReadChanges">
 					<AuthorizationStrategies>
-						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
 					</AuthorizationStrategies>
 				</Action>
 			</DefaultAuthorization>
 			<ClaimSets>
 				<ClaimSet name="SIS Vendor">
 					<Actions>
+						<Action name="Create" />
 						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
 					</Actions>
 				</ClaimSet>
 				<ClaimSet name="Ed-Fi Sandbox">
@@ -48,18 +51,12 @@
 						<Action name="Read" />
 					</Actions>
 				</ClaimSet>
-				<ClaimSet name="Bootstrap Descriptors and EdOrgs">
-					<Actions>
-						<Action name="Create">
-							<AuthorizationStrategyOverrides>
-								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-							</AuthorizationStrategyOverrides>
-						</Action>
-					</Actions>
-				</ClaimSet>
 				<ClaimSet name="District Hosted SIS Vendor">
 					<Actions>
+						<Action name="Create" />
 						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
 					</Actions>
 				</ClaimSet>
 				<ClaimSet name="Ed-Fi API Publisher - Reader">
@@ -70,42 +67,16 @@
 				</ClaimSet>
 				<ClaimSet name="Ed-Fi API Publisher - Writer">
 					<Actions>
-						<Action name="Create">
-							<AuthorizationStrategyOverrides>
-								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-							</AuthorizationStrategyOverrides>
-						</Action>
-						<Action name="Read">
-							<AuthorizationStrategyOverrides>
-								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-							</AuthorizationStrategyOverrides>
-						</Action>
-						<Action name="Update">
-							<AuthorizationStrategyOverrides>
-								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-							</AuthorizationStrategyOverrides>
-						</Action>
-						<Action name="Delete">
-							<AuthorizationStrategyOverrides>
-								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-							</AuthorizationStrategyOverrides>
-						</Action>
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="Education Preparation Program">
-					<Actions>
+						<Action name="Create" />
 						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
 					</Actions>
 				</ClaimSet>
 			</ClaimSets>
 			<Claims>
-				<Claim name="http://ed-fi.org/ods/identity/claims/domains/epdm/descriptors">
-					<Claims>
-						<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/educationOrganizationIdentificationSystemDescriptor" />
-					</Claims>
-				</Claim>
-				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/educationOrganizationIdentificationSystemDescriptor" />
+				<Claim claimId="234" name="http://ed-fi.org/ods/identity/claims/educationOrganizationIdentificationCode" />
 			</Claims>
-		</Claim>
+		 </Claim>
 	</Claims>
 </SecurityMetadata>
