@@ -196,8 +196,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = CreateGetByExampleParameters(openApiMetadataResource, isCompositeContext, true),
-                responses = responses,
-                domains = openApiMetadataResource.Resource.Entity?.Domains
+                responses = responses
             };
 
             return operation;
@@ -231,8 +230,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = parameters.ToList(),
-                responses = responses,
-                domains = openApiMetadataResource.Resource.Entity?.Domains
+                responses = responses
             };
 
             return operation;
@@ -280,8 +278,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = parameters,
-                responses = CreateReadResponses(openApiMetadataResource, false),
-                domains = openApiMetadataResource.Resource.Entity?.Domains
+                responses = CreateReadResponses(openApiMetadataResource, false)
             };
         }
 
@@ -466,8 +463,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 },
                 parameters = CreatePutParameters(openApiMetadataResource),
                 responses = responses,
-                isUpdatable = GetIsUpdatableCustomMetadataValue(openApiMetadataResource),
-                domains = openApiMetadataResource.Resource.Entity?.Domains
+                isUpdatable = GetIsUpdatableCustomMetadataValue(openApiMetadataResource)
             };
         }
 
@@ -531,8 +527,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     OpenApiMetadataDocumentHelper.CreateIdParameter(),
                     CreateIfMatchParameter("DELETE from removing")
                 },
-                responses = responses,
-                domains = openApiMetadataResource.Resource.Entity?.Domains
+                responses = responses
             };
         }
 
@@ -593,8 +588,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[] { "application/json" },
                 parameters = parameters,
-                responses = responses,
-                domains = openApiMetadataResource.Resource.Entity?.Domains
+                responses = responses
             };
         }
 
@@ -655,8 +649,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[] { "application/json" },
                 parameters = parameters,
-                responses = responses,
-                domains = openApiMetadataResource.Resource.Entity?.Domains
+                responses = responses
             };
         }
 
@@ -692,8 +685,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable)
                 },
                 parameters = CreatePostParameters(openApiMetadataResource),
-                responses = responses,
-                domains = openApiMetadataResource.Resource.Entity?.Domains
+                responses = responses
             };
         }
 
