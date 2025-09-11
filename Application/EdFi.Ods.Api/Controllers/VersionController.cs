@@ -140,7 +140,7 @@ namespace EdFi.Ods.Api.Controllers
 
         public record VersionResponse(
             string version,
-            string applicationName,            
+            string applicationName,
             string informationalVersion,
             string suite,
             string build,
