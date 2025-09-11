@@ -599,6 +599,62 @@ BEGIN
 
     
     
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Bootstrap Descriptors and EdOrgs'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'Bootstrap Descriptors and EdOrgs';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (
+        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    
+
+    -- Claim set-specific Create authorization
+    RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Create_action_id) -- Create
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+    
+    
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
+
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 

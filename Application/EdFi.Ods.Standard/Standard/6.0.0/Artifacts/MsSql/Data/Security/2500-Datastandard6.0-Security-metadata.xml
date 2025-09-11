@@ -73,6 +73,15 @@
 						<Action name="Delete" />
 					</Actions>
 				</ClaimSet>
+				<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+					<Actions>
+						<Action name="Create">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+					</Actions>
+				</ClaimSet>
 			</ClaimSets>
 			<Claims>
 				<Claim claimId="234" name="http://ed-fi.org/ods/identity/claims/educationOrganizationIdentificationCode" />

@@ -604,6 +604,62 @@ BEGIN
 
     
     
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Bootstrap Descriptors and EdOrgs'
+    ----------------------------------------------------------------------------------------------------------------------------
+    SET @claimSetName = 'Bootstrap Descriptors and EdOrgs'
+    SET @claimSetId = NULL
+
+    SELECT @claimSetId = ClaimSetId
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = @claimSetName
+
+    IF @claimSetId IS NULL
+    BEGIN
+        PRINT 'Creating new claim set: ' + @claimSetName
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (@claimSetName)
+
+        SET @claimSetId = SCOPE_IDENTITY()
+    END
+  
+    PRINT 'Deleting existing actions for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ') on resource claim ''' + @claimName + '''.'
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = @claimSetId AND ResourceClaimId = @claimId)
+
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = @claimSetId AND ResourceClaimId = @claimId
+    
+
+    -- Claim set-specific Create authorization
+    PRINT 'Creating ''Create'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @CreateActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @CreateActionId) -- Create
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        THROW 50000, @msg, 1
+    END
+
+    PRINT 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ' for ''Create'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @CreateActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
+
     -- Push claimId to the stack
     INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
 
