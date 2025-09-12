@@ -10,6 +10,8 @@ namespace EdFi.Ods.Api.Providers
 {
     public class EnterpriseApiVersionProvider: IApiVersionProvider
     {
+        public string ApplicationName { get; } = ApiVersionConstants.ApplicationName;
+        
         public string Version { get; } = ApiVersionConstants.Version;
 
         public string InformationalVersion { get; } = ApiVersionConstants.InformationalVersion;

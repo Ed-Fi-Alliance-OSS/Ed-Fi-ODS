@@ -51,6 +51,7 @@ namespace EdFi.Ods.Api.Controllers
         {
             var content = new VersionResponse(
                 _apiVersionProvider.Version,
+                _apiVersionProvider.ApplicationName,
                 _apiVersionProvider.InformationalVersion,
                 _apiVersionProvider.Suite,
                 _apiVersionProvider.Build,
@@ -139,6 +140,7 @@ namespace EdFi.Ods.Api.Controllers
 
         public record VersionResponse(
             string version,
+            string applicationName,
             string informationalVersion,
             string suite,
             string build,

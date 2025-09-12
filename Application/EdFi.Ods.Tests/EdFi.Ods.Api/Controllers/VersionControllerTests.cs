@@ -38,6 +38,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             _domainModelProvider = A.Fake<IDomainModelProvider>();
 
             // IApiVersionProvider
+            A.CallTo(() => _apiVersionProvider.ApplicationName).Returns("Ed-Fi Alliance ODS/API");
             A.CallTo(() => _apiVersionProvider.Version).Returns("1.0.0");
             A.CallTo(() => _apiVersionProvider.InformationalVersion).Returns("1.0.0-beta");
             A.CallTo(() => _apiVersionProvider.Suite).Returns("EdFi");
@@ -137,6 +138,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             var expectedContent = new VersionController.VersionResponse(
                 "1.0.0",
+                "Ed-Fi Alliance ODS/API",
                 "1.0.0-beta",
                 "EdFi",
                 "12345",
