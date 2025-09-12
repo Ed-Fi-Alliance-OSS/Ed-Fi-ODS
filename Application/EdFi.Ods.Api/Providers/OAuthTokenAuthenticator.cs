@@ -51,7 +51,8 @@ namespace EdFi.Ods.Api.Providers
                 // If there are credentials that the filter understands, try to validate them.
                 apiClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(token);
                 
-                if (!apiClientDetails.IsTokenValid)
+                // Return an "Invalid token" response if the details could not be retrieved with the supplied token
+                if (apiClientDetails?.IsTokenValid != true)
                 {
                     return AuthenticateResult.Fail("Invalid token");
                 }
