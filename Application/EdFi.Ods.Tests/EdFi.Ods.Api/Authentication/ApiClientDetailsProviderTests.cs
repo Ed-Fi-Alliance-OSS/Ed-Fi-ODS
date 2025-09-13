@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Security.Authentication;
 using FakeItEasy;
 using NUnit.Framework;
@@ -18,8 +19,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization;
 public class ApiClientDetailsProviderTests
 {
     [Test]
-    public Task
-        When_Admin_database_returns_an_empty_set_of_raw_API_client_token_data_should_return_aargumentnullexception_ApiClientDetails_reference()
+    public async Task
+        When_Admin_database_returns_an_empty_set_of_raw_API_client_token_data_should_return_a_null_ApiClientDetails_reference()
     {
         // Arrange
         var rawApiClientDetailsProvider = A.Fake<IEdFiAdminRawApiClientDetailsProvider>();
@@ -27,30 +28,28 @@ public class ApiClientDetailsProviderTests
 
         A.CallTo(() => rawApiClientDetailsProvider.GetRawClientDetailsDataAsync(suppliedToken))
             .Returns(Task.FromResult(Array.Empty<RawApiClientDetailsDataRow>().ToReadOnlyList()));
-        
+
         ApiClientDetailsProvider provider = new(rawApiClientDetailsProvider);
 
-        var ex  = Assert.ThrowsAsync<ArgumentNullException>(async () =>  await provider.GetApiClientDetailsForTokenAsync(suppliedToken.ToString("N")));
+        // Act
+        var actualClientDetails = await provider.GetApiClientDetailsForTokenAsync(suppliedToken.ToString("N"));
 
-        Assert.That(ex.Message, Is.EqualTo("Value cannot be null. (Parameter 'apiClientRawDataRows')"));
-
-        return Task.CompletedTask;
+        // Assert
+        actualClientDetails.ShouldBeNull();
     }
 
     [Test]
-    public async Task
-        When_token_is_not_parseable_as_a_GUID_should_return_a_null_ApiClientDetails_reference()
+    public async Task When_token_is_not_parseable_as_a_GUID_should_return_a_null_ApiClientDetails_reference()
     {
         // Arrange
         var rawApiClientDetailsProvider = A.Fake<IEdFiAdminRawApiClientDetailsProvider>();
-        var suppliedToken = Guid.NewGuid();
-
         ApiClientDetailsProvider provider = new(rawApiClientDetailsProvider);
 
+        // Act
         var actual = await provider.GetApiClientDetailsForTokenAsync("not-a-guid");
 
+        // Assert
         actual.ShouldBeNull();
-
     }
 
     [Test]
@@ -94,25 +93,29 @@ public class ApiClientDetailsProviderTests
             () => actual.ApiClientId.ShouldBe(7),
 
             // Collection assertions
-            () => actual.EducationOrganizationIds.ToArray().ShouldBeEquivalentTo(
+            () => actual.EducationOrganizationIds.ToArray()
+            .ShouldBeEquivalentTo(
                 new long[]
                 {
                     1000,
                     1001
                 }),
-            () => actual.NamespacePrefixes.ToArray().ShouldBeEquivalentTo(
+            () => actual.NamespacePrefixes.ToArray()
+            .ShouldBeEquivalentTo(
                 new[]
                 {
                     "uri://namespace.one",
                     "uri://namespace.two"
                 }),
-            () => actual.Profiles.ToArray().ShouldBeEquivalentTo(
+            () => actual.Profiles.ToArray()
+            .ShouldBeEquivalentTo(
                 new[]
                 {
                     "ProfileOne",
                     "ProfileTwo"
                 }),
-            () => actual.OwnershipTokenIds.ToArray().ShouldBeEquivalentTo(
+            () => actual.OwnershipTokenIds.ToArray()
+            .ShouldBeEquivalentTo(
                 new short[]
                 {
                     50,
