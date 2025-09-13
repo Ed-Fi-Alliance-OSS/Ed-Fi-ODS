@@ -21,13 +21,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     /// <summary>
     /// Provides an abstract implementation for applying authorization filters to queries on aggregate roots built using the <see cref="QueryBuilder"/>.
     /// </summary>
-    public class AggregateRootQueryBuilderProviderCteAuthorizationDecorator : IAggregateRootQueryBuilderProvider
+    public class AggregateRootQueryBuilderProviderAuthorizationDecorator : IAggregateRootQueryBuilderProvider
     {
         private readonly IAggregateRootQueryBuilderProvider _decoratedInstance;
         private readonly IContextProvider<DataManagementAuthorizationPlan> _authorizationPlanContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
 
-        public AggregateRootQueryBuilderProviderCteAuthorizationDecorator(
+        public AggregateRootQueryBuilderProviderAuthorizationDecorator(
             IAggregateRootQueryBuilderProvider decoratedInstance,
             IContextProvider<DataManagementAuthorizationPlan> authorizationPlanContextProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             if (shouldUseJoinAuth)
             {
-                return queryBuilder;
+                queryBuilder.FilterStrategy = QueryBuilderFilterStrategy.Joins;
             }
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
@@ -73,11 +73,39 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             // If there are multiple relationship-based authorization strategies with views (that are combined with OR), we must use left outer joins and null/not null checks
             var relationshipBasedAuthViewJoinType = DetermineRelationshipBasedAuthViewJoinType();
 
+            // Distinct only applies to JOIN-based authorization
+            if (queryBuilder.FilterStrategy == QueryBuilderFilterStrategy.Joins)
+            {
+                ApplyDistinctIfNeeded();
+            }
+
             ApplyAuthorizationStrategiesCombinedWithAndLogic();
             ApplyAuthorizationStrategiesCombinedWithOrLogic();
 
             return queryBuilder;
 
+            void ApplyDistinctIfNeeded()
+            {
+                // We ONLY need to use DISTINCT (which comes with a performance cost) if there are multiple OR strategies being applied
+                // resulting in LEFT JOINs, or if there are multiple EdOrgIds applied to the API client. Also wrapped up in this are
+                // some assumptions:
+                //    1) That the only type of OR authorization strategies are relationship-based authorization
+                //    2) That because of #1, the only type of claim values that would be present in ClaimParameterValues are EdOrgIds
+                if (relationshipBasedAuthViewJoinType == JoinType.LeftOuterJoin)
+                {
+                    // Authorization could introduce duplicates items, so we must apply DISTINCT
+                    queryBuilder.Distinct();
+                }
+                else if (relationshipBasedAuthViewJoinType == JoinType.InnerJoin)
+                {
+                    if (authorizationPlan.Filtering.Any(f => f.Filters.Any(ctx => ctx.ClaimParameterValues?.Length > 1)))
+                    {
+                        // Authorization with multiple claim values could introduce duplicates items, so we must apply DISTINCT
+                        queryBuilder.Distinct();
+                    }
+                }                
+            }
+            
             JoinType? DetermineRelationshipBasedAuthViewJoinType()
             {
                 // NOTE: Relationship-based authorization filters are combined using OR, while custom auth-view filters are combined using AND

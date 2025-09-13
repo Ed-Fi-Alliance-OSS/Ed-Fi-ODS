@@ -65,7 +65,11 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
         // TODO: ODS-6510 - This needs to be invokes an authorization decorator of some sort -- copied from the data management controller pipeline. Also, look for approach to DRY here.
         EstablishAuthorizationPlan(entity);
 
-        var rowNumbersQueryBuilder = new QueryBuilder(_dialect);
+        var rowNumbersQueryBuilder = new QueryBuilder(_dialect)
+        {
+            // For partitions queries use the EXISTS subquery authorization filtering strategy
+            FilterStrategy = QueryBuilderFilterStrategy.ExistsSubquery
+        };
 
         // Get the fully qualified physical table name
         var schemaTableName = $"{entity.Schema}.{entity.TableName(_databaseEngine)}";
@@ -75,7 +79,8 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
         rowNumbersQueryBuilder
             .From(schemaTableName.Alias("r"))
             .Select($"{rootTableAlias}.AggregateId")
-            .SelectRaw($"ROW_NUMBER() OVER (ORDER BY {rootTableAlias}.AggregateId) AS RowNumber");
+            .SelectRaw($"ROW_NUMBER() OVER (ORDER BY {rootTableAlias}.AggregateId) AS RowNumber")
+            .SelectRaw($"COUNT(*) OVER () AS CountOfRows");
 
         // Add the join to the base type
         if (entity.IsDerived)

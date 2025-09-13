@@ -17,10 +17,6 @@ public class KeySetPagingModule : Module
     protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterType<PartitionsQueryBuilderProvider>()
-            .WithParameter(
-                new ResolvedParameter(
-                    (p, c) => p.ParameterType == typeof(int) && p.Name == "defaultPartitionCount",
-                    (p, c) => c.Resolve<ApiSettings>().DefaultPartitionCount))
             .As<IPartitionsQueryBuilderProvider>()
             .SingleInstance()
             .WithAttributeFiltering();

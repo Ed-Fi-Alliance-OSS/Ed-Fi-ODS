@@ -11,6 +11,8 @@ using System.Threading;
 using Dapper;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Database.Querying.Dialects;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Common.Database.Querying
 {
@@ -59,6 +61,8 @@ namespace EdFi.Ods.Common.Database.Querying
 
         public string TableName { get; private set; }
 
+        public QueryBuilderFilterStrategy FilterStrategy { get; set; }
+        
         public IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
 
         public ParameterIndexer ParameterIndexer
@@ -72,7 +76,10 @@ namespace EdFi.Ods.Common.Database.Querying
         /// <returns>A copy of the current <see cref="QueryBuilder" />.</returns>
         public QueryBuilder Clone()
         {
-            return new QueryBuilder(_dialect, _sqlBuilder.Clone(), TableName, _parameterIndexer.Clone());
+            return new QueryBuilder(_dialect, _sqlBuilder.Clone(), TableName, _parameterIndexer.Clone())
+            {
+                FilterStrategy = FilterStrategy
+            };
         }
 
         public QueryBuilder From(string tableName)
@@ -131,9 +138,18 @@ namespace EdFi.Ods.Common.Database.Querying
             return (parameters, parameterName);
         }
 
+
+        private QueryBuilder CreateChildScope()
+        {
+            return new QueryBuilder(_dialect, _parameterIndexer)
+            {
+                FilterStrategy = FilterStrategy
+            };
+        }
+        
         public QueryBuilder Where(Func<QueryBuilder, QueryBuilder> nestedWhereApplicator)
         {
-            var childScope = new QueryBuilder(_dialect, _parameterIndexer);
+            var childScope = CreateChildScope();
 
             // Execute supplied criteria applicator against the child scope
             nestedWhereApplicator(childScope);
@@ -154,7 +170,7 @@ namespace EdFi.Ods.Common.Database.Querying
                         ? new DynamicParameters(childScope.Parameters)
                         : null);
 
-                string whereCriteria = template.RawSql.Replace("WHERE ", string.Empty);
+                string whereCriteria = template.RawSql.ReplaceFirstOccurrence("WHERE ", string.Empty);
 
                 // Since we're dealing with a child scope with only 1 WHERE clause, no need to wrap it
                 _sqlBuilder.Where($"{whereCriteria}", template.Parameters);
@@ -175,7 +191,7 @@ namespace EdFi.Ods.Common.Database.Querying
 
         public QueryBuilder OrWhere(Func<QueryBuilder, QueryBuilder> nestedWhereApplicator)
         {
-            var childScope = new QueryBuilder(_dialect, _parameterIndexer);
+            var childScope = CreateChildScope();
 
             // Execute supplied criteria applicator against the child scope
             nestedWhereApplicator(childScope);
@@ -197,7 +213,7 @@ namespace EdFi.Ods.Common.Database.Querying
                         : null);
 
                 // SqlBuilder wraps 'OR' where clauses when building the template SQL
-                _sqlBuilder.OrWhere($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+                _sqlBuilder.OrWhere($"({template.RawSql.ReplaceFirstOccurrence("WHERE ", string.Empty)})", template.Parameters);
             }
             else
             {
@@ -325,7 +341,7 @@ namespace EdFi.Ods.Common.Database.Querying
 
             return this;
         }
-        
+
         public QueryBuilder WhereIn(string columnName, IList values, string parameterNameDisposition = null)
         {
             return WhereIn(columnName, values, parameterNameDisposition, useOrWhere: false);
@@ -363,6 +379,17 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
+        public QueryBuilder WhereExists(QueryBuilder existsQueryBuilder)
+        {
+            // Apply the nested query builder as a WITH clause to this query builder
+            string templateString = _dialect.GetTemplateString(existsQueryBuilder.TableName);
+            var nestedTemplate = existsQueryBuilder._sqlBuilder.AddTemplate(templateString);
+
+            _sqlBuilder.Where($"EXISTS ({nestedTemplate.RawSql})", nestedTemplate.Parameters);
+
+            return this;
+        }
+
         public QueryBuilder Join(string tableName, string thisExpression, string otherExpression)
         {
             _sqlBuilder.InnerJoin($"{tableName} ON {thisExpression} = {otherExpression}");
@@ -391,6 +418,15 @@ namespace EdFi.Ods.Common.Database.Querying
         public QueryBuilder LeftJoin(string tableName, string thisExpression, string otherExpression)
         {
             _sqlBuilder.LeftJoin($"{tableName} ON {thisExpression} = {otherExpression}");
+
+            return this;
+        }
+        
+        public QueryBuilder CrossJoin(string expression, string alias, string[] columnNames, dynamic parameters = null)
+        {
+            var (keywords, aliasedExpression) = _dialect.GetCrossJoinString(expression, alias, columnNames);
+
+            _sqlBuilder.CrossJoin(aliasedExpression, keywords, parameters);
 
             return this;
         }
