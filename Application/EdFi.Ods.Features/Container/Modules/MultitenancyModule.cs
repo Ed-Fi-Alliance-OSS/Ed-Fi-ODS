@@ -71,7 +71,7 @@ public class MultiTenancyModule : ConditionalModule
                 {
                     var apiSettings = ctx.Resolve<ApiSettings>();
 
-                    return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                    return (IConcurrentCacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                         "Security",
                         TimeSpan.FromMinutes(apiSettings.Caching.Security.AbsoluteExpirationMinutes));
                 })
@@ -98,7 +98,7 @@ public class MultiTenancyModule : ConditionalModule
                     var apiSettings = ctx.Resolve<ApiSettings>();
                     var mediator = ctx.Resolve<IMediator>();
 
-                    return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                    return (IConcurrentCacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                         "Profile Metadata",
                         TimeSpan.FromSeconds(apiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
                         () => mediator.Publish(new ProfileMetadataCacheExpired()));
@@ -114,7 +114,7 @@ public class MultiTenancyModule : ConditionalModule
                     
                     var cacheProvider = new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                         "ODS Instance Configurations",
-                        TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds));
+                        TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds)); // TODO: Evaluate this timeout for accessing EdFi_Admin ODS configurations
 
                     // Subscribe to any changes related to the Tenants section of the configuration, and clear it explicitly
                     var options = ctx.Resolve<IOptionsMonitor<TenantsSection>>();
@@ -128,7 +128,7 @@ public class MultiTenancyModule : ConditionalModule
                         cacheProvider.Clear();
                     });
 
-                    return (ICacheProvider<ulong>) cacheProvider;
+                    return (IConcurrentCacheProvider<ulong>) cacheProvider;
                 })
             .SingleInstance();
 
