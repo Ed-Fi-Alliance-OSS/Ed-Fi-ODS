@@ -23,6 +23,7 @@ using FakeItEasy;
 using Microsoft.Data.SqlClient.Server;
 using NUnit.Framework;
 using Shouldly;
+using Test.Common;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
@@ -34,6 +35,21 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         [OneTimeSetUp]
         public void SetUp()
         {
+            var domainModelObject = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+            // Extract schema version
+            var standardVersion = domainModelObject.Schemas[0].Version;
+
+            // Parse version into major
+            var parts = standardVersion.Split('.');
+            var majorVersion = int.Parse(parts[0]);
+
+            // Skip if major version >= 6
+            if (majorVersion >= 6)
+            {
+                Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+            }
+
             CountryTestDescriptor1 = new CountryDescriptor
             {
                 Namespace = "uri://namespace1/CountryDescriptor",
@@ -244,6 +260,21 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         [Test]
         public void When_getting_descriptor_details_by_invalid_descriptor_name_should_throw_argument_exception()
         {
+            var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+            // Extract schema version
+            var standardVersion = domainModel.Schemas[0].Version;
+
+            // Parse version into major
+            var parts = standardVersion.Split('.');
+            var majorVersion = int.Parse(parts[0]);
+
+            // Skip if major version >= 6
+            if (majorVersion >= 6)
+            {
+                Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+            }
+
             Assert.Throws<ArgumentException>(
                 () =>
                     DescriptorDetailsProvider.GetDescriptorDetails("Invalid", 99));

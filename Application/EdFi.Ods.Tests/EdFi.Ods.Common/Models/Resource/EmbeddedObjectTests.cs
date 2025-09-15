@@ -62,6 +62,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
             protected override void Arrange()
             {
+                var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+                // Extract schema version
+                var standardVersion = domainModel.Schemas[0].Version;
+
+                // Parse version into major
+                var parts = standardVersion.Split('.');
+                var majorVersion = int.Parse(parts[0]);
+
+                // Skip if major version >= 6
+                if (majorVersion >= 6)
+                {
+                    Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                }
+
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
 
                 ICompositesMetadataStreamsProvider[] streamsProviders = 

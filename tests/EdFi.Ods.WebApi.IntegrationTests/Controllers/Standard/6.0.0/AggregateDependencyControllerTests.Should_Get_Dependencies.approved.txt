@@ -2454,7 +2454,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/candidateIdentities",
+    "resource": "/ed-fi/candidateIdentificationCodes",
     "order": 7,
     "operations": [
       "Create",
@@ -2486,7 +2486,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/educationOrganizationIdentities",
+    "resource": "/ed-fi/educationOrganizationIdentificationCodes",
     "order": 7,
     "operations": [
       "Create",
@@ -3125,7 +3125,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/studentIdentities",
+    "resource": "/ed-fi/studentIdentificationCodes",
     "order": 14,
     "operations": [
       "Create",
@@ -3276,7 +3276,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/contactIdentities",
+    "resource": "/ed-fi/contactIdentificationCodes",
     "order": 15,
     "operations": [
       "Create",
@@ -3498,7 +3498,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/staffIdentities",
+    "resource": "/ed-fi/staffIdentificationCodes",
     "order": 19,
     "operations": [
       "Create",

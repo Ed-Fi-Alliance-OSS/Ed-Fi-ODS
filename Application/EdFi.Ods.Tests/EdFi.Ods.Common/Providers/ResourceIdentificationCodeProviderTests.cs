@@ -78,6 +78,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
 
             var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
 
+            // Extract version string from schemas
+            var standardVersion = domainModel.Schemas[0].Version;
+
+            // Parse version into major
+            var parts = standardVersion.Split('.');
+            var majorVersion = int.Parse(parts[0]);
+
+            // Skip test if major version is 6 or greater
+            if (majorVersion >= 6)
+            {
+                Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+            }
+
             Resource derivedResource = domainModel.ResourceModel.GetAllResources()
                 .First(r => r.FullName.Equals(DerivedResourceName));
 

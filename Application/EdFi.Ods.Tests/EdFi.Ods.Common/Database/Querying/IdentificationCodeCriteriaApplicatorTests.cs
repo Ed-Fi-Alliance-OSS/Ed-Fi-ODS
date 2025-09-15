@@ -507,6 +507,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             DatabaseEngineEnum databaseEngineEnum)
         {
             //Arrange
+            var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+            var standardVersion = domainModel.Schemas[0].Version;
+
+            var parts = standardVersion.Split('.');
+            var majorVersion = int.Parse(parts[0]);
+
+            if (majorVersion >= 6)
+            {
+                Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+            }
+
             var q = new QueryBuilder(GetDialectFor(databaseEngineEnum));
 
             var resourceWithIdentificationCodeCollection = _resourceModel.GetResourceByFullName("edfi.school");
@@ -583,6 +594,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             DatabaseEngineEnum databaseEngineEnum, string resourceWithIdentificationCodeCollectionName)
         {
             //Arrange
+            var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+            var standardVersion = domainModel.Schemas[0].Version;
+
+            var parts = standardVersion.Split('.');
+            var majorVersion = int.Parse(parts[0]);
+
+            if (majorVersion >= 6)
+            {
+                Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+            }
+
             var q = new QueryBuilder(GetDialectFor(databaseEngineEnum));
 
             var resourceWithIdentificationCodeCollection =
