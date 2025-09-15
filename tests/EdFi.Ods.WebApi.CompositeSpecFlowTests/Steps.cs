@@ -422,10 +422,10 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [When(@"a GET \(by id\) request is submitted to the ""(.*)"" composite")]
         public async Task WhenAGETByIdRequestIsSubmittedToTheComposite(string compositeName)
         {
-            if(compositeName.Equals("StudentEducationOrganizationAssociationCollection") ||
-               compositeName.Equals("StudentLinkedCollectionWithCollection") ||
-               compositeName.Equals("StudentEducationOrganizationAssociationCollectionWithProperty") ||
-               compositeName.Equals("BaseResourceCanContainNoProperty"))
+            if (compositeName.Equals("StudentEducationOrganizationAssociationCollection", StringComparison.OrdinalIgnoreCase) ||
+                compositeName.Equals("StudentLinkedCollectionWithCollection", StringComparison.OrdinalIgnoreCase) ||
+                compositeName.Equals("StudentEducationOrganizationAssociationCollectionWithProperty", StringComparison.OrdinalIgnoreCase) ||
+                compositeName.Equals("BaseResourceCanContainNoProperty", StringComparison.OrdinalIgnoreCase))
             {
                 var domainModelObject = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
 
@@ -441,7 +441,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 {
                     Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
                 }
-                return;
             }
 
 
