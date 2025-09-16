@@ -55,7 +55,7 @@ public class ExpiringSingleFlightFactoryCacheProvider<TKey, TValue> : SingleFlig
         // Set expiration period only if expiration period is not the default (0)
         else if (expirationPeriod.TotalSeconds > 0)
         {
-            _timer = new Timer(CacheExpired, null, expirationPeriod, expirationPeriod);
+            _timer = new Timer(CacheExpired, GetCurrentCacheExpirationCancellationToken(), expirationPeriod, expirationPeriod);
             _expirationCallback = expirationCallback;
         }
     }
@@ -64,33 +64,56 @@ public class ExpiringSingleFlightFactoryCacheProvider<TKey, TValue> : SingleFlig
         TKey key,
         Func<TKey, TArg, TValue> factory,
         TimeSpan singleFlightTimeout,
-        TArg factoryArgument)
+        TArg factoryArgument,
+        CancellationToken callerCancellationToken = default)
     {
         // If caching has been disabled (by setting the expiration period to less than 0), call the factory directly.
         return !_cacheEnabled
             ? factory(key, factoryArgument)
-            : base.GetOrCreate(key, factory, singleFlightTimeout, factoryArgument);
+            : base.GetOrCreate(key, factory, singleFlightTimeout, factoryArgument, callerCancellationToken);
     }
 
     public override void Clear()
     {
+        // Clear the cache, create a new cancellation token source
         base.Clear();
-        
-        // Recreate the timer
-        _timer.Dispose();
-        _timer = new Timer(CacheExpired, null, _expirationPeriod, _expirationPeriod);
+
+        var newCancellationToken = GetCurrentCacheExpirationCancellationToken();
+
+        // Create a new timer with the new expiration token
+        var newTimer = new Timer(CacheExpired, newCancellationToken, _expirationPeriod, _expirationPeriod);
+
+        Console.WriteLine(
+            $"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): New timer created with expiration token (ct: {newCancellationToken.GetHashCode()}).");
+
+        // Atomically swap timers
+        var oldTimer = Interlocked.Exchange(ref _timer, newTimer);
+
+        // Dispose of the old timer
+        oldTimer?.Change(Timeout.Infinite, Timeout.Infinite);
+        oldTimer?.Dispose();
     }
 
     private void CacheExpired(object state)
     {
-        Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cached expiration period elapsed. Clearing cache '{Description}'...");
+        CancellationToken cancellationToken = (CancellationToken) state;
+
+        // Has the cache for this timer already been cleared explicitly?
+        if (cancellationToken.IsCancellationRequested)
+        {
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cached expiration period elapsed but cache associated with timer (ct: {cancellationToken.GetHashCode()}) was already cleared.");
+            return;
+        }
+
+        Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cached expiration period elapsed. Clearing cache '{Description}' (ct: {cancellationToken.GetHashCode()})...");
 
         if (_logger.IsDebugEnabled)
         {
             _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{Description}' expired ({Cache.Count} entries cleared after {HitsApproximate} hits and {MissesApproximate} misses).");
         }
-
-        base.Clear();
+        
+        // Clear the cache and invoke the expiration callback
+        Clear();
         _expirationCallback?.Invoke();
     }
 }

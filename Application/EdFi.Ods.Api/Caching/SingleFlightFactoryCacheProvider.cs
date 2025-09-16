@@ -10,21 +10,22 @@ using log4net;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Retry;
-
-namespace EdFi.Ods.Api.Caching;
-
 using System.Collections.Concurrent;
 using System.Runtime.ExceptionServices;
 using System.Threading;
+using EdFi.Ods.Common.Caching.SingleFlight;
 
-public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFactoryCacheProvider<TKey, TValue>, IClearable
+namespace EdFi.Ods.Api.Caching;
+
+public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightCache<TKey, TValue>, IClearable
     where TKey : notnull
 {
     // ReSharper disable once StaticMemberInGenericType
     private static readonly TimeSpan _defaultFactoryTimeout = TimeSpan.FromSeconds(30);
 
     protected readonly ConcurrentDictionary<TKey, CacheEntry> Cache = new();
-
+    private CancellationTokenSource _cacheExpirationTokenSource = new(); // swapped on Clear()
+    
     private readonly ILog _logger = LogManager.GetLogger(typeof(SingleFlightFactoryCacheProvider<TKey, TValue>));
 
     protected readonly string Description;
@@ -33,7 +34,8 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
 
     private readonly TimeSpan _factoryTimeout;
 
-    private readonly RetryPolicy _retryPolicy;
+    private readonly RetryPolicy _factoryRetryPolicy;
+    private readonly RetryPolicy _cacheEntryRetryPolicy;
 
     public SingleFlightFactoryCacheProvider(string description, TimeSpan factoryTimeout)
     {
@@ -43,7 +45,7 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
             ? _defaultFactoryTimeout
             : factoryTimeout;
 
-        _retryPolicy = Policy.Handle<TimeoutException>()
+        _factoryRetryPolicy = Policy.Handle<TimeoutException>()
             .WaitAndRetry(
                 Backoff.ExponentialBackoff(
                     initialDelay: _factoryTimeout / 2, // Initial retry delay
@@ -53,32 +55,55 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
                     _logger.Warn(
                         $"Retry attempt {retryAttempt} of 4: Retrying factory delegate in {timeSpan.TotalSeconds} seconds due to exception: {exception.Message}");
                 });
+
+        _cacheEntryRetryPolicy = Policy.Handle<OperationCanceledException>()
+            .WaitAndRetry(
+                Backoff.ExponentialBackoff(
+                    initialDelay: TimeSpan.FromMilliseconds(10), // Initial retry delay
+                    retryCount: 5),
+                onRetry: (exception, timeSpan, retryAttempt, context) =>
+                {
+                    _logger.Warn(
+                        $"Retry attempt {retryAttempt} of 4: Retrying expired cache entry access in {timeSpan.TotalSeconds} seconds due to exception: {exception.Message}");
+                });
     }
 
+    protected CancellationToken GetCurrentCacheExpirationCancellationToken() => _cacheExpirationTokenSource.Token;
+    
     public virtual TValue GetOrCreate<TArg>(
         TKey key,
         Func<TKey, TArg, TValue> factory,
         TimeSpan singleFlightTimeout,
-        TArg factoryArgument)
+        TArg factoryArgument,
+        CancellationToken callerCancellationToken = default)
     {
-        // TODO: Consider removal of tokens in favor of all waits being controlled by the producer and factory timeout
-        var cts = new CancellationTokenSource(singleFlightTimeout);
-        var ct = cts.Token;
-
-        // Fast path: only allocates a CacheEntry on a miss
-        var entry = Cache.GetOrAdd(key, static _ => new CacheEntry());
-
-        // Try to read without producing
-        if (entry.TryGet(out var value))
+        return _cacheEntryRetryPolicy.Execute(() =>
         {
-            return value;
-        }
+            // Capture the token to be able to detect cache expiration while processing
+            var cacheExpirationToken = _cacheExpirationTokenSource.Token;
 
-        // Try to become the producer (no allocation here)
-        entry.Produce(factory, key, factoryArgument, _retryPolicy, _factoryTimeout);
+            // TODO: Consider removal of tokens in favor of all waits being controlled by the producer and factory timeout
+            // var cts = new CancellationTokenSource(singleFlightTimeout);
+            // var ct = cts.Token;
 
-        // All callers (including the producer) converge here to read the result
-        return entry.WaitForResult(ct);
+            // Fast path: only allocates a CacheEntry on a miss
+            var entry = Cache.GetOrAdd(key, static (_, token) => new CacheEntry(token), cacheExpirationToken);
+
+            // Try to read the entry before producing
+            if (entry.TryGet(out var value))
+            {
+                return value;
+            }
+
+            // Try to become the producer (no allocation here)
+            entry.Produce(factory, key, factoryArgument, _factoryRetryPolicy, _factoryTimeout);
+
+            // All callers (including the producer) converge here to read the result
+            using var linkedTokenSource =
+                CancellationTokenSource.CreateLinkedTokenSource(callerCancellationToken, cacheExpirationToken);
+
+            return entry.WaitForResult(linkedTokenSource.Token);
+        });
     }
 
     public void Remove(TKey key) => Cache.TryRemove(key, out _);
@@ -96,7 +121,11 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
     {
         Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Clearing cache '{Description}'...");
         
+        using var oldCancellationTokenSource = Interlocked.Exchange(ref _cacheExpirationTokenSource, new CancellationTokenSource());
         Cache.Clear();
+        
+        // Allow in-flight producers/waiters to detect expiration of the cache
+        oldCancellationTokenSource.Cancel();
 
         if (_logger.IsDebugEnabled)
         {
@@ -108,7 +137,7 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
         }
     }
 
-    protected sealed class CacheEntry()
+    protected sealed class CacheEntry(CancellationToken _cacheExpirationToken)
     {
         // Enumeration here isn't possible due to the use of Volatile.Read/Write
         private const int StateInit = 0;
@@ -124,8 +153,13 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
         private Exception _error;
         private ManualResetEventSlim _event; // allocated only on contended wait
 
+        private readonly TaskCompletionSource<TValue> _tcs =
+            new(TaskCreationOptions.RunContinuationsAsynchronously);
+        
         public bool TryGet(out TValue value)
         {
+            EnsureCacheNotExpired();
+
             if (Volatile.Read(ref _state) == StateReady)
             {
                 value = _value;
@@ -136,6 +170,15 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
             return false;
         }
 
+        private void EnsureCacheNotExpired()
+        {
+            if (_cacheExpirationToken.IsCancellationRequested)
+            {
+                Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cache expiration detected (CacheEntry: {GetHashCode()})...");
+                throw new OperationCanceledException("Cache has expired.");
+            }
+        }
+
         // Called by exactly one producer
         public void Produce<TArg>(
             Func<TKey, TArg, TValue> factory,
@@ -144,7 +187,7 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
             RetryPolicy retryPolicy,
             TimeSpan factoryTimeout)
         {
-            // Check if another thread is already producing or has produced a result
+            // Try to become the producer by performing state transition (if another thread is already producing or has produced a result this will fail)
             if (Interlocked.CompareExchange(ref _state, StateProducing, StateInit) != StateInit)
             {
                 return;
@@ -155,7 +198,7 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
             try
             {
                 // Execute the factory method, respecting the timeout
-                _value = retryPolicy.Execute(() =>
+                var computedValue = retryPolicy.Execute(() =>
                 {
                     // Execute the factory method, respecting the timeout
                     var factoryTask = Task.Run(() => factory(key, factoryArgument));
@@ -163,6 +206,8 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
                     if (factoryTask.Wait(factoryTimeout))
                     {
                         var value = factoryTask.ConfigureAwait(false).GetAwaiter().GetResult();
+
+                        EnsureCacheNotExpired();
 
                         Console.WriteLine(
                             $"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Factory created value of '{value}' for entry '{key}' (CacheEntry: {GetHashCode()})...");
@@ -176,12 +221,16 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
                     throw new TimeoutException("Operation to create value for cache item timed out.");
                 });
 
+                EnsureCacheNotExpired();
 
+                _value = computedValue;
                 Volatile.Write(ref _state, StateReady);
                 _event?.Set();
             }
             catch (Exception ex)
             {
+                EnsureCacheNotExpired();
+
                 _error = ex;
                 Volatile.Write(ref _state, StateFailed);
                 _event?.Set();
@@ -193,6 +242,8 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
         // Called by waiters (including non-producers)
         public TValue WaitForResult(CancellationToken ct)
         {
+            EnsureCacheNotExpired();
+
             // Fast path
             var state = Volatile.Read(ref _state);
 
@@ -214,6 +265,8 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
 
             for (int i = 0; i < 8; i++)
             {
+                EnsureCacheNotExpired();
+
                 spinner.SpinOnce();
                 state = Volatile.Read(ref _state);
 
@@ -229,6 +282,8 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
                     ExceptionDispatchInfo.Capture(_error!).Throw();
                 }
             }
+
+            EnsureCacheNotExpired();
 
             // Slow path: allocate the event only once
             var @event = _event;
@@ -254,6 +309,8 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
                 }
             }
 
+            EnsureCacheNotExpired();
+
             // If now ready or failed, skip waiting
             state = Volatile.Read(ref _state);
 
@@ -270,10 +327,13 @@ public class SingleFlightFactoryCacheProvider<TKey, TValue> : ISingleFlightFacto
                     break;
             }
 
-            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Waiting for result to be available (CacheEntry: {GetHashCode()})...");
+            EnsureCacheNotExpired();
 
             // Block until the producer signals completion (either ready or failed)
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Waiting for result to be available (CacheEntry: {GetHashCode()})...");
             @event.Wait(ct);
+
+            EnsureCacheNotExpired();
 
             state = Volatile.Read(ref _state);
 

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Threading;
 
 namespace EdFi.Ods.Common.Caching;
 
@@ -13,7 +14,8 @@ public interface ISingleFlightFactoryCacheProvider<TKey, TValue>
         TKey key,
         Func<TKey, TArg, TValue> factory,
         TimeSpan singleFlightTimeout,
-        TArg factoryArgument);
+        TArg factoryArgument,
+        CancellationToken callerCancellationToken);
     
     // TValue GetOrAdd<TArg>(TKey key, Func<TKey, TArg, TValue> valueFactory, TArg factoryArgument)
     //
