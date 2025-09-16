@@ -10,7 +10,7 @@ using log4net;
 
 namespace EdFi.Ods.Api.Caching;
 
-public class ExpiringSingleFlightFactoryCache<TKey, TValue> : SingleFlightCache<TKey, TValue>
+public class ExpiringSingleFlightCache<TKey, TValue> : SingleFlightCache<TKey, TValue>
 {
     private Timer _timer;
     private readonly TimeSpan _expirationPeriod;
@@ -18,27 +18,27 @@ public class ExpiringSingleFlightFactoryCache<TKey, TValue> : SingleFlightCache<
 
     private readonly bool _cacheEnabled = true;
 
-    private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringSingleFlightFactoryCache<TKey, TValue>));
+    private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringSingleFlightCache<TKey, TValue>));
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ExpiringSingleFlightFactoryCache{TKey,TValue}" /> class using the
+    /// Initializes a new instance of the <see cref="ExpiringSingleFlightCache{TKey,TValue}" /> class using the
     /// specified recurring expiration period.
     /// </summary>
     /// <param name="description">A description of the contents of the cached data for information/logging purposes.</param>
     /// <param name="expirationPeriod">The recurring expiration period for all of the entries in the cache.</param>
     /// <param name="factoryTimeout">The timeout period for a factory operation (to initialize a cache entry).</param>
-    public ExpiringSingleFlightFactoryCache(string description, TimeSpan expirationPeriod, TimeSpan factoryTimeout = default)
+    public ExpiringSingleFlightCache(string description, TimeSpan expirationPeriod, TimeSpan factoryTimeout = default)
         : this(description, expirationPeriod, expirationCallback: null, factoryTimeout) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ExpiringSingleFlightFactoryCache{TKey,TValue}" /> class using the
+    /// Initializes a new instance of the <see cref="ExpiringSingleFlightCache{TKey,TValue}" /> class using the
     /// specified recurring expiration period.
     /// </summary>
     /// <param name="description">A description of the contents of the cached data for information/logging purposes.</param>
     /// <param name="expirationPeriod">The recurring expiration period for all of the entries in the cache.</param>
     /// <param name="factoryTimeout">The timeout period for a factory operation (to initialize a cache entry).</param>
     /// <param name="expirationCallback">Callback to invoke when the cache expires.</param>
-    public ExpiringSingleFlightFactoryCache(
+    public ExpiringSingleFlightCache(
         string description,
         TimeSpan expirationPeriod,
         Action expirationCallback,

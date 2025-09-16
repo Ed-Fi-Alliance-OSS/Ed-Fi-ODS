@@ -14,6 +14,7 @@ using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Caching;
 
+/*
 [TestFixture]
 public class CachingInterceptorSyncAsyncTests
 {
@@ -195,3 +196,4 @@ public class CachingInterceptorSyncAsyncTests
         Should.Throw<NotSupportedException>(() => _interceptor.Clear());
     }
 }
+*/

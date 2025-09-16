@@ -40,6 +40,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.15" />
     <PackageReference Include="NHibernate" Version="5.5.2" />
+    <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
     <PackageReference Include="Quartz.AspNetCore" Version="3.11.0" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
     <PackageReference Include="Standart.Hash.xxHash" Version="4.0.5" />

@@ -12,6 +12,8 @@ using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Jobs;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Caching.CacheKeyProviders;
+using EdFi.Ods.Common.Caching.SingleFlight;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Configuration.Sections;
 using EdFi.Ods.Common.Constants;
@@ -64,55 +66,79 @@ public class MultiTenancyModule : ConditionalModule
             .SingleInstance();
         
         // Override interceptors to include tenant context
-        builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
-            .Named<IInterceptor>(InterceptorCacheKeys.Security)
+        builder.RegisterType<CachingInterceptor>()
+            .Named<IAsyncInterceptor>(InterceptorCacheKeys.Security)
+            .WithParameter(
+                (pi, ctx) => pi.ParameterType == typeof(IMethodSignatureCacheKeyProvider),
+                (pi, ctx) => ctx.Resolve<ContextualMethodSignatureCacheKeyProvider<TenantConfiguration>>())
             .WithParameter(
                 ctx =>
                 {
                     var apiSettings = ctx.Resolve<ApiSettings>();
 
-                    return (IConcurrentCacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                    return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                         "Security",
                         TimeSpan.FromMinutes(apiSettings.Caching.Security.AbsoluteExpirationMinutes));
                 })
             .SingleInstance();
         
-        builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
-            .Named<IInterceptor>(InterceptorCacheKeys.ApiClientDetails)
+        builder.Register(ctx =>
+                new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.Security)))
+            .Named<IInterceptor>(InterceptorCacheKeys.Security); // Wrap into AsyncDeterminationInterceptor to support async interception
+
+        builder.RegisterType<CachingInterceptor>()
+            .Named<IAsyncInterceptor>(InterceptorCacheKeys.ApiClientDetails)
+            .WithParameter(
+                (pi, ctx) => pi.ParameterType == typeof(IMethodSignatureCacheKeyProvider),
+                (pi, ctx) => ctx.Resolve<ContextualMethodSignatureCacheKeyProvider<TenantConfiguration>>())
             .WithParameter(
                 ctx =>
                 {
                     var apiSettings = ctx.Resolve<ApiSettings>();
 
-                    return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                    return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                         "API Client Details",
                         TimeSpan.FromSeconds(apiSettings.Caching.ApiClientDetails.AbsoluteExpirationSeconds));
                 })
             .SingleInstance();
         
-        builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
-            .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata)
+        builder.Register(ctx =>
+                new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.ApiClientDetails)))
+            .Named<IInterceptor>(InterceptorCacheKeys.ApiClientDetails); // Wrap into AsyncDeterminationInterceptor to support async interception
+
+        builder.RegisterType<CachingInterceptor>()
+            .Named<IAsyncInterceptor>(InterceptorCacheKeys.ProfileMetadata)
+            .WithParameter(
+                (pi, ctx) => pi.ParameterType == typeof(IMethodSignatureCacheKeyProvider),
+                (pi, ctx) => ctx.Resolve<ContextualMethodSignatureCacheKeyProvider<TenantConfiguration>>())
             .WithParameter(
                 ctx =>
                 {
                     var apiSettings = ctx.Resolve<ApiSettings>();
                     var mediator = ctx.Resolve<IMediator>();
 
-                    return (IConcurrentCacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                    return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                         "Profile Metadata",
                         TimeSpan.FromSeconds(apiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
                         () => mediator.Publish(new ProfileMetadataCacheExpired()));
                 })
             .SingleInstance();
         
-        builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
-            .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances)
+        builder.Register(ctx =>
+                new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.ProfileMetadata)))
+            .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata); // Wrap into AsyncDeterminationInterceptor to support async interception
+
+        builder.RegisterType<CachingInterceptor>()
+            .Named<IAsyncInterceptor>(InterceptorCacheKeys.OdsInstances)
+            .WithParameter(
+                (pi, ctx) => pi.ParameterType == typeof(IMethodSignatureCacheKeyProvider),
+                (pi, ctx) => ctx.Resolve<ContextualMethodSignatureCacheKeyProvider<TenantConfiguration>>())
             .WithParameter(
                 ctx =>
                 {
                     var apiSettings = ctx.Resolve<ApiSettings>();
                     
-                    var cacheProvider = new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                    var cache = new ExpiringSingleFlightCache<ulong, object>(
                         "ODS Instance Configurations",
                         TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds)); // TODO: Evaluate this timeout for accessing EdFi_Admin ODS configurations
 
@@ -125,12 +151,16 @@ public class MultiTenancyModule : ConditionalModule
                             _logger.Debug($"Tenants configuration change detected. Clearing interceptor cache provider...");
                         }
                         
-                        cacheProvider.Clear();
+                        cache.Clear();
                     });
 
-                    return (IConcurrentCacheProvider<ulong>) cacheProvider;
+                    return (ISingleFlightCache<ulong, object>) cache;
                 })
             .SingleInstance();
+
+        builder.Register(ctx =>
+                new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.OdsInstances)))
+            .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances); // Wrap into AsyncDeterminationInterceptor to support async interception
 
         builder.RegisterDecorator<MultiTenantApiJobSchedulerDecorator, IApiJobScheduler>();
     }

@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Caching.SingleFlight;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Database;
@@ -32,30 +33,38 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 .SingleInstance();
             
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances)
+                .Named<IAsyncInterceptor>(InterceptorCacheKeys.OdsInstances)
                 .WithParameter(
                     ctx =>
                     {
                         var apiSettings = ctx.Resolve<ApiSettings>();
 
-                        return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                        return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                             "ODS Instance Configurations",
                             TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds));
                     })
                 .SingleInstance();
             
+            builder.Register(ctx =>
+                    new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.OdsInstances)))
+                .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances); // Wrap into AsyncDeterminationInterceptor to support async interception
+
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata)
+                .Named<IAsyncInterceptor>(InterceptorCacheKeys.ProfileMetadata)
                 .WithParameter(
                     ctx =>
                     {
                         var apiSettings = ctx.Resolve<ApiSettings>();
 
-                        return (ICacheProvider<ulong>)new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                        return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                             "Profile Metadata",
                             TimeSpan.FromSeconds(apiSettings.Caching.Profiles.AbsoluteExpirationSeconds));
                     })
                 .SingleInstance();
+            
+            builder.Register(ctx =>
+                    new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.ProfileMetadata)))
+                .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata); // Wrap into AsyncDeterminationInterceptor to support async interception
         }
     }
 }

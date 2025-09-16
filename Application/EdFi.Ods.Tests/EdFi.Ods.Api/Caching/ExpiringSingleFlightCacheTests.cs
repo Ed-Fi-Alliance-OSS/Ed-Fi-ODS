@@ -16,7 +16,7 @@ using Shouldly;
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching;
 
 [TestFixture]
-public class ExpiringSingleFlightFactoryCacheTests
+public class ExpiringSingleFlightCacheTests
 {
     private static readonly TimeSpan _expirationPeriod = TimeSpan.FromMilliseconds(250);
 
@@ -24,7 +24,7 @@ public class ExpiringSingleFlightFactoryCacheTests
     public async Task Cache_ShouldPreventThunderingHerd_WhenExpiringEntireCache()
     {
         // Arrange
-        var provider = new ExpiringSingleFlightFactoryCache<string, object>("TestCache", _expirationPeriod);
+        var provider = new ExpiringSingleFlightCache<string, object>("TestCache", _expirationPeriod);
 
         string cacheKey = "ThunderingHerdKey";
         string computedValue = "ComputedValue";
@@ -80,7 +80,7 @@ public class ExpiringSingleFlightFactoryCacheTests
     public async Task Cache_ShouldPreventThunderingHerd_WhenCacheExpirationDisabled()
     {
         // Arrange
-        var provider = new ExpiringSingleFlightFactoryCache<string, object>("TestNonExpiringCache", TimeSpan.Zero);
+        var provider = new ExpiringSingleFlightCache<string, object>("TestNonExpiringCache", TimeSpan.Zero);
 
         string cacheKey = "ThunderingHerdKey";
         string computedValue = "ComputedValue";
@@ -132,7 +132,7 @@ public class ExpiringSingleFlightFactoryCacheTests
     public void Cache_ShouldHandleThunderingHerd_WhenCachingDisabled()
     {
         // Arrange
-        var provider = new ExpiringSingleFlightFactoryCache<string, object>("TestCache", TimeSpan.MinValue);
+        var provider = new ExpiringSingleFlightCache<string, object>("TestCache", TimeSpan.MinValue);
 
         string cacheKey = "DisabledThunderingHerdKey";
         string computedValue = "ComputedValue";
@@ -172,7 +172,7 @@ public class ExpiringSingleFlightFactoryCacheTests
         // Arrange
         int cacheExpirationCount = 0;
         
-        var provider = new ExpiringSingleFlightFactoryCache<string, object>(
+        var provider = new ExpiringSingleFlightCache<string, object>(
             "TestCache",
             TimeSpan.FromMinutes(1), // Effectively no timeout for the cache for this test
             () => cacheExpirationCount++);
@@ -209,8 +209,8 @@ public class ExpiringSingleFlightFactoryCacheTests
             var value = provider.GetOrCreate(
                 cacheKey,
                 ValueFactory,
-                TimeSpan.FromMinutes(1), // Guard against permanent hangs
-                (computedValue, workDuration));
+                (computedValue, workDuration), // Guard against permanent hangs
+                TimeSpan.FromMinutes(1));
 
             return value;
         }
@@ -267,7 +267,7 @@ public class ExpiringSingleFlightFactoryCacheTests
         int cacheExpirationCount = 0;
         
         // TODO: Causes problems with cache expiration during initialization
-        var provider = new ExpiringSingleFlightFactoryCache<string, object>("TestCache", _expirationPeriod, () => cacheExpirationCount++);
+        var provider = new ExpiringSingleFlightCache<string, object>("TestCache", _expirationPeriod, () => cacheExpirationCount++);
 
         string cacheKey1 = "ThunderingHerdKey1";
         string computedValue1 = "ComputedValue1";
@@ -301,8 +301,8 @@ public class ExpiringSingleFlightFactoryCacheTests
             var value = provider.GetOrCreate(
                 cacheKey,
                 ValueFactory,
-                TimeSpan.FromMinutes(1), // Guard against permanent hangs
-                (computedValue, workDuration));
+                (computedValue, workDuration), // Guard against permanent hangs
+                TimeSpan.FromMinutes(1));
 
             return value;
         }
@@ -356,7 +356,7 @@ public class ExpiringSingleFlightFactoryCacheTests
         var cacheExpirationPeriodForThisTest = TimeSpan.FromSeconds(1);
 
         // Arrange
-        var provider = new ExpiringSingleFlightFactoryCache<string, object>(
+        var provider = new ExpiringSingleFlightCache<string, object>(
             "TestCache",
             cacheExpirationPeriodForThisTest, // Make the expiration irrelevant to this test (else use _expirationPeriod),
             TimeSpan.FromMilliseconds(50)); // Set factory delegate timeout
@@ -392,11 +392,11 @@ public class ExpiringSingleFlightFactoryCacheTests
             var value = provider.GetOrCreate(
                 cacheKey,
                 ValueFactory,
-                TimeSpan.FromMilliseconds(175), // Callers will wait longer than initial work before timing out
                 (
                     initialWorkDuration: TimeSpan.FromMilliseconds(150), // Initial work is longer than factory timeout setting on cache
                     subsequentWorkDuration: TimeSpan.FromMilliseconds(25) // Subsequent work completes faster
-                ));
+                ), // Callers will wait longer than initial work before timing out
+                TimeSpan.FromMilliseconds(175));
 
             return value;
         }

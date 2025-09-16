@@ -22,6 +22,7 @@ using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters.Hints;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Api.Security.Utilities;
+using EdFi.Ods.Common.Caching;
 using Module = Autofac.Module;
 
 namespace EdFi.Ods.Api.Security.Container.Modules
@@ -41,6 +42,7 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             builder.RegisterType<AuthorizationBasisMetadataSelector>()
                 .As<IAuthorizationBasisMetadataSelector>()
                 .EnableInterfaceInterceptors()
+                //.InterceptedBy(InterceptorCacheKeys.Security)
                 .SingleInstance();
 
             builder.RegisterType<ActionBitValueProvider>()
@@ -54,11 +56,13 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             builder.RegisterType<AuthorizationStrategyResolver>()
                 .As<IAuthorizationStrategyResolver>()
                 .EnableInterfaceInterceptors()
+                //.InterceptedBy(InterceptorCacheKeys.Security)
                 .SingleInstance();
 
             builder.RegisterType<ClaimSetRequestEvaluator>()
                 .As<IClaimSetRequestEvaluator>()
                 .EnableInterfaceInterceptors()
+                //.InterceptedBy(InterceptorCacheKeys.Security)
                 .SingleInstance();
 
             builder.RegisterType<RequestEvaluationStrategiesSelector>()
@@ -72,6 +76,7 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             builder.RegisterType<ResourceClaimAuthorizationMetadataLineageProvider>()
                 .As<IResourceClaimAuthorizationMetadataLineageProvider>()
                 .EnableInterfaceInterceptors()
+                //.InterceptedBy(InterceptorCacheKeys.Security)
                 .SingleInstance();
 
             builder.RegisterType<EntityAuthorizer>()
@@ -149,6 +154,7 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             builder.RegisterType<ClaimSetClaimsProvider>()
                 .As<IClaimSetClaimsProvider>()
                 .EnableInterfaceInterceptors()
+                //.InterceptedBy(InterceptorCacheKeys.Security)
                 .SingleInstance();
 
             builder.RegisterType<ResourceClaimUriProvider>()

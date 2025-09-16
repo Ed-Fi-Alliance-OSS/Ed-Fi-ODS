@@ -9,12 +9,12 @@ using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Common.Caching;
 
-public class ContextualCachingInterceptor<TContext> : CachingInterceptor
+public class ContextualCachingInterceptor_OLD<TContext> : CachingInterceptor_OLD
     where TContext : IContextHashBytesSource
 {
     private readonly IContextProvider<TContext> _contextProvider;
 
-    public ContextualCachingInterceptor(IConcurrentCacheProvider<ulong> cacheProvider, IContextProvider<TContext> contextProvider)
+    public ContextualCachingInterceptor_OLD(IConcurrentCacheProvider<ulong> cacheProvider, IContextProvider<TContext> contextProvider)
         : base(cacheProvider)
     {
         _contextProvider = contextProvider;

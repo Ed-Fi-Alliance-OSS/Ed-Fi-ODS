@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Jobs;
 using EdFi.Ods.Api.Security.Profiles;
 using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Caching.SingleFlight;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
@@ -59,29 +60,35 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterType<ProfileMetadataProvider>()
                     .As<IProfileMetadataProvider>()
                     .EnableInterfaceInterceptors()
+                    //.InterceptedBy(InterceptorCacheKeys.ProfileMetadata)
                     .SingleInstance();
 
             builder.RegisterType<ProfileResourceNamesProvider>()
                 .AsImplementedInterfaces()
                 .EnableInterfaceInterceptors()
+                //.InterceptedBy(InterceptorCacheKeys.ProfileMetadata)
                 .SingleInstance();
 
             //When MultiTenancy is enabled, the CachingInterceptor is registered as a ContextualCachingInterceptor<TenantConfiguration> in the MultiTenancyModule 
             if (!IsFeatureEnabled(ApiFeature.MultiTenancy))
             {
                 builder.RegisterType<CachingInterceptor>()
-                    .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata)
+                    .Named<IAsyncInterceptor>(InterceptorCacheKeys.ProfileMetadata)
                     .WithParameter(
                         ctx =>
                         {
                             var mediator = ctx.Resolve<IMediator>();
                             
-                            return (ICacheProvider<ulong>)new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                            return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                                 "Profile Metadata",
                                 TimeSpan.FromSeconds(_apiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
                                 () => mediator.Publish(new ProfileMetadataCacheExpired()));
                         })
                     .SingleInstance();
+                
+                builder.Register(ctx =>
+                        new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.ProfileMetadata)))
+                    .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata); // Wrap into AsyncDeterminationInterceptor to support async interception
             }
             
             builder.RegisterType<AdminProfileNamesPublisher>()
@@ -111,6 +118,7 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterType<ProfileResourceModelProvider>()
                 .AsImplementedInterfaces()
                 .EnableInterfaceInterceptors()
+                //.InterceptedBy(InterceptorCacheKeys.ProfileMetadata)
                 .SingleInstance();
 
             builder.RegisterType<ProfileValidationReporter>()

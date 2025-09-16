@@ -6,6 +6,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
@@ -30,6 +31,7 @@ using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Caching.SingleFlight;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Configuration.Sections;
 using EdFi.Ods.Common.Container;
@@ -217,20 +219,25 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<ApiClientDetailsProvider>()
                 .As<IApiClientDetailsProvider>()
                 .EnableInterfaceInterceptors()
+                // .InterceptedBy(InterceptorCacheKeys.ApiClientDetails)
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>(InterceptorCacheKeys.ApiClientDetails)
+                .Named<IAsyncInterceptor>(InterceptorCacheKeys.ApiClientDetails)
                 .WithParameter(
                     ctx =>
                     {
                         var apiSettings = ctx.Resolve<ApiSettings>();
 
-                        return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                        return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(                        
                             "API Client Details",
                             TimeSpan.FromSeconds(apiSettings.Caching.ApiClientDetails.AbsoluteExpirationSeconds));
                     })
                 .SingleInstance();
+
+            builder.Register(ctx =>
+                    new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.ApiClientDetails)))
+                .Named<IInterceptor>(InterceptorCacheKeys.ApiClientDetails); // Wrap into AsyncDeterminationInterceptor to support async interception
 
             builder.RegisterType<OAuthTokenAuthenticator>()
                 .As<IOAuthTokenAuthenticator>()
@@ -311,6 +318,7 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<OdsInstanceConfigurationProvider>()
                 .As<IOdsInstanceConfigurationProvider>()
                 .EnableInterfaceInterceptors()
+                //.InterceptedBy(InterceptorCacheKeys.OdsInstances)
                 .SingleInstance();
 
             builder.RegisterType<ConnectionStringOverridesApplicator>()
@@ -354,13 +362,13 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances)
+                .Named<IAsyncInterceptor>(InterceptorCacheKeys.OdsInstances)
                 .WithParameter(
                     ctx =>
                     {
                         var apiSettings = ctx.Resolve<ApiSettings>();
 
-                        var cacheProvider = new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                        var cacheProvider = new ExpiringSingleFlightCache<ulong, object>(
                             "ODS Instance Configurations",
                             TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds));
 
@@ -376,9 +384,13 @@ namespace EdFi.Ods.Api.Container.Modules
                             cacheProvider.Clear();
                         });
 
-                        return (ICacheProvider<ulong>) cacheProvider;
+                        return (ISingleFlightCache<ulong, object>) cacheProvider;
                     })
                 .SingleInstance();
+
+            builder.Register(ctx =>
+                    new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.OdsInstances)))
+                .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances); // Wrap into AsyncDeterminationInterceptor to support async interception
 
             builder.RegisterType<InitializeScheduledJobs>()
                 .As<IStartupCommand>();
@@ -519,9 +531,16 @@ namespace EdFi.Ods.Api.Container.Modules
                 builder.RegisterType<ModelStateKeyConverter>().EnableClassInterceptors().SingleInstance();
 
                 builder.RegisterType<CachingInterceptor>()
-                    .Named<IInterceptor>(InterceptorCacheKeys.ModelStateKey)
-                    .WithParameter(ctx => (ICacheProvider<ulong>) new ConcurrentDictionaryCacheProvider<ulong>())
+                    .Named<IAsyncInterceptor>(InterceptorCacheKeys.ModelStateKey)
+                    .WithParameter(ctx
+                        => (ISingleFlightCache<ulong, object>) new SingleFlightCache<ulong, object>(
+                            "Model State",
+                            Timeout.InfiniteTimeSpan))
                     .SingleInstance();
+                
+                builder.Register(ctx =>
+                        new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.ModelStateKey)))
+                    .Named<IInterceptor>(InterceptorCacheKeys.ModelStateKey); // Wrap into AsyncDeterminationInterceptor to support async interception
             }
         }
     }

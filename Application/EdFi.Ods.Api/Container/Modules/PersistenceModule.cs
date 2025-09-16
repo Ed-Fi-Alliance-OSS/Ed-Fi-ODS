@@ -8,6 +8,7 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
 using Autofac.Features.AttributeFilters;
+using Castle.DynamicProxy;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
 using EdFi.Common.Extensions;
@@ -17,6 +18,8 @@ using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Caching.CacheKeyProviders;
+using EdFi.Ods.Common.Caching.SingleFlight;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
@@ -72,20 +75,45 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<DescriptorMapsProvider>()
                 .As<IDescriptorMapsProvider>()
                 .EnableInterfaceInterceptors()
+                //.InterceptedBy(InterceptorCacheKeys.Descriptors)
                 .SingleInstance();
 
-            builder.RegisterType<ContextualCachingInterceptor<OdsInstanceConfiguration>>()
-                .Named<IInterceptor>(InterceptorCacheKeys.Descriptors)
+            // Method signature builder to use by default
+            builder.RegisterType<MethodSignatureCacheKeyProvider>()
+                .As<IMethodSignatureCacheKeyProvider>()
+                .SingleInstance();
+
+            // Contextual method signature builder
+            builder.RegisterGeneric(typeof(ContextualMethodSignatureCacheKeyProvider<>))
+                .AsSelf()
+                .SingleInstance();
+
+            // ContextualCachingInterceptor
+
+            // builder.RegisterType<ContextualMethodSignatureCacheKeyProvider<OdsInstanceConfiguration>>()
+            //     .Named<IMethodSignatureCacheKeyProvider>(InterceptorCacheKeys.Descriptors)
+            //     .AsSelf()
+            //     .SingleInstance();
+
+            builder.RegisterType<CachingInterceptor>()
+                .Named<IAsyncInterceptor>(InterceptorCacheKeys.Descriptors)
+                .WithParameter(
+                    (pi, ctx) => pi.ParameterType == typeof(IMethodSignatureCacheKeyProvider),
+                    (pi, ctx) => ctx.Resolve<ContextualMethodSignatureCacheKeyProvider<OdsInstanceConfiguration>>())
                 .WithParameter(
                     ctx =>
                     {
                         var apiSettings = ctx.Resolve<ApiSettings>();
             
-                        return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                        return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                             "Descriptors",
                             TimeSpan.FromSeconds(apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds));
                     })
                 .SingleInstance();
+
+            builder.Register(ctx =>
+                    new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.Descriptors)))
+                .Named<IInterceptor>(InterceptorCacheKeys.Descriptors); // Wrap into AsyncDeterminationInterceptor to support async interception
 
             builder.RegisterType<DescriptorDetailsProvider>()
                 .As<IDescriptorDetailsProvider>()

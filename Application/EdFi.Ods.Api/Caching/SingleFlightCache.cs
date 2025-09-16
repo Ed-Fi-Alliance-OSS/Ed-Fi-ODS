@@ -9,11 +9,11 @@ using EdFi.Ods.Common.Caching;
 using log4net;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
-using Polly.Retry;
 using System.Collections.Concurrent;
 using System.Runtime.ExceptionServices;
 using System.Threading;
 using EdFi.Ods.Common.Caching.SingleFlight;
+using Nito.AsyncEx;
 
 namespace EdFi.Ods.Api.Caching;
 
@@ -34,11 +34,11 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
 
     private readonly TimeSpan _factoryTimeout;
 
-    private readonly RetryPolicy _factoryRetryPolicy;
-    private readonly RetryPolicy _cacheEntryRetryPolicy;
+    private readonly Policy _factoryRetryPolicy;
+    private readonly Policy _cacheEntryRetryPolicy;
 
-    private readonly AsyncRetryPolicy _factoryRetryPolicyAsync;
-    private readonly AsyncRetryPolicy _cacheEntryRetryPolicyAsync;
+    private readonly AsyncPolicy _factoryRetryPolicyAsync;
+    private readonly AsyncPolicy _cacheEntryRetryPolicyAsync;
 
     public SingleFlightCache(string description, TimeSpan factoryTimeout)
     {
@@ -48,7 +48,9 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
             ? _defaultFactoryTimeout
             : factoryTimeout;
 
-        _factoryRetryPolicy = Policy.Handle<TimeoutException>()
+        _factoryRetryPolicy = _factoryTimeout == Timeout.InfiniteTimeSpan 
+            ? Policy.NoOp()
+            : Policy.Handle<TimeoutException>()
             .WaitAndRetry(
                 Backoff.ExponentialBackoff(
                     initialDelay: _factoryTimeout / 2, // Initial retry delay
@@ -56,10 +58,12 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
                 onRetry: (exception, timeSpan, retryAttempt, context) =>
                 {
                     _logger.Warn(
-                        $"Retry attempt {retryAttempt} of 4: Retrying factory delegate in {timeSpan.TotalSeconds} seconds due to exception: {exception.Message}");
+                        $"Retry attempt {retryAttempt} of 4: Retrying factory delegate in {timeSpan.TotalMilliseconds:N0} milliseconds due to exception: {exception.Message}");
                 });
 
-        _factoryRetryPolicyAsync = Policy.Handle<TimeoutException>()
+        _factoryRetryPolicyAsync = _factoryTimeout == Timeout.InfiniteTimeSpan 
+            ? Policy.NoOpAsync()
+            : Policy.Handle<TimeoutException>()
             .WaitAndRetryAsync(
                 Backoff.ExponentialBackoff(
                     initialDelay: _factoryTimeout / 2, // Initial retry delay
@@ -68,13 +72,15 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
                 {
                     // Log the retry attempt
                     _logger.Warn(
-                        $"Retry attempt {retryAttempt} of 4: Retrying factory delegate in {timeSpan.TotalSeconds} seconds due to exception: {exception.Message}");
+                        $"Retry attempt {retryAttempt} of 4: Retrying factory delegate in {timeSpan.TotalMilliseconds:N0} milliseconds due to exception: {exception.Message}");
 
                     // Placeholder for any custom async side-effect (if needed, replace with actual implementation)
                     await Task.CompletedTask;
                 });
 
-        _cacheEntryRetryPolicy = Policy.Handle<OperationCanceledException>()
+        _cacheEntryRetryPolicy = _factoryTimeout == Timeout.InfiniteTimeSpan 
+            ? Policy.NoOp()
+            : Policy.Handle<OperationCanceledException>()
             .WaitAndRetry(
                 Backoff.ExponentialBackoff(
                     initialDelay: TimeSpan.FromMilliseconds(10), // Initial retry delay
@@ -85,7 +91,9 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
                         $"Retry attempt {retryAttempt} of 5: Retrying expired cache entry access in {timeSpan.TotalSeconds} seconds due to exception: {exception.Message}");
                 });
         
-        _cacheEntryRetryPolicyAsync = Policy.Handle<OperationCanceledException>()
+        _cacheEntryRetryPolicyAsync = _factoryTimeout == Timeout.InfiniteTimeSpan 
+            ? Policy.NoOpAsync()
+            : Policy.Handle<OperationCanceledException>()
             .WaitAndRetryAsync(
                 Backoff.ExponentialBackoff(
                     initialDelay: TimeSpan.FromMilliseconds(10), // Initial retry delay
@@ -117,7 +125,7 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
 
                 // Combine cancellation tokens to respect both the cache expiration and provided token
                 using var linkedTokenSource =
-                    CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, cacheExpirationToken);
+                    CancellationTokenSource.CreateLinkedTokenSource(ct, cacheExpirationToken);
 
                 var linkedToken = linkedTokenSource.Token;
 
@@ -207,7 +215,7 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
         if (_logger.IsDebugEnabled)
         {
             _logger.Debug(
-                $"{nameof(ExpiringSingleFlightFactoryCache<TKey, TValue>)} cache '{Description}' cleared (of {Cache.Count} entries).");
+                $"{nameof(ExpiringSingleFlightCache<TKey, TValue>)} cache '{Description}' cleared (of {Cache.Count} entries).");
 
             HitsApproximate = 0;
             MissesApproximate = 0;
@@ -229,6 +237,7 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
         private TValue _value;
         private Exception _error;
         private ManualResetEventSlim _event; // allocated only on contended wait
+        private AsyncManualResetEvent _asyncEvent; // allocated only on contended wait
 
         private readonly TaskCompletionSource<TValue> _completionSource =
             new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -260,7 +269,7 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
             Func<TKey, TArg, CancellationToken, Task<TValue>> factory,
             TKey key,
             TArg factoryArgument,
-            AsyncRetryPolicy retryPolicy,
+            AsyncPolicy retryPolicy,
             TimeSpan factoryTimeout,
             CancellationToken cancellationToken)
         {
@@ -287,7 +296,7 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
                         {
                             // Await the factory execution
                             var value = await factory(key, factoryArgument, linkedCts.Token).ConfigureAwait(false);
-                            EnsureCacheNotExpired();
+                            //EnsureCacheNotExpired();
 
                             Console.WriteLine(
                                 $"{Thread.CurrentThread.ManagedThreadId}: Factory created value '{value}' for entry '{key}' (CacheEntry: {GetHashCode()})...");
@@ -327,7 +336,7 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
             Func<TKey, TArg, TValue> factory,
             TKey key,
             TArg factoryArgument,
-            RetryPolicy retryPolicy,
+            Policy retryPolicy,
             TimeSpan factoryTimeout)
         {
             // Try to become the producer by performing state transition (if another thread is already producing or has produced a result this will fail)
@@ -382,11 +391,114 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
             }
         }
 
-        public async Task<object> WaitForResultAsync(CancellationToken cancellationToken)
+        public async Task<TValue> WaitForResultAsync(CancellationToken cancellationToken)
         {
-            // Wait asynchronously until the producer finishes, respecting the cancellation token
-            await _completionSource.Task.WaitAsync(cancellationToken);
-            return _value;
+            EnsureCacheNotExpired();
+
+            // Fast path
+            var state = Volatile.Read(ref _state);
+
+            if (state == StateReady)
+            {
+                Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cache entry found in 'Ready' state with value '{_value}' available (CacheEntry: {GetHashCode()})...");
+                return _value;
+            }
+
+            if (state == StateFailed)
+            {
+                Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cache entry found in 'Error' state. Rethrowing exception for cache initialization failure (CacheEntry: {GetHashCode()})...");
+
+                ExceptionDispatchInfo.Capture(_error!).Throw();
+            }
+
+            // Short spin to avoid allocating an event under light contention
+            var spinner = new SpinWait();
+
+            for (int i = 0; i < 8; i++)
+            {
+                EnsureCacheNotExpired();
+
+                spinner.SpinOnce();
+                state = Volatile.Read(ref _state);
+
+                if (state == StateReady)
+                {
+                    Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cache entry found in 'Ready' state (after short spin) with value '{_value}' available (CacheEntry: {GetHashCode()})...");
+                    return _value;
+                }
+
+                if (state == StateFailed)
+                {
+                    Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cache entry found in 'Error' state (after short spin). Rethrowing exception for cache initialization failure (CacheEntry: {GetHashCode()})...");
+                    ExceptionDispatchInfo.Capture(_error!).Throw();
+                }
+            }
+
+            EnsureCacheNotExpired();
+
+            // Slow path: allocate the event only once
+            var asyncEvent = _asyncEvent;
+
+            if (asyncEvent is null)
+            {
+                Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Creating async event for cache entry (CacheEntry: {GetHashCode()})...");
+
+                var createdEvent = new AsyncManualResetEvent();
+                var previousEvent = Interlocked.CompareExchange(ref _asyncEvent, createdEvent, null);
+
+                asyncEvent = previousEvent ?? createdEvent;
+
+                // If we lost the race, no need to clean up
+                if (previousEvent is not null)
+                {
+                    Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Lost the race for async event creation (CacheEntry: {GetHashCode()})...");
+                }
+                else
+                {
+                    Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): WON the race for async event creation (CacheEntry: {GetHashCode()})...");
+                }
+            }
+
+            EnsureCacheNotExpired();
+
+            // If now ready or failed, skip waiting
+            state = Volatile.Read(ref _state);
+
+            switch (state)
+            {
+                case StateReady:
+                    Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Result of '{_value}' found to be available on final check before waiting (CacheEntry: {GetHashCode()})...");
+                    return _value;
+
+                case StateFailed:
+                    Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Failure discovered on final check before waiting. Rethrowing '{_error.GetType().Name}' exception (CacheEntry: {GetHashCode()})...");
+                    ExceptionDispatchInfo.Capture(_error!).Throw();
+
+                    break;
+            }
+
+            EnsureCacheNotExpired();
+
+            // Wait asynchronously until the producer signals completion (either ready or failed)
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Waiting asynchronously for result to be available (CacheEntry: {GetHashCode()})...");
+            await asyncEvent.WaitAsync(cancellationToken).ConfigureAwait(false);
+
+            EnsureCacheNotExpired();
+
+            // Check the state again after waiting
+            state = Volatile.Read(ref _state);
+
+            if (state == StateReady)
+            {
+                Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Result of '{_value}' found to be available after wait completion (CacheEntry: {GetHashCode()})...");
+                return _value;
+            }
+
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Failure discovered after async wait completion. Rethrowing '{_error.GetType().Name}' exception (CacheEntry: {GetHashCode()})...");
+            ExceptionDispatchInfo.Capture(_error!).Throw();
+
+            // Unreachable code - keep the compiler happy
+            return default;
         }
 
         // Called by waiters (including non-producers)

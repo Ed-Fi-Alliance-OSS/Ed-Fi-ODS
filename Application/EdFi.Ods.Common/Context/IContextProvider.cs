@@ -5,6 +5,13 @@
 
 namespace EdFi.Ods.Common.Context;
 
+
+public interface IContextProvider
+{
+    TContext Get<TContext>();
+    void Set<TContext>(TContext context);
+}
+
 /// <summary>
 /// Defines methods for setting and getting values into context.
 /// </summary>
