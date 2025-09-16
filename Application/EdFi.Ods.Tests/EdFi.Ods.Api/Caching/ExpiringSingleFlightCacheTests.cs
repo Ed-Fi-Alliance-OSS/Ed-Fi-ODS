@@ -16,7 +16,7 @@ using Shouldly;
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching;
 
 [TestFixture]
-public class ExpiringSingleFlightFactoryCacheProviderTests
+public class ExpiringSingleFlightFactoryCacheTests
 {
     private static readonly TimeSpan _expirationPeriod = TimeSpan.FromMilliseconds(250);
 
@@ -24,7 +24,7 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
     public async Task Cache_ShouldPreventThunderingHerd_WhenExpiringEntireCache()
     {
         // Arrange
-        var provider = new ExpiringSingleFlightFactoryCacheProvider<string, object>("TestCache", _expirationPeriod);
+        var provider = new ExpiringSingleFlightFactoryCache<string, object>("TestCache", _expirationPeriod);
 
         string cacheKey = "ThunderingHerdKey";
         string computedValue = "ComputedValue";
@@ -80,7 +80,7 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
     public async Task Cache_ShouldPreventThunderingHerd_WhenCacheExpirationDisabled()
     {
         // Arrange
-        var provider = new ExpiringSingleFlightFactoryCacheProvider<string, object>("TestNonExpiringCache", TimeSpan.Zero);
+        var provider = new ExpiringSingleFlightFactoryCache<string, object>("TestNonExpiringCache", TimeSpan.Zero);
 
         string cacheKey = "ThunderingHerdKey";
         string computedValue = "ComputedValue";
@@ -132,7 +132,7 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
     public void Cache_ShouldHandleThunderingHerd_WhenCachingDisabled()
     {
         // Arrange
-        var provider = new ExpiringSingleFlightFactoryCacheProvider<string, object>("TestCache", TimeSpan.MinValue);
+        var provider = new ExpiringSingleFlightFactoryCache<string, object>("TestCache", TimeSpan.MinValue);
 
         string cacheKey = "DisabledThunderingHerdKey";
         string computedValue = "ComputedValue";
@@ -167,13 +167,15 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
     }
 
     [Test]
-    public void Cache_TwoThunderingHerds_ShouldOperateIndependently_OnDifferentKeys()
+    public void Cache_TwoThunderingHerds_ShouldResolveValuesOnce_OnDifferentKeys()
     {
         // Arrange
-        // var provider = new ExpiringSingleFlightFactoryCacheProvider<string, object>("TestCache", TimeSpan.FromMinutes(1));
-
-        // TODO: Causes problems with cache expiration during initialization
-        var provider = new ExpiringSingleFlightFactoryCacheProvider<string, object>("TestCache", _expirationPeriod);
+        int cacheExpirationCount = 0;
+        
+        var provider = new ExpiringSingleFlightFactoryCache<string, object>(
+            "TestCache",
+            TimeSpan.FromMinutes(1), // Effectively no timeout for the cache for this test
+            () => cacheExpirationCount++);
 
         string cacheKey1 = "ThunderingHerdKey1";
         string computedValue1 = "ComputedValue1";
@@ -182,7 +184,6 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
         string cacheKey2 = "ThunderingHerdKey2";
         string computedValue2 = "ComputedValue2";
         int computationCount2 = 0;
-
 
         object ValueFactory(string key, (string computedValue, TimeSpan workDuration) args)
         {
@@ -208,7 +209,7 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
             var value = provider.GetOrCreate(
                 cacheKey,
                 ValueFactory,
-                TimeSpan.FromMilliseconds(100),
+                TimeSpan.FromMinutes(1), // Guard against permanent hangs
                 (computedValue, workDuration));
 
             return value;
@@ -219,6 +220,7 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
         var tasks1 = Enumerable.Range(10, 10)
             .Select(_ => Task.Run(() =>
             {
+                // Wait for the thundering herd launch signal
                 startEvent.Wait();
                 return GetOrComputeValue(cacheKey1, computedValue1, TimeSpan.FromMilliseconds(50), _);
             }))
@@ -227,6 +229,7 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
         var tasks2 = Enumerable.Range(20, 10)
             .Select(_ => Task.Run(() =>
             {
+                // Wait for the thundering herd launch signal
                 startEvent.Wait();
                 return GetOrComputeValue(cacheKey2, computedValue2, TimeSpan.FromMilliseconds(50), _);
             }))
@@ -235,17 +238,116 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
         // Launch the thundering herds
         startEvent.Set();
 
-        // var tasks = tasks1.Concat(tasks2).ToArray();
-
         var results1 = Task.WhenAll(tasks1).Result;
         var results2 = Task.WhenAll(tasks2).Result;
 
         // Assert
-        results1.All(value => (string) value == "ComputedValue1").ShouldBeTrue();
-        results2.All(value => (string) value == "ComputedValue2").ShouldBeTrue();
+        string actualValuesReturned1 = GetActualValuesReturnedMessage(results1);
+        string actualValuesReturned2 = GetActualValuesReturnedMessage(results2);
+        
+        results1.ShouldSatisfyAllConditions(
+            _ => _.All(value => (string) value == "ComputedValue1").ShouldBeTrue(actualValuesReturned1),
+            _ => _.Length.ShouldBe(10),
+            _ => computationCount1.ShouldBe(1));
 
-        computationCount1.ShouldBe(1);
-        computationCount2.ShouldBe(1);
+        results2.ShouldSatisfyAllConditions(
+            _ => _.All(value => (string) value == "ComputedValue2").ShouldBeTrue(actualValuesReturned2),
+            _ => _.Length.ShouldBe(10),
+            _ => computationCount2.ShouldBe(1));
+        
+        // Cache should not have expired during this test
+        cacheExpirationCount.ShouldBe(0);
+    }
+
+    [Test]
+    public void Cache_TwoThunderingHerdsWithMultipleCacheExpirations_ShouldResolveAllValuesWithoutErrors()
+    {
+        // Arrange
+        // var provider = new ExpiringSingleFlightFactoryCacheProvider<string, object>("TestCache", TimeSpan.FromMinutes(1));
+        int cacheExpirationCount = 0;
+        
+        // TODO: Causes problems with cache expiration during initialization
+        var provider = new ExpiringSingleFlightFactoryCache<string, object>("TestCache", _expirationPeriod, () => cacheExpirationCount++);
+
+        string cacheKey1 = "ThunderingHerdKey1";
+        string computedValue1 = "ComputedValue1";
+        int computationCount1 = 0;
+
+        string cacheKey2 = "ThunderingHerdKey2";
+        string computedValue2 = "ComputedValue2";
+        int computationCount2 = 0;
+
+        object ValueFactory(string key, (string computedValue, TimeSpan workDuration) args)
+        {
+            // Simulate expensive computation
+            Thread.Sleep(args.workDuration);
+
+            if (key == cacheKey1)
+            {
+                Interlocked.Increment(ref computationCount1);
+            }
+            else
+            {
+                Interlocked.Increment(ref computationCount2);
+            }
+
+            return args.computedValue;
+        }
+
+        object GetOrComputeValue(string cacheKey, string computedValue, TimeSpan workDuration, int i)
+        {
+            CallContext.SetData("TestTask", i);
+
+            var value = provider.GetOrCreate(
+                cacheKey,
+                ValueFactory,
+                TimeSpan.FromMinutes(1), // Guard against permanent hangs
+                (computedValue, workDuration));
+
+            return value;
+        }
+
+        var startEvent = new ManualResetEventSlim(false);
+        
+        var tasks1 = Enumerable.Range(10, 10)
+            .Select(_ => Task.Run(() =>
+            {
+                // Wait for the thundering herd launch signal
+                startEvent.Wait();
+                return GetOrComputeValue(cacheKey1, computedValue1, TimeSpan.FromMilliseconds(50), _);
+            }))
+            .ToArray();
+
+        var tasks2 = Enumerable.Range(20, 10)
+            .Select(_ => Task.Run(() =>
+            {
+                // Wait for the thundering herd launch signal
+                startEvent.Wait();
+                return GetOrComputeValue(cacheKey2, computedValue2, TimeSpan.FromMilliseconds(50), _);
+            }))
+            .ToArray();
+
+        // Launch the thundering herds
+        startEvent.Set();
+
+        var results1 = Task.WhenAll(tasks1).Result;
+        var results2 = Task.WhenAll(tasks2).Result;
+
+        int finalCacheExpirationCount = cacheExpirationCount;
+        
+        // Assert
+        string actualValuesReturned1 = GetActualValuesReturnedMessage(results1);
+        string actualValuesReturned2 = GetActualValuesReturnedMessage(results2);
+        
+        results1.ShouldSatisfyAllConditions(
+            _ => _.All(value => (string) value == "ComputedValue1").ShouldBeTrue(actualValuesReturned1),
+            _ => _.Length.ShouldBe(10),
+            _ => computationCount1.ShouldBeLessThanOrEqualTo(2 * finalCacheExpirationCount));
+
+        results2.ShouldSatisfyAllConditions(
+            _ => _.All(value => (string) value == "ComputedValue2").ShouldBeTrue(actualValuesReturned2),
+            _ => _.Length.ShouldBe(10),
+            _ => computationCount2.ShouldBeLessThanOrEqualTo(2 * finalCacheExpirationCount));
     }
 
     [Test]
@@ -254,7 +356,7 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
         var cacheExpirationPeriodForThisTest = TimeSpan.FromSeconds(1);
 
         // Arrange
-        var provider = new ExpiringSingleFlightFactoryCacheProvider<string, object>(
+        var provider = new ExpiringSingleFlightFactoryCache<string, object>(
             "TestCache",
             cacheExpirationPeriodForThisTest, // Make the expiration irrelevant to this test (else use _expirationPeriod),
             TimeSpan.FromMilliseconds(50)); // Set factory delegate timeout
@@ -319,7 +421,7 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
 
         // Assert
         // First retrieval: all values should be the same, and computation happens once
-        string customMessage1 = $"Actual returned values: {string.Join(", ", results1.Select((o, i) => $"{i+1} - {o ?? "(null)"}"))}";
+        string customMessage1 = GetActualValuesReturnedMessage(results1);
         results1.All(value => (string) value == computedValue).ShouldBeTrue(customMessage1);
         computationCount1.ShouldBe(1);
 
@@ -327,5 +429,10 @@ public class ExpiringSingleFlightFactoryCacheProviderTests
         string customMessage2 = $"Actual returned values: {string.Join(", ", results2.Select((o, i) => $"{i+1} - {o ?? "(null)"}"))}";
         results2.All(value => (string) value == computedValue).ShouldBeTrue(customMessage2);
         computationCount2.ShouldBe(1);
+    }
+
+    private static string GetActualValuesReturnedMessage(object[] results)
+    {
+        return $"Actual returned values: {string.Join(", ", results.Select((o, i) => $"{i+1} - {o ?? "(null)"}"))}";
     }
 }

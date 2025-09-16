@@ -5,11 +5,12 @@
 
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using log4net;
 
 namespace EdFi.Ods.Api.Caching;
 
-public class ExpiringSingleFlightFactoryCacheProvider<TKey, TValue> : SingleFlightFactoryCacheProvider<TKey, TValue>
+public class ExpiringSingleFlightFactoryCache<TKey, TValue> : SingleFlightCache<TKey, TValue>
 {
     private Timer _timer;
     private readonly TimeSpan _expirationPeriod;
@@ -17,27 +18,27 @@ public class ExpiringSingleFlightFactoryCacheProvider<TKey, TValue> : SingleFlig
 
     private readonly bool _cacheEnabled = true;
 
-    private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringSingleFlightFactoryCacheProvider<TKey, TValue>));
+    private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringSingleFlightFactoryCache<TKey, TValue>));
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ExpiringSingleFlightFactoryCacheProvider{TKey,TValue}" /> class using the
+    /// Initializes a new instance of the <see cref="ExpiringSingleFlightFactoryCache{TKey,TValue}" /> class using the
     /// specified recurring expiration period.
     /// </summary>
     /// <param name="description">A description of the contents of the cached data for information/logging purposes.</param>
     /// <param name="expirationPeriod">The recurring expiration period for all of the entries in the cache.</param>
     /// <param name="factoryTimeout">The timeout period for a factory operation (to initialize a cache entry).</param>
-    public ExpiringSingleFlightFactoryCacheProvider(string description, TimeSpan expirationPeriod, TimeSpan factoryTimeout = default)
+    public ExpiringSingleFlightFactoryCache(string description, TimeSpan expirationPeriod, TimeSpan factoryTimeout = default)
         : this(description, expirationPeriod, expirationCallback: null, factoryTimeout) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ExpiringSingleFlightFactoryCacheProvider{TKey,TValue}" /> class using the
+    /// Initializes a new instance of the <see cref="ExpiringSingleFlightFactoryCache{TKey,TValue}" /> class using the
     /// specified recurring expiration period.
     /// </summary>
     /// <param name="description">A description of the contents of the cached data for information/logging purposes.</param>
     /// <param name="expirationPeriod">The recurring expiration period for all of the entries in the cache.</param>
     /// <param name="factoryTimeout">The timeout period for a factory operation (to initialize a cache entry).</param>
     /// <param name="expirationCallback">Callback to invoke when the cache expires.</param>
-    public ExpiringSingleFlightFactoryCacheProvider(
+    public ExpiringSingleFlightFactoryCache(
         string description,
         TimeSpan expirationPeriod,
         Action expirationCallback,
@@ -63,14 +64,26 @@ public class ExpiringSingleFlightFactoryCacheProvider<TKey, TValue> : SingleFlig
     public override TValue GetOrCreate<TArg>(
         TKey key,
         Func<TKey, TArg, TValue> factory,
-        TimeSpan singleFlightTimeout,
         TArg factoryArgument,
-        CancellationToken callerCancellationToken = default)
+        TimeSpan singleFlightTimeout,
+        CancellationToken cancellationToken = default)
     {
         // If caching has been disabled (by setting the expiration period to less than 0), call the factory directly.
         return !_cacheEnabled
             ? factory(key, factoryArgument)
-            : base.GetOrCreate(key, factory, singleFlightTimeout, factoryArgument, callerCancellationToken);
+            : base.GetOrCreate(key, factory, factoryArgument, singleFlightTimeout, cancellationToken);
+    }
+
+    public override Task<TValue> GetOrCreateAsync<TArg>(
+        TKey key,
+        Func<TKey, TArg, CancellationToken, Task<TValue>> factory,
+        TArg factoryArgument,
+        TimeSpan singleFlightTimeout,
+        CancellationToken cancellationToken)
+    {
+        return !_cacheEnabled
+            ? factory(key, factoryArgument, cancellationToken)
+            : base.GetOrCreateAsync(key, factory, factoryArgument, singleFlightTimeout, cancellationToken);
     }
 
     public override void Clear()
