@@ -47,7 +47,7 @@ jobs:
     name: build (Standard Version ${{ matrix.StandardVersion }})
     services:
       postgres:
-        image: postgres:16.4-alpine3.20@sha256:ad47523c5154f587f0be492539c76c6c3394e8a7b02f2d86f7b8b32297a862a6
+        image: postgres:16.10-alpine3.22@sha256:1c6d2f6e4d30d49c529e09a627e8178db5011dde88d955eb08db2e135e64aa09
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
         # Set health checks to wait until postgres has started
@@ -103,7 +103,7 @@ jobs:
         sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
         sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
         sudo apt-get update
-        sudo apt-get -y install postgresql-client-16
+        sudo apt-get -y install postgresql-client-16=16.10-1.pgdg24.04+1
     - name: Cache Nuget packages       
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
