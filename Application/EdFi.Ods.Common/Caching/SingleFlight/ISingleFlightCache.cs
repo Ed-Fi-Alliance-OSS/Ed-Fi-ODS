@@ -11,13 +11,5 @@ public interface ISingleFlightCache<TKey, TValue>
         TKey key,
         Func<TKey, TArg, CancellationToken, Task<TValue>> factory,
         TArg factoryArgument,
-        TimeSpan singleFlightTimeout,
-        CancellationToken cancellationToken);
-    
-    TValue GetOrCreate<TArg>(
-        TKey key,
-        Func<TKey, TArg, TValue> factory,
-        TArg factoryArgument,
-        TimeSpan singleFlightTimeout,
-        CancellationToken cancellationToken);
+        CancellationToken callerToken);
 }

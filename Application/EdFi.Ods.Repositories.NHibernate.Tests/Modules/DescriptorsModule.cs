@@ -29,7 +29,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
             builder.RegisterType<DescriptorMapsProvider>()
                 .As<IDescriptorMapsProvider>()
                 .EnableInterfaceInterceptors()
-                //.InterceptedBy(InterceptorCacheKeys.Descriptors)
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
@@ -44,7 +43,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
             
                         return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                             "Descriptors",
-                            TimeSpan.FromSeconds(apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds));
+                            TimeSpan.FromSeconds(apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds),
+                            TimeSpan.FromSeconds(apiSettings.Caching.Descriptors.CreationTimeoutSeconds));
                     })
                 .SingleInstance();
 

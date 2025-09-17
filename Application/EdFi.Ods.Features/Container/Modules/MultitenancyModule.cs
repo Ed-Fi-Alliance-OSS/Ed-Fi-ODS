@@ -76,9 +76,10 @@ public class MultiTenancyModule : ConditionalModule
                 {
                     var apiSettings = ctx.Resolve<ApiSettings>();
 
-                    return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
+                    return (ISingleFlightCache<ulong, object>)new ExpiringSingleFlightCache<ulong, object>(
                         "Security",
-                        TimeSpan.FromMinutes(apiSettings.Caching.Security.AbsoluteExpirationMinutes));
+                        TimeSpan.FromMinutes(apiSettings.Caching.Security.AbsoluteExpirationMinutes),
+                        TimeSpan.FromSeconds(apiSettings.Caching.Security.CreationTimeoutSeconds));
                 })
             .SingleInstance();
         
@@ -98,7 +99,8 @@ public class MultiTenancyModule : ConditionalModule
 
                     return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                         "API Client Details",
-                        TimeSpan.FromSeconds(apiSettings.Caching.ApiClientDetails.AbsoluteExpirationSeconds));
+                        TimeSpan.FromSeconds(apiSettings.Caching.ApiClientDetails.AbsoluteExpirationSeconds),
+                        TimeSpan.FromSeconds(apiSettings.Caching.ApiClientDetails.CreationTimeoutSeconds));
                 })
             .SingleInstance();
         
@@ -120,7 +122,8 @@ public class MultiTenancyModule : ConditionalModule
                     return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                         "Profile Metadata",
                         TimeSpan.FromSeconds(apiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
-                        () => mediator.Publish(new ProfileMetadataCacheExpired()));
+                        () => mediator.Publish(new ProfileMetadataCacheExpired()),
+                        TimeSpan.FromSeconds(apiSettings.Caching.Profiles.CreationTimeoutSeconds));
                 })
             .SingleInstance();
         
@@ -140,7 +143,8 @@ public class MultiTenancyModule : ConditionalModule
                     
                     var cache = new ExpiringSingleFlightCache<ulong, object>(
                         "ODS Instance Configurations",
-                        TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds)); // TODO: Evaluate this timeout for accessing EdFi_Admin ODS configurations
+                        TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds),
+                        TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.CreationTimeoutSeconds));
 
                     // Subscribe to any changes related to the Tenants section of the configuration, and clear it explicitly
                     var options = ctx.Resolve<IOptionsMonitor<TenantsSection>>();

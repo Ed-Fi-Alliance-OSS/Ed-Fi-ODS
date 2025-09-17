@@ -36,16 +36,18 @@ public class CachingInterceptor(
 
         ulong cacheKey = GetInvocationCacheKey(invocation);
 
-        invocation.ReturnValue = _singleFlightCache.GetOrCreate(
+        invocation.ReturnValue = _singleFlightCache.GetOrCreateAsync(
             cacheKey,
-            static (_, inv) =>
+            static (_, inv, ct) =>
             {
                 inv.Proceed();
-                return inv.ReturnValue!;
+                return Task.FromResult(inv.ReturnValue!);
             }, 
             invocation, 
-            TimeSpan.FromMinutes(1), // TODO: Make configurable?
-            CancellationToken.None);
+            CancellationToken.None)
+            .ConfigureAwait(false)
+            .GetAwaiter()
+            .GetResult();
     }
 
     public void InterceptAsynchronous(IInvocation invocation)
@@ -130,7 +132,6 @@ public class CachingInterceptor(
                                 $"Unsupported return type {ret?.GetType().Name} for method {inv.Method.Name}.");
                         },
                         invocation, 
-                        TimeSpan.FromMinutes(1), // TODO: Make configurable?
                         CancellationToken.None) 
                     .ConfigureAwait(false);
             }

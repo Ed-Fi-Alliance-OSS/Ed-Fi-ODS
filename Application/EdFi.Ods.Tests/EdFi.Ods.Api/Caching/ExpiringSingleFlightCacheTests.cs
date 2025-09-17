@@ -21,9 +21,10 @@ public class ExpiringSingleFlightCacheTests
     private static readonly double _timespanFactor = 16 / (double) Environment.ProcessorCount;
 
     private static readonly TimeSpan _expirationPeriod = TimeSpan.FromMilliseconds(250 * _timespanFactor);
+    private static readonly TimeSpan _defaultCreateTimeoutPeriod = TimeSpan.FromMilliseconds(100 * _timespanFactor);
 
     [Test]
-    public async Task Cache_ShouldPreventThunderingHerd_WhenExpiringEntireCache()
+    public async Task Cache_01_ShouldGracefullyHandleThunderingHerd_WhenCacheExpiresDuringProducer()
     {
         var cacheExpirationCount = 0;
         
@@ -31,145 +32,176 @@ public class ExpiringSingleFlightCacheTests
         var provider = new ExpiringSingleFlightCache<string, object>(
             "TestCache",
             _expirationPeriod,
-            () => cacheExpirationCount++);
+            () => Interlocked.Increment(ref cacheExpirationCount),
+            TimeSpan.FromMinutes(1)); // Creation timeout is not the focus
 
         string cacheKey = "ThunderingHerdKey";
         string computedValue = "ComputedValue";
         int computationCount = 0;
 
-        object ValueFactory(string key, TimeSpan workDuration)
+        Task<object> ValueFactory(string key, TimeSpan workDuration, CancellationToken cancellationToken)
         {
+            // After the cache expires once, decrease execution time
+            if (cacheExpirationCount > 0)
+            {
+                workDuration = TimeSpan.FromMilliseconds(50 * _timespanFactor);
+            }
+            
             // Simulate expensive computation
             Thread.Sleep(workDuration);
+            cancellationToken.ThrowIfCancellationRequested();
             Interlocked.Increment(ref computationCount);
-            return computedValue;
+
+            return Task.FromResult((object) computedValue);
         }
 
-        object GetOrComputeValue()
+        Task<object> GetOrComputeValue()
         {
-            var value = provider.GetOrCreate(
+            var value = provider.GetOrCreateAsync(
                 cacheKey,
                 ValueFactory,
-                TimeSpan.FromMilliseconds(100 * _timespanFactor),
-                TimeSpan.FromMilliseconds(50 * _timespanFactor));
+                // Make initial work take longer than the cache expiration period
+                TimeSpan.FromMilliseconds(_expirationPeriod.TotalMilliseconds * 1.5 * _timespanFactor),
+                CancellationToken.None);
 
             return value;
         }
 
-        var tasks = Enumerable.Range(0, 10).Select(_ => Task.Run(GetOrComputeValue)).ToArray();
+        // Initialize the thundering herd
+        var startEvent = new ManualResetEventSlim(false);
+
+        var tasks = Enumerable.Range(0, 10)
+            .Select(i => Task.Run(() =>
+            {
+                // Wait for the thundering herd launch signal
+                startEvent.Wait();
+                return GetOrComputeValue();
+            }))
+            .ToArray();
 
         // Act
-        object[] results1 = await Task.WhenAll(tasks);
-        int computationCount1 = computationCount;
-        int cacheExpirationCount1 = cacheExpirationCount;
-
-        // Wait for the cache to expire
-        await Task.Delay(_expirationPeriod + TimeSpan.FromMilliseconds(50 * _timespanFactor));
-
-        Console.WriteLine("Cache should have expired by now...");
-
-        // Repeat after cache expiration
-        computationCount = 0; // Reset computation count
-        cacheExpirationCount = 0; // Reset cache expiration count
         
-        var tasksAfterExpiry = Enumerable.Range(0, 10).Select(_ => Task.Run(GetOrComputeValue)).ToArray();
+        // Launch the thundering herd
+        startEvent.Set();
 
-        object[] results2 = await Task.WhenAll(tasksAfterExpiry);
-        int computationCount2 = computationCount;
-        int cacheExpirationCount2 = cacheExpirationCount;
+        object[] results = await Task.WhenAll(tasks);
+        int actualCacheExpirationCount = cacheExpirationCount;
 
         // Assert
-        // First retrieval: all values should be the same, and computation happens once
-        results1.All(value => (string) value == computedValue).ShouldBeTrue();
-        computationCount1.ShouldBe(1 + cacheExpirationCount1);
-
-        // Second retrieval after expiration: all values should be fetched, and computation happens once
-        results2.All(value => (string) value == computedValue).ShouldBeTrue();
-        computationCount2.ShouldBe(1 + cacheExpirationCount2);
+        // All values should be the same, and computation happens once
+        results.All(value => (string) value == computedValue).ShouldBeTrue();
+        computationCount.ShouldBe(1);
+        actualCacheExpirationCount.ShouldBe(1);
     }
 
     [Test]
-    public async Task Cache_ShouldPreventThunderingHerd_WhenCacheExpirationDisabled()
+    public async Task Cache_02_ShouldGracefullyHandleThunderingHerd_WhenCacheExpirationDisabled()
     {
         // Arrange
-        var provider = new ExpiringSingleFlightCache<string, object>("TestNonExpiringCache", TimeSpan.Zero);
+        var provider = new ExpiringSingleFlightCache<string, object>(
+            "TestNonExpiringCache", 
+            TimeSpan.Zero, // Caching expiration disabled
+            TimeSpan.FromMinutes(1)); // Creation timeout is not the focus of this test
 
         string cacheKey = "ThunderingHerdKey";
         string computedValue = "ComputedValue";
         int computationCount = 0;
 
-        object ValueFactory(string key, TimeSpan workDuration)
+        Task<object> ValueFactory(string key, TimeSpan workDuration, CancellationToken cancellationToken)
         {
             // Simulate expensive computation
             Thread.Sleep(workDuration);
+            cancellationToken.ThrowIfCancellationRequested();
             Interlocked.Increment(ref computationCount);
-            return computedValue;
+            return Task.FromResult((object) computedValue);
         }
 
-        object GetOrComputeValue()
+        Task<object> GetOrComputeValue()
         {
-            var value = provider.GetOrCreate(
+            var value = provider.GetOrCreateAsync(
                 cacheKey,
                 ValueFactory,
                 TimeSpan.FromMilliseconds(100 * _timespanFactor),
-                TimeSpan.FromMilliseconds(50 * _timespanFactor));
+                CancellationToken.None);
 
             return value;
         }
 
-        var tasks = Enumerable.Range(0, 10).Select(_ => Task.Run(GetOrComputeValue)).ToArray();
+        // Initialize the thundering herd
+        var startEvent = new ManualResetEventSlim(false);
+
+        var tasks = Enumerable.Range(10, 10)
+            .Select(_ => Task.Run(() =>
+            {
+                // Wait for the thundering herd launch signal
+                startEvent.Wait();
+                return GetOrComputeValue();
+            }))
+            .ToArray();
 
         // Act
-        object[] results1 = await Task.WhenAll(tasks);
 
-        // Wait for the cache to expire
-        await Task.Delay(_expirationPeriod + TimeSpan.FromMilliseconds(50 * _timespanFactor));
+        // Launch the thundering herds
+        startEvent.Set();
 
-        Console.WriteLine("Cache would have expired by now but expiration is disabled...");
-
-        // Repeat after cache expiration
-        var tasksAfterExpiry = Enumerable.Range(0, 10).Select(_ => Task.Run(GetOrComputeValue)).ToArray();
-        object[] results2 = await Task.WhenAll(tasksAfterExpiry);
+        var results = await Task.WhenAll(tasks);
 
         // Assert
-        // First retrieval: all values should be the same, and computation happens once
-        results1.All(value => (string) value == computedValue).ShouldBeTrue();
 
-        // Second retrieval after expiration: all values should be fetched, and computation happens once
-        results2.All(value => (string) value == computedValue).ShouldBeTrue();
+        // All values should be the same, and computation happens once
+        results.All(value => (string) value == computedValue).ShouldBeTrue();
         computationCount.ShouldBe(1);
     }
 
     [Test]
-    public void Cache_ShouldHandleThunderingHerd_WhenCachingDisabled()
+    public void Cache_03_ShouldNotPreventThunderingHerd_WhenCachingDisabled()
     {
         // Arrange
-        var provider = new ExpiringSingleFlightCache<string, object>("TestCache", TimeSpan.MinValue);
+        var provider = new ExpiringSingleFlightCache<string, object>(
+            "TestCache", 
+            TimeSpan.MinValue,  // Caching disabled
+            _defaultCreateTimeoutPeriod);
 
         string cacheKey = "DisabledThunderingHerdKey";
         string computedValue = "ComputedValue";
         int computationCount = 0;
 
-        object ValueFactory(string key, TimeSpan workDuration)
+        Task<object> ValueFactory(string key, TimeSpan workDuration, CancellationToken cancellationToken)
         {
             // Simulate expensive computation
             Thread.Sleep(workDuration);
+            cancellationToken.ThrowIfCancellationRequested();
             Interlocked.Increment(ref computationCount);
-            return computedValue;
+            return Task.FromResult((object) computedValue);
         }
 
-        object GetOrComputeValue()
+        Task<object> GetOrComputeValue()
         {
-            var value = provider.GetOrCreate(
+            var value = provider.GetOrCreateAsync(
                 cacheKey,
                 ValueFactory,
-                TimeSpan.FromMilliseconds(100 * _timespanFactor),
-                TimeSpan.FromMilliseconds(50 * _timespanFactor));
+                TimeSpan.FromMilliseconds(50 * _timespanFactor),
+                CancellationToken.None);;
 
             return value;
         }
 
-        var tasks = Enumerable.Range(0, 10).Select(_ => Task.Run(GetOrComputeValue)).ToArray();
+        // Initialize the thundering herd
+        var startEvent = new ManualResetEventSlim(false);
+
+        var tasks = Enumerable.Range(0, 10)
+            .Select(_ => Task.Run(() =>
+            {
+                // Wait for the thundering herd launch signal
+                startEvent.Wait();
+                return GetOrComputeValue();
+            }))
+            .ToArray();
+        
+        // Act
+        
+        // Launch the thundering herds
+        startEvent.Set();
 
         var results = Task.WhenAll(tasks).Result;
 
@@ -179,15 +211,16 @@ public class ExpiringSingleFlightCacheTests
     }
 
     [Test]
-    public void Cache_TwoThunderingHerds_ShouldResolveValuesOnce_OnDifferentKeys()
+    public async Task Cache_04_TwoSimultaneousThunderingHerds_ShouldResolveValuesOnceEach_OnDifferentKeys()
     {
         // Arrange
         int cacheExpirationCount = 0;
         
         var provider = new ExpiringSingleFlightCache<string, object>(
             "TestCache",
-            TimeSpan.FromMinutes(1), // Effectively no timeout for the cache for this test
-            () => cacheExpirationCount++);
+            TimeSpan.FromHours(1), // Cache expiration is not the focus of this test
+            () => Interlocked.Increment(ref cacheExpirationCount),
+            _defaultCreateTimeoutPeriod);
 
         string cacheKey1 = "ThunderingHerdKey1";
         string computedValue1 = "ComputedValue1";
@@ -197,10 +230,11 @@ public class ExpiringSingleFlightCacheTests
         string computedValue2 = "ComputedValue2";
         int computationCount2 = 0;
 
-        object ValueFactory(string key, (string computedValue, TimeSpan workDuration) args)
+        Task<object> ValueFactory(string key, (string computedValue, TimeSpan workDuration) args, CancellationToken cancellationToken)
         {
             // Simulate expensive computation
             Thread.Sleep(args.workDuration);
+            cancellationToken.ThrowIfCancellationRequested();
 
             if (key == cacheKey1)
             {
@@ -211,24 +245,25 @@ public class ExpiringSingleFlightCacheTests
                 Interlocked.Increment(ref computationCount2);
             }
 
-            return args.computedValue;
+            return Task.FromResult((object) args.computedValue);
         }
 
-        object GetOrComputeValue(string cacheKey, string computedValue, TimeSpan workDuration, int i)
+        Task<object> GetOrComputeValue(string cacheKey, string computedValue, TimeSpan workDuration, int i)
         {
             CallContext.SetData("TestTask", i);
 
-            var value = provider.GetOrCreate(
+            var value = provider.GetOrCreateAsync(
                 cacheKey,
                 ValueFactory,
-                (computedValue, workDuration), // Guard against permanent hangs
-                TimeSpan.FromMinutes(1));
+                (computedValue, workDuration),
+                CancellationToken.None);
 
             return value;
         }
 
+        // Initialize the thundering herds
         var startEvent = new ManualResetEventSlim(false);
-        
+
         var tasks1 = Enumerable.Range(10, 10)
             .Select(_ => Task.Run(() =>
             {
@@ -247,11 +282,15 @@ public class ExpiringSingleFlightCacheTests
             }))
             .ToArray();
 
-        // Launch the thundering herds
+        // Act
+
+        // Launch both thundering herds
         startEvent.Set();
 
-        var results1 = Task.WhenAll(tasks1).Result;
-        var results2 = Task.WhenAll(tasks2).Result;
+        var allResults = await Task.WhenAll(tasks1.Concat(tasks2));
+        
+        var results1 = allResults.Take(10).ToArray();
+        var results2 = allResults.Skip(10).ToArray();
 
         // Assert
         string actualValuesReturned1 = GetActualValuesReturnedMessage(results1);
@@ -271,15 +310,24 @@ public class ExpiringSingleFlightCacheTests
         cacheExpirationCount.ShouldBe(0);
     }
 
+
+
+
+
+
+
+
     [Test]
-    public void Cache_TwoThunderingHerdsWithMultipleCacheExpirations_ShouldResolveAllValuesWithoutErrors()
+    public async Task Cache_05_TwoThunderingHerdsWithCacheExpiration_ShouldHandleGracefullyAndResolveAllValueOnce()
     {
-        // Arrange
-        // var provider = new ExpiringSingleFlightFactoryCacheProvider<string, object>("TestCache", TimeSpan.FromMinutes(1));
-        int cacheExpirationCount = 0;
+        var cacheExpirationCount = 0;
         
-        // TODO: Causes problems with cache expiration during initialization
-        var provider = new ExpiringSingleFlightCache<string, object>("TestCache", _expirationPeriod, () => Interlocked.Increment(ref cacheExpirationCount));
+        // Arrange
+        var provider = new ExpiringSingleFlightCache<string, object>(
+            "TestCache",
+            _expirationPeriod,
+            () => Interlocked.Increment(ref cacheExpirationCount),
+            TimeSpan.FromMinutes(1)); // Creation timeout is not the focus
 
         string cacheKey1 = "ThunderingHerdKey1";
         string computedValue1 = "ComputedValue1";
@@ -289,10 +337,17 @@ public class ExpiringSingleFlightCacheTests
         string computedValue2 = "ComputedValue2";
         int computationCount2 = 0;
 
-        object ValueFactory(string key, (string computedValue, TimeSpan workDuration) args)
+        Task<object> ValueFactory(string key, (string computedValue, TimeSpan workDuration) args, CancellationToken cancellationToken)
         {
+            // After the cache expires once, decrease execution time
+            if (cacheExpirationCount > 0)
+            {
+                args.workDuration = TimeSpan.FromMilliseconds(50 * _timespanFactor);
+            }
+
             // Simulate expensive computation
             Thread.Sleep(args.workDuration);
+            cancellationToken.ThrowIfCancellationRequested();
 
             if (key == cacheKey1)
             {
@@ -303,146 +358,153 @@ public class ExpiringSingleFlightCacheTests
                 Interlocked.Increment(ref computationCount2);
             }
 
-            return args.computedValue;
+            return Task.FromResult((object) args.computedValue);
         }
 
-        object GetOrComputeValue(string cacheKey, string computedValue, TimeSpan workDuration, int i)
+        Task<object> GetOrComputeValue(string cacheKey, string computedValue, int i)
         {
             CallContext.SetData("TestTask", i);
 
-            var value = provider.GetOrCreate(
+            var initialWorkDuration = TimeSpan.FromMilliseconds(_expirationPeriod.TotalMilliseconds * 1.5 * _timespanFactor);
+            
+            var value = provider.GetOrCreateAsync(
                 cacheKey,
                 ValueFactory,
-                (computedValue, workDuration), // Guard against permanent hangs
-                TimeSpan.FromMinutes(1));
+                (computedValue, initialWorkDuration),
+                CancellationToken.None);
 
             return value;
         }
-
-        var startEvent = new ManualResetEventSlim(false);
         
-        var tasks1 = Enumerable.Range(10, 10)
-            .Select(_ => Task.Run(() =>
+        // Initialize the thundering herd
+        var startEvent = new ManualResetEventSlim(false);
+
+        var tasks1 = Enumerable.Range(0, 10)
+            .Select(i => Task.Run(() =>
             {
                 // Wait for the thundering herd launch signal
                 startEvent.Wait();
-                return GetOrComputeValue(cacheKey1, computedValue1, TimeSpan.FromMilliseconds(100 * _timespanFactor), _);
+                return GetOrComputeValue(cacheKey1, computedValue1, i);
             }))
             .ToArray();
 
-        var tasks2 = Enumerable.Range(20, 10)
-            .Select(_ => Task.Run(() =>
+        var tasks2 = Enumerable.Range(10, 10)
+            .Select(i => Task.Run(() =>
             {
                 // Wait for the thundering herd launch signal
                 startEvent.Wait();
-                return GetOrComputeValue(cacheKey2, computedValue2, TimeSpan.FromMilliseconds(100 * _timespanFactor), _);
+                return GetOrComputeValue(cacheKey2, computedValue2, i);
             }))
             .ToArray();
 
-        // Launch the thundering herds
+        // Act
+        
+        // Launch the thundering herd
         startEvent.Set();
 
-        var results1 = Task.WhenAll(tasks1).Result;
-        var results2 = Task.WhenAll(tasks2).Result;
+        object[] allResults = await Task.WhenAll(tasks1.Concat(tasks2));
+        int actualCacheExpirationCount = cacheExpirationCount;
 
-        int finalCacheExpirationCount = cacheExpirationCount;
-
-        // Assert
-        string actualValuesReturned1 = GetActualValuesReturnedMessage(results1);
-        string actualValuesReturned2 = GetActualValuesReturnedMessage(results2);
+        var results1 = allResults.Take(10).ToArray();
+        var results2 = allResults.Skip(10).ToArray();
         
+        // Assert
+        // First retrieval: all values should be the same, and computation happens once
         results1.ShouldSatisfyAllConditions(
-            _ => _.All(value => (string) value == "ComputedValue1").ShouldBeTrue(actualValuesReturned1),
+            _ => _.All(value => (string) value == computedValue1).ShouldBeTrue(), 
             _ => _.Length.ShouldBe(10),
-            _ => finalCacheExpirationCount.ShouldBeGreaterThanOrEqualTo(1),
-            _ => computationCount1.ShouldBeLessThanOrEqualTo(2 * finalCacheExpirationCount));
+            _ => computationCount1.ShouldBe(1));
 
         results2.ShouldSatisfyAllConditions(
-            _ => _.All(value => (string) value == "ComputedValue2").ShouldBeTrue(actualValuesReturned2),
+            _ => _.All(value => (string) value == computedValue2).ShouldBeTrue(), 
             _ => _.Length.ShouldBe(10),
-            _ => finalCacheExpirationCount.ShouldBeGreaterThanOrEqualTo(1),
-            _ => computationCount2.ShouldBeLessThanOrEqualTo(2 * finalCacheExpirationCount));
+            _ => computationCount2.ShouldBe(1));
+
+        actualCacheExpirationCount.ShouldBe(1);
     }
 
     [Test]
-    public async Task Cache_ShouldHandleFactoryTimeouts_DuringThunderingHerd()
+    public async Task Cache_06_ShouldGracefullyRetryCreationAfterTimeout_DuringThunderingHerd()
     {
-        var cacheExpirationPeriodForThisTest = TimeSpan.FromSeconds(1 * _timespanFactor);
-
+        // The create timeout needs to be long enough so that initial work can timeout and then retry 1-2 times (after ~200ms, ~400ms) before wait period expires (1.5X create timeout period)
+        TimeSpan createTimeoutPeriod = TimeSpan.FromMilliseconds(1000); 
+        
         // Arrange
         var provider = new ExpiringSingleFlightCache<string, object>(
             "TestCache",
-            cacheExpirationPeriodForThisTest, // Make the expiration irrelevant to this test (else use _expirationPeriod),
-            TimeSpan.FromMilliseconds(50 * _timespanFactor)); // Set factory delegate timeout
+            TimeSpan.FromHours(1), // Make the expiration irrelevant to this test (else use default _expirationPeriod),
+            createTimeoutPeriod); 
 
         string cacheKey = "ThunderingHerdKey";
         string computedValue = "ComputedValue";
         int computationCount = 0;
         int computationAttempt = 0;
 
-        object ValueFactory(string key, (TimeSpan initialWorkDuration, TimeSpan subsequentWorkDuration) args)
+        Task<object> ValueFactory(string key, (TimeSpan initialWorkDuration, TimeSpan subsequentWorkDuration) args, CancellationToken cancellationToken)
         {
             // Simulate expensive computation
             if (Interlocked.Increment(ref computationAttempt) == 1)
             {
                 Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({CallContext.GetData("TestTask")}): Initial work taking {args.initialWorkDuration.TotalMilliseconds} ms being performed...");
                 Thread.Sleep(args.initialWorkDuration);
+                cancellationToken.ThrowIfCancellationRequested();
                 Interlocked.Increment(ref computationCount);
             }
             else
             {
                 Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({CallContext.GetData("TestTask")}): Subsequent work taking {args.subsequentWorkDuration.TotalMilliseconds} ms being performed...");
                 Thread.Sleep(args.subsequentWorkDuration);
+                cancellationToken.ThrowIfCancellationRequested();
                 Interlocked.Increment(ref computationCount);
             }
 
-            return computedValue;
+            return Task.FromResult((object) computedValue);
         }
 
-        object GetOrComputeValue(int i)
+        async Task<object> GetOrComputeValue(int i)
         {
             CallContext.SetData("TestTask", i);
 
-            var value = provider.GetOrCreate(
+            var value = await provider.GetOrCreateAsync(
                 cacheKey,
                 ValueFactory,
                 (
-                    initialWorkDuration: TimeSpan.FromMilliseconds(150 * _timespanFactor), // Initial work is longer than factory timeout setting on cache
-                    subsequentWorkDuration: TimeSpan.FromMilliseconds(25 * _timespanFactor) // Subsequent work completes faster
+                    // Initial work is longer than creation timeout setting on cache, but shorter than the wait timeout (1.5X create timeout)
+                    initialWorkDuration: TimeSpan.FromMilliseconds(createTimeoutPeriod.TotalMilliseconds + 50),
+                    subsequentWorkDuration: TimeSpan.FromMilliseconds(10) // Subsequent work completes much faster
                 ), // Callers will wait longer than initial work before timing out
-                TimeSpan.FromMilliseconds(250 * _timespanFactor));
+                CancellationToken.None);
 
             return value;
         }
 
+        // Initialize the thundering herd
+        var startEvent = new ManualResetEventSlim(false);
+        
+        var tasks = Enumerable.Range(0, 10)
+            .Select(i => Task.Run(() =>
+            {
+                // Wait for the thundering herd launch signal
+                startEvent.Wait();
+                return GetOrComputeValue(i);
+            }))
+            .ToArray();
+
         // Act
-        // Create the first thundering herd of tasks
-        var tasks = Enumerable.Range(0, 10).Select(_ => Task.Run(() => GetOrComputeValue(_))).ToArray();
-        object[] results1 = await Task.WhenAll(tasks);
-        int computationCount1 = computationCount;
 
-        // Wait for the cache to expire
-        await Task.Delay(cacheExpirationPeriodForThisTest + TimeSpan.FromMilliseconds(50 * _timespanFactor));
-        Console.WriteLine("Cache should have expired by now... starting a new \"herd\"...");
+        // Launch the thundering herd
+        startEvent.Set();
 
-        // Reset computation count
-        computationCount = 0; 
+        var results = await Task.WhenAll(tasks);
 
-        // Repeat the thundering herd scenario after cache expiration
-        var tasksAfterExpiry = Enumerable.Range(0, 10).Select(_ => Task.Run(() => GetOrComputeValue(_))).ToArray();
-        object[] results2 = await Task.WhenAll(tasksAfterExpiry);
-        int computationCount2 = computationCount;
+        string customMessage1 = GetActualValuesReturnedMessage(results);
 
         // Assert
         // First retrieval: all values should be the same, and computation happens once
-        string customMessage1 = GetActualValuesReturnedMessage(results1);
-        results1.All(value => (string) value == computedValue).ShouldBeTrue(customMessage1);
-        computationCount1.ShouldBe(1);
-
-        // Second retrieval after expiration: all values should be fetched, and computation happens once
-        string customMessage2 = $"Actual returned values: {string.Join(", ", results2.Select((o, i) => $"{i+1} - {o ?? "(null)"}"))}";
-        results2.All(value => (string) value == computedValue).ShouldBeTrue(customMessage2);
-        computationCount2.ShouldBe(1);
+        results.ShouldSatisfyAllConditions(
+            _ => _.All(value => (string) value == computedValue).ShouldBeTrue(customMessage1),
+            _ => computationAttempt.ShouldBe(2),
+            _ => computationCount.ShouldBe(1));
     }
 
     private static string GetActualValuesReturnedMessage(object[] results)

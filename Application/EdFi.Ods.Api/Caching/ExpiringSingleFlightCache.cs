@@ -7,6 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
+using Polly;
 
 namespace EdFi.Ods.Api.Caching;
 
@@ -18,17 +19,21 @@ public class ExpiringSingleFlightCache<TKey, TValue> : SingleFlightCache<TKey, T
 
     private readonly bool _cacheEnabled = true;
 
+    private CancellationTokenSource _cacheExpirationTokenSource = new(); // swapped on Clear()
+    
     private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringSingleFlightCache<TKey, TValue>));
 
+    private readonly AsyncPolicy _cacheExpiredRetryPolicyAsync;
+    
     /// <summary>
     /// Initializes a new instance of the <see cref="ExpiringSingleFlightCache{TKey,TValue}" /> class using the
     /// specified recurring expiration period.
     /// </summary>
     /// <param name="description">A description of the contents of the cached data for information/logging purposes.</param>
     /// <param name="expirationPeriod">The recurring expiration period for all of the entries in the cache.</param>
-    /// <param name="factoryTimeout">The timeout period for a factory operation (to initialize a cache entry).</param>
-    public ExpiringSingleFlightCache(string description, TimeSpan expirationPeriod, TimeSpan factoryTimeout = default)
-        : this(description, expirationPeriod, expirationCallback: null, factoryTimeout) { }
+    /// <param name="createTimeout">The timeout period for a factory operation (to initialize a cache entry).</param>
+    public ExpiringSingleFlightCache(string description, TimeSpan expirationPeriod, TimeSpan createTimeout)
+        : this(description, expirationPeriod, expirationCallback: null, createTimeout) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ExpiringSingleFlightCache{TKey,TValue}" /> class using the
@@ -36,54 +41,63 @@ public class ExpiringSingleFlightCache<TKey, TValue> : SingleFlightCache<TKey, T
     /// </summary>
     /// <param name="description">A description of the contents of the cached data for information/logging purposes.</param>
     /// <param name="expirationPeriod">The recurring expiration period for all of the entries in the cache.</param>
-    /// <param name="factoryTimeout">The timeout period for a factory operation (to initialize a cache entry).</param>
+    /// <param name="createTimeout">The timeout period for a factory operation (to initialize a cache entry).</param>
     /// <param name="expirationCallback">Callback to invoke when the cache expires.</param>
     public ExpiringSingleFlightCache(
         string description,
         TimeSpan expirationPeriod,
         Action expirationCallback,
-        TimeSpan factoryTimeout = default)
-        : base(description, factoryTimeout)
+        TimeSpan createTimeout)
+        : base(description, createTimeout)
     {
         _expirationPeriod = expirationPeriod;
 
         // If expiration period is less than 0 disable caching behavior.
-        if (expirationPeriod.TotalSeconds < 0)
+        if (expirationPeriod < TimeSpan.Zero)
         {
             _logger.Debug($"Cache '{description}' is disabled...");
             _cacheEnabled = false;
         }
         // Set expiration period only if expiration period is not the default (0)
-        else if (expirationPeriod.TotalSeconds > 0)
+        else if (expirationPeriod > TimeSpan.Zero)
         {
-            _timer = new Timer(CacheExpired, GetCurrentCacheExpirationCancellationToken(), expirationPeriod, expirationPeriod);
+            _timer = new Timer(CacheExpired, _cacheExpirationTokenSource.Token, expirationPeriod, expirationPeriod);
             _expirationCallback = expirationCallback;
         }
+        
+        _cacheExpiredRetryPolicyAsync = expirationPeriod <= TimeSpan.Zero 
+            ? Policy.NoOpAsync()
+            : Policy.Handle<OperationCanceledException>()
+                .RetryAsync(
+                    onRetry: (exception, retryAttempt, context) =>
+                    {
+                        // Log the retry attempt
+                        _logger.Warn($"Cache expired while obtaining cache entry. Retrying once...");
+
+                        // Optionally, you might perform additional async-side effects like notifying other parts of your system if needed
+                        // await Task.CompletedTask; // Placeholder for custom async actions
+                    });
     }
 
-    public override TValue GetOrCreate<TArg>(
-        TKey key,
-        Func<TKey, TArg, TValue> factory,
-        TArg factoryArgument,
-        TimeSpan singleFlightTimeout,
-        CancellationToken cancellationToken = default)
-    {
-        // If caching has been disabled (by setting the expiration period to less than 0), call the factory directly.
-        return !_cacheEnabled
-            ? factory(key, factoryArgument)
-            : base.GetOrCreate(key, factory, factoryArgument, singleFlightTimeout, cancellationToken);
-    }
-
-    public override Task<TValue> GetOrCreateAsync<TArg>(
+    public override async Task<TValue> GetOrCreateAsync<TArg>(
         TKey key,
         Func<TKey, TArg, CancellationToken, Task<TValue>> factory,
         TArg factoryArgument,
-        TimeSpan singleFlightTimeout,
-        CancellationToken cancellationToken)
+        CancellationToken callerToken)
     {
-        return !_cacheEnabled
-            ? factory(key, factoryArgument, cancellationToken)
-            : base.GetOrCreateAsync(key, factory, factoryArgument, singleFlightTimeout, cancellationToken);
+        // If caching is disabled, just execute the factory logic
+        if (!_cacheEnabled)
+        {
+            return await factory(key, factoryArgument, callerToken);
+        }
+
+        // Incorporate the cancellation token into the token passed to the base GetOrCreateAsync method
+        using var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(callerToken, _cacheExpirationTokenSource.Token);
+        
+        // Attempt to retrieve the entry or add it if it doesn't exist, while retrying once if the cache expires
+        return await _cacheExpiredRetryPolicyAsync.ExecuteAsync(
+            async ct => await base.GetOrCreateAsync(key, factory, factoryArgument, ct),
+            linkedTokenSource.Token);
     }
 
     public override void Clear()
@@ -91,13 +105,18 @@ public class ExpiringSingleFlightCache<TKey, TValue> : SingleFlightCache<TKey, T
         // Clear the cache, create a new cancellation token source
         base.Clear();
 
-        var newCancellationToken = GetCurrentCacheExpirationCancellationToken();
+        // Create a new cancellation token source
+        var newCancellationTokenSource = new CancellationTokenSource();
+        var oldCancellationTokenSource = Interlocked.Exchange(ref _cacheExpirationTokenSource, newCancellationTokenSource);
 
+        // Dispose of the old token source
+        oldCancellationTokenSource?.Dispose();
+        
         // Create a new timer with the new expiration token
-        var newTimer = new Timer(CacheExpired, newCancellationToken, _expirationPeriod, _expirationPeriod);
+        var newTimer = new Timer(CacheExpired, newCancellationTokenSource.Token, _expirationPeriod, _expirationPeriod);
 
         Console.WriteLine(
-            $"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): New timer created with expiration token (ct: {newCancellationToken.GetHashCode()}).");
+            $"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): New timer created with expiration token (ct: {newCancellationTokenSource.Token.GetHashCode()}).");
 
         // Atomically swap timers
         var oldTimer = Interlocked.Exchange(ref _timer, newTimer);

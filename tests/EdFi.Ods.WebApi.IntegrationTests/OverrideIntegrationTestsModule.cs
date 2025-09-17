@@ -42,7 +42,8 @@ namespace EdFi.Ods.WebApi.IntegrationTests
 
                         return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                             "ODS Instance Configurations",
-                            TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds));
+                            TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds),
+                            TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.CreationTimeoutSeconds));
                     })
                 .SingleInstance();
             
@@ -59,7 +60,8 @@ namespace EdFi.Ods.WebApi.IntegrationTests
 
                         return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                             "Profile Metadata",
-                            TimeSpan.FromSeconds(apiSettings.Caching.Profiles.AbsoluteExpirationSeconds));
+                            TimeSpan.FromSeconds(apiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
+                            TimeSpan.FromSeconds(apiSettings.Caching.Profiles.CreationTimeoutSeconds));
                     })
                 .SingleInstance();
             
