@@ -279,7 +279,7 @@ public class ExpiringSingleFlightCacheTests
         int cacheExpirationCount = 0;
         
         // TODO: Causes problems with cache expiration during initialization
-        var provider = new ExpiringSingleFlightCache<string, object>("TestCache", _expirationPeriod, () => cacheExpirationCount++);
+        var provider = new ExpiringSingleFlightCache<string, object>("TestCache", _expirationPeriod, () => Interlocked.Increment(ref cacheExpirationCount));
 
         string cacheKey1 = "ThunderingHerdKey1";
         string computedValue1 = "ComputedValue1";
@@ -326,7 +326,7 @@ public class ExpiringSingleFlightCacheTests
             {
                 // Wait for the thundering herd launch signal
                 startEvent.Wait();
-                return GetOrComputeValue(cacheKey1, computedValue1, TimeSpan.FromMilliseconds(50 * _timespanFactor), _);
+                return GetOrComputeValue(cacheKey1, computedValue1, TimeSpan.FromMilliseconds(100 * _timespanFactor), _);
             }))
             .ToArray();
 
@@ -335,7 +335,7 @@ public class ExpiringSingleFlightCacheTests
             {
                 // Wait for the thundering herd launch signal
                 startEvent.Wait();
-                return GetOrComputeValue(cacheKey2, computedValue2, TimeSpan.FromMilliseconds(50 * _timespanFactor), _);
+                return GetOrComputeValue(cacheKey2, computedValue2, TimeSpan.FromMilliseconds(100 * _timespanFactor), _);
             }))
             .ToArray();
 
@@ -346,7 +346,7 @@ public class ExpiringSingleFlightCacheTests
         var results2 = Task.WhenAll(tasks2).Result;
 
         int finalCacheExpirationCount = cacheExpirationCount;
-        
+
         // Assert
         string actualValuesReturned1 = GetActualValuesReturnedMessage(results1);
         string actualValuesReturned2 = GetActualValuesReturnedMessage(results2);
@@ -354,11 +354,13 @@ public class ExpiringSingleFlightCacheTests
         results1.ShouldSatisfyAllConditions(
             _ => _.All(value => (string) value == "ComputedValue1").ShouldBeTrue(actualValuesReturned1),
             _ => _.Length.ShouldBe(10),
+            _ => finalCacheExpirationCount.ShouldBeGreaterThanOrEqualTo(1),
             _ => computationCount1.ShouldBeLessThanOrEqualTo(2 * finalCacheExpirationCount));
 
         results2.ShouldSatisfyAllConditions(
             _ => _.All(value => (string) value == "ComputedValue2").ShouldBeTrue(actualValuesReturned2),
             _ => _.Length.ShouldBe(10),
+            _ => finalCacheExpirationCount.ShouldBeGreaterThanOrEqualTo(1),
             _ => computationCount2.ShouldBeLessThanOrEqualTo(2 * finalCacheExpirationCount));
     }
 
@@ -408,7 +410,7 @@ public class ExpiringSingleFlightCacheTests
                     initialWorkDuration: TimeSpan.FromMilliseconds(150 * _timespanFactor), // Initial work is longer than factory timeout setting on cache
                     subsequentWorkDuration: TimeSpan.FromMilliseconds(25 * _timespanFactor) // Subsequent work completes faster
                 ), // Callers will wait longer than initial work before timing out
-                TimeSpan.FromMilliseconds(175 * _timespanFactor));
+                TimeSpan.FromMilliseconds(250 * _timespanFactor));
 
             return value;
         }

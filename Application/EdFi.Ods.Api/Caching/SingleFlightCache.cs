@@ -168,8 +168,8 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
             var cacheExpirationToken = _cacheExpirationTokenSource.Token;
 
             // TODO: Consider removal of tokens in favor of all waits being controlled by the producer and factory timeout
-            // var cts = new CancellationTokenSource(singleFlightTimeout);
-            // var ct = cts.Token;
+            using var singleFlightCancellationTokenSource = new CancellationTokenSource(singleFlightTimeout);
+            var singleFlightCancellationToken = singleFlightCancellationTokenSource.Token;
 
             // Fast path: only allocates a CacheEntry on a miss
             var entry = Cache.GetOrAdd(key, static (_, token) => new CacheEntry(token), cacheExpirationToken);
@@ -184,8 +184,9 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
             entry.Produce(factory, key, factoryArgument, _factoryRetryPolicy, _factoryTimeout);
 
             // All callers (including the producer) converge here to read the result
+
             using var linkedTokenSource =
-                CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, cacheExpirationToken);
+                CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, singleFlightCancellationToken, cacheExpirationToken);
 
             return entry.WaitForResult(linkedTokenSource.Token);
         });
