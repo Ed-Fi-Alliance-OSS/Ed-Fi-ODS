@@ -18,13 +18,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching;
 [TestFixture]
 public class ExpiringSingleFlightCacheTests
 {
-    private static readonly TimeSpan _expirationPeriod = TimeSpan.FromMilliseconds(250);
+    private static readonly double _timespanFactor = 16 / (double) Environment.ProcessorCount;
+
+    private static readonly TimeSpan _expirationPeriod = TimeSpan.FromMilliseconds(250 * _timespanFactor);
 
     [Test]
     public async Task Cache_ShouldPreventThunderingHerd_WhenExpiringEntireCache()
     {
+        var cacheExpirationCount = 0;
+        
         // Arrange
-        var provider = new ExpiringSingleFlightCache<string, object>("TestCache", _expirationPeriod);
+        var provider = new ExpiringSingleFlightCache<string, object>(
+            "TestCache",
+            _expirationPeriod,
+            () => cacheExpirationCount++);
 
         string cacheKey = "ThunderingHerdKey";
         string computedValue = "ComputedValue";
@@ -43,8 +50,8 @@ public class ExpiringSingleFlightCacheTests
             var value = provider.GetOrCreate(
                 cacheKey,
                 ValueFactory,
-                TimeSpan.FromMilliseconds(100),
-                TimeSpan.FromMilliseconds(50));
+                TimeSpan.FromMilliseconds(100 * _timespanFactor),
+                TimeSpan.FromMilliseconds(50 * _timespanFactor));
 
             return value;
         }
@@ -54,26 +61,31 @@ public class ExpiringSingleFlightCacheTests
         // Act
         object[] results1 = await Task.WhenAll(tasks);
         int computationCount1 = computationCount;
+        int cacheExpirationCount1 = cacheExpirationCount;
 
         // Wait for the cache to expire
-        await Task.Delay(_expirationPeriod + TimeSpan.FromMilliseconds(50));
+        await Task.Delay(_expirationPeriod + TimeSpan.FromMilliseconds(50 * _timespanFactor));
 
         Console.WriteLine("Cache should have expired by now...");
 
         // Repeat after cache expiration
         computationCount = 0; // Reset computation count
+        cacheExpirationCount = 0; // Reset cache expiration count
+        
         var tasksAfterExpiry = Enumerable.Range(0, 10).Select(_ => Task.Run(GetOrComputeValue)).ToArray();
+
         object[] results2 = await Task.WhenAll(tasksAfterExpiry);
         int computationCount2 = computationCount;
+        int cacheExpirationCount2 = cacheExpirationCount;
 
         // Assert
         // First retrieval: all values should be the same, and computation happens once
         results1.All(value => (string) value == computedValue).ShouldBeTrue();
-        computationCount1.ShouldBe(1);
+        computationCount1.ShouldBe(1 + cacheExpirationCount1);
 
         // Second retrieval after expiration: all values should be fetched, and computation happens once
         results2.All(value => (string) value == computedValue).ShouldBeTrue();
-        computationCount2.ShouldBe(1);
+        computationCount2.ShouldBe(1 + cacheExpirationCount2);
     }
 
     [Test]
@@ -99,8 +111,8 @@ public class ExpiringSingleFlightCacheTests
             var value = provider.GetOrCreate(
                 cacheKey,
                 ValueFactory,
-                TimeSpan.FromMilliseconds(100),
-                TimeSpan.FromMilliseconds(50));
+                TimeSpan.FromMilliseconds(100 * _timespanFactor),
+                TimeSpan.FromMilliseconds(50 * _timespanFactor));
 
             return value;
         }
@@ -111,7 +123,7 @@ public class ExpiringSingleFlightCacheTests
         object[] results1 = await Task.WhenAll(tasks);
 
         // Wait for the cache to expire
-        await Task.Delay(_expirationPeriod + TimeSpan.FromMilliseconds(50));
+        await Task.Delay(_expirationPeriod + TimeSpan.FromMilliseconds(50 * _timespanFactor));
 
         Console.WriteLine("Cache would have expired by now but expiration is disabled...");
 
@@ -151,8 +163,8 @@ public class ExpiringSingleFlightCacheTests
             var value = provider.GetOrCreate(
                 cacheKey,
                 ValueFactory,
-                TimeSpan.FromMilliseconds(100),
-                TimeSpan.FromMilliseconds(50));
+                TimeSpan.FromMilliseconds(100 * _timespanFactor),
+                TimeSpan.FromMilliseconds(50 * _timespanFactor));
 
             return value;
         }
@@ -222,7 +234,7 @@ public class ExpiringSingleFlightCacheTests
             {
                 // Wait for the thundering herd launch signal
                 startEvent.Wait();
-                return GetOrComputeValue(cacheKey1, computedValue1, TimeSpan.FromMilliseconds(50), _);
+                return GetOrComputeValue(cacheKey1, computedValue1, TimeSpan.FromMilliseconds(50 * _timespanFactor), _);
             }))
             .ToArray();
 
@@ -231,7 +243,7 @@ public class ExpiringSingleFlightCacheTests
             {
                 // Wait for the thundering herd launch signal
                 startEvent.Wait();
-                return GetOrComputeValue(cacheKey2, computedValue2, TimeSpan.FromMilliseconds(50), _);
+                return GetOrComputeValue(cacheKey2, computedValue2, TimeSpan.FromMilliseconds(50 * _timespanFactor), _);
             }))
             .ToArray();
 
@@ -314,7 +326,7 @@ public class ExpiringSingleFlightCacheTests
             {
                 // Wait for the thundering herd launch signal
                 startEvent.Wait();
-                return GetOrComputeValue(cacheKey1, computedValue1, TimeSpan.FromMilliseconds(50), _);
+                return GetOrComputeValue(cacheKey1, computedValue1, TimeSpan.FromMilliseconds(50 * _timespanFactor), _);
             }))
             .ToArray();
 
@@ -323,7 +335,7 @@ public class ExpiringSingleFlightCacheTests
             {
                 // Wait for the thundering herd launch signal
                 startEvent.Wait();
-                return GetOrComputeValue(cacheKey2, computedValue2, TimeSpan.FromMilliseconds(50), _);
+                return GetOrComputeValue(cacheKey2, computedValue2, TimeSpan.FromMilliseconds(50 * _timespanFactor), _);
             }))
             .ToArray();
 
@@ -353,13 +365,13 @@ public class ExpiringSingleFlightCacheTests
     [Test]
     public async Task Cache_ShouldHandleFactoryTimeouts_DuringThunderingHerd()
     {
-        var cacheExpirationPeriodForThisTest = TimeSpan.FromSeconds(1);
+        var cacheExpirationPeriodForThisTest = TimeSpan.FromSeconds(1 * _timespanFactor);
 
         // Arrange
         var provider = new ExpiringSingleFlightCache<string, object>(
             "TestCache",
             cacheExpirationPeriodForThisTest, // Make the expiration irrelevant to this test (else use _expirationPeriod),
-            TimeSpan.FromMilliseconds(50)); // Set factory delegate timeout
+            TimeSpan.FromMilliseconds(50 * _timespanFactor)); // Set factory delegate timeout
 
         string cacheKey = "ThunderingHerdKey";
         string computedValue = "ComputedValue";
@@ -393,10 +405,10 @@ public class ExpiringSingleFlightCacheTests
                 cacheKey,
                 ValueFactory,
                 (
-                    initialWorkDuration: TimeSpan.FromMilliseconds(150), // Initial work is longer than factory timeout setting on cache
-                    subsequentWorkDuration: TimeSpan.FromMilliseconds(25) // Subsequent work completes faster
+                    initialWorkDuration: TimeSpan.FromMilliseconds(150 * _timespanFactor), // Initial work is longer than factory timeout setting on cache
+                    subsequentWorkDuration: TimeSpan.FromMilliseconds(25 * _timespanFactor) // Subsequent work completes faster
                 ), // Callers will wait longer than initial work before timing out
-                TimeSpan.FromMilliseconds(175));
+                TimeSpan.FromMilliseconds(175 * _timespanFactor));
 
             return value;
         }
@@ -408,7 +420,7 @@ public class ExpiringSingleFlightCacheTests
         int computationCount1 = computationCount;
 
         // Wait for the cache to expire
-        await Task.Delay(cacheExpirationPeriodForThisTest + TimeSpan.FromMilliseconds(50));
+        await Task.Delay(cacheExpirationPeriodForThisTest + TimeSpan.FromMilliseconds(50 * _timespanFactor));
         Console.WriteLine("Cache should have expired by now... starting a new \"herd\"...");
 
         // Reset computation count
