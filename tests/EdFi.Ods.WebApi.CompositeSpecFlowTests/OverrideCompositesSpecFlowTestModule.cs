@@ -7,6 +7,7 @@ using System;
 using Autofac;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Caching.SingleFlight;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;

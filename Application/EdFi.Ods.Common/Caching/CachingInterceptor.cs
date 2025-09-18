@@ -15,8 +15,6 @@ public class CachingInterceptor(
     ISingleFlightCache<ulong, object> _singleFlightCache,
     IMethodSignatureCacheKeyProvider _cacheKeyProvider) : IAsyncInterceptor, IClearable
 {
-    // private readonly ConcurrentDictionary<ulong, SemaphoreSlim> _locks = new();
-
     public void InterceptSynchronous(IInvocation invocation)
     {
         var returnType = invocation.Method.ReturnType;
@@ -50,8 +48,8 @@ public class CachingInterceptor(
 
     public void InterceptAsynchronous(IInvocation invocation)
     {
-        invocation.ReturnValue = InterceptTaskAsync(invocation);
-        async Task InterceptTaskAsync(IInvocation invocation)
+        invocation.ReturnValue = InterceptTaskAsync();
+        async Task InterceptTaskAsync()
         {
             // Just proceed and await so exceptions flow correctly; no caching of Task (no value)
             invocation.Proceed();
@@ -68,81 +66,54 @@ public class CachingInterceptor(
         {
             var cacheKey = _cacheKeyProvider.GetKey(invocation.Method, invocation.Arguments);
 
-            // Single-flight locking (optional)
-            // var gate = _locks.GetOrAdd(cacheKey, _ => new SemaphoreSlim(1, 1));
-            //
-            // await gate.WaitAsync().ConfigureAwait(false);
-
-            // try
-            {
-                return (TResult) await _singleFlightCache.GetOrCreateAsync(
-                        cacheKey,
-                        static async (_, inv, ct) =>
-                        {
-                            object ret;
+            return (TResult) await _singleFlightCache.GetOrCreateAsync(
+                    cacheKey,
+                    static async (_, inv, ct) =>
+                    {
+                        object ret;
                             
-                            // If not cached, call the underlying method and await its result
-                            try
-                            {
-                                inv.Proceed();
+                        // If not cached, call the underlying method and await its result
+                        inv.Proceed();
 
 
-                            ret = inv.ReturnValue;
+                        ret = inv.ReturnValue;
 
-                            // Support Task<TResult>
-                            if (ret is Task<TResult> t)
-                            {
-                                var result = await t; //.ConfigureAwait(false);
-                                return result;
-                            }
+                        // Support Task<TResult>
+                        if (ret is Task<TResult> t)
+                        {
+                            var result = await t.ConfigureAwait(false);
+                            return result;
+                        }
 
-                            // Support ValueTask<TResult>
-                            if (ret is ValueTask<TResult> vt)
-                            {
-                                var result = await vt; //.ConfigureAwait(false);
+                        // Support ValueTask<TResult>
+                        if (ret is ValueTask<TResult> vt)
+                        {
+                            var result = await vt.ConfigureAwait(false); 
 
-                                return result; // vt;
-                            }
+                            return result;
+                        }
 
-                            // If the method is sync (rare here) and already returned TResult
-                            if (ret is TResult value)
-                            {
-                                return value;
-                            }
+                        // If the method is sync (rare here) and already returned TResult
+                        if (ret is TResult value)
+                        {
+                            return value;
+                        }
 
-                            // If the method returned Task (non-generic), we cannot cache a value
-                            if (ret is Task nonGenericTask)
-                            {
-                                await nonGenericTask.ConfigureAwait(false);
-
-                                throw new InvalidOperationException(
-                                    $"Method {inv.Method.Name} returned Task (no result) but interceptor expected a value to cache.");
-                            }
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine($"{ex.Message}: {ex}");
-
-                                throw;
-                            }
+                        // If the method returned Task (non-generic), we cannot cache a value
+                        if (ret is Task nonGenericTask)
+                        {
+                            await nonGenericTask.ConfigureAwait(false);
 
                             throw new InvalidOperationException(
-                                $"Unsupported return type {ret?.GetType().Name} for method {inv.Method.Name}.");
-                        },
-                        invocation, 
-                        CancellationToken.None) 
-                    .ConfigureAwait(false);
-            }
-            // finally
-            // {
-            //     gate.Release();
-            //
-            //     // Clean up gate to prevent unbounded growth
-            //     if (gate.CurrentCount == 1)
-            //     {
-            //         _locks.TryRemove(cacheKey, out _);
-            //     }
-            // }
+                                $"Method {inv.Method.Name} returned Task (no result) but interceptor expected a value to cache.");
+                        }
+
+                        throw new InvalidOperationException(
+                            $"Unsupported return type {ret?.GetType().Name} for method {inv.Method.Name}.");
+                    },
+                    invocation, 
+                    CancellationToken.None) 
+                .ConfigureAwait(false);
         }
     }
 

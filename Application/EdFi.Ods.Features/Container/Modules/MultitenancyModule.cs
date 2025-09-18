@@ -8,6 +8,7 @@ using Autofac;
 using Castle.DynamicProxy;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Caching.SingleFlight;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Jobs;
 using EdFi.Ods.Api.Middleware;

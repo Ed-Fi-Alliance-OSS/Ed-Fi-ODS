@@ -8,7 +8,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Caching.SingleFlight;
 using EdFi.Ods.Common.Context;
+using log4net;
+using log4net.Appender;
+using log4net.Config;
+using log4net.Layout;
 using NUnit.Framework;
 using Shouldly;
 
@@ -21,6 +26,21 @@ public class ExpiringSingleFlightCacheTests
 
     private static readonly TimeSpan _expirationPeriod = TimeSpan.FromMilliseconds(250 * _timespanFactor);
     private static readonly TimeSpan _defaultCreateTimeoutPeriod = TimeSpan.FromMilliseconds(100 * _timespanFactor);
+
+    private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringSingleFlightCacheTests));
+
+    [OneTimeSetUp]
+    public void SetUpLogger()
+    {
+        // Configure log4net for console output
+        var consoleAppender = new ConsoleAppender
+        {
+            Layout = new PatternLayout("%date %-5level [%logger] - %message%newline"),
+            Threshold = log4net.Core.Level.Debug // Capture all log levels starting from Debug
+        };
+
+        BasicConfigurator.Configure(consoleAppender);
+    }
 
     [Test]
     public async Task Cache_01_ShouldGracefullyHandleThunderingHerd_WhenCacheExpiresDuringProducer()
@@ -444,14 +464,14 @@ public class ExpiringSingleFlightCacheTests
             // Simulate expensive computation
             if (Interlocked.Increment(ref computationAttempt) == 1)
             {
-                Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({CallContext.GetData("TestTask")}): Initial work taking {args.initialWorkDuration.TotalMilliseconds} ms being performed...");
+                _logger.Debug($"{Thread.CurrentThread.ManagedThreadId} ({CallContext.GetData("TestTask")}): Initial work taking {args.initialWorkDuration.TotalMilliseconds} ms being performed...");
                 Thread.Sleep(args.initialWorkDuration);
                 cancellationToken.ThrowIfCancellationRequested();
                 Interlocked.Increment(ref computationCount);
             }
             else
             {
-                Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({CallContext.GetData("TestTask")}): Subsequent work taking {args.subsequentWorkDuration.TotalMilliseconds} ms being performed...");
+                _logger.Debug($"{Thread.CurrentThread.ManagedThreadId} ({CallContext.GetData("TestTask")}): Subsequent work taking {args.subsequentWorkDuration.TotalMilliseconds} ms being performed...");
                 Thread.Sleep(args.subsequentWorkDuration);
                 cancellationToken.ThrowIfCancellationRequested();
                 Interlocked.Increment(ref computationCount);

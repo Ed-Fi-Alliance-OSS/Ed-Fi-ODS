@@ -4,15 +4,16 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
+using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Context;
 using log4net;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
-using System.Collections.Concurrent;
-using System.Threading;
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.SingleFlight;
 
 /// <summary>
 /// Represents a caching mechanism that ensures only a single in-flight request is made for
@@ -103,8 +104,11 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
 
     public virtual void Clear()
     {
-        Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Clearing cache '{Description}'...");
-        
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Clearing cache '{Description}'...");
+        }
+
         Cache.Clear();
 
         if (_logger.IsDebugEnabled)
@@ -117,12 +121,13 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
         }
     }
 
+    private static readonly ILog _cacheEntryLogger = LogManager.GetLogger(typeof(CacheEntry));
+
     protected sealed class CacheEntry(CancellationToken _cacheExpirationToken)
     {
         private int _producerChosen; // 0 = none, 1 = chosen
 
         private readonly TaskCompletionSource<TValue> _tcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
-
         public bool TryGet(out TValue value)
         {
             EnsureCacheNotExpired();
@@ -141,7 +146,11 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
         {
             if (_cacheExpirationToken.IsCancellationRequested)
             {
-                Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cache expiration detected (CacheEntry: {GetHashCode()})...");
+                if (_cacheEntryLogger.IsDebugEnabled)
+                {
+                    _cacheEntryLogger.Debug($"{Thread.CurrentThread.ManagedThreadId} ({CallContext.GetData("TestTask")}): Cache expiration detected (CacheEntry: {GetHashCode()})...");
+                }
+                
                 throw new OperationCanceledException("Cache has expired.", _cacheExpirationToken);
             }
         }
@@ -162,8 +171,11 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
 
             try
             {
-                Console.WriteLine(
-                    $"{Thread.CurrentThread.ManagedThreadId}: Becoming producer for entry '{key}' (CacheEntry: {GetHashCode()})...");
+                if (_cacheEntryLogger.IsDebugEnabled)
+                {
+                    _cacheEntryLogger.Debug(
+                        $"{Thread.CurrentThread.ManagedThreadId}: Becoming producer for entry '{key}' (CacheEntry: {GetHashCode()})...");
+                }
 
                 // Execute the factory method with retry and timeout handling
                 var createdValue = await retryPolicy.ExecuteAsync(
@@ -180,15 +192,21 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
 
                             EnsureCacheNotExpired();
 
-                            Console.WriteLine(
-                                $"{Thread.CurrentThread.ManagedThreadId}: Factory created value '{value}' for entry '{key}' (CacheEntry: {GetHashCode()})...");
+                            if (_cacheEntryLogger.IsDebugEnabled)
+                            {
+                                _cacheEntryLogger.Debug(
+                                    $"{Thread.CurrentThread.ManagedThreadId}: Factory created value '{value}' for entry '{key}' (CacheEntry: {GetHashCode()})...");
+                            }
 
                             return value;
                         }
                         catch (OperationCanceledException) when (createTimeoutCts.Token.IsCancellationRequested)
                         {
-                            Console.WriteLine(
-                                $"{Thread.CurrentThread.ManagedThreadId}: Timeout while creating value for cache item '{key}' (CacheEntry: {GetHashCode()})...");
+                            if (_cacheEntryLogger.IsDebugEnabled)
+                            {
+                                _cacheEntryLogger.Debug(
+                                    $"{Thread.CurrentThread.ManagedThreadId}: Timeout while creating value for cache item '{key}' (CacheEntry: {GetHashCode()})...");
+                            }
 
                             throw new TimeoutException("Operation to create value for cache item timed out.");
                         }

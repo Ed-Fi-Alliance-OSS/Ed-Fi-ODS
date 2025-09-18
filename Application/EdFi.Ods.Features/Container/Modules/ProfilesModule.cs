@@ -8,6 +8,7 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Caching.SingleFlight;
 using EdFi.Ods.Api.Jobs;
 using EdFi.Ods.Api.Security.Profiles;
 using EdFi.Ods.Api.Startup;

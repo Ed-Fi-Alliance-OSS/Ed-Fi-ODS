@@ -6,10 +6,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Context;
 using log4net;
 using Polly;
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.SingleFlight;
 
 public class ExpiringSingleFlightCache<TKey, TValue> : SingleFlightCache<TKey, TValue>
 {
@@ -115,8 +116,11 @@ public class ExpiringSingleFlightCache<TKey, TValue> : SingleFlightCache<TKey, T
         // Create a new timer with the new expiration token
         var newTimer = new Timer(CacheExpired, newCancellationTokenSource.Token, _expirationPeriod, _expirationPeriod);
 
-        Console.WriteLine(
-            $"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): New timer created with expiration token (ct: {newCancellationTokenSource.Token.GetHashCode()}).");
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug(
+                $"{Thread.CurrentThread.ManagedThreadId} ({CallContext.GetData("TestTask")}): New timer created with expiration token (ct: {newCancellationTokenSource.Token.GetHashCode()}).");
+        }
 
         // Atomically swap timers
         var oldTimer = Interlocked.Exchange(ref _timer, newTimer);
@@ -133,11 +137,18 @@ public class ExpiringSingleFlightCache<TKey, TValue> : SingleFlightCache<TKey, T
         // Has the cache for this timer already been cleared explicitly?
         if (cancellationToken.IsCancellationRequested)
         {
-            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cached expiration period elapsed but cache associated with timer (ct: {cancellationToken.GetHashCode()}) was already cleared.");
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"{Thread.CurrentThread.ManagedThreadId} ({CallContext.GetData("TestTask")}): Cached expiration period elapsed but cache associated with timer (ct: {cancellationToken.GetHashCode()}) was already cleared.");
+            }
+            
             return;
         }
 
-        Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} ({Common.Context.CallContext.GetData("TestTask")}): Cached expiration period elapsed. Clearing cache '{Description}' (ct: {cancellationToken.GetHashCode()})...");
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug($"{Thread.CurrentThread.ManagedThreadId} ({CallContext.GetData("TestTask")}): Cached expiration period elapsed. Clearing cache '{Description}' (ct: {cancellationToken.GetHashCode()})...");
+        }
 
         if (_logger.IsDebugEnabled)
         {
