@@ -309,8 +309,8 @@ CREATE TABLE tracked_changes_edfi.candidateeducatorpreparationprogramassociation
 );
 END IF;
 
-IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'candidateidentity') THEN
-CREATE TABLE tracked_changes_edfi.candidateidentity
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'candidateidentificationcode') THEN
+CREATE TABLE tracked_changes_edfi.candidateidentificationcode
 (
        oldcandidateidentificationsystemdescriptorid INT NOT NULL,
        oldcandidateidentificationsystemdescriptornamespace VARCHAR(255) NOT NULL,
@@ -326,7 +326,7 @@ CREATE TABLE tracked_changes_edfi.candidateidentity
        changeversion bigint NOT NULL,
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
-       CONSTRAINT candidateidentity_pk PRIMARY KEY (ChangeVersion)
+       CONSTRAINT candidateidentificationcode_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -502,8 +502,8 @@ CREATE TABLE tracked_changes_edfi.contact
 );
 END IF;
 
-IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'contactidentity') THEN
-CREATE TABLE tracked_changes_edfi.contactidentity
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'contactidentificationcode') THEN
+CREATE TABLE tracked_changes_edfi.contactidentificationcode
 (
        oldcontactidentificationsystemdescriptorid INT NOT NULL,
        oldcontactidentificationsystemdescriptornamespace VARCHAR(255) NOT NULL,
@@ -521,7 +521,7 @@ CREATE TABLE tracked_changes_edfi.contactidentity
        changeversion bigint NOT NULL,
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
-       CONSTRAINT contactidentity_pk PRIMARY KEY (ChangeVersion)
+       CONSTRAINT contactidentificationcode_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -752,8 +752,8 @@ CREATE TABLE tracked_changes_edfi.educationorganization
 );
 END IF;
 
-IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'educationorganizationidentity') THEN
-CREATE TABLE tracked_changes_edfi.educationorganizationidentity
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'educationorganizationidentificationcode') THEN
+CREATE TABLE tracked_changes_edfi.educationorganizationidentificationcode
 (
        oldeducationorganizationid BIGINT NOT NULL,
        oldeducationorganizationidentificationsystemdescriptorid INT NOT NULL,
@@ -767,7 +767,7 @@ CREATE TABLE tracked_changes_edfi.educationorganizationidentity
        changeversion bigint NOT NULL,
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
-       CONSTRAINT educationorganizationidentity_pk PRIMARY KEY (ChangeVersion)
+       CONSTRAINT educationorganizationidentificationcode_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -2581,8 +2581,8 @@ CREATE TABLE tracked_changes_edfi.staffeducatorpreparationprogramassociation
 );
 END IF;
 
-IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'staffidentity') THEN
-CREATE TABLE tracked_changes_edfi.staffidentity
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'staffidentificationcode') THEN
+CREATE TABLE tracked_changes_edfi.staffidentificationcode
 (
        oldeducationorganizationid BIGINT NOT NULL,
        oldstaffidentificationsystemdescriptorid INT NOT NULL,
@@ -2600,7 +2600,7 @@ CREATE TABLE tracked_changes_edfi.staffidentity
        changeversion bigint NOT NULL,
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
-       CONSTRAINT staffidentity_pk PRIMARY KEY (ChangeVersion)
+       CONSTRAINT staffidentificationcode_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 
@@ -3096,8 +3096,8 @@ CREATE TABLE tracked_changes_edfi.studenthealth
 );
 END IF;
 
-IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentidentity') THEN
-CREATE TABLE tracked_changes_edfi.studentidentity
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentidentificationcode') THEN
+CREATE TABLE tracked_changes_edfi.studentidentificationcode
 (
        oldeducationorganizationid BIGINT NOT NULL,
        oldstudentidentificationsystemdescriptorid INT NOT NULL,
@@ -3115,7 +3115,7 @@ CREATE TABLE tracked_changes_edfi.studentidentity
        changeversion bigint NOT NULL,
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
-       CONSTRAINT studentidentity_pk PRIMARY KEY (ChangeVersion)
+       CONSTRAINT studentidentificationcode_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 

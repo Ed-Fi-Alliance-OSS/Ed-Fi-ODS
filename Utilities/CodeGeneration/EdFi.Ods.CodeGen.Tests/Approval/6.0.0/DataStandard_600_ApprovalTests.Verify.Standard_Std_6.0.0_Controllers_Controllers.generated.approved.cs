@@ -1947,6 +1947,41 @@ namespace EdFi.Ods.Api.Services.Controllers.CandidateEducatorPreparationProgramA
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.CandidateIdentificationCodes.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/candidateIdentificationCodes")]
+    public partial class CandidateIdentificationCodesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.CandidateIdentificationCode.EdFi.CandidateIdentificationCode,
+        Entities.Common.EdFi.ICandidateIdentificationCode,
+        Entities.NHibernate.CandidateIdentificationCodeAggregate.EdFi.CandidateIdentificationCode,
+        Api.Common.Models.Requests.CandidateIdentificationCodes.EdFi.CandidateIdentificationCodePut,
+        Api.Common.Models.Requests.CandidateIdentificationCodes.EdFi.CandidateIdentificationCodePost,
+        Api.Common.Models.Requests.CandidateIdentificationCodes.EdFi.CandidateIdentificationCodeDelete,
+        Api.Common.Models.Requests.CandidateIdentificationCodes.EdFi.CandidateIdentificationCodeGetByExample>
+    {
+        public CandidateIdentificationCodesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.CandidateIdentificationCodes.EdFi.CandidateIdentificationCodeGetByExample request, Entities.Common.EdFi.ICandidateIdentificationCode specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
+            specification.CandidateIdentificationSystemDescriptor = request.CandidateIdentificationSystemDescriptor;
+            specification.CandidateIdentifier = request.CandidateIdentifier;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.CandidateIdentificationSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -1980,41 +2015,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CandidateIdentificationSystemDescrip
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.CandidateIdentities.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/candidateIdentities")]
-    public partial class CandidateIdentitiesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CandidateIdentity.EdFi.CandidateIdentity,
-        Entities.Common.EdFi.ICandidateIdentity,
-        Entities.NHibernate.CandidateIdentityAggregate.EdFi.CandidateIdentity,
-        Api.Common.Models.Requests.CandidateIdentities.EdFi.CandidateIdentityPut,
-        Api.Common.Models.Requests.CandidateIdentities.EdFi.CandidateIdentityPost,
-        Api.Common.Models.Requests.CandidateIdentities.EdFi.CandidateIdentityDelete,
-        Api.Common.Models.Requests.CandidateIdentities.EdFi.CandidateIdentityGetByExample>
-    {
-        public CandidateIdentitiesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
-            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.CandidateIdentities.EdFi.CandidateIdentityGetByExample request, Entities.Common.EdFi.ICandidateIdentity specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
-            specification.CandidateIdentificationSystemDescriptor = request.CandidateIdentificationSystemDescriptor;
-            specification.CandidateIdentifier = request.CandidateIdentifier;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.Id = request.Id;
-            specification.IdentificationCode = request.IdentificationCode;
         }
     }
 }
@@ -3042,6 +3042,41 @@ namespace EdFi.Ods.Api.Services.Controllers.Contacts.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.ContactIdentificationCodes.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/contactIdentificationCodes")]
+    public partial class ContactIdentificationCodesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ContactIdentificationCode.EdFi.ContactIdentificationCode,
+        Entities.Common.EdFi.IContactIdentificationCode,
+        Entities.NHibernate.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCode,
+        Api.Common.Models.Requests.ContactIdentificationCodes.EdFi.ContactIdentificationCodePut,
+        Api.Common.Models.Requests.ContactIdentificationCodes.EdFi.ContactIdentificationCodePost,
+        Api.Common.Models.Requests.ContactIdentificationCodes.EdFi.ContactIdentificationCodeDelete,
+        Api.Common.Models.Requests.ContactIdentificationCodes.EdFi.ContactIdentificationCodeGetByExample>
+    {
+        public ContactIdentificationCodesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ContactIdentificationCodes.EdFi.ContactIdentificationCodeGetByExample request, Entities.Common.EdFi.IContactIdentificationCode specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
+            specification.ContactIdentificationSystemDescriptor = request.ContactIdentificationSystemDescriptor;
+            specification.ContactUniqueId = request.ContactUniqueId;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.ContactIdentificationSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -3075,41 +3110,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactIdentificationSystemDescripto
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.ContactIdentities.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/contactIdentities")]
-    public partial class ContactIdentitiesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ContactIdentity.EdFi.ContactIdentity,
-        Entities.Common.EdFi.IContactIdentity,
-        Entities.NHibernate.ContactIdentityAggregate.EdFi.ContactIdentity,
-        Api.Common.Models.Requests.ContactIdentities.EdFi.ContactIdentityPut,
-        Api.Common.Models.Requests.ContactIdentities.EdFi.ContactIdentityPost,
-        Api.Common.Models.Requests.ContactIdentities.EdFi.ContactIdentityDelete,
-        Api.Common.Models.Requests.ContactIdentities.EdFi.ContactIdentityGetByExample>
-    {
-        public ContactIdentitiesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
-            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.ContactIdentities.EdFi.ContactIdentityGetByExample request, Entities.Common.EdFi.IContactIdentity specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
-            specification.ContactIdentificationSystemDescriptor = request.ContactIdentificationSystemDescriptor;
-            specification.ContactUniqueId = request.ContactUniqueId;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.Id = request.Id;
-            specification.IdentificationCode = request.IdentificationCode;
         }
     }
 }
@@ -4980,6 +4980,40 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationCodes.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationIdentificationCodes")]
+    public partial class EducationOrganizationIdentificationCodesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EducationOrganizationIdentificationCode.EdFi.EducationOrganizationIdentificationCode,
+        Entities.Common.EdFi.IEducationOrganizationIdentificationCode,
+        Entities.NHibernate.EducationOrganizationIdentificationCodeAggregate.EdFi.EducationOrganizationIdentificationCode,
+        Api.Common.Models.Requests.EducationOrganizationIdentificationCodes.EdFi.EducationOrganizationIdentificationCodePut,
+        Api.Common.Models.Requests.EducationOrganizationIdentificationCodes.EdFi.EducationOrganizationIdentificationCodePost,
+        Api.Common.Models.Requests.EducationOrganizationIdentificationCodes.EdFi.EducationOrganizationIdentificationCodeDelete,
+        Api.Common.Models.Requests.EducationOrganizationIdentificationCodes.EdFi.EducationOrganizationIdentificationCodeGetByExample>
+    {
+        public EducationOrganizationIdentificationCodesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationIdentificationCodes.EdFi.EducationOrganizationIdentificationCodeGetByExample request, Entities.Common.EdFi.IEducationOrganizationIdentificationCode specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EducationOrganizationIdentificationSystemDescriptor = request.EducationOrganizationIdentificationSystemDescriptor;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -5013,40 +5047,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentities.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationIdentities")]
-    public partial class EducationOrganizationIdentitiesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EducationOrganizationIdentity.EdFi.EducationOrganizationIdentity,
-        Entities.Common.EdFi.IEducationOrganizationIdentity,
-        Entities.NHibernate.EducationOrganizationIdentityAggregate.EdFi.EducationOrganizationIdentity,
-        Api.Common.Models.Requests.EducationOrganizationIdentities.EdFi.EducationOrganizationIdentityPut,
-        Api.Common.Models.Requests.EducationOrganizationIdentities.EdFi.EducationOrganizationIdentityPost,
-        Api.Common.Models.Requests.EducationOrganizationIdentities.EdFi.EducationOrganizationIdentityDelete,
-        Api.Common.Models.Requests.EducationOrganizationIdentities.EdFi.EducationOrganizationIdentityGetByExample>
-    {
-        public EducationOrganizationIdentitiesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
-            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationIdentities.EdFi.EducationOrganizationIdentityGetByExample request, Entities.Common.EdFi.IEducationOrganizationIdentity specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.EducationOrganizationIdentificationSystemDescriptor = request.EducationOrganizationIdentificationSystemDescriptor;
-            specification.Id = request.Id;
-            specification.IdentificationCode = request.IdentificationCode;
         }
     }
 }
@@ -13448,14 +13448,11 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthDate = request.BirthDate;
-            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.FirstName = request.FirstName;
-            specification.GenderIdentity = request.GenderIdentity;
             specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
             specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
             specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
-            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
             specification.Id = request.Id;
             specification.LastSurname = request.LastSurname;
             specification.LoginId = request.LoginId;
@@ -13466,7 +13463,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
             specification.PreferredFirstName = request.PreferredFirstName;
             specification.PreferredLastSurname = request.PreferredLastSurname;
             specification.RequisitionNumber = request.RequisitionNumber;
-            specification.SexDescriptor = request.SexDescriptor;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
@@ -13813,6 +13809,41 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducatorPreparationProgramAssoc
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationCodes.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffIdentificationCodes")]
+    public partial class StaffIdentificationCodesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StaffIdentificationCode.EdFi.StaffIdentificationCode,
+        Entities.Common.EdFi.IStaffIdentificationCode,
+        Entities.NHibernate.StaffIdentificationCodeAggregate.EdFi.StaffIdentificationCode,
+        Api.Common.Models.Requests.StaffIdentificationCodes.EdFi.StaffIdentificationCodePut,
+        Api.Common.Models.Requests.StaffIdentificationCodes.EdFi.StaffIdentificationCodePost,
+        Api.Common.Models.Requests.StaffIdentificationCodes.EdFi.StaffIdentificationCodeDelete,
+        Api.Common.Models.Requests.StaffIdentificationCodes.EdFi.StaffIdentificationCodeGetByExample>
+    {
+        public StaffIdentificationCodesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StaffIdentificationCodes.EdFi.StaffIdentificationCodeGetByExample request, Entities.Common.EdFi.IStaffIdentificationCode specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
+            specification.StaffIdentificationSystemDescriptor = request.StaffIdentificationSystemDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -13846,41 +13877,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
             specification.StaffIdentificationSystemDescriptorId = request.StaffIdentificationSystemDescriptorId;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.StaffIdentities.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffIdentities")]
-    public partial class StaffIdentitiesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StaffIdentity.EdFi.StaffIdentity,
-        Entities.Common.EdFi.IStaffIdentity,
-        Entities.NHibernate.StaffIdentityAggregate.EdFi.StaffIdentity,
-        Api.Common.Models.Requests.StaffIdentities.EdFi.StaffIdentityPut,
-        Api.Common.Models.Requests.StaffIdentities.EdFi.StaffIdentityPost,
-        Api.Common.Models.Requests.StaffIdentities.EdFi.StaffIdentityDelete,
-        Api.Common.Models.Requests.StaffIdentities.EdFi.StaffIdentityGetByExample>
-    {
-        public StaffIdentitiesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
-            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.StaffIdentities.EdFi.StaffIdentityGetByExample request, Entities.Common.EdFi.IStaffIdentity specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.Id = request.Id;
-            specification.IdentificationCode = request.IdentificationCode;
-            specification.StaffIdentificationSystemDescriptor = request.StaffIdentificationSystemDescriptor;
-            specification.StaffUniqueId = request.StaffUniqueId;
         }
     }
 }
@@ -14213,7 +14209,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
             specification.BirthInternationalProvince = request.BirthInternationalProvince;
             specification.BirthSexDescriptor = request.BirthSexDescriptor;
             specification.BirthStateAbbreviationDescriptor = request.BirthStateAbbreviationDescriptor;
-            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
             specification.DateEnteredUS = request.DateEnteredUS;
             specification.FirstName = request.FirstName;
             specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
@@ -14837,21 +14832,16 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             specification.SuspendReferenceAssignmentCheck();
             specification.BarrierToInternetAccessInResidenceDescriptor = request.BarrierToInternetAccessInResidenceDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.GenderIdentity = request.GenderIdentity;
-            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
             specification.Id = request.Id;
             specification.InternetAccessInResidence = request.InternetAccessInResidence;
             specification.InternetAccessTypeInResidenceDescriptor = request.InternetAccessTypeInResidenceDescriptor;
             specification.InternetPerformanceInResidenceDescriptor = request.InternetPerformanceInResidenceDescriptor;
-            specification.LimitedEnglishProficiencyDescriptor = request.LimitedEnglishProficiencyDescriptor;
             specification.LoginId = request.LoginId;
             specification.PrimaryLearningDeviceAccessDescriptor = request.PrimaryLearningDeviceAccessDescriptor;
             specification.PrimaryLearningDeviceAwayFromSchoolDescriptor = request.PrimaryLearningDeviceAwayFromSchoolDescriptor;
             specification.PrimaryLearningDeviceProviderDescriptor = request.PrimaryLearningDeviceProviderDescriptor;
             specification.ProfileThumbnail = request.ProfileThumbnail;
-            specification.SexDescriptor = request.SexDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-            specification.SupporterMilitaryConnectionDescriptor = request.SupporterMilitaryConnectionDescriptor;
         }
     }
 }
@@ -15012,6 +15002,41 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationCodes.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentIdentificationCodes")]
+    public partial class StudentIdentificationCodesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentIdentificationCode.EdFi.StudentIdentificationCode,
+        Entities.Common.EdFi.IStudentIdentificationCode,
+        Entities.NHibernate.StudentIdentificationCodeAggregate.EdFi.StudentIdentificationCode,
+        Api.Common.Models.Requests.StudentIdentificationCodes.EdFi.StudentIdentificationCodePut,
+        Api.Common.Models.Requests.StudentIdentificationCodes.EdFi.StudentIdentificationCodePost,
+        Api.Common.Models.Requests.StudentIdentificationCodes.EdFi.StudentIdentificationCodeDelete,
+        Api.Common.Models.Requests.StudentIdentificationCodes.EdFi.StudentIdentificationCodeGetByExample>
+    {
+        public StudentIdentificationCodesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentIdentificationCodes.EdFi.StudentIdentificationCodeGetByExample request, Entities.Common.EdFi.IStudentIdentificationCode specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
+            specification.StudentIdentificationSystemDescriptor = request.StudentIdentificationSystemDescriptor;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -15045,41 +15070,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
             specification.StudentIdentificationSystemDescriptorId = request.StudentIdentificationSystemDescriptorId;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.StudentIdentities.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentIdentities")]
-    public partial class StudentIdentitiesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentIdentity.EdFi.StudentIdentity,
-        Entities.Common.EdFi.IStudentIdentity,
-        Entities.NHibernate.StudentIdentityAggregate.EdFi.StudentIdentity,
-        Api.Common.Models.Requests.StudentIdentities.EdFi.StudentIdentityPut,
-        Api.Common.Models.Requests.StudentIdentities.EdFi.StudentIdentityPost,
-        Api.Common.Models.Requests.StudentIdentities.EdFi.StudentIdentityDelete,
-        Api.Common.Models.Requests.StudentIdentities.EdFi.StudentIdentityGetByExample>
-    {
-        public StudentIdentitiesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
-            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.StudentIdentities.EdFi.StudentIdentityGetByExample request, Entities.Common.EdFi.IStudentIdentity specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AssigningOrganizationIdentificationCode = request.AssigningOrganizationIdentificationCode;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.Id = request.Id;
-            specification.IdentificationCode = request.IdentificationCode;
-            specification.StudentIdentificationSystemDescriptor = request.StudentIdentificationSystemDescriptor;
-            specification.StudentUniqueId = request.StudentUniqueId;
         }
     }
 }

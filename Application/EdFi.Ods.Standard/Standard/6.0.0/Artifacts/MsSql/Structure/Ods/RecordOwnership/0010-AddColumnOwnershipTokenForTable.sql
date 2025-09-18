@@ -37,7 +37,7 @@ ALTER TABLE [edfi].[Candidate] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[CandidateEducatorPreparationProgramAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [edfi].[CandidateIdentity] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+ALTER TABLE [edfi].[CandidateIdentificationCode] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[CandidateRelationshipToStaffAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
@@ -59,7 +59,7 @@ ALTER TABLE [edfi].[CompetencyObjective] ADD [CreatedByOwnershipTokenId] SMALLIN
 
 ALTER TABLE [edfi].[Contact] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [edfi].[ContactIdentity] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+ALTER TABLE [edfi].[ContactIdentificationCode] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[Course] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
@@ -85,7 +85,7 @@ ALTER TABLE [edfi].[EducationContent] ADD [CreatedByOwnershipTokenId] SMALLINT N
 
 ALTER TABLE [edfi].[EducationOrganization] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [edfi].[EducationOrganizationIdentity] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+ALTER TABLE [edfi].[EducationOrganizationIdentificationCode] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[EducationOrganizationInterventionPrescriptionAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
@@ -239,7 +239,7 @@ ALTER TABLE [edfi].[StaffEducationOrganizationEmploymentAssociation] ADD [Create
 
 ALTER TABLE [edfi].[StaffEducatorPreparationProgramAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [edfi].[StaffIdentity] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+ALTER TABLE [edfi].[StaffIdentificationCode] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StaffLeave] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
@@ -285,7 +285,7 @@ ALTER TABLE [edfi].[StudentGradebookEntry] ADD [CreatedByOwnershipTokenId] SMALL
 
 ALTER TABLE [edfi].[StudentHealth] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [edfi].[StudentIdentity] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+ALTER TABLE [edfi].[StudentIdentificationCode] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StudentInterventionAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 

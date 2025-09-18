@@ -54,9 +54,9 @@ BEGIN
     CREATE INDEX IX_CandidateEducatorPreparationProgramAssociation_EducationOrganizationId ON [edfi].[CandidateEducatorPreparationProgramAssociation](EducationOrganizationId) INCLUDE (Id)
 END;
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_CandidateIdentity_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.CandidateIdentity')) 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_CandidateIdentificationCode_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.CandidateIdentificationCode')) 
 BEGIN
-    CREATE INDEX IX_CandidateIdentity_EducationOrganizationId ON [edfi].[CandidateIdentity](EducationOrganizationId) INCLUDE (Id)
+    CREATE INDEX IX_CandidateIdentificationCode_EducationOrganizationId ON [edfi].[CandidateIdentificationCode](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Certification_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.Certification')) 
@@ -94,9 +94,9 @@ BEGIN
     CREATE INDEX IX_CompetencyObjective_EducationOrganizationId ON [edfi].[CompetencyObjective](EducationOrganizationId) INCLUDE (Id)
 END;
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_ContactIdentity_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.ContactIdentity')) 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_ContactIdentificationCode_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.ContactIdentificationCode')) 
 BEGIN
-    CREATE INDEX IX_ContactIdentity_EducationOrganizationId ON [edfi].[ContactIdentity](EducationOrganizationId) INCLUDE (Id)
+    CREATE INDEX IX_ContactIdentificationCode_EducationOrganizationId ON [edfi].[ContactIdentificationCode](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_Course_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.Course')) 
@@ -129,9 +129,9 @@ BEGIN
     CREATE INDEX IX_EducationOrganization_EducationOrganizationId ON [edfi].[EducationOrganization](EducationOrganizationId) INCLUDE (Id)
 END;
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EducationOrganizationIdentity_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EducationOrganizationIdentity')) 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EducationOrganizationIdentificationCode_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EducationOrganizationIdentificationCode')) 
 BEGIN
-    CREATE INDEX IX_EducationOrganizationIdentity_EducationOrganizationId ON [edfi].[EducationOrganizationIdentity](EducationOrganizationId) INCLUDE (Id)
+    CREATE INDEX IX_EducationOrganizationIdentificationCode_EducationOrganizationId ON [edfi].[EducationOrganizationIdentificationCode](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_EducationOrganizationInterventionPrescriptionAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.EducationOrganizationInterventionPrescriptionAssociation')) 
@@ -434,9 +434,9 @@ BEGIN
     CREATE INDEX IX_StaffEducatorPreparationProgramAssociation_EducationOrganizationId ON [edfi].[StaffEducatorPreparationProgramAssociation](EducationOrganizationId) INCLUDE (Id)
 END;
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffIdentity_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StaffIdentity')) 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffIdentificationCode_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StaffIdentificationCode')) 
 BEGIN
-    CREATE INDEX IX_StaffIdentity_EducationOrganizationId ON [edfi].[StaffIdentity](EducationOrganizationId) INCLUDE (Id)
+    CREATE INDEX IX_StaffIdentificationCode_EducationOrganizationId ON [edfi].[StaffIdentificationCode](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffSchoolAssociation_SchoolId' AND object_id = OBJECT_ID('edfi.StaffSchoolAssociation')) 
@@ -529,9 +529,9 @@ BEGIN
     CREATE INDEX IX_StudentHealth_EducationOrganizationId ON [edfi].[StudentHealth](EducationOrganizationId) INCLUDE (Id)
 END;
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentIdentity_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentIdentity')) 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentIdentificationCode_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentIdentificationCode')) 
 BEGIN
-    CREATE INDEX IX_StudentIdentity_EducationOrganizationId ON [edfi].[StudentIdentity](EducationOrganizationId) INCLUDE (Id)
+    CREATE INDEX IX_StudentIdentificationCode_EducationOrganizationId ON [edfi].[StudentIdentificationCode](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentInterventionAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentInterventionAssociation')) 

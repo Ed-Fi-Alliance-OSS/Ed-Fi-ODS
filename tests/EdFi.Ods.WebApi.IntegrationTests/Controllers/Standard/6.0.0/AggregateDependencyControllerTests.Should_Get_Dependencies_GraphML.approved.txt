@@ -51,8 +51,8 @@
 <node id="/ed-fi/calendarTypeDescriptors"/>
 <node id="/ed-fi/candidateCharacteristicDescriptors"/>
 <node id="/ed-fi/candidateEducatorPreparationProgramAssociations"/>
+<node id="/ed-fi/candidateIdentificationCodes"/>
 <node id="/ed-fi/candidateIdentificationSystemDescriptors"/>
-<node id="/ed-fi/candidateIdentities"/>
 <node id="/ed-fi/candidateRelationshipToStaffAssociations"/>
 <node id="/ed-fi/candidates"/>
 <node id="/ed-fi/careerPathwayDescriptors"/>
@@ -80,8 +80,8 @@
 <node id="/ed-fi/communityProviders"/>
 <node id="/ed-fi/competencyLevelDescriptors"/>
 <node id="/ed-fi/competencyObjectives"/>
+<node id="/ed-fi/contactIdentificationCodes"/>
 <node id="/ed-fi/contactIdentificationSystemDescriptors"/>
-<node id="/ed-fi/contactIdentities"/>
 <node id="/ed-fi/contacts"/>
 <node id="/ed-fi/contacts#Retry"/>
 <node id="/ed-fi/contactTypeDescriptors"/>
@@ -133,8 +133,8 @@
 <node id="/ed-fi/educationContents"/>
 <node id="/ed-fi/educationOrganizationAssociationTypeDescriptors"/>
 <node id="/ed-fi/educationOrganizationCategoryDescriptors"/>
+<node id="/ed-fi/educationOrganizationIdentificationCodes"/>
 <node id="/ed-fi/educationOrganizationIdentificationSystemDescriptors"/>
-<node id="/ed-fi/educationOrganizationIdentities"/>
 <node id="/ed-fi/educationOrganizationInterventionPrescriptionAssociations"/>
 <node id="/ed-fi/educationOrganizationNetworkAssociations"/>
 <node id="/ed-fi/educationOrganizationNetworks"/>
@@ -366,8 +366,8 @@
 <node id="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <node id="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
 <node id="/ed-fi/staffEducatorPreparationProgramAssociations"/>
+<node id="/ed-fi/staffIdentificationCodes"/>
 <node id="/ed-fi/staffIdentificationSystemDescriptors"/>
-<node id="/ed-fi/staffIdentities"/>
 <node id="/ed-fi/staffLeaveEventCategoryDescriptors"/>
 <node id="/ed-fi/staffLeaves"/>
 <node id="/ed-fi/staffProgramAssociations"/>
@@ -398,8 +398,8 @@
 <node id="/ed-fi/studentGradebookEntries"/>
 <node id="/ed-fi/studentHealths"/>
 <node id="/ed-fi/studentHomelessProgramAssociations"/>
+<node id="/ed-fi/studentIdentificationCodes"/>
 <node id="/ed-fi/studentIdentificationSystemDescriptors"/>
-<node id="/ed-fi/studentIdentities"/>
 <node id="/ed-fi/studentInterventionAssociations"/>
 <node id="/ed-fi/studentInterventionAttendanceEvents"/>
 <node id="/ed-fi/studentLanguageInstructionProgramAssociations"/>
@@ -501,18 +501,14 @@
 <edge source="/ed-fi/addressTypeDescriptors" target="/ed-fi/postSecondaryInstitutions"/>
 <edge source="/ed-fi/addressTypeDescriptors" target="/ed-fi/schools"/>
 <edge source="/ed-fi/addressTypeDescriptors" target="/ed-fi/staffDirectories"/>
-<edge source="/ed-fi/addressTypeDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/addressTypeDescriptors" target="/ed-fi/stateEducationAgencies"/>
 <edge source="/ed-fi/addressTypeDescriptors" target="/ed-fi/studentDirectories"/>
-<edge source="/ed-fi/addressTypeDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/administrationEnvironmentDescriptors" target="/ed-fi/studentAssessments"/>
 <edge source="/ed-fi/administrativeFundingControlDescriptors" target="/ed-fi/postSecondaryInstitutions"/>
 <edge source="/ed-fi/administrativeFundingControlDescriptors" target="/ed-fi/schools"/>
 <edge source="/ed-fi/aidTypeDescriptors" target="/ed-fi/financialAids"/>
 <edge source="/ed-fi/ancestryEthnicOriginDescriptors" target="/ed-fi/staffDemographics"/>
-<edge source="/ed-fi/ancestryEthnicOriginDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/ancestryEthnicOriginDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/ancestryEthnicOriginDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/applicantProfiles" target="/ed-fi/applications"/>
 <edge source="/ed-fi/applicationEventResultDescriptors" target="/ed-fi/applicationEvents"/>
 <edge source="/ed-fi/applicationEventTypeDescriptors" target="/ed-fi/applicationEvents"/>
@@ -570,9 +566,9 @@
 <edge source="/ed-fi/calendars" target="/ed-fi/studentSchoolAssociations"/>
 <edge source="/ed-fi/calendarTypeDescriptors" target="/ed-fi/calendars"/>
 <edge source="/ed-fi/candidateCharacteristicDescriptors" target="/ed-fi/candidates"/>
-<edge source="/ed-fi/candidateIdentificationSystemDescriptors" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/candidateIdentificationSystemDescriptors" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/candidates" target="/ed-fi/candidateEducatorPreparationProgramAssociations"/>
-<edge source="/ed-fi/candidates" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/candidates" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/candidates" target="/ed-fi/candidateRelationshipToStaffAssociations"/>
 <edge source="/ed-fi/careerPathwayDescriptors" target="/ed-fi/courses"/>
 <edge source="/ed-fi/certificationExams" target="/ed-fi/certificationExamResults"/>
@@ -594,9 +590,7 @@
 <edge source="/ed-fi/citizenshipStatusDescriptors" target="/ed-fi/applicantProfiles"/>
 <edge source="/ed-fi/citizenshipStatusDescriptors" target="/ed-fi/candidates"/>
 <edge source="/ed-fi/citizenshipStatusDescriptors" target="/ed-fi/staffDemographics"/>
-<edge source="/ed-fi/citizenshipStatusDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/citizenshipStatusDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/citizenshipStatusDescriptors" target="/ed-fi/students"/>
 <edge source="/ed-fi/classPeriods" target="/ed-fi/bellSchedules"/>
 <edge source="/ed-fi/classPeriods" target="/ed-fi/sections"/>
 <edge source="/ed-fi/classPeriods" target="/ed-fi/studentSectionAttendanceEvents"/>
@@ -613,17 +607,17 @@
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/assessmentAdministrationParticipations"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/assessmentAdministrations"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/assessments"/>
-<edge source="/ed-fi/communityOrganizations" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/communityOrganizations" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/certificationExams"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/certifications"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/cohorts"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/communityProviders"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/competencyObjectives"/>
-<edge source="/ed-fi/communityOrganizations" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/communityOrganizations" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/courses"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/courseTranscripts"/>
-<edge source="/ed-fi/communityOrganizations" target="/ed-fi/educationOrganizationIdentities"/>
+<edge source="/ed-fi/communityOrganizations" target="/ed-fi/educationOrganizationIdentificationCodes"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/educationOrganizationInterventionPrescriptionAssociations"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/educationOrganizationNetworkAssociations"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/educationOrganizationPeerAssociations"/>
@@ -645,7 +639,7 @@
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/staffDirectories"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
-<edge source="/ed-fi/communityOrganizations" target="/ed-fi/staffIdentities"/>
+<edge source="/ed-fi/communityOrganizations" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentAcademicRecords"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentAssessmentRegistrations"/>
@@ -657,7 +651,7 @@
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentHealths"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentHomelessProgramAssociations"/>
-<edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
 <edge source="/ed-fi/communityOrganizations" target="/ed-fi/studentNeglectedOrDelinquentProgramAssociations"/>
@@ -679,17 +673,17 @@
 <edge source="/ed-fi/communityProviders" target="/ed-fi/assessmentAdministrationParticipations"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/assessmentAdministrations"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/assessments"/>
-<edge source="/ed-fi/communityProviders" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/communityProviders" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/certificationExams"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/certifications"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/cohorts"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/communityProviderLicenses"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/competencyObjectives"/>
-<edge source="/ed-fi/communityProviders" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/communityProviders" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/courses"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/courseTranscripts"/>
-<edge source="/ed-fi/communityProviders" target="/ed-fi/educationOrganizationIdentities"/>
+<edge source="/ed-fi/communityProviders" target="/ed-fi/educationOrganizationIdentificationCodes"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/educationOrganizationInterventionPrescriptionAssociations"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/educationOrganizationNetworkAssociations"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/educationOrganizationPeerAssociations"/>
@@ -711,7 +705,7 @@
 <edge source="/ed-fi/communityProviders" target="/ed-fi/staffDirectories"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
-<edge source="/ed-fi/communityProviders" target="/ed-fi/staffIdentities"/>
+<edge source="/ed-fi/communityProviders" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/studentAcademicRecords"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/studentAssessmentRegistrations"/>
@@ -723,7 +717,7 @@
 <edge source="/ed-fi/communityProviders" target="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/studentHealths"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/studentHomelessProgramAssociations"/>
-<edge source="/ed-fi/communityProviders" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/communityProviders" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
 <edge source="/ed-fi/communityProviders" target="/ed-fi/studentNeglectedOrDelinquentProgramAssociations"/>
@@ -744,9 +738,9 @@
 <edge source="/ed-fi/competencyLevelDescriptors" target="/ed-fi/studentCompetencyObjectives"/>
 <edge source="/ed-fi/competencyLevelDescriptors" target="/ed-fi/studentGradebookEntries"/>
 <edge source="/ed-fi/competencyObjectives" target="/ed-fi/studentCompetencyObjectives"/>
-<edge source="/ed-fi/contactIdentificationSystemDescriptors" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/contactIdentificationSystemDescriptors" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/contacts" target="/ed-fi/studentContactAssociations"/>
-<edge source="/ed-fi/contacts#Retry" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/contacts#Retry" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/contacts#Retry" target="/ed-fi/surveyResponses"/>
 <edge source="/ed-fi/contentClassDescriptors" target="/ed-fi/educationContents"/>
 <edge source="/ed-fi/continuationOfServicesReasonDescriptors" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
@@ -770,7 +764,6 @@
 <edge source="/ed-fi/countryDescriptors" target="/ed-fi/stateEducationAgencies"/>
 <edge source="/ed-fi/countryDescriptors" target="/ed-fi/studentDemographics"/>
 <edge source="/ed-fi/countryDescriptors" target="/ed-fi/studentDirectories"/>
-<edge source="/ed-fi/countryDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/countryDescriptors" target="/ed-fi/students"/>
 <edge source="/ed-fi/courseAttemptResultDescriptors" target="/ed-fi/courseTranscripts"/>
 <edge source="/ed-fi/courseDefinedByDescriptors" target="/ed-fi/courses"/>
@@ -820,19 +813,16 @@
 <edge source="/ed-fi/disabilityDescriptors" target="/ed-fi/candidates"/>
 <edge source="/ed-fi/disabilityDescriptors" target="/ed-fi/recruitmentEventAttendances"/>
 <edge source="/ed-fi/disabilityDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/disabilityDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/disabilityDescriptors" target="/ed-fi/studentSpecialEducationProgramAssociations"/>
 <edge source="/ed-fi/disabilityDesignationDescriptors" target="/ed-fi/applicantProfiles"/>
 <edge source="/ed-fi/disabilityDesignationDescriptors" target="/ed-fi/candidates"/>
 <edge source="/ed-fi/disabilityDesignationDescriptors" target="/ed-fi/recruitmentEventAttendances"/>
 <edge source="/ed-fi/disabilityDesignationDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/disabilityDesignationDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/disabilityDesignationDescriptors" target="/ed-fi/studentSpecialEducationProgramAssociations"/>
 <edge source="/ed-fi/disabilityDeterminationSourceTypeDescriptors" target="/ed-fi/applicantProfiles"/>
 <edge source="/ed-fi/disabilityDeterminationSourceTypeDescriptors" target="/ed-fi/candidates"/>
 <edge source="/ed-fi/disabilityDeterminationSourceTypeDescriptors" target="/ed-fi/recruitmentEventAttendances"/>
 <edge source="/ed-fi/disabilityDeterminationSourceTypeDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/disabilityDeterminationSourceTypeDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/disabilityDeterminationSourceTypeDescriptors" target="/ed-fi/studentSpecialEducationProgramAssociations"/>
 <edge source="/ed-fi/disciplineActionLengthDifferenceReasonDescriptors" target="/ed-fi/disciplineActions"/>
 <edge source="/ed-fi/disciplineDescriptors" target="/ed-fi/disciplineActions"/>
@@ -867,31 +857,22 @@
 <edge source="/ed-fi/educationOrganizationCategoryDescriptors" target="/ed-fi/postSecondaryInstitutions"/>
 <edge source="/ed-fi/educationOrganizationCategoryDescriptors" target="/ed-fi/schools"/>
 <edge source="/ed-fi/educationOrganizationCategoryDescriptors" target="/ed-fi/stateEducationAgencies"/>
-<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/communityOrganizations"/>
-<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/communityProviders"/>
-<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/educationOrganizationIdentities"/>
-<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/educationOrganizationNetworks"/>
-<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/educationServiceCenters"/>
-<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/localEducationAgencies"/>
-<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/organizationDepartments"/>
-<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/postSecondaryInstitutions"/>
-<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/schools"/>
-<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/stateEducationAgencies"/>
+<edge source="/ed-fi/educationOrganizationIdentificationSystemDescriptors" target="/ed-fi/educationOrganizationIdentificationCodes"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/accountabilityRatings"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/applications"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/assessmentAdministrationParticipations"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/assessmentAdministrations"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/assessments"/>
-<edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/certificationExams"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/certifications"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/cohorts"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/competencyObjectives"/>
-<edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/courses"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/courseTranscripts"/>
-<edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/educationOrganizationIdentities"/>
+<edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/educationOrganizationIdentificationCodes"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/educationOrganizationInterventionPrescriptionAssociations"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/educationOrganizationNetworkAssociations"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/educationOrganizationPeerAssociations"/>
@@ -913,7 +894,7 @@
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/staffDirectories"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
-<edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/staffIdentities"/>
+<edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentAcademicRecords"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentAssessmentRegistrations"/>
@@ -925,7 +906,7 @@
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentHealths"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentHomelessProgramAssociations"/>
-<edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
 <edge source="/ed-fi/educationOrganizationNetworks" target="/ed-fi/studentNeglectedOrDelinquentProgramAssociations"/>
@@ -948,16 +929,16 @@
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/assessmentAdministrationParticipations"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/assessmentAdministrations"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/assessments"/>
-<edge source="/ed-fi/educationServiceCenters" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/educationServiceCenters" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/certificationExams"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/certifications"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/cohorts"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/competencyObjectives"/>
-<edge source="/ed-fi/educationServiceCenters" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/educationServiceCenters" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/courses"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/courseTranscripts"/>
-<edge source="/ed-fi/educationServiceCenters" target="/ed-fi/educationOrganizationIdentities"/>
+<edge source="/ed-fi/educationServiceCenters" target="/ed-fi/educationOrganizationIdentificationCodes"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/educationOrganizationInterventionPrescriptionAssociations"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/educationOrganizationNetworkAssociations"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/educationOrganizationPeerAssociations"/>
@@ -980,7 +961,7 @@
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/staffDirectories"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
-<edge source="/ed-fi/educationServiceCenters" target="/ed-fi/staffIdentities"/>
+<edge source="/ed-fi/educationServiceCenters" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentAcademicRecords"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentAssessmentRegistrations"/>
@@ -992,7 +973,7 @@
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentHealths"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentHomelessProgramAssociations"/>
-<edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
 <edge source="/ed-fi/educationServiceCenters" target="/ed-fi/studentNeglectedOrDelinquentProgramAssociations"/>
@@ -1019,9 +1000,7 @@
 <edge source="/ed-fi/electronicMailTypeDescriptors" target="/ed-fi/candidates"/>
 <edge source="/ed-fi/electronicMailTypeDescriptors" target="/ed-fi/contacts"/>
 <edge source="/ed-fi/electronicMailTypeDescriptors" target="/ed-fi/staffDirectories"/>
-<edge source="/ed-fi/electronicMailTypeDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/electronicMailTypeDescriptors" target="/ed-fi/studentDirectories"/>
-<edge source="/ed-fi/electronicMailTypeDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/eligibilityDelayReasonDescriptors" target="/ed-fi/studentSpecialEducationProgramEligibilityAssociations"/>
 <edge source="/ed-fi/eligibilityEvaluationTypeDescriptors" target="/ed-fi/studentSpecialEducationProgramEligibilityAssociations"/>
 <edge source="/ed-fi/employmentStatusDescriptors" target="/ed-fi/openStaffPositions"/>
@@ -1192,18 +1171,14 @@
 <edge source="/ed-fi/languageDescriptors" target="/ed-fi/educationContents"/>
 <edge source="/ed-fi/languageDescriptors" target="/ed-fi/sections"/>
 <edge source="/ed-fi/languageDescriptors" target="/ed-fi/staffDemographics"/>
-<edge source="/ed-fi/languageDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/languageDescriptors" target="/ed-fi/studentAssessments"/>
 <edge source="/ed-fi/languageDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/languageDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/languageInstructionProgramServiceDescriptors" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/languageUseDescriptors" target="/ed-fi/applicantProfiles"/>
 <edge source="/ed-fi/languageUseDescriptors" target="/ed-fi/candidates"/>
 <edge source="/ed-fi/languageUseDescriptors" target="/ed-fi/contacts"/>
 <edge source="/ed-fi/languageUseDescriptors" target="/ed-fi/staffDemographics"/>
-<edge source="/ed-fi/languageUseDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/languageUseDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/languageUseDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/learningStandardCategoryDescriptors" target="/ed-fi/learningStandards"/>
 <edge source="/ed-fi/learningStandardEquivalenceStrengthDescriptors" target="/ed-fi/learningStandardEquivalenceAssociations"/>
 <edge source="/ed-fi/learningStandards" target="/ed-fi/assessmentItems"/>
@@ -1224,7 +1199,6 @@
 <edge source="/ed-fi/licenseTypeDescriptors" target="/ed-fi/communityProviderLicenses"/>
 <edge source="/ed-fi/limitedEnglishProficiencyDescriptors" target="/ed-fi/candidates"/>
 <edge source="/ed-fi/limitedEnglishProficiencyDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/limitedEnglishProficiencyDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/localAccounts" target="/ed-fi/localActuals"/>
 <edge source="/ed-fi/localAccounts" target="/ed-fi/localBudgets"/>
 <edge source="/ed-fi/localAccounts" target="/ed-fi/localContractedStaffs"/>
@@ -1242,25 +1216,23 @@
 <edge source="/ed-fi/localeDescriptors" target="/ed-fi/postSecondaryInstitutions"/>
 <edge source="/ed-fi/localeDescriptors" target="/ed-fi/schools"/>
 <edge source="/ed-fi/localeDescriptors" target="/ed-fi/staffDirectories"/>
-<edge source="/ed-fi/localeDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/localeDescriptors" target="/ed-fi/stateEducationAgencies"/>
 <edge source="/ed-fi/localeDescriptors" target="/ed-fi/studentDirectories"/>
-<edge source="/ed-fi/localeDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/accountabilityRatings"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/applications"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/assessmentAdministrationParticipations"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/assessmentAdministrations"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/assessments"/>
-<edge source="/ed-fi/localEducationAgencies" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/localEducationAgencies" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/certificationExams"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/certifications"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/cohorts"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/competencyObjectives"/>
-<edge source="/ed-fi/localEducationAgencies" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/localEducationAgencies" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/courses"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/courseTranscripts"/>
-<edge source="/ed-fi/localEducationAgencies" target="/ed-fi/educationOrganizationIdentities"/>
+<edge source="/ed-fi/localEducationAgencies" target="/ed-fi/educationOrganizationIdentificationCodes"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/educationOrganizationInterventionPrescriptionAssociations"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/educationOrganizationNetworkAssociations"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/educationOrganizationPeerAssociations"/>
@@ -1283,7 +1255,7 @@
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/staffDirectories"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
-<edge source="/ed-fi/localEducationAgencies" target="/ed-fi/staffIdentities"/>
+<edge source="/ed-fi/localEducationAgencies" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentAcademicRecords"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentAssessmentRegistrations"/>
@@ -1295,7 +1267,7 @@
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentHealths"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentHomelessProgramAssociations"/>
-<edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
 <edge source="/ed-fi/localEducationAgencies" target="/ed-fi/studentNeglectedOrDelinquentProgramAssociations"/>
@@ -1351,16 +1323,16 @@
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/assessmentAdministrationParticipations"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/assessmentAdministrations"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/assessments"/>
-<edge source="/ed-fi/organizationDepartments" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/organizationDepartments" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/certificationExams"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/certifications"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/cohorts"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/competencyObjectives"/>
-<edge source="/ed-fi/organizationDepartments" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/organizationDepartments" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/courses"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/courseTranscripts"/>
-<edge source="/ed-fi/organizationDepartments" target="/ed-fi/educationOrganizationIdentities"/>
+<edge source="/ed-fi/organizationDepartments" target="/ed-fi/educationOrganizationIdentificationCodes"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/educationOrganizationInterventionPrescriptionAssociations"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/educationOrganizationNetworkAssociations"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/educationOrganizationPeerAssociations"/>
@@ -1381,7 +1353,7 @@
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/staffDirectories"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
-<edge source="/ed-fi/organizationDepartments" target="/ed-fi/staffIdentities"/>
+<edge source="/ed-fi/organizationDepartments" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentAcademicRecords"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentAssessmentRegistrations"/>
@@ -1393,7 +1365,7 @@
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentHealths"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentHomelessProgramAssociations"/>
-<edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
 <edge source="/ed-fi/organizationDepartments" target="/ed-fi/studentNeglectedOrDelinquentProgramAssociations"/>
@@ -1482,16 +1454,16 @@
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/assessmentAdministrationParticipations"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/assessmentAdministrations"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/assessments"/>
-<edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/certificationExams"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/certifications"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/cohorts"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/competencyObjectives"/>
-<edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/courses"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/courseTranscripts"/>
-<edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/educationOrganizationIdentities"/>
+<edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/educationOrganizationIdentificationCodes"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/educationOrganizationInterventionPrescriptionAssociations"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/educationOrganizationNetworkAssociations"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/educationOrganizationPeerAssociations"/>
@@ -1515,7 +1487,7 @@
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/staffDirectories"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
-<edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/staffIdentities"/>
+<edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentAcademicRecords"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentAssessmentRegistrations"/>
@@ -1527,7 +1499,7 @@
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentHealths"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentHomelessProgramAssociations"/>
-<edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/studentNeglectedOrDelinquentProgramAssociations"/>
@@ -1604,9 +1576,7 @@
 <edge source="/ed-fi/raceDescriptors" target="/ed-fi/candidates"/>
 <edge source="/ed-fi/raceDescriptors" target="/ed-fi/recruitmentEventAttendances"/>
 <edge source="/ed-fi/raceDescriptors" target="/ed-fi/staffDemographics"/>
-<edge source="/ed-fi/raceDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/raceDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/raceDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/ratingLevelDescriptors" target="/ed-fi/evaluationRubricDimensions"/>
 <edge source="/ed-fi/ratingLevelDescriptors" target="/ed-fi/programEvaluationElements"/>
 <edge source="/ed-fi/ratingLevelDescriptors" target="/ed-fi/programEvaluationObjectives"/>
@@ -1671,20 +1641,20 @@
 <edge source="/ed-fi/schools" target="/ed-fi/assessments"/>
 <edge source="/ed-fi/schools" target="/ed-fi/bellSchedules"/>
 <edge source="/ed-fi/schools" target="/ed-fi/calendars"/>
-<edge source="/ed-fi/schools" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/schools" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/schools" target="/ed-fi/certificationExams"/>
 <edge source="/ed-fi/schools" target="/ed-fi/certifications"/>
 <edge source="/ed-fi/schools" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/schools" target="/ed-fi/classPeriods"/>
 <edge source="/ed-fi/schools" target="/ed-fi/cohorts"/>
 <edge source="/ed-fi/schools" target="/ed-fi/competencyObjectives"/>
-<edge source="/ed-fi/schools" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/schools" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/schools" target="/ed-fi/courseOfferings"/>
 <edge source="/ed-fi/schools" target="/ed-fi/courses"/>
 <edge source="/ed-fi/schools" target="/ed-fi/courseTranscripts"/>
 <edge source="/ed-fi/schools" target="/ed-fi/disciplineActions"/>
 <edge source="/ed-fi/schools" target="/ed-fi/disciplineIncidents"/>
-<edge source="/ed-fi/schools" target="/ed-fi/educationOrganizationIdentities"/>
+<edge source="/ed-fi/schools" target="/ed-fi/educationOrganizationIdentificationCodes"/>
 <edge source="/ed-fi/schools" target="/ed-fi/educationOrganizationInterventionPrescriptionAssociations"/>
 <edge source="/ed-fi/schools" target="/ed-fi/educationOrganizationNetworkAssociations"/>
 <edge source="/ed-fi/schools" target="/ed-fi/educationOrganizationPeerAssociations"/>
@@ -1713,7 +1683,7 @@
 <edge source="/ed-fi/schools" target="/ed-fi/staffDirectories"/>
 <edge source="/ed-fi/schools" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/schools" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
-<edge source="/ed-fi/schools" target="/ed-fi/staffIdentities"/>
+<edge source="/ed-fi/schools" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/schools" target="/ed-fi/staffSchoolAssociations"/>
 <edge source="/ed-fi/schools" target="/ed-fi/studentAcademicRecords"/>
 <edge source="/ed-fi/schools" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
@@ -1727,7 +1697,7 @@
 <edge source="/ed-fi/schools" target="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <edge source="/ed-fi/schools" target="/ed-fi/studentHealths"/>
 <edge source="/ed-fi/schools" target="/ed-fi/studentHomelessProgramAssociations"/>
-<edge source="/ed-fi/schools" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/schools" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/schools" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/schools" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
 <edge source="/ed-fi/schools" target="/ed-fi/studentNeglectedOrDelinquentProgramAssociations"/>
@@ -1776,9 +1746,7 @@
 <edge source="/ed-fi/sexDescriptors" target="/ed-fi/interventionStudies"/>
 <edge source="/ed-fi/sexDescriptors" target="/ed-fi/recruitmentEventAttendances"/>
 <edge source="/ed-fi/sexDescriptors" target="/ed-fi/staffDemographics"/>
-<edge source="/ed-fi/sexDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/sexDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/sexDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/sexDescriptors" target="/ed-fi/students"/>
 <edge source="/ed-fi/sourceDimensions" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/sourceSystemDescriptors" target="/ed-fi/people"/>
@@ -1789,8 +1757,7 @@
 <edge source="/ed-fi/staffClassificationDescriptors" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/staffEducationOrganizationAssignmentAssociations" target="/ed-fi/staffs#Retry"/>
 <edge source="/ed-fi/staffEducationOrganizationEmploymentAssociations" target="/ed-fi/staffs#Retry"/>
-<edge source="/ed-fi/staffIdentificationSystemDescriptors" target="/ed-fi/staffIdentities"/>
-<edge source="/ed-fi/staffIdentificationSystemDescriptors" target="/ed-fi/staffs"/>
+<edge source="/ed-fi/staffIdentificationSystemDescriptors" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/staffLeaveEventCategoryDescriptors" target="/ed-fi/staffLeaves"/>
 <edge source="/ed-fi/staffs" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/staffs" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
@@ -1807,7 +1774,7 @@
 <edge source="/ed-fi/staffs#Retry" target="/ed-fi/staffDirectories"/>
 <edge source="/ed-fi/staffs#Retry" target="/ed-fi/staffDisciplineIncidentAssociations"/>
 <edge source="/ed-fi/staffs#Retry" target="/ed-fi/staffEducatorPreparationProgramAssociations"/>
-<edge source="/ed-fi/staffs#Retry" target="/ed-fi/staffIdentities"/>
+<edge source="/ed-fi/staffs#Retry" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/staffs#Retry" target="/ed-fi/staffLeaves"/>
 <edge source="/ed-fi/staffs#Retry" target="/ed-fi/staffProgramAssociations"/>
 <edge source="/ed-fi/staffs#Retry" target="/ed-fi/staffSchoolAssociations"/>
@@ -1832,26 +1799,24 @@
 <edge source="/ed-fi/stateAbbreviationDescriptors" target="/ed-fi/postSecondaryInstitutions"/>
 <edge source="/ed-fi/stateAbbreviationDescriptors" target="/ed-fi/schools"/>
 <edge source="/ed-fi/stateAbbreviationDescriptors" target="/ed-fi/staffDirectories"/>
-<edge source="/ed-fi/stateAbbreviationDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/stateAbbreviationDescriptors" target="/ed-fi/stateEducationAgencies"/>
 <edge source="/ed-fi/stateAbbreviationDescriptors" target="/ed-fi/studentDirectories"/>
-<edge source="/ed-fi/stateAbbreviationDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/stateAbbreviationDescriptors" target="/ed-fi/students"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/accountabilityRatings"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/applications"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/assessmentAdministrationParticipations"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/assessmentAdministrations"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/assessments"/>
-<edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/candidateIdentities"/>
+<edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/candidateIdentificationCodes"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/certificationExams"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/certifications"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/cohorts"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/competencyObjectives"/>
-<edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/contactIdentities"/>
+<edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/contactIdentificationCodes"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/courses"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/courseTranscripts"/>
-<edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/educationOrganizationIdentities"/>
+<edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/educationOrganizationIdentificationCodes"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/educationOrganizationInterventionPrescriptionAssociations"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/educationOrganizationNetworkAssociations"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/educationOrganizationPeerAssociations"/>
@@ -1875,7 +1840,7 @@
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/staffDirectories"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/staffEducationOrganizationAssignmentAssociations"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
-<edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/staffIdentities"/>
+<edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/staffIdentificationCodes"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentAcademicRecords"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentAssessmentRegistrations"/>
@@ -1887,7 +1852,7 @@
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentHealths"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentHomelessProgramAssociations"/>
-<edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
 <edge source="/ed-fi/stateEducationAgencies" target="/ed-fi/studentNeglectedOrDelinquentProgramAssociations"/>
@@ -1910,7 +1875,7 @@
 <edge source="/ed-fi/studentAssessments" target="/ed-fi/certificationExamResults"/>
 <edge source="/ed-fi/studentAssessments" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/studentCharacteristicDescriptors" target="/ed-fi/applicantProfiles"/>
-<edge source="/ed-fi/studentCharacteristicDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
+<edge source="/ed-fi/studentCharacteristicDescriptors" target="/ed-fi/studentDemographics"/>
 <edge source="/ed-fi/studentCompetencyObjectives" target="/ed-fi/reportCards"/>
 <edge source="/ed-fi/studentContactAssociations" target="/ed-fi/contacts#Retry"/>
 <edge source="/ed-fi/studentCTEProgramAssociations" target="/ed-fi/studentCompetencyObjectives"/>
@@ -1918,9 +1883,7 @@
 <edge source="/ed-fi/studentDisciplineIncidentBehaviorAssociations" target="/ed-fi/disciplineActions"/>
 <edge source="/ed-fi/studentEducationOrganizationAssessmentAccommodations" target="/ed-fi/studentAssessmentRegistrations"/>
 <edge source="/ed-fi/studentHomelessProgramAssociations" target="/ed-fi/studentCompetencyObjectives"/>
-<edge source="/ed-fi/studentIdentificationSystemDescriptors" target="/ed-fi/candidates"/>
-<edge source="/ed-fi/studentIdentificationSystemDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
-<edge source="/ed-fi/studentIdentificationSystemDescriptors" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/studentIdentificationSystemDescriptors" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/studentLanguageInstructionProgramAssociations" target="/ed-fi/studentCompetencyObjectives"/>
 <edge source="/ed-fi/studentMigrantEducationProgramAssociations" target="/ed-fi/studentCompetencyObjectives"/>
 <edge source="/ed-fi/studentNeglectedOrDelinquentProgramAssociations" target="/ed-fi/studentCompetencyObjectives"/>
@@ -1951,7 +1914,7 @@
 <edge source="/ed-fi/students#Retry" target="/ed-fi/studentGradebookEntries"/>
 <edge source="/ed-fi/students#Retry" target="/ed-fi/studentHealths"/>
 <edge source="/ed-fi/students#Retry" target="/ed-fi/studentHomelessProgramAssociations"/>
-<edge source="/ed-fi/students#Retry" target="/ed-fi/studentIdentities"/>
+<edge source="/ed-fi/students#Retry" target="/ed-fi/studentIdentificationCodes"/>
 <edge source="/ed-fi/students#Retry" target="/ed-fi/studentInterventionAssociations"/>
 <edge source="/ed-fi/students#Retry" target="/ed-fi/studentInterventionAttendanceEvents"/>
 <edge source="/ed-fi/students#Retry" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
@@ -1980,7 +1943,6 @@
 <edge source="/ed-fi/studentTitleIPartAProgramAssociations" target="/ed-fi/studentCompetencyObjectives"/>
 <edge source="/ed-fi/submissionStatusDescriptors" target="/ed-fi/studentGradebookEntries"/>
 <edge source="/ed-fi/supporterMilitaryConnectionDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/supporterMilitaryConnectionDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/surveyCategoryDescriptors" target="/ed-fi/surveys"/>
 <edge source="/ed-fi/surveyLevelDescriptors" target="/ed-fi/surveyResponses"/>
 <edge source="/ed-fi/surveyQuestions" target="/ed-fi/surveyQuestionResponses"/>
@@ -2009,9 +1971,7 @@
 <edge source="/ed-fi/telephoneNumberTypeDescriptors" target="/ed-fi/contacts"/>
 <edge source="/ed-fi/telephoneNumberTypeDescriptors" target="/ed-fi/recruitmentEventAttendances"/>
 <edge source="/ed-fi/telephoneNumberTypeDescriptors" target="/ed-fi/staffDirectories"/>
-<edge source="/ed-fi/telephoneNumberTypeDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/telephoneNumberTypeDescriptors" target="/ed-fi/studentDirectories"/>
-<edge source="/ed-fi/telephoneNumberTypeDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/termDescriptors" target="/ed-fi/applicationEvents"/>
 <edge source="/ed-fi/termDescriptors" target="/ed-fi/applications"/>
 <edge source="/ed-fi/termDescriptors" target="/ed-fi/candidateEducatorPreparationProgramAssociations"/>
@@ -2028,15 +1988,11 @@
 <edge source="/ed-fi/travelDayofWeekDescriptors" target="/ed-fi/studentTransportations"/>
 <edge source="/ed-fi/travelDirectionDescriptors" target="/ed-fi/studentTransportations"/>
 <edge source="/ed-fi/tribalAffiliationDescriptors" target="/ed-fi/staffDemographics"/>
-<edge source="/ed-fi/tribalAffiliationDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/tribalAffiliationDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/tribalAffiliationDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/visaDescriptors" target="/ed-fi/applicantProfiles"/>
 <edge source="/ed-fi/visaDescriptors" target="/ed-fi/candidates"/>
 <edge source="/ed-fi/visaDescriptors" target="/ed-fi/staffDemographics"/>
-<edge source="/ed-fi/visaDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/visaDescriptors" target="/ed-fi/studentDemographics"/>
-<edge source="/ed-fi/visaDescriptors" target="/ed-fi/students"/>
 <edge source="/ed-fi/weaponDescriptors" target="/ed-fi/disciplineIncidents"/>
 <edge source="/ed-fi/weaponDescriptors" target="/ed-fi/studentDisciplineIncidentBehaviorAssociations"/>
 <edge source="/ed-fi/withdrawReasonDescriptors" target="/ed-fi/applications"/>

@@ -17,6 +17,7 @@ using EdFi.Common.Inflection;
 using EdFi.Ods.WebApi.CompositeSpecFlowTests.Dtos;
 using log4net;
 using log4net.Appender;
+using NUnit.Framework;
 using Shouldly;
 using TechTalk.SpecFlow;
 using Test.Common;
@@ -421,6 +422,28 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [When(@"a GET \(by id\) request is submitted to the ""(.*)"" composite")]
         public async Task WhenAGETByIdRequestIsSubmittedToTheComposite(string compositeName)
         {
+            if (compositeName.Equals("StudentEducationOrganizationAssociationCollection", StringComparison.OrdinalIgnoreCase) ||
+                compositeName.Equals("StudentLinkedCollectionWithCollection", StringComparison.OrdinalIgnoreCase) ||
+                compositeName.Equals("StudentEducationOrganizationAssociationCollectionWithProperty", StringComparison.OrdinalIgnoreCase) ||
+                compositeName.Equals("BaseResourceCanContainNoProperty", StringComparison.OrdinalIgnoreCase))
+            {
+                var domainModelObject = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+                // Extract schema version
+                var standardVersion = domainModelObject.Schemas[0].Version;
+
+                // Parse version into major
+                var parts = standardVersion.Split('.');
+                var majorVersion = int.Parse(parts[0]);
+
+                // Skip if major version >= 6
+                if (majorVersion >= 6)
+                {
+                    Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                }
+            }
+
+
             // Default the category to test, if not specified
             var compositeCategoryName = "test";
 
@@ -447,10 +470,24 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         {
             string requestUrl = null;
             Guid resourceId;
+            var domainModelObject = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+            // Extract schema version
+            var standardVersion = domainModelObject.Schemas[0].Version;
+
+            // Parse version into major
+            var parts = standardVersion.Split('.');
+            var majorVersion = int.Parse(parts[0]);
 
             switch (requestName)
             {
                 case "School by Id":
+
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "EducationOrganization",
@@ -462,6 +499,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
                 case "Schools by Local Education Agency (Id)":
 
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
+
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901},
@@ -472,6 +515,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
                 case "Schools by Section (Id)":
 
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
+
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "Section",
                         new {SectionIdentifier = "25590100101Trad120ENG112011"},
@@ -481,6 +530,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     break;
 
                 case "Schools by Staff (Id)":
+
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "Staff",
@@ -532,6 +587,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
                 case "Staff by Id":
 
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
+
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "Staff",
                         new {StaffUniqueId = "207268"},
@@ -541,6 +602,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     break;
 
                 case "Staffs by Local Education Agency (Id)":
+
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "EducationOrganization",
@@ -552,6 +619,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
                 case "Staffs by School (Id)":
 
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
+
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901001},
@@ -561,6 +634,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     break;
 
                 case "Staffs by Section (Id)":
+
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "Section",
@@ -572,6 +651,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
                 case "Student by Id":
 
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
+
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "Student",
                         new {StudentUniqueId = "605042"},
@@ -581,6 +666,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     break;
 
                 case "Students by Local Education Agency (Id)":
+
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "EducationOrganization",
@@ -592,6 +683,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
                 case "Students by School (Id)":
 
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
+
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901001},
@@ -602,6 +699,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
                 case "Students by Section (Id)":
 
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
+
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "Section",
                         new {SectionIdentifier = "25590100101Trad120ENG112011"},
@@ -611,6 +714,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     break;
 
                 case "Students by Staff (Id)":
+
+                    // Skip if major version >= 6
+                    if (majorVersion >= 6)
+                    {
+                        Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                    }
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         "Staff",

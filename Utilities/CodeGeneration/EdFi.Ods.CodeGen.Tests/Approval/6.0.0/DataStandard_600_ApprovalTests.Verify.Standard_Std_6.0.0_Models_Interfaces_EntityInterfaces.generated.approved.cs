@@ -7939,7 +7939,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICollection<ICandidateDisability> CandidateDisabilities { get; set; }
         ICollection<ICandidateElectronicMail> CandidateElectronicMails { get; set; }
         ICollection<ICandidateEPPProgramDegree> CandidateEPPProgramDegrees { get; set; }
-        ICollection<ICandidateIdentificationCode> CandidateIdentificationCodes { get; set; }
         ICollection<ICandidateIdentificationDocument> CandidateIdentificationDocuments { get; set; }
         ICollection<ICandidateIndicator> CandidateIndicators { get; set; }
         ICollection<ICandidateInternationalAddress> CandidateInternationalAddresses { get; set; }
@@ -7974,7 +7973,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isCandidateDisabilitiesSupported,
             bool isCandidateElectronicMailsSupported,
             bool isCandidateEPPProgramDegreesSupported,
-            bool isCandidateIdentificationCodesSupported,
             bool isCandidateIdentificationDocumentsSupported,
             bool isCandidateIndicatorsSupported,
             bool isCandidateInternationalAddressesSupported,
@@ -8021,8 +8019,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<ICandidateElectronicMail, bool> isCandidateElectronicMailIncluded,
             bool isCandidateEPPProgramDegreesItemCreatable,
             Func<ICandidateEPPProgramDegree, bool> isCandidateEPPProgramDegreeIncluded,
-            bool isCandidateIdentificationCodesItemCreatable,
-            Func<ICandidateIdentificationCode, bool> isCandidateIdentificationCodeIncluded,
             bool isCandidateIdentificationDocumentsItemCreatable,
             Func<ICandidateIdentificationDocument, bool> isCandidateIdentificationDocumentIncluded,
             bool isCandidateIndicatorsItemCreatable,
@@ -8056,7 +8052,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsCandidateDisabilitiesSupported = isCandidateDisabilitiesSupported;
             IsCandidateElectronicMailsSupported = isCandidateElectronicMailsSupported;
             IsCandidateEPPProgramDegreesSupported = isCandidateEPPProgramDegreesSupported;
-            IsCandidateIdentificationCodesSupported = isCandidateIdentificationCodesSupported;
             IsCandidateIdentificationDocumentsSupported = isCandidateIdentificationDocumentsSupported;
             IsCandidateIndicatorsSupported = isCandidateIndicatorsSupported;
             IsCandidateInternationalAddressesSupported = isCandidateInternationalAddressesSupported;
@@ -8103,8 +8098,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsCandidateElectronicMailIncluded = isCandidateElectronicMailIncluded;
             IsCandidateEPPProgramDegreesItemCreatable = isCandidateEPPProgramDegreesItemCreatable;
             IsCandidateEPPProgramDegreeIncluded = isCandidateEPPProgramDegreeIncluded;
-            IsCandidateIdentificationCodesItemCreatable = isCandidateIdentificationCodesItemCreatable;
-            IsCandidateIdentificationCodeIncluded = isCandidateIdentificationCodeIncluded;
             IsCandidateIdentificationDocumentsItemCreatable = isCandidateIdentificationDocumentsItemCreatable;
             IsCandidateIdentificationDocumentIncluded = isCandidateIdentificationDocumentIncluded;
             IsCandidateIndicatorsItemCreatable = isCandidateIndicatorsItemCreatable;
@@ -8138,7 +8131,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsCandidateDisabilitiesSupported { get; }
         public bool IsCandidateElectronicMailsSupported { get; }
         public bool IsCandidateEPPProgramDegreesSupported { get; }
-        public bool IsCandidateIdentificationCodesSupported { get; }
         public bool IsCandidateIdentificationDocumentsSupported { get; }
         public bool IsCandidateIndicatorsSupported { get; }
         public bool IsCandidateInternationalAddressesSupported { get; }
@@ -8185,8 +8177,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<ICandidateElectronicMail, bool> IsCandidateElectronicMailIncluded { get; }
         public bool IsCandidateEPPProgramDegreesItemCreatable { get; }
         public Func<ICandidateEPPProgramDegree, bool> IsCandidateEPPProgramDegreeIncluded { get; }
-        public bool IsCandidateIdentificationCodesItemCreatable { get; }
-        public Func<ICandidateIdentificationCode, bool> IsCandidateIdentificationCodeIncluded { get; }
         public bool IsCandidateIdentificationDocumentsItemCreatable { get; }
         public Func<ICandidateIdentificationDocument, bool> IsCandidateIdentificationDocumentIncluded { get; }
         public bool IsCandidateIndicatorsItemCreatable { get; }
@@ -8234,8 +8224,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCandidateElectronicMailsSupported;
                 case "CandidateEPPProgramDegrees":
                     return IsCandidateEPPProgramDegreesSupported;
-                case "CandidateIdentificationCodes":
-                    return IsCandidateIdentificationCodesSupported;
                 case "CandidateIdentificationDocuments":
                     return IsCandidateIdentificationDocumentsSupported;
                 case "CandidateIndicators":
@@ -8330,8 +8318,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCandidateElectronicMailsItemCreatable;
                 case "CandidateEPPProgramDegrees":
                     return IsCandidateEPPProgramDegreesItemCreatable;
-                case "CandidateIdentificationCodes":
-                    return IsCandidateIdentificationCodesItemCreatable;
                 case "CandidateIdentificationDocuments":
                     return IsCandidateIdentificationDocumentsItemCreatable;
                 case "CandidateIndicators":
@@ -9473,24 +9459,29 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CandidateIdentificationCode model.
     /// </summary>
-    public interface ICandidateIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    public interface ICandidateIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        ICandidate Candidate { get; set; }
         
-        string AssigningOrganizationIdentificationCode { get; set; }
+        string CandidateIdentificationSystemDescriptor { get; set; }
         
-        string IdentificationCode { get; set; }
+        string CandidateIdentifier { get; set; }
         
-        string StudentIdentificationSystemDescriptor { get; set; }
+        long EducationOrganizationId { get; set; }
 
         // Non-PK properties
+        string AssigningOrganizationIdentificationCode { get; set; }
+        string IdentificationCode { get; set; }
 
         // One-to-one relationships
 
         // Lists
 
         // Resource reference data
+        Guid? CandidateResourceId { get; set; }
+        string CandidateDiscriminator { get; set; }
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -9500,23 +9491,43 @@ namespace EdFi.Ods.Entities.Common.EdFi
     public class CandidateIdentificationCodeMappingContract : IMappingContract, IExtensionsMappingContract
     {
         public CandidateIdentificationCodeMappingContract(
+            bool isAssigningOrganizationIdentificationCodeSupported,
+            bool isCandidateReferenceSupported,
+            bool isEducationOrganizationReferenceSupported,
+            bool isIdentificationCodeSupported,
             IReadOnlyList<string> supportedExtensions
             )
         {
+            IsAssigningOrganizationIdentificationCodeSupported = isAssigningOrganizationIdentificationCodeSupported;
+            IsCandidateReferenceSupported = isCandidateReferenceSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
+            IsIdentificationCodeSupported = isIdentificationCodeSupported;
             SupportedExtensions = supportedExtensions;
         }
 
+        public bool IsAssigningOrganizationIdentificationCodeSupported { get; }
+        public bool IsCandidateReferenceSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
+        public bool IsIdentificationCodeSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssigningOrganizationIdentificationCode":
-                    return true;
+                    return IsAssigningOrganizationIdentificationCodeSupported;
+                case "CandidateReference":
+                    return IsCandidateReferenceSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
                 case "IdentificationCode":
+                    return IsIdentificationCodeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "CandidateIdentificationSystemDescriptor":
                     return true;
-                case "StudentIdentificationSystemDescriptor":
+                case "CandidateIdentifier":
+                    return true;
+                case "EducationOrganizationId":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9696,94 +9707,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the CandidateIdentity model.
-    /// </summary>
-    public interface ICandidateIdentity : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        
-        string CandidateIdentificationSystemDescriptor { get; set; }
-        
-        string CandidateIdentifier { get; set; }
-        
-        long EducationOrganizationId { get; set; }
-
-        // Non-PK properties
-        string AssigningOrganizationIdentificationCode { get; set; }
-        string IdentificationCode { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? CandidateResourceId { get; set; }
-        string CandidateDiscriminator { get; set; }
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class CandidateIdentityMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public CandidateIdentityMappingContract(
-            bool isAssigningOrganizationIdentificationCodeSupported,
-            bool isCandidateReferenceSupported,
-            bool isEducationOrganizationReferenceSupported,
-            bool isIdentificationCodeSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsAssigningOrganizationIdentificationCodeSupported = isAssigningOrganizationIdentificationCodeSupported;
-            IsCandidateReferenceSupported = isCandidateReferenceSupported;
-            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
-            IsIdentificationCodeSupported = isIdentificationCodeSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsAssigningOrganizationIdentificationCodeSupported { get; }
-        public bool IsCandidateReferenceSupported { get; }
-        public bool IsEducationOrganizationReferenceSupported { get; }
-        public bool IsIdentificationCodeSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "AssigningOrganizationIdentificationCode":
-                    return IsAssigningOrganizationIdentificationCodeSupported;
-                case "CandidateReference":
-                    return IsCandidateReferenceSupported;
-                case "EducationOrganizationReference":
-                    return IsEducationOrganizationReferenceSupported;
-                case "IdentificationCode":
-                    return IsIdentificationCodeSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "CandidateIdentificationSystemDescriptor":
-                    return true;
-                case "CandidateIdentifier":
-                    return true;
-                case "EducationOrganizationId":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
     }
 
     /// <summary>
@@ -12838,7 +12761,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public CommunityOrganizationMappingContract(
             bool isEducationOrganizationAddressesSupported,
             bool isEducationOrganizationCategoriesSupported,
-            bool isEducationOrganizationIdentificationCodesSupported,
             bool isEducationOrganizationIndicatorsSupported,
             bool isEducationOrganizationInstitutionTelephonesSupported,
             bool isEducationOrganizationInternationalAddressesSupported,
@@ -12850,8 +12772,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             bool isEducationOrganizationCategoriesItemCreatable,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
-            bool isEducationOrganizationIdentificationCodesItemCreatable,
-            Func<IEducationOrganizationIdentificationCode, bool> isEducationOrganizationIdentificationCodeIncluded,
             bool isEducationOrganizationIndicatorsItemCreatable,
             Func<IEducationOrganizationIndicator, bool> isEducationOrganizationIndicatorIncluded,
             bool isEducationOrganizationInstitutionTelephonesItemCreatable,
@@ -12863,7 +12783,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             IsEducationOrganizationAddressesSupported = isEducationOrganizationAddressesSupported;
             IsEducationOrganizationCategoriesSupported = isEducationOrganizationCategoriesSupported;
-            IsEducationOrganizationIdentificationCodesSupported = isEducationOrganizationIdentificationCodesSupported;
             IsEducationOrganizationIndicatorsSupported = isEducationOrganizationIndicatorsSupported;
             IsEducationOrganizationInstitutionTelephonesSupported = isEducationOrganizationInstitutionTelephonesSupported;
             IsEducationOrganizationInternationalAddressesSupported = isEducationOrganizationInternationalAddressesSupported;
@@ -12875,8 +12794,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoriesItemCreatable = isEducationOrganizationCategoriesItemCreatable;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
-            IsEducationOrganizationIdentificationCodesItemCreatable = isEducationOrganizationIdentificationCodesItemCreatable;
-            IsEducationOrganizationIdentificationCodeIncluded = isEducationOrganizationIdentificationCodeIncluded;
             IsEducationOrganizationIndicatorsItemCreatable = isEducationOrganizationIndicatorsItemCreatable;
             IsEducationOrganizationIndicatorIncluded = isEducationOrganizationIndicatorIncluded;
             IsEducationOrganizationInstitutionTelephonesItemCreatable = isEducationOrganizationInstitutionTelephonesItemCreatable;
@@ -12888,7 +12805,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         public bool IsEducationOrganizationAddressesSupported { get; }
         public bool IsEducationOrganizationCategoriesSupported { get; }
-        public bool IsEducationOrganizationIdentificationCodesSupported { get; }
         public bool IsEducationOrganizationIndicatorsSupported { get; }
         public bool IsEducationOrganizationInstitutionTelephonesSupported { get; }
         public bool IsEducationOrganizationInternationalAddressesSupported { get; }
@@ -12900,8 +12816,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public bool IsEducationOrganizationCategoriesItemCreatable { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
-        public bool IsEducationOrganizationIdentificationCodesItemCreatable { get; }
-        public Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; }
         public bool IsEducationOrganizationIndicatorsItemCreatable { get; }
         public Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; }
         public bool IsEducationOrganizationInstitutionTelephonesItemCreatable { get; }
@@ -12917,8 +12831,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesSupported;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesSupported;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesSupported;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsSupported;
                 case "EducationOrganizationInstitutionTelephones":
@@ -12949,8 +12861,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesItemCreatable;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesItemCreatable;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesItemCreatable;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsItemCreatable;
                 case "EducationOrganizationInstitutionTelephones":
@@ -13006,7 +12916,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isCommunityOrganizationReferenceSupported,
             bool isEducationOrganizationAddressesSupported,
             bool isEducationOrganizationCategoriesSupported,
-            bool isEducationOrganizationIdentificationCodesSupported,
             bool isEducationOrganizationIndicatorsSupported,
             bool isEducationOrganizationInstitutionTelephonesSupported,
             bool isEducationOrganizationInternationalAddressesSupported,
@@ -13023,8 +12932,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             bool isEducationOrganizationCategoriesItemCreatable,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
-            bool isEducationOrganizationIdentificationCodesItemCreatable,
-            Func<IEducationOrganizationIdentificationCode, bool> isEducationOrganizationIdentificationCodeIncluded,
             bool isEducationOrganizationIndicatorsItemCreatable,
             Func<IEducationOrganizationIndicator, bool> isEducationOrganizationIndicatorIncluded,
             bool isEducationOrganizationInstitutionTelephonesItemCreatable,
@@ -13038,7 +12945,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsCommunityOrganizationReferenceSupported = isCommunityOrganizationReferenceSupported;
             IsEducationOrganizationAddressesSupported = isEducationOrganizationAddressesSupported;
             IsEducationOrganizationCategoriesSupported = isEducationOrganizationCategoriesSupported;
-            IsEducationOrganizationIdentificationCodesSupported = isEducationOrganizationIdentificationCodesSupported;
             IsEducationOrganizationIndicatorsSupported = isEducationOrganizationIndicatorsSupported;
             IsEducationOrganizationInstitutionTelephonesSupported = isEducationOrganizationInstitutionTelephonesSupported;
             IsEducationOrganizationInternationalAddressesSupported = isEducationOrganizationInternationalAddressesSupported;
@@ -13055,8 +12961,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoriesItemCreatable = isEducationOrganizationCategoriesItemCreatable;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
-            IsEducationOrganizationIdentificationCodesItemCreatable = isEducationOrganizationIdentificationCodesItemCreatable;
-            IsEducationOrganizationIdentificationCodeIncluded = isEducationOrganizationIdentificationCodeIncluded;
             IsEducationOrganizationIndicatorsItemCreatable = isEducationOrganizationIndicatorsItemCreatable;
             IsEducationOrganizationIndicatorIncluded = isEducationOrganizationIndicatorIncluded;
             IsEducationOrganizationInstitutionTelephonesItemCreatable = isEducationOrganizationInstitutionTelephonesItemCreatable;
@@ -13070,7 +12974,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsCommunityOrganizationReferenceSupported { get; }
         public bool IsEducationOrganizationAddressesSupported { get; }
         public bool IsEducationOrganizationCategoriesSupported { get; }
-        public bool IsEducationOrganizationIdentificationCodesSupported { get; }
         public bool IsEducationOrganizationIndicatorsSupported { get; }
         public bool IsEducationOrganizationInstitutionTelephonesSupported { get; }
         public bool IsEducationOrganizationInternationalAddressesSupported { get; }
@@ -13087,8 +12990,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public bool IsEducationOrganizationCategoriesItemCreatable { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
-        public bool IsEducationOrganizationIdentificationCodesItemCreatable { get; }
-        public Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; }
         public bool IsEducationOrganizationIndicatorsItemCreatable { get; }
         public Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; }
         public bool IsEducationOrganizationInstitutionTelephonesItemCreatable { get; }
@@ -13108,8 +13009,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesSupported;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesSupported;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesSupported;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsSupported;
                 case "EducationOrganizationInstitutionTelephones":
@@ -13150,8 +13049,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesItemCreatable;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesItemCreatable;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesItemCreatable;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsItemCreatable;
                 case "EducationOrganizationInstitutionTelephones":
@@ -13982,6 +13879,94 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the ContactIdentificationCode model.
+    /// </summary>
+    public interface IContactIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        
+        string ContactIdentificationSystemDescriptor { get; set; }
+        
+        string ContactUniqueId { get; set; }
+        
+        long EducationOrganizationId { get; set; }
+
+        // Non-PK properties
+        string AssigningOrganizationIdentificationCode { get; set; }
+        string IdentificationCode { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? ContactResourceId { get; set; }
+        string ContactDiscriminator { get; set; }
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ContactIdentificationCodeMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public ContactIdentificationCodeMappingContract(
+            bool isAssigningOrganizationIdentificationCodeSupported,
+            bool isContactReferenceSupported,
+            bool isEducationOrganizationReferenceSupported,
+            bool isIdentificationCodeSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsAssigningOrganizationIdentificationCodeSupported = isAssigningOrganizationIdentificationCodeSupported;
+            IsContactReferenceSupported = isContactReferenceSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
+            IsIdentificationCodeSupported = isIdentificationCodeSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsAssigningOrganizationIdentificationCodeSupported { get; }
+        public bool IsContactReferenceSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
+        public bool IsIdentificationCodeSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AssigningOrganizationIdentificationCode":
+                    return IsAssigningOrganizationIdentificationCodeSupported;
+                case "ContactReference":
+                    return IsContactReferenceSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
+                case "IdentificationCode":
+                    return IsIdentificationCodeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ContactIdentificationSystemDescriptor":
+                    return true;
+                case "ContactUniqueId":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the ContactIdentificationSystemDescriptor model.
     /// </summary>
     public interface IContactIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -14055,94 +14040,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ContactIdentity model.
-    /// </summary>
-    public interface IContactIdentity : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        
-        string ContactIdentificationSystemDescriptor { get; set; }
-        
-        string ContactUniqueId { get; set; }
-        
-        long EducationOrganizationId { get; set; }
-
-        // Non-PK properties
-        string AssigningOrganizationIdentificationCode { get; set; }
-        string IdentificationCode { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? ContactResourceId { get; set; }
-        string ContactDiscriminator { get; set; }
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class ContactIdentityMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public ContactIdentityMappingContract(
-            bool isAssigningOrganizationIdentificationCodeSupported,
-            bool isContactReferenceSupported,
-            bool isEducationOrganizationReferenceSupported,
-            bool isIdentificationCodeSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsAssigningOrganizationIdentificationCodeSupported = isAssigningOrganizationIdentificationCodeSupported;
-            IsContactReferenceSupported = isContactReferenceSupported;
-            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
-            IsIdentificationCodeSupported = isIdentificationCodeSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsAssigningOrganizationIdentificationCodeSupported { get; }
-        public bool IsContactReferenceSupported { get; }
-        public bool IsEducationOrganizationReferenceSupported { get; }
-        public bool IsIdentificationCodeSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "AssigningOrganizationIdentificationCode":
-                    return IsAssigningOrganizationIdentificationCodeSupported;
-                case "ContactReference":
-                    return IsContactReferenceSupported;
-                case "EducationOrganizationReference":
-                    return IsEducationOrganizationReferenceSupported;
-                case "IdentificationCode":
-                    return IsIdentificationCodeSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "ContactIdentificationSystemDescriptor":
-                    return true;
-                case "ContactUniqueId":
-                    return true;
-                case "EducationOrganizationId":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
     }
 
     /// <summary>
@@ -21403,7 +21300,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Lists
         ICollection<IEducationOrganizationAddress> EducationOrganizationAddresses { get; set; }
         ICollection<IEducationOrganizationCategory> EducationOrganizationCategories { get; set; }
-        ICollection<IEducationOrganizationIdentificationCode> EducationOrganizationIdentificationCodes { get; set; }
         ICollection<IEducationOrganizationIndicator> EducationOrganizationIndicators { get; set; }
         ICollection<IEducationOrganizationInstitutionTelephone> EducationOrganizationInstitutionTelephones { get; set; }
         ICollection<IEducationOrganizationInternationalAddress> EducationOrganizationInternationalAddresses { get; set; }
@@ -21420,7 +21316,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public EducationOrganizationMappingContract(
             bool isEducationOrganizationAddressesSupported,
             bool isEducationOrganizationCategoriesSupported,
-            bool isEducationOrganizationIdentificationCodesSupported,
             bool isEducationOrganizationIndicatorsSupported,
             bool isEducationOrganizationInstitutionTelephonesSupported,
             bool isEducationOrganizationInternationalAddressesSupported,
@@ -21432,8 +21327,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             bool isEducationOrganizationCategoriesItemCreatable,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
-            bool isEducationOrganizationIdentificationCodesItemCreatable,
-            Func<IEducationOrganizationIdentificationCode, bool> isEducationOrganizationIdentificationCodeIncluded,
             bool isEducationOrganizationIndicatorsItemCreatable,
             Func<IEducationOrganizationIndicator, bool> isEducationOrganizationIndicatorIncluded,
             bool isEducationOrganizationInstitutionTelephonesItemCreatable,
@@ -21444,7 +21337,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             IsEducationOrganizationAddressesSupported = isEducationOrganizationAddressesSupported;
             IsEducationOrganizationCategoriesSupported = isEducationOrganizationCategoriesSupported;
-            IsEducationOrganizationIdentificationCodesSupported = isEducationOrganizationIdentificationCodesSupported;
             IsEducationOrganizationIndicatorsSupported = isEducationOrganizationIndicatorsSupported;
             IsEducationOrganizationInstitutionTelephonesSupported = isEducationOrganizationInstitutionTelephonesSupported;
             IsEducationOrganizationInternationalAddressesSupported = isEducationOrganizationInternationalAddressesSupported;
@@ -21456,8 +21348,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoriesItemCreatable = isEducationOrganizationCategoriesItemCreatable;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
-            IsEducationOrganizationIdentificationCodesItemCreatable = isEducationOrganizationIdentificationCodesItemCreatable;
-            IsEducationOrganizationIdentificationCodeIncluded = isEducationOrganizationIdentificationCodeIncluded;
             IsEducationOrganizationIndicatorsItemCreatable = isEducationOrganizationIndicatorsItemCreatable;
             IsEducationOrganizationIndicatorIncluded = isEducationOrganizationIndicatorIncluded;
             IsEducationOrganizationInstitutionTelephonesItemCreatable = isEducationOrganizationInstitutionTelephonesItemCreatable;
@@ -21468,7 +21358,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         public bool IsEducationOrganizationAddressesSupported { get; }
         public bool IsEducationOrganizationCategoriesSupported { get; }
-        public bool IsEducationOrganizationIdentificationCodesSupported { get; }
         public bool IsEducationOrganizationIndicatorsSupported { get; }
         public bool IsEducationOrganizationInstitutionTelephonesSupported { get; }
         public bool IsEducationOrganizationInternationalAddressesSupported { get; }
@@ -21480,8 +21369,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public bool IsEducationOrganizationCategoriesItemCreatable { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
-        public bool IsEducationOrganizationIdentificationCodesItemCreatable { get; }
-        public Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; }
         public bool IsEducationOrganizationIndicatorsItemCreatable { get; }
         public Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; }
         public bool IsEducationOrganizationInstitutionTelephonesItemCreatable { get; }
@@ -21497,8 +21384,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesSupported;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesSupported;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesSupported;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsSupported;
                 case "EducationOrganizationInstitutionTelephones":
@@ -21529,8 +21414,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesItemCreatable;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesItemCreatable;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesItemCreatable;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsItemCreatable;
                 case "EducationOrganizationInstitutionTelephones":
@@ -21961,14 +21844,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationIdentificationCode model.
     /// </summary>
-    public interface IEducationOrganizationIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    public interface IEducationOrganizationIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        IEducationOrganization EducationOrganization { get; set; }
+        
+        long EducationOrganizationId { get; set; }
         
         string EducationOrganizationIdentificationSystemDescriptor { get; set; }
 
         // Non-PK properties
+        string AssigningOrganizationIdentificationCode { get; set; }
         string IdentificationCode { get; set; }
 
         // One-to-one relationships
@@ -21976,6 +21861,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Lists
 
         // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -21985,23 +21872,35 @@ namespace EdFi.Ods.Entities.Common.EdFi
     public class EducationOrganizationIdentificationCodeMappingContract : IMappingContract, IExtensionsMappingContract
     {
         public EducationOrganizationIdentificationCodeMappingContract(
+            bool isAssigningOrganizationIdentificationCodeSupported,
+            bool isEducationOrganizationReferenceSupported,
             bool isIdentificationCodeSupported,
             IReadOnlyList<string> supportedExtensions
             )
         {
+            IsAssigningOrganizationIdentificationCodeSupported = isAssigningOrganizationIdentificationCodeSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
             IsIdentificationCodeSupported = isIdentificationCodeSupported;
             SupportedExtensions = supportedExtensions;
         }
 
+        public bool IsAssigningOrganizationIdentificationCodeSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
         public bool IsIdentificationCodeSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "AssigningOrganizationIdentificationCode":
+                    return IsAssigningOrganizationIdentificationCodeSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
                 case "IdentificationCode":
                     return IsIdentificationCodeSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
                 case "EducationOrganizationIdentificationSystemDescriptor":
                     return true;
                 default:
@@ -22093,83 +21992,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the EducationOrganizationIdentity model.
-    /// </summary>
-    public interface IEducationOrganizationIdentity : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        
-        long EducationOrganizationId { get; set; }
-        
-        string EducationOrganizationIdentificationSystemDescriptor { get; set; }
-
-        // Non-PK properties
-        string AssigningOrganizationIdentificationCode { get; set; }
-        string IdentificationCode { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class EducationOrganizationIdentityMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public EducationOrganizationIdentityMappingContract(
-            bool isAssigningOrganizationIdentificationCodeSupported,
-            bool isEducationOrganizationReferenceSupported,
-            bool isIdentificationCodeSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsAssigningOrganizationIdentificationCodeSupported = isAssigningOrganizationIdentificationCodeSupported;
-            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
-            IsIdentificationCodeSupported = isIdentificationCodeSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsAssigningOrganizationIdentificationCodeSupported { get; }
-        public bool IsEducationOrganizationReferenceSupported { get; }
-        public bool IsIdentificationCodeSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "AssigningOrganizationIdentificationCode":
-                    return IsAssigningOrganizationIdentificationCodeSupported;
-                case "EducationOrganizationReference":
-                    return IsEducationOrganizationReferenceSupported;
-                case "IdentificationCode":
-                    return IsIdentificationCodeSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "EducationOrganizationId":
-                    return true;
-                case "EducationOrganizationIdentificationSystemDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
     }
 
     /// <summary>
@@ -22619,7 +22441,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public EducationOrganizationNetworkMappingContract(
             bool isEducationOrganizationAddressesSupported,
             bool isEducationOrganizationCategoriesSupported,
-            bool isEducationOrganizationIdentificationCodesSupported,
             bool isEducationOrganizationIndicatorsSupported,
             bool isEducationOrganizationInstitutionTelephonesSupported,
             bool isEducationOrganizationInternationalAddressesSupported,
@@ -22632,8 +22453,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             bool isEducationOrganizationCategoriesItemCreatable,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
-            bool isEducationOrganizationIdentificationCodesItemCreatable,
-            Func<IEducationOrganizationIdentificationCode, bool> isEducationOrganizationIdentificationCodeIncluded,
             bool isEducationOrganizationIndicatorsItemCreatable,
             Func<IEducationOrganizationIndicator, bool> isEducationOrganizationIndicatorIncluded,
             bool isEducationOrganizationInstitutionTelephonesItemCreatable,
@@ -22645,7 +22464,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             IsEducationOrganizationAddressesSupported = isEducationOrganizationAddressesSupported;
             IsEducationOrganizationCategoriesSupported = isEducationOrganizationCategoriesSupported;
-            IsEducationOrganizationIdentificationCodesSupported = isEducationOrganizationIdentificationCodesSupported;
             IsEducationOrganizationIndicatorsSupported = isEducationOrganizationIndicatorsSupported;
             IsEducationOrganizationInstitutionTelephonesSupported = isEducationOrganizationInstitutionTelephonesSupported;
             IsEducationOrganizationInternationalAddressesSupported = isEducationOrganizationInternationalAddressesSupported;
@@ -22658,8 +22476,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoriesItemCreatable = isEducationOrganizationCategoriesItemCreatable;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
-            IsEducationOrganizationIdentificationCodesItemCreatable = isEducationOrganizationIdentificationCodesItemCreatable;
-            IsEducationOrganizationIdentificationCodeIncluded = isEducationOrganizationIdentificationCodeIncluded;
             IsEducationOrganizationIndicatorsItemCreatable = isEducationOrganizationIndicatorsItemCreatable;
             IsEducationOrganizationIndicatorIncluded = isEducationOrganizationIndicatorIncluded;
             IsEducationOrganizationInstitutionTelephonesItemCreatable = isEducationOrganizationInstitutionTelephonesItemCreatable;
@@ -22671,7 +22487,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         public bool IsEducationOrganizationAddressesSupported { get; }
         public bool IsEducationOrganizationCategoriesSupported { get; }
-        public bool IsEducationOrganizationIdentificationCodesSupported { get; }
         public bool IsEducationOrganizationIndicatorsSupported { get; }
         public bool IsEducationOrganizationInstitutionTelephonesSupported { get; }
         public bool IsEducationOrganizationInternationalAddressesSupported { get; }
@@ -22684,8 +22499,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public bool IsEducationOrganizationCategoriesItemCreatable { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
-        public bool IsEducationOrganizationIdentificationCodesItemCreatable { get; }
-        public Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; }
         public bool IsEducationOrganizationIndicatorsItemCreatable { get; }
         public Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; }
         public bool IsEducationOrganizationInstitutionTelephonesItemCreatable { get; }
@@ -22701,8 +22514,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesSupported;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesSupported;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesSupported;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsSupported;
                 case "EducationOrganizationInstitutionTelephones":
@@ -22735,8 +22546,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesItemCreatable;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesItemCreatable;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesItemCreatable;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsItemCreatable;
                 case "EducationOrganizationInstitutionTelephones":
@@ -23016,7 +22825,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public EducationServiceCenterMappingContract(
             bool isEducationOrganizationAddressesSupported,
             bool isEducationOrganizationCategoriesSupported,
-            bool isEducationOrganizationIdentificationCodesSupported,
             bool isEducationOrganizationIndicatorsSupported,
             bool isEducationOrganizationInstitutionTelephonesSupported,
             bool isEducationOrganizationInternationalAddressesSupported,
@@ -23030,8 +22838,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             bool isEducationOrganizationCategoriesItemCreatable,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
-            bool isEducationOrganizationIdentificationCodesItemCreatable,
-            Func<IEducationOrganizationIdentificationCode, bool> isEducationOrganizationIdentificationCodeIncluded,
             bool isEducationOrganizationIndicatorsItemCreatable,
             Func<IEducationOrganizationIndicator, bool> isEducationOrganizationIndicatorIncluded,
             bool isEducationOrganizationInstitutionTelephonesItemCreatable,
@@ -23043,7 +22849,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             IsEducationOrganizationAddressesSupported = isEducationOrganizationAddressesSupported;
             IsEducationOrganizationCategoriesSupported = isEducationOrganizationCategoriesSupported;
-            IsEducationOrganizationIdentificationCodesSupported = isEducationOrganizationIdentificationCodesSupported;
             IsEducationOrganizationIndicatorsSupported = isEducationOrganizationIndicatorsSupported;
             IsEducationOrganizationInstitutionTelephonesSupported = isEducationOrganizationInstitutionTelephonesSupported;
             IsEducationOrganizationInternationalAddressesSupported = isEducationOrganizationInternationalAddressesSupported;
@@ -23057,8 +22862,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoriesItemCreatable = isEducationOrganizationCategoriesItemCreatable;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
-            IsEducationOrganizationIdentificationCodesItemCreatable = isEducationOrganizationIdentificationCodesItemCreatable;
-            IsEducationOrganizationIdentificationCodeIncluded = isEducationOrganizationIdentificationCodeIncluded;
             IsEducationOrganizationIndicatorsItemCreatable = isEducationOrganizationIndicatorsItemCreatable;
             IsEducationOrganizationIndicatorIncluded = isEducationOrganizationIndicatorIncluded;
             IsEducationOrganizationInstitutionTelephonesItemCreatable = isEducationOrganizationInstitutionTelephonesItemCreatable;
@@ -23070,7 +22873,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         public bool IsEducationOrganizationAddressesSupported { get; }
         public bool IsEducationOrganizationCategoriesSupported { get; }
-        public bool IsEducationOrganizationIdentificationCodesSupported { get; }
         public bool IsEducationOrganizationIndicatorsSupported { get; }
         public bool IsEducationOrganizationInstitutionTelephonesSupported { get; }
         public bool IsEducationOrganizationInternationalAddressesSupported { get; }
@@ -23084,8 +22886,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public bool IsEducationOrganizationCategoriesItemCreatable { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
-        public bool IsEducationOrganizationIdentificationCodesItemCreatable { get; }
-        public Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; }
         public bool IsEducationOrganizationIndicatorsItemCreatable { get; }
         public Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; }
         public bool IsEducationOrganizationInstitutionTelephonesItemCreatable { get; }
@@ -23101,8 +22901,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesSupported;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesSupported;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesSupported;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsSupported;
                 case "EducationOrganizationInstitutionTelephones":
@@ -23137,8 +22935,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesItemCreatable;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesItemCreatable;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesItemCreatable;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsItemCreatable;
                 case "EducationOrganizationInstitutionTelephones":
@@ -35420,7 +35216,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isCharterStatusDescriptorSupported,
             bool isEducationOrganizationAddressesSupported,
             bool isEducationOrganizationCategoriesSupported,
-            bool isEducationOrganizationIdentificationCodesSupported,
             bool isEducationOrganizationIndicatorsSupported,
             bool isEducationOrganizationInstitutionTelephonesSupported,
             bool isEducationOrganizationInternationalAddressesSupported,
@@ -35442,8 +35237,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             bool isEducationOrganizationCategoriesItemCreatable,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
-            bool isEducationOrganizationIdentificationCodesItemCreatable,
-            Func<IEducationOrganizationIdentificationCode, bool> isEducationOrganizationIdentificationCodeIncluded,
             bool isEducationOrganizationIndicatorsItemCreatable,
             Func<IEducationOrganizationIndicator, bool> isEducationOrganizationIndicatorIncluded,
             bool isEducationOrganizationInstitutionTelephonesItemCreatable,
@@ -35460,7 +35253,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsCharterStatusDescriptorSupported = isCharterStatusDescriptorSupported;
             IsEducationOrganizationAddressesSupported = isEducationOrganizationAddressesSupported;
             IsEducationOrganizationCategoriesSupported = isEducationOrganizationCategoriesSupported;
-            IsEducationOrganizationIdentificationCodesSupported = isEducationOrganizationIdentificationCodesSupported;
             IsEducationOrganizationIndicatorsSupported = isEducationOrganizationIndicatorsSupported;
             IsEducationOrganizationInstitutionTelephonesSupported = isEducationOrganizationInstitutionTelephonesSupported;
             IsEducationOrganizationInternationalAddressesSupported = isEducationOrganizationInternationalAddressesSupported;
@@ -35482,8 +35274,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoriesItemCreatable = isEducationOrganizationCategoriesItemCreatable;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
-            IsEducationOrganizationIdentificationCodesItemCreatable = isEducationOrganizationIdentificationCodesItemCreatable;
-            IsEducationOrganizationIdentificationCodeIncluded = isEducationOrganizationIdentificationCodeIncluded;
             IsEducationOrganizationIndicatorsItemCreatable = isEducationOrganizationIndicatorsItemCreatable;
             IsEducationOrganizationIndicatorIncluded = isEducationOrganizationIndicatorIncluded;
             IsEducationOrganizationInstitutionTelephonesItemCreatable = isEducationOrganizationInstitutionTelephonesItemCreatable;
@@ -35500,7 +35290,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsCharterStatusDescriptorSupported { get; }
         public bool IsEducationOrganizationAddressesSupported { get; }
         public bool IsEducationOrganizationCategoriesSupported { get; }
-        public bool IsEducationOrganizationIdentificationCodesSupported { get; }
         public bool IsEducationOrganizationIndicatorsSupported { get; }
         public bool IsEducationOrganizationInstitutionTelephonesSupported { get; }
         public bool IsEducationOrganizationInternationalAddressesSupported { get; }
@@ -35522,8 +35311,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public bool IsEducationOrganizationCategoriesItemCreatable { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
-        public bool IsEducationOrganizationIdentificationCodesItemCreatable { get; }
-        public Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; }
         public bool IsEducationOrganizationIndicatorsItemCreatable { get; }
         public Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; }
         public bool IsEducationOrganizationInstitutionTelephonesItemCreatable { get; }
@@ -35545,8 +35332,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesSupported;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesSupported;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesSupported;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsSupported;
                 case "EducationOrganizationInstitutionTelephones":
@@ -35597,8 +35382,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesItemCreatable;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesItemCreatable;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesItemCreatable;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsItemCreatable;
                 case "EducationOrganizationInstitutionTelephones":
@@ -38441,7 +38224,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isAcademicSubjectDescriptorSupported,
             bool isEducationOrganizationAddressesSupported,
             bool isEducationOrganizationCategoriesSupported,
-            bool isEducationOrganizationIdentificationCodesSupported,
             bool isEducationOrganizationIndicatorsSupported,
             bool isEducationOrganizationInstitutionTelephonesSupported,
             bool isEducationOrganizationInternationalAddressesSupported,
@@ -38455,8 +38237,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             bool isEducationOrganizationCategoriesItemCreatable,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
-            bool isEducationOrganizationIdentificationCodesItemCreatable,
-            Func<IEducationOrganizationIdentificationCode, bool> isEducationOrganizationIdentificationCodeIncluded,
             bool isEducationOrganizationIndicatorsItemCreatable,
             Func<IEducationOrganizationIndicator, bool> isEducationOrganizationIndicatorIncluded,
             bool isEducationOrganizationInstitutionTelephonesItemCreatable,
@@ -38469,7 +38249,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsAcademicSubjectDescriptorSupported = isAcademicSubjectDescriptorSupported;
             IsEducationOrganizationAddressesSupported = isEducationOrganizationAddressesSupported;
             IsEducationOrganizationCategoriesSupported = isEducationOrganizationCategoriesSupported;
-            IsEducationOrganizationIdentificationCodesSupported = isEducationOrganizationIdentificationCodesSupported;
             IsEducationOrganizationIndicatorsSupported = isEducationOrganizationIndicatorsSupported;
             IsEducationOrganizationInstitutionTelephonesSupported = isEducationOrganizationInstitutionTelephonesSupported;
             IsEducationOrganizationInternationalAddressesSupported = isEducationOrganizationInternationalAddressesSupported;
@@ -38483,8 +38262,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoriesItemCreatable = isEducationOrganizationCategoriesItemCreatable;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
-            IsEducationOrganizationIdentificationCodesItemCreatable = isEducationOrganizationIdentificationCodesItemCreatable;
-            IsEducationOrganizationIdentificationCodeIncluded = isEducationOrganizationIdentificationCodeIncluded;
             IsEducationOrganizationIndicatorsItemCreatable = isEducationOrganizationIndicatorsItemCreatable;
             IsEducationOrganizationIndicatorIncluded = isEducationOrganizationIndicatorIncluded;
             IsEducationOrganizationInstitutionTelephonesItemCreatable = isEducationOrganizationInstitutionTelephonesItemCreatable;
@@ -38497,7 +38274,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsAcademicSubjectDescriptorSupported { get; }
         public bool IsEducationOrganizationAddressesSupported { get; }
         public bool IsEducationOrganizationCategoriesSupported { get; }
-        public bool IsEducationOrganizationIdentificationCodesSupported { get; }
         public bool IsEducationOrganizationIndicatorsSupported { get; }
         public bool IsEducationOrganizationInstitutionTelephonesSupported { get; }
         public bool IsEducationOrganizationInternationalAddressesSupported { get; }
@@ -38511,8 +38287,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public bool IsEducationOrganizationCategoriesItemCreatable { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
-        public bool IsEducationOrganizationIdentificationCodesItemCreatable { get; }
-        public Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; }
         public bool IsEducationOrganizationIndicatorsItemCreatable { get; }
         public Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; }
         public bool IsEducationOrganizationInstitutionTelephonesItemCreatable { get; }
@@ -38530,8 +38304,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesSupported;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesSupported;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesSupported;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsSupported;
                 case "EducationOrganizationInstitutionTelephones":
@@ -38566,8 +38338,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesItemCreatable;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesItemCreatable;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesItemCreatable;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsItemCreatable;
                 case "EducationOrganizationInstitutionTelephones":
@@ -40880,7 +40650,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isAdministrativeFundingControlDescriptorSupported,
             bool isEducationOrganizationAddressesSupported,
             bool isEducationOrganizationCategoriesSupported,
-            bool isEducationOrganizationIdentificationCodesSupported,
             bool isEducationOrganizationIndicatorsSupported,
             bool isEducationOrganizationInstitutionTelephonesSupported,
             bool isEducationOrganizationInternationalAddressesSupported,
@@ -40895,8 +40664,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             bool isEducationOrganizationCategoriesItemCreatable,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
-            bool isEducationOrganizationIdentificationCodesItemCreatable,
-            Func<IEducationOrganizationIdentificationCode, bool> isEducationOrganizationIdentificationCodeIncluded,
             bool isEducationOrganizationIndicatorsItemCreatable,
             Func<IEducationOrganizationIndicator, bool> isEducationOrganizationIndicatorIncluded,
             bool isEducationOrganizationInstitutionTelephonesItemCreatable,
@@ -40911,7 +40678,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsAdministrativeFundingControlDescriptorSupported = isAdministrativeFundingControlDescriptorSupported;
             IsEducationOrganizationAddressesSupported = isEducationOrganizationAddressesSupported;
             IsEducationOrganizationCategoriesSupported = isEducationOrganizationCategoriesSupported;
-            IsEducationOrganizationIdentificationCodesSupported = isEducationOrganizationIdentificationCodesSupported;
             IsEducationOrganizationIndicatorsSupported = isEducationOrganizationIndicatorsSupported;
             IsEducationOrganizationInstitutionTelephonesSupported = isEducationOrganizationInstitutionTelephonesSupported;
             IsEducationOrganizationInternationalAddressesSupported = isEducationOrganizationInternationalAddressesSupported;
@@ -40926,8 +40692,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoriesItemCreatable = isEducationOrganizationCategoriesItemCreatable;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
-            IsEducationOrganizationIdentificationCodesItemCreatable = isEducationOrganizationIdentificationCodesItemCreatable;
-            IsEducationOrganizationIdentificationCodeIncluded = isEducationOrganizationIdentificationCodeIncluded;
             IsEducationOrganizationIndicatorsItemCreatable = isEducationOrganizationIndicatorsItemCreatable;
             IsEducationOrganizationIndicatorIncluded = isEducationOrganizationIndicatorIncluded;
             IsEducationOrganizationInstitutionTelephonesItemCreatable = isEducationOrganizationInstitutionTelephonesItemCreatable;
@@ -40942,7 +40706,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsAdministrativeFundingControlDescriptorSupported { get; }
         public bool IsEducationOrganizationAddressesSupported { get; }
         public bool IsEducationOrganizationCategoriesSupported { get; }
-        public bool IsEducationOrganizationIdentificationCodesSupported { get; }
         public bool IsEducationOrganizationIndicatorsSupported { get; }
         public bool IsEducationOrganizationInstitutionTelephonesSupported { get; }
         public bool IsEducationOrganizationInternationalAddressesSupported { get; }
@@ -40957,8 +40720,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public bool IsEducationOrganizationCategoriesItemCreatable { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
-        public bool IsEducationOrganizationIdentificationCodesItemCreatable { get; }
-        public Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; }
         public bool IsEducationOrganizationIndicatorsItemCreatable { get; }
         public Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; }
         public bool IsEducationOrganizationInstitutionTelephonesItemCreatable { get; }
@@ -40978,8 +40739,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesSupported;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesSupported;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesSupported;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsSupported;
                 case "EducationOrganizationInstitutionTelephones":
@@ -41016,8 +40775,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesItemCreatable;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesItemCreatable;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesItemCreatable;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsItemCreatable;
                 case "EducationOrganizationInstitutionTelephones":
@@ -47660,7 +47417,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isCharterStatusDescriptorSupported,
             bool isEducationOrganizationAddressesSupported,
             bool isEducationOrganizationCategoriesSupported,
-            bool isEducationOrganizationIdentificationCodesSupported,
             bool isEducationOrganizationIndicatorsSupported,
             bool isEducationOrganizationInstitutionTelephonesSupported,
             bool isEducationOrganizationInternationalAddressesSupported,
@@ -47684,8 +47440,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             bool isEducationOrganizationCategoriesItemCreatable,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
-            bool isEducationOrganizationIdentificationCodesItemCreatable,
-            Func<IEducationOrganizationIdentificationCode, bool> isEducationOrganizationIdentificationCodeIncluded,
             bool isEducationOrganizationIndicatorsItemCreatable,
             Func<IEducationOrganizationIndicator, bool> isEducationOrganizationIndicatorIncluded,
             bool isEducationOrganizationInstitutionTelephonesItemCreatable,
@@ -47707,7 +47461,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsCharterStatusDescriptorSupported = isCharterStatusDescriptorSupported;
             IsEducationOrganizationAddressesSupported = isEducationOrganizationAddressesSupported;
             IsEducationOrganizationCategoriesSupported = isEducationOrganizationCategoriesSupported;
-            IsEducationOrganizationIdentificationCodesSupported = isEducationOrganizationIdentificationCodesSupported;
             IsEducationOrganizationIndicatorsSupported = isEducationOrganizationIndicatorsSupported;
             IsEducationOrganizationInstitutionTelephonesSupported = isEducationOrganizationInstitutionTelephonesSupported;
             IsEducationOrganizationInternationalAddressesSupported = isEducationOrganizationInternationalAddressesSupported;
@@ -47731,8 +47484,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoriesItemCreatable = isEducationOrganizationCategoriesItemCreatable;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
-            IsEducationOrganizationIdentificationCodesItemCreatable = isEducationOrganizationIdentificationCodesItemCreatable;
-            IsEducationOrganizationIdentificationCodeIncluded = isEducationOrganizationIdentificationCodeIncluded;
             IsEducationOrganizationIndicatorsItemCreatable = isEducationOrganizationIndicatorsItemCreatable;
             IsEducationOrganizationIndicatorIncluded = isEducationOrganizationIndicatorIncluded;
             IsEducationOrganizationInstitutionTelephonesItemCreatable = isEducationOrganizationInstitutionTelephonesItemCreatable;
@@ -47754,7 +47505,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsCharterStatusDescriptorSupported { get; }
         public bool IsEducationOrganizationAddressesSupported { get; }
         public bool IsEducationOrganizationCategoriesSupported { get; }
-        public bool IsEducationOrganizationIdentificationCodesSupported { get; }
         public bool IsEducationOrganizationIndicatorsSupported { get; }
         public bool IsEducationOrganizationInstitutionTelephonesSupported { get; }
         public bool IsEducationOrganizationInternationalAddressesSupported { get; }
@@ -47778,8 +47528,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public bool IsEducationOrganizationCategoriesItemCreatable { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
-        public bool IsEducationOrganizationIdentificationCodesItemCreatable { get; }
-        public Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; }
         public bool IsEducationOrganizationIndicatorsItemCreatable { get; }
         public Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; }
         public bool IsEducationOrganizationInstitutionTelephonesItemCreatable { get; }
@@ -47811,8 +47559,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesSupported;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesSupported;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesSupported;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsSupported;
                 case "EducationOrganizationInstitutionTelephones":
@@ -47867,8 +47613,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesItemCreatable;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesItemCreatable;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesItemCreatable;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsItemCreatable;
                 case "EducationOrganizationInstitutionTelephones":
@@ -50349,14 +50093,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         DateTime? BirthDate { get; set; }
-        string CitizenshipStatusDescriptor { get; set; }
         long? EducationOrganizationId { get; set; }
         string FirstName { get; set; }
-        string GenderIdentity { get; set; }
         string GenerationCodeSuffix { get; set; }
         string HighestCompletedLevelOfEducationDescriptor { get; set; }
         bool? HighlyQualifiedTeacher { get; set; }
-        bool? HispanicLatinoEthnicity { get; set; }
         string LastSurname { get; set; }
         string LoginId { get; set; }
         string MaidenName { get; set; }
@@ -50366,7 +50107,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string PreferredFirstName { get; set; }
         string PreferredLastSurname { get; set; }
         string RequisitionNumber { get; set; }
-        string SexDescriptor { get; set; }
         string SourceSystemDescriptor { get; set; }
         decimal? YearsOfPriorProfessionalExperience { get; set; }
         decimal? YearsOfPriorTeachingExperience { get; set; }
@@ -50376,23 +50116,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
         IStaffEducatorResearch StaffEducatorResearch { get; set; }
 
         // Lists
-        ICollection<IStaffAddress> StaffAddresses { get; set; }
-        ICollection<IStaffAncestryEthnicOrigin> StaffAncestryEthnicOrigins { get; set; }
         ICollection<IStaffCredential> StaffCredentials { get; set; }
         ICollection<IStaffEducatorPreparationProgram> StaffEducatorPreparationPrograms { get; set; }
-        ICollection<IStaffElectronicMail> StaffElectronicMails { get; set; }
         ICollection<IStaffHighlyQualifiedAcademicSubject> StaffHighlyQualifiedAcademicSubjects { get; set; }
-        ICollection<IStaffIdentificationCode> StaffIdentificationCodes { get; set; }
-        ICollection<IStaffIdentificationDocument> StaffIdentificationDocuments { get; set; }
-        ICollection<IStaffInternationalAddress> StaffInternationalAddresses { get; set; }
-        ICollection<IStaffLanguage> StaffLanguages { get; set; }
         ICollection<IStaffOtherName> StaffOtherNames { get; set; }
         ICollection<IStaffPersonalIdentificationDocument> StaffPersonalIdentificationDocuments { get; set; }
-        ICollection<IStaffRace> StaffRaces { get; set; }
         ICollection<IStaffRecognition> StaffRecognitions { get; set; }
-        ICollection<IStaffTelephone> StaffTelephones { get; set; }
-        ICollection<IStaffTribalAffiliation> StaffTribalAffiliations { get; set; }
-        ICollection<IStaffVisa> StaffVisas { get; set; }
 
         // Resource reference data
         Guid? OpenStaffPositionResourceId { get; set; }
@@ -50409,14 +50138,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         public StaffMappingContract(
             bool isBirthDateSupported,
-            bool isCitizenshipStatusDescriptorSupported,
             bool isEducationOrganizationIdSupported,
             bool isFirstNameSupported,
-            bool isGenderIdentitySupported,
             bool isGenerationCodeSuffixSupported,
             bool isHighestCompletedLevelOfEducationDescriptorSupported,
             bool isHighlyQualifiedTeacherSupported,
-            bool isHispanicLatinoEthnicitySupported,
             bool isLastSurnameSupported,
             bool isLoginIdSupported,
             bool isMaidenNameSupported,
@@ -50428,76 +50154,39 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isPreferredFirstNameSupported,
             bool isPreferredLastSurnameSupported,
             bool isRequisitionNumberSupported,
-            bool isSexDescriptorSupported,
             bool isSourceSystemDescriptorSupported,
-            bool isStaffAddressesSupported,
-            bool isStaffAncestryEthnicOriginsSupported,
             bool isStaffCredentialsSupported,
             bool isStaffEducatorPreparationProgramsSupported,
             bool isStaffEducatorResearchSupported,
-            bool isStaffElectronicMailsSupported,
             bool isStaffHighlyQualifiedAcademicSubjectsSupported,
-            bool isStaffIdentificationCodesSupported,
-            bool isStaffIdentificationDocumentsSupported,
-            bool isStaffInternationalAddressesSupported,
-            bool isStaffLanguagesSupported,
             bool isStaffOtherNamesSupported,
             bool isStaffPersonalIdentificationDocumentsSupported,
-            bool isStaffRacesSupported,
             bool isStaffRecognitionsSupported,
-            bool isStaffTelephonesSupported,
-            bool isStaffTribalAffiliationsSupported,
             bool isStaffUniqueIdSupported,
-            bool isStaffVisasSupported,
             bool isYearsOfPriorProfessionalExperienceSupported,
             bool isYearsOfPriorTeachingExperienceSupported,
             bool isStaffEducatorResearchCreatable,
-            bool isStaffAddressesItemCreatable,
-            Func<IStaffAddress, bool> isStaffAddressIncluded,
-            bool isStaffAncestryEthnicOriginsItemCreatable,
-            Func<IStaffAncestryEthnicOrigin, bool> isStaffAncestryEthnicOriginIncluded,
             bool isStaffCredentialsItemCreatable,
             Func<IStaffCredential, bool> isStaffCredentialIncluded,
             bool isStaffEducatorPreparationProgramsItemCreatable,
             Func<IStaffEducatorPreparationProgram, bool> isStaffEducatorPreparationProgramIncluded,
-            bool isStaffElectronicMailsItemCreatable,
-            Func<IStaffElectronicMail, bool> isStaffElectronicMailIncluded,
             bool isStaffHighlyQualifiedAcademicSubjectsItemCreatable,
             Func<IStaffHighlyQualifiedAcademicSubject, bool> isStaffHighlyQualifiedAcademicSubjectIncluded,
-            bool isStaffIdentificationCodesItemCreatable,
-            Func<IStaffIdentificationCode, bool> isStaffIdentificationCodeIncluded,
-            bool isStaffIdentificationDocumentsItemCreatable,
-            Func<IStaffIdentificationDocument, bool> isStaffIdentificationDocumentIncluded,
-            bool isStaffInternationalAddressesItemCreatable,
-            Func<IStaffInternationalAddress, bool> isStaffInternationalAddressIncluded,
-            bool isStaffLanguagesItemCreatable,
-            Func<IStaffLanguage, bool> isStaffLanguageIncluded,
             bool isStaffOtherNamesItemCreatable,
             Func<IStaffOtherName, bool> isStaffOtherNameIncluded,
             bool isStaffPersonalIdentificationDocumentsItemCreatable,
             Func<IStaffPersonalIdentificationDocument, bool> isStaffPersonalIdentificationDocumentIncluded,
-            bool isStaffRacesItemCreatable,
-            Func<IStaffRace, bool> isStaffRaceIncluded,
             bool isStaffRecognitionsItemCreatable,
             Func<IStaffRecognition, bool> isStaffRecognitionIncluded,
-            bool isStaffTelephonesItemCreatable,
-            Func<IStaffTelephone, bool> isStaffTelephoneIncluded,
-            bool isStaffTribalAffiliationsItemCreatable,
-            Func<IStaffTribalAffiliation, bool> isStaffTribalAffiliationIncluded,
-            bool isStaffVisasItemCreatable,
-            Func<IStaffVisa, bool> isStaffVisaIncluded,
             IReadOnlyList<string> supportedExtensions
             )
         {
             IsBirthDateSupported = isBirthDateSupported;
-            IsCitizenshipStatusDescriptorSupported = isCitizenshipStatusDescriptorSupported;
             IsEducationOrganizationIdSupported = isEducationOrganizationIdSupported;
             IsFirstNameSupported = isFirstNameSupported;
-            IsGenderIdentitySupported = isGenderIdentitySupported;
             IsGenerationCodeSuffixSupported = isGenerationCodeSuffixSupported;
             IsHighestCompletedLevelOfEducationDescriptorSupported = isHighestCompletedLevelOfEducationDescriptorSupported;
             IsHighlyQualifiedTeacherSupported = isHighlyQualifiedTeacherSupported;
-            IsHispanicLatinoEthnicitySupported = isHispanicLatinoEthnicitySupported;
             IsLastSurnameSupported = isLastSurnameSupported;
             IsLoginIdSupported = isLoginIdSupported;
             IsMaidenNameSupported = isMaidenNameSupported;
@@ -50509,76 +50198,39 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsPreferredFirstNameSupported = isPreferredFirstNameSupported;
             IsPreferredLastSurnameSupported = isPreferredLastSurnameSupported;
             IsRequisitionNumberSupported = isRequisitionNumberSupported;
-            IsSexDescriptorSupported = isSexDescriptorSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
-            IsStaffAddressesSupported = isStaffAddressesSupported;
-            IsStaffAncestryEthnicOriginsSupported = isStaffAncestryEthnicOriginsSupported;
             IsStaffCredentialsSupported = isStaffCredentialsSupported;
             IsStaffEducatorPreparationProgramsSupported = isStaffEducatorPreparationProgramsSupported;
             IsStaffEducatorResearchSupported = isStaffEducatorResearchSupported;
-            IsStaffElectronicMailsSupported = isStaffElectronicMailsSupported;
             IsStaffHighlyQualifiedAcademicSubjectsSupported = isStaffHighlyQualifiedAcademicSubjectsSupported;
-            IsStaffIdentificationCodesSupported = isStaffIdentificationCodesSupported;
-            IsStaffIdentificationDocumentsSupported = isStaffIdentificationDocumentsSupported;
-            IsStaffInternationalAddressesSupported = isStaffInternationalAddressesSupported;
-            IsStaffLanguagesSupported = isStaffLanguagesSupported;
             IsStaffOtherNamesSupported = isStaffOtherNamesSupported;
             IsStaffPersonalIdentificationDocumentsSupported = isStaffPersonalIdentificationDocumentsSupported;
-            IsStaffRacesSupported = isStaffRacesSupported;
             IsStaffRecognitionsSupported = isStaffRecognitionsSupported;
-            IsStaffTelephonesSupported = isStaffTelephonesSupported;
-            IsStaffTribalAffiliationsSupported = isStaffTribalAffiliationsSupported;
             IsStaffUniqueIdSupported = isStaffUniqueIdSupported;
-            IsStaffVisasSupported = isStaffVisasSupported;
             IsYearsOfPriorProfessionalExperienceSupported = isYearsOfPriorProfessionalExperienceSupported;
             IsYearsOfPriorTeachingExperienceSupported = isYearsOfPriorTeachingExperienceSupported;
             IsStaffEducatorResearchCreatable = isStaffEducatorResearchCreatable;
-            IsStaffAddressesItemCreatable = isStaffAddressesItemCreatable;
-            IsStaffAddressIncluded = isStaffAddressIncluded;
-            IsStaffAncestryEthnicOriginsItemCreatable = isStaffAncestryEthnicOriginsItemCreatable;
-            IsStaffAncestryEthnicOriginIncluded = isStaffAncestryEthnicOriginIncluded;
             IsStaffCredentialsItemCreatable = isStaffCredentialsItemCreatable;
             IsStaffCredentialIncluded = isStaffCredentialIncluded;
             IsStaffEducatorPreparationProgramsItemCreatable = isStaffEducatorPreparationProgramsItemCreatable;
             IsStaffEducatorPreparationProgramIncluded = isStaffEducatorPreparationProgramIncluded;
-            IsStaffElectronicMailsItemCreatable = isStaffElectronicMailsItemCreatable;
-            IsStaffElectronicMailIncluded = isStaffElectronicMailIncluded;
             IsStaffHighlyQualifiedAcademicSubjectsItemCreatable = isStaffHighlyQualifiedAcademicSubjectsItemCreatable;
             IsStaffHighlyQualifiedAcademicSubjectIncluded = isStaffHighlyQualifiedAcademicSubjectIncluded;
-            IsStaffIdentificationCodesItemCreatable = isStaffIdentificationCodesItemCreatable;
-            IsStaffIdentificationCodeIncluded = isStaffIdentificationCodeIncluded;
-            IsStaffIdentificationDocumentsItemCreatable = isStaffIdentificationDocumentsItemCreatable;
-            IsStaffIdentificationDocumentIncluded = isStaffIdentificationDocumentIncluded;
-            IsStaffInternationalAddressesItemCreatable = isStaffInternationalAddressesItemCreatable;
-            IsStaffInternationalAddressIncluded = isStaffInternationalAddressIncluded;
-            IsStaffLanguagesItemCreatable = isStaffLanguagesItemCreatable;
-            IsStaffLanguageIncluded = isStaffLanguageIncluded;
             IsStaffOtherNamesItemCreatable = isStaffOtherNamesItemCreatable;
             IsStaffOtherNameIncluded = isStaffOtherNameIncluded;
             IsStaffPersonalIdentificationDocumentsItemCreatable = isStaffPersonalIdentificationDocumentsItemCreatable;
             IsStaffPersonalIdentificationDocumentIncluded = isStaffPersonalIdentificationDocumentIncluded;
-            IsStaffRacesItemCreatable = isStaffRacesItemCreatable;
-            IsStaffRaceIncluded = isStaffRaceIncluded;
             IsStaffRecognitionsItemCreatable = isStaffRecognitionsItemCreatable;
             IsStaffRecognitionIncluded = isStaffRecognitionIncluded;
-            IsStaffTelephonesItemCreatable = isStaffTelephonesItemCreatable;
-            IsStaffTelephoneIncluded = isStaffTelephoneIncluded;
-            IsStaffTribalAffiliationsItemCreatable = isStaffTribalAffiliationsItemCreatable;
-            IsStaffTribalAffiliationIncluded = isStaffTribalAffiliationIncluded;
-            IsStaffVisasItemCreatable = isStaffVisasItemCreatable;
-            IsStaffVisaIncluded = isStaffVisaIncluded;
             SupportedExtensions = supportedExtensions;
         }
 
         public bool IsBirthDateSupported { get; }
-        public bool IsCitizenshipStatusDescriptorSupported { get; }
         public bool IsEducationOrganizationIdSupported { get; }
         public bool IsFirstNameSupported { get; }
-        public bool IsGenderIdentitySupported { get; }
         public bool IsGenerationCodeSuffixSupported { get; }
         public bool IsHighestCompletedLevelOfEducationDescriptorSupported { get; }
         public bool IsHighlyQualifiedTeacherSupported { get; }
-        public bool IsHispanicLatinoEthnicitySupported { get; }
         public bool IsLastSurnameSupported { get; }
         public bool IsLoginIdSupported { get; }
         public bool IsMaidenNameSupported { get; }
@@ -50590,64 +50242,30 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsPreferredFirstNameSupported { get; }
         public bool IsPreferredLastSurnameSupported { get; }
         public bool IsRequisitionNumberSupported { get; }
-        public bool IsSexDescriptorSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
-        public bool IsStaffAddressesSupported { get; }
-        public bool IsStaffAncestryEthnicOriginsSupported { get; }
         public bool IsStaffCredentialsSupported { get; }
         public bool IsStaffEducatorPreparationProgramsSupported { get; }
         public bool IsStaffEducatorResearchSupported { get; }
-        public bool IsStaffElectronicMailsSupported { get; }
         public bool IsStaffHighlyQualifiedAcademicSubjectsSupported { get; }
-        public bool IsStaffIdentificationCodesSupported { get; }
-        public bool IsStaffIdentificationDocumentsSupported { get; }
-        public bool IsStaffInternationalAddressesSupported { get; }
-        public bool IsStaffLanguagesSupported { get; }
         public bool IsStaffOtherNamesSupported { get; }
         public bool IsStaffPersonalIdentificationDocumentsSupported { get; }
-        public bool IsStaffRacesSupported { get; }
         public bool IsStaffRecognitionsSupported { get; }
-        public bool IsStaffTelephonesSupported { get; }
-        public bool IsStaffTribalAffiliationsSupported { get; }
         public bool IsStaffUniqueIdSupported { get; }
-        public bool IsStaffVisasSupported { get; }
         public bool IsYearsOfPriorProfessionalExperienceSupported { get; }
         public bool IsYearsOfPriorTeachingExperienceSupported { get; }
         public bool IsStaffEducatorResearchCreatable { get; }
-        public bool IsStaffAddressesItemCreatable { get; }
-        public Func<IStaffAddress, bool> IsStaffAddressIncluded { get; }
-        public bool IsStaffAncestryEthnicOriginsItemCreatable { get; }
-        public Func<IStaffAncestryEthnicOrigin, bool> IsStaffAncestryEthnicOriginIncluded { get; }
         public bool IsStaffCredentialsItemCreatable { get; }
         public Func<IStaffCredential, bool> IsStaffCredentialIncluded { get; }
         public bool IsStaffEducatorPreparationProgramsItemCreatable { get; }
         public Func<IStaffEducatorPreparationProgram, bool> IsStaffEducatorPreparationProgramIncluded { get; }
-        public bool IsStaffElectronicMailsItemCreatable { get; }
-        public Func<IStaffElectronicMail, bool> IsStaffElectronicMailIncluded { get; }
         public bool IsStaffHighlyQualifiedAcademicSubjectsItemCreatable { get; }
         public Func<IStaffHighlyQualifiedAcademicSubject, bool> IsStaffHighlyQualifiedAcademicSubjectIncluded { get; }
-        public bool IsStaffIdentificationCodesItemCreatable { get; }
-        public Func<IStaffIdentificationCode, bool> IsStaffIdentificationCodeIncluded { get; }
-        public bool IsStaffIdentificationDocumentsItemCreatable { get; }
-        public Func<IStaffIdentificationDocument, bool> IsStaffIdentificationDocumentIncluded { get; }
-        public bool IsStaffInternationalAddressesItemCreatable { get; }
-        public Func<IStaffInternationalAddress, bool> IsStaffInternationalAddressIncluded { get; }
-        public bool IsStaffLanguagesItemCreatable { get; }
-        public Func<IStaffLanguage, bool> IsStaffLanguageIncluded { get; }
         public bool IsStaffOtherNamesItemCreatable { get; }
         public Func<IStaffOtherName, bool> IsStaffOtherNameIncluded { get; }
         public bool IsStaffPersonalIdentificationDocumentsItemCreatable { get; }
         public Func<IStaffPersonalIdentificationDocument, bool> IsStaffPersonalIdentificationDocumentIncluded { get; }
-        public bool IsStaffRacesItemCreatable { get; }
-        public Func<IStaffRace, bool> IsStaffRaceIncluded { get; }
         public bool IsStaffRecognitionsItemCreatable { get; }
         public Func<IStaffRecognition, bool> IsStaffRecognitionIncluded { get; }
-        public bool IsStaffTelephonesItemCreatable { get; }
-        public Func<IStaffTelephone, bool> IsStaffTelephoneIncluded { get; }
-        public bool IsStaffTribalAffiliationsItemCreatable { get; }
-        public Func<IStaffTribalAffiliation, bool> IsStaffTribalAffiliationIncluded { get; }
-        public bool IsStaffVisasItemCreatable { get; }
-        public Func<IStaffVisa, bool> IsStaffVisaIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -50655,22 +50273,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "BirthDate":
                     return IsBirthDateSupported;
-                case "CitizenshipStatusDescriptor":
-                    return IsCitizenshipStatusDescriptorSupported;
                 case "EducationOrganizationId":
                     return IsEducationOrganizationIdSupported;
                 case "FirstName":
                     return IsFirstNameSupported;
-                case "GenderIdentity":
-                    return IsGenderIdentitySupported;
                 case "GenerationCodeSuffix":
                     return IsGenerationCodeSuffixSupported;
                 case "HighestCompletedLevelOfEducationDescriptor":
                     return IsHighestCompletedLevelOfEducationDescriptorSupported;
                 case "HighlyQualifiedTeacher":
                     return IsHighlyQualifiedTeacherSupported;
-                case "HispanicLatinoEthnicity":
-                    return IsHispanicLatinoEthnicitySupported;
                 case "LastSurname":
                     return IsLastSurnameSupported;
                 case "LoginId":
@@ -50693,48 +50305,24 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPreferredLastSurnameSupported;
                 case "RequisitionNumber":
                     return IsRequisitionNumberSupported;
-                case "SexDescriptor":
-                    return IsSexDescriptorSupported;
                 case "SourceSystemDescriptor":
                     return IsSourceSystemDescriptorSupported;
-                case "StaffAddresses":
-                    return IsStaffAddressesSupported;
-                case "StaffAncestryEthnicOrigins":
-                    return IsStaffAncestryEthnicOriginsSupported;
                 case "StaffCredentials":
                     return IsStaffCredentialsSupported;
                 case "StaffEducatorPreparationPrograms":
                     return IsStaffEducatorPreparationProgramsSupported;
                 case "StaffEducatorResearch":
                     return IsStaffEducatorResearchSupported;
-                case "StaffElectronicMails":
-                    return IsStaffElectronicMailsSupported;
                 case "StaffHighlyQualifiedAcademicSubjects":
                     return IsStaffHighlyQualifiedAcademicSubjectsSupported;
-                case "StaffIdentificationCodes":
-                    return IsStaffIdentificationCodesSupported;
-                case "StaffIdentificationDocuments":
-                    return IsStaffIdentificationDocumentsSupported;
-                case "StaffInternationalAddresses":
-                    return IsStaffInternationalAddressesSupported;
-                case "StaffLanguages":
-                    return IsStaffLanguagesSupported;
                 case "StaffOtherNames":
                     return IsStaffOtherNamesSupported;
                 case "StaffPersonalIdentificationDocuments":
                     return IsStaffPersonalIdentificationDocumentsSupported;
-                case "StaffRaces":
-                    return IsStaffRacesSupported;
                 case "StaffRecognitions":
                     return IsStaffRecognitionsSupported;
-                case "StaffTelephones":
-                    return IsStaffTelephonesSupported;
-                case "StaffTribalAffiliations":
-                    return IsStaffTribalAffiliationsSupported;
                 case "StaffUniqueId":
                     return IsStaffUniqueIdSupported;
-                case "StaffVisas":
-                    return IsStaffVisasSupported;
                 case "YearsOfPriorProfessionalExperience":
                     return IsYearsOfPriorProfessionalExperienceSupported;
                 case "YearsOfPriorTeachingExperience":
@@ -50751,40 +50339,18 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "StaffEducatorResearch":
                     return IsStaffEducatorResearchCreatable;
-                case "StaffAddresses":
-                    return IsStaffAddressesItemCreatable;
-                case "StaffAncestryEthnicOrigins":
-                    return IsStaffAncestryEthnicOriginsItemCreatable;
                 case "StaffCredentials":
                     return IsStaffCredentialsItemCreatable;
                 case "StaffEducatorPreparationPrograms":
                     return IsStaffEducatorPreparationProgramsItemCreatable;
-                case "StaffElectronicMails":
-                    return IsStaffElectronicMailsItemCreatable;
                 case "StaffHighlyQualifiedAcademicSubjects":
                     return IsStaffHighlyQualifiedAcademicSubjectsItemCreatable;
-                case "StaffIdentificationCodes":
-                    return IsStaffIdentificationCodesItemCreatable;
-                case "StaffIdentificationDocuments":
-                    return IsStaffIdentificationDocumentsItemCreatable;
-                case "StaffInternationalAddresses":
-                    return IsStaffInternationalAddressesItemCreatable;
-                case "StaffLanguages":
-                    return IsStaffLanguagesItemCreatable;
                 case "StaffOtherNames":
                     return IsStaffOtherNamesItemCreatable;
                 case "StaffPersonalIdentificationDocuments":
                     return IsStaffPersonalIdentificationDocumentsItemCreatable;
-                case "StaffRaces":
-                    return IsStaffRacesItemCreatable;
                 case "StaffRecognitions":
                     return IsStaffRecognitionsItemCreatable;
-                case "StaffTelephones":
-                    return IsStaffTelephonesItemCreatable;
-                case "StaffTribalAffiliations":
-                    return IsStaffTribalAffiliationsItemCreatable;
-                case "StaffVisas":
-                    return IsStaffVisasItemCreatable;
                 default:
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
@@ -50863,268 +50429,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "EventDate":
                     return true;
                 case "StaffUniqueId":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffAddress model.
-    /// </summary>
-    public interface IStaffAddress : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaff Staff { get; set; }
-        
-        string AddressTypeDescriptor { get; set; }
-        
-        string City { get; set; }
-        
-        string PostalCode { get; set; }
-        
-        string StateAbbreviationDescriptor { get; set; }
-        
-        string StreetNumberName { get; set; }
-
-        // Non-PK properties
-        string ApartmentRoomSuiteNumber { get; set; }
-        string BuildingSiteNumber { get; set; }
-        string CongressionalDistrict { get; set; }
-        string CountyFIPSCode { get; set; }
-        bool? DoNotPublishIndicator { get; set; }
-        string Latitude { get; set; }
-        string LocaleDescriptor { get; set; }
-        string Longitude { get; set; }
-        string NameOfCounty { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IStaffAddressPeriod> StaffAddressPeriods { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffAddressMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffAddressMappingContract(
-            bool isApartmentRoomSuiteNumberSupported,
-            bool isBuildingSiteNumberSupported,
-            bool isCongressionalDistrictSupported,
-            bool isCountyFIPSCodeSupported,
-            bool isDoNotPublishIndicatorSupported,
-            bool isLatitudeSupported,
-            bool isLocaleDescriptorSupported,
-            bool isLongitudeSupported,
-            bool isNameOfCountySupported,
-            bool isStaffAddressPeriodsSupported,
-            bool isStaffAddressPeriodsItemCreatable,
-            Func<IStaffAddressPeriod, bool> isStaffAddressPeriodIncluded,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsApartmentRoomSuiteNumberSupported = isApartmentRoomSuiteNumberSupported;
-            IsBuildingSiteNumberSupported = isBuildingSiteNumberSupported;
-            IsCongressionalDistrictSupported = isCongressionalDistrictSupported;
-            IsCountyFIPSCodeSupported = isCountyFIPSCodeSupported;
-            IsDoNotPublishIndicatorSupported = isDoNotPublishIndicatorSupported;
-            IsLatitudeSupported = isLatitudeSupported;
-            IsLocaleDescriptorSupported = isLocaleDescriptorSupported;
-            IsLongitudeSupported = isLongitudeSupported;
-            IsNameOfCountySupported = isNameOfCountySupported;
-            IsStaffAddressPeriodsSupported = isStaffAddressPeriodsSupported;
-            IsStaffAddressPeriodsItemCreatable = isStaffAddressPeriodsItemCreatable;
-            IsStaffAddressPeriodIncluded = isStaffAddressPeriodIncluded;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsApartmentRoomSuiteNumberSupported { get; }
-        public bool IsBuildingSiteNumberSupported { get; }
-        public bool IsCongressionalDistrictSupported { get; }
-        public bool IsCountyFIPSCodeSupported { get; }
-        public bool IsDoNotPublishIndicatorSupported { get; }
-        public bool IsLatitudeSupported { get; }
-        public bool IsLocaleDescriptorSupported { get; }
-        public bool IsLongitudeSupported { get; }
-        public bool IsNameOfCountySupported { get; }
-        public bool IsStaffAddressPeriodsSupported { get; }
-        public bool IsStaffAddressPeriodsItemCreatable { get; }
-        public Func<IStaffAddressPeriod, bool> IsStaffAddressPeriodIncluded { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "ApartmentRoomSuiteNumber":
-                    return IsApartmentRoomSuiteNumberSupported;
-                case "BuildingSiteNumber":
-                    return IsBuildingSiteNumberSupported;
-                case "CongressionalDistrict":
-                    return IsCongressionalDistrictSupported;
-                case "CountyFIPSCode":
-                    return IsCountyFIPSCodeSupported;
-                case "DoNotPublishIndicator":
-                    return IsDoNotPublishIndicatorSupported;
-                case "Latitude":
-                    return IsLatitudeSupported;
-                case "LocaleDescriptor":
-                    return IsLocaleDescriptorSupported;
-                case "Longitude":
-                    return IsLongitudeSupported;
-                case "NameOfCounty":
-                    return IsNameOfCountySupported;
-                case "StaffAddressPeriods":
-                    return IsStaffAddressPeriodsSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "AddressTypeDescriptor":
-                    return true;
-                case "City":
-                    return true;
-                case "PostalCode":
-                    return true;
-                case "StateAbbreviationDescriptor":
-                    return true;
-                case "StreetNumberName":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                case "StaffAddressPeriods":
-                    return IsStaffAddressPeriodsItemCreatable;
-                default:
-                    throw new Exception($"Unknown child item '{memberName}'.");
-            }
-        }
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffAddressPeriod model.
-    /// </summary>
-    public interface IStaffAddressPeriod : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaffAddress StaffAddress { get; set; }
-        
-        DateTime BeginDate { get; set; }
-
-        // Non-PK properties
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffAddressPeriodMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffAddressPeriodMappingContract(
-            bool isEndDateSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsEndDateSupported = isEndDateSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsEndDateSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "EndDate":
-                    return IsEndDateSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "BeginDate":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffAncestryEthnicOrigin model.
-    /// </summary>
-    public interface IStaffAncestryEthnicOrigin : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaff Staff { get; set; }
-        
-        string AncestryEthnicOriginDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffAncestryEthnicOriginMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffAncestryEthnicOriginMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "AncestryEthnicOriginDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -53582,77 +52886,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffElectronicMail model.
-    /// </summary>
-    public interface IStaffElectronicMail : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaff Staff { get; set; }
-        
-        string ElectronicMailAddress { get; set; }
-        
-        string ElectronicMailTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        bool? DoNotPublishIndicator { get; set; }
-        bool? PrimaryEmailAddressIndicator { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffElectronicMailMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffElectronicMailMappingContract(
-            bool isDoNotPublishIndicatorSupported,
-            bool isPrimaryEmailAddressIndicatorSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsDoNotPublishIndicatorSupported = isDoNotPublishIndicatorSupported;
-            IsPrimaryEmailAddressIndicatorSupported = isPrimaryEmailAddressIndicatorSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsDoNotPublishIndicatorSupported { get; }
-        public bool IsPrimaryEmailAddressIndicatorSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "DoNotPublishIndicator":
-                    return IsDoNotPublishIndicatorSupported;
-                case "PrimaryEmailAddressIndicator":
-                    return IsPrimaryEmailAddressIndicatorSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "ElectronicMailAddress":
-                    return true;
-                case "ElectronicMailTypeDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffHighlyQualifiedAcademicSubject model.
     /// </summary>
     public interface IStaffHighlyQualifiedAcademicSubject : ISynchronizable, IMappable, IHasExtensions, IGetByExample
@@ -53710,12 +52943,15 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffIdentificationCode model.
     /// </summary>
-    public interface IStaffIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    public interface IStaffIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        IStaff Staff { get; set; }
+        
+        long EducationOrganizationId { get; set; }
         
         string StaffIdentificationSystemDescriptor { get; set; }
+        
+        string StaffUniqueId { get; set; }
 
         // Non-PK properties
         string AssigningOrganizationIdentificationCode { get; set; }
@@ -53726,6 +52962,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Lists
 
         // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+        Guid? StaffResourceId { get; set; }
+        string StaffDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -53736,17 +52976,23 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         public StaffIdentificationCodeMappingContract(
             bool isAssigningOrganizationIdentificationCodeSupported,
+            bool isEducationOrganizationReferenceSupported,
             bool isIdentificationCodeSupported,
+            bool isStaffReferenceSupported,
             IReadOnlyList<string> supportedExtensions
             )
         {
             IsAssigningOrganizationIdentificationCodeSupported = isAssigningOrganizationIdentificationCodeSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
             IsIdentificationCodeSupported = isIdentificationCodeSupported;
+            IsStaffReferenceSupported = isStaffReferenceSupported;
             SupportedExtensions = supportedExtensions;
         }
 
         public bool IsAssigningOrganizationIdentificationCodeSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
         public bool IsIdentificationCodeSupported { get; }
+        public bool IsStaffReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -53754,99 +53000,18 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "AssigningOrganizationIdentificationCode":
                     return IsAssigningOrganizationIdentificationCodeSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
                 case "IdentificationCode":
                     return IsIdentificationCodeSupported;
+                case "StaffReference":
+                    return IsStaffReferenceSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
                 case "StaffIdentificationSystemDescriptor":
                     return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffIdentificationDocument model.
-    /// </summary>
-    public interface IStaffIdentificationDocument : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaff Staff { get; set; }
-        
-        string IdentificationDocumentUseDescriptor { get; set; }
-        
-        string PersonalInformationVerificationDescriptor { get; set; }
-
-        // Non-PK properties
-        DateTime? DocumentExpirationDate { get; set; }
-        string DocumentTitle { get; set; }
-        string IssuerCountryDescriptor { get; set; }
-        string IssuerDocumentIdentificationCode { get; set; }
-        string IssuerName { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffIdentificationDocumentMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffIdentificationDocumentMappingContract(
-            bool isDocumentExpirationDateSupported,
-            bool isDocumentTitleSupported,
-            bool isIssuerCountryDescriptorSupported,
-            bool isIssuerDocumentIdentificationCodeSupported,
-            bool isIssuerNameSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsDocumentExpirationDateSupported = isDocumentExpirationDateSupported;
-            IsDocumentTitleSupported = isDocumentTitleSupported;
-            IsIssuerCountryDescriptorSupported = isIssuerCountryDescriptorSupported;
-            IsIssuerDocumentIdentificationCodeSupported = isIssuerDocumentIdentificationCodeSupported;
-            IsIssuerNameSupported = isIssuerNameSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsDocumentExpirationDateSupported { get; }
-        public bool IsDocumentTitleSupported { get; }
-        public bool IsIssuerCountryDescriptorSupported { get; }
-        public bool IsIssuerDocumentIdentificationCodeSupported { get; }
-        public bool IsIssuerNameSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "DocumentExpirationDate":
-                    return IsDocumentExpirationDateSupported;
-                case "DocumentTitle":
-                    return IsDocumentTitleSupported;
-                case "IssuerCountryDescriptor":
-                    return IsIssuerCountryDescriptorSupported;
-                case "IssuerDocumentIdentificationCode":
-                    return IsIssuerDocumentIdentificationCodeSupported;
-                case "IssuerName":
-                    return IsIssuerNameSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "IdentificationDocumentUseDescriptor":
-                    return true;
-                case "PersonalInformationVerificationDescriptor":
+                case "StaffUniqueId":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -53937,334 +53102,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffIdentity model.
-    /// </summary>
-    public interface IStaffIdentity : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        
-        long EducationOrganizationId { get; set; }
-        
-        string StaffIdentificationSystemDescriptor { get; set; }
-        
-        string StaffUniqueId { get; set; }
-
-        // Non-PK properties
-        string AssigningOrganizationIdentificationCode { get; set; }
-        string IdentificationCode { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-        Guid? StaffResourceId { get; set; }
-        string StaffDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffIdentityMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffIdentityMappingContract(
-            bool isAssigningOrganizationIdentificationCodeSupported,
-            bool isEducationOrganizationReferenceSupported,
-            bool isIdentificationCodeSupported,
-            bool isStaffReferenceSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsAssigningOrganizationIdentificationCodeSupported = isAssigningOrganizationIdentificationCodeSupported;
-            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
-            IsIdentificationCodeSupported = isIdentificationCodeSupported;
-            IsStaffReferenceSupported = isStaffReferenceSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsAssigningOrganizationIdentificationCodeSupported { get; }
-        public bool IsEducationOrganizationReferenceSupported { get; }
-        public bool IsIdentificationCodeSupported { get; }
-        public bool IsStaffReferenceSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "AssigningOrganizationIdentificationCode":
-                    return IsAssigningOrganizationIdentificationCodeSupported;
-                case "EducationOrganizationReference":
-                    return IsEducationOrganizationReferenceSupported;
-                case "IdentificationCode":
-                    return IsIdentificationCodeSupported;
-                case "StaffReference":
-                    return IsStaffReferenceSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "EducationOrganizationId":
-                    return true;
-                case "StaffIdentificationSystemDescriptor":
-                    return true;
-                case "StaffUniqueId":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffInternationalAddress model.
-    /// </summary>
-    public interface IStaffInternationalAddress : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaff Staff { get; set; }
-        
-        string AddressTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        string AddressLine1 { get; set; }
-        string AddressLine2 { get; set; }
-        string AddressLine3 { get; set; }
-        string AddressLine4 { get; set; }
-        DateTime? BeginDate { get; set; }
-        string CountryDescriptor { get; set; }
-        DateTime? EndDate { get; set; }
-        string Latitude { get; set; }
-        string Longitude { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffInternationalAddressMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffInternationalAddressMappingContract(
-            bool isAddressLine1Supported,
-            bool isAddressLine2Supported,
-            bool isAddressLine3Supported,
-            bool isAddressLine4Supported,
-            bool isBeginDateSupported,
-            bool isCountryDescriptorSupported,
-            bool isEndDateSupported,
-            bool isLatitudeSupported,
-            bool isLongitudeSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsAddressLine1Supported = isAddressLine1Supported;
-            IsAddressLine2Supported = isAddressLine2Supported;
-            IsAddressLine3Supported = isAddressLine3Supported;
-            IsAddressLine4Supported = isAddressLine4Supported;
-            IsBeginDateSupported = isBeginDateSupported;
-            IsCountryDescriptorSupported = isCountryDescriptorSupported;
-            IsEndDateSupported = isEndDateSupported;
-            IsLatitudeSupported = isLatitudeSupported;
-            IsLongitudeSupported = isLongitudeSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsAddressLine1Supported { get; }
-        public bool IsAddressLine2Supported { get; }
-        public bool IsAddressLine3Supported { get; }
-        public bool IsAddressLine4Supported { get; }
-        public bool IsBeginDateSupported { get; }
-        public bool IsCountryDescriptorSupported { get; }
-        public bool IsEndDateSupported { get; }
-        public bool IsLatitudeSupported { get; }
-        public bool IsLongitudeSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "AddressLine1":
-                    return IsAddressLine1Supported;
-                case "AddressLine2":
-                    return IsAddressLine2Supported;
-                case "AddressLine3":
-                    return IsAddressLine3Supported;
-                case "AddressLine4":
-                    return IsAddressLine4Supported;
-                case "BeginDate":
-                    return IsBeginDateSupported;
-                case "CountryDescriptor":
-                    return IsCountryDescriptorSupported;
-                case "EndDate":
-                    return IsEndDateSupported;
-                case "Latitude":
-                    return IsLatitudeSupported;
-                case "Longitude":
-                    return IsLongitudeSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "AddressTypeDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffLanguage model.
-    /// </summary>
-    public interface IStaffLanguage : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaff Staff { get; set; }
-        
-        string LanguageDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IStaffLanguageUse> StaffLanguageUses { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffLanguageMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffLanguageMappingContract(
-            bool isStaffLanguageUsesSupported,
-            bool isStaffLanguageUsesItemCreatable,
-            Func<IStaffLanguageUse, bool> isStaffLanguageUseIncluded,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsStaffLanguageUsesSupported = isStaffLanguageUsesSupported;
-            IsStaffLanguageUsesItemCreatable = isStaffLanguageUsesItemCreatable;
-            IsStaffLanguageUseIncluded = isStaffLanguageUseIncluded;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsStaffLanguageUsesSupported { get; }
-        public bool IsStaffLanguageUsesItemCreatable { get; }
-        public Func<IStaffLanguageUse, bool> IsStaffLanguageUseIncluded { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "StaffLanguageUses":
-                    return IsStaffLanguageUsesSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "LanguageDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                case "StaffLanguageUses":
-                    return IsStaffLanguageUsesItemCreatable;
-                default:
-                    throw new Exception($"Unknown child item '{memberName}'.");
-            }
-        }
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffLanguageUse model.
-    /// </summary>
-    public interface IStaffLanguageUse : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaffLanguage StaffLanguage { get; set; }
-        
-        string LanguageUseDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffLanguageUseMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffLanguageUseMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "LanguageUseDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
     }
 
     /// <summary>
@@ -54684,61 +53521,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "ProgramTypeDescriptor":
                     return true;
                 case "StaffUniqueId":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffRace model.
-    /// </summary>
-    public interface IStaffRace : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaff Staff { get; set; }
-        
-        string RaceDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffRaceMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffRaceMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "RaceDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -55250,83 +54032,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffTelephone model.
-    /// </summary>
-    public interface IStaffTelephone : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaff Staff { get; set; }
-        
-        string TelephoneNumber { get; set; }
-        
-        string TelephoneNumberTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        bool? DoNotPublishIndicator { get; set; }
-        int? OrderOfPriority { get; set; }
-        bool? TextMessageCapabilityIndicator { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffTelephoneMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffTelephoneMappingContract(
-            bool isDoNotPublishIndicatorSupported,
-            bool isOrderOfPrioritySupported,
-            bool isTextMessageCapabilityIndicatorSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsDoNotPublishIndicatorSupported = isDoNotPublishIndicatorSupported;
-            IsOrderOfPrioritySupported = isOrderOfPrioritySupported;
-            IsTextMessageCapabilityIndicatorSupported = isTextMessageCapabilityIndicatorSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsDoNotPublishIndicatorSupported { get; }
-        public bool IsOrderOfPrioritySupported { get; }
-        public bool IsTextMessageCapabilityIndicatorSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "DoNotPublishIndicator":
-                    return IsDoNotPublishIndicatorSupported;
-                case "OrderOfPriority":
-                    return IsOrderOfPrioritySupported;
-                case "TextMessageCapabilityIndicator":
-                    return IsTextMessageCapabilityIndicatorSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "TelephoneNumber":
-                    return true;
-                case "TelephoneNumberTypeDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffToCandidateRelationshipDescriptor model.
     /// </summary>
     public interface IStaffToCandidateRelationshipDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -55400,116 +54105,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffTribalAffiliation model.
-    /// </summary>
-    public interface IStaffTribalAffiliation : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaff Staff { get; set; }
-        
-        string TribalAffiliationDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffTribalAffiliationMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffTribalAffiliationMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "TribalAffiliationDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffVisa model.
-    /// </summary>
-    public interface IStaffVisa : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStaff Staff { get; set; }
-        
-        string VisaDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StaffVisaMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StaffVisaMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "VisaDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
     }
 
     /// <summary>
@@ -55618,7 +54213,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public StateEducationAgencyMappingContract(
             bool isEducationOrganizationAddressesSupported,
             bool isEducationOrganizationCategoriesSupported,
-            bool isEducationOrganizationIdentificationCodesSupported,
             bool isEducationOrganizationIndicatorsSupported,
             bool isEducationOrganizationInstitutionTelephonesSupported,
             bool isEducationOrganizationInternationalAddressesSupported,
@@ -55633,8 +54227,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             bool isEducationOrganizationCategoriesItemCreatable,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
-            bool isEducationOrganizationIdentificationCodesItemCreatable,
-            Func<IEducationOrganizationIdentificationCode, bool> isEducationOrganizationIdentificationCodeIncluded,
             bool isEducationOrganizationIndicatorsItemCreatable,
             Func<IEducationOrganizationIndicator, bool> isEducationOrganizationIndicatorIncluded,
             bool isEducationOrganizationInstitutionTelephonesItemCreatable,
@@ -55650,7 +54242,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             IsEducationOrganizationAddressesSupported = isEducationOrganizationAddressesSupported;
             IsEducationOrganizationCategoriesSupported = isEducationOrganizationCategoriesSupported;
-            IsEducationOrganizationIdentificationCodesSupported = isEducationOrganizationIdentificationCodesSupported;
             IsEducationOrganizationIndicatorsSupported = isEducationOrganizationIndicatorsSupported;
             IsEducationOrganizationInstitutionTelephonesSupported = isEducationOrganizationInstitutionTelephonesSupported;
             IsEducationOrganizationInternationalAddressesSupported = isEducationOrganizationInternationalAddressesSupported;
@@ -55665,8 +54256,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoriesItemCreatable = isEducationOrganizationCategoriesItemCreatable;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
-            IsEducationOrganizationIdentificationCodesItemCreatable = isEducationOrganizationIdentificationCodesItemCreatable;
-            IsEducationOrganizationIdentificationCodeIncluded = isEducationOrganizationIdentificationCodeIncluded;
             IsEducationOrganizationIndicatorsItemCreatable = isEducationOrganizationIndicatorsItemCreatable;
             IsEducationOrganizationIndicatorIncluded = isEducationOrganizationIndicatorIncluded;
             IsEducationOrganizationInstitutionTelephonesItemCreatable = isEducationOrganizationInstitutionTelephonesItemCreatable;
@@ -55682,7 +54271,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         public bool IsEducationOrganizationAddressesSupported { get; }
         public bool IsEducationOrganizationCategoriesSupported { get; }
-        public bool IsEducationOrganizationIdentificationCodesSupported { get; }
         public bool IsEducationOrganizationIndicatorsSupported { get; }
         public bool IsEducationOrganizationInstitutionTelephonesSupported { get; }
         public bool IsEducationOrganizationInternationalAddressesSupported { get; }
@@ -55697,8 +54285,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public bool IsEducationOrganizationCategoriesItemCreatable { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
-        public bool IsEducationOrganizationIdentificationCodesItemCreatable { get; }
-        public Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; }
         public bool IsEducationOrganizationIndicatorsItemCreatable { get; }
         public Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; }
         public bool IsEducationOrganizationInstitutionTelephonesItemCreatable { get; }
@@ -55718,8 +54304,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesSupported;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesSupported;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesSupported;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsSupported;
                 case "EducationOrganizationInstitutionTelephones":
@@ -55756,8 +54340,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationAddressesItemCreatable;
                 case "EducationOrganizationCategories":
                     return IsEducationOrganizationCategoriesItemCreatable;
-                case "EducationOrganizationIdentificationCodes":
-                    return IsEducationOrganizationIdentificationCodesItemCreatable;
                 case "EducationOrganizationIndicators":
                     return IsEducationOrganizationIndicatorsItemCreatable;
                 case "EducationOrganizationInstitutionTelephones":
@@ -55925,7 +54507,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string BirthInternationalProvince { get; set; }
         string BirthSexDescriptor { get; set; }
         string BirthStateAbbreviationDescriptor { get; set; }
-        string CitizenshipStatusDescriptor { get; set; }
         DateTime? DateEnteredUS { get; set; }
         string FirstName { get; set; }
         string GenerationCodeSuffix { get; set; }
@@ -55942,10 +54523,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
-        ICollection<IStudentIdentificationDocument> StudentIdentificationDocuments { get; set; }
         ICollection<IStudentOtherName> StudentOtherNames { get; set; }
         ICollection<IStudentPersonalIdentificationDocument> StudentPersonalIdentificationDocuments { get; set; }
-        ICollection<IStudentVisa> StudentVisas { get; set; }
 
         // Resource reference data
         Guid? PersonResourceId { get; set; }
@@ -55965,7 +54544,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isBirthInternationalProvinceSupported,
             bool isBirthSexDescriptorSupported,
             bool isBirthStateAbbreviationDescriptorSupported,
-            bool isCitizenshipStatusDescriptorSupported,
             bool isDateEnteredUSSupported,
             bool isFirstNameSupported,
             bool isGenerationCodeSuffixSupported,
@@ -55979,19 +54557,13 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isPreferredFirstNameSupported,
             bool isPreferredLastSurnameSupported,
             bool isSourceSystemDescriptorSupported,
-            bool isStudentIdentificationDocumentsSupported,
             bool isStudentOtherNamesSupported,
             bool isStudentPersonalIdentificationDocumentsSupported,
             bool isStudentUniqueIdSupported,
-            bool isStudentVisasSupported,
-            bool isStudentIdentificationDocumentsItemCreatable,
-            Func<IStudentIdentificationDocument, bool> isStudentIdentificationDocumentIncluded,
             bool isStudentOtherNamesItemCreatable,
             Func<IStudentOtherName, bool> isStudentOtherNameIncluded,
             bool isStudentPersonalIdentificationDocumentsItemCreatable,
             Func<IStudentPersonalIdentificationDocument, bool> isStudentPersonalIdentificationDocumentIncluded,
-            bool isStudentVisasItemCreatable,
-            Func<IStudentVisa, bool> isStudentVisaIncluded,
             IReadOnlyList<string> supportedExtensions
             )
         {
@@ -56001,7 +54573,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsBirthInternationalProvinceSupported = isBirthInternationalProvinceSupported;
             IsBirthSexDescriptorSupported = isBirthSexDescriptorSupported;
             IsBirthStateAbbreviationDescriptorSupported = isBirthStateAbbreviationDescriptorSupported;
-            IsCitizenshipStatusDescriptorSupported = isCitizenshipStatusDescriptorSupported;
             IsDateEnteredUSSupported = isDateEnteredUSSupported;
             IsFirstNameSupported = isFirstNameSupported;
             IsGenerationCodeSuffixSupported = isGenerationCodeSuffixSupported;
@@ -56015,19 +54586,13 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsPreferredFirstNameSupported = isPreferredFirstNameSupported;
             IsPreferredLastSurnameSupported = isPreferredLastSurnameSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
-            IsStudentIdentificationDocumentsSupported = isStudentIdentificationDocumentsSupported;
             IsStudentOtherNamesSupported = isStudentOtherNamesSupported;
             IsStudentPersonalIdentificationDocumentsSupported = isStudentPersonalIdentificationDocumentsSupported;
             IsStudentUniqueIdSupported = isStudentUniqueIdSupported;
-            IsStudentVisasSupported = isStudentVisasSupported;
-            IsStudentIdentificationDocumentsItemCreatable = isStudentIdentificationDocumentsItemCreatable;
-            IsStudentIdentificationDocumentIncluded = isStudentIdentificationDocumentIncluded;
             IsStudentOtherNamesItemCreatable = isStudentOtherNamesItemCreatable;
             IsStudentOtherNameIncluded = isStudentOtherNameIncluded;
             IsStudentPersonalIdentificationDocumentsItemCreatable = isStudentPersonalIdentificationDocumentsItemCreatable;
             IsStudentPersonalIdentificationDocumentIncluded = isStudentPersonalIdentificationDocumentIncluded;
-            IsStudentVisasItemCreatable = isStudentVisasItemCreatable;
-            IsStudentVisaIncluded = isStudentVisaIncluded;
             SupportedExtensions = supportedExtensions;
         }
 
@@ -56037,7 +54602,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsBirthInternationalProvinceSupported { get; }
         public bool IsBirthSexDescriptorSupported { get; }
         public bool IsBirthStateAbbreviationDescriptorSupported { get; }
-        public bool IsCitizenshipStatusDescriptorSupported { get; }
         public bool IsDateEnteredUSSupported { get; }
         public bool IsFirstNameSupported { get; }
         public bool IsGenerationCodeSuffixSupported { get; }
@@ -56051,19 +54615,13 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsPreferredFirstNameSupported { get; }
         public bool IsPreferredLastSurnameSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
-        public bool IsStudentIdentificationDocumentsSupported { get; }
         public bool IsStudentOtherNamesSupported { get; }
         public bool IsStudentPersonalIdentificationDocumentsSupported { get; }
         public bool IsStudentUniqueIdSupported { get; }
-        public bool IsStudentVisasSupported { get; }
-        public bool IsStudentIdentificationDocumentsItemCreatable { get; }
-        public Func<IStudentIdentificationDocument, bool> IsStudentIdentificationDocumentIncluded { get; }
         public bool IsStudentOtherNamesItemCreatable { get; }
         public Func<IStudentOtherName, bool> IsStudentOtherNameIncluded { get; }
         public bool IsStudentPersonalIdentificationDocumentsItemCreatable { get; }
         public Func<IStudentPersonalIdentificationDocument, bool> IsStudentPersonalIdentificationDocumentIncluded { get; }
-        public bool IsStudentVisasItemCreatable { get; }
-        public Func<IStudentVisa, bool> IsStudentVisaIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -56081,8 +54639,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsBirthSexDescriptorSupported;
                 case "BirthStateAbbreviationDescriptor":
                     return IsBirthStateAbbreviationDescriptorSupported;
-                case "CitizenshipStatusDescriptor":
-                    return IsCitizenshipStatusDescriptorSupported;
                 case "DateEnteredUS":
                     return IsDateEnteredUSSupported;
                 case "FirstName":
@@ -56109,16 +54665,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPreferredLastSurnameSupported;
                 case "SourceSystemDescriptor":
                     return IsSourceSystemDescriptorSupported;
-                case "StudentIdentificationDocuments":
-                    return IsStudentIdentificationDocumentsSupported;
                 case "StudentOtherNames":
                     return IsStudentOtherNamesSupported;
                 case "StudentPersonalIdentificationDocuments":
                     return IsStudentPersonalIdentificationDocumentsSupported;
                 case "StudentUniqueId":
                     return IsStudentUniqueIdSupported;
-                case "StudentVisas":
-                    return IsStudentVisasSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -56129,14 +54681,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
-                case "StudentIdentificationDocuments":
-                    return IsStudentIdentificationDocumentsItemCreatable;
                 case "StudentOtherNames":
                     return IsStudentOtherNamesItemCreatable;
                 case "StudentPersonalIdentificationDocuments":
                     return IsStudentPersonalIdentificationDocumentsItemCreatable;
-                case "StudentVisas":
-                    return IsStudentVisasItemCreatable;
                 default:
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
@@ -59411,6 +57959,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICollection<IStudentDemographicIdentificationDocument> StudentDemographicIdentificationDocuments { get; set; }
         ICollection<IStudentDemographicLanguage> StudentDemographicLanguages { get; set; }
         ICollection<IStudentDemographicRace> StudentDemographicRaces { get; set; }
+        ICollection<IStudentDemographicStudentCharacteristic> StudentDemographicStudentCharacteristics { get; set; }
         ICollection<IStudentDemographicTribalAffiliation> StudentDemographicTribalAffiliations { get; set; }
         ICollection<IStudentDemographicVisa> StudentDemographicVisas { get; set; }
 
@@ -59440,6 +57989,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentDemographicIdentificationDocumentsSupported,
             bool isStudentDemographicLanguagesSupported,
             bool isStudentDemographicRacesSupported,
+            bool isStudentDemographicStudentCharacteristicsSupported,
             bool isStudentDemographicTribalAffiliationsSupported,
             bool isStudentDemographicVisasSupported,
             bool isStudentReferenceSupported,
@@ -59454,6 +58004,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             Func<IStudentDemographicLanguage, bool> isStudentDemographicLanguageIncluded,
             bool isStudentDemographicRacesItemCreatable,
             Func<IStudentDemographicRace, bool> isStudentDemographicRaceIncluded,
+            bool isStudentDemographicStudentCharacteristicsItemCreatable,
+            Func<IStudentDemographicStudentCharacteristic, bool> isStudentDemographicStudentCharacteristicIncluded,
             bool isStudentDemographicTribalAffiliationsItemCreatable,
             Func<IStudentDemographicTribalAffiliation, bool> isStudentDemographicTribalAffiliationIncluded,
             bool isStudentDemographicVisasItemCreatable,
@@ -59473,6 +58025,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentDemographicIdentificationDocumentsSupported = isStudentDemographicIdentificationDocumentsSupported;
             IsStudentDemographicLanguagesSupported = isStudentDemographicLanguagesSupported;
             IsStudentDemographicRacesSupported = isStudentDemographicRacesSupported;
+            IsStudentDemographicStudentCharacteristicsSupported = isStudentDemographicStudentCharacteristicsSupported;
             IsStudentDemographicTribalAffiliationsSupported = isStudentDemographicTribalAffiliationsSupported;
             IsStudentDemographicVisasSupported = isStudentDemographicVisasSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
@@ -59487,6 +58040,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentDemographicLanguageIncluded = isStudentDemographicLanguageIncluded;
             IsStudentDemographicRacesItemCreatable = isStudentDemographicRacesItemCreatable;
             IsStudentDemographicRaceIncluded = isStudentDemographicRaceIncluded;
+            IsStudentDemographicStudentCharacteristicsItemCreatable = isStudentDemographicStudentCharacteristicsItemCreatable;
+            IsStudentDemographicStudentCharacteristicIncluded = isStudentDemographicStudentCharacteristicIncluded;
             IsStudentDemographicTribalAffiliationsItemCreatable = isStudentDemographicTribalAffiliationsItemCreatable;
             IsStudentDemographicTribalAffiliationIncluded = isStudentDemographicTribalAffiliationIncluded;
             IsStudentDemographicVisasItemCreatable = isStudentDemographicVisasItemCreatable;
@@ -59506,6 +58061,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentDemographicIdentificationDocumentsSupported { get; }
         public bool IsStudentDemographicLanguagesSupported { get; }
         public bool IsStudentDemographicRacesSupported { get; }
+        public bool IsStudentDemographicStudentCharacteristicsSupported { get; }
         public bool IsStudentDemographicTribalAffiliationsSupported { get; }
         public bool IsStudentDemographicVisasSupported { get; }
         public bool IsStudentReferenceSupported { get; }
@@ -59520,6 +58076,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public Func<IStudentDemographicLanguage, bool> IsStudentDemographicLanguageIncluded { get; }
         public bool IsStudentDemographicRacesItemCreatable { get; }
         public Func<IStudentDemographicRace, bool> IsStudentDemographicRaceIncluded { get; }
+        public bool IsStudentDemographicStudentCharacteristicsItemCreatable { get; }
+        public Func<IStudentDemographicStudentCharacteristic, bool> IsStudentDemographicStudentCharacteristicIncluded { get; }
         public bool IsStudentDemographicTribalAffiliationsItemCreatable { get; }
         public Func<IStudentDemographicTribalAffiliation, bool> IsStudentDemographicTribalAffiliationIncluded { get; }
         public bool IsStudentDemographicVisasItemCreatable { get; }
@@ -59553,6 +58111,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentDemographicLanguagesSupported;
                 case "StudentDemographicRaces":
                     return IsStudentDemographicRacesSupported;
+                case "StudentDemographicStudentCharacteristics":
+                    return IsStudentDemographicStudentCharacteristicsSupported;
                 case "StudentDemographicTribalAffiliations":
                     return IsStudentDemographicTribalAffiliationsSupported;
                 case "StudentDemographicVisas":
@@ -59585,6 +58145,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentDemographicLanguagesItemCreatable;
                 case "StudentDemographicRaces":
                     return IsStudentDemographicRacesItemCreatable;
+                case "StudentDemographicStudentCharacteristics":
+                    return IsStudentDemographicStudentCharacteristicsItemCreatable;
                 case "StudentDemographicTribalAffiliations":
                     return IsStudentDemographicTribalAffiliationsItemCreatable;
                 case "StudentDemographicVisas":
@@ -60065,6 +58627,149 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RaceDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDemographicStudentCharacteristic model.
+    /// </summary>
+    public interface IStudentDemographicStudentCharacteristic : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentDemographic StudentDemographic { get; set; }
+        
+        string StudentCharacteristicDescriptor { get; set; }
+
+        // Non-PK properties
+        string DesignatedBy { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentDemographicStudentCharacteristicPeriod> StudentDemographicStudentCharacteristicPeriods { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentDemographicStudentCharacteristicMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentDemographicStudentCharacteristicMappingContract(
+            bool isDesignatedBySupported,
+            bool isStudentDemographicStudentCharacteristicPeriodsSupported,
+            bool isStudentDemographicStudentCharacteristicPeriodsItemCreatable,
+            Func<IStudentDemographicStudentCharacteristicPeriod, bool> isStudentDemographicStudentCharacteristicPeriodIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsDesignatedBySupported = isDesignatedBySupported;
+            IsStudentDemographicStudentCharacteristicPeriodsSupported = isStudentDemographicStudentCharacteristicPeriodsSupported;
+            IsStudentDemographicStudentCharacteristicPeriodsItemCreatable = isStudentDemographicStudentCharacteristicPeriodsItemCreatable;
+            IsStudentDemographicStudentCharacteristicPeriodIncluded = isStudentDemographicStudentCharacteristicPeriodIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsDesignatedBySupported { get; }
+        public bool IsStudentDemographicStudentCharacteristicPeriodsSupported { get; }
+        public bool IsStudentDemographicStudentCharacteristicPeriodsItemCreatable { get; }
+        public Func<IStudentDemographicStudentCharacteristicPeriod, bool> IsStudentDemographicStudentCharacteristicPeriodIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "DesignatedBy":
+                    return IsDesignatedBySupported;
+                case "StudentDemographicStudentCharacteristicPeriods":
+                    return IsStudentDemographicStudentCharacteristicPeriodsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "StudentCharacteristicDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentDemographicStudentCharacteristicPeriods":
+                    return IsStudentDemographicStudentCharacteristicPeriodsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDemographicStudentCharacteristicPeriod model.
+    /// </summary>
+    public interface IStudentDemographicStudentCharacteristicPeriod : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentDemographicStudentCharacteristic StudentDemographicStudentCharacteristic { get; set; }
+        
+        DateTime BeginDate { get; set; }
+
+        // Non-PK properties
+        DateTime? EndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentDemographicStudentCharacteristicPeriodMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentDemographicStudentCharacteristicPeriodMappingContract(
+            bool isEndDateSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsEndDateSupported = isEndDateSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsEndDateSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EndDate":
+                    return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -61334,37 +60039,21 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         string BarrierToInternetAccessInResidenceDescriptor { get; set; }
-        string GenderIdentity { get; set; }
-        bool? HispanicLatinoEthnicity { get; set; }
         bool? InternetAccessInResidence { get; set; }
         string InternetAccessTypeInResidenceDescriptor { get; set; }
         string InternetPerformanceInResidenceDescriptor { get; set; }
-        string LimitedEnglishProficiencyDescriptor { get; set; }
         string LoginId { get; set; }
         string PrimaryLearningDeviceAccessDescriptor { get; set; }
         string PrimaryLearningDeviceAwayFromSchoolDescriptor { get; set; }
         string PrimaryLearningDeviceProviderDescriptor { get; set; }
         string ProfileThumbnail { get; set; }
-        string SexDescriptor { get; set; }
-        string SupporterMilitaryConnectionDescriptor { get; set; }
 
         // One-to-one relationships
 
         // Lists
-        ICollection<IStudentEducationOrganizationAssociationAddress> StudentEducationOrganizationAssociationAddresses { get; set; }
-        ICollection<IStudentEducationOrganizationAssociationAncestryEthnicOrigin> StudentEducationOrganizationAssociationAncestryEthnicOrigins { get; set; }
         ICollection<IStudentEducationOrganizationAssociationCohortYear> StudentEducationOrganizationAssociationCohortYears { get; set; }
-        ICollection<IStudentEducationOrganizationAssociationDisability> StudentEducationOrganizationAssociationDisabilities { get; set; }
         ICollection<IStudentEducationOrganizationAssociationDisplacedStudent> StudentEducationOrganizationAssociationDisplacedStudents { get; set; }
-        ICollection<IStudentEducationOrganizationAssociationElectronicMail> StudentEducationOrganizationAssociationElectronicMails { get; set; }
-        ICollection<IStudentEducationOrganizationAssociationInternationalAddress> StudentEducationOrganizationAssociationInternationalAddresses { get; set; }
-        ICollection<IStudentEducationOrganizationAssociationLanguage> StudentEducationOrganizationAssociationLanguages { get; set; }
-        ICollection<IStudentEducationOrganizationAssociationRace> StudentEducationOrganizationAssociationRaces { get; set; }
-        ICollection<IStudentEducationOrganizationAssociationStudentCharacteristic> StudentEducationOrganizationAssociationStudentCharacteristics { get; set; }
-        ICollection<IStudentEducationOrganizationAssociationStudentIdentificationCode> StudentEducationOrganizationAssociationStudentIdentificationCodes { get; set; }
         ICollection<IStudentEducationOrganizationAssociationStudentIndicator> StudentEducationOrganizationAssociationStudentIndicators { get; set; }
-        ICollection<IStudentEducationOrganizationAssociationTelephone> StudentEducationOrganizationAssociationTelephones { get; set; }
-        ICollection<IStudentEducationOrganizationAssociationTribalAffiliation> StudentEducationOrganizationAssociationTribalAffiliations { get; set; }
 
         // Resource reference data
         Guid? EducationOrganizationResourceId { get; set; }
@@ -61382,184 +60071,70 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public StudentEducationOrganizationAssociationMappingContract(
             bool isBarrierToInternetAccessInResidenceDescriptorSupported,
             bool isEducationOrganizationReferenceSupported,
-            bool isGenderIdentitySupported,
-            bool isHispanicLatinoEthnicitySupported,
             bool isInternetAccessInResidenceSupported,
             bool isInternetAccessTypeInResidenceDescriptorSupported,
             bool isInternetPerformanceInResidenceDescriptorSupported,
-            bool isLimitedEnglishProficiencyDescriptorSupported,
             bool isLoginIdSupported,
             bool isPrimaryLearningDeviceAccessDescriptorSupported,
             bool isPrimaryLearningDeviceAwayFromSchoolDescriptorSupported,
             bool isPrimaryLearningDeviceProviderDescriptorSupported,
             bool isProfileThumbnailSupported,
-            bool isSexDescriptorSupported,
-            bool isStudentEducationOrganizationAssociationAddressesSupported,
-            bool isStudentEducationOrganizationAssociationAncestryEthnicOriginsSupported,
             bool isStudentEducationOrganizationAssociationCohortYearsSupported,
-            bool isStudentEducationOrganizationAssociationDisabilitiesSupported,
             bool isStudentEducationOrganizationAssociationDisplacedStudentsSupported,
-            bool isStudentEducationOrganizationAssociationElectronicMailsSupported,
-            bool isStudentEducationOrganizationAssociationInternationalAddressesSupported,
-            bool isStudentEducationOrganizationAssociationLanguagesSupported,
-            bool isStudentEducationOrganizationAssociationRacesSupported,
-            bool isStudentEducationOrganizationAssociationStudentCharacteristicsSupported,
-            bool isStudentEducationOrganizationAssociationStudentIdentificationCodesSupported,
             bool isStudentEducationOrganizationAssociationStudentIndicatorsSupported,
-            bool isStudentEducationOrganizationAssociationTelephonesSupported,
-            bool isStudentEducationOrganizationAssociationTribalAffiliationsSupported,
             bool isStudentReferenceSupported,
-            bool isSupporterMilitaryConnectionDescriptorSupported,
-            bool isStudentEducationOrganizationAssociationAddressesItemCreatable,
-            Func<IStudentEducationOrganizationAssociationAddress, bool> isStudentEducationOrganizationAssociationAddressIncluded,
-            bool isStudentEducationOrganizationAssociationAncestryEthnicOriginsItemCreatable,
-            Func<IStudentEducationOrganizationAssociationAncestryEthnicOrigin, bool> isStudentEducationOrganizationAssociationAncestryEthnicOriginIncluded,
             bool isStudentEducationOrganizationAssociationCohortYearsItemCreatable,
             Func<IStudentEducationOrganizationAssociationCohortYear, bool> isStudentEducationOrganizationAssociationCohortYearIncluded,
-            bool isStudentEducationOrganizationAssociationDisabilitiesItemCreatable,
-            Func<IStudentEducationOrganizationAssociationDisability, bool> isStudentEducationOrganizationAssociationDisabilityIncluded,
             bool isStudentEducationOrganizationAssociationDisplacedStudentsItemCreatable,
             Func<IStudentEducationOrganizationAssociationDisplacedStudent, bool> isStudentEducationOrganizationAssociationDisplacedStudentIncluded,
-            bool isStudentEducationOrganizationAssociationElectronicMailsItemCreatable,
-            Func<IStudentEducationOrganizationAssociationElectronicMail, bool> isStudentEducationOrganizationAssociationElectronicMailIncluded,
-            bool isStudentEducationOrganizationAssociationInternationalAddressesItemCreatable,
-            Func<IStudentEducationOrganizationAssociationInternationalAddress, bool> isStudentEducationOrganizationAssociationInternationalAddressIncluded,
-            bool isStudentEducationOrganizationAssociationLanguagesItemCreatable,
-            Func<IStudentEducationOrganizationAssociationLanguage, bool> isStudentEducationOrganizationAssociationLanguageIncluded,
-            bool isStudentEducationOrganizationAssociationRacesItemCreatable,
-            Func<IStudentEducationOrganizationAssociationRace, bool> isStudentEducationOrganizationAssociationRaceIncluded,
-            bool isStudentEducationOrganizationAssociationStudentCharacteristicsItemCreatable,
-            Func<IStudentEducationOrganizationAssociationStudentCharacteristic, bool> isStudentEducationOrganizationAssociationStudentCharacteristicIncluded,
-            bool isStudentEducationOrganizationAssociationStudentIdentificationCodesItemCreatable,
-            Func<IStudentEducationOrganizationAssociationStudentIdentificationCode, bool> isStudentEducationOrganizationAssociationStudentIdentificationCodeIncluded,
             bool isStudentEducationOrganizationAssociationStudentIndicatorsItemCreatable,
             Func<IStudentEducationOrganizationAssociationStudentIndicator, bool> isStudentEducationOrganizationAssociationStudentIndicatorIncluded,
-            bool isStudentEducationOrganizationAssociationTelephonesItemCreatable,
-            Func<IStudentEducationOrganizationAssociationTelephone, bool> isStudentEducationOrganizationAssociationTelephoneIncluded,
-            bool isStudentEducationOrganizationAssociationTribalAffiliationsItemCreatable,
-            Func<IStudentEducationOrganizationAssociationTribalAffiliation, bool> isStudentEducationOrganizationAssociationTribalAffiliationIncluded,
             IReadOnlyList<string> supportedExtensions
             )
         {
             IsBarrierToInternetAccessInResidenceDescriptorSupported = isBarrierToInternetAccessInResidenceDescriptorSupported;
             IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
-            IsGenderIdentitySupported = isGenderIdentitySupported;
-            IsHispanicLatinoEthnicitySupported = isHispanicLatinoEthnicitySupported;
             IsInternetAccessInResidenceSupported = isInternetAccessInResidenceSupported;
             IsInternetAccessTypeInResidenceDescriptorSupported = isInternetAccessTypeInResidenceDescriptorSupported;
             IsInternetPerformanceInResidenceDescriptorSupported = isInternetPerformanceInResidenceDescriptorSupported;
-            IsLimitedEnglishProficiencyDescriptorSupported = isLimitedEnglishProficiencyDescriptorSupported;
             IsLoginIdSupported = isLoginIdSupported;
             IsPrimaryLearningDeviceAccessDescriptorSupported = isPrimaryLearningDeviceAccessDescriptorSupported;
             IsPrimaryLearningDeviceAwayFromSchoolDescriptorSupported = isPrimaryLearningDeviceAwayFromSchoolDescriptorSupported;
             IsPrimaryLearningDeviceProviderDescriptorSupported = isPrimaryLearningDeviceProviderDescriptorSupported;
             IsProfileThumbnailSupported = isProfileThumbnailSupported;
-            IsSexDescriptorSupported = isSexDescriptorSupported;
-            IsStudentEducationOrganizationAssociationAddressesSupported = isStudentEducationOrganizationAssociationAddressesSupported;
-            IsStudentEducationOrganizationAssociationAncestryEthnicOriginsSupported = isStudentEducationOrganizationAssociationAncestryEthnicOriginsSupported;
             IsStudentEducationOrganizationAssociationCohortYearsSupported = isStudentEducationOrganizationAssociationCohortYearsSupported;
-            IsStudentEducationOrganizationAssociationDisabilitiesSupported = isStudentEducationOrganizationAssociationDisabilitiesSupported;
             IsStudentEducationOrganizationAssociationDisplacedStudentsSupported = isStudentEducationOrganizationAssociationDisplacedStudentsSupported;
-            IsStudentEducationOrganizationAssociationElectronicMailsSupported = isStudentEducationOrganizationAssociationElectronicMailsSupported;
-            IsStudentEducationOrganizationAssociationInternationalAddressesSupported = isStudentEducationOrganizationAssociationInternationalAddressesSupported;
-            IsStudentEducationOrganizationAssociationLanguagesSupported = isStudentEducationOrganizationAssociationLanguagesSupported;
-            IsStudentEducationOrganizationAssociationRacesSupported = isStudentEducationOrganizationAssociationRacesSupported;
-            IsStudentEducationOrganizationAssociationStudentCharacteristicsSupported = isStudentEducationOrganizationAssociationStudentCharacteristicsSupported;
-            IsStudentEducationOrganizationAssociationStudentIdentificationCodesSupported = isStudentEducationOrganizationAssociationStudentIdentificationCodesSupported;
             IsStudentEducationOrganizationAssociationStudentIndicatorsSupported = isStudentEducationOrganizationAssociationStudentIndicatorsSupported;
-            IsStudentEducationOrganizationAssociationTelephonesSupported = isStudentEducationOrganizationAssociationTelephonesSupported;
-            IsStudentEducationOrganizationAssociationTribalAffiliationsSupported = isStudentEducationOrganizationAssociationTribalAffiliationsSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
-            IsSupporterMilitaryConnectionDescriptorSupported = isSupporterMilitaryConnectionDescriptorSupported;
-            IsStudentEducationOrganizationAssociationAddressesItemCreatable = isStudentEducationOrganizationAssociationAddressesItemCreatable;
-            IsStudentEducationOrganizationAssociationAddressIncluded = isStudentEducationOrganizationAssociationAddressIncluded;
-            IsStudentEducationOrganizationAssociationAncestryEthnicOriginsItemCreatable = isStudentEducationOrganizationAssociationAncestryEthnicOriginsItemCreatable;
-            IsStudentEducationOrganizationAssociationAncestryEthnicOriginIncluded = isStudentEducationOrganizationAssociationAncestryEthnicOriginIncluded;
             IsStudentEducationOrganizationAssociationCohortYearsItemCreatable = isStudentEducationOrganizationAssociationCohortYearsItemCreatable;
             IsStudentEducationOrganizationAssociationCohortYearIncluded = isStudentEducationOrganizationAssociationCohortYearIncluded;
-            IsStudentEducationOrganizationAssociationDisabilitiesItemCreatable = isStudentEducationOrganizationAssociationDisabilitiesItemCreatable;
-            IsStudentEducationOrganizationAssociationDisabilityIncluded = isStudentEducationOrganizationAssociationDisabilityIncluded;
             IsStudentEducationOrganizationAssociationDisplacedStudentsItemCreatable = isStudentEducationOrganizationAssociationDisplacedStudentsItemCreatable;
             IsStudentEducationOrganizationAssociationDisplacedStudentIncluded = isStudentEducationOrganizationAssociationDisplacedStudentIncluded;
-            IsStudentEducationOrganizationAssociationElectronicMailsItemCreatable = isStudentEducationOrganizationAssociationElectronicMailsItemCreatable;
-            IsStudentEducationOrganizationAssociationElectronicMailIncluded = isStudentEducationOrganizationAssociationElectronicMailIncluded;
-            IsStudentEducationOrganizationAssociationInternationalAddressesItemCreatable = isStudentEducationOrganizationAssociationInternationalAddressesItemCreatable;
-            IsStudentEducationOrganizationAssociationInternationalAddressIncluded = isStudentEducationOrganizationAssociationInternationalAddressIncluded;
-            IsStudentEducationOrganizationAssociationLanguagesItemCreatable = isStudentEducationOrganizationAssociationLanguagesItemCreatable;
-            IsStudentEducationOrganizationAssociationLanguageIncluded = isStudentEducationOrganizationAssociationLanguageIncluded;
-            IsStudentEducationOrganizationAssociationRacesItemCreatable = isStudentEducationOrganizationAssociationRacesItemCreatable;
-            IsStudentEducationOrganizationAssociationRaceIncluded = isStudentEducationOrganizationAssociationRaceIncluded;
-            IsStudentEducationOrganizationAssociationStudentCharacteristicsItemCreatable = isStudentEducationOrganizationAssociationStudentCharacteristicsItemCreatable;
-            IsStudentEducationOrganizationAssociationStudentCharacteristicIncluded = isStudentEducationOrganizationAssociationStudentCharacteristicIncluded;
-            IsStudentEducationOrganizationAssociationStudentIdentificationCodesItemCreatable = isStudentEducationOrganizationAssociationStudentIdentificationCodesItemCreatable;
-            IsStudentEducationOrganizationAssociationStudentIdentificationCodeIncluded = isStudentEducationOrganizationAssociationStudentIdentificationCodeIncluded;
             IsStudentEducationOrganizationAssociationStudentIndicatorsItemCreatable = isStudentEducationOrganizationAssociationStudentIndicatorsItemCreatable;
             IsStudentEducationOrganizationAssociationStudentIndicatorIncluded = isStudentEducationOrganizationAssociationStudentIndicatorIncluded;
-            IsStudentEducationOrganizationAssociationTelephonesItemCreatable = isStudentEducationOrganizationAssociationTelephonesItemCreatable;
-            IsStudentEducationOrganizationAssociationTelephoneIncluded = isStudentEducationOrganizationAssociationTelephoneIncluded;
-            IsStudentEducationOrganizationAssociationTribalAffiliationsItemCreatable = isStudentEducationOrganizationAssociationTribalAffiliationsItemCreatable;
-            IsStudentEducationOrganizationAssociationTribalAffiliationIncluded = isStudentEducationOrganizationAssociationTribalAffiliationIncluded;
             SupportedExtensions = supportedExtensions;
         }
 
         public bool IsBarrierToInternetAccessInResidenceDescriptorSupported { get; }
         public bool IsEducationOrganizationReferenceSupported { get; }
-        public bool IsGenderIdentitySupported { get; }
-        public bool IsHispanicLatinoEthnicitySupported { get; }
         public bool IsInternetAccessInResidenceSupported { get; }
         public bool IsInternetAccessTypeInResidenceDescriptorSupported { get; }
         public bool IsInternetPerformanceInResidenceDescriptorSupported { get; }
-        public bool IsLimitedEnglishProficiencyDescriptorSupported { get; }
         public bool IsLoginIdSupported { get; }
         public bool IsPrimaryLearningDeviceAccessDescriptorSupported { get; }
         public bool IsPrimaryLearningDeviceAwayFromSchoolDescriptorSupported { get; }
         public bool IsPrimaryLearningDeviceProviderDescriptorSupported { get; }
         public bool IsProfileThumbnailSupported { get; }
-        public bool IsSexDescriptorSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationAddressesSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationAncestryEthnicOriginsSupported { get; }
         public bool IsStudentEducationOrganizationAssociationCohortYearsSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationDisabilitiesSupported { get; }
         public bool IsStudentEducationOrganizationAssociationDisplacedStudentsSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationElectronicMailsSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationInternationalAddressesSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationLanguagesSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationRacesSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationStudentCharacteristicsSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationStudentIdentificationCodesSupported { get; }
         public bool IsStudentEducationOrganizationAssociationStudentIndicatorsSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationTelephonesSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationTribalAffiliationsSupported { get; }
         public bool IsStudentReferenceSupported { get; }
-        public bool IsSupporterMilitaryConnectionDescriptorSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationAddressesItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationAddress, bool> IsStudentEducationOrganizationAssociationAddressIncluded { get; }
-        public bool IsStudentEducationOrganizationAssociationAncestryEthnicOriginsItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationAncestryEthnicOrigin, bool> IsStudentEducationOrganizationAssociationAncestryEthnicOriginIncluded { get; }
         public bool IsStudentEducationOrganizationAssociationCohortYearsItemCreatable { get; }
         public Func<IStudentEducationOrganizationAssociationCohortYear, bool> IsStudentEducationOrganizationAssociationCohortYearIncluded { get; }
-        public bool IsStudentEducationOrganizationAssociationDisabilitiesItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationDisability, bool> IsStudentEducationOrganizationAssociationDisabilityIncluded { get; }
         public bool IsStudentEducationOrganizationAssociationDisplacedStudentsItemCreatable { get; }
         public Func<IStudentEducationOrganizationAssociationDisplacedStudent, bool> IsStudentEducationOrganizationAssociationDisplacedStudentIncluded { get; }
-        public bool IsStudentEducationOrganizationAssociationElectronicMailsItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationElectronicMail, bool> IsStudentEducationOrganizationAssociationElectronicMailIncluded { get; }
-        public bool IsStudentEducationOrganizationAssociationInternationalAddressesItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationInternationalAddress, bool> IsStudentEducationOrganizationAssociationInternationalAddressIncluded { get; }
-        public bool IsStudentEducationOrganizationAssociationLanguagesItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationLanguage, bool> IsStudentEducationOrganizationAssociationLanguageIncluded { get; }
-        public bool IsStudentEducationOrganizationAssociationRacesItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationRace, bool> IsStudentEducationOrganizationAssociationRaceIncluded { get; }
-        public bool IsStudentEducationOrganizationAssociationStudentCharacteristicsItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationStudentCharacteristic, bool> IsStudentEducationOrganizationAssociationStudentCharacteristicIncluded { get; }
-        public bool IsStudentEducationOrganizationAssociationStudentIdentificationCodesItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationStudentIdentificationCode, bool> IsStudentEducationOrganizationAssociationStudentIdentificationCodeIncluded { get; }
         public bool IsStudentEducationOrganizationAssociationStudentIndicatorsItemCreatable { get; }
         public Func<IStudentEducationOrganizationAssociationStudentIndicator, bool> IsStudentEducationOrganizationAssociationStudentIndicatorIncluded { get; }
-        public bool IsStudentEducationOrganizationAssociationTelephonesItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationTelephone, bool> IsStudentEducationOrganizationAssociationTelephoneIncluded { get; }
-        public bool IsStudentEducationOrganizationAssociationTribalAffiliationsItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationTribalAffiliation, bool> IsStudentEducationOrganizationAssociationTribalAffiliationIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -61569,18 +60144,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsBarrierToInternetAccessInResidenceDescriptorSupported;
                 case "EducationOrganizationReference":
                     return IsEducationOrganizationReferenceSupported;
-                case "GenderIdentity":
-                    return IsGenderIdentitySupported;
-                case "HispanicLatinoEthnicity":
-                    return IsHispanicLatinoEthnicitySupported;
                 case "InternetAccessInResidence":
                     return IsInternetAccessInResidenceSupported;
                 case "InternetAccessTypeInResidenceDescriptor":
                     return IsInternetAccessTypeInResidenceDescriptorSupported;
                 case "InternetPerformanceInResidenceDescriptor":
                     return IsInternetPerformanceInResidenceDescriptorSupported;
-                case "LimitedEnglishProficiencyDescriptor":
-                    return IsLimitedEnglishProficiencyDescriptorSupported;
                 case "LoginId":
                     return IsLoginIdSupported;
                 case "PrimaryLearningDeviceAccessDescriptor":
@@ -61591,40 +60160,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPrimaryLearningDeviceProviderDescriptorSupported;
                 case "ProfileThumbnail":
                     return IsProfileThumbnailSupported;
-                case "SexDescriptor":
-                    return IsSexDescriptorSupported;
-                case "StudentEducationOrganizationAssociationAddresses":
-                    return IsStudentEducationOrganizationAssociationAddressesSupported;
-                case "StudentEducationOrganizationAssociationAncestryEthnicOrigins":
-                    return IsStudentEducationOrganizationAssociationAncestryEthnicOriginsSupported;
                 case "StudentEducationOrganizationAssociationCohortYears":
                     return IsStudentEducationOrganizationAssociationCohortYearsSupported;
-                case "StudentEducationOrganizationAssociationDisabilities":
-                    return IsStudentEducationOrganizationAssociationDisabilitiesSupported;
                 case "StudentEducationOrganizationAssociationDisplacedStudents":
                     return IsStudentEducationOrganizationAssociationDisplacedStudentsSupported;
-                case "StudentEducationOrganizationAssociationElectronicMails":
-                    return IsStudentEducationOrganizationAssociationElectronicMailsSupported;
-                case "StudentEducationOrganizationAssociationInternationalAddresses":
-                    return IsStudentEducationOrganizationAssociationInternationalAddressesSupported;
-                case "StudentEducationOrganizationAssociationLanguages":
-                    return IsStudentEducationOrganizationAssociationLanguagesSupported;
-                case "StudentEducationOrganizationAssociationRaces":
-                    return IsStudentEducationOrganizationAssociationRacesSupported;
-                case "StudentEducationOrganizationAssociationStudentCharacteristics":
-                    return IsStudentEducationOrganizationAssociationStudentCharacteristicsSupported;
-                case "StudentEducationOrganizationAssociationStudentIdentificationCodes":
-                    return IsStudentEducationOrganizationAssociationStudentIdentificationCodesSupported;
                 case "StudentEducationOrganizationAssociationStudentIndicators":
                     return IsStudentEducationOrganizationAssociationStudentIndicatorsSupported;
-                case "StudentEducationOrganizationAssociationTelephones":
-                    return IsStudentEducationOrganizationAssociationTelephonesSupported;
-                case "StudentEducationOrganizationAssociationTribalAffiliations":
-                    return IsStudentEducationOrganizationAssociationTribalAffiliationsSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
-                case "SupporterMilitaryConnectionDescriptor":
-                    return IsSupporterMilitaryConnectionDescriptorSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
                     return true;
@@ -61639,300 +60182,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
-                case "StudentEducationOrganizationAssociationAddresses":
-                    return IsStudentEducationOrganizationAssociationAddressesItemCreatable;
-                case "StudentEducationOrganizationAssociationAncestryEthnicOrigins":
-                    return IsStudentEducationOrganizationAssociationAncestryEthnicOriginsItemCreatable;
                 case "StudentEducationOrganizationAssociationCohortYears":
                     return IsStudentEducationOrganizationAssociationCohortYearsItemCreatable;
-                case "StudentEducationOrganizationAssociationDisabilities":
-                    return IsStudentEducationOrganizationAssociationDisabilitiesItemCreatable;
                 case "StudentEducationOrganizationAssociationDisplacedStudents":
                     return IsStudentEducationOrganizationAssociationDisplacedStudentsItemCreatable;
-                case "StudentEducationOrganizationAssociationElectronicMails":
-                    return IsStudentEducationOrganizationAssociationElectronicMailsItemCreatable;
-                case "StudentEducationOrganizationAssociationInternationalAddresses":
-                    return IsStudentEducationOrganizationAssociationInternationalAddressesItemCreatable;
-                case "StudentEducationOrganizationAssociationLanguages":
-                    return IsStudentEducationOrganizationAssociationLanguagesItemCreatable;
-                case "StudentEducationOrganizationAssociationRaces":
-                    return IsStudentEducationOrganizationAssociationRacesItemCreatable;
-                case "StudentEducationOrganizationAssociationStudentCharacteristics":
-                    return IsStudentEducationOrganizationAssociationStudentCharacteristicsItemCreatable;
-                case "StudentEducationOrganizationAssociationStudentIdentificationCodes":
-                    return IsStudentEducationOrganizationAssociationStudentIdentificationCodesItemCreatable;
                 case "StudentEducationOrganizationAssociationStudentIndicators":
                     return IsStudentEducationOrganizationAssociationStudentIndicatorsItemCreatable;
-                case "StudentEducationOrganizationAssociationTelephones":
-                    return IsStudentEducationOrganizationAssociationTelephonesItemCreatable;
-                case "StudentEducationOrganizationAssociationTribalAffiliations":
-                    return IsStudentEducationOrganizationAssociationTribalAffiliationsItemCreatable;
                 default:
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationAddress model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationAddress : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string AddressTypeDescriptor { get; set; }
-        
-        string City { get; set; }
-        
-        string PostalCode { get; set; }
-        
-        string StateAbbreviationDescriptor { get; set; }
-        
-        string StreetNumberName { get; set; }
-
-        // Non-PK properties
-        string ApartmentRoomSuiteNumber { get; set; }
-        string BuildingSiteNumber { get; set; }
-        string CongressionalDistrict { get; set; }
-        string CountyFIPSCode { get; set; }
-        bool? DoNotPublishIndicator { get; set; }
-        string Latitude { get; set; }
-        string LocaleDescriptor { get; set; }
-        string Longitude { get; set; }
-        string NameOfCounty { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IStudentEducationOrganizationAssociationAddressPeriod> StudentEducationOrganizationAssociationAddressPeriods { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationAddressMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationAddressMappingContract(
-            bool isApartmentRoomSuiteNumberSupported,
-            bool isBuildingSiteNumberSupported,
-            bool isCongressionalDistrictSupported,
-            bool isCountyFIPSCodeSupported,
-            bool isDoNotPublishIndicatorSupported,
-            bool isLatitudeSupported,
-            bool isLocaleDescriptorSupported,
-            bool isLongitudeSupported,
-            bool isNameOfCountySupported,
-            bool isStudentEducationOrganizationAssociationAddressPeriodsSupported,
-            bool isStudentEducationOrganizationAssociationAddressPeriodsItemCreatable,
-            Func<IStudentEducationOrganizationAssociationAddressPeriod, bool> isStudentEducationOrganizationAssociationAddressPeriodIncluded,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsApartmentRoomSuiteNumberSupported = isApartmentRoomSuiteNumberSupported;
-            IsBuildingSiteNumberSupported = isBuildingSiteNumberSupported;
-            IsCongressionalDistrictSupported = isCongressionalDistrictSupported;
-            IsCountyFIPSCodeSupported = isCountyFIPSCodeSupported;
-            IsDoNotPublishIndicatorSupported = isDoNotPublishIndicatorSupported;
-            IsLatitudeSupported = isLatitudeSupported;
-            IsLocaleDescriptorSupported = isLocaleDescriptorSupported;
-            IsLongitudeSupported = isLongitudeSupported;
-            IsNameOfCountySupported = isNameOfCountySupported;
-            IsStudentEducationOrganizationAssociationAddressPeriodsSupported = isStudentEducationOrganizationAssociationAddressPeriodsSupported;
-            IsStudentEducationOrganizationAssociationAddressPeriodsItemCreatable = isStudentEducationOrganizationAssociationAddressPeriodsItemCreatable;
-            IsStudentEducationOrganizationAssociationAddressPeriodIncluded = isStudentEducationOrganizationAssociationAddressPeriodIncluded;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsApartmentRoomSuiteNumberSupported { get; }
-        public bool IsBuildingSiteNumberSupported { get; }
-        public bool IsCongressionalDistrictSupported { get; }
-        public bool IsCountyFIPSCodeSupported { get; }
-        public bool IsDoNotPublishIndicatorSupported { get; }
-        public bool IsLatitudeSupported { get; }
-        public bool IsLocaleDescriptorSupported { get; }
-        public bool IsLongitudeSupported { get; }
-        public bool IsNameOfCountySupported { get; }
-        public bool IsStudentEducationOrganizationAssociationAddressPeriodsSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationAddressPeriodsItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationAddressPeriod, bool> IsStudentEducationOrganizationAssociationAddressPeriodIncluded { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "ApartmentRoomSuiteNumber":
-                    return IsApartmentRoomSuiteNumberSupported;
-                case "BuildingSiteNumber":
-                    return IsBuildingSiteNumberSupported;
-                case "CongressionalDistrict":
-                    return IsCongressionalDistrictSupported;
-                case "CountyFIPSCode":
-                    return IsCountyFIPSCodeSupported;
-                case "DoNotPublishIndicator":
-                    return IsDoNotPublishIndicatorSupported;
-                case "Latitude":
-                    return IsLatitudeSupported;
-                case "LocaleDescriptor":
-                    return IsLocaleDescriptorSupported;
-                case "Longitude":
-                    return IsLongitudeSupported;
-                case "NameOfCounty":
-                    return IsNameOfCountySupported;
-                case "StudentEducationOrganizationAssociationAddressPeriods":
-                    return IsStudentEducationOrganizationAssociationAddressPeriodsSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "AddressTypeDescriptor":
-                    return true;
-                case "City":
-                    return true;
-                case "PostalCode":
-                    return true;
-                case "StateAbbreviationDescriptor":
-                    return true;
-                case "StreetNumberName":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                case "StudentEducationOrganizationAssociationAddressPeriods":
-                    return IsStudentEducationOrganizationAssociationAddressPeriodsItemCreatable;
-                default:
-                    throw new Exception($"Unknown child item '{memberName}'.");
-            }
-        }
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationAddressPeriod model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationAddressPeriod : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociationAddress StudentEducationOrganizationAssociationAddress { get; set; }
-        
-        DateTime BeginDate { get; set; }
-
-        // Non-PK properties
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationAddressPeriodMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationAddressPeriodMappingContract(
-            bool isEndDateSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsEndDateSupported = isEndDateSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsEndDateSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "EndDate":
-                    return IsEndDateSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "BeginDate":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationAncestryEthnicOrigin model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationAncestryEthnicOrigin : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string AncestryEthnicOriginDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationAncestryEthnicOriginMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationAncestryEthnicOriginMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "AncestryEthnicOriginDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
         public IReadOnlyList<string> SupportedExtensions { get; }
 
@@ -61997,155 +60256,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "CohortYearTypeDescriptor":
                     return true;
                 case "SchoolYear":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationDisability model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationDisability : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string DisabilityDescriptor { get; set; }
-
-        // Non-PK properties
-        string DisabilityDeterminationSourceTypeDescriptor { get; set; }
-        string DisabilityDiagnosis { get; set; }
-        int? OrderOfDisability { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IStudentEducationOrganizationAssociationDisabilityDesignation> StudentEducationOrganizationAssociationDisabilityDesignations { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationDisabilityMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationDisabilityMappingContract(
-            bool isDisabilityDeterminationSourceTypeDescriptorSupported,
-            bool isDisabilityDiagnosisSupported,
-            bool isOrderOfDisabilitySupported,
-            bool isStudentEducationOrganizationAssociationDisabilityDesignationsSupported,
-            bool isStudentEducationOrganizationAssociationDisabilityDesignationsItemCreatable,
-            Func<IStudentEducationOrganizationAssociationDisabilityDesignation, bool> isStudentEducationOrganizationAssociationDisabilityDesignationIncluded,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsDisabilityDeterminationSourceTypeDescriptorSupported = isDisabilityDeterminationSourceTypeDescriptorSupported;
-            IsDisabilityDiagnosisSupported = isDisabilityDiagnosisSupported;
-            IsOrderOfDisabilitySupported = isOrderOfDisabilitySupported;
-            IsStudentEducationOrganizationAssociationDisabilityDesignationsSupported = isStudentEducationOrganizationAssociationDisabilityDesignationsSupported;
-            IsStudentEducationOrganizationAssociationDisabilityDesignationsItemCreatable = isStudentEducationOrganizationAssociationDisabilityDesignationsItemCreatable;
-            IsStudentEducationOrganizationAssociationDisabilityDesignationIncluded = isStudentEducationOrganizationAssociationDisabilityDesignationIncluded;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsDisabilityDeterminationSourceTypeDescriptorSupported { get; }
-        public bool IsDisabilityDiagnosisSupported { get; }
-        public bool IsOrderOfDisabilitySupported { get; }
-        public bool IsStudentEducationOrganizationAssociationDisabilityDesignationsSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationDisabilityDesignationsItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationDisabilityDesignation, bool> IsStudentEducationOrganizationAssociationDisabilityDesignationIncluded { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "DisabilityDeterminationSourceTypeDescriptor":
-                    return IsDisabilityDeterminationSourceTypeDescriptorSupported;
-                case "DisabilityDiagnosis":
-                    return IsDisabilityDiagnosisSupported;
-                case "OrderOfDisability":
-                    return IsOrderOfDisabilitySupported;
-                case "StudentEducationOrganizationAssociationDisabilityDesignations":
-                    return IsStudentEducationOrganizationAssociationDisabilityDesignationsSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "DisabilityDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                case "StudentEducationOrganizationAssociationDisabilityDesignations":
-                    return IsStudentEducationOrganizationAssociationDisabilityDesignationsItemCreatable;
-                default:
-                    throw new Exception($"Unknown child item '{memberName}'.");
-            }
-        }
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationDisabilityDesignation model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationDisabilityDesignation : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociationDisability StudentEducationOrganizationAssociationDisability { get; set; }
-        
-        string DisabilityDesignationDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationDisabilityDesignationMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationDisabilityDesignationMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "DisabilityDesignationDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -62232,580 +60342,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsDisplacedStudentStatusDescriptorSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CrisisEventName":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationElectronicMail model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationElectronicMail : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string ElectronicMailAddress { get; set; }
-        
-        string ElectronicMailTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        bool? DoNotPublishIndicator { get; set; }
-        bool? PrimaryEmailAddressIndicator { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationElectronicMailMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationElectronicMailMappingContract(
-            bool isDoNotPublishIndicatorSupported,
-            bool isPrimaryEmailAddressIndicatorSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsDoNotPublishIndicatorSupported = isDoNotPublishIndicatorSupported;
-            IsPrimaryEmailAddressIndicatorSupported = isPrimaryEmailAddressIndicatorSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsDoNotPublishIndicatorSupported { get; }
-        public bool IsPrimaryEmailAddressIndicatorSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "DoNotPublishIndicator":
-                    return IsDoNotPublishIndicatorSupported;
-                case "PrimaryEmailAddressIndicator":
-                    return IsPrimaryEmailAddressIndicatorSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "ElectronicMailAddress":
-                    return true;
-                case "ElectronicMailTypeDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationInternationalAddress model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationInternationalAddress : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string AddressTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        string AddressLine1 { get; set; }
-        string AddressLine2 { get; set; }
-        string AddressLine3 { get; set; }
-        string AddressLine4 { get; set; }
-        DateTime? BeginDate { get; set; }
-        string CountryDescriptor { get; set; }
-        DateTime? EndDate { get; set; }
-        string Latitude { get; set; }
-        string Longitude { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationInternationalAddressMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationInternationalAddressMappingContract(
-            bool isAddressLine1Supported,
-            bool isAddressLine2Supported,
-            bool isAddressLine3Supported,
-            bool isAddressLine4Supported,
-            bool isBeginDateSupported,
-            bool isCountryDescriptorSupported,
-            bool isEndDateSupported,
-            bool isLatitudeSupported,
-            bool isLongitudeSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsAddressLine1Supported = isAddressLine1Supported;
-            IsAddressLine2Supported = isAddressLine2Supported;
-            IsAddressLine3Supported = isAddressLine3Supported;
-            IsAddressLine4Supported = isAddressLine4Supported;
-            IsBeginDateSupported = isBeginDateSupported;
-            IsCountryDescriptorSupported = isCountryDescriptorSupported;
-            IsEndDateSupported = isEndDateSupported;
-            IsLatitudeSupported = isLatitudeSupported;
-            IsLongitudeSupported = isLongitudeSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsAddressLine1Supported { get; }
-        public bool IsAddressLine2Supported { get; }
-        public bool IsAddressLine3Supported { get; }
-        public bool IsAddressLine4Supported { get; }
-        public bool IsBeginDateSupported { get; }
-        public bool IsCountryDescriptorSupported { get; }
-        public bool IsEndDateSupported { get; }
-        public bool IsLatitudeSupported { get; }
-        public bool IsLongitudeSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "AddressLine1":
-                    return IsAddressLine1Supported;
-                case "AddressLine2":
-                    return IsAddressLine2Supported;
-                case "AddressLine3":
-                    return IsAddressLine3Supported;
-                case "AddressLine4":
-                    return IsAddressLine4Supported;
-                case "BeginDate":
-                    return IsBeginDateSupported;
-                case "CountryDescriptor":
-                    return IsCountryDescriptorSupported;
-                case "EndDate":
-                    return IsEndDateSupported;
-                case "Latitude":
-                    return IsLatitudeSupported;
-                case "Longitude":
-                    return IsLongitudeSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "AddressTypeDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationLanguage model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationLanguage : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string LanguageDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IStudentEducationOrganizationAssociationLanguageUse> StudentEducationOrganizationAssociationLanguageUses { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationLanguageMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationLanguageMappingContract(
-            bool isStudentEducationOrganizationAssociationLanguageUsesSupported,
-            bool isStudentEducationOrganizationAssociationLanguageUsesItemCreatable,
-            Func<IStudentEducationOrganizationAssociationLanguageUse, bool> isStudentEducationOrganizationAssociationLanguageUseIncluded,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsStudentEducationOrganizationAssociationLanguageUsesSupported = isStudentEducationOrganizationAssociationLanguageUsesSupported;
-            IsStudentEducationOrganizationAssociationLanguageUsesItemCreatable = isStudentEducationOrganizationAssociationLanguageUsesItemCreatable;
-            IsStudentEducationOrganizationAssociationLanguageUseIncluded = isStudentEducationOrganizationAssociationLanguageUseIncluded;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsStudentEducationOrganizationAssociationLanguageUsesSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationLanguageUsesItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationLanguageUse, bool> IsStudentEducationOrganizationAssociationLanguageUseIncluded { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "StudentEducationOrganizationAssociationLanguageUses":
-                    return IsStudentEducationOrganizationAssociationLanguageUsesSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "LanguageDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                case "StudentEducationOrganizationAssociationLanguageUses":
-                    return IsStudentEducationOrganizationAssociationLanguageUsesItemCreatable;
-                default:
-                    throw new Exception($"Unknown child item '{memberName}'.");
-            }
-        }
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationLanguageUse model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationLanguageUse : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociationLanguage StudentEducationOrganizationAssociationLanguage { get; set; }
-        
-        string LanguageUseDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationLanguageUseMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationLanguageUseMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "LanguageUseDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationRace model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationRace : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string RaceDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationRaceMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationRaceMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "RaceDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationStudentCharacteristic model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationStudentCharacteristic : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string StudentCharacteristicDescriptor { get; set; }
-
-        // Non-PK properties
-        string DesignatedBy { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IStudentEducationOrganizationAssociationStudentCharacteristicPeriod> StudentEducationOrganizationAssociationStudentCharacteristicPeriods { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationStudentCharacteristicMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationStudentCharacteristicMappingContract(
-            bool isDesignatedBySupported,
-            bool isStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported,
-            bool isStudentEducationOrganizationAssociationStudentCharacteristicPeriodsItemCreatable,
-            Func<IStudentEducationOrganizationAssociationStudentCharacteristicPeriod, bool> isStudentEducationOrganizationAssociationStudentCharacteristicPeriodIncluded,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsDesignatedBySupported = isDesignatedBySupported;
-            IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported = isStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported;
-            IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodsItemCreatable = isStudentEducationOrganizationAssociationStudentCharacteristicPeriodsItemCreatable;
-            IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodIncluded = isStudentEducationOrganizationAssociationStudentCharacteristicPeriodIncluded;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsDesignatedBySupported { get; }
-        public bool IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported { get; }
-        public bool IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodsItemCreatable { get; }
-        public Func<IStudentEducationOrganizationAssociationStudentCharacteristicPeriod, bool> IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodIncluded { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "DesignatedBy":
-                    return IsDesignatedBySupported;
-                case "StudentEducationOrganizationAssociationStudentCharacteristicPeriods":
-                    return IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "StudentCharacteristicDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                case "StudentEducationOrganizationAssociationStudentCharacteristicPeriods":
-                    return IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodsItemCreatable;
-                default:
-                    throw new Exception($"Unknown child item '{memberName}'.");
-            }
-        }
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationStudentCharacteristicPeriod model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationStudentCharacteristicPeriod : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociationStudentCharacteristic StudentEducationOrganizationAssociationStudentCharacteristic { get; set; }
-        
-        DateTime BeginDate { get; set; }
-
-        // Non-PK properties
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationStudentCharacteristicPeriodMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationStudentCharacteristicPeriodMappingContract(
-            bool isEndDateSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsEndDateSupported = isEndDateSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsEndDateSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "EndDate":
-                    return IsEndDateSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "BeginDate":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationStudentIdentificationCode model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationStudentIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string AssigningOrganizationIdentificationCode { get; set; }
-        
-        string StudentIdentificationSystemDescriptor { get; set; }
-
-        // Non-PK properties
-        string IdentificationCode { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationStudentIdentificationCodeMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationStudentIdentificationCodeMappingContract(
-            bool isIdentificationCodeSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsIdentificationCodeSupported = isIdentificationCodeSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsIdentificationCodeSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "IdentificationCode":
-                    return IsIdentificationCodeSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "AssigningOrganizationIdentificationCode":
-                    return true;
-                case "StudentIdentificationSystemDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -62961,138 +60497,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEndDateSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationTelephone model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationTelephone : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string TelephoneNumber { get; set; }
-        
-        string TelephoneNumberTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        bool? DoNotPublishIndicator { get; set; }
-        int? OrderOfPriority { get; set; }
-        bool? TextMessageCapabilityIndicator { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationTelephoneMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationTelephoneMappingContract(
-            bool isDoNotPublishIndicatorSupported,
-            bool isOrderOfPrioritySupported,
-            bool isTextMessageCapabilityIndicatorSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsDoNotPublishIndicatorSupported = isDoNotPublishIndicatorSupported;
-            IsOrderOfPrioritySupported = isOrderOfPrioritySupported;
-            IsTextMessageCapabilityIndicatorSupported = isTextMessageCapabilityIndicatorSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsDoNotPublishIndicatorSupported { get; }
-        public bool IsOrderOfPrioritySupported { get; }
-        public bool IsTextMessageCapabilityIndicatorSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "DoNotPublishIndicator":
-                    return IsDoNotPublishIndicatorSupported;
-                case "OrderOfPriority":
-                    return IsOrderOfPrioritySupported;
-                case "TextMessageCapabilityIndicator":
-                    return IsTextMessageCapabilityIndicatorSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "TelephoneNumber":
-                    return true;
-                case "TelephoneNumberTypeDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationTribalAffiliation model.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationTribalAffiliation : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
-        
-        string TribalAffiliationDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentEducationOrganizationAssociationTribalAffiliationMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentEducationOrganizationAssociationTribalAffiliationMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "TribalAffiliationDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -63954,78 +61358,77 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentIdentificationDocument model.
+    /// Defines available properties and methods for the abstraction of the StudentIdentificationCode model.
     /// </summary>
-    public interface IStudentIdentificationDocument : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    public interface IStudentIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        IStudent Student { get; set; }
         
-        string IdentificationDocumentUseDescriptor { get; set; }
+        long EducationOrganizationId { get; set; }
         
-        string PersonalInformationVerificationDescriptor { get; set; }
+        string StudentIdentificationSystemDescriptor { get; set; }
+        
+        string StudentUniqueId { get; set; }
 
         // Non-PK properties
-        DateTime? DocumentExpirationDate { get; set; }
-        string DocumentTitle { get; set; }
-        string IssuerCountryDescriptor { get; set; }
-        string IssuerDocumentIdentificationCode { get; set; }
-        string IssuerName { get; set; }
+        string AssigningOrganizationIdentificationCode { get; set; }
+        string IdentificationCode { get; set; }
 
         // One-to-one relationships
 
         // Lists
 
         // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+        Guid? StudentResourceId { get; set; }
+        string StudentDiscriminator { get; set; }
     }
 
     /// <summary>
     /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
     /// between entities/resources during API request processing.
     /// </summary>
-    public class StudentIdentificationDocumentMappingContract : IMappingContract, IExtensionsMappingContract
+    public class StudentIdentificationCodeMappingContract : IMappingContract, IExtensionsMappingContract
     {
-        public StudentIdentificationDocumentMappingContract(
-            bool isDocumentExpirationDateSupported,
-            bool isDocumentTitleSupported,
-            bool isIssuerCountryDescriptorSupported,
-            bool isIssuerDocumentIdentificationCodeSupported,
-            bool isIssuerNameSupported,
+        public StudentIdentificationCodeMappingContract(
+            bool isAssigningOrganizationIdentificationCodeSupported,
+            bool isEducationOrganizationReferenceSupported,
+            bool isIdentificationCodeSupported,
+            bool isStudentReferenceSupported,
             IReadOnlyList<string> supportedExtensions
             )
         {
-            IsDocumentExpirationDateSupported = isDocumentExpirationDateSupported;
-            IsDocumentTitleSupported = isDocumentTitleSupported;
-            IsIssuerCountryDescriptorSupported = isIssuerCountryDescriptorSupported;
-            IsIssuerDocumentIdentificationCodeSupported = isIssuerDocumentIdentificationCodeSupported;
-            IsIssuerNameSupported = isIssuerNameSupported;
+            IsAssigningOrganizationIdentificationCodeSupported = isAssigningOrganizationIdentificationCodeSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
+            IsIdentificationCodeSupported = isIdentificationCodeSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
             SupportedExtensions = supportedExtensions;
         }
 
-        public bool IsDocumentExpirationDateSupported { get; }
-        public bool IsDocumentTitleSupported { get; }
-        public bool IsIssuerCountryDescriptorSupported { get; }
-        public bool IsIssuerDocumentIdentificationCodeSupported { get; }
-        public bool IsIssuerNameSupported { get; }
+        public bool IsAssigningOrganizationIdentificationCodeSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
+        public bool IsIdentificationCodeSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
-                case "DocumentExpirationDate":
-                    return IsDocumentExpirationDateSupported;
-                case "DocumentTitle":
-                    return IsDocumentTitleSupported;
-                case "IssuerCountryDescriptor":
-                    return IsIssuerCountryDescriptorSupported;
-                case "IssuerDocumentIdentificationCode":
-                    return IsIssuerDocumentIdentificationCodeSupported;
-                case "IssuerName":
-                    return IsIssuerNameSupported;
+                case "AssigningOrganizationIdentificationCode":
+                    return IsAssigningOrganizationIdentificationCodeSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
+                case "IdentificationCode":
+                    return IsIdentificationCodeSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "IdentificationDocumentUseDescriptor":
+                case "EducationOrganizationId":
                     return true;
-                case "PersonalInformationVerificationDescriptor":
+                case "StudentIdentificationSystemDescriptor":
+                    return true;
+                case "StudentUniqueId":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -64116,94 +61519,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentIdentity model.
-    /// </summary>
-    public interface IStudentIdentity : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        
-        long EducationOrganizationId { get; set; }
-        
-        string StudentIdentificationSystemDescriptor { get; set; }
-        
-        string StudentUniqueId { get; set; }
-
-        // Non-PK properties
-        string AssigningOrganizationIdentificationCode { get; set; }
-        string IdentificationCode { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-        Guid? StudentResourceId { get; set; }
-        string StudentDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentIdentityMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentIdentityMappingContract(
-            bool isAssigningOrganizationIdentificationCodeSupported,
-            bool isEducationOrganizationReferenceSupported,
-            bool isIdentificationCodeSupported,
-            bool isStudentReferenceSupported,
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            IsAssigningOrganizationIdentificationCodeSupported = isAssigningOrganizationIdentificationCodeSupported;
-            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
-            IsIdentificationCodeSupported = isIdentificationCodeSupported;
-            IsStudentReferenceSupported = isStudentReferenceSupported;
-            SupportedExtensions = supportedExtensions;
-        }
-
-        public bool IsAssigningOrganizationIdentificationCodeSupported { get; }
-        public bool IsEducationOrganizationReferenceSupported { get; }
-        public bool IsIdentificationCodeSupported { get; }
-        public bool IsStudentReferenceSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "AssigningOrganizationIdentificationCode":
-                    return IsAssigningOrganizationIdentificationCodeSupported;
-                case "EducationOrganizationReference":
-                    return IsEducationOrganizationReferenceSupported;
-                case "IdentificationCode":
-                    return IsIdentificationCodeSupported;
-                case "StudentReference":
-                    return IsStudentReferenceSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "EducationOrganizationId":
-                    return true;
-                case "StudentIdentificationSystemDescriptor":
-                    return true;
-                case "StudentUniqueId":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
     }
 
     /// <summary>
@@ -69460,61 +66775,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TravelDirectionDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentVisa model.
-    /// </summary>
-    public interface IStudentVisa : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IStudent Student { get; set; }
-        
-        string VisaDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentVisaMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public StudentVisaMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "VisaDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");

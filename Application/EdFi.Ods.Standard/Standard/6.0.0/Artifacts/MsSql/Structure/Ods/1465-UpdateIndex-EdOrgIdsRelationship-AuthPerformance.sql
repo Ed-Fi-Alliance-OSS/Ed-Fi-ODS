@@ -34,8 +34,8 @@ CREATE INDEX IX_CalendarDate_SchoolId ON [edfi].[CalendarDate](SchoolId) INCLUDE
 DROP INDEX IF EXISTS IX_CandidateEducatorPreparationProgramAssociation_EducationOrganizationId ON [edfi].[CandidateEducatorPreparationProgramAssociation];
 CREATE INDEX IX_CandidateEducatorPreparationProgramAssociation_EducationOrganizationId ON [edfi].[CandidateEducatorPreparationProgramAssociation](EducationOrganizationId) INCLUDE (AggregateId);
 
-DROP INDEX IF EXISTS IX_CandidateIdentity_EducationOrganizationId ON [edfi].[CandidateIdentity];
-CREATE INDEX IX_CandidateIdentity_EducationOrganizationId ON [edfi].[CandidateIdentity](EducationOrganizationId) INCLUDE (AggregateId);
+DROP INDEX IF EXISTS IX_CandidateIdentificationCode_EducationOrganizationId ON [edfi].[CandidateIdentificationCode];
+CREATE INDEX IX_CandidateIdentificationCode_EducationOrganizationId ON [edfi].[CandidateIdentificationCode](EducationOrganizationId) INCLUDE (AggregateId);
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_CandidateRelationshipToStaffAssociation_StaffUSI' AND object_id = OBJECT_ID('edfi.CandidateRelationshipToStaffAssociation')) 
 BEGIN
@@ -73,12 +73,12 @@ BEGIN
     CREATE INDEX IX_Contact_ContactUSI ON [edfi].[Contact](ContactUSI) INCLUDE (AggregateId)
 END;
 
-DROP INDEX IF EXISTS IX_ContactIdentity_EducationOrganizationId ON [edfi].[ContactIdentity];
-CREATE INDEX IX_ContactIdentity_EducationOrganizationId ON [edfi].[ContactIdentity](EducationOrganizationId) INCLUDE (AggregateId);
+DROP INDEX IF EXISTS IX_ContactIdentificationCode_EducationOrganizationId ON [edfi].[ContactIdentificationCode];
+CREATE INDEX IX_ContactIdentificationCode_EducationOrganizationId ON [edfi].[ContactIdentificationCode](EducationOrganizationId) INCLUDE (AggregateId);
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_ContactIdentity_ContactUSI' AND object_id = OBJECT_ID('edfi.ContactIdentity')) 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_ContactIdentificationCode_ContactUSI' AND object_id = OBJECT_ID('edfi.ContactIdentificationCode')) 
 BEGIN
-    CREATE INDEX IX_ContactIdentity_ContactUSI ON [edfi].[ContactIdentity](ContactUSI) INCLUDE (AggregateId)
+    CREATE INDEX IX_ContactIdentificationCode_ContactUSI ON [edfi].[ContactIdentificationCode](ContactUSI) INCLUDE (AggregateId)
 END;
 
 DROP INDEX IF EXISTS IX_Course_EducationOrganizationId ON [edfi].[Course];
@@ -114,8 +114,8 @@ CREATE INDEX IX_DisciplineIncident_SchoolId ON [edfi].[DisciplineIncident](Schoo
 DROP INDEX IF EXISTS IX_EducationOrganization_EducationOrganizationId ON [edfi].[EducationOrganization];
 CREATE INDEX IX_EducationOrganization_EducationOrganizationId ON [edfi].[EducationOrganization](EducationOrganizationId) INCLUDE (AggregateId);
 
-DROP INDEX IF EXISTS IX_EducationOrganizationIdentity_EducationOrganizationId ON [edfi].[EducationOrganizationIdentity];
-CREATE INDEX IX_EducationOrganizationIdentity_EducationOrganizationId ON [edfi].[EducationOrganizationIdentity](EducationOrganizationId) INCLUDE (AggregateId);
+DROP INDEX IF EXISTS IX_EducationOrganizationIdentificationCode_EducationOrganizationId ON [edfi].[EducationOrganizationIdentificationCode];
+CREATE INDEX IX_EducationOrganizationIdentificationCode_EducationOrganizationId ON [edfi].[EducationOrganizationIdentificationCode](EducationOrganizationId) INCLUDE (AggregateId);
 
 DROP INDEX IF EXISTS IX_EducationOrganizationInterventionPrescriptionAssociation_EducationOrganizationId ON [edfi].[EducationOrganizationInterventionPrescriptionAssociation];
 CREATE INDEX IX_EducationOrganizationInterventionPrescriptionAssociation_EducationOrganizationId ON [edfi].[EducationOrganizationInterventionPrescriptionAssociation](EducationOrganizationId) INCLUDE (AggregateId);
@@ -397,12 +397,12 @@ BEGIN
     CREATE INDEX IX_StaffEducatorPreparationProgramAssociation_StaffUSI ON [edfi].[StaffEducatorPreparationProgramAssociation](StaffUSI) INCLUDE (AggregateId)
 END;
 
-DROP INDEX IF EXISTS IX_StaffIdentity_EducationOrganizationId ON [edfi].[StaffIdentity];
-CREATE INDEX IX_StaffIdentity_EducationOrganizationId ON [edfi].[StaffIdentity](EducationOrganizationId) INCLUDE (AggregateId);
+DROP INDEX IF EXISTS IX_StaffIdentificationCode_EducationOrganizationId ON [edfi].[StaffIdentificationCode];
+CREATE INDEX IX_StaffIdentificationCode_EducationOrganizationId ON [edfi].[StaffIdentificationCode](EducationOrganizationId) INCLUDE (AggregateId);
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffIdentity_StaffUSI' AND object_id = OBJECT_ID('edfi.StaffIdentity')) 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffIdentificationCode_StaffUSI' AND object_id = OBJECT_ID('edfi.StaffIdentificationCode')) 
 BEGIN
-    CREATE INDEX IX_StaffIdentity_StaffUSI ON [edfi].[StaffIdentity](StaffUSI) INCLUDE (AggregateId)
+    CREATE INDEX IX_StaffIdentificationCode_StaffUSI ON [edfi].[StaffIdentificationCode](StaffUSI) INCLUDE (AggregateId)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StaffLeave_StaffUSI' AND object_id = OBJECT_ID('edfi.StaffLeave')) 
@@ -579,12 +579,12 @@ BEGIN
     CREATE INDEX IX_StudentHealth_StudentUSI ON [edfi].[StudentHealth](StudentUSI) INCLUDE (AggregateId)
 END;
 
-DROP INDEX IF EXISTS IX_StudentIdentity_EducationOrganizationId ON [edfi].[StudentIdentity];
-CREATE INDEX IX_StudentIdentity_EducationOrganizationId ON [edfi].[StudentIdentity](EducationOrganizationId) INCLUDE (AggregateId);
+DROP INDEX IF EXISTS IX_StudentIdentificationCode_EducationOrganizationId ON [edfi].[StudentIdentificationCode];
+CREATE INDEX IX_StudentIdentificationCode_EducationOrganizationId ON [edfi].[StudentIdentificationCode](EducationOrganizationId) INCLUDE (AggregateId);
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentIdentity_StudentUSI' AND object_id = OBJECT_ID('edfi.StudentIdentity')) 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentIdentificationCode_StudentUSI' AND object_id = OBJECT_ID('edfi.StudentIdentificationCode')) 
 BEGIN
-    CREATE INDEX IX_StudentIdentity_StudentUSI ON [edfi].[StudentIdentity](StudentUSI) INCLUDE (AggregateId)
+    CREATE INDEX IX_StudentIdentificationCode_StudentUSI ON [edfi].[StudentIdentificationCode](StudentUSI) INCLUDE (AggregateId)
 END;
 
 DROP INDEX IF EXISTS IX_StudentInterventionAssociation_EducationOrganizationId ON [edfi].[StudentInterventionAssociation];

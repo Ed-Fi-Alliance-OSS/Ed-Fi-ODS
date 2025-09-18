@@ -106,8 +106,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.CandidateIdentity') AND name = N'UX_CandidateIdentity_ChangeVersion')
-    CREATE INDEX [UX_CandidateIdentity_ChangeVersion] ON [edfi].[CandidateIdentity] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.CandidateIdentificationCode') AND name = N'UX_CandidateIdentificationCode_ChangeVersion')
+    CREATE INDEX [UX_CandidateIdentificationCode_ChangeVersion] ON [edfi].[CandidateIdentificationCode] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -172,8 +172,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ContactIdentity') AND name = N'UX_ContactIdentity_ChangeVersion')
-    CREATE INDEX [UX_ContactIdentity_ChangeVersion] ON [edfi].[ContactIdentity] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ContactIdentificationCode') AND name = N'UX_ContactIdentificationCode_ChangeVersion')
+    CREATE INDEX [UX_ContactIdentificationCode_ChangeVersion] ON [edfi].[ContactIdentificationCode] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -250,8 +250,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.EducationOrganizationIdentity') AND name = N'UX_EducationOrganizationIdentity_ChangeVersion')
-    CREATE INDEX [UX_EducationOrganizationIdentity_ChangeVersion] ON [edfi].[EducationOrganizationIdentity] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.EducationOrganizationIdentificationCode') AND name = N'UX_EducationOrganizationIdentificationCode_ChangeVersion')
+    CREATE INDEX [UX_EducationOrganizationIdentificationCode_ChangeVersion] ON [edfi].[EducationOrganizationIdentificationCode] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -712,8 +712,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StaffIdentity') AND name = N'UX_StaffIdentity_ChangeVersion')
-    CREATE INDEX [UX_StaffIdentity_ChangeVersion] ON [edfi].[StaffIdentity] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StaffIdentificationCode') AND name = N'UX_StaffIdentificationCode_ChangeVersion')
+    CREATE INDEX [UX_StaffIdentificationCode_ChangeVersion] ON [edfi].[StaffIdentificationCode] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -850,8 +850,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIdentity') AND name = N'UX_StudentIdentity_ChangeVersion')
-    CREATE INDEX [UX_StudentIdentity_ChangeVersion] ON [edfi].[StudentIdentity] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIdentificationCode') AND name = N'UX_StudentIdentificationCode_ChangeVersion')
+    CREATE INDEX [UX_StudentIdentificationCode_ChangeVersion] ON [edfi].[StudentIdentificationCode] ([ChangeVersion] ASC)
     GO
 COMMIT
 

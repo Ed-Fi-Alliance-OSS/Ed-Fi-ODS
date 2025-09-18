@@ -1061,6 +1061,28 @@ ALTER TABLE [edfi].[CandidateEducatorPreparationProgramAssociation] ENABLE TRIGG
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateIdentificationCode_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CandidateIdentificationCode_TR_DeleteTracking] ON [edfi].[CandidateIdentificationCode] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[CandidateIdentificationCode](OldCandidateIdentificationSystemDescriptorId, OldCandidateIdentificationSystemDescriptorNamespace, OldCandidateIdentificationSystemDescriptorCodeValue, OldCandidateIdentifier, OldEducationOrganizationId, Id, Discriminator, ChangeVersion)
+    SELECT d.CandidateIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.CandidateIdentifier, d.EducationOrganizationId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.CandidateIdentificationSystemDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[CandidateIdentificationCode] ENABLE TRIGGER [edfi_CandidateIdentificationCode_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateIdentificationSystemDescriptor_TR_DeleteTracking]
 GO
 
@@ -1079,28 +1101,6 @@ END
 GO
 
 ALTER TABLE [edfi].[CandidateIdentificationSystemDescriptor] ENABLE TRIGGER [edfi_CandidateIdentificationSystemDescriptor_TR_DeleteTracking]
-GO
-
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateIdentity_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [edfi].[edfi_CandidateIdentity_TR_DeleteTracking] ON [edfi].[CandidateIdentity] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_changes_edfi].[CandidateIdentity](OldCandidateIdentificationSystemDescriptorId, OldCandidateIdentificationSystemDescriptorNamespace, OldCandidateIdentificationSystemDescriptorCodeValue, OldCandidateIdentifier, OldEducationOrganizationId, Id, Discriminator, ChangeVersion)
-    SELECT d.CandidateIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.CandidateIdentifier, d.EducationOrganizationId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-        INNER JOIN edfi.Descriptor j0
-            ON d.CandidateIdentificationSystemDescriptorId = j0.DescriptorId
-END
-GO
-
-ALTER TABLE [edfi].[CandidateIdentity] ENABLE TRIGGER [edfi_CandidateIdentity_TR_DeleteTracking]
 GO
 
 
@@ -1625,6 +1625,30 @@ ALTER TABLE [edfi].[Contact] ENABLE TRIGGER [edfi_Contact_TR_DeleteTracking]
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_ContactIdentificationCode_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ContactIdentificationCode_TR_DeleteTracking] ON [edfi].[ContactIdentificationCode] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[ContactIdentificationCode](OldContactIdentificationSystemDescriptorId, OldContactIdentificationSystemDescriptorNamespace, OldContactIdentificationSystemDescriptorCodeValue, OldContactUSI, OldContactUniqueId, OldEducationOrganizationId, Id, Discriminator, ChangeVersion)
+    SELECT d.ContactIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.ContactUSI, j1.ContactUniqueId, d.EducationOrganizationId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.ContactIdentificationSystemDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Contact j1
+            ON d.ContactUSI = j1.ContactUSI
+END
+GO
+
+ALTER TABLE [edfi].[ContactIdentificationCode] ENABLE TRIGGER [edfi_ContactIdentificationCode_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_ContactIdentificationSystemDescriptor_TR_DeleteTracking]
 GO
 
@@ -1643,30 +1667,6 @@ END
 GO
 
 ALTER TABLE [edfi].[ContactIdentificationSystemDescriptor] ENABLE TRIGGER [edfi_ContactIdentificationSystemDescriptor_TR_DeleteTracking]
-GO
-
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_ContactIdentity_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [edfi].[edfi_ContactIdentity_TR_DeleteTracking] ON [edfi].[ContactIdentity] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_changes_edfi].[ContactIdentity](OldContactIdentificationSystemDescriptorId, OldContactIdentificationSystemDescriptorNamespace, OldContactIdentificationSystemDescriptorCodeValue, OldContactUSI, OldContactUniqueId, OldEducationOrganizationId, Id, Discriminator, ChangeVersion)
-    SELECT d.ContactIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.ContactUSI, j1.ContactUniqueId, d.EducationOrganizationId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-        INNER JOIN edfi.Descriptor j0
-            ON d.ContactIdentificationSystemDescriptorId = j0.DescriptorId
-        INNER JOIN edfi.Contact j1
-            ON d.ContactUSI = j1.ContactUSI
-END
-GO
-
-ALTER TABLE [edfi].[ContactIdentity] ENABLE TRIGGER [edfi_ContactIdentity_TR_DeleteTracking]
 GO
 
 
@@ -2723,6 +2723,28 @@ ALTER TABLE [edfi].[EducationOrganizationCategoryDescriptor] ENABLE TRIGGER [edf
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationIdentificationCode_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EducationOrganizationIdentificationCode_TR_DeleteTracking] ON [edfi].[EducationOrganizationIdentificationCode] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[EducationOrganizationIdentificationCode](OldEducationOrganizationId, OldEducationOrganizationIdentificationSystemDescriptorId, OldEducationOrganizationIdentificationSystemDescriptorNamespace, OldEducationOrganizationIdentificationSystemDescriptorCodeValue, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.EducationOrganizationIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EducationOrganizationIdentificationSystemDescriptorId = j0.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EducationOrganizationIdentificationCode] ENABLE TRIGGER [edfi_EducationOrganizationIdentificationCode_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationIdentificationSystemDescriptor_TR_DeleteTracking]
 GO
 
@@ -2741,28 +2763,6 @@ END
 GO
 
 ALTER TABLE [edfi].[EducationOrganizationIdentificationSystemDescriptor] ENABLE TRIGGER [edfi_EducationOrganizationIdentificationSystemDescriptor_TR_DeleteTracking]
-GO
-
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationIdentity_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [edfi].[edfi_EducationOrganizationIdentity_TR_DeleteTracking] ON [edfi].[EducationOrganizationIdentity] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_changes_edfi].[EducationOrganizationIdentity](OldEducationOrganizationId, OldEducationOrganizationIdentificationSystemDescriptorId, OldEducationOrganizationIdentificationSystemDescriptorNamespace, OldEducationOrganizationIdentificationSystemDescriptorCodeValue, Id, Discriminator, ChangeVersion)
-    SELECT d.EducationOrganizationId, d.EducationOrganizationIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-        INNER JOIN edfi.Descriptor j0
-            ON d.EducationOrganizationIdentificationSystemDescriptorId = j0.DescriptorId
-END
-GO
-
-ALTER TABLE [edfi].[EducationOrganizationIdentity] ENABLE TRIGGER [edfi_EducationOrganizationIdentity_TR_DeleteTracking]
 GO
 
 
@@ -7652,6 +7652,30 @@ ALTER TABLE [edfi].[StaffEducatorPreparationProgramAssociation] ENABLE TRIGGER [
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_StaffIdentificationCode_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StaffIdentificationCode_TR_DeleteTracking] ON [edfi].[StaffIdentificationCode] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StaffIdentificationCode](OldEducationOrganizationId, OldStaffIdentificationSystemDescriptorId, OldStaffIdentificationSystemDescriptorNamespace, OldStaffIdentificationSystemDescriptorCodeValue, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.StaffIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.StaffUSI, j1.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.StaffIdentificationSystemDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Staff j1
+            ON d.StaffUSI = j1.StaffUSI
+END
+GO
+
+ALTER TABLE [edfi].[StaffIdentificationCode] ENABLE TRIGGER [edfi_StaffIdentificationCode_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_StaffIdentificationSystemDescriptor_TR_DeleteTracking]
 GO
 
@@ -7670,30 +7694,6 @@ END
 GO
 
 ALTER TABLE [edfi].[StaffIdentificationSystemDescriptor] ENABLE TRIGGER [edfi_StaffIdentificationSystemDescriptor_TR_DeleteTracking]
-GO
-
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_StaffIdentity_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [edfi].[edfi_StaffIdentity_TR_DeleteTracking] ON [edfi].[StaffIdentity] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_changes_edfi].[StaffIdentity](OldEducationOrganizationId, OldStaffIdentificationSystemDescriptorId, OldStaffIdentificationSystemDescriptorNamespace, OldStaffIdentificationSystemDescriptorCodeValue, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.EducationOrganizationId, d.StaffIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.StaffUSI, j1.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-        INNER JOIN edfi.Descriptor j0
-            ON d.StaffIdentificationSystemDescriptorId = j0.DescriptorId
-        INNER JOIN edfi.Staff j1
-            ON d.StaffUSI = j1.StaffUSI
-END
-GO
-
-ALTER TABLE [edfi].[StaffIdentity] ENABLE TRIGGER [edfi_StaffIdentity_TR_DeleteTracking]
 GO
 
 
@@ -8283,6 +8283,30 @@ ALTER TABLE [edfi].[StudentHealth] ENABLE TRIGGER [edfi_StudentHealth_TR_DeleteT
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentIdentificationCode_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentIdentificationCode_TR_DeleteTracking] ON [edfi].[StudentIdentificationCode] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StudentIdentificationCode](OldEducationOrganizationId, OldStudentIdentificationSystemDescriptorId, OldStudentIdentificationSystemDescriptorNamespace, OldStudentIdentificationSystemDescriptorCodeValue, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.StudentIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.StudentUSI, j1.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.StudentIdentificationSystemDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Student j1
+            ON d.StudentUSI = j1.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[StudentIdentificationCode] ENABLE TRIGGER [edfi_StudentIdentificationCode_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentIdentificationSystemDescriptor_TR_DeleteTracking]
 GO
 
@@ -8301,30 +8325,6 @@ END
 GO
 
 ALTER TABLE [edfi].[StudentIdentificationSystemDescriptor] ENABLE TRIGGER [edfi_StudentIdentificationSystemDescriptor_TR_DeleteTracking]
-GO
-
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_StudentIdentity_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [edfi].[edfi_StudentIdentity_TR_DeleteTracking] ON [edfi].[StudentIdentity] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_changes_edfi].[StudentIdentity](OldEducationOrganizationId, OldStudentIdentificationSystemDescriptorId, OldStudentIdentificationSystemDescriptorNamespace, OldStudentIdentificationSystemDescriptorCodeValue, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.EducationOrganizationId, d.StudentIdentificationSystemDescriptorId, j0.Namespace, j0.CodeValue, d.StudentUSI, j1.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-        INNER JOIN edfi.Descriptor j0
-            ON d.StudentIdentificationSystemDescriptorId = j0.DescriptorId
-        INNER JOIN edfi.Student j1
-            ON d.StudentUSI = j1.StudentUSI
-END
-GO
-
-ALTER TABLE [edfi].[StudentIdentity] ENABLE TRIGGER [edfi_StudentIdentity_TR_DeleteTracking]
 GO
 
 

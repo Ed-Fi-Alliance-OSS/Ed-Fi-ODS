@@ -89,9 +89,9 @@ ALTER TABLE edfi.CandidateEducatorPreparationProgramAssociation ADD COLUMN Aggre
 CREATE INDEX ix_CandidateEducatorPreparationProgramAssociation_aggid ON edfi.CandidateEducatorPreparationProgramAssociation (AggregateId);
 
 
-CREATE SEQUENCE edfi.CandidateIdentity_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.CandidateIdentity ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.CandidateIdentity_aggseq'), ADD COLUMN AggregateData bytea;
-CREATE INDEX ix_CandidateIdentity_aggid ON edfi.CandidateIdentity (AggregateId);
+CREATE SEQUENCE edfi.CandidateIdentificationCode_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.CandidateIdentificationCode ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.CandidateIdentificationCode_aggseq'), ADD COLUMN AggregateData bytea;
+CREATE INDEX ix_CandidateIdentificationCode_aggid ON edfi.CandidateIdentificationCode (AggregateId);
 
 
 CREATE SEQUENCE edfi.CandidateRelationshipToStaffAssociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
@@ -144,9 +144,9 @@ ALTER TABLE edfi.Contact ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('ed
 CREATE INDEX ix_Contact_aggid ON edfi.Contact (AggregateId);
 
 
-CREATE SEQUENCE edfi.ContactIdentity_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.ContactIdentity ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.ContactIdentity_aggseq'), ADD COLUMN AggregateData bytea;
-CREATE INDEX ix_ContactIdentity_aggid ON edfi.ContactIdentity (AggregateId);
+CREATE SEQUENCE edfi.ContactIdentificationCode_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.ContactIdentificationCode ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.ContactIdentificationCode_aggseq'), ADD COLUMN AggregateData bytea;
+CREATE INDEX ix_ContactIdentificationCode_aggid ON edfi.ContactIdentificationCode (AggregateId);
 
 
 CREATE SEQUENCE edfi.Course_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
@@ -209,9 +209,9 @@ ALTER TABLE edfi.EducationOrganization ADD COLUMN AggregateId int NOT NULL DEFAU
 CREATE INDEX ix_EducationOrganization_aggid ON edfi.EducationOrganization (AggregateId);
 
 
-CREATE SEQUENCE edfi.EducationOrganizationIdentity_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.EducationOrganizationIdentity ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.EducationOrganizationIdentity_aggseq'), ADD COLUMN AggregateData bytea;
-CREATE INDEX ix_EducationOrganizationIdentity_aggid ON edfi.EducationOrganizationIdentity (AggregateId);
+CREATE SEQUENCE edfi.EducationOrganizationIdentificationCode_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.EducationOrganizationIdentificationCode ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.EducationOrganizationIdentificationCode_aggseq'), ADD COLUMN AggregateData bytea;
+CREATE INDEX ix_EducationOrganizationIdentificationCode_aggid ON edfi.EducationOrganizationIdentificationCode (AggregateId);
 
 
 CREATE SEQUENCE edfi.EducationOrganizationInterventionPrescriptionAs_e670ae_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
@@ -594,9 +594,9 @@ ALTER TABLE edfi.StaffEducatorPreparationProgramAssociation ADD COLUMN Aggregate
 CREATE INDEX ix_StaffEducatorPreparationProgramAssociation_aggid ON edfi.StaffEducatorPreparationProgramAssociation (AggregateId);
 
 
-CREATE SEQUENCE edfi.StaffIdentity_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.StaffIdentity ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StaffIdentity_aggseq'), ADD COLUMN AggregateData bytea;
-CREATE INDEX ix_StaffIdentity_aggid ON edfi.StaffIdentity (AggregateId);
+CREATE SEQUENCE edfi.StaffIdentificationCode_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.StaffIdentificationCode ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StaffIdentificationCode_aggseq'), ADD COLUMN AggregateData bytea;
+CREATE INDEX ix_StaffIdentificationCode_aggid ON edfi.StaffIdentificationCode (AggregateId);
 
 
 CREATE SEQUENCE edfi.StaffLeave_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
@@ -709,9 +709,9 @@ ALTER TABLE edfi.StudentHealth ADD COLUMN AggregateId int NOT NULL DEFAULT nextv
 CREATE INDEX ix_StudentHealth_aggid ON edfi.StudentHealth (AggregateId);
 
 
-CREATE SEQUENCE edfi.StudentIdentity_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.StudentIdentity ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StudentIdentity_aggseq'), ADD COLUMN AggregateData bytea;
-CREATE INDEX ix_StudentIdentity_aggid ON edfi.StudentIdentity (AggregateId);
+CREATE SEQUENCE edfi.StudentIdentificationCode_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.StudentIdentificationCode ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StudentIdentificationCode_aggseq'), ADD COLUMN AggregateData bytea;
+CREATE INDEX ix_StudentIdentificationCode_aggid ON edfi.StudentIdentificationCode (AggregateId);
 
 
 CREATE SEQUENCE edfi.StudentInterventionAssociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;

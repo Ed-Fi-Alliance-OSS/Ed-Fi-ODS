@@ -224,15 +224,15 @@ BEGIN
 END	
 GO
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateIdentity_TR_UpdateChangeVersion]
+DROP TRIGGER IF EXISTS [edfi].[edfi_CandidateIdentificationCode_TR_UpdateChangeVersion]
 GO
 
-CREATE TRIGGER [edfi].[edfi_CandidateIdentity_TR_UpdateChangeVersion] ON [edfi].[CandidateIdentity] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_CandidateIdentificationCode_TR_UpdateChangeVersion] ON [edfi].[CandidateIdentificationCode] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[CandidateIdentity]
+    UPDATE [edfi].[CandidateIdentificationCode]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[CandidateIdentity] u
+    FROM [edfi].[CandidateIdentificationCode] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -393,15 +393,15 @@ BEGIN
 END	
 GO
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_ContactIdentity_TR_UpdateChangeVersion]
+DROP TRIGGER IF EXISTS [edfi].[edfi_ContactIdentificationCode_TR_UpdateChangeVersion]
 GO
 
-CREATE TRIGGER [edfi].[edfi_ContactIdentity_TR_UpdateChangeVersion] ON [edfi].[ContactIdentity] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_ContactIdentificationCode_TR_UpdateChangeVersion] ON [edfi].[ContactIdentificationCode] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[ContactIdentity]
+    UPDATE [edfi].[ContactIdentificationCode]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[ContactIdentity] u
+    FROM [edfi].[ContactIdentificationCode] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -583,15 +583,15 @@ BEGIN
 END	
 GO
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationIdentity_TR_UpdateChangeVersion]
+DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationIdentificationCode_TR_UpdateChangeVersion]
 GO
 
-CREATE TRIGGER [edfi].[edfi_EducationOrganizationIdentity_TR_UpdateChangeVersion] ON [edfi].[EducationOrganizationIdentity] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_EducationOrganizationIdentificationCode_TR_UpdateChangeVersion] ON [edfi].[EducationOrganizationIdentificationCode] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[EducationOrganizationIdentity]
+    UPDATE [edfi].[EducationOrganizationIdentificationCode]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[EducationOrganizationIdentity] u
+    FROM [edfi].[EducationOrganizationIdentificationCode] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -1752,15 +1752,15 @@ BEGIN
 END	
 GO
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_StaffIdentity_TR_UpdateChangeVersion]
+DROP TRIGGER IF EXISTS [edfi].[edfi_StaffIdentificationCode_TR_UpdateChangeVersion]
 GO
 
-CREATE TRIGGER [edfi].[edfi_StaffIdentity_TR_UpdateChangeVersion] ON [edfi].[StaffIdentity] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StaffIdentificationCode_TR_UpdateChangeVersion] ON [edfi].[StaffIdentificationCode] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[StaffIdentity]
+    UPDATE [edfi].[StaffIdentificationCode]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[StaffIdentity] u
+    FROM [edfi].[StaffIdentificationCode] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -2120,15 +2120,15 @@ BEGIN
 END	
 GO
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_StudentIdentity_TR_UpdateChangeVersion]
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentIdentificationCode_TR_UpdateChangeVersion]
 GO
 
-CREATE TRIGGER [edfi].[edfi_StudentIdentity_TR_UpdateChangeVersion] ON [edfi].[StudentIdentity] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentIdentificationCode_TR_UpdateChangeVersion] ON [edfi].[StudentIdentificationCode] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[StudentIdentity]
+    UPDATE [edfi].[StudentIdentificationCode]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[StudentIdentity] u
+    FROM [edfi].[StudentIdentificationCode] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

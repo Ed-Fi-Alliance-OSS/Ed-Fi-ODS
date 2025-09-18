@@ -123,8 +123,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.CandidateIdentity') AND name = N'UX_CandidateIdentity_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_CandidateIdentity_Id ON [edfi].[CandidateIdentity]
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.CandidateIdentificationCode') AND name = N'UX_CandidateIdentificationCode_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_CandidateIdentificationCode_Id ON [edfi].[CandidateIdentificationCode]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
@@ -200,8 +200,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ContactIdentity') AND name = N'UX_ContactIdentity_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_ContactIdentity_Id ON [edfi].[ContactIdentity]
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ContactIdentificationCode') AND name = N'UX_ContactIdentificationCode_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_ContactIdentificationCode_Id ON [edfi].[ContactIdentificationCode]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
@@ -291,8 +291,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.EducationOrganizationIdentity') AND name = N'UX_EducationOrganizationIdentity_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_EducationOrganizationIdentity_Id ON [edfi].[EducationOrganizationIdentity]
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.EducationOrganizationIdentificationCode') AND name = N'UX_EducationOrganizationIdentificationCode_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_EducationOrganizationIdentificationCode_Id ON [edfi].[EducationOrganizationIdentificationCode]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
@@ -830,8 +830,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StaffIdentity') AND name = N'UX_StaffIdentity_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_StaffIdentity_Id ON [edfi].[StaffIdentity]
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StaffIdentificationCode') AND name = N'UX_StaffIdentificationCode_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StaffIdentificationCode_Id ON [edfi].[StaffIdentificationCode]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
@@ -991,8 +991,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIdentity') AND name = N'UX_StudentIdentity_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentIdentity_Id ON [edfi].[StudentIdentity]
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIdentificationCode') AND name = N'UX_StudentIdentificationCode_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentIdentificationCode_Id ON [edfi].[StudentIdentificationCode]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT

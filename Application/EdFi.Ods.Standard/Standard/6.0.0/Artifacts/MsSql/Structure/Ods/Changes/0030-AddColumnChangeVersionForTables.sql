@@ -141,11 +141,11 @@ ALTER TABLE [edfi].[CandidateEducatorPreparationProgramAssociation] ADD CONSTRAI
 END
 
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[CandidateIdentity]') AND name = 'ChangeVersion')
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[CandidateIdentificationCode]') AND name = 'ChangeVersion')
 BEGIN
-ALTER TABLE [edfi].[CandidateIdentity] ADD [ChangeVersion] [BIGINT] CONSTRAINT CandidateIdentity_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [edfi].[CandidateIdentity] DROP CONSTRAINT CandidateIdentity_DF_ChangeVersion;
-ALTER TABLE [edfi].[CandidateIdentity] ADD CONSTRAINT CandidateIdentity_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+ALTER TABLE [edfi].[CandidateIdentificationCode] ADD [ChangeVersion] [BIGINT] CONSTRAINT CandidateIdentificationCode_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[CandidateIdentificationCode] DROP CONSTRAINT CandidateIdentificationCode_DF_ChangeVersion;
+ALTER TABLE [edfi].[CandidateIdentificationCode] ADD CONSTRAINT CandidateIdentificationCode_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 
@@ -229,11 +229,11 @@ ALTER TABLE [edfi].[Contact] ADD CONSTRAINT Contact_DF_ChangeVersion DEFAULT (NE
 END
 
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ContactIdentity]') AND name = 'ChangeVersion')
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ContactIdentificationCode]') AND name = 'ChangeVersion')
 BEGIN
-ALTER TABLE [edfi].[ContactIdentity] ADD [ChangeVersion] [BIGINT] CONSTRAINT ContactIdentity_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [edfi].[ContactIdentity] DROP CONSTRAINT ContactIdentity_DF_ChangeVersion;
-ALTER TABLE [edfi].[ContactIdentity] ADD CONSTRAINT ContactIdentity_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+ALTER TABLE [edfi].[ContactIdentificationCode] ADD [ChangeVersion] [BIGINT] CONSTRAINT ContactIdentificationCode_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[ContactIdentificationCode] DROP CONSTRAINT ContactIdentificationCode_DF_ChangeVersion;
+ALTER TABLE [edfi].[ContactIdentificationCode] ADD CONSTRAINT ContactIdentificationCode_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 
@@ -333,11 +333,11 @@ ALTER TABLE [edfi].[EducationOrganization] ADD CONSTRAINT EducationOrganization_
 END
 
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[EducationOrganizationIdentity]') AND name = 'ChangeVersion')
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[EducationOrganizationIdentificationCode]') AND name = 'ChangeVersion')
 BEGIN
-ALTER TABLE [edfi].[EducationOrganizationIdentity] ADD [ChangeVersion] [BIGINT] CONSTRAINT EducationOrganizationIdentity_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [edfi].[EducationOrganizationIdentity] DROP CONSTRAINT EducationOrganizationIdentity_DF_ChangeVersion;
-ALTER TABLE [edfi].[EducationOrganizationIdentity] ADD CONSTRAINT EducationOrganizationIdentity_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+ALTER TABLE [edfi].[EducationOrganizationIdentificationCode] ADD [ChangeVersion] [BIGINT] CONSTRAINT EducationOrganizationIdentificationCode_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[EducationOrganizationIdentificationCode] DROP CONSTRAINT EducationOrganizationIdentificationCode_DF_ChangeVersion;
+ALTER TABLE [edfi].[EducationOrganizationIdentificationCode] ADD CONSTRAINT EducationOrganizationIdentificationCode_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 
@@ -949,11 +949,11 @@ ALTER TABLE [edfi].[StaffEducatorPreparationProgramAssociation] ADD CONSTRAINT S
 END
 
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StaffIdentity]') AND name = 'ChangeVersion')
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StaffIdentificationCode]') AND name = 'ChangeVersion')
 BEGIN
-ALTER TABLE [edfi].[StaffIdentity] ADD [ChangeVersion] [BIGINT] CONSTRAINT StaffIdentity_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [edfi].[StaffIdentity] DROP CONSTRAINT StaffIdentity_DF_ChangeVersion;
-ALTER TABLE [edfi].[StaffIdentity] ADD CONSTRAINT StaffIdentity_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+ALTER TABLE [edfi].[StaffIdentificationCode] ADD [ChangeVersion] [BIGINT] CONSTRAINT StaffIdentificationCode_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StaffIdentificationCode] DROP CONSTRAINT StaffIdentificationCode_DF_ChangeVersion;
+ALTER TABLE [edfi].[StaffIdentificationCode] ADD CONSTRAINT StaffIdentificationCode_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 
@@ -1133,11 +1133,11 @@ ALTER TABLE [edfi].[StudentHealth] ADD CONSTRAINT StudentHealth_DF_ChangeVersion
 END
 
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentIdentity]') AND name = 'ChangeVersion')
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentIdentificationCode]') AND name = 'ChangeVersion')
 BEGIN
-ALTER TABLE [edfi].[StudentIdentity] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentIdentity_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [edfi].[StudentIdentity] DROP CONSTRAINT StudentIdentity_DF_ChangeVersion;
-ALTER TABLE [edfi].[StudentIdentity] ADD CONSTRAINT StudentIdentity_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+ALTER TABLE [edfi].[StudentIdentificationCode] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentIdentificationCode_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StudentIdentificationCode] DROP CONSTRAINT StudentIdentificationCode_DF_ChangeVersion;
+ALTER TABLE [edfi].[StudentIdentificationCode] ADD CONSTRAINT StudentIdentificationCode_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 

@@ -311,15 +311,15 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class CandidateIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.CandidateIdentificationSystemDescriptor.EdFi.CandidateIdentificationSystemDescriptor, Entities.NHibernate.CandidateIdentificationSystemDescriptorAggregate.EdFi.CandidateIdentificationSystemDescriptor>
+    public class CandidateIdentificationCodeCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.CandidateIdentificationCode.EdFi.CandidateIdentificationCode, Entities.NHibernate.CandidateIdentificationCodeAggregate.EdFi.CandidateIdentificationCode>
     {
-        public CandidateIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public CandidateIdentificationCodeCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class CandidateIdentityCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.CandidateIdentity.EdFi.CandidateIdentity, Entities.NHibernate.CandidateIdentityAggregate.EdFi.CandidateIdentity>
+    public class CandidateIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.CandidateIdentificationSystemDescriptor.EdFi.CandidateIdentificationSystemDescriptor, Entities.NHibernate.CandidateIdentificationSystemDescriptorAggregate.EdFi.CandidateIdentificationSystemDescriptor>
     {
-        public CandidateIdentityCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public CandidateIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -485,15 +485,15 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class ContactIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ContactIdentificationSystemDescriptor.EdFi.ContactIdentificationSystemDescriptor, Entities.NHibernate.ContactIdentificationSystemDescriptorAggregate.EdFi.ContactIdentificationSystemDescriptor>
+    public class ContactIdentificationCodeCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ContactIdentificationCode.EdFi.ContactIdentificationCode, Entities.NHibernate.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCode>
     {
-        public ContactIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public ContactIdentificationCodeCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class ContactIdentityCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ContactIdentity.EdFi.ContactIdentity, Entities.NHibernate.ContactIdentityAggregate.EdFi.ContactIdentity>
+    public class ContactIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ContactIdentificationSystemDescriptor.EdFi.ContactIdentificationSystemDescriptor, Entities.NHibernate.ContactIdentificationSystemDescriptorAggregate.EdFi.ContactIdentificationSystemDescriptor>
     {
-        public ContactIdentityCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public ContactIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -791,15 +791,15 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class EducationOrganizationIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EducationOrganizationIdentificationSystemDescriptor.EdFi.EducationOrganizationIdentificationSystemDescriptor, Entities.NHibernate.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptor>
+    public class EducationOrganizationIdentificationCodeCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EducationOrganizationIdentificationCode.EdFi.EducationOrganizationIdentificationCode, Entities.NHibernate.EducationOrganizationIdentificationCodeAggregate.EdFi.EducationOrganizationIdentificationCode>
     {
-        public EducationOrganizationIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public EducationOrganizationIdentificationCodeCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class EducationOrganizationIdentityCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EducationOrganizationIdentity.EdFi.EducationOrganizationIdentity, Entities.NHibernate.EducationOrganizationIdentityAggregate.EdFi.EducationOrganizationIdentity>
+    public class EducationOrganizationIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EducationOrganizationIdentificationSystemDescriptor.EdFi.EducationOrganizationIdentificationSystemDescriptor, Entities.NHibernate.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptor>
     {
-        public EducationOrganizationIdentityCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public EducationOrganizationIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2201,15 +2201,15 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffIdentificationSystemDescriptor.EdFi.StaffIdentificationSystemDescriptor, Entities.NHibernate.StaffIdentificationSystemDescriptorAggregate.EdFi.StaffIdentificationSystemDescriptor>
+    public class StaffIdentificationCodeCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffIdentificationCode.EdFi.StaffIdentificationCode, Entities.NHibernate.StaffIdentificationCodeAggregate.EdFi.StaffIdentificationCode>
     {
-        public StaffIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public StaffIdentificationCodeCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffIdentityCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffIdentity.EdFi.StaffIdentity, Entities.NHibernate.StaffIdentityAggregate.EdFi.StaffIdentity>
+    public class StaffIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffIdentificationSystemDescriptor.EdFi.StaffIdentificationSystemDescriptor, Entities.NHibernate.StaffIdentificationSystemDescriptorAggregate.EdFi.StaffIdentificationSystemDescriptor>
     {
-        public StaffIdentityCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public StaffIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2387,15 +2387,15 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentIdentificationSystemDescriptor.EdFi.StudentIdentificationSystemDescriptor, Entities.NHibernate.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptor>
+    public class StudentIdentificationCodeCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentIdentificationCode.EdFi.StudentIdentificationCode, Entities.NHibernate.StudentIdentificationCodeAggregate.EdFi.StudentIdentificationCode>
     {
-        public StudentIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public StudentIdentificationCodeCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentIdentityCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentIdentity.EdFi.StudentIdentity, Entities.NHibernate.StudentIdentityAggregate.EdFi.StudentIdentity>
+    public class StudentIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentIdentificationSystemDescriptor.EdFi.StudentIdentificationSystemDescriptor, Entities.NHibernate.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptor>
     {
-        public StudentIdentityCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public StudentIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

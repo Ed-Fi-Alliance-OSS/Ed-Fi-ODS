@@ -2843,7 +2843,7 @@
       <key>
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateIdentificationCodeQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentificationCodeAggregate.EdFi.CandidateIdentificationCodeQ" />
     </set>
 
     <set name="CandidateIdentificationDocuments" cascade="none" lazy="true">
@@ -2851,13 +2851,6 @@
         <column name="CandidateIdentifier" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateIdentificationDocumentQ" />
-    </set>
-
-    <set name="CandidateIdentities" cascade="none" lazy="true">
-      <key>
-        <column name="CandidateIdentifier" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentityAggregate.EdFi.CandidateIdentityQ" />
     </set>
 
     <set name="CandidateIndicators" cascade="none" lazy="true">
@@ -3206,35 +3199,6 @@
     </many-to-one>
     <many-to-one name="GradeLevelDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="GradeLevelDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateIdentificationCodeQ" table="CandidateIdentificationCode" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AssigningOrganizationIdentificationCode" column="AssigningOrganizationIdentificationCode" type="string" length="120" />
-      <key-property name="IdentificationCode" column="IdentificationCode" type="string" length="120" />
-      <key-property name="StudentIdentificationSystemDescriptorId" column="StudentIdentificationSystemDescriptorId" type="int" />
-      <key-many-to-one name="Candidate">
-        <column name="CandidateIdentifier" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="StudentIdentificationSystemDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="StudentIdentificationSystemDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->
@@ -3764,7 +3728,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentityAggregate.EdFi.CandidateIdentityQ" table="CandidateIdentity" lazy="false" discriminator-value="null">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentificationCodeAggregate.EdFi.CandidateIdentificationCodeQ" table="CandidateIdentificationCode" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CandidateIdentificationSystemDescriptorId" column="CandidateIdentificationSystemDescriptorId" type="int" />
@@ -4686,11 +4650,11 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ContactAggregate.EdFi.ContactElectronicMailQ" />
     </set>
 
-    <set name="ContactIdentities" cascade="none" lazy="true">
+    <set name="ContactIdentificationCodes" cascade="none" lazy="true">
       <key>
         <column name="ContactUSI" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentityAggregate.EdFi.ContactIdentityQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCodeQ" />
     </set>
 
     <set name="ContactInternationalAddresses" cascade="none" lazy="true">
@@ -5069,7 +5033,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentityAggregate.EdFi.ContactIdentityQ" table="ContactIdentity" lazy="false" discriminator-value="null">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCodeQ" table="ContactIdentificationCode" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ContactIdentificationSystemDescriptorId" column="ContactIdentificationSystemDescriptorId" type="int" />
@@ -6856,13 +6820,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationInternationalAddressQ" />
           </set>
 
-          <set name="StaffAddresses" cascade="none" lazy="true">
-            <key>
-              <column name="AddressTypeDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressQ" />
-          </set>
-
           <set name="StaffDirectoryAddresses" cascade="none" lazy="true">
             <key>
               <column name="AddressTypeDescriptorId" />
@@ -6877,13 +6834,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryInternationalAddressQ" />
           </set>
 
-          <set name="StaffInternationalAddresses" cascade="none" lazy="true">
-            <key>
-              <column name="AddressTypeDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffInternationalAddressQ" />
-          </set>
-
           <set name="StudentDirectoryAddresses" cascade="none" lazy="true">
             <key>
               <column name="AddressTypeDescriptorId" />
@@ -6896,20 +6846,6 @@
               <column name="AddressTypeDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryInternationalAddressQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationAddresses" cascade="none" lazy="true">
-            <key>
-              <column name="AddressTypeDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationInternationalAddresses" cascade="none" lazy="true">
-            <key>
-              <column name="AddressTypeDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationInternationalAddressQ" />
           </set>
 
       </join>
@@ -7004,13 +6940,6 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-          <set name="StaffAncestryEthnicOrigins" cascade="none" lazy="true">
-            <key>
-              <column name="AncestryEthnicOriginDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffAncestryEthnicOriginQ" />
-          </set>
-
           <set name="StaffDemographicAncestryEthnicOrigins" cascade="none" lazy="true">
             <key>
               <column name="AncestryEthnicOriginDescriptorId" />
@@ -7023,13 +6952,6 @@
               <column name="AncestryEthnicOriginDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicAncestryEthnicOriginQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationAncestryEthnicOrigins" cascade="none" lazy="true">
-            <key>
-              <column name="AncestryEthnicOriginDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAncestryEthnicOriginQ" />
           </set>
 
       </join>
@@ -7678,11 +7600,11 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-          <set name="CandidateIdentities" cascade="none" lazy="true">
+          <set name="CandidateIdentificationCodes" cascade="none" lazy="true">
             <key>
               <column name="CandidateIdentificationSystemDescriptorId" />
             </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentityAggregate.EdFi.CandidateIdentityQ" />
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentificationCodeAggregate.EdFi.CandidateIdentificationCodeQ" />
           </set>
 
       </join>
@@ -7943,25 +7865,11 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateQ" />
           </set>
 
-          <set name="Staffs" cascade="none" lazy="true">
-            <key>
-              <column name="CitizenshipStatusDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ" />
-          </set>
-
           <set name="StaffDemographics" cascade="none" lazy="true">
             <key>
               <column name="CitizenshipStatusDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicQ" />
-          </set>
-
-          <set name="Students" cascade="none" lazy="true">
-            <key>
-              <column name="CitizenshipStatusDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ" />
           </set>
 
           <set name="StudentDemographics" cascade="none" lazy="true">
@@ -8123,11 +8031,11 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-          <set name="ContactIdentities" cascade="none" lazy="true">
+          <set name="ContactIdentificationCodes" cascade="none" lazy="true">
             <key>
               <column name="ContactIdentificationSystemDescriptorId" />
             </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentityAggregate.EdFi.ContactIdentityQ" />
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCodeQ" />
           </set>
 
       </join>
@@ -8345,20 +8253,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryInternationalAddressQ" />
           </set>
 
-          <set name="StaffIdentificationDocuments" cascade="none" lazy="true">
-            <key>
-              <column name="IssuerCountryDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationDocumentQ" />
-          </set>
-
-          <set name="StaffInternationalAddresses" cascade="none" lazy="true">
-            <key>
-              <column name="CountryDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffInternationalAddressQ" />
-          </set>
-
           <set name="StaffPersonalIdentificationDocuments" cascade="none" lazy="true">
             <key>
               <column name="IssuerCountryDescriptorId" />
@@ -8385,20 +8279,6 @@
               <column name="CountryDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryInternationalAddressQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationInternationalAddresses" cascade="none" lazy="true">
-            <key>
-              <column name="CountryDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationInternationalAddressQ" />
-          </set>
-
-          <set name="StudentIdentificationDocuments" cascade="none" lazy="true">
-            <key>
-              <column name="IssuerCountryDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentIdentificationDocumentQ" />
           </set>
 
           <set name="StudentPersonalIdentificationDocuments" cascade="none" lazy="true">
@@ -9066,13 +8946,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicDisabilityQ" />
           </set>
 
-          <set name="StudentEducationOrganizationAssociationDisabilities" cascade="none" lazy="true">
-            <key>
-              <column name="DisabilityDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityQ" />
-          </set>
-
           <set name="StudentSpecialEducationProgramAssociationDisabilities" cascade="none" lazy="true">
             <key>
               <column name="DisabilityDescriptorId" />
@@ -9124,13 +8997,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicDisabilityDesignationQ" />
           </set>
 
-          <set name="StudentEducationOrganizationAssociationDisabilityDesignations" cascade="none" lazy="true">
-            <key>
-              <column name="DisabilityDesignationDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityDesignationQ" />
-          </set>
-
           <set name="StudentSpecialEducationProgramAssociationDisabilityDesignations" cascade="none" lazy="true">
             <key>
               <column name="DisabilityDesignationDescriptorId" />
@@ -9180,13 +9046,6 @@
               <column name="DisabilityDeterminationSourceTypeDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicDisabilityQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationDisabilities" cascade="none" lazy="true">
-            <key>
-              <column name="DisabilityDeterminationSourceTypeDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityQ" />
           </set>
 
           <set name="StudentSpecialEducationProgramAssociationDisabilities" cascade="none" lazy="true">
@@ -9502,14 +9361,7 @@
             <key>
               <column name="EducationOrganizationIdentificationSystemDescriptorId" />
             </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIdentificationCodeQ" />
-          </set>
-
-          <set name="EducationOrganizationIdentities" cascade="none" lazy="true">
-            <key>
-              <column name="EducationOrganizationIdentificationSystemDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentityAggregate.EdFi.EducationOrganizationIdentityQ" />
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentificationCodeAggregate.EdFi.EducationOrganizationIdentificationCodeQ" />
           </set>
 
       </join>
@@ -9609,25 +9461,11 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryElectronicMailQ" />
           </set>
 
-          <set name="StaffElectronicMails" cascade="none" lazy="true">
-            <key>
-              <column name="ElectronicMailTypeDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffElectronicMailQ" />
-          </set>
-
           <set name="StudentDirectoryElectronicMails" cascade="none" lazy="true">
             <key>
               <column name="ElectronicMailTypeDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryElectronicMailQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationElectronicMails" cascade="none" lazy="true">
-            <key>
-              <column name="ElectronicMailTypeDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationElectronicMailQ" />
           </set>
 
       </join>
@@ -10785,13 +10623,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicIdentificationDocumentQ" />
           </set>
 
-          <set name="StaffIdentificationDocuments" cascade="none" lazy="true">
-            <key>
-              <column name="IdentificationDocumentUseDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationDocumentQ" />
-          </set>
-
           <set name="StaffPersonalIdentificationDocuments" cascade="none" lazy="true">
             <key>
               <column name="IdentificationDocumentUseDescriptorId" />
@@ -10804,13 +10635,6 @@
               <column name="IdentificationDocumentUseDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicIdentificationDocumentQ" />
-          </set>
-
-          <set name="StudentIdentificationDocuments" cascade="none" lazy="true">
-            <key>
-              <column name="IdentificationDocumentUseDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentIdentificationDocumentQ" />
           </set>
 
           <set name="StudentPersonalIdentificationDocuments" cascade="none" lazy="true">
@@ -11205,13 +11029,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicLanguageQ" />
           </set>
 
-          <set name="StaffLanguages" cascade="none" lazy="true">
-            <key>
-              <column name="LanguageDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffLanguageQ" />
-          </set>
-
           <set name="StudentAssessments" cascade="none" lazy="true">
             <key>
               <column name="AdministrationLanguageDescriptorId" />
@@ -11224,13 +11041,6 @@
               <column name="LanguageDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicLanguageQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationLanguages" cascade="none" lazy="true">
-            <key>
-              <column name="LanguageDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageQ" />
           </set>
 
       </join>
@@ -11300,25 +11110,11 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicLanguageUseQ" />
           </set>
 
-          <set name="StaffLanguageUses" cascade="none" lazy="true">
-            <key>
-              <column name="LanguageUseDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffLanguageUseQ" />
-          </set>
-
           <set name="StudentDemographicLanguageUses" cascade="none" lazy="true">
             <key>
               <column name="LanguageUseDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicLanguageUseQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationLanguageUses" cascade="none" lazy="true">
-            <key>
-              <column name="LanguageUseDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageUseQ" />
           </set>
 
       </join>
@@ -11526,13 +11322,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicQ" />
           </set>
 
-          <set name="StudentEducationOrganizationAssociations" cascade="none" lazy="true">
-            <key>
-              <column name="LimitedEnglishProficiencyDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" />
-          </set>
-
       </join>
     </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi.LocaleDescriptorQ" lazy="false" discriminator-value="edfi.LocaleDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
@@ -11577,13 +11366,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationAddressQ" />
           </set>
 
-          <set name="StaffAddresses" cascade="none" lazy="true">
-            <key>
-              <column name="LocaleDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressQ" />
-          </set>
-
           <set name="StaffDirectoryAddresses" cascade="none" lazy="true">
             <key>
               <column name="LocaleDescriptorId" />
@@ -11596,13 +11378,6 @@
               <column name="LocaleDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryAddressQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationAddresses" cascade="none" lazy="true">
-            <key>
-              <column name="LocaleDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressQ" />
           </set>
 
       </join>
@@ -12338,13 +12113,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicIdentificationDocumentQ" />
           </set>
 
-          <set name="StaffIdentificationDocuments" cascade="none" lazy="true">
-            <key>
-              <column name="PersonalInformationVerificationDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationDocumentQ" />
-          </set>
-
           <set name="StaffPersonalIdentificationDocuments" cascade="none" lazy="true">
             <key>
               <column name="PersonalInformationVerificationDescriptorId" />
@@ -12357,13 +12125,6 @@
               <column name="PersonalInformationVerificationDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicIdentificationDocumentQ" />
-          </set>
-
-          <set name="StudentIdentificationDocuments" cascade="none" lazy="true">
-            <key>
-              <column name="PersonalInformationVerificationDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentIdentificationDocumentQ" />
           </set>
 
           <set name="StudentPersonalIdentificationDocuments" cascade="none" lazy="true">
@@ -13099,25 +12860,11 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicRaceQ" />
           </set>
 
-          <set name="StaffRaces" cascade="none" lazy="true">
-            <key>
-              <column name="RaceDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffRaceQ" />
-          </set>
-
           <set name="StudentDemographicRaces" cascade="none" lazy="true">
             <key>
               <column name="RaceDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicRaceQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationRaces" cascade="none" lazy="true">
-            <key>
-              <column name="RaceDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationRaceQ" />
           </set>
 
       </join>
@@ -14069,13 +13816,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.RecruitmentEventAttendanceAggregate.EdFi.RecruitmentEventAttendanceQ" />
           </set>
 
-          <set name="Staffs" cascade="none" lazy="true">
-            <key>
-              <column name="SexDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ" />
-          </set>
-
           <set name="StaffDemographics" cascade="none" lazy="true">
             <key>
               <column name="SexDescriptorId" />
@@ -14095,13 +13835,6 @@
               <column name="SexDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociations" cascade="none" lazy="true">
-            <key>
-              <column name="SexDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" />
           </set>
 
       </join>
@@ -14246,14 +13979,7 @@
             <key>
               <column name="StaffIdentificationSystemDescriptorId" />
             </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationCodeQ" />
-          </set>
-
-          <set name="StaffIdentities" cascade="none" lazy="true">
-            <key>
-              <column name="StaffIdentificationSystemDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentityAggregate.EdFi.StaffIdentityQ" />
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentificationCodeAggregate.EdFi.StaffIdentificationCodeQ" />
           </set>
 
       </join>
@@ -14367,13 +14093,6 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.EdFi.InterventionStudyStateAbbreviationQ" />
           </set>
 
-          <set name="StaffAddresses" cascade="none" lazy="true">
-            <key>
-              <column name="StateAbbreviationDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressQ" />
-          </set>
-
           <set name="StaffDirectoryAddresses" cascade="none" lazy="true">
             <key>
               <column name="StateAbbreviationDescriptorId" />
@@ -14393,13 +14112,6 @@
               <column name="StateAbbreviationDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryAddressQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationAddresses" cascade="none" lazy="true">
-            <key>
-              <column name="StateAbbreviationDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressQ" />
           </set>
 
       </join>
@@ -14425,11 +14137,11 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ApplicantProfileAggregate.EdFi.ApplicantProfileApplicantCharacteristicQ" />
           </set>
 
-          <set name="StudentEducationOrganizationAssociationStudentCharacteristics" cascade="none" lazy="true">
+          <set name="StudentDemographicStudentCharacteristics" cascade="none" lazy="true">
             <key>
               <column name="StudentCharacteristicDescriptorId" />
             </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentCharacteristicQ" />
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicStudentCharacteristicQ" />
           </set>
 
       </join>
@@ -14448,25 +14160,11 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-          <set name="CandidateIdentificationCodes" cascade="none" lazy="true">
+          <set name="StudentIdentificationCodes" cascade="none" lazy="true">
             <key>
               <column name="StudentIdentificationSystemDescriptorId" />
             </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateIdentificationCodeQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationStudentIdentificationCodes" cascade="none" lazy="true">
-            <key>
-              <column name="StudentIdentificationSystemDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentIdentificationCodeQ" />
-          </set>
-
-          <set name="StudentIdentities" cascade="none" lazy="true">
-            <key>
-              <column name="StudentIdentificationSystemDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentityAggregate.EdFi.StudentIdentityQ" />
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationCodeAggregate.EdFi.StudentIdentificationCodeQ" />
           </set>
 
       </join>
@@ -14513,13 +14211,6 @@
               <column name="SupporterMilitaryConnectionDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociations" cascade="none" lazy="true">
-            <key>
-              <column name="SupporterMilitaryConnectionDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" />
           </set>
 
       </join>
@@ -14688,25 +14379,11 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDirectoryAggregate.EdFi.StaffDirectoryTelephoneQ" />
           </set>
 
-          <set name="StaffTelephones" cascade="none" lazy="true">
-            <key>
-              <column name="TelephoneNumberTypeDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffTelephoneQ" />
-          </set>
-
           <set name="StudentDirectoryTelephones" cascade="none" lazy="true">
             <key>
               <column name="TelephoneNumberTypeDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDirectoryAggregate.EdFi.StudentDirectoryTelephoneQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationTelephones" cascade="none" lazy="true">
-            <key>
-              <column name="TelephoneNumberTypeDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationTelephoneQ" />
           </set>
 
       </join>
@@ -14965,25 +14642,11 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicTribalAffiliationQ" />
           </set>
 
-          <set name="StaffTribalAffiliations" cascade="none" lazy="true">
-            <key>
-              <column name="TribalAffiliationDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffTribalAffiliationQ" />
-          </set>
-
           <set name="StudentDemographicTribalAffiliations" cascade="none" lazy="true">
             <key>
               <column name="TribalAffiliationDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicTribalAffiliationQ" />
-          </set>
-
-          <set name="StudentEducationOrganizationAssociationTribalAffiliations" cascade="none" lazy="true">
-            <key>
-              <column name="TribalAffiliationDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationTribalAffiliationQ" />
           </set>
 
       </join>
@@ -15023,25 +14686,11 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDemographicAggregate.EdFi.StaffDemographicVisaQ" />
           </set>
 
-          <set name="StaffVisas" cascade="none" lazy="true">
-            <key>
-              <column name="VisaDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffVisaQ" />
-          </set>
-
           <set name="StudentDemographicVisas" cascade="none" lazy="true">
             <key>
               <column name="VisaDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicVisaQ" />
-          </set>
-
-          <set name="StudentVisas" cascade="none" lazy="true">
-            <key>
-              <column name="VisaDescriptorId" />
-            </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentVisaQ" />
           </set>
 
       </join>
@@ -15948,11 +15597,11 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ" />
     </set>
 
-    <set name="CandidateIdentities" cascade="none" lazy="true">
+    <set name="CandidateIdentificationCodes" cascade="none" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentityAggregate.EdFi.CandidateIdentityQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateIdentificationCodeAggregate.EdFi.CandidateIdentificationCodeQ" />
     </set>
 
     <set name="CertificationExams" cascade="none" lazy="true">
@@ -15990,11 +15639,11 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CompetencyObjectiveAggregate.EdFi.CompetencyObjectiveQ" />
     </set>
 
-    <set name="ContactIdentities" cascade="none" lazy="true">
+    <set name="ContactIdentificationCodes" cascade="none" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentityAggregate.EdFi.ContactIdentityQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCodeQ" />
     </set>
 
     <set name="Courses" cascade="none" lazy="true">
@@ -16029,14 +15678,7 @@
       <key>
         <column name="EducationOrganizationId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIdentificationCodeQ" />
-    </set>
-
-    <set name="EducationOrganizationIdentities" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentityAggregate.EdFi.EducationOrganizationIdentityQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentificationCodeAggregate.EdFi.EducationOrganizationIdentificationCodeQ" />
     </set>
 
     <set name="EducationOrganizationIndicators" cascade="none" lazy="true">
@@ -16228,11 +15870,11 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationQ" />
     </set>
 
-    <set name="StaffIdentities" cascade="none" lazy="true">
+    <set name="StaffIdentificationCodes" cascade="none" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentityAggregate.EdFi.StaffIdentityQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentificationCodeAggregate.EdFi.StaffIdentificationCodeQ" />
     </set>
 
     <set name="StudentAcademicRecords" cascade="none" lazy="true">
@@ -16291,11 +15933,11 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthQ" />
     </set>
 
-    <set name="StudentIdentities" cascade="none" lazy="true">
+    <set name="StudentIdentificationCodes" cascade="none" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentityAggregate.EdFi.StudentIdentityQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationCodeAggregate.EdFi.StudentIdentificationCodeQ" />
     </set>
 
     <set name="StudentProgramAttendanceEvents" cascade="none" lazy="true">
@@ -17024,34 +16666,6 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIdentificationCodeQ" table="EducationOrganizationIdentificationCode" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="EducationOrganizationIdentificationSystemDescriptorId" column="EducationOrganizationIdentificationSystemDescriptorId" type="int" />
-      <key-many-to-one name="EducationOrganization">
-        <column name="EducationOrganizationId" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="IdentificationCode" column="IdentificationCode" type="string" length="120" not-null="true" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="EducationOrganizationIdentificationSystemDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="EducationOrganizationIdentificationSystemDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ" table="EducationOrganizationIndicator" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
@@ -17190,7 +16804,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentityAggregate.EdFi.EducationOrganizationIdentityQ" table="EducationOrganizationIdentity" lazy="false" discriminator-value="null">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentificationCodeAggregate.EdFi.EducationOrganizationIdentificationCodeQ" table="EducationOrganizationIdentificationCode" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
@@ -26742,14 +26356,11 @@
     <!-- Readonly property to surface the discriminator value -->
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
     <property name="BirthDate" column="BirthDate" type="date" />
-    <property name="CitizenshipStatusDescriptorId" column="CitizenshipStatusDescriptorId" type="int" />
     <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
     <property name="FirstName" column="FirstName" type="string" length="75" not-null="true" />
-    <property name="GenderIdentity" column="GenderIdentity" type="string" length="60" />
     <property name="GenerationCodeSuffix" column="GenerationCodeSuffix" type="string" length="10" />
     <property name="HighestCompletedLevelOfEducationDescriptorId" column="HighestCompletedLevelOfEducationDescriptorId" type="int" />
     <property name="HighlyQualifiedTeacher" column="HighlyQualifiedTeacher" type="bool" />
-    <property name="HispanicLatinoEthnicity" column="HispanicLatinoEthnicity" type="bool" />
     <property name="LastSurname" column="LastSurname" type="string" length="75" not-null="true" />
     <property name="LoginId" column="LoginId" type="string" length="120" />
     <property name="MaidenName" column="MaidenName" type="string" length="75" />
@@ -26759,7 +26370,6 @@
     <property name="PreferredFirstName" column="PreferredFirstName" type="string" length="75" />
     <property name="PreferredLastSurname" column="PreferredLastSurname" type="string" length="75" />
     <property name="RequisitionNumber" column="RequisitionNumber" type="string" length="20" />
-    <property name="SexDescriptorId" column="SexDescriptorId" type="int" />
     <property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
     <property name="StaffUniqueId" column="StaffUniqueId" type="string" length="32" not-null="true" />
     <property name="YearsOfPriorProfessionalExperience" column="YearsOfPriorProfessionalExperience" type="decimal" />
@@ -26771,9 +26381,6 @@
     <!-- Aggregate references -->
 
     <!-- Back references -->
-    <many-to-one name="CitizenshipStatusDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="CitizenshipStatusDescriptorId" />
-    </many-to-one>
     <many-to-one name="HighestCompletedLevelOfEducationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LevelOfEducationDescriptorAggregate.EdFi.LevelOfEducationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="HighestCompletedLevelOfEducationDescriptorId" />
     </many-to-one>
@@ -26784,9 +26391,6 @@
     <many-to-one name="Person" class="EdFi.Ods.Entities.NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="PersonId" />
         <column name="SourceSystemDescriptorId" />
-    </many-to-one>
-    <many-to-one name="SexDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="SexDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->
@@ -26844,20 +26448,6 @@
         <column name="StaffUSI" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAbsenceEventAggregate.EdFi.StaffAbsenceEventQ" />
-    </set>
-
-    <set name="StaffAddresses" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressQ" />
-    </set>
-
-    <set name="StaffAncestryEthnicOrigins" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffAncestryEthnicOriginQ" />
     </set>
 
     <set name="StaffCohortAssociations" cascade="none" lazy="true">
@@ -26923,13 +26513,6 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffEducatorPreparationProgramQ" />
     </set>
 
-    <set name="StaffElectronicMails" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffElectronicMailQ" />
-    </set>
-
     <set name="StaffHighlyQualifiedAcademicSubjects" cascade="none" lazy="true">
       <key>
         <column name="StaffUSI" />
@@ -26941,35 +26524,7 @@
       <key>
         <column name="StaffUSI" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationCodeQ" />
-    </set>
-
-    <set name="StaffIdentificationDocuments" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationDocumentQ" />
-    </set>
-
-    <set name="StaffIdentities" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentityAggregate.EdFi.StaffIdentityQ" />
-    </set>
-
-    <set name="StaffInternationalAddresses" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffInternationalAddressQ" />
-    </set>
-
-    <set name="StaffLanguages" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffLanguageQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentificationCodeAggregate.EdFi.StaffIdentificationCodeQ" />
     </set>
 
     <set name="StaffLeaves" cascade="none" lazy="true">
@@ -27000,13 +26555,6 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffProgramAssociationAggregate.EdFi.StaffProgramAssociationQ" />
     </set>
 
-    <set name="StaffRaces" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffRaceQ" />
-    </set>
-
     <set name="StaffRecognitions" cascade="none" lazy="true">
       <key>
         <column name="StaffUSI" />
@@ -27026,27 +26574,6 @@
         <column name="StaffUSI" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffSectionAssociationAggregate.EdFi.StaffSectionAssociationQ" />
-    </set>
-
-    <set name="StaffTelephones" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffTelephoneQ" />
-    </set>
-
-    <set name="StaffTribalAffiliations" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffTribalAffiliationQ" />
-    </set>
-
-    <set name="StaffVisas" cascade="none" lazy="true">
-      <key>
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffVisaQ" />
     </set>
 
     <set name="StudentProgramEvaluations" cascade="none" lazy="true">
@@ -27091,121 +26618,6 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseStaffTargetAssociationAggregate.EdFi.SurveySectionResponseStaffTargetAssociationQ" />
     </set>
 
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressQ" table="StaffAddress" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AddressTypeDescriptorId" column="AddressTypeDescriptorId" type="int" />
-      <key-property name="City" column="City" type="string" length="30" />
-      <key-property name="PostalCode" column="PostalCode" type="string" length="17" />
-      <key-property name="StateAbbreviationDescriptorId" column="StateAbbreviationDescriptorId" type="int" />
-      <key-property name="StreetNumberName" column="StreetNumberName" type="string" length="150" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="ApartmentRoomSuiteNumber" column="ApartmentRoomSuiteNumber" type="string" length="50" />
-    <property name="BuildingSiteNumber" column="BuildingSiteNumber" type="string" length="20" />
-    <property name="CongressionalDistrict" column="CongressionalDistrict" type="string" length="30" />
-    <property name="CountyFIPSCode" column="CountyFIPSCode" type="string" length="5" />
-    <property name="DoNotPublishIndicator" column="DoNotPublishIndicator" type="bool" />
-    <property name="Latitude" column="Latitude" type="string" length="20" />
-    <property name="LocaleDescriptorId" column="LocaleDescriptorId" type="int" />
-    <property name="Longitude" column="Longitude" type="string" length="20" />
-    <property name="NameOfCounty" column="NameOfCounty" type="string" length="30" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="AddressTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="AddressTypeDescriptorId" />
-    </many-to-one>
-    <many-to-one name="LocaleDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi.LocaleDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="LocaleDescriptorId" />
-    </many-to-one>
-    <many-to-one name="StateAbbreviationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="StateAbbreviationDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-    <set name="StaffAddressPeriods" cascade="none" lazy="true">
-      <key>
-        <column name="AddressTypeDescriptorId" />
-        <column name="City" />
-        <column name="PostalCode" />
-        <column name="StateAbbreviationDescriptorId" />
-        <column name="StreetNumberName" />
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressPeriodQ" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffAddressPeriodQ" table="StaffAddressPeriod" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-many-to-one name="StaffAddress">
-        <column name="AddressTypeDescriptorId" />
-        <column name="City" />
-        <column name="PostalCode" />
-        <column name="StateAbbreviationDescriptorId" />
-        <column name="StreetNumberName" />
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="EndDate" column="EndDate" type="date" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffAncestryEthnicOriginQ" table="StaffAncestryEthnicOrigin" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AncestryEthnicOriginDescriptorId" column="AncestryEthnicOriginDescriptorId" type="int" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="AncestryEthnicOriginDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AncestryEthnicOriginDescriptorAggregate.EdFi.AncestryEthnicOriginDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="AncestryEthnicOriginDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
 </class>
 
 
@@ -27297,36 +26709,6 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffElectronicMailQ" table="StaffElectronicMail" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="ElectronicMailAddress" column="ElectronicMailAddress" type="string" length="128" />
-      <key-property name="ElectronicMailTypeDescriptorId" column="ElectronicMailTypeDescriptorId" type="int" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="DoNotPublishIndicator" column="DoNotPublishIndicator" type="bool" />
-    <property name="PrimaryEmailAddressIndicator" column="PrimaryEmailAddressIndicator" type="bool" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="ElectronicMailTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.ElectronicMailTypeDescriptorAggregate.EdFi.ElectronicMailTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="ElectronicMailTypeDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffHighlyQualifiedAcademicSubjectQ" table="StaffHighlyQualifiedAcademicSubject" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
@@ -27346,176 +26728,6 @@
     <!-- Back references -->
     <many-to-one name="AcademicSubjectDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="AcademicSubjectDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationCodeQ" table="StaffIdentificationCode" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="StaffIdentificationSystemDescriptorId" column="StaffIdentificationSystemDescriptorId" type="int" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="AssigningOrganizationIdentificationCode" column="AssigningOrganizationIdentificationCode" type="string" length="120" />
-    <property name="IdentificationCode" column="IdentificationCode" type="string" length="120" not-null="true" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="StaffIdentificationSystemDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentificationSystemDescriptorAggregate.EdFi.StaffIdentificationSystemDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="StaffIdentificationSystemDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationDocumentQ" table="StaffIdentificationDocument" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="IdentificationDocumentUseDescriptorId" column="IdentificationDocumentUseDescriptorId" type="int" />
-      <key-property name="PersonalInformationVerificationDescriptorId" column="PersonalInformationVerificationDescriptorId" type="int" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="DocumentExpirationDate" column="DocumentExpirationDate" type="date" />
-    <property name="DocumentTitle" column="DocumentTitle" type="string" length="60" />
-    <property name="IssuerCountryDescriptorId" column="IssuerCountryDescriptorId" type="int" />
-    <property name="IssuerDocumentIdentificationCode" column="IssuerDocumentIdentificationCode" type="string" length="120" />
-    <property name="IssuerName" column="IssuerName" type="string" length="150" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="IdentificationDocumentUseDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.IdentificationDocumentUseDescriptorAggregate.EdFi.IdentificationDocumentUseDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="IdentificationDocumentUseDescriptorId" />
-    </many-to-one>
-    <many-to-one name="IssuerCountryDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="IssuerCountryDescriptorId" />
-    </many-to-one>
-    <many-to-one name="PersonalInformationVerificationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="PersonalInformationVerificationDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffInternationalAddressQ" table="StaffInternationalAddress" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AddressTypeDescriptorId" column="AddressTypeDescriptorId" type="int" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="AddressLine1" column="AddressLine1" type="string" length="150" not-null="true" />
-    <property name="AddressLine2" column="AddressLine2" type="string" length="150" />
-    <property name="AddressLine3" column="AddressLine3" type="string" length="150" />
-    <property name="AddressLine4" column="AddressLine4" type="string" length="150" />
-    <property name="BeginDate" column="BeginDate" type="date" />
-    <property name="CountryDescriptorId" column="CountryDescriptorId" type="int" not-null="true" />
-    <property name="EndDate" column="EndDate" type="date" />
-    <property name="Latitude" column="Latitude" type="string" length="20" />
-    <property name="Longitude" column="Longitude" type="string" length="20" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="AddressTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="AddressTypeDescriptorId" />
-    </many-to-one>
-    <many-to-one name="CountryDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="CountryDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffLanguageQ" table="StaffLanguage" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="LanguageDescriptorId" column="LanguageDescriptorId" type="int" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="LanguageDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi.LanguageDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="LanguageDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-    <set name="StaffLanguageUses" cascade="none" lazy="true">
-      <key>
-        <column name="LanguageDescriptorId" />
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffLanguageUseQ" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffLanguageUseQ" table="StaffLanguageUse" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="LanguageUseDescriptorId" column="LanguageUseDescriptorId" type="int" />
-      <key-many-to-one name="StaffLanguage">
-        <column name="LanguageDescriptorId" />
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="LanguageUseDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LanguageUseDescriptorAggregate.EdFi.LanguageUseDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="LanguageUseDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->
@@ -27595,33 +26807,6 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffRaceQ" table="StaffRace" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="RaceDescriptorId" column="RaceDescriptorId" type="int" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="RaceDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.RaceDescriptorAggregate.EdFi.RaceDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="RaceDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffRecognitionQ" table="StaffRecognition" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
@@ -27656,91 +26841,6 @@
     </many-to-one>
     <many-to-one name="RecognitionTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.RecognitionTypeDescriptorAggregate.EdFi.RecognitionTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="RecognitionTypeDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffTelephoneQ" table="StaffTelephone" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="TelephoneNumber" column="TelephoneNumber" type="string" length="24" />
-      <key-property name="TelephoneNumberTypeDescriptorId" column="TelephoneNumberTypeDescriptorId" type="int" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="DoNotPublishIndicator" column="DoNotPublishIndicator" type="bool" />
-    <property name="OrderOfPriority" column="OrderOfPriority" type="int" />
-    <property name="TextMessageCapabilityIndicator" column="TextMessageCapabilityIndicator" type="bool" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="TelephoneNumberTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="TelephoneNumberTypeDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffTribalAffiliationQ" table="StaffTribalAffiliation" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="TribalAffiliationDescriptorId" column="TribalAffiliationDescriptorId" type="int" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="TribalAffiliationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.TribalAffiliationDescriptorAggregate.EdFi.TribalAffiliationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="TribalAffiliationDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffVisaQ" table="StaffVisa" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="VisaDescriptorId" column="VisaDescriptorId" type="int" />
-      <key-many-to-one name="Staff">
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="VisaDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.VisaDescriptorAggregate.EdFi.VisaDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="VisaDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->
@@ -28818,7 +27918,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentityAggregate.EdFi.StaffIdentityQ" table="StaffIdentity" lazy="false" discriminator-value="null">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentificationCodeAggregate.EdFi.StaffIdentificationCodeQ" table="StaffIdentificationCode" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
@@ -29222,7 +28322,6 @@
     <property name="BirthInternationalProvince" column="BirthInternationalProvince" type="string" length="150" />
     <property name="BirthSexDescriptorId" column="BirthSexDescriptorId" type="int" />
     <property name="BirthStateAbbreviationDescriptorId" column="BirthStateAbbreviationDescriptorId" type="int" />
-    <property name="CitizenshipStatusDescriptorId" column="CitizenshipStatusDescriptorId" type="int" />
     <property name="DateEnteredUS" column="DateEnteredUS" type="date" />
     <property name="FirstName" column="FirstName" type="string" length="75" not-null="true" />
     <property name="GenerationCodeSuffix" column="GenerationCodeSuffix" type="string" length="10" />
@@ -29248,9 +28347,6 @@
     </many-to-one>
     <many-to-one name="BirthStateAbbreviationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="BirthStateAbbreviationDescriptorId" />
-    </many-to-one>
-    <many-to-one name="CitizenshipStatusDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="CitizenshipStatusDescriptorId" />
     </many-to-one>
     <many-to-one name="Person" class="EdFi.Ods.Entities.NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="PersonId" />
@@ -29405,18 +28501,11 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthQ" />
     </set>
 
-    <set name="StudentIdentificationDocuments" cascade="none" lazy="true">
+    <set name="StudentIdentificationCodes" cascade="none" lazy="true">
       <key>
         <column name="StudentUSI" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentIdentificationDocumentQ" />
-    </set>
-
-    <set name="StudentIdentities" cascade="none" lazy="true">
-      <key>
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentityAggregate.EdFi.StudentIdentityQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationCodeAggregate.EdFi.StudentIdentificationCodeQ" />
     </set>
 
     <set name="StudentInterventionAssociations" cascade="none" lazy="true">
@@ -29510,13 +28599,6 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentTransportationAggregate.EdFi.StudentTransportationQ" />
     </set>
 
-    <set name="StudentVisas" cascade="none" lazy="true">
-      <key>
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentVisaQ" />
-    </set>
-
     <set name="SurveyResponses" cascade="none" lazy="true">
       <key>
         <column name="StudentUSI" />
@@ -29524,45 +28606,6 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseAggregate.EdFi.SurveyResponseQ" />
     </set>
 
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentIdentificationDocumentQ" table="StudentIdentificationDocument" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="IdentificationDocumentUseDescriptorId" column="IdentificationDocumentUseDescriptorId" type="int" />
-      <key-property name="PersonalInformationVerificationDescriptorId" column="PersonalInformationVerificationDescriptorId" type="int" />
-      <key-many-to-one name="Student">
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="DocumentExpirationDate" column="DocumentExpirationDate" type="date" />
-    <property name="DocumentTitle" column="DocumentTitle" type="string" length="60" />
-    <property name="IssuerCountryDescriptorId" column="IssuerCountryDescriptorId" type="int" />
-    <property name="IssuerDocumentIdentificationCode" column="IssuerDocumentIdentificationCode" type="string" length="120" />
-    <property name="IssuerName" column="IssuerName" type="string" length="150" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="IdentificationDocumentUseDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.IdentificationDocumentUseDescriptorAggregate.EdFi.IdentificationDocumentUseDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="IdentificationDocumentUseDescriptorId" />
-    </many-to-one>
-    <many-to-one name="IssuerCountryDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="IssuerCountryDescriptorId" />
-    </many-to-one>
-    <many-to-one name="PersonalInformationVerificationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="PersonalInformationVerificationDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
 </class>
 
 
@@ -29631,33 +28674,6 @@
     </many-to-one>
     <many-to-one name="PersonalInformationVerificationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="PersonalInformationVerificationDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentVisaQ" table="StudentVisa" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="VisaDescriptorId" column="VisaDescriptorId" type="int" />
-      <key-many-to-one name="Student">
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="VisaDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.VisaDescriptorAggregate.EdFi.VisaDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="VisaDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->
@@ -31316,6 +30332,14 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicRaceQ" />
     </set>
 
+    <set name="StudentDemographicStudentCharacteristics" cascade="none" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicStudentCharacteristicQ" />
+    </set>
+
     <set name="StudentDemographicTribalAffiliations" cascade="none" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
@@ -31564,6 +30588,71 @@
     <many-to-one name="RaceDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.RaceDescriptorAggregate.EdFi.RaceDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="RaceDescriptorId" />
     </many-to-one>
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicStudentCharacteristicQ" table="StudentDemographicStudentCharacteristic" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="StudentCharacteristicDescriptorId" column="StudentCharacteristicDescriptorId" type="int" />
+      <key-many-to-one name="StudentDemographic">
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="DesignatedBy" column="DesignatedBy" type="string" length="60" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+    <many-to-one name="StudentCharacteristicDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentCharacteristicDescriptorAggregate.EdFi.StudentCharacteristicDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="StudentCharacteristicDescriptorId" />
+    </many-to-one>
+
+    <!-- Collections -->
+    <set name="StudentDemographicStudentCharacteristicPeriods" cascade="none" lazy="true">
+      <key>
+        <column name="StudentCharacteristicDescriptorId" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicStudentCharacteristicPeriodQ" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDemographicAggregate.EdFi.StudentDemographicStudentCharacteristicPeriodQ" table="StudentDemographicStudentCharacteristicPeriod" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="BeginDate" column="BeginDate" type="date" />
+      <key-many-to-one name="StudentDemographicStudentCharacteristic">
+        <column name="StudentCharacteristicDescriptorId" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="EndDate" column="EndDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
 
     <!-- Collections -->
 </class>
@@ -32218,19 +31307,14 @@
     <!-- Readonly property to surface the discriminator value -->
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
     <property name="BarrierToInternetAccessInResidenceDescriptorId" column="BarrierToInternetAccessInResidenceDescriptorId" type="int" />
-    <property name="GenderIdentity" column="GenderIdentity" type="string" length="60" />
-    <property name="HispanicLatinoEthnicity" column="HispanicLatinoEthnicity" type="bool" />
     <property name="InternetAccessInResidence" column="InternetAccessInResidence" type="bool" />
     <property name="InternetAccessTypeInResidenceDescriptorId" column="InternetAccessTypeInResidenceDescriptorId" type="int" />
     <property name="InternetPerformanceInResidenceDescriptorId" column="InternetPerformanceInResidenceDescriptorId" type="int" />
-    <property name="LimitedEnglishProficiencyDescriptorId" column="LimitedEnglishProficiencyDescriptorId" type="int" />
     <property name="LoginId" column="LoginId" type="string" length="120" />
     <property name="PrimaryLearningDeviceAccessDescriptorId" column="PrimaryLearningDeviceAccessDescriptorId" type="int" />
     <property name="PrimaryLearningDeviceAwayFromSchoolDescriptorId" column="PrimaryLearningDeviceAwayFromSchoolDescriptorId" type="int" />
     <property name="PrimaryLearningDeviceProviderDescriptorId" column="PrimaryLearningDeviceProviderDescriptorId" type="int" />
     <property name="ProfileThumbnail" column="ProfileThumbnail" type="string" length="255" />
-    <property name="SexDescriptorId" column="SexDescriptorId" type="int" />
-    <property name="SupporterMilitaryConnectionDescriptorId" column="SupporterMilitaryConnectionDescriptorId" type="int" />
 
     <!-- Aggregate references -->
 
@@ -32247,9 +31331,6 @@
     <many-to-one name="InternetPerformanceInResidenceDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="InternetPerformanceInResidenceDescriptorId" />
     </many-to-one>
-    <many-to-one name="LimitedEnglishProficiencyDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LimitedEnglishProficiencyDescriptorAggregate.EdFi.LimitedEnglishProficiencyDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="LimitedEnglishProficiencyDescriptorId" />
-    </many-to-one>
     <many-to-one name="PrimaryLearningDeviceAccessDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="PrimaryLearningDeviceAccessDescriptorId" />
     </many-to-one>
@@ -32259,47 +31340,17 @@
     <many-to-one name="PrimaryLearningDeviceProviderDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="PrimaryLearningDeviceProviderDescriptorId" />
     </many-to-one>
-    <many-to-one name="SexDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="SexDescriptorId" />
-    </many-to-one>
     <many-to-one name="Student" class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="StudentUSI" />
     </many-to-one>
-    <many-to-one name="SupporterMilitaryConnectionDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.SupporterMilitaryConnectionDescriptorAggregate.EdFi.SupporterMilitaryConnectionDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="SupporterMilitaryConnectionDescriptorId" />
-    </many-to-one>
 
     <!-- Collections -->
-    <set name="StudentEducationOrganizationAssociationAddresses" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressQ" />
-    </set>
-
-    <set name="StudentEducationOrganizationAssociationAncestryEthnicOrigins" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAncestryEthnicOriginQ" />
-    </set>
-
     <set name="StudentEducationOrganizationAssociationCohortYears" cascade="none" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="StudentUSI" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationCohortYearQ" />
-    </set>
-
-    <set name="StudentEducationOrganizationAssociationDisabilities" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityQ" />
     </set>
 
     <set name="StudentEducationOrganizationAssociationDisplacedStudents" cascade="none" lazy="true">
@@ -32310,54 +31361,6 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisplacedStudentQ" />
     </set>
 
-    <set name="StudentEducationOrganizationAssociationElectronicMails" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationElectronicMailQ" />
-    </set>
-
-    <set name="StudentEducationOrganizationAssociationInternationalAddresses" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationInternationalAddressQ" />
-    </set>
-
-    <set name="StudentEducationOrganizationAssociationLanguages" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageQ" />
-    </set>
-
-    <set name="StudentEducationOrganizationAssociationRaces" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationRaceQ" />
-    </set>
-
-    <set name="StudentEducationOrganizationAssociationStudentCharacteristics" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentCharacteristicQ" />
-    </set>
-
-    <set name="StudentEducationOrganizationAssociationStudentIdentificationCodes" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentIdentificationCodeQ" />
-    </set>
-
     <set name="StudentEducationOrganizationAssociationStudentIndicators" cascade="none" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
@@ -32366,141 +31369,6 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentIndicatorQ" />
     </set>
 
-    <set name="StudentEducationOrganizationAssociationTelephones" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationTelephoneQ" />
-    </set>
-
-    <set name="StudentEducationOrganizationAssociationTribalAffiliations" cascade="none" lazy="true">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationTribalAffiliationQ" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressQ" table="StudentEducationOrganizationAssociationAddress" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AddressTypeDescriptorId" column="AddressTypeDescriptorId" type="int" />
-      <key-property name="City" column="City" type="string" length="30" />
-      <key-property name="PostalCode" column="PostalCode" type="string" length="17" />
-      <key-property name="StateAbbreviationDescriptorId" column="StateAbbreviationDescriptorId" type="int" />
-      <key-property name="StreetNumberName" column="StreetNumberName" type="string" length="150" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="ApartmentRoomSuiteNumber" column="ApartmentRoomSuiteNumber" type="string" length="50" />
-    <property name="BuildingSiteNumber" column="BuildingSiteNumber" type="string" length="20" />
-    <property name="CongressionalDistrict" column="CongressionalDistrict" type="string" length="30" />
-    <property name="CountyFIPSCode" column="CountyFIPSCode" type="string" length="5" />
-    <property name="DoNotPublishIndicator" column="DoNotPublishIndicator" type="bool" />
-    <property name="Latitude" column="Latitude" type="string" length="20" />
-    <property name="LocaleDescriptorId" column="LocaleDescriptorId" type="int" />
-    <property name="Longitude" column="Longitude" type="string" length="20" />
-    <property name="NameOfCounty" column="NameOfCounty" type="string" length="30" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="AddressTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="AddressTypeDescriptorId" />
-    </many-to-one>
-    <many-to-one name="LocaleDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi.LocaleDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="LocaleDescriptorId" />
-    </many-to-one>
-    <many-to-one name="StateAbbreviationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="StateAbbreviationDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-    <set name="StudentEducationOrganizationAssociationAddressPeriods" cascade="none" lazy="true">
-      <key>
-        <column name="AddressTypeDescriptorId" />
-        <column name="City" />
-        <column name="PostalCode" />
-        <column name="StateAbbreviationDescriptorId" />
-        <column name="StreetNumberName" />
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressPeriodQ" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressPeriodQ" table="StudentEducationOrganizationAssociationAddressPeriod" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-many-to-one name="StudentEducationOrganizationAssociationAddress">
-        <column name="AddressTypeDescriptorId" />
-        <column name="City" />
-        <column name="PostalCode" />
-        <column name="StateAbbreviationDescriptorId" />
-        <column name="StreetNumberName" />
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="EndDate" column="EndDate" type="date" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAncestryEthnicOriginQ" table="StudentEducationOrganizationAssociationAncestryEthnicOrigin" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AncestryEthnicOriginDescriptorId" column="AncestryEthnicOriginDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="AncestryEthnicOriginDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AncestryEthnicOriginDescriptorAggregate.EdFi.AncestryEthnicOriginDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="AncestryEthnicOriginDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
 </class>
 
 
@@ -32542,78 +31410,6 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityQ" table="StudentEducationOrganizationAssociationDisability" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="DisabilityDescriptorId" column="DisabilityDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="DisabilityDeterminationSourceTypeDescriptorId" column="DisabilityDeterminationSourceTypeDescriptorId" type="int" />
-    <property name="DisabilityDiagnosis" column="DisabilityDiagnosis" type="string" length="80" />
-    <property name="OrderOfDisability" column="OrderOfDisability" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="DisabilityDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDescriptorAggregate.EdFi.DisabilityDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="DisabilityDescriptorId" />
-    </many-to-one>
-    <many-to-one name="DisabilityDeterminationSourceTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDeterminationSourceTypeDescriptorAggregate.EdFi.DisabilityDeterminationSourceTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="DisabilityDeterminationSourceTypeDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-    <set name="StudentEducationOrganizationAssociationDisabilityDesignations" cascade="none" lazy="true">
-      <key>
-        <column name="DisabilityDescriptorId" />
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityDesignationQ" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisabilityDesignationQ" table="StudentEducationOrganizationAssociationDisabilityDesignation" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="DisabilityDesignationDescriptorId" column="DisabilityDesignationDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociationDisability">
-        <column name="DisabilityDescriptorId" />
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="DisabilityDesignationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDesignationDescriptorAggregate.EdFi.DisabilityDesignationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="DisabilityDesignationDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationDisplacedStudentQ" table="StudentEducationOrganizationAssociationDisplacedStudent" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
@@ -32641,266 +31437,6 @@
     </many-to-one>
     <many-to-one name="DisplacedStudentStatusDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.DisplacedStudentStatusDescriptorAggregate.EdFi.DisplacedStudentStatusDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="DisplacedStudentStatusDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationElectronicMailQ" table="StudentEducationOrganizationAssociationElectronicMail" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="ElectronicMailAddress" column="ElectronicMailAddress" type="string" length="128" />
-      <key-property name="ElectronicMailTypeDescriptorId" column="ElectronicMailTypeDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="DoNotPublishIndicator" column="DoNotPublishIndicator" type="bool" />
-    <property name="PrimaryEmailAddressIndicator" column="PrimaryEmailAddressIndicator" type="bool" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="ElectronicMailTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.ElectronicMailTypeDescriptorAggregate.EdFi.ElectronicMailTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="ElectronicMailTypeDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationInternationalAddressQ" table="StudentEducationOrganizationAssociationInternationalAddress" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AddressTypeDescriptorId" column="AddressTypeDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="AddressLine1" column="AddressLine1" type="string" length="150" not-null="true" />
-    <property name="AddressLine2" column="AddressLine2" type="string" length="150" />
-    <property name="AddressLine3" column="AddressLine3" type="string" length="150" />
-    <property name="AddressLine4" column="AddressLine4" type="string" length="150" />
-    <property name="BeginDate" column="BeginDate" type="date" />
-    <property name="CountryDescriptorId" column="CountryDescriptorId" type="int" not-null="true" />
-    <property name="EndDate" column="EndDate" type="date" />
-    <property name="Latitude" column="Latitude" type="string" length="20" />
-    <property name="Longitude" column="Longitude" type="string" length="20" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="AddressTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="AddressTypeDescriptorId" />
-    </many-to-one>
-    <many-to-one name="CountryDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="CountryDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageQ" table="StudentEducationOrganizationAssociationLanguage" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="LanguageDescriptorId" column="LanguageDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="LanguageDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi.LanguageDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="LanguageDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-    <set name="StudentEducationOrganizationAssociationLanguageUses" cascade="none" lazy="true">
-      <key>
-        <column name="LanguageDescriptorId" />
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageUseQ" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageUseQ" table="StudentEducationOrganizationAssociationLanguageUse" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="LanguageUseDescriptorId" column="LanguageUseDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociationLanguage">
-        <column name="LanguageDescriptorId" />
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="LanguageUseDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LanguageUseDescriptorAggregate.EdFi.LanguageUseDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="LanguageUseDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationRaceQ" table="StudentEducationOrganizationAssociationRace" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="RaceDescriptorId" column="RaceDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="RaceDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.RaceDescriptorAggregate.EdFi.RaceDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="RaceDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentCharacteristicQ" table="StudentEducationOrganizationAssociationStudentCharacteristic" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="StudentCharacteristicDescriptorId" column="StudentCharacteristicDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="DesignatedBy" column="DesignatedBy" type="string" length="60" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="StudentCharacteristicDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentCharacteristicDescriptorAggregate.EdFi.StudentCharacteristicDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="StudentCharacteristicDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-    <set name="StudentEducationOrganizationAssociationStudentCharacteristicPeriods" cascade="none" lazy="true">
-      <key>
-        <column name="StudentCharacteristicDescriptorId" />
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentCharacteristicPeriodQ" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentCharacteristicPeriodQ" table="StudentEducationOrganizationAssociationStudentCharacteristicPeriod" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-many-to-one name="StudentEducationOrganizationAssociationStudentCharacteristic">
-        <column name="StudentCharacteristicDescriptorId" />
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="EndDate" column="EndDate" type="date" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentIdentificationCodeQ" table="StudentEducationOrganizationAssociationStudentIdentificationCode" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AssigningOrganizationIdentificationCode" column="AssigningOrganizationIdentificationCode" type="string" length="120" />
-      <key-property name="StudentIdentificationSystemDescriptorId" column="StudentIdentificationSystemDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="IdentificationCode" column="IdentificationCode" type="string" length="120" not-null="true" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="StudentIdentificationSystemDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="StudentIdentificationSystemDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->
@@ -32966,66 +31502,6 @@
     <!-- Aggregate references -->
 
     <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationTelephoneQ" table="StudentEducationOrganizationAssociationTelephone" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="TelephoneNumber" column="TelephoneNumber" type="string" length="24" />
-      <key-property name="TelephoneNumberTypeDescriptorId" column="TelephoneNumberTypeDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="DoNotPublishIndicator" column="DoNotPublishIndicator" type="bool" />
-    <property name="OrderOfPriority" column="OrderOfPriority" type="int" />
-    <property name="TextMessageCapabilityIndicator" column="TextMessageCapabilityIndicator" type="bool" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="TelephoneNumberTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="TelephoneNumberTypeDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationTribalAffiliationQ" table="StudentEducationOrganizationAssociationTribalAffiliation" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="TribalAffiliationDescriptorId" column="TribalAffiliationDescriptorId" type="int" />
-      <key-many-to-one name="StudentEducationOrganizationAssociation">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="TribalAffiliationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.TribalAffiliationDescriptorAggregate.EdFi.TribalAffiliationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="TribalAffiliationDescriptorId" />
-    </many-to-one>
 
     <!-- Collections -->
 </class>
@@ -33363,7 +31839,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentityAggregate.EdFi.StudentIdentityQ" table="StudentIdentity" lazy="false" discriminator-value="null">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationCodeAggregate.EdFi.StudentIdentificationCodeQ" table="StudentIdentificationCode" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />

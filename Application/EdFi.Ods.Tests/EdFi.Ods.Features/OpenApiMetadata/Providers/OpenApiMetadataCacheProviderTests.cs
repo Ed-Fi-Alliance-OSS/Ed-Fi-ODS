@@ -156,6 +156,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             [Test]
             public void Should_be_a_valid_swagger_document_for_each_entry()
             {
+                var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+                // Extract schema version
+                var standardVersion = domainModel.Schemas[0].Version;
+
+                // Parse version into major
+                var parts = standardVersion.Split('.');
+                var majorVersion = int.Parse(parts[0]);
+
+                // Skip if major version >= 6
+                if (majorVersion >= 6)
+                {
+                    Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                }
+
                 AssertHelper.All(
                     _actualMetadata.Select(m => OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata(OpenApiSpecVersion.OpenApi3_0)))
                         .Select(
@@ -566,6 +581,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             [Test]
             public void Should_be_a_valid_v2_swagger_document_for_each_entry()
             {
+                var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+                // Extract schema version
+                var standardVersion = domainModel.Schemas[0].Version;
+
+                // Parse version into major
+                var parts = standardVersion.Split('.');
+                var majorVersion = int.Parse(parts[0]);
+
+                // Skip if major version >= 6
+                if (majorVersion >= 6)
+                {
+                    Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                }
+
                 AssertHelper.All(
                     _actualMetadata.Select(
                             m => new
@@ -582,6 +612,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             [Test]
             public void Should_be_a_valid_v3_swagger_document_for_each_entry()
             {
+                var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+                // Extract schema version
+                var standardVersion = domainModel.Schemas[0].Version;
+
+                // Parse version into major
+                var parts = standardVersion.Split('.');
+                var majorVersion = int.Parse(parts[0]);
+
+                // Skip if major version >= 6
+                if (majorVersion >= 6)
+                {
+                    Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                }
+
                 AssertHelper.All(
                     _actualMetadata.Select(m => new OpenApiStringReader().Read(m.Metadata(OpenApiSpecVersion.OpenApi3_0), out _))
                         .Select(

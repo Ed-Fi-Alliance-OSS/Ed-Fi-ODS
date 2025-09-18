@@ -38,9 +38,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -103,9 +102,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -160,9 +158,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -350,9 +347,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -407,9 +403,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -448,19 +443,28 @@
 													"  pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should return the item with only specific members [id, schoolId, localEducationAgencyReference, shortNameOfInstitution, webSite, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, gradeLevels]\",",
-													"  () => {",
-													"    let responseItem = pm.response.json();",
+													"// Get majorVersion from environment variable ",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);",
 													"",
-													"    // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
-													"    if (Array.isArray(responseItem)) {",
-													"        responseItem = responseItem[0];",
-													"    }",
+													"if (majorVersion < 6) {",
 													"",
-													"    pm.expect(responseItem).to.have.keys(['id', 'schoolId', 'localEducationAgencyReference', 'shortNameOfInstitution', 'webSite', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'gradeLevels']);",
-													"  });"
+													"    pm.test(\"Should return the item with only specific members [id, schoolId, localEducationAgencyReference, shortNameOfInstitution, webSite, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, gradeLevels]\",",
+													"    () => {",
+													"        let responseItem = pm.response.json();",
+													"",
+													"        // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
+													"        if (Array.isArray(responseItem)) {",
+													"            responseItem = responseItem[0];",
+													"        }",
+													"",
+													"        pm.expect(responseItem).to.have.keys(['id', 'schoolId', 'localEducationAgencyReference', 'shortNameOfInstitution', 'webSite', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'gradeLevels']);",
+													"    });",
+													"}",
+													"",
+													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -597,9 +601,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -654,9 +657,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -845,9 +847,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -901,9 +902,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -942,20 +942,28 @@
 													"    pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should the item return with  specific members [id, schoolId, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
+													"// Get majorVersion from environment variable ",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);",
 													"",
-													"        let responseItem = pm.response.json();",
+													"if (majorVersion < 6) {",
 													"",
-													"    // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
-													"    if (Array.isArray(responseItem)) {",
-													"        responseItem = responseItem[0];",
-													"    }",
+													"    pm.test(\"Should the item return with  specific members [id, schoolId, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
 													"",
-													"    const properties = Object.keys(responseItem);",
-													"    pm.expect(properties).to.have.members(['id', 'schoolId', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels']);",
-													"});"
+													"            let responseItem = pm.response.json();",
+													"",
+													"        // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
+													"        if (Array.isArray(responseItem)) {",
+													"            responseItem = responseItem[0];",
+													"        }",
+													"",
+													"        const properties = Object.keys(responseItem);",
+													"        pm.expect(properties).to.have.members(['id', 'schoolId', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels']);",
+													"    });",
+													"}",
+													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1092,9 +1100,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1148,9 +1155,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1189,21 +1195,29 @@
 													"    pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should the item return with  specific members [id, schoolId,localEducationAgencyReference, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
+													"// Get majorVersion from environment variable ",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);",
 													"",
-													"    let responseItem = pm.response.json();",
+													"if (majorVersion < 6) {",
 													"",
-													"    // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
-													"    if (Array.isArray(responseItem)) {",
-													"        responseItem = responseItem[0];",
-													"    }",
+													"    pm.test(\"Should the item return with  specific members [id, schoolId,localEducationAgencyReference, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
 													"",
-													"    const properties = Object.keys(responseItem);",
-													"    pm.expect(properties).to.have.members(['id', 'schoolId', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels', 'localEducationAgencyReference']);",
+													"        let responseItem = pm.response.json();",
 													"",
-													"});"
+													"        // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
+													"        if (Array.isArray(responseItem)) {",
+													"            responseItem = responseItem[0];",
+													"        }",
+													"",
+													"        const properties = Object.keys(responseItem);",
+													"        pm.expect(properties).to.have.members(['id', 'schoolId', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels', 'localEducationAgencyReference']);",
+													"",
+													"    });",
+													"}",
+													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1350,9 +1364,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1419,9 +1432,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1482,9 +1494,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1522,6 +1533,11 @@
 													"    pm.expect(pm.response.code).to.equal(200);\r",
 													"});\r",
 													"\r",
+													"// Get majorVersion from environment variable \r",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);\r",
+													"\r",
+													"if (majorVersion < 6) {\r",
+													"\r",
 													"pm.test(\"Should the item return with  specific members [id, staffUniqueId, personalTitlePrefix, firstName, lastSurname, sexDescriptor, birthDate, hispanicLatinoEthnicity, loginId, addresses, electronicMails, identificationCodes, languages, races, telephones, classifications]\", () => {\r",
 													"\r",
 													"    let responseItem = pm.response.json();\r",
@@ -1533,7 +1549,10 @@
 													"\r",
 													"    const properties = Object.keys(responseItem);\r",
 													"    pm.expect(properties).to.have.members(['id', 'staffUniqueId', 'personalTitlePrefix', 'firstName', 'lastSurname', 'sexDescriptor', 'birthDate', 'hispanicLatinoEthnicity', 'loginId', 'addresses', 'electronicMails', 'identificationCodes', 'languages', 'races', 'telephones', 'classifications']);\r",
-													"});"
+													"});\r",
+													"}\r",
+													"\r",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1663,9 +1682,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1719,9 +1737,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1911,9 +1928,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1967,9 +1983,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2157,9 +2172,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2213,9 +2227,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2403,9 +2416,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2459,9 +2471,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2648,9 +2659,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2717,9 +2727,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2785,9 +2794,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2840,9 +2848,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2908,9 +2915,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2991,9 +2997,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3054,9 +3059,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3122,9 +3126,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3185,9 +3188,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3253,9 +3255,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3316,9 +3317,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3380,9 +3380,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3444,9 +3443,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3482,41 +3480,47 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
-													"});",
+													"// Get majorVersion from environment variable ",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);",
 													"",
-													"pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of either Physical or Home\", () => {",
+													"if (majorVersion < 6) {",
 													"",
-													"    let dataVerified = false;",
-													"    let expectedAddressTypes = ['uri://ed-fi.org/AddressTypeDescriptor#Physical', 'uri://ed-fi.org/AddressTypeDescriptor#Home'];",
-													"    let responseItem = pm.response.json();",
+													"    pm.test(\"Status code is 200\", () => {",
+													"        pm.expect(pm.response.code).to.equal(200);",
+													"    });",
 													"",
-													"    // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
-													"    if (Array.isArray(responseItem)) {",
-													"        responseItem = responseItem[0];",
-													"    }",
+													"    pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of either Physical or Home\", () => {",
 													"",
-													"    const __ = require('lodash');",
+													"        let dataVerified = false;",
+													"        let expectedAddressTypes = ['uri://ed-fi.org/AddressTypeDescriptor#Physical', 'uri://ed-fi.org/AddressTypeDescriptor#Home'];",
+													"        let responseItem = pm.response.json();",
 													"",
-													"",
-													"    __.each(responseItem.students, student => {",
-													"",
-													"        if (student.educationOrganizations !== null) {",
-													"            __.each(student.educationOrganizations, educationOrganization => {",
-													"",
-													"                if (educationOrganization.addresses !== null) {",
-													"",
-													"                    const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
-													"                    pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
-													"                    dataVerified = true;",
-													"                }",
-													"            });",
+													"        // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
+													"        if (Array.isArray(responseItem)) {",
+													"            responseItem = responseItem[0];",
 													"        }",
 													"",
+													"        const __ = require('lodash');",
+													"",
+													"",
+													"        __.each(responseItem.students, student => {",
+													"",
+													"            if (student.educationOrganizations !== null) {",
+													"                __.each(student.educationOrganizations, educationOrganization => {",
+													"",
+													"                    if (educationOrganization.addresses !== null) {",
+													"",
+													"                        const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
+													"                        pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
+													"                        dataVerified = true;",
+													"                    }",
+													"                });",
+													"            }",
+													"",
+													"        });",
+													"        pm.expect(Boolean(dataVerified), 'educationOrganization.addresses is empty').to.eql(true);",
 													"    });",
-													"    pm.expect(Boolean(dataVerified), 'educationOrganization.addresses is empty').to.eql(true);",
-													"});"
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -3655,9 +3659,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3724,9 +3727,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3792,9 +3794,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3847,9 +3848,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3915,9 +3915,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3982,9 +3981,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4045,9 +4043,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4113,9 +4110,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4176,9 +4172,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4244,9 +4239,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4307,9 +4301,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4371,9 +4364,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4435,9 +4427,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4473,40 +4464,46 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
-													"});",
+													"// Get majorVersion from environment variable ",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);",
 													"",
-													"pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of Physical\", () => {",
+													"if (majorVersion < 6) {",
+													"    ",
+													"    pm.test(\"Status code is 200\", () => {",
+													"        pm.expect(pm.response.code).to.equal(200);",
+													"    });",
 													"",
-													"    let dataVerified = false;",
-													"    let expectedAddressTypes = ['uri://ed-fi.org/AddressTypeDescriptor#Physical'];",
-													"    let responseItem = pm.response.json();",
+													"    pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of Physical\", () => {",
 													"",
-													"    // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
-													"    if (Array.isArray(responseItem)) {",
-													"        responseItem = responseItem[0];",
-													"    }",
+													"        let dataVerified = false;",
+													"        let expectedAddressTypes = ['uri://ed-fi.org/AddressTypeDescriptor#Physical'];",
+													"        let responseItem = pm.response.json();",
 													"",
-													"    const __ = require('lodash');",
-													"",
-													"    __.each(responseItem.students, student => {",
-													"",
-													"        if (student.educationOrganizations !== null) {",
-													"            __.each(student.educationOrganizations, educationOrganization => {",
-													"",
-													"                if (educationOrganization.addresses !== null) {",
-													"",
-													"                    const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
-													"                    pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
-													"                    dataVerified = true;",
-													"                }",
-													"            });",
+													"        // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
+													"        if (Array.isArray(responseItem)) {",
+													"            responseItem = responseItem[0];",
 													"        }",
 													"",
+													"        const __ = require('lodash');",
+													"",
+													"        __.each(responseItem.students, student => {",
+													"",
+													"            if (student.educationOrganizations !== null) {",
+													"                __.each(student.educationOrganizations, educationOrganization => {",
+													"",
+													"                    if (educationOrganization.addresses !== null) {",
+													"",
+													"                        const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
+													"                        pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
+													"                        dataVerified = true;",
+													"                    }",
+													"                });",
+													"            }",
+													"",
+													"        });",
+													"        pm.expect(Boolean(dataVerified), 'educationOrganization.addresses is empty').to.eql(true);",
 													"    });",
-													"    pm.expect(Boolean(dataVerified), 'educationOrganization.addresses is empty').to.eql(true);",
-													"});"
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -4650,9 +4647,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4707,9 +4703,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4748,18 +4743,23 @@
 													"    pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
+													"// Get majorVersion from environment variable ",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);",
 													"",
-													"    let responseItem = pm.response.json();",
+													"if (majorVersion < 6) {",
+													"    pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
 													"",
-													"    // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
-													"    if (Array.isArray(responseItem)) {",
-													"        responseItem = responseItem[0];",
-													"    }",
+													"        let responseItem = pm.response.json();",
 													"",
-													"    const properties = Object.keys(responseItem);",
-													"    pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels']);",
-													"});"
+													"        // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
+													"        if (Array.isArray(responseItem)) {",
+													"            responseItem = responseItem[0];",
+													"        }",
+													"",
+													"        const properties = Object.keys(responseItem);",
+													"        pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels']);",
+													"    });",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -4898,9 +4898,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4955,9 +4954,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4996,20 +4994,26 @@
 													"    pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference, shortNameOfInstitution, webSite, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, gradeLevels]\", () => {",
+													"// Get majorVersion from environment variable ",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);",
 													"",
-													"    let responseItem = pm.response.json();",
+													"if (majorVersion < 6) {",
 													"",
-													"    // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
-													"    if (Array.isArray(responseItem)) {",
-													"        responseItem = responseItem[0];",
-													"    }",
+													"    pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference, shortNameOfInstitution, webSite, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, gradeLevels]\", () => {",
 													"",
-													"    const properties = Object.keys(responseItem);",
-													"    pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference', 'shortNameOfInstitution', 'webSite', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'gradeLevels']);",
+													"        let responseItem = pm.response.json();",
 													"",
-													"});",
+													"        // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
+													"        if (Array.isArray(responseItem)) {",
+													"            responseItem = responseItem[0];",
+													"        }",
 													"",
+													"        const properties = Object.keys(responseItem);",
+													"        pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference', 'shortNameOfInstitution', 'webSite', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'gradeLevels']);",
+													"",
+													"    });",
+													"",
+													"}",
 													"",
 													"pm.test(\"Should the item return addresses[0] should only have the specific members [addressTypeDescriptor, city, stateAbbreviationDescriptor, postalCode, streetNumberName]\", () => {",
 													"    const __ = require('lodash');",
@@ -5158,9 +5162,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5227,9 +5230,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5295,9 +5297,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5350,9 +5351,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5418,9 +5418,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5485,9 +5484,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5548,9 +5546,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5616,9 +5613,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5679,9 +5675,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5747,9 +5742,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5810,9 +5804,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5874,9 +5867,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5938,9 +5930,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -5976,74 +5967,81 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
-													"});",
+													"// Get majorVersion from environment variable ",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);",
 													"",
-													"const __ = require('lodash');",
+													"if (majorVersion < 6) {",
 													"",
-													"pm.test(\"Should the item return students[0]/educationOrganizations[0]/addresses[0] should only have the specific members [addressTypeDescriptor, city, postalCode, stateAbbreviationDescriptor, streetNumberName]\", () => {",
+													"    pm.test(\"Status code is 200\", () => {",
+													"        pm.expect(pm.response.code).to.equal(200);",
+													"    });",
 													"",
-													"    let dataVerified = false;",
-													"    const responseItem = pm.response.json();",
+													"    const __ = require('lodash');",
 													"",
-													"    __.each(responseItem.students, student => {",
+													"    pm.test(\"Should the item return students[0]/educationOrganizations[0]/addresses[0] should only have the specific members [addressTypeDescriptor, city, postalCode, stateAbbreviationDescriptor, streetNumberName]\", () => {",
 													"",
-													"        if (student.educationOrganizations !== null) {",
-													"            __.each(student.educationOrganizations, educationOrganization => {",
+													"        let dataVerified = false;",
+													"        const responseItem = pm.response.json();",
 													"",
-													"                if (educationOrganization.addresses !== null) {",
+													"        __.each(responseItem.students, student => {",
 													"",
-													"                    __.each(educationOrganization.addresses, address => {",
+													"            if (student.educationOrganizations !== null) {",
+													"                __.each(student.educationOrganizations, educationOrganization => {",
 													"",
-													"                        if (address !== null) {",
-													"                            const properties = Object.keys(address);",
-													"                            pm.expect(properties).to.have.members(['addressTypeDescriptor', 'city', 'postalCode', 'stateAbbreviationDescriptor', 'streetNumberName']);",
-													"                        }",
-													"                    });",
-													"                }",
-													"            });",
+													"                    if (educationOrganization.addresses !== null) {",
+													"",
+													"                        __.each(educationOrganization.addresses, address => {",
+													"",
+													"                            if (address !== null) {",
+													"                                const properties = Object.keys(address);",
+													"                                pm.expect(properties).to.have.members(['addressTypeDescriptor', 'city', 'postalCode', 'stateAbbreviationDescriptor', 'streetNumberName']);",
+													"                            }",
+													"                        });",
+													"                    }",
+													"                });",
+													"            }",
+													"",
+													"        });",
+													"",
+													"    });",
+													"",
+													"",
+													"    pm.test(\"Should the item return with  specific members [id, sectionIdentifier, sequenceOfCourse, educationalEnvironmentDescriptor, availableCredits, staff, students, academicSubjectDescriptor, sessionReference, classPeriods, courseOfferingReference, locationReference, locationSchoolReference]\", () => {",
+													"",
+													"        let responseItem = pm.response.json();",
+													"",
+													"        // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
+													"        if (Array.isArray(responseItem)) {",
+													"            responseItem = responseItem[0];",
 													"        }",
 													"",
+													"        const properties = Object.keys(responseItem);",
+													"        pm.expect(properties).to.have.members(['id', 'sectionIdentifier', 'sequenceOfCourse', 'educationalEnvironmentDescriptor', 'availableCredits', 'staff', 'students', 'sessionReference', 'classPeriods', 'courseOfferingReference', 'locationReference', 'locationSchoolReference']);",
+													"",
 													"    });",
 													"",
-													"});",
 													"",
+													"    pm.test(\"Should the item return staff[0] should not have the specific members [sexType, birthDate, hispanicLatinoEthnicity]\", () => {",
 													"",
-													"pm.test(\"Should the item return with  specific members [id, sectionIdentifier, sequenceOfCourse, educationalEnvironmentDescriptor, availableCredits, staff, students, academicSubjectDescriptor, sessionReference, classPeriods, courseOfferingReference, locationReference, locationSchoolReference]\", () => {",
+													"        const responseItem = pm.response.json();",
+													"        __.each(responseItem.staff, staff => {",
+													"            const properties = Object.keys(staff);",
+													"            pm.expect(properties).to.not.include('sexType').and.not.include('birthDate').and.not.include('hispanicLatinoEthnicity');",
+													"        });",
 													"",
-													"    let responseItem = pm.response.json();",
-													"",
-													"    // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
-													"    if (Array.isArray(responseItem)) {",
-													"        responseItem = responseItem[0];",
-													"    }",
-													"",
-													"    const properties = Object.keys(responseItem);",
-													"    pm.expect(properties).to.have.members(['id', 'sectionIdentifier', 'sequenceOfCourse', 'educationalEnvironmentDescriptor', 'availableCredits', 'staff', 'students', 'sessionReference', 'classPeriods', 'courseOfferingReference', 'locationReference', 'locationSchoolReference']);",
-													"",
-													"});",
-													"",
-													"",
-													"pm.test(\"Should the item return staff[0] should not have the specific members [sexType, birthDate, hispanicLatinoEthnicity]\", () => {",
-													"",
-													"    const responseItem = pm.response.json();",
-													"    __.each(responseItem.staff, staff => {",
-													"        const properties = Object.keys(staff);",
-													"        pm.expect(properties).to.not.include('sexType').and.not.include('birthDate').and.not.include('hispanicLatinoEthnicity');",
 													"    });",
 													"",
-													"});",
 													"",
+													"    pm.test(\"Should the item return students[0] should only have the specific members [id, studentSectionAssociation_id, studentUniqueId, firstName, lastSurname, educationOrganizations, schools]\", () => {",
 													"",
-													"pm.test(\"Should the item return students[0] should only have the specific members [id, studentSectionAssociation_id, studentUniqueId, firstName, lastSurname, educationOrganizations, schools]\", () => {",
-													"",
-													"    const responseItem = pm.response.json();",
-													"    __.each(responseItem.students, student => {",
-													"        const properties = Object.keys(student);",
-													"        pm.expect(properties).to.have.members(['id', 'studentSectionAssociation_id', 'studentUniqueId', 'firstName', 'lastSurname', 'educationOrganizations', 'schools']);",
+													"        const responseItem = pm.response.json();",
+													"        __.each(responseItem.students, student => {",
+													"            const properties = Object.keys(student);",
+													"            pm.expect(properties).to.have.members(['id', 'studentSectionAssociation_id', 'studentUniqueId', 'firstName', 'lastSurname', 'educationOrganizations', 'schools']);",
+													"        });",
 													"    });",
-													"});"
+													"",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -6182,9 +6180,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6251,9 +6248,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6319,9 +6315,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6374,9 +6369,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6442,9 +6436,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6509,9 +6502,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6572,9 +6564,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6640,9 +6631,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6703,9 +6693,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6771,9 +6760,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6834,9 +6822,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6898,9 +6885,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6962,9 +6948,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -7000,41 +6985,47 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
-													"});",
+													"// Get majorVersion from environment variable ",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);",
 													"",
-													"pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of either Physical or Home\", () => {",
+													"if (majorVersion < 6) {",
 													"",
-													"    let dataVerified = false;",
-													"    let expectedAddressTypes = ['uri://ed-fi.org/AddressTypeDescriptor#Physical', 'uri://ed-fi.org/AddressTypeDescriptor#Home'];",
-													"    let responseItem = pm.response.json();",
+													"    pm.test(\"Status code is 200\", () => {",
+													"        pm.expect(pm.response.code).to.equal(200);",
+													"    });",
 													"",
-													"    // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
-													"    if (Array.isArray(responseItem)) {",
-													"        responseItem = responseItem[0];",
-													"    }",
+													"    pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of either Physical or Home\", () => {",
 													"",
-													"    const __ = require('lodash');",
+													"        let dataVerified = false;",
+													"        let expectedAddressTypes = ['uri://ed-fi.org/AddressTypeDescriptor#Physical', 'uri://ed-fi.org/AddressTypeDescriptor#Home'];",
+													"        let responseItem = pm.response.json();",
 													"",
-													"",
-													"    __.each(responseItem.students, student => {",
-													"",
-													"        if (student.educationOrganizations !== null) {",
-													"            __.each(student.educationOrganizations, educationOrganization => {",
-													"",
-													"                if (educationOrganization.addresses !== null) {",
-													"",
-													"                    const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
-													"                    pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
-													"                    dataVerified = true;",
-													"                }",
-													"            });",
+													"        // Using query parameters returns an array, this will handle those scenarios so we validate only the first element in the response",
+													"        if (Array.isArray(responseItem)) {",
+													"            responseItem = responseItem[0];",
 													"        }",
 													"",
+													"        const __ = require('lodash');",
+													"",
+													"",
+													"        __.each(responseItem.students, student => {",
+													"",
+													"            if (student.educationOrganizations !== null) {",
+													"                __.each(student.educationOrganizations, educationOrganization => {",
+													"",
+													"                    if (educationOrganization.addresses !== null) {",
+													"",
+													"                        const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
+													"                        pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
+													"                        dataVerified = true;",
+													"                    }",
+													"                });",
+													"            }",
+													"",
+													"        });",
+													"        pm.expect(Boolean(dataVerified), 'educationOrganization.addresses is empty').to.eql(true);",
 													"    });",
-													"    pm.expect(Boolean(dataVerified), 'educationOrganization.addresses is empty').to.eql(true);",
-													"});"
+													"}"
 												],
 												"type": "text/javascript"
 											}
