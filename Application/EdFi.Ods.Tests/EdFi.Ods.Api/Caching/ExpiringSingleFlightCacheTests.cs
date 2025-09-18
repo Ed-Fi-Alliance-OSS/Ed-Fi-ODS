@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using NUnit.Framework;
 using Shouldly;
@@ -507,8 +506,101 @@ public class ExpiringSingleFlightCacheTests
             _ => computationCount.ShouldBe(1));
     }
 
+    [Test]
+    public async Task Cache_ClearsAfterExpirationPeriod()
+    {
+        // Arrange
+        int cacheClearedCount = 0;
+
+        var provider = new ExpiringSingleFlightCache<string, object>(
+            "CacheWithExpiration",
+            _expirationPeriod,
+            () => Interlocked.Increment(ref cacheClearedCount),
+            _defaultCreateTimeoutPeriod);
+
+        string cacheKey = "TestKey";
+        string initialValue = "InitialValue";
+        string newValue = "NewValue";
+        int computationCount = 0;
+
+        // Define the ValueFactory
+        Task<object> ValueFactory(string key, string result, CancellationToken cancellationToken)
+        {
+            Interlocked.Increment(ref computationCount);
+
+            return Task.FromResult((object)result);
+        }
+
+        // Act
+        // Populate the cache with an initial value
+        var initialResult = await provider.GetOrCreateAsync(cacheKey, ValueFactory, initialValue, CancellationToken.None);
+
+        // Simulate a delay longer than the expiration period to allow cache clearing
+        await Task.Delay(_expirationPeriod + TimeSpan.FromMilliseconds(50));
+
+        // Attempt to retrieve the value again (it should recompute and replace the old value)
+        var newResult = await provider.GetOrCreateAsync(cacheKey, ValueFactory, newValue, CancellationToken.None);
+
+        // Assert
+        initialResult.ShouldBe(initialValue);
+        newResult.ShouldBe(newValue);
+        computationCount.ShouldBe(2); // One for each ValueFactory invocation
+        cacheClearedCount.ShouldBe(1); // Cache should have cleared after expiration period
+    }
+    
+    [Test]
+    public async Task Cache_IsNotCleared_WhenExpirationIsDisabled()
+    {
+        // Arrange
+        int cacheClearedCount = 0;
+
+        // Initialize the cache with expiration disabled (`TimeSpan.Zero`)
+        var provider = new ExpiringSingleFlightCache<string, object>(
+            "NonExpiringCache",
+            TimeSpan.Zero, // Disable expiration
+            () => Interlocked.Increment(ref cacheClearedCount),
+            _defaultCreateTimeoutPeriod);
+
+        string cacheKey = "TestKey";
+        string initialValue = "InitialValue";
+        string reusedValue = "InitialValue";
+        int computationCount = 0;
+
+        // Define the ValueFactory
+        Task<object> ValueFactory(string key, string result, CancellationToken cancellationToken)
+        {
+            Interlocked.Increment(ref computationCount);
+
+            return Task.FromResult((object) result);
+        }
+
+        // Act
+        // Populate the cache with an initial value
+        var initialResult = await provider.GetOrCreateAsync(
+            cacheKey,
+            ValueFactory,
+            initialValue,
+            CancellationToken.None);
+
+        // Simulate a long delay (much longer than what would otherwise be the expiration period)
+        await Task.Delay(_expirationPeriod + TimeSpan.FromMilliseconds(50));
+
+        // Retrieve the value again (it should still be in the cache since expiration is disabled)
+        var newResult = await provider.GetOrCreateAsync(
+            cacheKey,
+            ValueFactory,
+            reusedValue,
+            CancellationToken.None);
+
+        // Assert
+        initialResult.ShouldBe(initialValue);
+        newResult.ShouldBe(initialValue); // Value should remain unchanged
+        computationCount.ShouldBe(1); // ValueFactory should have been invoked only once
+        cacheClearedCount.ShouldBe(0); // Cache clearing should not have been triggered
+    }
+
     private static string GetActualValuesReturnedMessage(object[] results)
     {
-        return $"Actual returned values: {string.Join(", ", results.Select((o, i) => $"{i+1} - {o ?? "(null)"}"))}";
+        return $"Actual returned values: {string.Join(", ", results.Select((o, i) => $"{i + 1} - {o ?? "(null)"}"))}";
     }
 }

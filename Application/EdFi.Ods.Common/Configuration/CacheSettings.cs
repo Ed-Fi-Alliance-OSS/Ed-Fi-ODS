@@ -29,7 +29,7 @@ namespace EdFi.Ods.Common.Configuration
         {
             public bool UseExternalCache { get; set; }
             public int AbsoluteExpirationSeconds { get; set; } = 1800;
-            public int CreationTimeoutSeconds { get; set; } = 10;
+            public int CreationTimeoutSeconds { get; set; } = 30;
         }
 
         public class PersonUniqueIdToUsiCacheConfiguration
@@ -47,25 +47,25 @@ namespace EdFi.Ods.Common.Configuration
         {
             public bool UseExternalCache { get; set; }
             public int AbsoluteExpirationSeconds { get; set; } = (int)TimeSpan.FromMinutes(15).TotalSeconds;
-            public int CreationTimeoutSeconds { get; set; } = 10;
+            public int CreationTimeoutSeconds { get; set; } = 30;
         }
 
         public class SecurityCacheConfiguration
         {
             public int AbsoluteExpirationMinutes { get; set; } = 10;
-            public int CreationTimeoutSeconds { get; set; } = 10;
+            public int CreationTimeoutSeconds { get; set; } = 30;
         }
 
         public class ProfilesCacheConfiguration
         {
             public int AbsoluteExpirationSeconds { get; set; } = 1800;
-            public int CreationTimeoutSeconds { get; set; } = 10;
+            public int CreationTimeoutSeconds { get; set; } = 30;
         }
 
         public class OdsInstancesCacheConfiguration
         {
             public int AbsoluteExpirationSeconds { get; set; } = 300;
-            public int CreationTimeoutSeconds { get; set; } = 10;
+            public int CreationTimeoutSeconds { get; set; } = 30;
         }
     }
 

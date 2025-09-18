@@ -8,10 +8,8 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Caching.CacheKeyProviders;
-using EdFi.Ods.Common.Caching.SingleFlight;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Descriptors;
@@ -33,6 +31,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 
             builder.RegisterType<CachingInterceptor>()
                 .Named<IAsyncInterceptor>(InterceptorCacheKeys.Descriptors)
+                // Method signature built using ODS Instance configuration as context
                 .WithParameter(
                     (pi, ctx) => pi.ParameterType == typeof(IMethodSignatureCacheKeyProvider),
                     (pi, ctx) => ctx.Resolve<ContextualMethodSignatureCacheKeyProvider<OdsInstanceConfiguration>>())
@@ -48,9 +47,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
                     })
                 .SingleInstance();
 
+            // Wrap into AsyncDeterminationInterceptor to support async interception
             builder.Register(ctx =>
                     new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.Descriptors)))
-                .Named<IInterceptor>(InterceptorCacheKeys.Descriptors); // Wrap into AsyncDeterminationInterceptor to support async interception
+                .Named<IInterceptor>(InterceptorCacheKeys.Descriptors);
 
             builder.RegisterType<DescriptorDetailsProvider>()
                 .As<IDescriptorDetailsProvider>()

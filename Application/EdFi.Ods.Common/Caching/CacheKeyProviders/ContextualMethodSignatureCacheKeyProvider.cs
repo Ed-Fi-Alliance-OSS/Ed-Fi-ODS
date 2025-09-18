@@ -1,13 +1,26 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
 using System;
 using System.Reflection;
 using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Common.Caching.CacheKeyProviders;
 
+/// <summary>
+/// Provides a method signature cache key generation mechanism that incorporates contextual information along with the method
+/// signature and arguments.
+/// </summary>
+/// <typeparam name="TContext">
+/// The type of the context, which must implement <see cref="IContextHashBytesSource"/>.
+/// </typeparam>
 public class ContextualMethodSignatureCacheKeyProvider<TContext>(IContextProvider<TContext> _contextProvider)
     : IMethodSignatureCacheKeyProvider
     where TContext : IContextHashBytesSource
 {
+    /// <inheritdoc cref="IMethodSignatureCacheKeyProvider.GetKey" />
     public ulong GetKey(MethodInfo method, object[] arguments)
     {
         var context = _contextProvider.Get();

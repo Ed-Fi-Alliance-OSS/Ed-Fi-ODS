@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EdFi.Ods.Common.Caching.SingleFlight;
+namespace EdFi.Ods.Common.Caching;
 
 /// <summary>
 /// Represents a cache abstraction that prevents duplicate concurrent requests for the same resource,
@@ -10,7 +10,7 @@ namespace EdFi.Ods.Common.Caching.SingleFlight;
 /// </summary>
 /// <typeparam name="TKey">The type of the key used to look up cached values.</typeparam>
 /// <typeparam name="TValue">The type of the values cached.</typeparam>
-public interface ISingleFlightCache<TKey, TValue>
+public interface ISingleFlightCache<TKey, TValue> : IClearable
 {
     /// <summary>
     /// Retrieves a cached value associated with the specified key if available;

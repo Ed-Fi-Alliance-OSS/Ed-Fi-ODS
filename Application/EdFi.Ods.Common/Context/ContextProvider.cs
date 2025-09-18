@@ -31,23 +31,3 @@ public class ContextProvider<T> : IContextProvider<T>
     /// <inheritdoc cref="IContextProvider{T}.Set" />
     public void Set(T context) => _contextStorage.SetValue(_contextKey, context);
 }
-
-public class ContextProvider : IContextProvider
-{
-    private readonly IContextStorage _contextStorage;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ContextProvider"/> class using the supplied context storage.
-    /// </summary>
-    /// <param name="contextStorage"></param>
-    public ContextProvider(IContextStorage contextStorage)
-    {
-        _contextStorage = contextStorage;
-    }
-    
-    /// <inheritdoc cref="IContextProvider{T}.Get" />
-    public TContext Get<TContext>() => _contextStorage.GetValue<TContext>(typeof(TContext).FullName);
-
-    /// <inheritdoc cref="IContextProvider{T}.Set" />
-    public void Set<TContext>(TContext context) => _contextStorage.SetValue(typeof(TContext).FullName, context);
-}

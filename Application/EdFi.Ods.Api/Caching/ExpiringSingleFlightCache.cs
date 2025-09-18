@@ -141,7 +141,7 @@ public class ExpiringSingleFlightCache<TKey, TValue> : SingleFlightCache<TKey, T
 
         if (_logger.IsDebugEnabled)
         {
-            _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{Description}' expired ({Cache.Count} entries cleared after {HitsApproximate} hits and {MissesApproximate} misses).");
+            _logger.Debug($"{nameof(ExpiringSingleFlightCache<TKey,TValue>)} cache '{Description}' expired ({Cache.Count} entries cleared after {HitsApproximate} hits and {MissesApproximate} misses).");
         }
         
         // Clear the cache and invoke the expiration callback

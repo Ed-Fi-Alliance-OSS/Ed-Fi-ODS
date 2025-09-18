@@ -12,7 +12,6 @@ using EdFi.Ods.Api.Jobs;
 using EdFi.Ods.Api.Security.Profiles;
 using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Caching.SingleFlight;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
@@ -85,9 +84,10 @@ namespace EdFi.Ods.Features.Container.Modules
                         })
                     .SingleInstance();
                 
+                // Wrap into AsyncDeterminationInterceptor to support async interception
                 builder.Register(ctx =>
                         new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.ProfileMetadata)))
-                    .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata); // Wrap into AsyncDeterminationInterceptor to support async interception
+                    .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata);
             }
             
             builder.RegisterType<AdminProfileNamesPublisher>()

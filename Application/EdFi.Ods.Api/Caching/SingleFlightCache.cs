@@ -11,10 +11,15 @@ using Polly;
 using Polly.Contrib.WaitAndRetry;
 using System.Collections.Concurrent;
 using System.Threading;
-using EdFi.Ods.Common.Caching.SingleFlight;
 
 namespace EdFi.Ods.Api.Caching;
 
+/// <summary>
+/// Represents a caching mechanism that ensures only a single in-flight request is made for
+/// a given key while other concurrent requests for the same key wait for the result of the first request.
+/// </summary>
+/// <typeparam name="TKey">The type of the key used to uniquely identify a cache entry. Must be non-nullable.</typeparam>
+/// <typeparam name="TValue">The type of the value stored in the cache for each key.</typeparam>
 public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>, IClearable
     where TKey : notnull
 {
@@ -61,6 +66,7 @@ public class SingleFlightCache<TKey, TValue> : ISingleFlightCache<TKey, TValue>,
                 });
     }
 
+    /// <inheritdoc cref="ISingleFlightCache{TKey,TValue}.GetOrCreateAsync{TArg}" />
     public virtual async Task<TValue> GetOrCreateAsync<TArg>(
         TKey key,
         Func<TKey, TArg, CancellationToken, Task<TValue>> factory,

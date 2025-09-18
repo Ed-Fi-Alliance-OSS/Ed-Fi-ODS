@@ -10,7 +10,6 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Caching.SingleFlight;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Database;
@@ -46,9 +45,10 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     })
                 .SingleInstance();
             
+            // Wrap into AsyncDeterminationInterceptor to support async interception
             builder.Register(ctx =>
                     new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.OdsInstances)))
-                .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances); // Wrap into AsyncDeterminationInterceptor to support async interception
+                .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances); 
 
             builder.RegisterType<CachingInterceptor>()
                 .Named<IAsyncInterceptor>(InterceptorCacheKeys.ProfileMetadata)
@@ -64,9 +64,10 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     })
                 .SingleInstance();
             
+            // Wrap into AsyncDeterminationInterceptor to support async interception
             builder.Register(ctx =>
                     new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.ProfileMetadata)))
-                .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata); // Wrap into AsyncDeterminationInterceptor to support async interception
+                .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata);
         }
     }
 }
