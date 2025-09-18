@@ -12,6 +12,7 @@ using EdFi.Common.Security;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Caching.Legacy;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.ExternalCache.Redis;
@@ -105,7 +106,7 @@ namespace EdFi.Ods.Features.ExternalCache
         public void OverrideDescriptorsCache(ContainerBuilder builder)
         {
             // Override the named interceptor registration to use the external (distributed) cache
-            builder.RegisterType<ContextualCachingInterceptor_OLD<OdsInstanceConfiguration>>()
+            builder.RegisterType<ContextualExternalCacheCachingInterceptor<OdsInstanceConfiguration>>()
                 .Named<IInterceptor>(InterceptorCacheKeys.Descriptors)
                 .WithParameter(
                     ctx =>

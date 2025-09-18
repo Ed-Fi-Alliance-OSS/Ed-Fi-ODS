@@ -7,14 +7,14 @@ using System;
 using System.Reflection;
 using EdFi.Ods.Common.Context;
 
-namespace EdFi.Ods.Common.Caching;
+namespace EdFi.Ods.Common.Caching.Legacy;
 
-public class ContextualCachingInterceptor_OLD<TContext> : CachingInterceptor_OLD
+public class ContextualExternalCacheCachingInterceptor<TContext> : ExternalCacheCachingInterceptor
     where TContext : IContextHashBytesSource
 {
     private readonly IContextProvider<TContext> _contextProvider;
 
-    public ContextualCachingInterceptor_OLD(IConcurrentCacheProvider_OLD<ulong> cacheProvider, IContextProvider<TContext> contextProvider)
+    public ContextualExternalCacheCachingInterceptor(ICacheProvider<ulong> cacheProvider, IContextProvider<TContext> contextProvider)
         : base(cacheProvider)
     {
         _contextProvider = contextProvider;
