@@ -4,155 +4,220 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Castle.DynamicProxy;
-using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Caching.CacheKeyProviders;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Common.Caching;
-
-/*
-[TestFixture]
-public class CachingInterceptorTests
+namespace EdFi.Ods.Tests.EdFi.Ods.Common.Caching
 {
-    [Test]
-    public void Methods_on_cached_target_are_invoked_and_cached_correctly()
+    [TestFixture]
+    public class CachingInterceptorTests
     {
-        List<string> invocations0 = new();
-        List<(string, string)> invocations1 = new();
-        List<(string, int, string)> invocations2 = new();
-        List<(string, int, int, string)> invocations3 = new();
-        List<(string, int, int, string, string)> invocations4 = new();
+        private IInvocation _invocation;
+        private IMethodSignatureCacheKeyProvider _cacheKeyProvider;
+        private ISingleFlightCache<ulong, object> _cacheProvider;
+        private CachingInterceptor _interceptor;
 
-        var generator = new ProxyGenerator();
-        var target = new TestIntercepted(invocations0, invocations1, invocations2, invocations3, invocations4);
+        [SetUp]
+        public void SetUp()
+        {
+            _cacheKeyProvider = A.Fake<IMethodSignatureCacheKeyProvider>();
+            _cacheProvider = A.Fake<ISingleFlightCache<ulong, object>>();
+            _interceptor = new CachingInterceptor(_cacheProvider, _cacheKeyProvider);
 
-        var cacheProvider = new ConcurrentDictionaryCacheProvider<ulong>();
+            _invocation = A.Fake<IInvocation>();
+        }
 
-        var cachedTarget =
-            generator.CreateInterfaceProxyWithTarget<ITestIntercepted>(target, new CachingInterceptor(cacheProvider));
+        [Test]
+        public void InterceptSynchronous_ShouldReturnCachedValue_OnCacheHit()
+        {
+            // Arrange
+            ulong cacheKey = 12345;
+            string cachedValue = "cached";
+            string computedValue = "computed";
 
-        // Test caching of no arguments method
-        var noArgsResult1 = cachedTarget.GetAString();
-        var noArgsResult2 = cachedTarget.GetAString();
-
-        // Test caching of one argument method
-        var stringArgResult1 = cachedTarget.GetAString("Hello");
-        var stringArgResult2 = cachedTarget.GetAString("Hello");
-
-        // Test caching of two argument method
-        var stringIntArgsResult1 = cachedTarget.GetAString("Hello", 123);
-        var stringIntArgsResult2 = cachedTarget.GetAString("Hello", 123);
-
-        // Test caching of three argument method
-        var stringIntIntArgsResult1 = cachedTarget.GetAString("Hello", 123, 345);
-        var stringIntIntArgsResult2 = cachedTarget.GetAString("Hello", 123, 345);
-
-        cachedTarget.ShouldSatisfyAllConditions(
-            // No arguments
-            x => noArgsResult1.ShouldBe(noArgsResult2),
-            x => invocations0.Count.ShouldBe(1),
-            // 1 argument
-            x => stringArgResult1.ShouldBe(stringArgResult2),
-            x => invocations1.Count.ShouldBe(1),
-            // 2 arguments
-            x => stringIntArgsResult1.ShouldBe(stringIntArgsResult2),
-            x => invocations2.Count.ShouldBe(1),
-            // 3 arguments
-            x => stringIntIntArgsResult1.ShouldBe(stringIntIntArgsResult2),
-            x => invocations3.Count.ShouldBe(1),
-            // More arguments (not implemented until needed)
-            x =>
+            // Mock the Invocation's Proceed() behavior 
+            A.CallTo(() => _invocation.Method.ReturnType).Returns(typeof(string));
+            A.CallTo(() => _invocation.Proceed()).Invokes(() =>
             {
-                var actualException = Should.Throw<CachingInterceptorCacheKeyGenerationException>(
-                    () => cachedTarget.GetAString("Hello", 123, 345, "World"));
+                // Simulate the 'proceed' logic returning from the intercepted method
+                _invocation.ReturnValue = computedValue;
+            });
 
-                actualException.Message.ShouldBe(
-                    "Cache key generation failed for invocation of method 'GetAString' of declaring type 'EdFi.Ods.Tests.EdFi.Ods.Common.Caching.CachingInterceptorTests+ITestIntercepted'.");
+            A.CallTo(() => _cacheKeyProvider.GetKey(A<MethodInfo>._, A<object[]>._)).Returns(cacheKey);
+            A.CallTo(() => _cacheProvider.GetOrCreateAsync(
+                cacheKey,
+                A<Func<ulong, IInvocation, CancellationToken, Task<object>>>._,
+                A<IInvocation>._,
+                A<CancellationToken>._))
+                // Cache hit, so the factory should not be invoked
+                .Returns(Task.FromResult((object)cachedValue));
 
-                actualException.InnerException.ShouldBeOfType<NotImplementedException>();
-                actualException.InnerException.Message.ShouldBe("Support for generating cache keys for more than 3 arguments has not been implemented.");
-            },
-            x => invocations4.Count.ShouldBe(0)
-                );
-    }
+            A.CallTo(() => _invocation.Method.ReturnType).Returns(typeof(string));
 
-    public interface ITestIntercepted
-    {
-        string GetAString();
-        string GetAString(string input);
-        string GetAString(string input, int input2);
-        string GetAString(string input, int input2, int input3);
-        string GetAString(string input, int input2, int input3, string input4);
-    }
+            // Act
+            _interceptor.InterceptSynchronous(_invocation);
 
-    public class TestIntercepted : ITestIntercepted
-    {
-        private readonly List<string> _invocations0;
-        private readonly List<(string, string)> _invocations1;
-        private readonly List<(string, int, string)> _invocations2;
-        private readonly List<(string, int, int, string)> _invocations3;
-        private readonly List<(string, int, int, string, string)> _invocations4;
-
-        public TestIntercepted(
-            List<string> invocations0,
-            List<(string, string)> invocations1,
-            List<(string, int, string)> invocations2,
-            List<(string, int, int, string)> invocations3,
-            List<(string, int, int, string, string)> invocations4)
-        {
-            _invocations0 = invocations0;
-            _invocations1 = invocations1;
-            _invocations2 = invocations2;
-            _invocations3 = invocations3;
-            _invocations4 = invocations4;
+            // Assert
+            A.CallTo(() => _invocation.Proceed()).MustNotHaveHappened();
+            _invocation.ReturnValue.ShouldBe(cachedValue);
         }
 
-        public string GetAString()
+        [Test]
+        public void InterceptSynchronous_ShouldInvokeMethod_OnCacheMiss()
         {
-            string result = new Random().Next().ToString();
+            // Arrange
+            ulong cacheKey = 12345;
+            string computedValue = "computed";
 
-            _invocations0.Add(result);
+            // Mock the Invocation's Proceed() behavior
+            A.CallTo(() => _invocation.Method.ReturnType).Returns(typeof(string));
+            A.CallTo(() => _invocation.Proceed()).Invokes(() =>
+            {
+                // Simulate the 'proceed' logic returning from the intercepted method
+                _invocation.ReturnValue = computedValue;
+            });
 
-            return result;
+            A.CallTo(() => _cacheKeyProvider.GetKey(A<MethodInfo>._, A<object[]>._)).Returns(cacheKey);
+
+            A.CallTo(() => _cacheProvider.GetOrCreateAsync(
+                cacheKey,
+                A<Func<ulong, IInvocation, CancellationToken, Task<object>>>._,
+                A<IInvocation>._,
+                A<CancellationToken>._))
+                // Cache miss, so the factory should be invoked
+                .Invokes((ulong key, Func<ulong, IInvocation, CancellationToken, Task<object>> func, IInvocation invocation, CancellationToken _) =>
+                {
+                    // Simulates invocation of the factory supplied to GetOrCreateAsync in InterceptSynchronous()
+                    invocation.Proceed();
+                })
+                // Cache miss, so the factory result should be used
+                .ReturnsLazily(() => Task.FromResult(_invocation.ReturnValue));
+
+            // Act
+            _interceptor.InterceptSynchronous(_invocation);
+
+            // Assert
+            A.CallTo(() => _invocation.Proceed()).MustHaveHappenedOnceExactly();
+            _invocation.ReturnValue.ShouldBe(computedValue);
         }
 
-        public string GetAString(string input)
+        [Test]
+        public void InterceptSynchronous_ShouldThrowException_OnCacheKeyGenerationFailure()
         {
-            string result = input.GetHashCode().ToString();
+            // Arrange
+            A.CallTo(() => _cacheKeyProvider.GetKey(A<MethodInfo>._, A<object[]>._))
+                .Throws(new InvalidOperationException("Cache key generation failed"));
 
-            _invocations1.Add((input, result));
-
-            return result;
+            // Act & Assert
+            var ex = Should.Throw<CachingInterceptorCacheKeyGenerationException>(() =>
+                _interceptor.InterceptSynchronous(_invocation));
+            ex.InnerException.ShouldBeOfType<InvalidOperationException>();
+            ex.InnerException.Message.ShouldBe("Cache key generation failed");
         }
 
-        public string GetAString(string input, int input2)
+        [Test]
+        public async Task InterceptAsynchronousOfT_ShouldReturnCachedValue_OnCacheHit()
         {
-            string result = (input.GetHashCode() + input2 * 7).ToString();
+            // Arrange
+            ulong cacheKey = 12345;
+            string cachedValue = "cached";
 
-            _invocations2.Add((input, input2, result));
+            A.CallTo(() => _cacheKeyProvider.GetKey(A<MethodInfo>._, A<object[]>._)).Returns(cacheKey);
+            A.CallTo(() => _cacheProvider.GetOrCreateAsync(
+                cacheKey,
+                A<Func<ulong, IInvocation, CancellationToken, Task<object>>>._,
+                A<IInvocation>._,
+                A<CancellationToken>._))
+                .Returns(Task.FromResult((object)cachedValue));
 
-            return result;
+            // Act
+            _interceptor.InterceptAsynchronous<string>(_invocation);
+
+            // Get the asynchronous result
+            var resultTask = _invocation.ReturnValue as Task<string>;
+            
+            if (resultTask == null)
+            {
+                Assert.Fail("Result task is not a Task<string> as expected.");
+            }
+            
+            var invocationReturnValue = await resultTask;
+
+            // Assert
+            A.CallTo(() => _invocation.Proceed()).MustNotHaveHappened();
+            invocationReturnValue.ShouldBe(cachedValue);
         }
 
-        public string GetAString(string input, int input2, int input3)
+        [Test]
+        public async Task InterceptAsynchronousOfT_ShouldInvokeMethod_OnCacheMiss()
         {
-            string result = (input.GetHashCode() + input2 * 7 + input3 * 11).ToString();
+            // Arrange
+            ulong cacheKey = 12345;
+            string computedValue = "computed";
+            
+            // Mock the Invocation's Proceed() behavior
+            A.CallTo(() => _invocation.Method.ReturnType).Returns(typeof(Task<string>));
+            A.CallTo(() => _invocation.Proceed()).Invokes(() =>
+            {
+                // Simulate the 'proceed' logic returning from the intercepted method
+                _invocation.ReturnValue = Task.FromResult(computedValue);
+            });
 
-            _invocations3.Add((input, input2, input3, result));
+            A.CallTo(() => _cacheKeyProvider.GetKey(A<MethodInfo>._, A<object[]>._)).Returns(cacheKey);
+            A.CallTo(() => _cacheProvider.GetOrCreateAsync(
+                cacheKey,
+                A<Func<ulong, IInvocation, CancellationToken, Task<object>>>._,
+                A<IInvocation>._,
+                A<CancellationToken>._))
+                // Cache miss, so the factory should be invoked
+                .Invokes((ulong key, Func<ulong, IInvocation, CancellationToken, Task<object>> func, IInvocation invocation, CancellationToken _) =>
+                {
+                    // Simulates invocation of the factory supplied to GetOrCreateAsync in InterceptSynchronous()
+                    invocation.Proceed();
+                })
+                // Cache miss, so the factory result should be used
+                .ReturnsLazily(() =>
+                {
+                    var t = _invocation.ReturnValue as Task<string>;
+                    return t.ConfigureAwait(false).GetAwaiter().GetResult();
+                });
 
-            return result;
+            // Act
+            _interceptor.InterceptAsynchronous<string>(_invocation);
+
+            // Get the asynchronous result
+            var resultTask = _invocation.ReturnValue as Task<string>;
+            
+            if (resultTask == null)
+            {
+                Assert.Fail("Result task is not a Task<string> as expected.");
+            }
+
+            var invocationReturnValue = await resultTask;
+
+            // Assert
+            A.CallTo(() => _invocation.Proceed()).MustHaveHappenedOnceExactly();
+            invocationReturnValue.ShouldBe(computedValue);
         }
-        public string GetAString(string input, int input2, int input3, string input4)
+
+        [Test]
+        public void Clear_ShouldInvokeCacheClear()
         {
-            string result = (input.GetHashCode() + input2 * 7 + input3 * 11 + input4.GetHashCode()).ToString();
+            // Arrange
+            A.CallTo(() => _cacheProvider.Clear()).DoesNothing();
 
-            _invocations4.Add((input, input2, input3, input4, result));
+            // Act
+            _interceptor.Clear();
 
-            return result;
+            // Assert
+            A.CallTo(() => _cacheProvider.Clear()).MustHaveHappenedOnceExactly();
         }
     }
 }
-*/
