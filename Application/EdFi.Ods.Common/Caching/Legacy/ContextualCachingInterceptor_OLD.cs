@@ -14,7 +14,7 @@ public class ContextualCachingInterceptor_OLD<TContext> : CachingInterceptor_OLD
 {
     private readonly IContextProvider<TContext> _contextProvider;
 
-    public ContextualCachingInterceptor_OLD(IConcurrentCacheProvider<ulong> cacheProvider, IContextProvider<TContext> contextProvider)
+    public ContextualCachingInterceptor_OLD(IConcurrentCacheProvider_OLD<ulong> cacheProvider, IContextProvider<TContext> contextProvider)
         : base(cacheProvider)
     {
         _contextProvider = contextProvider;

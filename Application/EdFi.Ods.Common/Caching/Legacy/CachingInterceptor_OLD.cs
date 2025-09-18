@@ -17,7 +17,7 @@ using log4net;
 
 namespace EdFi.Ods.Common.Caching;
 
-public class CachingInterceptor_OLD(IConcurrentCacheProvider<ulong> _cacheProvider) : IInterceptor, IClearable
+public class CachingInterceptor_OLD(IConcurrentCacheProvider_OLD<ulong> _cacheProvider) : IInterceptor, IClearable
 {
     private readonly ILog _logger = LogManager.GetLogger(typeof(CachingInterceptor));
 

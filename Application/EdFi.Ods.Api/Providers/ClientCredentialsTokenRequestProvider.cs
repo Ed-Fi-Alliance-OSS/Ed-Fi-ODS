@@ -3,14 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Models.ClientCredentials;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Security.Authentication;
-using log4net;
 
 namespace EdFi.Ods.Api.Providers
 {
@@ -20,8 +18,6 @@ namespace EdFi.Ods.Api.Providers
         private readonly IApiClientAuthenticator _apiClientAuthenticator;
         private readonly IAccessTokenFactory _accessTokenFactory;
 
-        private readonly ILog _logger = LogManager.GetLogger(typeof(ClientCredentialsTokenRequestProvider));
-        
         public ClientCredentialsTokenRequestProvider(
             IApiClientAuthenticator apiClientAuthenticator,
             IAccessTokenFactory accessTokenFactory)
@@ -45,21 +41,9 @@ namespace EdFi.Ods.Api.Providers
             }
 
             // authenticate the client and get client information
-            ApiClientAuthenticator.AuthenticationResult authenticationResult;
-
-            try
-            {
-                authenticationResult = await _apiClientAuthenticator.TryAuthenticateAsync(
-                    tokenRequest.Client_id,
-                    tokenRequest.Client_secret)
-                    .ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error("Error authenticating client.", ex);
-
-                throw;
-            }
+            var authenticationResult = await _apiClientAuthenticator.TryAuthenticateAsync(
+                tokenRequest.Client_id,
+                tokenRequest.Client_secret);
 
             if (!authenticationResult.IsAuthenticated)
             {

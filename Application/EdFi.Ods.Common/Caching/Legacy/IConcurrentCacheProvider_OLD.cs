@@ -7,7 +7,7 @@ using System;
 
 namespace EdFi.Ods.Common.Caching;
 
-public interface IConcurrentCacheProvider<TKey>
+public interface IConcurrentCacheProvider_OLD<TKey>
 {
     object GetOrCreate<TArg>(
         TKey key,
