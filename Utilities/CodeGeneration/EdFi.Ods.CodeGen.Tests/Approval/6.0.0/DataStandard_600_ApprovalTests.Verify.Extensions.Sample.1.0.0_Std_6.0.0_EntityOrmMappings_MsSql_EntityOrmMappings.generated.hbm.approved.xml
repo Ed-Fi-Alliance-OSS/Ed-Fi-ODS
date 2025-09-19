@@ -755,7 +755,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample.StudentAquaticPet" table="StudentAquaticPet" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="MimimumTankVolume" column="MimimumTankVolume" type="int" />
+      <key-property name="MinimumTankVolume" column="MinimumTankVolume" type="int" />
       <key-property name="PetName" column="PetName" type="string" length="20" />
       <key-many-to-one name="Student">
         <column name="StudentUSI" />
