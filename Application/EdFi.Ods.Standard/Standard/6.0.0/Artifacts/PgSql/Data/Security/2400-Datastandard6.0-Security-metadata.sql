@@ -213,7 +213,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -298,7 +298,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -350,7 +350,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -1778,7 +1778,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -1852,7 +1852,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -1904,7 +1904,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -2014,7 +2014,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -2958,7 +2958,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -3032,7 +3032,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -3084,7 +3084,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -4177,7 +4177,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -4251,7 +4251,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -4336,7 +4336,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -4377,7 +4377,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -4451,7 +4451,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -4503,7 +4503,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -4738,7 +4738,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -4823,7 +4823,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -4957,7 +4957,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -5665,7 +5665,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -5739,7 +5739,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -5824,7 +5824,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -5898,7 +5898,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -5950,7 +5950,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -6247,7 +6247,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -6482,7 +6482,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -6523,7 +6523,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -6608,7 +6608,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -6649,7 +6649,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -6705,7 +6705,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -6746,7 +6746,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -6798,7 +6798,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -6932,7 +6932,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
-        VALUES (claim_set_name, 1)
+        VALUES (claim_set_name, TRUE)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
