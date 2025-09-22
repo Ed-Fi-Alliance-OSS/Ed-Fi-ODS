@@ -8819,21 +8819,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             _studentExtension = value;
         }
         
-        private bool _mimimumTankVolumeExplicitlyAssigned = false;
-        private int _mimimumTankVolume;
+        private bool _minimumTankVolumeExplicitlyAssigned = false;
+        private int _minimumTankVolume;
 
         /// <summary>
         /// The minimum tank volume this aquatic pet requires.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="mimimumTankVolume")]
-        public int MimimumTankVolume 
+        [DataMember(Name="minimumTankVolume")]
+        public int MinimumTankVolume 
         { 
-            get => _mimimumTankVolume;
+            get => _minimumTankVolume;
             set 
             { 
-                _mimimumTankVolume = value;
-                _mimimumTankVolumeExplicitlyAssigned = true; 
+                _minimumTankVolume = value;
+                _minimumTankVolumeExplicitlyAssigned = true; 
             }
         }
 
@@ -8874,7 +8874,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if (!(this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.Equals(compareTo.MimimumTankVolume))
+            if (!(this as Entities.Common.Sample.IStudentAquaticPet).MinimumTankVolume.Equals(compareTo.MinimumTankVolume))
                 return false;
 
 
@@ -8900,7 +8900,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                 hash.Add(_studentExtension);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume);
+                hash.Add((this as Entities.Common.Sample.IStudentAquaticPet).MinimumTankVolume);
 
 
             // Standard Property
@@ -8929,9 +8929,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
-            if (!_mimimumTankVolumeExplicitlyAssigned)
+            if (!_minimumTankVolumeExplicitlyAssigned)
             {
-                yield return "MimimumTankVolume";
+                yield return "MinimumTankVolume";
             }
         }
 

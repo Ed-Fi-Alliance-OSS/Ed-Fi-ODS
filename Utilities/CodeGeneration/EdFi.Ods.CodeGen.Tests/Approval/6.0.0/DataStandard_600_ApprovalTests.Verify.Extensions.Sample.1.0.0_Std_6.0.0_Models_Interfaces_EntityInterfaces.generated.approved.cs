@@ -2036,7 +2036,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         // Primary Key properties
         IStudentExtension StudentExtension { get; set; }
         
-        int MimimumTankVolume { get; set; }
+        int MinimumTankVolume { get; set; }
         
         string PetName { get; set; }
 
@@ -2072,7 +2072,7 @@ namespace EdFi.Ods.Entities.Common.Sample
                 case "IsFixed":
                     return IsIsFixedSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "MimimumTankVolume":
+                case "MinimumTankVolume":
                     return true;
                 case "PetName":
                     return true;

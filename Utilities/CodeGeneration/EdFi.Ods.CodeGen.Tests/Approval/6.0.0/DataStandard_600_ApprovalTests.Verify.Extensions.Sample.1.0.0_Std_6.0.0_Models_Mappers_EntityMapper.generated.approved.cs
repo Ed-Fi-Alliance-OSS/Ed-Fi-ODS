@@ -3322,7 +3322,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                 .GetMappingContract(_fullName_sample_StudentAquaticPet);
     
             // Copy contextual primary key values
-            target.MimimumTankVolume = source.MimimumTankVolume;
+            target.MinimumTankVolume = source.MinimumTankVolume;
             target.PetName = source.PetName;
 
             // Copy non-PK properties

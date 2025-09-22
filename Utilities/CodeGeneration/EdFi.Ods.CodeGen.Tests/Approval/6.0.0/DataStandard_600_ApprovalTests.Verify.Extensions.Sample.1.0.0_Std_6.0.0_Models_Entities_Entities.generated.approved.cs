@@ -6784,7 +6784,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual int MimimumTankVolume  { get; set; }
+        public virtual int MinimumTankVolume  { get; set; }
 
         [DomainSignature]
         [Key(2)]
@@ -6837,7 +6837,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             var keyValues = (Student as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
-            keyValues.Add("MimimumTankVolume", MimimumTankVolume);
+            keyValues.Add("MinimumTankVolume", MinimumTankVolume);
             keyValues.Add("PetName", PetName);
 
             return keyValues;
