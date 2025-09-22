@@ -488,13 +488,13 @@ GO
 -- Table [sample].[StudentAquaticPet] --
 CREATE TABLE [sample].[StudentAquaticPet] (
     [StudentUSI] [INT] NOT NULL,
-    [MimimumTankVolume] [INT] NOT NULL,
+    [MinimumTankVolume] [INT] NOT NULL,
     [PetName] [NVARCHAR](20) NOT NULL,
     [IsFixed] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentAquaticPet_PK] PRIMARY KEY CLUSTERED (
         [StudentUSI] ASC,
-        [MimimumTankVolume] ASC,
+        [MinimumTankVolume] ASC,
         [PetName] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]

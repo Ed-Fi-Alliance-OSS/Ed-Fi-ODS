@@ -366,7 +366,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Details about 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentAquaticPet', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum tank volume this aquatic pet requires.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentAquaticPet', @level2type=N'COLUMN', @level2name=N'MimimumTankVolume'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum tank volume this aquatic pet requires.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentAquaticPet', @level2type=N'COLUMN', @level2name=N'MinimumTankVolume'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The pet''s name.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentAquaticPet', @level2type=N'COLUMN', @level2name=N'PetName'
 GO

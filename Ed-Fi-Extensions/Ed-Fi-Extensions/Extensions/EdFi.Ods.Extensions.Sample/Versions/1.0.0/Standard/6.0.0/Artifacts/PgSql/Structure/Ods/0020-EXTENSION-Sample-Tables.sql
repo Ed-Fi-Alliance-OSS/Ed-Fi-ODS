@@ -329,11 +329,11 @@ ALTER TABLE sample.StudentAcademicRecordExtension ALTER COLUMN CreateDate SET DE
 -- Table sample.StudentAquaticPet --
 CREATE TABLE sample.StudentAquaticPet (
     StudentUSI INT NOT NULL,
-    MimimumTankVolume INT NOT NULL,
+    MinimumTankVolume INT NOT NULL,
     PetName VARCHAR(20) NOT NULL,
     IsFixed BOOLEAN NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentAquaticPet_PK PRIMARY KEY (StudentUSI, MimimumTankVolume, PetName)
+    CONSTRAINT StudentAquaticPet_PK PRIMARY KEY (StudentUSI, MinimumTankVolume, PetName)
 );
 ALTER TABLE sample.StudentAquaticPet ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 

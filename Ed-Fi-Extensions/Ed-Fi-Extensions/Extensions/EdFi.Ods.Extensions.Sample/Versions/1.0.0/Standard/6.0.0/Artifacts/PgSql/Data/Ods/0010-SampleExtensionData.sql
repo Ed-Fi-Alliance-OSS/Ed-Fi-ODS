@@ -707,14 +707,14 @@ INSERT INTO sample.StudentAquaticPet
     (PetName
     , StudentUSI
     , IsFixed
-    , MimimumTankVolume)
+    , MinimumTankVolume)
 VALUES ('Nemo', student604854Usi, NULL, 20);
 
 INSERT INTO sample.StudentAquaticPet
     (PetName
     , StudentUSI
     , IsFixed
-    , MimimumTankVolume)
+    , MinimumTankVolume)
 VALUES ('Dory', student604854Usi, NULL, 100);
 
 UPDATE edfi.Student

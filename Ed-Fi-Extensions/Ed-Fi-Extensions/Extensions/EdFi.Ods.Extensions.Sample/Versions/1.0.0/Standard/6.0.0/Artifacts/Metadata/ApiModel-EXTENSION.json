@@ -2632,7 +2632,7 @@
           }
         },
         {
-          "propertyName": "MimimumTankVolume",
+          "propertyName": "MinimumTankVolume",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -2644,8 +2644,8 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "MimimumTankVolume",
-            "postgreSql": "MimimumTankVolume"
+            "sqlServer": "MinimumTankVolume",
+            "postgreSql": "MinimumTankVolume"
           }
         },
         {
@@ -2672,7 +2672,7 @@
           "identifierName": "StudentAquaticPet_PK",
           "identifyingPropertyNames": [
             "StudentUSI",
-            "MimimumTankVolume",
+            "MinimumTankVolume",
             "PetName"
           ],
           "isPrimary": true,

@@ -213,7 +213,7 @@ COMMENT ON COLUMN sample.StudentAcademicRecordExtension.Notes IS 'Free-text fiel
 -- Extended Properties [sample].[StudentAquaticPet] --
 COMMENT ON TABLE sample.StudentAquaticPet IS 'Details about aquatic pets in the student''s household';
 COMMENT ON COLUMN sample.StudentAquaticPet.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN sample.StudentAquaticPet.MimimumTankVolume IS 'The minimum tank volume this aquatic pet requires.';
+COMMENT ON COLUMN sample.StudentAquaticPet.MinimumTankVolume IS 'The minimum tank volume this aquatic pet requires.';
 COMMENT ON COLUMN sample.StudentAquaticPet.PetName IS 'The pet''s name.';
 COMMENT ON COLUMN sample.StudentAquaticPet.IsFixed IS 'An indication as to whether the pet has been spayed/neutered.';
 

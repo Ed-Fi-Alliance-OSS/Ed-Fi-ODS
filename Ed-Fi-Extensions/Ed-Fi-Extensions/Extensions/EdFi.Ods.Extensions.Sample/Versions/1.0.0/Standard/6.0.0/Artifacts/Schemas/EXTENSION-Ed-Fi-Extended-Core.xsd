@@ -1114,7 +1114,7 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="MimimumTankVolume" type="xs:int">
+      <xs:element name="MinimumTankVolume" type="xs:int">
         <xs:annotation>
           <xs:documentation>The minimum tank volume this aquatic pet requires.</xs:documentation>
         </xs:annotation>
