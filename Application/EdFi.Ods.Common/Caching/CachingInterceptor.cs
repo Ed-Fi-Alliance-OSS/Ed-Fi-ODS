@@ -1,84 +1,125 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Castle.DynamicProxy;
+using EdFi.Ods.Common.Caching.CacheKeyProviders;
 
 namespace EdFi.Ods.Common.Caching;
 
-public class CachingInterceptor : IInterceptor, IClearable
+public class CachingInterceptor(
+    ISingleFlightCache<ulong, object> _singleFlightCache,
+    IMethodSignatureCacheKeyProvider _cacheKeyProvider) : IAsyncInterceptor, IClearable
 {
-    private readonly ICacheProvider<ulong> _cacheProvider;
-
-    public CachingInterceptor(ICacheProvider<ulong> cacheProvider)
+    public void InterceptSynchronous(IInvocation invocation)
     {
-        _cacheProvider = cacheProvider;
-    }
+        var returnType = invocation.Method.ReturnType;
 
-    public void Intercept(IInvocation invocation)
-    {
-        // Compute the cache for the method invocation
-        ulong cacheKey;
-
-        try
+        // No caching possible on 'void' methods.
+        if (returnType == typeof(void))
         {
-            // Defensive check inspired by static code analysis warning around potentially null value
-            if (invocation.Method.DeclaringType == null)
-            {
-                throw new NotSupportedException($"Unable to generate a cache key for method '{invocation.Method.Name}' because it has no DeclaringType.");
-            }
-
-            cacheKey = GenerateCacheKey(invocation.Method, invocation.Arguments);
-        }
-        catch (Exception ex)
-        {
-            throw new CachingInterceptorCacheKeyGenerationException(
-                $"Cache key generation failed for invocation of method '{invocation.Method.Name}' of declaring type '{invocation.Method.DeclaringType?.FullName}'.", ex);
-        }
-
-        // Check the cache provider for a known response
-        if (_cacheProvider.TryGetCachedObject(cacheKey, out var data))
-        {
-            invocation.ReturnValue = data;
+            invocation.Proceed();
 
             return;
         }
 
-        // Invoke the underlying method
-        invocation.Proceed();
+        // Cache sync return values via a sync-over-async bridge if your cache only supports async.
+        // Prefer to have a sync cache path; otherwise, you can do a fast path:
 
-        // Cache the response
-        _cacheProvider.SetCachedObject(cacheKey, invocation.ReturnValue);
+        ulong cacheKey = GetInvocationCacheKey(invocation);
+
+        invocation.ReturnValue = _singleFlightCache.GetOrCreateAsync(
+            cacheKey,
+            static (_, inv, ct) =>
+            {
+                inv.Proceed();
+                return Task.FromResult(inv.ReturnValue!);
+            }, 
+            invocation, 
+            CancellationToken.None)
+            .ConfigureAwait(false)
+            .GetAwaiter()
+            .GetResult();
     }
 
-    protected virtual ulong GenerateCacheKey(MethodInfo method, object[] arguments)
+    public void InterceptAsynchronous(IInvocation invocation)
     {
-        switch (arguments.Length)
+        invocation.ReturnValue = InterceptTaskAsync();
+        async Task InterceptTaskAsync()
         {
-            case 0:
-                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name);
+            // Just proceed and await so exceptions flow correctly; no caching of Task (no value)
+            invocation.Proceed();
+            var task = (Task)invocation.ReturnValue!;
+            await task.ConfigureAwait(false);
+        }
+    }
 
-            case 1:
-                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name, arguments[0]);
+    public void InterceptAsynchronous<TResult>(IInvocation invocation)
+    {
+        invocation.ReturnValue = InterceptTaskOfTAsync();
 
-            case 2:
-                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name, arguments[0], arguments[1]);
+        async Task<TResult> InterceptTaskOfTAsync()
+        {
+            var cacheKey = _cacheKeyProvider.GetKey(invocation.Method, invocation.Arguments);
 
-            case 3:
-                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name, arguments[0], arguments[1], arguments[2]);
+            return (TResult) await _singleFlightCache.GetOrCreateAsync(
+                    cacheKey,
+                    static async (_, inv, ct) =>
+                    {
+                        object ret;
+                            
+                        // If not cached, call the underlying method and await its result
+                        inv.Proceed();
 
-            default:
-                throw new NotImplementedException(
-                    "Support for generating cache keys for more than 3 arguments has not been implemented.");
+
+                        ret = inv.ReturnValue;
+
+                        // Support Task<TResult>
+                        if (ret is Task<TResult> t)
+                        {
+                            var result = await t.ConfigureAwait(false);
+                            return result;
+                        }
+
+                        // Support ValueTask<TResult>
+                        if (ret is ValueTask<TResult> vt)
+                        {
+                            var result = await vt.ConfigureAwait(false); 
+
+                            return result;
+                        }
+
+                        // If the method is sync (rare here) and already returned TResult
+                        if (ret is TResult value)
+                        {
+                            return value;
+                        }
+
+                        // If the method returned Task (non-generic), we cannot cache a value
+                        if (ret is Task nonGenericTask)
+                        {
+                            await nonGenericTask.ConfigureAwait(false);
+
+                            throw new InvalidOperationException(
+                                $"Method {inv.Method.Name} returned Task (no result) but interceptor expected a value to cache.");
+                        }
+
+                        throw new InvalidOperationException(
+                            $"Unsupported return type {ret?.GetType().Name} for method {inv.Method.Name}.");
+                    },
+                    invocation, 
+                    CancellationToken.None) 
+                .ConfigureAwait(false);
         }
     }
 
     public void Clear()
     {
-        if (_cacheProvider is IClearable clearable)
+        if (_singleFlightCache is IClearable clearable)
         {
             clearable.Clear();
 
@@ -86,5 +127,27 @@ public class CachingInterceptor : IInterceptor, IClearable
         }
 
         throw new NotSupportedException($"Unable to clear the underlying data associated with the {nameof(CachingInterceptor)}.");
+    }
+
+    private ulong GetInvocationCacheKey(IInvocation invocation)
+    {
+        ulong cacheKey;
+
+        try
+        {
+            if (invocation.Method.DeclaringType == null)
+            {
+                throw new NotSupportedException($"Unable to generate a cache key for method '{invocation.Method.Name}' because it has no DeclaringType.");
+            }
+
+            cacheKey = _cacheKeyProvider.GetKey(invocation.Method, invocation.Arguments);
+        }
+        catch (Exception ex)
+        {
+            throw new CachingInterceptorCacheKeyGenerationException(
+                $"Cache key generation failed for invocation of method '{invocation.Method.Name}' of declaring type '{invocation.Method.DeclaringType?.FullName}'.", ex);
+        }
+
+        return cacheKey;
     }
 }

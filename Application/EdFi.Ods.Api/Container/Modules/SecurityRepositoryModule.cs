@@ -8,6 +8,7 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Caching.SingleFlight;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
@@ -30,17 +31,23 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>(InterceptorCacheKeys.Security)
+                .Named<IAsyncInterceptor>(InterceptorCacheKeys.Security)
                 .WithParameter(
                     ctx =>
                     {
                         var apiSettings = ctx.Resolve<ApiSettings>();
 
-                        return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                        return (ISingleFlightCache<ulong, object>) new ExpiringSingleFlightCache<ulong, object>(
                             "Security",
-                            TimeSpan.FromMinutes(apiSettings.Caching.Security.AbsoluteExpirationMinutes));
+                            TimeSpan.FromMinutes(apiSettings.Caching.Security.AbsoluteExpirationMinutes),
+                            TimeSpan.FromMinutes(apiSettings.Caching.Security.CreationTimeoutSeconds));
                     })
                 .SingleInstance();
+            
+            // Wrap into AsyncDeterminationInterceptor to support async interception
+            builder.Register(ctx =>
+                    new AsyncDeterminationInterceptor(ctx.ResolveNamed<IAsyncInterceptor>(InterceptorCacheKeys.Security)))
+                .Named<IInterceptor>(InterceptorCacheKeys.Security);
         }
     }
 }
