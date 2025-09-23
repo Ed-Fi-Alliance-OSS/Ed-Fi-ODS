@@ -230,8 +230,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -302,8 +302,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -385,8 +385,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -424,8 +424,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -496,8 +496,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -546,8 +546,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -618,8 +618,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -1033,8 +1033,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -1105,8 +1105,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -1188,8 +1188,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -1260,8 +1260,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -1310,8 +1310,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -1557,8 +1557,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
@@ -1629,8 +1629,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName)
-        VALUES (@claimSetName)
+        INSERT INTO dbo.ClaimSets(ClaimSetName, IsEdFiPreset)
+        VALUES (@claimSetName, 1)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
