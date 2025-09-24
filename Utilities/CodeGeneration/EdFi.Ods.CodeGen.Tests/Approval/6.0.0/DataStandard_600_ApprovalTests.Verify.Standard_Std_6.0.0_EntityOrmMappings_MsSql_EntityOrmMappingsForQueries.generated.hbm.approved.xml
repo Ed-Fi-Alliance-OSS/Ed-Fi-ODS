@@ -118,7 +118,7 @@
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
     <property name="BirthDate" column="BirthDate" type="date" />
     <property name="CitizenshipStatusDescriptorId" column="CitizenshipStatusDescriptorId" type="int" />
-    <property name="EconomicDisadvantaged" column="EconomicDisadvantaged" type="bool" />
+    <property name="EconomicDisadvantageDescriptorId" column="EconomicDisadvantageDescriptorId" type="int" />
     <property name="FirstGenerationStudent" column="FirstGenerationStudent" type="bool" />
     <property name="FirstName" column="FirstName" type="string" length="75" not-null="true" />
     <property name="GenderIdentity" column="GenderIdentity" type="string" length="60" />
@@ -141,6 +141,9 @@
     <!-- Back references -->
     <many-to-one name="CitizenshipStatusDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="CitizenshipStatusDescriptorId" />
+    </many-to-one>
+    <many-to-one name="EconomicDisadvantageDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="EconomicDisadvantageDescriptorId" />
     </many-to-one>
     <many-to-one name="HighestCompletedLevelOfEducationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LevelOfEducationDescriptorAggregate.EdFi.LevelOfEducationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="HighestCompletedLevelOfEducationDescriptorId" />
@@ -1168,6 +1171,7 @@
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    <property name="AcademicSubjectDescriptorId" column="AcademicSubjectDescriptorId" type="int" not-null="true" />
     <property name="AdaptiveAssessment" column="AdaptiveAssessment" type="bool" />
     <property name="AssessmentCategoryDescriptorId" column="AssessmentCategoryDescriptorId" type="int" />
     <property name="AssessmentFamily" column="AssessmentFamily" type="string" length="60" />
@@ -1185,6 +1189,9 @@
     <!-- Aggregate references -->
 
     <!-- Back references -->
+    <many-to-one name="AcademicSubjectDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="AcademicSubjectDescriptorId" />
+    </many-to-one>
     <many-to-one name="AssessmentCategoryDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentCategoryDescriptorAggregate.EdFi.AssessmentCategoryDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="AssessmentCategoryDescriptorId" />
     </many-to-one>
@@ -1193,14 +1200,6 @@
     </many-to-one>
 
     <!-- Collections -->
-    <set name="AssessmentAcademicSubjects" cascade="none" lazy="true">
-      <key>
-        <column name="AssessmentIdentifier" />
-        <column name="Namespace" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentAcademicSubjectQ" />
-    </set>
-
     <set name="AssessmentAdministrations" cascade="none" lazy="true">
       <key>
         <column name="AssessmentIdentifier" />
@@ -1329,34 +1328,6 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ" />
     </set>
 
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentAcademicSubjectQ" table="AssessmentAcademicSubject" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AcademicSubjectDescriptorId" column="AcademicSubjectDescriptorId" type="int" />
-      <key-many-to-one name="Assessment">
-        <column name="AssessmentIdentifier" />
-        <column name="Namespace" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="AcademicSubjectDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="AcademicSubjectDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
 </class>
 
 
@@ -2738,7 +2709,7 @@
     <property name="CitizenshipStatusDescriptorId" column="CitizenshipStatusDescriptorId" type="int" />
     <property name="DateEnteredUS" column="DateEnteredUS" type="date" />
     <property name="DisplacementStatus" column="DisplacementStatus" type="string" length="30" />
-    <property name="EconomicDisadvantaged" column="EconomicDisadvantaged" type="bool" />
+    <property name="EconomicDisadvantageDescriptorId" column="EconomicDisadvantageDescriptorId" type="int" />
     <property name="EnglishLanguageExamDescriptorId" column="EnglishLanguageExamDescriptorId" type="int" />
     <property name="FirstGenerationStudent" column="FirstGenerationStudent" type="bool" />
     <property name="FirstName" column="FirstName" type="string" length="75" not-null="true" />
@@ -2778,6 +2749,9 @@
     </many-to-one>
     <many-to-one name="CitizenshipStatusDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="CitizenshipStatusDescriptorId" />
+    </many-to-one>
+    <many-to-one name="EconomicDisadvantageDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="EconomicDisadvantageDescriptorId" />
     </many-to-one>
     <many-to-one name="EnglishLanguageExamDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.EnglishLanguageExamDescriptorAggregate.EdFi.EnglishLanguageExamDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="EnglishLanguageExamDescriptorId" />
@@ -6479,11 +6453,11 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ApplicationAggregate.EdFi.ApplicationQ" />
           </set>
 
-          <set name="AssessmentAcademicSubjects" cascade="none" lazy="true">
+          <set name="Assessments" cascade="none" lazy="true">
             <key>
               <column name="AcademicSubjectDescriptorId" />
             </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentAcademicSubjectQ" />
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ" />
           </set>
 
           <set name="CandidateEPPProgramDegrees" cascade="none" lazy="true">
@@ -9230,6 +9204,20 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
+          <set name="ApplicantProfiles" cascade="none" lazy="true">
+            <key>
+              <column name="EconomicDisadvantageDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ApplicantProfileAggregate.EdFi.ApplicantProfileQ" />
+          </set>
+
+          <set name="Candidates" cascade="none" lazy="true">
+            <key>
+              <column name="EconomicDisadvantageDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateQ" />
+          </set>
+
           <set name="StudentDemographics" cascade="none" lazy="true">
             <key>
               <column name="EconomicDisadvantageDescriptorId" />
@@ -10279,7 +10267,14 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StaffSchoolAssociationAggregate.EdFi.StaffSchoolAssociationGradeLevelQ" />
           </set>
 
-          <set name="StudentAssessments" cascade="none" lazy="true">
+          <set name="AssessedStudentAssessments" cascade="none" lazy="true">
+            <key>
+              <column name="AssessedGradeLevelDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ" />
+          </set>
+
+          <set name="WhenAssessedStudentAssessments" cascade="none" lazy="true">
             <key>
               <column name="WhenAssessedGradeLevelDescriptorId" />
             </key>
@@ -22060,7 +22055,6 @@
     <property name="Description" column="Description" type="string" length="1024" />
     <property name="MaxRawScore" column="MaxRawScore" type="decimal" />
     <property name="Nomenclature" column="Nomenclature" type="string" length="100" />
-    <property name="ParentIdentificationCode" column="ParentIdentificationCode" type="string" length="120" />
     <property name="PercentOfAssessment" column="PercentOfAssessment" type="decimal" />
 
     <!-- Aggregate references -->
@@ -22071,11 +22065,6 @@
     </many-to-one>
     <many-to-one name="Assessment" class="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="AssessmentIdentifier" />
-        <column name="Namespace" />
-    </many-to-one>
-    <many-to-one name="ParentObjectiveAssessment" class="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="AssessmentIdentifier" />
-        <column name="ParentIdentificationCode" />
         <column name="Namespace" />
     </many-to-one>
 
@@ -22116,6 +22105,15 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentLearningStandardQ" />
     </set>
 
+    <set name="ObjectiveAssessmentParentObjectiveAssessments" cascade="none" lazy="true">
+      <key>
+        <column name="AssessmentIdentifier" />
+        <column name="IdentificationCode" />
+        <column name="Namespace" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentParentObjectiveAssessmentQ" />
+    </set>
+
     <set name="ObjectiveAssessmentPerformanceLevels" cascade="none" lazy="true">
       <key>
         <column name="AssessmentIdentifier" />
@@ -22132,6 +22130,15 @@
         <column name="Namespace" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentScoreQ" />
+    </set>
+
+    <set name="ParentObjectiveAssessmentParentObjectiveAssessments" cascade="none" lazy="true">
+      <key>
+        <column name="AssessmentIdentifier" />
+        <column name="ParentIdentificationCode" />
+        <column name="Namespace" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentParentObjectiveAssessmentQ" />
     </set>
 
     <set name="StudentAssessmentStudentObjectiveAssessments" cascade="none" lazy="true">
@@ -22200,6 +22207,37 @@
     <!-- Back references -->
     <many-to-one name="LearningStandard" class="EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="LearningStandardId" />
+    </many-to-one>
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentParentObjectiveAssessmentQ" table="ObjectiveAssessmentParentObjectiveAssessment" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ParentIdentificationCode" column="ParentIdentificationCode" type="string" length="120" />
+      <key-many-to-one name="ObjectiveAssessment">
+        <column name="AssessmentIdentifier" />
+        <column name="IdentificationCode" />
+        <column name="Namespace" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+    <many-to-one name="ParentObjectiveAssessment" class="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="AssessmentIdentifier" />
+        <column name="ParentIdentificationCode" />
+        <column name="Namespace" />
     </many-to-one>
 
     <!-- Collections -->
@@ -29098,6 +29136,7 @@
     <property name="AdministrationEndDate" column="AdministrationEndDate" type="UtcDateTime" />
     <property name="AdministrationEnvironmentDescriptorId" column="AdministrationEnvironmentDescriptorId" type="int" />
     <property name="AdministrationLanguageDescriptorId" column="AdministrationLanguageDescriptorId" type="int" />
+    <property name="AssessedGradeLevelDescriptorId" column="AssessedGradeLevelDescriptorId" type="int" />
     <property name="AssessedMinutes" column="AssessedMinutes" type="int" />
     <property name="EventCircumstanceDescriptorId" column="EventCircumstanceDescriptorId" type="int" />
     <property name="EventDescription" column="EventDescription" type="string" length="1024" />
@@ -29106,7 +29145,7 @@
     <property name="ReportedSchoolId" column="ReportedSchoolId" type="long" />
     <property name="ReportedSchoolIdentifier" column="ReportedSchoolIdentifier" type="string" length="60" />
     <property name="RetestIndicatorDescriptorId" column="RetestIndicatorDescriptorId" type="int" />
-    <property name="SchoolYear" column="SchoolYear" type="short" />
+    <property name="SchoolYear" column="SchoolYear" type="short" not-null="true" />
     <property name="SerialNumber" column="SerialNumber" type="string" length="120" />
     <property name="WhenAssessedGradeLevelDescriptorId" column="WhenAssessedGradeLevelDescriptorId" type="int" />
 
@@ -29121,6 +29160,9 @@
     </many-to-one>
     <many-to-one name="AdministrationLanguageDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi.LanguageDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="AdministrationLanguageDescriptorId" />
+    </many-to-one>
+    <many-to-one name="AssessedGradeLevelDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="AssessedGradeLevelDescriptorId" />
     </many-to-one>
     <many-to-one name="Assessment" class="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="AssessmentIdentifier" />
@@ -29180,6 +29222,16 @@
         <column name="StudentUSI" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentEducationOrganizationAssociationAggregate.EdFi.StudentAssessmentEducationOrganizationAssociationQ" />
+    </set>
+
+    <set name="StudentAssessmentIndicators" cascade="none" lazy="true">
+      <key>
+        <column name="AssessmentIdentifier" />
+        <column name="Namespace" />
+        <column name="StudentAssessmentIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentIndicatorQ" />
     </set>
 
     <set name="StudentAssessmentItems" cascade="none" lazy="true">
@@ -29250,6 +29302,35 @@
     <many-to-one name="AccommodationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AccommodationDescriptorAggregate.EdFi.AccommodationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="AccommodationDescriptorId" />
     </many-to-one>
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentIndicatorQ" table="StudentAssessmentIndicator" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Indicator" column="Indicator" type="string" length="60" />
+      <key-property name="IndicatorName" column="IndicatorName" type="string" length="200" />
+      <key-many-to-one name="StudentAssessment">
+        <column name="AssessmentIdentifier" />
+        <column name="Namespace" />
+        <column name="StudentAssessmentIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="IndicatorGroup" column="IndicatorGroup" type="string" length="200" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
 
     <!-- Collections -->
 </class>
