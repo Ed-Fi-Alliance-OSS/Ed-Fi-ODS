@@ -246,7 +246,10 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return context.ApiClients.FirstOrDefault(c => c.Key == key && c.Secret == secret);
+                return context.ApiClients
+                    .Include(c => c.Application)
+                    .Include(c => c.ApplicationEducationOrganizations)
+                    .FirstOrDefault(c => c.Key == key && c.Secret == secret);
             }
         }
 
