@@ -93,5 +93,43 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                     .MustHaveHappened()
             );
         }
+
+        [Test]
+        public async Task When_requesting_API_client_details_that_are_NOT_already_cached_for_a_token_and_token_doesnt_exist()
+        {
+            // Arrange
+            var suppliedTokenString = Guid.NewGuid().ToString("n");
+            
+            var cacheKeyProvider = A.Fake<IApiClientDetailsCacheKeyProvider>();
+            A.CallTo(() => cacheKeyProvider.GetCacheKey(suppliedTokenString)).Returns("theCacheKey");
+
+            var cacheProvider = A.Fake<ICacheProvider<string>>();
+            object outObject;
+
+            A.CallTo(() => cacheProvider.TryGetCachedObject("theCacheKey", out outObject))
+                .Returns(false);
+
+            var apiClientDetailsProvider = A.Fake<IApiClientDetailsProvider>();
+            A.CallTo(() => apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(suppliedTokenString))
+                .Returns(null as ApiClientDetails);
+
+            // Act
+            CachingApiClientDetailsProviderDecorator decorator = new(apiClientDetailsProvider, cacheProvider, cacheKeyProvider);
+            var actualApiClientDetails = await decorator.GetApiClientDetailsForTokenAsync(suppliedTokenString);
+
+            // Assert
+            decorator.ShouldSatisfyAllConditions(
+                () => actualApiClientDetails.ShouldBeNull(),
+                
+                // Should call through to underlying store
+                () => A.CallTo(() => apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(suppliedTokenString))
+                    .MustHaveHappened(),
+
+                // Should NOT insert a new cache entry with expiration date 15 minutes after the expiration of the token
+                () => A.CallTo(() => cacheProvider.Insert(A<string>.Ignored, A<ApiClientDetails>.Ignored, 
+                        A<DateTime>.Ignored, A<TimeSpan>.Ignored))
+                    .MustNotHaveHappened()
+            );
+        }
    }
 }

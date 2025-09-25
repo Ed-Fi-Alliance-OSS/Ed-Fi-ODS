@@ -286,6 +286,14 @@ namespace EdFi.Ods.Common.Models.Domain
         /// </summary>
         public string[] DeprecationReasons { get; set; }
 
+        public EntityProperty ParentProperty
+        {
+            get => IncomingAssociations
+                .SingleOrDefault(a => a.IsNavigable && a.AssociationType == AssociationViewType.ManyToOne
+                    || a.AssociationType == AssociationViewType.OneToOneIncoming || a.AssociationType == AssociationViewType.FromCore)
+                ?.PropertyMappingByThisName[PropertyName].OtherProperty;
+        }
+
         public override string ToString() => PropertyName;
     }
 }
