@@ -118,7 +118,7 @@ AS
         oa.CreateDate,
         oa.LastModifiedDate,
         oa.Id,
-        NULL AS ParentIdentificationCode
+        CAST(NULL AS NVARCHAR(120)) AS ParentIdentificationCode
     FROM edfi.ObjectiveAssessment oa
     WHERE NOT EXISTS (
         SELECT 1
