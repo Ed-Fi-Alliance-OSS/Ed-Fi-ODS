@@ -80,62 +80,86 @@ SELECT * FROM LocalEducationAgencyH_CTE;
 DROP VIEW IF EXISTS edfi.ObjectiveAssessmentH;
 
 CREATE VIEW edfi.ObjectiveAssessmentH AS
-WITH RECURSIVE ObjectiveAssessmentH_CTE
-AS
-    (SELECT AssessmentIdentifier
-      ,IdentificationCode
-      ,Namespace
-      ,MaxRawScore
-      ,PercentOfAssessment
-      ,Nomenclature
-      ,Description
-      ,ParentIdentificationCode
-      ,AcademicSubjectDescriptorId
-      ,CreateDate
-      ,LastModifiedDate
-      ,Id
-      -- ,AggregateHashValue
-    FROM edfi.ObjectiveAssessment
-    WHERE ParentIdentificationCode IS NULL
+WITH RECURSIVE ObjectiveAssessmentH_CTE AS (
+    SELECT 
+        oa.AssessmentIdentifier,
+        oa.IdentificationCode,
+        oa.Namespace,
+        oa.MaxRawScore,
+        oa.PercentOfAssessment,
+        oa.Nomenclature,
+        oa.Description,
+        NULL::VARCHAR AS ParentIdentificationCode,
+        oa.AcademicSubjectDescriptorId,
+        oa.CreateDate,
+        oa.LastModifiedDate,
+        oa.Id
+    FROM edfi.ObjectiveAssessment oa
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM edfi.ObjectiveAssessmentParentObjectiveAssessment rel
+        WHERE 
+            rel.AssessmentIdentifier = oa.AssessmentIdentifier
+            AND rel.Namespace = oa.Namespace
+            AND rel.IdentificationCode = oa.IdentificationCode
+    )
+
     UNION ALL
-    SELECT t1.AssessmentIdentifier
-      ,t1.IdentificationCode
-      ,t1.Namespace
-      ,t1.MaxRawScore
-      ,t1.PercentOfAssessment
-      ,t1.Nomenclature
-      ,t1.Description
-      ,t1.ParentIdentificationCode
-      ,t1.AcademicSubjectDescriptorId
-      ,t1.CreateDate
-      ,t1.LastModifiedDate
-      ,t1.Id
-      -- ,t1.AggregateHashValue
-    FROM edfi.ObjectiveAssessment t1
-    INNER JOIN ObjectiveAssessmentH_CTE
-        ON t1.AssessmentIdentifier = ObjectiveAssessmentH_CTE.AssessmentIdentifier
-            AND t1.ParentIdentificationCode = ObjectiveAssessmentH_CTE.IdentificationCode
-            AND t1.Namespace = ObjectiveAssessmentH_CTE.Namespace
-    WHERE t1.AssessmentIdentifier IS NOT NULL
-            AND t1.ParentIdentificationCode IS NOT NULL
-            AND t1.Namespace IS NOT NULL)
+
+    SELECT 
+        child.AssessmentIdentifier,
+        child.IdentificationCode,
+        child.Namespace,
+        child.MaxRawScore,
+        child.PercentOfAssessment,
+        child.Nomenclature,
+        child.Description,
+        rel.ParentIdentificationCode,
+        child.AcademicSubjectDescriptorId,
+        child.CreateDate,
+        child.LastModifiedDate,
+        child.Id
+    FROM edfi.ObjectiveAssessmentParentObjectiveAssessment rel
+    INNER JOIN ObjectiveAssessmentH_CTE parent
+        ON rel.AssessmentIdentifier = parent.AssessmentIdentifier
+        AND rel.Namespace = parent.Namespace
+        AND rel.ParentIdentificationCode = parent.IdentificationCode
+    INNER JOIN edfi.ObjectiveAssessment child
+        ON child.AssessmentIdentifier = rel.AssessmentIdentifier
+        AND child.Namespace = rel.Namespace
+        AND child.IdentificationCode = rel.IdentificationCode
+)
 
 SELECT * FROM ObjectiveAssessmentH_CTE;
 
 DROP VIEW IF EXISTS edfi.StudentAssessmentStudentObjectiveAssessmentH;
 
 CREATE VIEW edfi.StudentAssessmentStudentObjectiveAssessmentH AS
-WITH RECURSIVE RecursivelyOrderedData
-AS (
-    SELECT *
-        FROM    edfi.ObjectiveAssessment
-        WHERE   ParentIdentificationCode IS NULL
-        UNION ALL
-        SELECT  childSelector.*
-        FROM    edfi.ObjectiveAssessment AS childSelector
-                INNER JOIN RecursivelyOrderedData
-                    ON  childSelector.IdentificationCode = RecursivelyOrderedData.ParentIdentificationCode
+WITH RECURSIVE RecursivelyOrderedData AS (
+    SELECT oa.*
+    FROM edfi.ObjectiveAssessment oa
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM edfi.ObjectiveAssessmentParentObjectiveAssessment rel
+        WHERE rel.AssessmentIdentifier = oa.AssessmentIdentifier
+          AND rel.Namespace = oa.Namespace
+          AND rel.IdentificationCode = oa.IdentificationCode
     )
+
+    UNION ALL
+
+    SELECT child.*
+    FROM edfi.ObjectiveAssessmentParentObjectiveAssessment rel
+    INNER JOIN RecursivelyOrderedData parent
+        ON rel.AssessmentIdentifier = parent.AssessmentIdentifier
+        AND rel.Namespace = parent.Namespace
+        AND rel.ParentIdentificationCode = parent.IdentificationCode
+    INNER JOIN edfi.ObjectiveAssessment child
+        ON child.AssessmentIdentifier = rel.AssessmentIdentifier
+        AND child.Namespace = rel.Namespace
+        AND child.IdentificationCode = rel.IdentificationCode
+)
+
 
 SELECT
     t.AssessmentIdentifier,
@@ -146,7 +170,6 @@ SELECT
     rt.PercentOfAssessment,
     rt.Nomenclature,
     rt.Description,
-    rt.ParentIdentificationCode,
     t.CreateDate
 FROM edfi.StudentAssessmentStudentObjectiveAssessment t
 INNER JOIN RecursivelyOrderedData AS rt

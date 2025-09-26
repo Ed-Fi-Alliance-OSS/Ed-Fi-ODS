@@ -602,7 +602,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ApplicantProfiles.EdFi
             specification.ApplicantProfileIdentifier = request.ApplicantProfileIdentifier;
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
-            specification.EconomicDisadvantaged = request.EconomicDisadvantaged;
+            specification.EconomicDisadvantageDescriptor = request.EconomicDisadvantageDescriptor;
             specification.FirstGenerationStudent = request.FirstGenerationStudent;
             specification.FirstName = request.FirstName;
             specification.GenderIdentity = request.GenderIdentity;
@@ -884,6 +884,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
             specification.AdaptiveAssessment = request.AdaptiveAssessment;
             specification.AssessmentCategoryDescriptor = request.AssessmentCategoryDescriptor;
             specification.AssessmentFamily = request.AssessmentFamily;
@@ -1843,7 +1844,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Candidates.EdFi
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
             specification.DateEnteredUS = request.DateEnteredUS;
             specification.DisplacementStatus = request.DisplacementStatus;
-            specification.EconomicDisadvantaged = request.EconomicDisadvantaged;
+            specification.EconomicDisadvantageDescriptor = request.EconomicDisadvantageDescriptor;
             specification.EnglishLanguageExamDescriptor = request.EnglishLanguageExamDescriptor;
             specification.FirstGenerationStudent = request.FirstGenerationStudent;
             specification.FirstName = request.FirstName;
@@ -9291,7 +9292,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
             specification.MaxRawScore = request.MaxRawScore;
             specification.Namespace = request.Namespace;
             specification.Nomenclature = request.Nomenclature;
-            specification.ParentIdentificationCode = request.ParentIdentificationCode;
             specification.PercentOfAssessment = request.PercentOfAssessment;
         }
     }
@@ -14303,6 +14303,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
             specification.AdministrationEndDate = request.AdministrationEndDate;
             specification.AdministrationEnvironmentDescriptor = request.AdministrationEnvironmentDescriptor;
             specification.AdministrationLanguageDescriptor = request.AdministrationLanguageDescriptor;
+            specification.AssessedGradeLevelDescriptor = request.AssessedGradeLevelDescriptor;
             specification.AssessedMinutes = request.AssessedMinutes;
             specification.AssessmentIdentifier = request.AssessmentIdentifier;
             specification.EventCircumstanceDescriptor = request.EventCircumstanceDescriptor;

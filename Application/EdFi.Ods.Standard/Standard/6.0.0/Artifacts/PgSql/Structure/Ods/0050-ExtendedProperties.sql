@@ -78,7 +78,7 @@ COMMENT ON TABLE edfi.ApplicantProfile IS 'The profile of the person making an a
 COMMENT ON COLUMN edfi.ApplicantProfile.ApplicantProfileIdentifier IS 'Identifier assigned to a person making formal application for entrance into a program or an open staff position.';
 COMMENT ON COLUMN edfi.ApplicantProfile.BirthDate IS 'The month, day, and year on which an individual was born.';
 COMMENT ON COLUMN edfi.ApplicantProfile.CitizenshipStatusDescriptorId IS 'An indicator of whether or not the person is a U.S. citizen.';
-COMMENT ON COLUMN edfi.ApplicantProfile.EconomicDisadvantaged IS 'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.';
+COMMENT ON COLUMN edfi.ApplicantProfile.EconomicDisadvantageDescriptorId IS 'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.';
 COMMENT ON COLUMN edfi.ApplicantProfile.FirstGenerationStudent IS 'Indicator of whether individual is a first generation college student.';
 COMMENT ON COLUMN edfi.ApplicantProfile.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN edfi.ApplicantProfile.GenderIdentity IS 'The gender the person identifies themselves as.';
@@ -326,6 +326,7 @@ COMMENT ON COLUMN edfi.ApplicationTerm.TermDescriptorId IS 'The intended term of
 COMMENT ON TABLE edfi.Assessment IS 'This entity represents a tool, instrument, process, or exhibition composed of a systematic sampling of behavior for measuring a student''s competence, knowledge, skills, or behavior. An assessment can be used to measure differences in individuals or groups and changes in performance from one occasion to the next.';
 COMMENT ON COLUMN edfi.Assessment.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.Assessment.Namespace IS 'Namespace for the assessment.';
+COMMENT ON COLUMN edfi.Assessment.AcademicSubjectDescriptorId IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, a foreign language, or composite if multi-subject) of an assessment.';
 COMMENT ON COLUMN edfi.Assessment.AdaptiveAssessment IS 'Indicates that the assessment is adaptive.';
 COMMENT ON COLUMN edfi.Assessment.AssessmentCategoryDescriptorId IS 'The category of an assessment based on format and content.';
 COMMENT ON COLUMN edfi.Assessment.AssessmentFamily IS 'The assessment family this assessment is a member of.';
@@ -336,12 +337,6 @@ COMMENT ON COLUMN edfi.Assessment.EducationOrganizationId IS 'The identifier ass
 COMMENT ON COLUMN edfi.Assessment.MaxRawScore IS 'The maximum raw score achievable across all assessment items that are correct and scored at the maximum.';
 COMMENT ON COLUMN edfi.Assessment.Nomenclature IS 'Reflects the specific nomenclature used for assessment.';
 COMMENT ON COLUMN edfi.Assessment.RevisionDate IS 'The month, day, and year that the conceptual design for the assessment was most recently revised substantially.';
-
--- Extended Properties [edfi].[AssessmentAcademicSubject] --
-COMMENT ON TABLE edfi.AssessmentAcademicSubject IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of an assessment.';
-COMMENT ON COLUMN edfi.AssessmentAcademicSubject.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.AssessmentAcademicSubject.Namespace IS 'Namespace for the assessment.';
-COMMENT ON COLUMN edfi.AssessmentAcademicSubject.AcademicSubjectDescriptorId IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of an assessment.';
 
 -- Extended Properties [edfi].[AssessmentAdministration] --
 COMMENT ON TABLE edfi.AssessmentAdministration IS 'The anticipated administration of an assessment under the purview of an education organization.';
@@ -686,7 +681,7 @@ COMMENT ON COLUMN edfi.Candidate.BirthStateAbbreviationDescriptorId IS 'The abbr
 COMMENT ON COLUMN edfi.Candidate.CitizenshipStatusDescriptorId IS 'An indicator of whether or not the person is a U.S. citizen.';
 COMMENT ON COLUMN edfi.Candidate.DateEnteredUS IS 'For students born outside of the U.S., the date the student entered the U.S.';
 COMMENT ON COLUMN edfi.Candidate.DisplacementStatus IS 'Indicates a state health or weather related event that displaces a group of students, and may require additional funding, educational, or social services.';
-COMMENT ON COLUMN edfi.Candidate.EconomicDisadvantaged IS 'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.';
+COMMENT ON COLUMN edfi.Candidate.EconomicDisadvantageDescriptorId IS 'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.';
 COMMENT ON COLUMN edfi.Candidate.EnglishLanguageExamDescriptorId IS 'Indicates that an individual passed, failed, or did not take an English Language assessment.';
 COMMENT ON COLUMN edfi.Candidate.FirstGenerationStudent IS 'Indicates whether an individual is a first-generation college student.';
 COMMENT ON COLUMN edfi.Candidate.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
@@ -3200,7 +3195,6 @@ COMMENT ON COLUMN edfi.ObjectiveAssessment.AcademicSubjectDescriptorId IS 'The s
 COMMENT ON COLUMN edfi.ObjectiveAssessment.Description IS 'The description of the objective assessment (e.g., vocabulary, measurement, or geometry).';
 COMMENT ON COLUMN edfi.ObjectiveAssessment.MaxRawScore IS 'The maximum raw score achievable across all assessment items that are correct and scored at the maximum.';
 COMMENT ON COLUMN edfi.ObjectiveAssessment.Nomenclature IS 'Reflects the specific nomenclature used for this level of objective assessment.';
-COMMENT ON COLUMN edfi.ObjectiveAssessment.ParentIdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
 COMMENT ON COLUMN edfi.ObjectiveAssessment.PercentOfAssessment IS 'The percentage of the assessment that tests this objective.';
 
 -- Extended Properties [edfi].[ObjectiveAssessmentAssessmentItem] --
@@ -3216,6 +3210,13 @@ COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.AssessmentIdentifier 
 COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
+
+-- Extended Properties [edfi].[ObjectiveAssessmentParentObjectiveAssessment] --
+COMMENT ON TABLE edfi.ObjectiveAssessmentParentObjectiveAssessment IS 'Provide user information to lookup and link to the parent objective assessment containing this objective assessment.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentParentObjectiveAssessment.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentParentObjectiveAssessment.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentParentObjectiveAssessment.Namespace IS 'Namespace for the assessment.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentParentObjectiveAssessment.ParentIdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
 
 -- Extended Properties [edfi].[ObjectiveAssessmentPerformanceLevel] --
 COMMENT ON TABLE edfi.ObjectiveAssessmentPerformanceLevel IS 'Definition of the performance levels and the associated cut scores. Three styles are supported: 1. Specification of performance level by minimum and maximum score, 2. Specification of performance level by cut score, using only minimum score, 3. Specification of performance level without any mapping to scores';
@@ -4890,6 +4891,7 @@ COMMENT ON COLUMN edfi.StudentAssessment.AdministrationDate IS 'The date and tim
 COMMENT ON COLUMN edfi.StudentAssessment.AdministrationEndDate IS 'The date and time an assessment administration ended.';
 COMMENT ON COLUMN edfi.StudentAssessment.AdministrationEnvironmentDescriptorId IS 'The environment in which the test was administered.';
 COMMENT ON COLUMN edfi.StudentAssessment.AdministrationLanguageDescriptorId IS 'The language in which an assessment is written and/or administered.';
+COMMENT ON COLUMN edfi.StudentAssessment.AssessedGradeLevelDescriptorId IS 'The grade level for which the assessment form was evaluated for the student on this administration.';
 COMMENT ON COLUMN edfi.StudentAssessment.AssessedMinutes IS 'Reported time student was assessed in minutes.';
 COMMENT ON COLUMN edfi.StudentAssessment.EventCircumstanceDescriptorId IS 'An unusual event occurred during the administration of the assessment. This could include fire alarm, student became ill, etc.';
 COMMENT ON COLUMN edfi.StudentAssessment.EventDescription IS 'Describes special events that occur before during or after the assessment session that may impact use of results.';
@@ -4919,6 +4921,16 @@ COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.Namespa
 COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.SchoolYear IS 'The school year associated with the association..';
+
+-- Extended Properties [edfi].[StudentAssessmentIndicator] --
+COMMENT ON TABLE edfi.StudentAssessmentIndicator IS 'An indicator or metric for non-score attributes being sent for the current Assessment, for example for at-risk name.';
+COMMENT ON COLUMN edfi.StudentAssessmentIndicator.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentIndicator.Namespace IS 'Namespace for the assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentIndicator.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
+COMMENT ON COLUMN edfi.StudentAssessmentIndicator.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentAssessmentIndicator.Indicator IS 'The value of the indicator or metric.';
+COMMENT ON COLUMN edfi.StudentAssessmentIndicator.IndicatorName IS 'The name of the indicator or metric.';
+COMMENT ON COLUMN edfi.StudentAssessmentIndicator.IndicatorGroup IS 'The name for a group of indicators.';
 
 -- Extended Properties [edfi].[StudentAssessmentItem] --
 COMMENT ON TABLE edfi.StudentAssessmentItem IS 'The student''s response to an assessment item and the item-level scores such as correct, incorrect, or met standard.';

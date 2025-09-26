@@ -122,7 +122,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indicator of whether or not the person is a U.S. citizen.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ApplicantProfile', @level2type=N'COLUMN', @level2name=N'CitizenshipStatusDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ApplicantProfile', @level2type=N'COLUMN', @level2name=N'EconomicDisadvantaged'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ApplicantProfile', @level2type=N'COLUMN', @level2name=N'EconomicDisadvantageDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether individual is a first generation college student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ApplicantProfile', @level2type=N'COLUMN', @level2name=N'FirstGenerationStudent'
 GO
@@ -562,6 +562,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique numbe
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Assessment', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, a foreign language, or composite if multi-subject) of an assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Assessment', @level2type=N'COLUMN', @level2name=N'AcademicSubjectDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates that the assessment is adaptive.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Assessment', @level2type=N'COLUMN', @level2name=N'AdaptiveAssessment'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The category of an assessment based on format and content.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Assessment', @level2type=N'COLUMN', @level2name=N'AssessmentCategoryDescriptorId'
@@ -581,16 +583,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reflects the specific nomenclature used for assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Assessment', @level2type=N'COLUMN', @level2name=N'Nomenclature'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year that the conceptual design for the assessment was most recently revised substantially.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Assessment', @level2type=N'COLUMN', @level2name=N'RevisionDate'
-GO
-
--- Extended Properties [edfi].[AssessmentAcademicSubject] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of an assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssessmentAcademicSubject'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssessmentAcademicSubject', @level2type=N'COLUMN', @level2name=N'AssessmentIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssessmentAcademicSubject', @level2type=N'COLUMN', @level2name=N'Namespace'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of an assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssessmentAcademicSubject', @level2type=N'COLUMN', @level2name=N'AcademicSubjectDescriptorId'
 GO
 
 -- Extended Properties [edfi].[AssessmentAdministration] --
@@ -1176,7 +1168,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'For students b
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates a state health or weather related event that displaces a group of students, and may require additional funding, educational, or social services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'DisplacementStatus'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'EconomicDisadvantaged'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'EconomicDisadvantageDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates that an individual passed, failed, or did not take an English Language assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'EnglishLanguageExamDescriptorId'
 GO
@@ -5536,8 +5528,6 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum ra
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reflects the specific nomenclature used for this level of objective assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'Nomenclature'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'ParentIdentificationCode'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of the assessment that tests this objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'PercentOfAssessment'
 GO
 
@@ -5563,6 +5553,18 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectiveAssessmentLearningStandard', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the specific learning standard (e.g., 111.15.3.1.A).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectiveAssessmentLearningStandard', @level2type=N'COLUMN', @level2name=N'LearningStandardId'
+GO
+
+-- Extended Properties [edfi].[ObjectiveAssessmentParentObjectiveAssessment] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Provide user information to lookup and link to the parent objective assessment containing this objective assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectiveAssessmentParentObjectiveAssessment'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectiveAssessmentParentObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'AssessmentIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectiveAssessmentParentObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'IdentificationCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectiveAssessmentParentObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'Namespace'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectiveAssessmentParentObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'ParentIdentificationCode'
 GO
 
 -- Extended Properties [edfi].[ObjectiveAssessmentPerformanceLevel] --
@@ -8492,6 +8494,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The environmen
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The language in which an assessment is written and/or administered.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessment', @level2type=N'COLUMN', @level2name=N'AdministrationLanguageDescriptorId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level for which the assessment form was evaluated for the student on this administration.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessment', @level2type=N'COLUMN', @level2name=N'AssessedGradeLevelDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reported time student was assessed in minutes.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessment', @level2type=N'COLUMN', @level2name=N'AssessedMinutes'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An unusual event occurred during the administration of the assessment. This could include fire alarm, student became ill, etc.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessment', @level2type=N'COLUMN', @level2name=N'EventCircumstanceDescriptorId'
@@ -8545,6 +8549,24 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year associated with the association..', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
+
+-- Extended Properties [edfi].[StudentAssessmentIndicator] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indicator or metric for non-score attributes being sent for the current Assessment, for example for at-risk name.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentIndicator', @level2type=N'COLUMN', @level2name=N'AssessmentIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentIndicator', @level2type=N'COLUMN', @level2name=N'Namespace'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an assessment administered to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentIndicator', @level2type=N'COLUMN', @level2name=N'StudentAssessmentIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentIndicator', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the indicator or metric.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentIndicator', @level2type=N'COLUMN', @level2name=N'Indicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the indicator or metric.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentIndicator', @level2type=N'COLUMN', @level2name=N'IndicatorName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name for a group of indicators.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentIndicator', @level2type=N'COLUMN', @level2name=N'IndicatorGroup'
 GO
 
 -- Extended Properties [edfi].[StudentAssessmentItem] --

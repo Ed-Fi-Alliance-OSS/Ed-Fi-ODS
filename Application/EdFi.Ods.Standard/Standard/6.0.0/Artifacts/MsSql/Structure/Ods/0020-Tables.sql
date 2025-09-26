@@ -176,7 +176,7 @@ CREATE TABLE [edfi].[ApplicantProfile] (
     [ApplicantProfileIdentifier] [NVARCHAR](32) NOT NULL,
     [BirthDate] [DATE] NULL,
     [CitizenshipStatusDescriptorId] [INT] NULL,
-    [EconomicDisadvantaged] [BIT] NULL,
+    [EconomicDisadvantageDescriptorId] [INT] NULL,
     [FirstGenerationStudent] [BIT] NULL,
     [FirstName] [NVARCHAR](75) NOT NULL,
     [GenderIdentity] [NVARCHAR](60) NULL,
@@ -708,6 +708,7 @@ GO
 CREATE TABLE [edfi].[Assessment] (
     [AssessmentIdentifier] [NVARCHAR](120) NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
+    [AcademicSubjectDescriptorId] [INT] NOT NULL,
     [AdaptiveAssessment] [BIT] NULL,
     [AssessmentCategoryDescriptorId] [INT] NULL,
     [AssessmentFamily] [NVARCHAR](60) NULL,
@@ -733,22 +734,6 @@ GO
 ALTER TABLE [edfi].[Assessment] ADD CONSTRAINT [Assessment_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [edfi].[Assessment] ADD CONSTRAINT [Assessment_DF_LastModifiedDate] DEFAULT (getutcdate()) FOR [LastModifiedDate]
-GO
-
--- Table [edfi].[AssessmentAcademicSubject] --
-CREATE TABLE [edfi].[AssessmentAcademicSubject] (
-    [AssessmentIdentifier] [NVARCHAR](120) NOT NULL,
-    [Namespace] [NVARCHAR](255) NOT NULL,
-    [AcademicSubjectDescriptorId] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [AssessmentAcademicSubject_PK] PRIMARY KEY CLUSTERED (
-        [AssessmentIdentifier] ASC,
-        [Namespace] ASC,
-        [AcademicSubjectDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[AssessmentAcademicSubject] ADD CONSTRAINT [AssessmentAcademicSubject_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[AssessmentAdministration] --
@@ -1586,7 +1571,7 @@ CREATE TABLE [edfi].[Candidate] (
     [CitizenshipStatusDescriptorId] [INT] NULL,
     [DateEnteredUS] [DATE] NULL,
     [DisplacementStatus] [NVARCHAR](30) NULL,
-    [EconomicDisadvantaged] [BIT] NULL,
+    [EconomicDisadvantageDescriptorId] [INT] NULL,
     [EnglishLanguageExamDescriptorId] [INT] NULL,
     [FirstGenerationStudent] [BIT] NULL,
     [FirstName] [NVARCHAR](75) NOT NULL,
@@ -7418,7 +7403,6 @@ CREATE TABLE [edfi].[ObjectiveAssessment] (
     [Description] [NVARCHAR](1024) NULL,
     [MaxRawScore] [DECIMAL](15, 5) NULL,
     [Nomenclature] [NVARCHAR](100) NULL,
-    [ParentIdentificationCode] [NVARCHAR](120) NULL,
     [PercentOfAssessment] [DECIMAL](5, 4) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -7472,6 +7456,24 @@ CREATE TABLE [edfi].[ObjectiveAssessmentLearningStandard] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[ObjectiveAssessmentLearningStandard] ADD CONSTRAINT [ObjectiveAssessmentLearningStandard_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ObjectiveAssessmentParentObjectiveAssessment] --
+CREATE TABLE [edfi].[ObjectiveAssessmentParentObjectiveAssessment] (
+    [AssessmentIdentifier] [NVARCHAR](120) NOT NULL,
+    [IdentificationCode] [NVARCHAR](120) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [ParentIdentificationCode] [NVARCHAR](120) NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ObjectiveAssessmentParentObjectiveAssessment_PK] PRIMARY KEY CLUSTERED (
+        [AssessmentIdentifier] ASC,
+        [IdentificationCode] ASC,
+        [Namespace] ASC,
+        [ParentIdentificationCode] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ObjectiveAssessmentParentObjectiveAssessment] ADD CONSTRAINT [ObjectiveAssessmentParentObjectiveAssessment_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[ObjectiveAssessmentPerformanceLevel] --
@@ -11330,6 +11332,7 @@ CREATE TABLE [edfi].[StudentAssessment] (
     [AdministrationEndDate] [DATETIME2](7) NULL,
     [AdministrationEnvironmentDescriptorId] [INT] NULL,
     [AdministrationLanguageDescriptorId] [INT] NULL,
+    [AssessedGradeLevelDescriptorId] [INT] NULL,
     [AssessedMinutes] [INT] NULL,
     [EventCircumstanceDescriptorId] [INT] NULL,
     [EventDescription] [NVARCHAR](1024) NULL,
@@ -11338,7 +11341,7 @@ CREATE TABLE [edfi].[StudentAssessment] (
     [ReportedSchoolId] [BIGINT] NULL,
     [ReportedSchoolIdentifier] [NVARCHAR](60) NULL,
     [RetestIndicatorDescriptorId] [INT] NULL,
-    [SchoolYear] [SMALLINT] NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
     [SerialNumber] [NVARCHAR](120) NULL,
     [WhenAssessedGradeLevelDescriptorId] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -11408,6 +11411,29 @@ GO
 ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] ADD CONSTRAINT [StudentAssessmentEducationOrganizationAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] ADD CONSTRAINT [StudentAssessmentEducationOrganizationAssociation_DF_LastModifiedDate] DEFAULT (getutcdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[StudentAssessmentIndicator] --
+CREATE TABLE [edfi].[StudentAssessmentIndicator] (
+    [AssessmentIdentifier] [NVARCHAR](120) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [StudentAssessmentIdentifier] [NVARCHAR](120) NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [Indicator] [NVARCHAR](60) NOT NULL,
+    [IndicatorName] [NVARCHAR](200) NOT NULL,
+    [IndicatorGroup] [NVARCHAR](200) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentAssessmentIndicator_PK] PRIMARY KEY CLUSTERED (
+        [AssessmentIdentifier] ASC,
+        [Namespace] ASC,
+        [StudentAssessmentIdentifier] ASC,
+        [StudentUSI] ASC,
+        [Indicator] ASC,
+        [IndicatorName] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentAssessmentIndicator] ADD CONSTRAINT [StudentAssessmentIndicator_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[StudentAssessmentItem] --

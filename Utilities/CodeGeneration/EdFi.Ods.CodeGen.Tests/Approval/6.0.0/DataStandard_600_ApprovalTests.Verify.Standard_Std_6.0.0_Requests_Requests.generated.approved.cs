@@ -807,7 +807,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ApplicantProfiles.EdFi
         public string ApplicantProfileIdentifier { get; set; }
         public DateTime BirthDate { get; set; }
         public string CitizenshipStatusDescriptor { get; set; }
-        public bool EconomicDisadvantaged { get; set; }
+        public string EconomicDisadvantageDescriptor { get; set; }
         public bool FirstGenerationStudent { get; set; }
         public string FirstName { get; set; }
         public string GenderIdentity { get; set; }
@@ -1201,6 +1201,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Assessments.EdFi
     [ExcludeFromCodeCoverage]
     public class AssessmentGetByExample
     {
+        public string AcademicSubjectDescriptor { get; set; }
         public bool AdaptiveAssessment { get; set; }
         public string AssessmentCategoryDescriptor { get; set; }
         public string AssessmentFamily { get; set; }
@@ -2576,7 +2577,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Candidates.EdFi
         public string CitizenshipStatusDescriptor { get; set; }
         public DateTime DateEnteredUS { get; set; }
         public string DisplacementStatus { get; set; }
-        public bool EconomicDisadvantaged { get; set; }
+        public string EconomicDisadvantageDescriptor { get; set; }
         public string EnglishLanguageExamDescriptor { get; set; }
         public bool FirstGenerationStudent { get; set; }
         public string FirstName { get; set; }
@@ -13176,7 +13177,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ObjectiveAssessments.EdFi
         public decimal MaxRawScore { get; set; }
         public string Namespace { get; set; }
         public string Nomenclature { get; set; }
-        public string ParentIdentificationCode { get; set; }
         public decimal PercentOfAssessment { get; set; }
     }
 
@@ -20316,6 +20316,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessments.EdFi
         public DateTime AdministrationEndDate { get; set; }
         public string AdministrationEnvironmentDescriptor { get; set; }
         public string AdministrationLanguageDescriptor { get; set; }
+        public string AssessedGradeLevelDescriptor { get; set; }
         public int AssessedMinutes { get; set; }
         public string AssessmentIdentifier { get; set; }
         public string EventCircumstanceDescriptor { get; set; }

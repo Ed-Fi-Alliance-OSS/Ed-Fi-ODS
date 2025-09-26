@@ -90,6 +90,13 @@ REFERENCES edfi.CitizenshipStatusDescriptor (CitizenshipStatusDescriptorId)
 CREATE INDEX FK_c322dc_CitizenshipStatusDescriptor
 ON edfi.ApplicantProfile (CitizenshipStatusDescriptorId ASC);
 
+ALTER TABLE edfi.ApplicantProfile ADD CONSTRAINT FK_c322dc_EconomicDisadvantageDescriptor FOREIGN KEY (EconomicDisadvantageDescriptorId)
+REFERENCES edfi.EconomicDisadvantageDescriptor (EconomicDisadvantageDescriptorId)
+;
+
+CREATE INDEX FK_c322dc_EconomicDisadvantageDescriptor
+ON edfi.ApplicantProfile (EconomicDisadvantageDescriptorId ASC);
+
 ALTER TABLE edfi.ApplicantProfile ADD CONSTRAINT FK_c322dc_LevelOfEducationDescriptor FOREIGN KEY (HighestCompletedLevelOfEducationDescriptorId)
 REFERENCES edfi.LevelOfEducationDescriptor (LevelOfEducationDescriptorId)
 ;
@@ -534,6 +541,13 @@ REFERENCES edfi.TermDescriptor (TermDescriptorId)
 CREATE INDEX FK_dff24c_TermDescriptor
 ON edfi.ApplicationTerm (TermDescriptorId ASC);
 
+ALTER TABLE edfi.Assessment ADD CONSTRAINT FK_7808ee_AcademicSubjectDescriptor FOREIGN KEY (AcademicSubjectDescriptorId)
+REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
+;
+
+CREATE INDEX FK_7808ee_AcademicSubjectDescriptor
+ON edfi.Assessment (AcademicSubjectDescriptorId ASC);
+
 ALTER TABLE edfi.Assessment ADD CONSTRAINT FK_7808ee_AssessmentCategoryDescriptor FOREIGN KEY (AssessmentCategoryDescriptorId)
 REFERENCES edfi.AssessmentCategoryDescriptor (AssessmentCategoryDescriptorId)
 ;
@@ -543,18 +557,6 @@ ON edfi.Assessment (AssessmentCategoryDescriptorId ASC);
 
 ALTER TABLE edfi.Assessment ADD CONSTRAINT FK_7808ee_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
-;
-
-ALTER TABLE edfi.AssessmentAcademicSubject ADD CONSTRAINT FK_400d06_AcademicSubjectDescriptor FOREIGN KEY (AcademicSubjectDescriptorId)
-REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
-;
-
-CREATE INDEX FK_400d06_AcademicSubjectDescriptor
-ON edfi.AssessmentAcademicSubject (AcademicSubjectDescriptorId ASC);
-
-ALTER TABLE edfi.AssessmentAcademicSubject ADD CONSTRAINT FK_400d06_Assessment FOREIGN KEY (AssessmentIdentifier, Namespace)
-REFERENCES edfi.Assessment (AssessmentIdentifier, Namespace)
-ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.AssessmentAdministration ADD CONSTRAINT FK_c64558_Assessment FOREIGN KEY (AssessmentIdentifier, Namespace)
@@ -1039,6 +1041,13 @@ REFERENCES edfi.CountryDescriptor (CountryDescriptorId)
 
 CREATE INDEX FK_b2452d_CountryDescriptor
 ON edfi.Candidate (BirthCountryDescriptorId ASC);
+
+ALTER TABLE edfi.Candidate ADD CONSTRAINT FK_b2452d_EconomicDisadvantageDescriptor FOREIGN KEY (EconomicDisadvantageDescriptorId)
+REFERENCES edfi.EconomicDisadvantageDescriptor (EconomicDisadvantageDescriptorId)
+;
+
+CREATE INDEX FK_b2452d_EconomicDisadvantageDescriptor
+ON edfi.Candidate (EconomicDisadvantageDescriptorId ASC);
 
 ALTER TABLE edfi.Candidate ADD CONSTRAINT FK_b2452d_EnglishLanguageExamDescriptor FOREIGN KEY (EnglishLanguageExamDescriptorId)
 REFERENCES edfi.EnglishLanguageExamDescriptor (EnglishLanguageExamDescriptorId)
@@ -4801,13 +4810,6 @@ REFERENCES edfi.Assessment (AssessmentIdentifier, Namespace)
 CREATE INDEX FK_269e10_Assessment
 ON edfi.ObjectiveAssessment (AssessmentIdentifier ASC, Namespace ASC);
 
-ALTER TABLE edfi.ObjectiveAssessment ADD CONSTRAINT FK_269e10_ObjectiveAssessment FOREIGN KEY (AssessmentIdentifier, ParentIdentificationCode, Namespace)
-REFERENCES edfi.ObjectiveAssessment (AssessmentIdentifier, IdentificationCode, Namespace)
-;
-
-CREATE INDEX FK_269e10_ObjectiveAssessment
-ON edfi.ObjectiveAssessment (AssessmentIdentifier ASC, ParentIdentificationCode ASC, Namespace ASC);
-
 ALTER TABLE edfi.ObjectiveAssessmentAssessmentItem ADD CONSTRAINT FK_d98560_AssessmentItem FOREIGN KEY (AssessmentIdentifier, AssessmentItemIdentificationCode, Namespace)
 REFERENCES edfi.AssessmentItem (AssessmentIdentifier, IdentificationCode, Namespace)
 ;
@@ -4831,6 +4833,18 @@ ALTER TABLE edfi.ObjectiveAssessmentLearningStandard ADD CONSTRAINT FK_1ee70e_Ob
 REFERENCES edfi.ObjectiveAssessment (AssessmentIdentifier, IdentificationCode, Namespace)
 ON DELETE CASCADE
 ;
+
+ALTER TABLE edfi.ObjectiveAssessmentParentObjectiveAssessment ADD CONSTRAINT FK_a9f8d9_ObjectiveAssessment FOREIGN KEY (AssessmentIdentifier, IdentificationCode, Namespace)
+REFERENCES edfi.ObjectiveAssessment (AssessmentIdentifier, IdentificationCode, Namespace)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.ObjectiveAssessmentParentObjectiveAssessment ADD CONSTRAINT FK_a9f8d9_ObjectiveAssessment1 FOREIGN KEY (AssessmentIdentifier, ParentIdentificationCode, Namespace)
+REFERENCES edfi.ObjectiveAssessment (AssessmentIdentifier, IdentificationCode, Namespace)
+;
+
+CREATE INDEX FK_a9f8d9_ObjectiveAssessment1
+ON edfi.ObjectiveAssessmentParentObjectiveAssessment (AssessmentIdentifier ASC, ParentIdentificationCode ASC, Namespace ASC);
 
 ALTER TABLE edfi.ObjectiveAssessmentPerformanceLevel ADD CONSTRAINT FK_1b7007_AssessmentReportingMethodDescriptor FOREIGN KEY (AssessmentReportingMethodDescriptorId)
 REFERENCES edfi.AssessmentReportingMethodDescriptor (AssessmentReportingMethodDescriptorId)
@@ -7252,11 +7266,18 @@ REFERENCES edfi.EventCircumstanceDescriptor (EventCircumstanceDescriptorId)
 CREATE INDEX FK_ee3b2a_EventCircumstanceDescriptor
 ON edfi.StudentAssessment (EventCircumstanceDescriptorId ASC);
 
-ALTER TABLE edfi.StudentAssessment ADD CONSTRAINT FK_ee3b2a_GradeLevelDescriptor FOREIGN KEY (WhenAssessedGradeLevelDescriptorId)
+ALTER TABLE edfi.StudentAssessment ADD CONSTRAINT FK_ee3b2a_GradeLevelDescriptor FOREIGN KEY (AssessedGradeLevelDescriptorId)
 REFERENCES edfi.GradeLevelDescriptor (GradeLevelDescriptorId)
 ;
 
 CREATE INDEX FK_ee3b2a_GradeLevelDescriptor
+ON edfi.StudentAssessment (AssessedGradeLevelDescriptorId ASC);
+
+ALTER TABLE edfi.StudentAssessment ADD CONSTRAINT FK_ee3b2a_GradeLevelDescriptor1 FOREIGN KEY (WhenAssessedGradeLevelDescriptorId)
+REFERENCES edfi.GradeLevelDescriptor (GradeLevelDescriptorId)
+;
+
+CREATE INDEX FK_ee3b2a_GradeLevelDescriptor1
 ON edfi.StudentAssessment (WhenAssessedGradeLevelDescriptorId ASC);
 
 ALTER TABLE edfi.StudentAssessment ADD CONSTRAINT FK_ee3b2a_LanguageDescriptor FOREIGN KEY (AdministrationLanguageDescriptorId)
@@ -7341,6 +7362,11 @@ REFERENCES edfi.StudentAssessment (AssessmentIdentifier, Namespace, StudentAsses
 
 CREATE INDEX FK_afb8b8_StudentAssessment
 ON edfi.StudentAssessmentEducationOrganizationAssociation (AssessmentIdentifier ASC, Namespace ASC, StudentAssessmentIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentAssessmentIndicator ADD CONSTRAINT FK_c1e2cc_StudentAssessment FOREIGN KEY (AssessmentIdentifier, Namespace, StudentAssessmentIdentifier, StudentUSI)
+REFERENCES edfi.StudentAssessment (AssessmentIdentifier, Namespace, StudentAssessmentIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
 
 ALTER TABLE edfi.StudentAssessmentItem ADD CONSTRAINT FK_7f600a_AssessmentItem FOREIGN KEY (AssessmentIdentifier, IdentificationCode, Namespace)
 REFERENCES edfi.AssessmentItem (AssessmentIdentifier, IdentificationCode, Namespace)
