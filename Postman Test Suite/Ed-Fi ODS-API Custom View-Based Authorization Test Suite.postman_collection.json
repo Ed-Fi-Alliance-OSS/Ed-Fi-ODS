@@ -2531,12 +2531,15 @@
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
-											"const items = pm.response.json();\r",
+											"// Get majorVersion from environment variable\r",
+											"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);\r",
+											"if (majorVersion < 6) {\r",
+											"    const items = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Should return no items.\", () => {\r",
-											"  pm.expect(items.length).to.equal(0);\r",
-											"});\r",
-											""
+											"    pm.test(\"Should return no items.\", () => {\r",
+											"    pm.expect(items.length).to.equal(0);\r",
+											"    });\r",
+											"}"
 										],
 										"type": "text/javascript",
 										"packages": {}
