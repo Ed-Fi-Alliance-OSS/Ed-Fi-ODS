@@ -454,6 +454,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Arrange()
             {
+                var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+                // Get schema version
+                var standardVersion = domainModel.Schemas[0].Version;
+
+                // Parse version numbers
+                var parts = standardVersion.Split('.');
+                var majorVersion = int.Parse(parts[0]);
+
+                // Skip test if version is 6 or greater
+                if (majorVersion >= 6)
+                {
+                    Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                }
                 _openApiMetadataDocumentContext = new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
                 {
                     CompositeContext = new OpenApiMetadataCompositeContext {CategoryName = OpenApiCompositeHelper.CategoryName}
@@ -490,6 +504,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             [Assert]
             public void Should_return_a_correctly_constructed_linked_collection_definition()
             {
+
+
                 // Linked collection definition names are constructed by compounding each collection level name.
                 var expectedLinkedCollectionDefinitionName =
                     "assessment_objectiveAssessment";

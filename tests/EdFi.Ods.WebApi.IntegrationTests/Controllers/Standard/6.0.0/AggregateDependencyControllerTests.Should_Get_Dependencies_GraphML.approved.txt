@@ -837,6 +837,8 @@
 <edge source="/ed-fi/displacedStudentStatusDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/dualCreditInstitutionDescriptors" target="/ed-fi/studentSectionAssociations"/>
 <edge source="/ed-fi/dualCreditTypeDescriptors" target="/ed-fi/studentSectionAssociations"/>
+<edge source="/ed-fi/economicDisadvantageDescriptors" target="/ed-fi/applicantProfiles"/>
+<edge source="/ed-fi/economicDisadvantageDescriptors" target="/ed-fi/candidates"/>
 <edge source="/ed-fi/economicDisadvantageDescriptors" target="/ed-fi/studentDemographics"/>
 <edge source="/ed-fi/educationalEnvironmentDescriptors" target="/ed-fi/restraintEvents"/>
 <edge source="/ed-fi/educationalEnvironmentDescriptors" target="/ed-fi/sections"/>
