@@ -585,7 +585,8 @@
 											"const scenarioId = pm.environment.get('scenarioId');\r",
 											"pm.environment.set('known:'+scenarioId+':assessment:assessmentIdentifier', randomUuid); "
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -601,7 +602,8 @@
 											"pm.environment.set('known:'+scenarioId+':assessment:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -610,7 +612,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"assessmentIdentifier\": \"{{known:{{scenarioId}}:assessment:assessmentIdentifier}}\",\r\n    \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n    \"assessmentTitle\": \"To Be Deleted\",\r\n    \"academicSubjects\": [\r\n        {\r\n            \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"assessmentIdentifier\": \"{{known:{{scenarioId}}:assessment:assessmentIdentifier}}\",\r\n    \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n    \"assessmentTitle\": \"To Be Deleted\",\r\n    \"academicSubjects\": [\r\n        {\r\n            \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n        }\r\n    ],\r\n    \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
