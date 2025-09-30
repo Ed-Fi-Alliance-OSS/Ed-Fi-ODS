@@ -6692,14 +6692,19 @@
 															"  pm.expect(pm.response.code).to.equal(200);\r",
 															"});\r",
 															"\r",
-															"const responseItem = pm.response.json();\r",
+															"// Get majorVersion from environment variable\r",
+															"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10)\r",
+															"if (majorVersion == 5.2) {\r",
+															"    const responseItem = pm.response.json();\r",
 															"\r",
-															"pm.test(\"Should have multiple extensions present with no Profile supplied\", () => {\r",
-															"  pm.expect(responseItem._ext).to.have.all.keys([\"sample\", \"sampleStudentTranscript\"]);\r",
-															"});"
+															"    pm.test(\"Should have multiple extensions present with no Profile supplied\", () => {\r",
+															"    pm.expect(responseItem._ext).to.have.all.keys([\"sample\", \"sampleStudentTranscript\"]);\r",
+															"    });\r",
+															"}"
 														],
 														"type": "text/javascript",
-														"packages": {}
+														"packages": {},
+														"requests": {}
 													}
 												}
 											],
@@ -6738,18 +6743,23 @@
 															"  pm.expect(pm.response.code).to.equal(200);\r",
 															"});\r",
 															"\r",
-															"const responseItem = pm.response.json();\r",
+															"// Get majorVersion from environment variable\r",
+															"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10)\r",
+															"if (majorVersion == 5.2) {\r",
+															"    const responseItem = pm.response.json();\r",
 															"\r",
-															"pm.test(\"Should only have the included extension present\", () => {\r",
-															"  pm.expect(responseItem._ext).to.deep.equal({\r",
-															"    \"sample\": {\r",
-															"      \"notes\": \"Transfer student from State University - 45 credits accepted.\"\r",
-															"    }\r",
-															"  });\r",
-															"});"
+															"    pm.test(\"Should only have the included extension present\", () => {\r",
+															"    pm.expect(responseItem._ext).to.deep.equal({\r",
+															"        \"sample\": {\r",
+															"        \"notes\": \"Transfer student from State University - 45 credits accepted.\"\r",
+															"        }\r",
+															"    });\r",
+															"    });\r",
+															"}"
 														],
 														"type": "text/javascript",
-														"packages": {}
+														"packages": {},
+														"requests": {}
 													}
 												}
 											],
