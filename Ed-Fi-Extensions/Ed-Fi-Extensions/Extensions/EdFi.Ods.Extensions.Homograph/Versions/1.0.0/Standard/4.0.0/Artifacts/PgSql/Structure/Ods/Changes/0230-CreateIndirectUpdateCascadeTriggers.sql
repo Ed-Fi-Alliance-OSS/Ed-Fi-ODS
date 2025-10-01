@@ -3,8 +3,11 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-CREATE OR REPLACE FUNCTION homograph.update_Parent_lastmodifieddate()
-RETURNS TRIGGER AS $$
+DO $$
+BEGIN
+CREATE OR REPLACE FUNCTION homograph.Parent_UpdLastModDate()
+RETURNS trigger AS
+$BODY$
 BEGIN
     -- Check if any volatile foreign key values have changed
     IF NEW.SchoolName IS DISTINCT FROM OLD.SchoolName
@@ -19,15 +22,18 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_homograph_ParentStudentSchoolAssociation_afterupdate
-AFTER UPDATE ON homograph.ParentStudentSchoolAssociation
-FOR EACH ROW
-EXECUTE FUNCTION homograph.update_Parent_lastmodifieddate();
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updaterootlastmodifieddate' AND event_object_schema = 'homograph' AND event_object_table = 'parentstudentschoolassociation') THEN
+CREATE TRIGGER updaterootlastmodifieddate
+  AFTER UPDATE ON homograph.parentstudentschoolassociation
+  FOR EACH ROW
+  EXECUTE FUNCTION homograph.Parent_UpdLastModDate();
+END IF;
 
-CREATE OR REPLACE FUNCTION homograph.update_Staff_lastmodifieddate()
-RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION homograph.Staff_UpdLastModDate()
+RETURNS trigger AS
+$BODY$
 BEGIN
     -- Check if any volatile foreign key values have changed
     IF NEW.SchoolName IS DISTINCT FROM OLD.SchoolName
@@ -42,10 +48,14 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_homograph_StaffStudentSchoolAssociation_afterupdate
-AFTER UPDATE ON homograph.StaffStudentSchoolAssociation
-FOR EACH ROW
-EXECUTE FUNCTION homograph.update_Staff_lastmodifieddate();
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updaterootlastmodifieddate' AND event_object_schema = 'homograph' AND event_object_table = 'staffstudentschoolassociation') THEN
+CREATE TRIGGER updaterootlastmodifieddate
+  AFTER UPDATE ON homograph.staffstudentschoolassociation
+  FOR EACH ROW
+  EXECUTE FUNCTION homograph.Staff_UpdLastModDate();
+END IF;
 
+END
+$$;

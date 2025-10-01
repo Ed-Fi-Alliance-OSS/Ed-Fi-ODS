@@ -547,6 +547,7 @@
       ],
       "isAbstract": false,
       "description": "Accreditation Status for a Teacher Preparation Provider.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "AccreditationStatusDescriptor",
         "postgreSql": "AccreditationStatusDescriptor"
@@ -572,6 +573,7 @@
       ],
       "isAbstract": false,
       "description": "This descriptor defines the classification of financial aid awarded to a person for the academic term/year.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "AidTypeDescriptor",
         "postgreSql": "AidTypeDescriptor"
@@ -985,6 +987,9 @@
       ],
       "isAbstract": false,
       "description": "A candidate is both a person enrolled in a educator preparation program and a candidate to become an educator.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "Candidate",
         "postgreSql": "Candidate"
@@ -1231,6 +1236,9 @@
       ],
       "isAbstract": false,
       "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "CandidateAddress",
         "postgreSql": "CandidateAddress"
@@ -1316,6 +1324,7 @@
       ],
       "isAbstract": false,
       "description": "The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "CandidateAddressPeriod",
         "postgreSql": "CandidateAddressPeriod"
@@ -1395,6 +1404,9 @@
       ],
       "isAbstract": false,
       "description": "The disability condition(s) that best describes an individual's impairment.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "CandidateDisability",
         "postgreSql": "CandidateDisability"
@@ -1440,6 +1452,7 @@
       ],
       "isAbstract": false,
       "description": "Whether the disability is IDEA, Section 504, or other disability designation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "CandidateDisabilityDesignation",
         "postgreSql": "CandidateDisabilityDesignation"
@@ -1569,6 +1582,9 @@
       ],
       "isAbstract": false,
       "description": "Information about the association between the Teacher Candidate and the EducatorPreparationProgram",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "CandidateEducatorPreparationProgramAssociation",
         "postgreSql": "CandidateEducatorPreparationProgramAssociation"
@@ -1618,6 +1634,9 @@
       ],
       "isAbstract": false,
       "description": "The type and year of a cohort the student belongs to as determined by the year that student entered a specific grade.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "CandidateEducatorPreparationProgramAssociationCohortYear",
         "postgreSql": "CandidateEducatorPreparationProgramAssociationCohortYear"
@@ -1720,6 +1739,9 @@
       ],
       "isAbstract": false,
       "description": "Information around the area(s) of specialization for an individual.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "CandidateEducatorPreparationProgramAssociationDegreeSpecialization",
         "postgreSql": "CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4"
@@ -1819,6 +1841,9 @@
       ],
       "isAbstract": false,
       "description": "The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "CandidateElectronicMail",
         "postgreSql": "CandidateElectronicMail"
@@ -1863,6 +1888,9 @@
       ],
       "isAbstract": false,
       "description": "The language(s) the individual uses to communicate.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "CandidateLanguage",
         "postgreSql": "CandidateLanguage"
@@ -1908,6 +1936,7 @@
       ],
       "isAbstract": false,
       "description": "A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).",
+      "domains": [],
       "tableNames": {
         "sqlServer": "CandidateLanguageUse",
         "postgreSql": "CandidateLanguageUse"
@@ -2042,6 +2071,9 @@
       ],
       "isAbstract": false,
       "description": "Other names (e.g., alias, nickname, previous legal name) associated with a person.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "CandidateOtherName",
         "postgreSql": "CandidateOtherName"
@@ -2159,6 +2191,7 @@
       ],
       "isAbstract": false,
       "description": "The documents presented as evident to verify one's personal identity; for example: drivers license, passport, birth certificate, etc.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "CandidatePersonalIdentificationDocument",
         "postgreSql": "CandidatePersonalIdentificationDocument"
@@ -2203,6 +2236,9 @@
       ],
       "isAbstract": false,
       "description": "The general racial category which most clearly reflects the individual's recognition of his or her community or with which the individual most identifies. The data model allows for multiple entries so that each individual can specify all appropriate races.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "CandidateRace",
         "postgreSql": "CandidateRace"
@@ -2320,6 +2356,9 @@
       ],
       "isAbstract": false,
       "description": "The 10-digit telephone number, including the area code, for the person.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "CandidateTelephone",
         "postgreSql": "CandidateTelephone"
@@ -2345,6 +2384,7 @@
       ],
       "isAbstract": false,
       "description": "The process, program, or pathway used to obtain a certification.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "CertificationRouteDescriptor",
         "postgreSql": "CertificationRouteDescriptor"
@@ -2370,6 +2410,7 @@
       ],
       "isAbstract": false,
       "description": "A type of co-teaching observed as part of the performance evaluation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "CoteachingStyleObservedDescriptor",
         "postgreSql": "CoteachingStyleObservedDescriptor"
@@ -2468,6 +2509,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "CredentialExtension",
         "postgreSql": "CredentialExtension"
@@ -2493,6 +2535,7 @@
       ],
       "isAbstract": false,
       "description": "The current status of the credential.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "CredentialStatusDescriptor",
         "postgreSql": "CredentialStatusDescriptor"
@@ -2541,6 +2584,7 @@
       ],
       "isAbstract": false,
       "description": "Reference to the person's Student Academic Records for the school(s) with which the Credential is associated.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "CredentialStudentAcademicRecord",
         "postgreSql": "CredentialStudentAcademicRecord"
@@ -2668,6 +2712,9 @@
       ],
       "isAbstract": false,
       "description": "The Educator Preparation Program is designed to prepare students to become licensed educators.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EducatorPreparationProgram",
         "postgreSql": "EducatorPreparationProgram"
@@ -2714,6 +2761,9 @@
       ],
       "isAbstract": false,
       "description": "The grade levels served at the EPP Program.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EducatorPreparationProgramGradeLevel",
         "postgreSql": "EducatorPreparationProgramGradeLevel"
@@ -2739,6 +2789,7 @@
       ],
       "isAbstract": false,
       "description": "The role authorized by the Credential or Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EducatorRoleDescriptor",
         "postgreSql": "EducatorRoleDescriptor"
@@ -2764,6 +2815,7 @@
       ],
       "isAbstract": false,
       "description": "Indicates that a person passed, failed, or did not take an English Language assessment.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EnglishLanguageExamDescriptor",
         "postgreSql": "EnglishLanguageExamDescriptor"
@@ -2789,6 +2841,7 @@
       ],
       "isAbstract": false,
       "description": "The description of the program pathway, for example: Residency, Internship, Traditional",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EPPProgramPathwayDescriptor",
         "postgreSql": "EPPProgramPathwayDescriptor"
@@ -2971,6 +3024,9 @@
       ],
       "isAbstract": false,
       "description": "An evaluation instrument appled to evaluate an educator.  The evaluation could be internally developed, or could be an industry recognized instrument such as TTESS or Marzano.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "Evaluation",
         "postgreSql": "Evaluation"
@@ -3137,6 +3193,9 @@
       ],
       "isAbstract": false,
       "description": "The lowest-level Elements or criterion of performance being evaluated by rubric, quantitative measure, or aggregate survey response.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EvaluationElement",
         "postgreSql": "EvaluationElement"
@@ -3309,6 +3368,9 @@
       ],
       "isAbstract": false,
       "description": "The lowest-level rating for an Evaluation Element for an individual educator.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EvaluationElementRating",
         "postgreSql": "EvaluationElementRating"
@@ -3395,6 +3457,9 @@
       ],
       "isAbstract": false,
       "description": "The descriptive level(s) of ratings (cut scores) for evaluation element.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EvaluationElementRatingLevel",
         "postgreSql": "EvaluationElementRatingLevel"
@@ -3420,6 +3485,7 @@
       ],
       "isAbstract": false,
       "description": "Rating levels for Evaluation Elements.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EvaluationElementRatingLevelDescriptor",
         "postgreSql": "EvaluationElementRatingLevelDescriptor"
@@ -3511,6 +3577,9 @@
       ],
       "isAbstract": false,
       "description": "The numerical summary rating or score for the evaluation element.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EvaluationElementRatingResult",
         "postgreSql": "EvaluationElementRatingResult"
@@ -3694,6 +3763,9 @@
       ],
       "isAbstract": false,
       "description": "A subcomponent of an Evaluation, a specific educator Objective or domain of performance that is being evaluated.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EvaluationObjective",
         "postgreSql": "EvaluationObjective"
@@ -3811,6 +3883,9 @@
       ],
       "isAbstract": false,
       "description": "The rating for the component Evaluation Objective for an individual educator.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EvaluationObjectiveRating",
         "postgreSql": "EvaluationObjectiveRating"
@@ -3896,6 +3971,9 @@
       ],
       "isAbstract": false,
       "description": "The descriptive level(s) of ratings (cut scores) for evaluation Objective.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EvaluationObjectiveRatingLevel",
         "postgreSql": "EvaluationObjectiveRatingLevel"
@@ -3986,6 +4064,9 @@
       ],
       "isAbstract": false,
       "description": "The numerical summary rating or score for the evaluation Objective.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EvaluationObjectiveRatingResult",
         "postgreSql": "EvaluationObjectiveRatingResult"
@@ -4011,6 +4092,7 @@
       ],
       "isAbstract": false,
       "description": "The period for the evaluation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EvaluationPeriodDescriptor",
         "postgreSql": "EvaluationPeriodDescriptor"
@@ -4163,6 +4245,7 @@
       ],
       "isAbstract": false,
       "description": "The summary weighting for the Evaluation instrument for an individual educator.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EvaluationRating",
         "postgreSql": "EvaluationRating"
@@ -4247,6 +4330,9 @@
       ],
       "isAbstract": false,
       "description": "The descriptive level(s) of ratings (cut scores) for the evaluation.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "EvaluationRatingLevel",
         "postgreSql": "EvaluationRatingLevel"
@@ -4272,6 +4358,7 @@
       ],
       "isAbstract": false,
       "description": "Rating levels for Evaluations.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EvaluationRatingLevelDescriptor",
         "postgreSql": "EvaluationRatingLevelDescriptor"
@@ -4361,6 +4448,7 @@
       ],
       "isAbstract": false,
       "description": "The numerical summary rating or score for the evaluation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EvaluationRatingResult",
         "postgreSql": "EvaluationRatingResult"
@@ -4451,6 +4539,7 @@
       ],
       "isAbstract": false,
       "description": "The person(s) that conducted the performance evaluation.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EvaluationRatingReviewer",
         "postgreSql": "EvaluationRatingReviewer"
@@ -4540,6 +4629,7 @@
       ],
       "isAbstract": false,
       "description": "An indication that the person administering the performance evauation has or has not received training on conducting performance measures.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EvaluationRatingReviewerReceivedTraining",
         "postgreSql": "EvaluationRatingReviewerReceivedTraining"
@@ -4565,6 +4655,7 @@
       ],
       "isAbstract": false,
       "description": "Represents the status of a Evaluation Rating.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EvaluationRatingStatusDescriptor",
         "postgreSql": "EvaluationRatingStatusDescriptor"
@@ -4590,6 +4681,7 @@
       ],
       "isAbstract": false,
       "description": "The type of the evaluation (e.g., observation, principal, peer, student survey, student growth).",
+      "domains": [],
       "tableNames": {
         "sqlServer": "EvaluationTypeDescriptor",
         "postgreSql": "EvaluationTypeDescriptor"
@@ -4770,6 +4862,9 @@
       ],
       "isAbstract": false,
       "description": "This entity represents the financial aid a person is awarded.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "FinancialAid",
         "postgreSql": "FinancialAid"
@@ -4795,6 +4890,7 @@
       ],
       "isAbstract": false,
       "description": "A person's gender.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "GenderDescriptor",
         "postgreSql": "GenderDescriptor"
@@ -4820,6 +4916,7 @@
       ],
       "isAbstract": false,
       "description": "Rating levels for Evaluation Objectives.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "ObjectiveRatingLevelDescriptor",
         "postgreSql": "ObjectiveRatingLevelDescriptor"
@@ -4950,6 +5047,9 @@
       ],
       "isAbstract": false,
       "description": "A performance evaluation of an educator, typically regularly scheduled and uniformly applied, composed of one or more Evaluations.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "PerformanceEvaluation",
         "postgreSql": "PerformanceEvaluation"
@@ -4999,6 +5099,9 @@
       ],
       "isAbstract": false,
       "description": "The grade levels involved with the performance evaluation.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "PerformanceEvaluationGradeLevel",
         "postgreSql": "PerformanceEvaluationGradeLevel"
@@ -5203,6 +5306,9 @@
       ],
       "isAbstract": false,
       "description": "The summary rating for a Performance Evaluation across all Evaluation instruments for an individual educator.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "PerformanceEvaluationRating",
         "postgreSql": "PerformanceEvaluationRating"
@@ -5286,6 +5392,9 @@
       ],
       "isAbstract": false,
       "description": "The descriptive level(s) of ratings (cut scores) for the evaluation.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "PerformanceEvaluationRatingLevel",
         "postgreSql": "PerformanceEvaluationRatingLevel"
@@ -5311,6 +5420,7 @@
       ],
       "isAbstract": false,
       "description": "Rating levels for Performance Evaluations.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "PerformanceEvaluationRatingLevelDescriptor",
         "postgreSql": "PerformanceEvaluationRatingLevelDescriptor"
@@ -5398,6 +5508,9 @@
       ],
       "isAbstract": false,
       "description": "The numerical summary rating or score for the performance evaluation.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "PerformanceEvaluationRatingResult",
         "postgreSql": "PerformanceEvaluationRatingResult"
@@ -5486,6 +5599,9 @@
       ],
       "isAbstract": false,
       "description": "The person(s) that conducted the performance evaluation.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "PerformanceEvaluationRatingReviewer",
         "postgreSql": "PerformanceEvaluationRatingReviewer"
@@ -5573,6 +5689,7 @@
       ],
       "isAbstract": false,
       "description": "An indication that the person administering the performance evauation has or has not received training on conducting performance measures.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "PerformanceEvaluationRatingReviewerReceivedTraining",
         "postgreSql": "PerformanceEvaluationRatingReviewerReceivedTraining"
@@ -5598,6 +5715,7 @@
       ],
       "isAbstract": false,
       "description": "The type of performance evaluation conducted (e.g., walkthrough, summative).",
+      "domains": [],
       "tableNames": {
         "sqlServer": "PerformanceEvaluationTypeDescriptor",
         "postgreSql": "PerformanceEvaluationTypeDescriptor"
@@ -5748,6 +5866,9 @@
       ],
       "isAbstract": false,
       "description": "The cells of a rubric, consisting of a qualitative decription, definition, or exemplar with the associated rubric rating and rating level.",
+      "domains": [
+        "TeacherPreparation"
+      ],
       "tableNames": {
         "sqlServer": "RubricDimension",
         "postgreSql": "RubricDimension"
@@ -5773,6 +5894,7 @@
       ],
       "isAbstract": false,
       "description": "Rating levels for Rubric Dimensions.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "RubricRatingLevelDescriptor",
         "postgreSql": "RubricRatingLevelDescriptor"
@@ -5816,6 +5938,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SchoolExtension",
         "postgreSql": "SchoolExtension"
@@ -5861,6 +5984,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SurveyResponseExtension",
         "postgreSql": "SurveyResponseExtension"
@@ -5954,6 +6078,7 @@
       ],
       "isAbstract": false,
       "description": "The association provides information about the survey being taken and who the survey is about.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SurveyResponsePersonTargetAssociation",
         "postgreSql": "SurveyResponsePersonTargetAssociation"
@@ -6048,6 +6173,7 @@
       ],
       "isAbstract": false,
       "description": "This association provides information about the survey section and the person the survey section is about.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SurveySectionResponsePersonTargetAssociation",
         "postgreSql": "SurveySectionResponsePersonTargetAssociation"

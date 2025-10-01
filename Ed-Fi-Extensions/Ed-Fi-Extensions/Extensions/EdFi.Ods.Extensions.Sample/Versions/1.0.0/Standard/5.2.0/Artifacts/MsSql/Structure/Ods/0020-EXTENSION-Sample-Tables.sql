@@ -466,25 +466,6 @@ GO
 ALTER TABLE [sample].[StaffPetPreference] ADD CONSTRAINT [StaffPetPreference_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
--- Table [sample].[StudentAcademicRecordExtension] --
-CREATE TABLE [sample].[StudentAcademicRecordExtension] (
-    [EducationOrganizationId] [BIGINT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [Notes] [NVARCHAR](280) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StudentAcademicRecordExtension_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [SchoolYear] ASC,
-        [StudentUSI] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [sample].[StudentAcademicRecordExtension] ADD CONSTRAINT [StudentAcademicRecordExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
-GO
-
 -- Table [sample].[StudentAquaticPet] --
 CREATE TABLE [sample].[StudentAquaticPet] (
     [StudentUSI] [INT] NOT NULL,
