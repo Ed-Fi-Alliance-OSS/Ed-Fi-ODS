@@ -127,8 +127,8 @@ jobs:
           ref: ${{ env.EDFI_TPDM_REFERENCE }}
           sparse-checkout: |
             /**/*
-            !eng/testing/*.xml
-            !eng/testing/*.xsd
+            !eng/testing/**/*.xml
+            !eng/testing/**/*.xsd
           sparse-checkout-cone-mode: false
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
