@@ -74,7 +74,6 @@ namespace EdFi.Ods.Api.Common.ExceptionHandling.Sample
             { "FK_StaffPet_Staff", new IndexDetails { IndexName = "FK_StaffPet_Staff", TableName = "StaffPet", ColumnNames = new List<string> { "StaffUSI" } } },
             { "StaffPet_PK", new IndexDetails { IndexName = "StaffPet_PK", TableName = "StaffPet", ColumnNames = new List<string> { "StaffUSI", "PetName" } } },
             { "StaffPetPreference_PK", new IndexDetails { IndexName = "StaffPetPreference_PK", TableName = "StaffPetPreference", ColumnNames = new List<string> { "StaffUSI" } } },
-            { "StudentAcademicRecordExtension_PK", new IndexDetails { IndexName = "StudentAcademicRecordExtension_PK", TableName = "StudentAcademicRecordExtension", ColumnNames = new List<string> { "EducationOrganizationId", "SchoolYear", "StudentUSI", "TermDescriptorId" } } },
             { "FK_StudentAquaticPet_Student", new IndexDetails { IndexName = "FK_StudentAquaticPet_Student", TableName = "StudentAquaticPet", ColumnNames = new List<string> { "StudentUSI" } } },
             { "StudentAquaticPet_PK", new IndexDetails { IndexName = "StudentAquaticPet_PK", TableName = "StudentAquaticPet", ColumnNames = new List<string> { "StudentUSI", "MimimumTankVolume", "PetName" } } },
             { "StudentArtProgramAssociation_PK", new IndexDetails { IndexName = "StudentArtProgramAssociation_PK", TableName = "StudentArtProgramAssociation", ColumnNames = new List<string> { "BeginDate", "EducationOrganizationId", "ProgramEducationOrganizationId", "ProgramName", "ProgramTypeDescriptorId", "StudentUSI" } } },

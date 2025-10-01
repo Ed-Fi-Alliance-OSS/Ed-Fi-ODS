@@ -1980,55 +1980,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentAcademicRecordExtension model.
-    /// </summary>
-    public interface IStudentAcademicRecordExtension : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        EdFi.IStudentAcademicRecord StudentAcademicRecord { get; set; }
-
-        // Non-PK properties
-        string Notes { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentAcademicRecordExtensionMappingContract : IMappingContract
-    {
-        public StudentAcademicRecordExtensionMappingContract(
-            bool isNotesSupported
-            )
-        {
-            IsNotesSupported = isNotesSupported;
-        }
-
-        public bool IsNotesSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "Notes":
-                    return IsNotesSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
-    }
-
-    /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentAquaticPet model.
     /// </summary>
     public interface IStudentAquaticPet : ISynchronizable, IMappable, IGetByExample

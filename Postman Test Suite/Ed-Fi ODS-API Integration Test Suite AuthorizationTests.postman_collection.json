@@ -3705,7 +3705,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{ \r\n   \"assessmentIdentifier\":\"{{supplied:{{scenarioId}}:assessmentIdentifier}}\",\r\n   \"namespace\":\"{{supplied:{{scenarioId}}:namespace}}\",\r\n   \"assessmentTitle\":\"{{supplied:{{scenarioId}}:assessmentTitle}}\",\r\n   \"academicSubjects\":[ \r\n      { \r\n         \"academicSubjectDescriptor\":\"{{supplied:{{scenarioId}}:academicSubjectDescriptor}}\"\r\n      }\r\n   ]\r\n}"
+											"raw": "{ \r\n   \"assessmentIdentifier\":\"{{supplied:{{scenarioId}}:assessmentIdentifier}}\",\r\n   \"namespace\":\"{{supplied:{{scenarioId}}:namespace}}\",\r\n   \"assessmentTitle\":\"{{supplied:{{scenarioId}}:assessmentTitle}}\",\r\n   \"academicSubjects\":[ \r\n      { \r\n         \"academicSubjectDescriptor\":\"{{supplied:{{scenarioId}}:academicSubjectDescriptor}}\"\r\n      }\r\n   ],\r\n   \"academicSubjectDescriptor\":\"{{supplied:{{scenarioId}}:academicSubjectDescriptor}}\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
@@ -3775,7 +3775,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{ \r\n   \"assessmentIdentifier\":\"{{supplied:{{scenarioId}}:assessmentIdentifier}}\",\r\n   \"namespace\":\"{{supplied:{{scenarioId}}:namespace}}\",\r\n   \"assessmentTitle\":\"{{supplied:{{scenarioId}}:assessmentTitle}}\",\r\n   \"academicSubjects\":[ \r\n      { \r\n         \"academicSubjectDescriptor\":\"{{supplied:{{scenarioId}}:academicSubjectDescriptor}}\"\r\n      }\r\n   ]\r\n}"
+											"raw": "{ \r\n   \"assessmentIdentifier\":\"{{supplied:{{scenarioId}}:assessmentIdentifier}}\",\r\n   \"namespace\":\"{{supplied:{{scenarioId}}:namespace}}\",\r\n   \"assessmentTitle\":\"{{supplied:{{scenarioId}}:assessmentTitle}}\",\r\n   \"academicSubjects\":[ \r\n      { \r\n         \"academicSubjectDescriptor\":\"{{supplied:{{scenarioId}}:academicSubjectDescriptor}}\"\r\n      }\r\n   ],\r\n   \"academicSubjectDescriptor\":\"{{supplied:{{scenarioId}}:academicSubjectDescriptor}}\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",

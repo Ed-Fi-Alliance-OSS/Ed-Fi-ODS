@@ -2808,6 +2808,9 @@
 													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
 													"});",
 													"",
+													"// Get majorVersion from environment variable",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);",
+													"if (majorVersion < 6) {",
 													"pm.test(\"Should return items with only the specified top-level members\", () => {",
 													"     const responseItems = pm.response.json();",
 													"    ",
@@ -2816,9 +2819,10 @@
 													"        pm.expect(properties).to.have.members(['studentUniqueId','administrationDate','administrationLanguageDescriptor']);",
 													"     });",
 													"});",
-													""
+													"}"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -2827,7 +2831,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -8371,7 +8376,9 @@
 													"\tpm.expect(pm.response.code).to.equal(200);\r",
 													"});\r",
 													"\r",
-													"\r",
+													"// Get majorVersion from environment variable\r",
+													"let majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10);\r",
+													"if (majorVersion < 6) {\r",
 													"pm.test(\"Should return an item with only  linked collection  with properties\", () => {\r",
 													"\tlet everythingVerified = false;\r",
 													"\tconst responseItems = pm.response.json();\r",
@@ -8390,9 +8397,11 @@
 													"\t});\r",
 													"\r",
 													"\tpm.expect(everythingVerified, \"Test data was insufficient to verify expected behavior.\").to.be.true;\r",
-													"});"
+													"});\r",
+													"}"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -8401,7 +8410,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],

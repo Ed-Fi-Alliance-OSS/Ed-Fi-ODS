@@ -11858,7 +11858,8 @@
 															"\r",
 															"pm.environment.set('known:assessment:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -11867,7 +11868,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -11876,7 +11878,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"assessmentIdentifier\": \"TEST-ASSESSMENT\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2021-2022\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+													"raw": "{\r\n  \"assessmentIdentifier\": \"TEST-ASSESSMENT\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2021-2022\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -11911,7 +11913,8 @@
 															"\r",
 															"pm.environment.set('known:assessment:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -11920,7 +11923,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"assessmentIdentifier\": \"TEST-ASSESSMENT\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2021-2022\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
+													"raw": "{\r\n  \"assessmentIdentifier\": \"TEST-ASSESSMENT\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2021-2022\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  },\r\n  \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -15245,20 +15248,30 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include validation errors for duplicate items in collections.\", () => {\r",
-											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											" pm.expect(problemDetails.validationErrors).to.deep.include({\r",
 											"    \"$.scores\": [\r",
 											"      \"The 2nd item of the AssessmentScores has the same identifying values as another item earlier in the list.\"\r",
-											"    ],\r",
-											"    \"$.academicSubjects\": [\r",
-											"      \"The 3rd item of the AssessmentAcademicSubjects has the same identifying values as another item earlier in the list.\"\r",
-											"    ],\r",
+											"    ]\r",
+											"  });\r",
+											"\r",
+											"\t// Get majorVersion from environment variable\r",
+											"\tlet majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10)\r",
+											"\tif (majorVersion < 6) {\r",
+											"        pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											"            \"$.academicSubjects\": [\r",
+											"            \"The 3rd item of the AssessmentAcademicSubjects has the same identifying values as another item earlier in the list.\"\r",
+											"            ]\r",
+											"        });\r",
+											"    }\r",
+											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
 											"    \"$.assessedGradeLevels\": [\r",
 											"      \"The 3rd item of the AssessmentAssessedGradeLevels has the same identifying values as another item earlier in the list.\"\r",
 											"    ]\r",
 											"  });\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -15267,7 +15280,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"assessmentIdentifier\": \"ASSESSMENT-DUPLICATE-TEST\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    },\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"5\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
+									"raw": "{\r\n  \"assessmentIdentifier\": \"ASSESSMENT-DUPLICATE-TEST\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    },\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"5\",\r\n      \"minimumScore\": \"2\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -15422,7 +15435,8 @@
 											"\r",
 											"pm.environment.set('known:assessment:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -15431,7 +15445,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"assessmentIdentifier\": \"ASSESSMENT-DUPLICATE-TEST\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
+									"raw": "{\r\n  \"assessmentIdentifier\": \"ASSESSMENT-DUPLICATE-TEST\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  },\r\n  \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -15479,12 +15493,15 @@
 											"    ]\r",
 											"  });\r",
 											"\r",
-											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
-											"    \"$.academicSubjects\": [\r",
-											"      \"The 3rd item of the AssessmentAcademicSubjects has the same identifying values as another item earlier in the list.\"\r",
-											"    ]\r",
-											"  });\r",
-											"\r",
+											"\t// Get majorVersion from environment variable\r",
+											"\tlet majorVersion = parseInt(pm.environment.get('test-suite:known:standardVersion:major'), 10)\r",
+											"\tif (majorVersion < 6) {\r",
+											"        pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											"            \"$.academicSubjects\": [\r",
+											"            \"The 3rd item of the AssessmentAcademicSubjects has the same identifying values as another item earlier in the list.\"\r",
+											"            ]\r",
+											"        });\r",
+											"    }\r",
 											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
 											"    \"$.assessedGradeLevels\": [\r",
 											"      \"The 3rd item of the AssessmentAssessedGradeLevels has the same identifying values as another item earlier in the list.\"\r",
@@ -15492,7 +15509,8 @@
 											"  });\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -15501,7 +15519,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"assessmentIdentifier\": \"ASSESSMENT-DUPLICATE-TEST\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    },\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"5\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
+									"raw": "{\r\n  \"assessmentIdentifier\": \"ASSESSMENT-DUPLICATE-TEST\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    },\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"5\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

@@ -58,6 +58,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
 
             protected override void Arrange()
             {
+                var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+                // Get schema version
+                var standardVersion = domainModel.Schemas[0].Version;
+
+                // Parse version numbers
+                var parts = standardVersion.Split('.');
+                var majorVersion = int.Parse(parts[0]);
+
+                // Skip test if version is 6 or greater
+                if (majorVersion >= 6)
+                {
+                    Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
+                }
+
                 _compositesMetadataProvider = Stub<ICompositesMetadataProvider>();
 
                 var definitions = new List<XElement>(OpenApiCompositeHelper.CompositeDefinitions).ToReadOnlyList();

@@ -1193,7 +1193,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Non-PK properties
         DateTime? BirthDate { get; set; }
         string CitizenshipStatusDescriptor { get; set; }
-        bool? EconomicDisadvantaged { get; set; }
+        string EconomicDisadvantageDescriptor { get; set; }
         bool? FirstGenerationStudent { get; set; }
         string FirstName { get; set; }
         string GenderIdentity { get; set; }
@@ -1257,7 +1257,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isApplicantProfileVisasSupported,
             bool isBirthDateSupported,
             bool isCitizenshipStatusDescriptorSupported,
-            bool isEconomicDisadvantagedSupported,
+            bool isEconomicDisadvantageDescriptorSupported,
             bool isFirstGenerationStudentSupported,
             bool isFirstNameSupported,
             bool isGenderIdentitySupported,
@@ -1324,7 +1324,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsApplicantProfileVisasSupported = isApplicantProfileVisasSupported;
             IsBirthDateSupported = isBirthDateSupported;
             IsCitizenshipStatusDescriptorSupported = isCitizenshipStatusDescriptorSupported;
-            IsEconomicDisadvantagedSupported = isEconomicDisadvantagedSupported;
+            IsEconomicDisadvantageDescriptorSupported = isEconomicDisadvantageDescriptorSupported;
             IsFirstGenerationStudentSupported = isFirstGenerationStudentSupported;
             IsFirstNameSupported = isFirstNameSupported;
             IsGenderIdentitySupported = isGenderIdentitySupported;
@@ -1391,7 +1391,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsApplicantProfileVisasSupported { get; }
         public bool IsBirthDateSupported { get; }
         public bool IsCitizenshipStatusDescriptorSupported { get; }
-        public bool IsEconomicDisadvantagedSupported { get; }
+        public bool IsEconomicDisadvantageDescriptorSupported { get; }
         public bool IsFirstGenerationStudentSupported { get; }
         public bool IsFirstNameSupported { get; }
         public bool IsGenderIdentitySupported { get; }
@@ -1477,8 +1477,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsBirthDateSupported;
                 case "CitizenshipStatusDescriptor":
                     return IsCitizenshipStatusDescriptorSupported;
-                case "EconomicDisadvantaged":
-                    return IsEconomicDisadvantagedSupported;
+                case "EconomicDisadvantageDescriptor":
+                    return IsEconomicDisadvantageDescriptorSupported;
                 case "FirstGenerationStudent":
                     return IsFirstGenerationStudentSupported;
                 case "FirstName":
@@ -3768,6 +3768,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string Namespace { get; set; }
 
         // Non-PK properties
+        string AcademicSubjectDescriptor { get; set; }
         bool? AdaptiveAssessment { get; set; }
         string AssessmentCategoryDescriptor { get; set; }
         string AssessmentFamily { get; set; }
@@ -3784,7 +3785,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         IAssessmentContentStandard AssessmentContentStandard { get; set; }
 
         // Lists
-        ICollection<IAssessmentAcademicSubject> AssessmentAcademicSubjects { get; set; }
         ICollection<IAssessmentAssessedGradeLevel> AssessmentAssessedGradeLevels { get; set; }
         ICollection<IAssessmentIdentificationCode> AssessmentIdentificationCodes { get; set; }
         ICollection<IAssessmentLanguage> AssessmentLanguages { get; set; }
@@ -3807,8 +3807,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
     public class AssessmentMappingContract : IMappingContract, IExtensionsMappingContract
     {
         public AssessmentMappingContract(
+            bool isAcademicSubjectDescriptorSupported,
             bool isAdaptiveAssessmentSupported,
-            bool isAssessmentAcademicSubjectsSupported,
             bool isAssessmentAssessedGradeLevelsSupported,
             bool isAssessmentCategoryDescriptorSupported,
             bool isAssessmentContentStandardSupported,
@@ -3830,8 +3830,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isNomenclatureSupported,
             bool isRevisionDateSupported,
             bool isAssessmentContentStandardCreatable,
-            bool isAssessmentAcademicSubjectsItemCreatable,
-            Func<IAssessmentAcademicSubject, bool> isAssessmentAcademicSubjectIncluded,
             bool isAssessmentAssessedGradeLevelsItemCreatable,
             Func<IAssessmentAssessedGradeLevel, bool> isAssessmentAssessedGradeLevelIncluded,
             bool isAssessmentIdentificationCodesItemCreatable,
@@ -3853,8 +3851,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IReadOnlyList<string> supportedExtensions
             )
         {
+            IsAcademicSubjectDescriptorSupported = isAcademicSubjectDescriptorSupported;
             IsAdaptiveAssessmentSupported = isAdaptiveAssessmentSupported;
-            IsAssessmentAcademicSubjectsSupported = isAssessmentAcademicSubjectsSupported;
             IsAssessmentAssessedGradeLevelsSupported = isAssessmentAssessedGradeLevelsSupported;
             IsAssessmentCategoryDescriptorSupported = isAssessmentCategoryDescriptorSupported;
             IsAssessmentContentStandardSupported = isAssessmentContentStandardSupported;
@@ -3876,8 +3874,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsNomenclatureSupported = isNomenclatureSupported;
             IsRevisionDateSupported = isRevisionDateSupported;
             IsAssessmentContentStandardCreatable = isAssessmentContentStandardCreatable;
-            IsAssessmentAcademicSubjectsItemCreatable = isAssessmentAcademicSubjectsItemCreatable;
-            IsAssessmentAcademicSubjectIncluded = isAssessmentAcademicSubjectIncluded;
             IsAssessmentAssessedGradeLevelsItemCreatable = isAssessmentAssessedGradeLevelsItemCreatable;
             IsAssessmentAssessedGradeLevelIncluded = isAssessmentAssessedGradeLevelIncluded;
             IsAssessmentIdentificationCodesItemCreatable = isAssessmentIdentificationCodesItemCreatable;
@@ -3899,8 +3895,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             SupportedExtensions = supportedExtensions;
         }
 
+        public bool IsAcademicSubjectDescriptorSupported { get; }
         public bool IsAdaptiveAssessmentSupported { get; }
-        public bool IsAssessmentAcademicSubjectsSupported { get; }
         public bool IsAssessmentAssessedGradeLevelsSupported { get; }
         public bool IsAssessmentCategoryDescriptorSupported { get; }
         public bool IsAssessmentContentStandardSupported { get; }
@@ -3922,8 +3918,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsNomenclatureSupported { get; }
         public bool IsRevisionDateSupported { get; }
         public bool IsAssessmentContentStandardCreatable { get; }
-        public bool IsAssessmentAcademicSubjectsItemCreatable { get; }
-        public Func<IAssessmentAcademicSubject, bool> IsAssessmentAcademicSubjectIncluded { get; }
         public bool IsAssessmentAssessedGradeLevelsItemCreatable { get; }
         public Func<IAssessmentAssessedGradeLevel, bool> IsAssessmentAssessedGradeLevelIncluded { get; }
         public bool IsAssessmentIdentificationCodesItemCreatable { get; }
@@ -3947,10 +3941,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "AcademicSubjectDescriptor":
+                    return IsAcademicSubjectDescriptorSupported;
                 case "AdaptiveAssessment":
                     return IsAdaptiveAssessmentSupported;
-                case "AssessmentAcademicSubjects":
-                    return IsAssessmentAcademicSubjectsSupported;
                 case "AssessmentAssessedGradeLevels":
                     return IsAssessmentAssessedGradeLevelsSupported;
                 case "AssessmentCategoryDescriptor":
@@ -4007,8 +4001,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "AssessmentContentStandard":
                     return IsAssessmentContentStandardCreatable;
-                case "AssessmentAcademicSubjects":
-                    return IsAssessmentAcademicSubjectsItemCreatable;
                 case "AssessmentAssessedGradeLevels":
                     return IsAssessmentAssessedGradeLevelsItemCreatable;
                 case "AssessmentIdentificationCodes":
@@ -4031,61 +4023,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
-
-        public IReadOnlyList<string> SupportedExtensions { get; }
-
-        public bool IsExtensionSupported(string name)
-        {
-            return SupportedExtensions.Contains(name);    
-        }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AssessmentAcademicSubject model.
-    /// </summary>
-    public interface IAssessmentAcademicSubject : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        IAssessment Assessment { get; set; }
-        
-        string AcademicSubjectDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class AssessmentAcademicSubjectMappingContract : IMappingContract, IExtensionsMappingContract
-    {
-        public AssessmentAcademicSubjectMappingContract(
-            IReadOnlyList<string> supportedExtensions
-            )
-        {
-            SupportedExtensions = supportedExtensions;
-        }
-
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "AcademicSubjectDescriptor":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
         public IReadOnlyList<string> SupportedExtensions { get; }
 
@@ -7906,7 +7843,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string CitizenshipStatusDescriptor { get; set; }
         DateTime? DateEnteredUS { get; set; }
         string DisplacementStatus { get; set; }
-        bool? EconomicDisadvantaged { get; set; }
+        string EconomicDisadvantageDescriptor { get; set; }
         string EnglishLanguageExamDescriptor { get; set; }
         bool? FirstGenerationStudent { get; set; }
         string FirstName { get; set; }
@@ -7985,7 +7922,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isCitizenshipStatusDescriptorSupported,
             bool isDateEnteredUSSupported,
             bool isDisplacementStatusSupported,
-            bool isEconomicDisadvantagedSupported,
+            bool isEconomicDisadvantageDescriptorSupported,
             bool isEnglishLanguageExamDescriptorSupported,
             bool isFirstGenerationStudentSupported,
             bool isFirstNameSupported,
@@ -8064,7 +8001,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsCitizenshipStatusDescriptorSupported = isCitizenshipStatusDescriptorSupported;
             IsDateEnteredUSSupported = isDateEnteredUSSupported;
             IsDisplacementStatusSupported = isDisplacementStatusSupported;
-            IsEconomicDisadvantagedSupported = isEconomicDisadvantagedSupported;
+            IsEconomicDisadvantageDescriptorSupported = isEconomicDisadvantageDescriptorSupported;
             IsEnglishLanguageExamDescriptorSupported = isEnglishLanguageExamDescriptorSupported;
             IsFirstGenerationStudentSupported = isFirstGenerationStudentSupported;
             IsFirstNameSupported = isFirstNameSupported;
@@ -8143,7 +8080,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsCitizenshipStatusDescriptorSupported { get; }
         public bool IsDateEnteredUSSupported { get; }
         public bool IsDisplacementStatusSupported { get; }
-        public bool IsEconomicDisadvantagedSupported { get; }
+        public bool IsEconomicDisadvantageDescriptorSupported { get; }
         public bool IsEnglishLanguageExamDescriptorSupported { get; }
         public bool IsFirstGenerationStudentSupported { get; }
         public bool IsFirstNameSupported { get; }
@@ -8248,8 +8185,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsDateEnteredUSSupported;
                 case "DisplacementStatus":
                     return IsDisplacementStatusSupported;
-                case "EconomicDisadvantaged":
-                    return IsEconomicDisadvantagedSupported;
+                case "EconomicDisadvantageDescriptor":
+                    return IsEconomicDisadvantageDescriptorSupported;
                 case "EnglishLanguageExamDescriptor":
                     return IsEnglishLanguageExamDescriptorSupported;
                 case "FirstGenerationStudent":
@@ -36832,7 +36769,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string Description { get; set; }
         decimal? MaxRawScore { get; set; }
         string Nomenclature { get; set; }
-        string ParentIdentificationCode { get; set; }
         decimal? PercentOfAssessment { get; set; }
 
         // One-to-one relationships
@@ -36840,14 +36776,13 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Lists
         ICollection<IObjectiveAssessmentAssessmentItem> ObjectiveAssessmentAssessmentItems { get; set; }
         ICollection<IObjectiveAssessmentLearningStandard> ObjectiveAssessmentLearningStandards { get; set; }
+        ICollection<IObjectiveAssessmentParentObjectiveAssessment> ObjectiveAssessmentParentObjectiveAssessments { get; set; }
         ICollection<IObjectiveAssessmentPerformanceLevel> ObjectiveAssessmentPerformanceLevels { get; set; }
         ICollection<IObjectiveAssessmentScore> ObjectiveAssessmentScores { get; set; }
 
         // Resource reference data
         Guid? AssessmentResourceId { get; set; }
         string AssessmentDiscriminator { get; set; }
-        Guid? ParentObjectiveAssessmentResourceId { get; set; }
-        string ParentObjectiveAssessmentDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -36864,15 +36799,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isNomenclatureSupported,
             bool isObjectiveAssessmentAssessmentItemsSupported,
             bool isObjectiveAssessmentLearningStandardsSupported,
+            bool isObjectiveAssessmentParentObjectiveAssessmentsSupported,
             bool isObjectiveAssessmentPerformanceLevelsSupported,
             bool isObjectiveAssessmentScoresSupported,
-            bool isParentIdentificationCodeSupported,
-            bool isParentObjectiveAssessmentReferenceSupported,
             bool isPercentOfAssessmentSupported,
             bool isObjectiveAssessmentAssessmentItemsItemCreatable,
             Func<IObjectiveAssessmentAssessmentItem, bool> isObjectiveAssessmentAssessmentItemIncluded,
             bool isObjectiveAssessmentLearningStandardsItemCreatable,
             Func<IObjectiveAssessmentLearningStandard, bool> isObjectiveAssessmentLearningStandardIncluded,
+            bool isObjectiveAssessmentParentObjectiveAssessmentsItemCreatable,
+            Func<IObjectiveAssessmentParentObjectiveAssessment, bool> isObjectiveAssessmentParentObjectiveAssessmentIncluded,
             bool isObjectiveAssessmentPerformanceLevelsItemCreatable,
             Func<IObjectiveAssessmentPerformanceLevel, bool> isObjectiveAssessmentPerformanceLevelIncluded,
             bool isObjectiveAssessmentScoresItemCreatable,
@@ -36887,15 +36823,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsNomenclatureSupported = isNomenclatureSupported;
             IsObjectiveAssessmentAssessmentItemsSupported = isObjectiveAssessmentAssessmentItemsSupported;
             IsObjectiveAssessmentLearningStandardsSupported = isObjectiveAssessmentLearningStandardsSupported;
+            IsObjectiveAssessmentParentObjectiveAssessmentsSupported = isObjectiveAssessmentParentObjectiveAssessmentsSupported;
             IsObjectiveAssessmentPerformanceLevelsSupported = isObjectiveAssessmentPerformanceLevelsSupported;
             IsObjectiveAssessmentScoresSupported = isObjectiveAssessmentScoresSupported;
-            IsParentIdentificationCodeSupported = isParentIdentificationCodeSupported;
-            IsParentObjectiveAssessmentReferenceSupported = isParentObjectiveAssessmentReferenceSupported;
             IsPercentOfAssessmentSupported = isPercentOfAssessmentSupported;
             IsObjectiveAssessmentAssessmentItemsItemCreatable = isObjectiveAssessmentAssessmentItemsItemCreatable;
             IsObjectiveAssessmentAssessmentItemIncluded = isObjectiveAssessmentAssessmentItemIncluded;
             IsObjectiveAssessmentLearningStandardsItemCreatable = isObjectiveAssessmentLearningStandardsItemCreatable;
             IsObjectiveAssessmentLearningStandardIncluded = isObjectiveAssessmentLearningStandardIncluded;
+            IsObjectiveAssessmentParentObjectiveAssessmentsItemCreatable = isObjectiveAssessmentParentObjectiveAssessmentsItemCreatable;
+            IsObjectiveAssessmentParentObjectiveAssessmentIncluded = isObjectiveAssessmentParentObjectiveAssessmentIncluded;
             IsObjectiveAssessmentPerformanceLevelsItemCreatable = isObjectiveAssessmentPerformanceLevelsItemCreatable;
             IsObjectiveAssessmentPerformanceLevelIncluded = isObjectiveAssessmentPerformanceLevelIncluded;
             IsObjectiveAssessmentScoresItemCreatable = isObjectiveAssessmentScoresItemCreatable;
@@ -36910,15 +36847,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsNomenclatureSupported { get; }
         public bool IsObjectiveAssessmentAssessmentItemsSupported { get; }
         public bool IsObjectiveAssessmentLearningStandardsSupported { get; }
+        public bool IsObjectiveAssessmentParentObjectiveAssessmentsSupported { get; }
         public bool IsObjectiveAssessmentPerformanceLevelsSupported { get; }
         public bool IsObjectiveAssessmentScoresSupported { get; }
-        public bool IsParentIdentificationCodeSupported { get; }
-        public bool IsParentObjectiveAssessmentReferenceSupported { get; }
         public bool IsPercentOfAssessmentSupported { get; }
         public bool IsObjectiveAssessmentAssessmentItemsItemCreatable { get; }
         public Func<IObjectiveAssessmentAssessmentItem, bool> IsObjectiveAssessmentAssessmentItemIncluded { get; }
         public bool IsObjectiveAssessmentLearningStandardsItemCreatable { get; }
         public Func<IObjectiveAssessmentLearningStandard, bool> IsObjectiveAssessmentLearningStandardIncluded { get; }
+        public bool IsObjectiveAssessmentParentObjectiveAssessmentsItemCreatable { get; }
+        public Func<IObjectiveAssessmentParentObjectiveAssessment, bool> IsObjectiveAssessmentParentObjectiveAssessmentIncluded { get; }
         public bool IsObjectiveAssessmentPerformanceLevelsItemCreatable { get; }
         public Func<IObjectiveAssessmentPerformanceLevel, bool> IsObjectiveAssessmentPerformanceLevelIncluded { get; }
         public bool IsObjectiveAssessmentScoresItemCreatable { get; }
@@ -36942,14 +36880,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsObjectiveAssessmentAssessmentItemsSupported;
                 case "ObjectiveAssessmentLearningStandards":
                     return IsObjectiveAssessmentLearningStandardsSupported;
+                case "ObjectiveAssessmentParentObjectiveAssessments":
+                    return IsObjectiveAssessmentParentObjectiveAssessmentsSupported;
                 case "ObjectiveAssessmentPerformanceLevels":
                     return IsObjectiveAssessmentPerformanceLevelsSupported;
                 case "ObjectiveAssessmentScores":
                     return IsObjectiveAssessmentScoresSupported;
-                case "ParentIdentificationCode":
-                    return IsParentIdentificationCodeSupported;
-                case "ParentObjectiveAssessmentReference":
-                    return IsParentObjectiveAssessmentReferenceSupported;
                 case "PercentOfAssessment":
                     return IsPercentOfAssessmentSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
@@ -36972,6 +36908,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsObjectiveAssessmentAssessmentItemsItemCreatable;
                 case "ObjectiveAssessmentLearningStandards":
                     return IsObjectiveAssessmentLearningStandardsItemCreatable;
+                case "ObjectiveAssessmentParentObjectiveAssessments":
+                    return IsObjectiveAssessmentParentObjectiveAssessmentsItemCreatable;
                 case "ObjectiveAssessmentPerformanceLevels":
                     return IsObjectiveAssessmentPerformanceLevelsItemCreatable;
                 case "ObjectiveAssessmentScores":
@@ -37097,6 +37035,68 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLearningStandardReferenceSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ObjectiveAssessmentParentObjectiveAssessment model.
+    /// </summary>
+    public interface IObjectiveAssessmentParentObjectiveAssessment : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IObjectiveAssessment ObjectiveAssessment { get; set; }
+        
+        string ParentIdentificationCode { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? ParentObjectiveAssessmentResourceId { get; set; }
+        string ParentObjectiveAssessmentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ObjectiveAssessmentParentObjectiveAssessmentMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public ObjectiveAssessmentParentObjectiveAssessmentMappingContract(
+            bool isParentObjectiveAssessmentReferenceSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsParentObjectiveAssessmentReferenceSupported = isParentObjectiveAssessmentReferenceSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsParentObjectiveAssessmentReferenceSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "ParentObjectiveAssessmentReference":
+                    return IsParentObjectiveAssessmentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ParentIdentificationCode":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -55582,6 +55582,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         DateTime? AdministrationEndDate { get; set; }
         string AdministrationEnvironmentDescriptor { get; set; }
         string AdministrationLanguageDescriptor { get; set; }
+        string AssessedGradeLevelDescriptor { get; set; }
         int? AssessedMinutes { get; set; }
         string EventCircumstanceDescriptor { get; set; }
         string EventDescription { get; set; }
@@ -55590,7 +55591,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         long? ReportedSchoolId { get; set; }
         string ReportedSchoolIdentifier { get; set; }
         string RetestIndicatorDescriptor { get; set; }
-        short? SchoolYear { get; set; }
+        short SchoolYear { get; set; }
         string SerialNumber { get; set; }
         string WhenAssessedGradeLevelDescriptor { get; set; }
 
@@ -55600,6 +55601,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Lists
         ICollection<IStudentAssessmentAccommodation> StudentAssessmentAccommodations { get; set; }
+        ICollection<IStudentAssessmentIndicator> StudentAssessmentIndicators { get; set; }
         ICollection<IStudentAssessmentItem> StudentAssessmentItems { get; set; }
         ICollection<IStudentAssessmentPerformanceLevel> StudentAssessmentPerformanceLevels { get; set; }
         ICollection<IStudentAssessmentScoreResult> StudentAssessmentScoreResults { get; set; }
@@ -55625,6 +55627,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isAdministrationEndDateSupported,
             bool isAdministrationEnvironmentDescriptorSupported,
             bool isAdministrationLanguageDescriptorSupported,
+            bool isAssessedGradeLevelDescriptorSupported,
             bool isAssessedMinutesSupported,
             bool isAssessmentReferenceSupported,
             bool isEventCircumstanceDescriptorSupported,
@@ -55639,6 +55642,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isSchoolYearTypeReferenceSupported,
             bool isSerialNumberSupported,
             bool isStudentAssessmentAccommodationsSupported,
+            bool isStudentAssessmentIndicatorsSupported,
             bool isStudentAssessmentItemsSupported,
             bool isStudentAssessmentPerformanceLevelsSupported,
             bool isStudentAssessmentPeriodSupported,
@@ -55649,6 +55653,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentAssessmentPeriodCreatable,
             bool isStudentAssessmentAccommodationsItemCreatable,
             Func<IStudentAssessmentAccommodation, bool> isStudentAssessmentAccommodationIncluded,
+            bool isStudentAssessmentIndicatorsItemCreatable,
+            Func<IStudentAssessmentIndicator, bool> isStudentAssessmentIndicatorIncluded,
             bool isStudentAssessmentItemsItemCreatable,
             Func<IStudentAssessmentItem, bool> isStudentAssessmentItemIncluded,
             bool isStudentAssessmentPerformanceLevelsItemCreatable,
@@ -55664,6 +55670,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsAdministrationEndDateSupported = isAdministrationEndDateSupported;
             IsAdministrationEnvironmentDescriptorSupported = isAdministrationEnvironmentDescriptorSupported;
             IsAdministrationLanguageDescriptorSupported = isAdministrationLanguageDescriptorSupported;
+            IsAssessedGradeLevelDescriptorSupported = isAssessedGradeLevelDescriptorSupported;
             IsAssessedMinutesSupported = isAssessedMinutesSupported;
             IsAssessmentReferenceSupported = isAssessmentReferenceSupported;
             IsEventCircumstanceDescriptorSupported = isEventCircumstanceDescriptorSupported;
@@ -55678,6 +55685,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
             IsSerialNumberSupported = isSerialNumberSupported;
             IsStudentAssessmentAccommodationsSupported = isStudentAssessmentAccommodationsSupported;
+            IsStudentAssessmentIndicatorsSupported = isStudentAssessmentIndicatorsSupported;
             IsStudentAssessmentItemsSupported = isStudentAssessmentItemsSupported;
             IsStudentAssessmentPerformanceLevelsSupported = isStudentAssessmentPerformanceLevelsSupported;
             IsStudentAssessmentPeriodSupported = isStudentAssessmentPeriodSupported;
@@ -55688,6 +55696,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentAssessmentPeriodCreatable = isStudentAssessmentPeriodCreatable;
             IsStudentAssessmentAccommodationsItemCreatable = isStudentAssessmentAccommodationsItemCreatable;
             IsStudentAssessmentAccommodationIncluded = isStudentAssessmentAccommodationIncluded;
+            IsStudentAssessmentIndicatorsItemCreatable = isStudentAssessmentIndicatorsItemCreatable;
+            IsStudentAssessmentIndicatorIncluded = isStudentAssessmentIndicatorIncluded;
             IsStudentAssessmentItemsItemCreatable = isStudentAssessmentItemsItemCreatable;
             IsStudentAssessmentItemIncluded = isStudentAssessmentItemIncluded;
             IsStudentAssessmentPerformanceLevelsItemCreatable = isStudentAssessmentPerformanceLevelsItemCreatable;
@@ -55703,6 +55713,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsAdministrationEndDateSupported { get; }
         public bool IsAdministrationEnvironmentDescriptorSupported { get; }
         public bool IsAdministrationLanguageDescriptorSupported { get; }
+        public bool IsAssessedGradeLevelDescriptorSupported { get; }
         public bool IsAssessedMinutesSupported { get; }
         public bool IsAssessmentReferenceSupported { get; }
         public bool IsEventCircumstanceDescriptorSupported { get; }
@@ -55717,6 +55728,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsSchoolYearTypeReferenceSupported { get; }
         public bool IsSerialNumberSupported { get; }
         public bool IsStudentAssessmentAccommodationsSupported { get; }
+        public bool IsStudentAssessmentIndicatorsSupported { get; }
         public bool IsStudentAssessmentItemsSupported { get; }
         public bool IsStudentAssessmentPerformanceLevelsSupported { get; }
         public bool IsStudentAssessmentPeriodSupported { get; }
@@ -55727,6 +55739,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentAssessmentPeriodCreatable { get; }
         public bool IsStudentAssessmentAccommodationsItemCreatable { get; }
         public Func<IStudentAssessmentAccommodation, bool> IsStudentAssessmentAccommodationIncluded { get; }
+        public bool IsStudentAssessmentIndicatorsItemCreatable { get; }
+        public Func<IStudentAssessmentIndicator, bool> IsStudentAssessmentIndicatorIncluded { get; }
         public bool IsStudentAssessmentItemsItemCreatable { get; }
         public Func<IStudentAssessmentItem, bool> IsStudentAssessmentItemIncluded { get; }
         public bool IsStudentAssessmentPerformanceLevelsItemCreatable { get; }
@@ -55748,6 +55762,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsAdministrationEnvironmentDescriptorSupported;
                 case "AdministrationLanguageDescriptor":
                     return IsAdministrationLanguageDescriptorSupported;
+                case "AssessedGradeLevelDescriptor":
+                    return IsAssessedGradeLevelDescriptorSupported;
                 case "AssessedMinutes":
                     return IsAssessedMinutesSupported;
                 case "AssessmentReference":
@@ -55776,6 +55792,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSerialNumberSupported;
                 case "StudentAssessmentAccommodations":
                     return IsStudentAssessmentAccommodationsSupported;
+                case "StudentAssessmentIndicators":
+                    return IsStudentAssessmentIndicatorsSupported;
                 case "StudentAssessmentItems":
                     return IsStudentAssessmentItemsSupported;
                 case "StudentAssessmentPerformanceLevels":
@@ -55812,6 +55830,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentAssessmentPeriodCreatable;
                 case "StudentAssessmentAccommodations":
                     return IsStudentAssessmentAccommodationsItemCreatable;
+                case "StudentAssessmentIndicators":
+                    return IsStudentAssessmentIndicatorsItemCreatable;
                 case "StudentAssessmentItems":
                     return IsStudentAssessmentItemsItemCreatable;
                 case "StudentAssessmentPerformanceLevels":
@@ -55972,6 +55992,71 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "StudentAssessmentIdentifier":
                     return true;
                 case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentAssessmentIndicator model.
+    /// </summary>
+    public interface IStudentAssessmentIndicator : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentAssessment StudentAssessment { get; set; }
+        
+        string Indicator { get; set; }
+        
+        string IndicatorName { get; set; }
+
+        // Non-PK properties
+        string IndicatorGroup { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentAssessmentIndicatorMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentAssessmentIndicatorMappingContract(
+            bool isIndicatorGroupSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsIndicatorGroupSupported = isIndicatorGroupSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsIndicatorGroupSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "IndicatorGroup":
+                    return IsIndicatorGroupSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "Indicator":
+                    return true;
+                case "IndicatorName":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
