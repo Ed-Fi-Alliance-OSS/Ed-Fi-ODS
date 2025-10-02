@@ -117,27 +117,11 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-TPDM-Artifacts
           path: Ed-Fi-TPDM-Artifacts/
           ref: ${{ env.EDFI_TPDM_REFERENCE }}
-    - name: Remove XML and XSD files from eng/testing
-      working-directory: ./Ed-Fi-Data-Standard
-      shell: pwsh
-      run: |
-        $path = "eng/testing"
-        if (Test-Path $path) {
-            $files = Get-ChildItem -Path $path -Include *.xml, *.xsd -File -Recurse
-            if ($files.Count -gt 0) {
-                $count = 0
-                foreach ($file in $files) {
-                    Write-Host "Deleting file: $($file.FullName)"
-                    Remove-Item -LiteralPath $file.FullName -Force
-                    $count++
-                }
-                Write-Host "Deleted $count files (.xml & .xsd) from $path"
-            } else {
-                Write-Host "No .xml or .xsd files found in $path"
-            }
-        } else {
-            Write-Host "$path does not exist."
-        }
+          sparse-checkout: |
+            /**/*
+            !eng/testing/**/*.xml
+            !eng/testing/**/*.xsd
+          sparse-checkout-cone-mode: false
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
