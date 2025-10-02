@@ -42,10 +42,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             JoinType joinType,
             string authViewAlias = null)
         {
-            // Temporary logic to opt-in to join-based authorization approach
+            // Undocumented opt-in to using original join-based authorization
             bool useJoinAuth = _callContextStorage.GetValue<bool>("UseJoinAuth"); 
 
-            if (useJoinAuth || queryBuilder.FilterStrategy == QueryBuilderFilterStrategy.Joins)
+            if (useJoinAuth || queryBuilder.Context.UsesJoinFilterStrategy())
             {
                 ApplySingleColumnJoinFilterUsingJoins(
                     queryBuilder,
@@ -58,7 +58,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     joinType,
                     authViewAlias);
             }
-            else if (queryBuilder.FilterStrategy == QueryBuilderFilterStrategy.CTEs)
+            else if (queryBuilder.Context.UsesCteFilterStrategy())
             {
                 ApplySingleColumnJoinFilterUsingCtes(
                     queryBuilder,
@@ -71,7 +71,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     joinType,
                     authViewAlias);
             }
-            else if (queryBuilder.FilterStrategy == QueryBuilderFilterStrategy.ExistsSubquery)
+            else if (queryBuilder.Context.UsesExistsSubqueryFilterStrategy())
             {
                 ApplySingleColumnExistsSubqueryFilter(
                     queryBuilder,
@@ -84,7 +84,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             }
             else
             {
-                throw new NotSupportedException($"Authorization filter strategy '{queryBuilder.FilterStrategy.ToString()}' has not been implemented.");
+                if (queryBuilder.Context.TryGetValue(nameof(QueryBuilderFilterStrategy), out var filterStrategy))
+                {
+                    throw new NotSupportedException($"Authorization filter strategy '{filterStrategy}' has not been implemented.");
+                }
+                
+                throw new NotSupportedException($"Authorization filter strategy has not been implemented.");
             }
         }
 

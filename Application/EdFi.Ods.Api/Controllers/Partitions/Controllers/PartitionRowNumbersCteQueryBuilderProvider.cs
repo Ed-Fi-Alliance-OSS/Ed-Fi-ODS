@@ -68,7 +68,7 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
         var rowNumbersQueryBuilder = new QueryBuilder(_dialect)
         {
             // For partitions queries use the EXISTS subquery authorization filtering strategy
-            FilterStrategy = QueryBuilderFilterStrategy.ExistsSubquery
+            Context = { { nameof(QueryBuilderFilterStrategy), QueryBuilderFilterStrategy.ExistsSubquery }},
         };
 
         // Get the fully qualified physical table name

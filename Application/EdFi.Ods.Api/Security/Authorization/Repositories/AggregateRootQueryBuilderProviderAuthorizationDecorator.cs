@@ -59,13 +59,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             var authorizationPlan = _authorizationPlanContextProvider.Get();
 
-            // Process unless join-based auth has been indicated
+            // Check for undocumented opt-in to using original join-based authorization
             bool shouldUseJoinAuth = additionalQueryParameters?.TryGetValue("UseJoinAuth", out string useJoinAuth) == true
                 && Convert.ToBoolean(useJoinAuth);
 
             if (shouldUseJoinAuth)
             {
-                queryBuilder.FilterStrategy = QueryBuilderFilterStrategy.Joins;
+                queryBuilder.Context.SetQueryBuilderFilterStrategy(QueryBuilderFilterStrategy.Joins);
             }
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
@@ -74,7 +74,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             var relationshipBasedAuthViewJoinType = DetermineRelationshipBasedAuthViewJoinType();
 
             // Distinct only applies to JOIN-based authorization
-            if (queryBuilder.FilterStrategy == QueryBuilderFilterStrategy.Joins)
+            if (queryBuilder.Context.UsesJoinFilterStrategy())
             {
                 ApplyDistinctIfNeeded();
             }

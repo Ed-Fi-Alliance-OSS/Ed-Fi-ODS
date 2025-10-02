@@ -61,9 +61,9 @@ namespace EdFi.Ods.Common.Database.Querying
 
         public string TableName { get; private set; }
 
-        public QueryBuilderFilterStrategy FilterStrategy { get; set; }
+        public IDictionary<string, object> Context { get; set; } = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
         
-        public IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
+        public IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
         public ParameterIndexer ParameterIndexer
         {
@@ -78,7 +78,7 @@ namespace EdFi.Ods.Common.Database.Querying
         {
             return new QueryBuilder(_dialect, _sqlBuilder.Clone(), TableName, _parameterIndexer.Clone())
             {
-                FilterStrategy = FilterStrategy
+                Context = new Dictionary<string, object>(Context, StringComparer.OrdinalIgnoreCase)
             };
         }
 
@@ -143,7 +143,7 @@ namespace EdFi.Ods.Common.Database.Querying
         {
             return new QueryBuilder(_dialect, _parameterIndexer)
             {
-                FilterStrategy = FilterStrategy
+                Context = new Dictionary<string, object>(Context, StringComparer.OrdinalIgnoreCase),
             };
         }
         
