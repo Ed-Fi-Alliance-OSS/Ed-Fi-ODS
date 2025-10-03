@@ -5,7 +5,9 @@
 
 using System.Data.Common;
 using Autofac;
+using Autofac.Core;
 using EdFi.Common.Configuration;
+using EdFi.Ods.Api.Controllers.Partitions.Controllers;
 using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
@@ -63,6 +65,14 @@ namespace EdFi.Ods.Api.Container.Modules
             // Register PostgreSQL naming convention
             builder.RegisterType<PostgreSqlDatabaseNamingConvention>()
                 .As<IDatabaseNamingConvention>()
+                .SingleInstance();
+
+            builder.RegisterType<PostgreSqlPartitionsQueryBuilderPartitionsApplicator>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.ParameterType == typeof(int) && p.Name == "_defaultPartitionCount",
+                        (p, c) => c.Resolve<ApiSettings>().DefaultPartitionCount))
+                .As<IPartitionsQueryBuilderPartitionsApplicator>()
                 .SingleInstance();
         }
     }

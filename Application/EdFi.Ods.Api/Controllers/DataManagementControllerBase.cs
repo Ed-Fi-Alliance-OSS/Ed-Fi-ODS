@@ -161,9 +161,10 @@ namespace EdFi.Ods.Api.Controllers
         {
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
 
-            // Store alternative auth approach decision into call context
+            // Undocumented opt-in to using original join-based authorization
             if (additionalParameters?.TryGetValue("useJoinAuth", out string useJoinAuth) == true)
             {
+                // Store alternative auth approach decision into call context
                 _contextStorage.SetValue("UseJoinAuth", Convert.ToBoolean(useJoinAuth));
             }
 

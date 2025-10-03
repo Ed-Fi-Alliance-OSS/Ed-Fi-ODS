@@ -12,7 +12,7 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         public virtual string GetTemplateString(string sourceTableName)
         {
             return
-                $"/**with**/ SELECT /**distinct**/ /**select**/ FROM {sourceTableName}/**innerjoin**/ /**leftjoin**/ /**rightjoin**/ /**where**/ /**groupby**/ /**orderby**/ /**paging**/";
+                $"/**with**/ SELECT /**distinct**/ /**select**/ FROM {sourceTableName}/**innerjoin**/ /**leftjoin**/ /**rightjoin**/ /**crossjoin**/ /**where**/ /**groupby**/ /**orderby**/ /**paging**/";
         }
 
         public virtual string GetCountTemplateString(string countTableCteName)
@@ -40,5 +40,7 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         }
 
         public abstract int GetMaxParameterCount();
+
+        public abstract (string keywords, string aliasedExpression) GetCrossJoinString(string expression, string alias, string[] columnNames = null);
     }
 }

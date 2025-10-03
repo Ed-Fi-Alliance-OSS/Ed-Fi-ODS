@@ -85,9 +85,10 @@ public class PartitionsController : ControllerBase
         [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest,
         [FromQuery] Dictionary<string, string> additionalParameters)
     {
-        // Store alternative auth approach decision into call context
+        // Undocumented opt-in to using original join-based authorization
         if (additionalParameters.TryGetValue("useJoinAuth", out string useJoinAuth) == true)
         {
+            // Store alternative auth approach decision into call context
             _contextStorage.SetValue("UseJoinAuth", Convert.ToBoolean(useJoinAuth));
         }
 

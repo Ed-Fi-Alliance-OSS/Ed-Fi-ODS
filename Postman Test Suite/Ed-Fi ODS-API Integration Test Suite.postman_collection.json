@@ -1637,7 +1637,7 @@
 					"response": []
 				},
 				{
-					"name": "Non-existing SchoolID validation",
+					"name": "Non-existing SchoolID validation (with API client with many EdOrgIds)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1687,6 +1687,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_ManyEdOrgs}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -17976,6 +17986,38 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{AccessToken_ManyEdOrgs}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
@@ -19404,6 +19446,7 @@
 					"CreateAccessToken(\"255901_sampleextension\");",
 					"CreateAccessToken(\"TokenIntrospection_255901\");",
 					"CreateAccessToken(\"MultipleEmpAss_255901001_255901044\");",
+					"CreateAccessToken(\"ManyEdOrgs\");",
 					"// Set variables related to data standard specific contact/parent variablility ",
 					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\") ?? pm.environment.get(\"test-suite:known:parentOrContactProperName\");",
 					"let StudentParentOrContactAssociationCollectionName = \"Student\" + ParentOrContactProperName + \"Associations\";",

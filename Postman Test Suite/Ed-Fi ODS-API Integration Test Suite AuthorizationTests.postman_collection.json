@@ -1794,9 +1794,98 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "When_creating_a_program_with_a_non_existing_education_organization_id_using_API_client_with_many_EdOrgIds",
+							"item": [
+								{
+									"name": "When_creating_a_program_with_a_non_existing_education_organization_id_should_fail_with_403_not_authorized",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {",
+													"  pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													"",
+													"pm.test(\"Authorization message should indicate problem with the EducationOrganizationId and include trailing ellipses for the caller's EdOrgId list.\", () => {",
+													"  const problemDetails = pm.response.json();",
+													"",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the requested data could not be authorized.\");",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3}))\\) and the resource item's 'EducationOrganizationId' value./);",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':programId', newGuid().substring(0, 20));",
+													"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId', 1000);",
+													"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");",
+													"",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_ManyEdOrgs}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -13594,6 +13683,7 @@
 					"CreateAccessToken(\"255901044\");",
 					"CreateAccessToken(\"Other_Namespace\");",
 					"CreateAccessToken(\"NoEdorg\");",
+					"CreateAccessToken(\"ManyEdOrgs\");",
 					"",
 					"// Set variables related to data standard specific contact/parent variablility ",
 					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");",
