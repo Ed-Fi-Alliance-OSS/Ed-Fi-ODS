@@ -16,8 +16,13 @@ public static class QueryBuilderFilterStrategyExtensions
 
     public static bool UsesCteFilterStrategy(this IDictionary<string, object> queryBuilderContext)
     {
-        return ((queryBuilderContext.TryGetValue(nameof(QueryBuilderFilterStrategy), out var strategyAsObject)
-            && strategyAsObject is QueryBuilderFilterStrategy.CTEs));
+        if (!queryBuilderContext.TryGetValue(nameof(QueryBuilderFilterStrategy), out var strategyAsObject))
+        {
+            // By default, use CTEs (unless otherwise specified)
+            return true;
+        }
+
+        return strategyAsObject is QueryBuilderFilterStrategy.CTEs;
     }
     
     public static bool UsesJoinFilterStrategy(this IDictionary<string, object> queryBuilderContext)
