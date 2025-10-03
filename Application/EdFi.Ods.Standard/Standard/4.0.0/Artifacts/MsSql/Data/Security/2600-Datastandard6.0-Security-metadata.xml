@@ -1,0 +1,87 @@
+﻿<SecurityMetadata modifyHierarchy = 'true'>
+	<Claims>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/surveyDomain">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="ReadChanges">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Writer">
+					<Actions>
+						<Action name="Create">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Education Preparation Program">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/survey" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyQuestion" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyQuestionResponse" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyResponse" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveySection" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveySectionResponse" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/surveyResponsePersonTargetAssociation" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/surveySectionResponsePersonTargetAssociation" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/surveySectionAggregateResponse" />
+			</Claims>
+		</Claim>
+	</Claims>
+</SecurityMetadata>
