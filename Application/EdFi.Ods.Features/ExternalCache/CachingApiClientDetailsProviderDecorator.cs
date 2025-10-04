@@ -41,7 +41,8 @@ namespace EdFi.Ods.Features.ExternalCache
         /// Checks the cache for an existing value, and if not found, calls through to decorated implementation to retrieve the details (which is then cached).
         /// </summary>
         /// <param name="token">The OAuth security token.</param>
-        /// <returns>The <see cref="ApiClientDetails"/> associated with the token.</returns>
+        /// <returns>An <see cref="ApiClientDetails" /> instance if a matching token is found; otherwise null.</returns>
+        /// 
         public async Task<ApiClientDetails> GetApiClientDetailsForTokenAsync(string token)
         {
             string cacheKey = _apiClientDetailsCacheKeyProvider.GetCacheKey(token);
@@ -55,12 +56,15 @@ namespace EdFi.Ods.Features.ExternalCache
             // No entry present, so pass call through to implementation to get the API client details
             var apiClientDetails = await _next.GetApiClientDetailsForTokenAsync(token);
 
-            // Insert API client details returned into the cache, for at least 15 minutes to avoid unnecessary roundtrips to underlying store
-            var absoluteExpiration = apiClientDetails.ExpiresUtc < DateTime.UtcNow
-                ? DateTime.UtcNow.AddMinutes(15)
-                : apiClientDetails.ExpiresUtc.AddMinutes(15);
+            if (apiClientDetails != null)
+            {
+                // Insert API client details returned into the cache, for at least 15 minutes to avoid unnecessary roundtrips to underlying store
+                var absoluteExpiration = apiClientDetails.ExpiresUtc < DateTime.UtcNow
+                    ? DateTime.UtcNow.AddMinutes(15)
+                    : apiClientDetails.ExpiresUtc.AddMinutes(15);
             
-            _cacheProvider.Insert(cacheKey, apiClientDetails, absoluteExpiration, TimeSpan.Zero);
+                _cacheProvider.Insert(cacheKey, apiClientDetails, absoluteExpiration, TimeSpan.Zero);
+            }
 
             return apiClientDetails;
         }
