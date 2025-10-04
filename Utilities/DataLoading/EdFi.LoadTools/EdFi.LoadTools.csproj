@@ -22,7 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="8.0.0" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="7.3.10007" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="7.3.10173" />
     <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
     <PackageReference Include="log4net" Version="2.0.17" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
