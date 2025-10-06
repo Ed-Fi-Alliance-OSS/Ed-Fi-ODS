@@ -68,18 +68,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -321,18 +322,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -574,18 +576,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -877,18 +880,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -1130,18 +1134,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -1387,18 +1392,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/communityProviderLicense
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -1507,18 +1513,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -1652,6 +1659,11 @@ BEGIN
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
+
+
+    -- Pop the stack
+    DELETE FROM @claimIdStack WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
+
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1675,18 +1687,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -1928,18 +1941,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -2181,22 +2195,23 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('credential','http://ed-fi.org/ods/identity/claims/credential', @parentResourceClaimId)
+            VALUES ('credential', 'http://ed-fi.org/ods/identity/claims/credential', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -2358,18 +2373,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -2611,18 +2627,19 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     
@@ -2860,22 +2877,23 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('educationContent',  'http://ed-fi.org/ods/identity/claims/educationContent', @parentResourceClaimId)
+            VALUES ('educationContent', 'http://ed-fi.org/ods/identity/claims/educationContent', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
+
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-  
+
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     

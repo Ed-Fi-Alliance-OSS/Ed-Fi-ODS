@@ -1,4 +1,4 @@
-<SecurityMetadata>
+<SecurityMetadata modifyHierarchy = 'true'>
   <Claims>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
       <DefaultAuthorization>
