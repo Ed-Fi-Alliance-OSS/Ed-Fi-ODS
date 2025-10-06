@@ -22,7 +22,6 @@ DECLARE
     claim_set_resource_claim_action_id INTEGER;
     claim_id_stack INTEGER ARRAY;
 BEGIN
-
     SELECT actionid INTO create_action_id
     FROM dbo.actions WHERE ActionName = 'Create';
 
@@ -58,18 +57,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('systemDescriptors','http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', parent_resource_claim_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -298,18 +299,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('managedDescriptors','http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', parent_resource_claim_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('managedDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -538,18 +541,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('educationOrganizations','http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', parent_resource_claim_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('educationOrganizations', 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -830,18 +835,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('people','http://ed-fi.org/ods/identity/claims/domains/people', parent_resource_claim_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('people', 'http://ed-fi.org/ods/identity/claims/domains/people', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -1070,18 +1077,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('relationshipBasedData','http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', parent_resource_claim_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('relationshipBasedData', 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -1314,18 +1323,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
         VALUES ('communityProviderLicense', 'http://ed-fi.org/ods/identity/claims/communityProviderLicense', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/communityProviderLicense
@@ -1426,18 +1437,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
         VALUES ('person', 'http://ed-fi.org/ods/identity/claims/person', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -1565,6 +1578,10 @@ BEGIN
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (resource_claim_action_id, authorization_strategy_id);
 
+
+    -- Pop the stack
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
+
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1580,18 +1597,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('assessmentMetadata','http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', parent_resource_claim_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('assessmentMetadata', 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -1820,18 +1839,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('educationStandards','http://ed-fi.org/ods/identity/claims/domains/educationStandards', parent_resource_claim_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('educationStandards', 'http://ed-fi.org/ods/identity/claims/domains/educationStandards', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -2064,18 +2085,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('credential','http://ed-fi.org/ods/identity/claims/credential', parent_resource_claim_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('credential', 'http://ed-fi.org/ods/identity/claims/credential', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -2222,18 +2245,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('primaryRelationships','http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', parent_resource_claim_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('primaryRelationships', 'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -2462,18 +2487,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
         VALUES ('surveyDomain', 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
@@ -2702,18 +2729,20 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('educationContent','http://ed-fi.org/ods/identity/claims/educationContent', parent_resource_claim_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('educationContent', 'http://ed-fi.org/ods/identity/claims/educationContent', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
+
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Moving claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to be a child of a different resource claim (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
+
     END IF;
   
     -- Setting default authorization metadata
