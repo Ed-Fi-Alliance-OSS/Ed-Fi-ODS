@@ -79,6 +79,8 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
                         try
                         {
+                            _logger.Debug("Serializing aggregate data for storage (INSERT)...");
+
                             // Produce the serialized data
                             var resourceData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
                             aggregateRoot.AggregateData = resourceData;

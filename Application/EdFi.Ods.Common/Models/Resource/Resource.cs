@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Common.Models.Resource
@@ -121,7 +122,17 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             return new Lazy<IReadOnlyDictionary<string, LinkedCollection>>(
                 () =>
-                    LinkedCollections.ToDictionary(x => x.Name, x => x, StringComparer.OrdinalIgnoreCase));
+                    LinkedCollections.GroupBy(x => x.Name)
+                        .ToDictionary(
+                            g => g.Key,
+                            g => g.Count() == 1 
+                                // If there's only 1 with this name, return it
+                                ? g.First() 
+                                // If there's more than 1 with this name, prioritize associations to Ed-Fi Standard entities  
+                                : g.FirstOrDefault(x => x.Association.OtherEntity.Schema == EdFiConventions.PhysicalSchemaName)
+                                // If there's no Standard entity involved, arbitrarily use the first association to a like named extension entity (hiding the others)
+                                ?? g.First(),
+                            StringComparer.OrdinalIgnoreCase));
         }
 
         private Lazy<IReadOnlyDictionary<string, ResourceClassBase>> LazyInitializeContainedItemTypeByName()
@@ -146,6 +157,12 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             return base.LazyInitializeAllMembers()
                        .Concat(LinkedCollections);
+        }
+
+        protected override IEnumerable<(string, ResourceMemberBase)> LazyInitializeMemberByNameTuples()
+        {
+            return base.LazyInitializeMemberByNameTuples()
+                        .Concat(LinkedResourceCollectionByName.Select(p => (p.Key, (ResourceMemberBase) p.Value))) ;
         }
 
         public override string JsonPath

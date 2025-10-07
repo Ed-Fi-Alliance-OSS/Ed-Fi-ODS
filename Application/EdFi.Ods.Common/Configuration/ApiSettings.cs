@@ -62,6 +62,8 @@ namespace EdFi.Ods.Common.Configuration
 
         public CacheSettings Caching { get; set; } = new();
 
+        public Behaviors Behaviors { get; set; } = new();
+
         public ServiceSettings Services { get; set; } = new();
 
         public string DomainsExcludedFromOpenApi { get; set; }

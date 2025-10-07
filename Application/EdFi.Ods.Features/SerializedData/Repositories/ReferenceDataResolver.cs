@@ -19,6 +19,7 @@ using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
+using log4net;
 using NHibernate;
 
 namespace EdFi.Ods.Features.SerializedData.Repositories;
@@ -31,6 +32,8 @@ public class ReferenceDataResolver : IReferenceDataResolver
     private readonly ISessionFactory _sessionFactory;
     private readonly DomainModel _domainModel;
 
+    private readonly ILog _logger = LogManager.GetLogger(typeof(ReferenceDataResolver));
+    
     public ReferenceDataResolver(
         IDomainModelProvider domainModelProvider,
         IContextProvider<ReferenceDataLookupContext> referenceDataLookupContextProvider,
@@ -63,6 +66,11 @@ public class ReferenceDataResolver : IReferenceDataResolver
         if (!resolvableReferenceDataItems.Any())
         {
             return;
+        }
+
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug($"Resolving {resolvableReferenceDataItems.Count} reference data items...");
         }
 
         var queryTemplates = GetQueryTemplates();
