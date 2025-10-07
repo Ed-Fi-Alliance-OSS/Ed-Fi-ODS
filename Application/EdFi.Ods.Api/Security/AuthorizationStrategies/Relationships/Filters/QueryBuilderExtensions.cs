@@ -42,19 +42,93 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             JoinType joinType,
             string authViewAlias = null)
         {
-            // Temporary logic to opt-in to join-based authorization approach
+            // Undocumented opt-in to using original join-based authorization
             bool useJoinAuth = _callContextStorage.GetValue<bool>("UseJoinAuth"); 
 
-            if (useJoinAuth)
+            if (useJoinAuth || queryBuilder.Context.UsesJoinFilterStrategy())
             {
-                ApplySingleColumnJoinFilterUsingJoins(queryBuilder, resource, parameters, viewName, subjectEndpointName, viewSourceEndpointName, viewTargetEndpointName, joinType, authViewAlias);
-                return;
+                ApplySingleColumnJoinFilterUsingJoins(
+                    queryBuilder,
+                    resource,
+                    parameters,
+                    viewName,
+                    subjectEndpointName,
+                    viewSourceEndpointName,
+                    viewTargetEndpointName,
+                    joinType,
+                    authViewAlias);
+            }
+            else if (queryBuilder.Context.UsesCteFilterStrategy())
+            {
+                ApplySingleColumnJoinFilterUsingCtes(
+                    queryBuilder,
+                    resource,
+                    parameters,
+                    viewName,
+                    subjectEndpointName,
+                    viewSourceEndpointName,
+                    viewTargetEndpointName,
+                    joinType,
+                    authViewAlias);
+            }
+            else if (queryBuilder.Context.UsesExistsSubqueryFilterStrategy())
+            {
+                ApplySingleColumnExistsSubqueryFilter(
+                    queryBuilder,
+                    resource,
+                    parameters,
+                    viewName,
+                    subjectEndpointName,
+                    viewSourceEndpointName,
+                    viewTargetEndpointName);
+            }
+            else
+            {
+                if (queryBuilder.Context.TryGetValue(nameof(QueryBuilderFilterStrategy), out var filterStrategy))
+                {
+                    throw new NotSupportedException($"Authorization filter strategy '{filterStrategy}' has not been implemented.");
+                }
+                
+                throw new NotSupportedException($"Authorization filter strategy has not been implemented.");
+            }
+        }
+
+        private static void ApplySingleColumnExistsSubqueryFilter(
+            this QueryBuilder queryBuilder,
+            Resource resource,
+            IDictionary<string, object> parameters,
+            string viewName,
+            string subjectEndpointName,
+            string viewSourceEndpointName,
+            string viewTargetEndpointName)
+        {
+            // Defensive check to ensure required parameter is present
+            if (!parameters.TryGetValue(RelationshipAuthorizationConventions.ClaimsParameterName, out object value))
+            {
+                throw new Exception($"Unable to find parameter for filtering '{RelationshipAuthorizationConventions.ClaimsParameterName}' on view '{viewName}'. Available parameters: '{string.Join("', '", parameters.Keys)}'");
             }
 
-            ApplySingleColumnJoinFilterUsingCtes(queryBuilder, resource, parameters, viewName, subjectEndpointName, viewSourceEndpointName,
-                viewTargetEndpointName,
-                joinType,
-                authViewAlias);
+            // Create a CTE query for the authorization view
+            var existsQuery = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
+            existsQuery.From($"auth.{viewName} AS av");
+            existsQuery.Select("1");
+
+            // Apply target join to subject in containing query
+            var subjectJoin =  GetSubjectJoinDetails(resource, subjectEndpointName);
+            existsQuery.WhereRaw($"av.{viewTargetEndpointName} = {subjectJoin.tableAlias}.{subjectEndpointName}");
+
+            // Apply claims to the CTE query
+            if (value is object[] arrayOfValues)
+            {
+                existsQuery.WhereIn($"av.{viewSourceEndpointName}", arrayOfValues, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+            }
+            else
+            {
+                existsQuery.Where($"av.{viewSourceEndpointName}", value, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+            }
+
+            // Add the CTE to the main query, with alias
+            queryBuilder.WhereExists(existsQuery);
         }
 
         private static void ApplySingleColumnJoinFilterUsingCtes(
@@ -80,6 +154,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             var cte = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
             cte.From($"auth.{viewName} AS av");
             cte.Select($"av.{viewTargetEndpointName}");
+            cte.Distinct();
 
             // Apply claims to the CTE query
             if (value is object[] arrayOfValues)
@@ -99,7 +174,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             // Apply join to the authorization CTE
             if (joinType == JoinType.InnerJoin)
             {
-                queryBuilder.WhereRaw($"{subjectJoin.tableAlias}.{subjectJoin.endpointName} IN (SELECT * FROM {authViewAlias})");
+                queryBuilder.Join(
+                    authViewAlias,
+                    j => j.On($"{subjectJoin.tableAlias}.{subjectJoin.endpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
             }
             else if (joinType == JoinType.LeftOuterJoin)
             {
