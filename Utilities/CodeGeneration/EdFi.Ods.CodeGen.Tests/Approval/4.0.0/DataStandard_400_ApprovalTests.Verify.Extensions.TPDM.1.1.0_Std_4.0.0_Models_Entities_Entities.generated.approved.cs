@@ -467,14 +467,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -656,7 +657,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature]
         [Key(7)]
-        public virtual string CandidateIdentifier  { get; set; }
+        public virtual string CandidateIdentifier { get => _candidateIdentifier; set { _candidateIdentifier = value; } }
+        private string _candidateIdentifier;
 
         // -------------------------------------------------------------
 
@@ -669,7 +671,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(8)]
-        public virtual string BirthCity  { get; set; }
+        public virtual string BirthCity { get => _birthCity; set { _birthCity = value; } }
+        private string _birthCity;
 
         [Key(9)]
         public virtual int? BirthCountryDescriptorId 
@@ -721,7 +724,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private DateTime _birthDate;
 
         [Key(11)]
-        public virtual string BirthInternationalProvince  { get; set; }
+        public virtual string BirthInternationalProvince { get => _birthInternationalProvince; set { _birthInternationalProvince = value; } }
+        private string _birthInternationalProvince;
 
         [Key(12)]
         public virtual int? BirthSexDescriptorId 
@@ -822,10 +826,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private DateTime? _dateEnteredUS;
 
         [Key(15)]
-        public virtual string DisplacementStatus  { get; set; }
+        public virtual string DisplacementStatus { get => _displacementStatus; set { _displacementStatus = value; } }
+        private string _displacementStatus;
 
         [Key(16)]
-        public virtual bool? EconomicDisadvantaged  { get; set; }
+        public virtual bool? EconomicDisadvantaged { get => _economicDisadvantaged; set { _economicDisadvantaged = value; } }
+        private bool? _economicDisadvantaged;
 
         [Key(17)]
         public virtual int? EnglishLanguageExamDescriptorId 
@@ -867,10 +873,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [Key(18)]
-        public virtual bool? FirstGenerationStudent  { get; set; }
+        public virtual bool? FirstGenerationStudent { get => _firstGenerationStudent; set { _firstGenerationStudent = value; } }
+        private bool? _firstGenerationStudent;
 
         [Key(19)]
-        public virtual string FirstName  { get; set; }
+        public virtual string FirstName { get => _firstName; set { _firstName = value; } }
+        private string _firstName;
 
         [Key(20)]
         public virtual int? GenderDescriptorId 
@@ -912,13 +920,16 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [Key(21)]
-        public virtual string GenerationCodeSuffix  { get; set; }
+        public virtual string GenerationCodeSuffix { get => _generationCodeSuffix; set { _generationCodeSuffix = value; } }
+        private string _generationCodeSuffix;
 
         [Key(22)]
-        public virtual bool? HispanicLatinoEthnicity  { get; set; }
+        public virtual bool? HispanicLatinoEthnicity { get => _hispanicLatinoEthnicity; set { _hispanicLatinoEthnicity = value; } }
+        private bool? _hispanicLatinoEthnicity;
 
         [Key(23)]
-        public virtual string LastSurname  { get; set; }
+        public virtual string LastSurname { get => _lastSurname; set { _lastSurname = value; } }
+        private string _lastSurname;
 
         [Key(24)]
         public virtual int? LimitedEnglishProficiencyDescriptorId 
@@ -960,16 +971,20 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [Key(25)]
-        public virtual string MaidenName  { get; set; }
+        public virtual string MaidenName { get => _maidenName; set { _maidenName = value; } }
+        private string _maidenName;
 
         [Key(26)]
-        public virtual string MiddleName  { get; set; }
+        public virtual string MiddleName { get => _middleName; set { _middleName = value; } }
+        private string _middleName;
 
         [Key(27)]
-        public virtual bool? MultipleBirthStatus  { get; set; }
+        public virtual bool? MultipleBirthStatus { get => _multipleBirthStatus; set { _multipleBirthStatus = value; } }
+        private bool? _multipleBirthStatus;
 
         [Key(28)]
-        public virtual string PersonalTitlePrefix  { get; set; }
+        public virtual string PersonalTitlePrefix { get => _personalTitlePrefix; set { _personalTitlePrefix = value; } }
+        private string _personalTitlePrefix;
 
         [Key(29)]
         public virtual string PersonId 
@@ -1712,11 +1727,13 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         [DomainSignature]
         [Key(2)]
-        public virtual string City  { get; set; }
+        public virtual string City { get => _city; set { _city = value; } }
+        private string _city;
 
         [DomainSignature]
         [Key(3)]
-        public virtual string PostalCode  { get; set; }
+        public virtual string PostalCode { get => _postalCode; set { _postalCode = value; } }
+        private string _postalCode;
 
         [DomainSignature]
         [Key(4)]
@@ -1760,7 +1777,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         [DomainSignature]
         [Key(5)]
-        public virtual string StreetNumberName  { get; set; }
+        public virtual string StreetNumberName { get => _streetNumberName; set { _streetNumberName = value; } }
+        private string _streetNumberName;
 
         // -------------------------------------------------------------
 
@@ -1773,22 +1791,28 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(6)]
-        public virtual string ApartmentRoomSuiteNumber  { get; set; }
+        public virtual string ApartmentRoomSuiteNumber { get => _apartmentRoomSuiteNumber; set { _apartmentRoomSuiteNumber = value; } }
+        private string _apartmentRoomSuiteNumber;
 
         [Key(7)]
-        public virtual string BuildingSiteNumber  { get; set; }
+        public virtual string BuildingSiteNumber { get => _buildingSiteNumber; set { _buildingSiteNumber = value; } }
+        private string _buildingSiteNumber;
 
         [Key(8)]
-        public virtual string CongressionalDistrict  { get; set; }
+        public virtual string CongressionalDistrict { get => _congressionalDistrict; set { _congressionalDistrict = value; } }
+        private string _congressionalDistrict;
 
         [Key(9)]
-        public virtual string CountyFIPSCode  { get; set; }
+        public virtual string CountyFIPSCode { get => _countyFIPSCode; set { _countyFIPSCode = value; } }
+        private string _countyFIPSCode;
 
         [Key(10)]
-        public virtual bool? DoNotPublishIndicator  { get; set; }
+        public virtual bool? DoNotPublishIndicator { get => _doNotPublishIndicator; set { _doNotPublishIndicator = value; } }
+        private bool? _doNotPublishIndicator;
 
         [Key(11)]
-        public virtual string Latitude  { get; set; }
+        public virtual string Latitude { get => _latitude; set { _latitude = value; } }
+        private string _latitude;
 
         [Key(12)]
         public virtual int? LocaleDescriptorId 
@@ -1830,10 +1854,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [Key(13)]
-        public virtual string Longitude  { get; set; }
+        public virtual string Longitude { get => _longitude; set { _longitude = value; } }
+        private string _longitude;
 
         [Key(14)]
-        public virtual string NameOfCounty  { get; set; }
+        public virtual string NameOfCounty { get => _nameOfCounty; set { _nameOfCounty = value; } }
+        private string _nameOfCounty;
 
         // -------------------------------------------------------------
 
@@ -2326,10 +2352,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [Key(3)]
-        public virtual string DisabilityDiagnosis  { get; set; }
+        public virtual string DisabilityDiagnosis { get => _disabilityDiagnosis; set { _disabilityDiagnosis = value; } }
+        private string _disabilityDiagnosis;
 
         [Key(4)]
-        public virtual int? OrderOfDisability  { get; set; }
+        public virtual int? OrderOfDisability { get => _orderOfDisability; set { _orderOfDisability = value; } }
+        private int? _orderOfDisability;
 
         // -------------------------------------------------------------
 
@@ -2737,7 +2765,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         [DomainSignature]
         [Key(1)]
-        public virtual string ElectronicMailAddress  { get; set; }
+        public virtual string ElectronicMailAddress { get => _electronicMailAddress; set { _electronicMailAddress = value; } }
+        private string _electronicMailAddress;
 
         [DomainSignature]
         [Key(2)]
@@ -2790,10 +2819,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(3)]
-        public virtual bool? DoNotPublishIndicator  { get; set; }
+        public virtual bool? DoNotPublishIndicator { get => _doNotPublishIndicator; set { _doNotPublishIndicator = value; } }
+        private bool? _doNotPublishIndicator;
 
         [Key(4)]
-        public virtual bool? PrimaryEmailAddressIndicator  { get; set; }
+        public virtual bool? PrimaryEmailAddressIndicator { get => _primaryEmailAddressIndicator; set { _primaryEmailAddressIndicator = value; } }
+        private bool? _primaryEmailAddressIndicator;
 
         // -------------------------------------------------------------
 
@@ -3450,19 +3481,24 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual string FirstName  { get; set; }
+        public virtual string FirstName { get => _firstName; set { _firstName = value; } }
+        private string _firstName;
 
         [Key(3)]
-        public virtual string GenerationCodeSuffix  { get; set; }
+        public virtual string GenerationCodeSuffix { get => _generationCodeSuffix; set { _generationCodeSuffix = value; } }
+        private string _generationCodeSuffix;
 
         [Key(4)]
-        public virtual string LastSurname  { get; set; }
+        public virtual string LastSurname { get => _lastSurname; set { _lastSurname = value; } }
+        private string _lastSurname;
 
         [Key(5)]
-        public virtual string MiddleName  { get; set; }
+        public virtual string MiddleName { get => _middleName; set { _middleName = value; } }
+        private string _middleName;
 
         [Key(6)]
-        public virtual string PersonalTitlePrefix  { get; set; }
+        public virtual string PersonalTitlePrefix { get => _personalTitlePrefix; set { _personalTitlePrefix = value; } }
+        private string _personalTitlePrefix;
 
         // -------------------------------------------------------------
 
@@ -3724,7 +3760,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private DateTime? _documentExpirationDate;
 
         [Key(4)]
-        public virtual string DocumentTitle  { get; set; }
+        public virtual string DocumentTitle { get => _documentTitle; set { _documentTitle = value; } }
+        private string _documentTitle;
 
         [Key(5)]
         public virtual int? IssuerCountryDescriptorId 
@@ -3766,10 +3803,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [Key(6)]
-        public virtual string IssuerDocumentIdentificationCode  { get; set; }
+        public virtual string IssuerDocumentIdentificationCode { get => _issuerDocumentIdentificationCode; set { _issuerDocumentIdentificationCode = value; } }
+        private string _issuerDocumentIdentificationCode;
 
         [Key(7)]
-        public virtual string IssuerName  { get; set; }
+        public virtual string IssuerName { get => _issuerName; set { _issuerName = value; } }
+        private string _issuerName;
 
         // -------------------------------------------------------------
 
@@ -4124,7 +4163,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         [DomainSignature]
         [Key(1)]
-        public virtual string TelephoneNumber  { get; set; }
+        public virtual string TelephoneNumber { get => _telephoneNumber; set { _telephoneNumber = value; } }
+        private string _telephoneNumber;
 
         [DomainSignature]
         [Key(2)]
@@ -4177,13 +4217,16 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(3)]
-        public virtual bool? DoNotPublishIndicator  { get; set; }
+        public virtual bool? DoNotPublishIndicator { get => _doNotPublishIndicator; set { _doNotPublishIndicator = value; } }
+        private bool? _doNotPublishIndicator;
 
         [Key(4)]
-        public virtual int? OrderOfPriority  { get; set; }
+        public virtual int? OrderOfPriority { get => _orderOfPriority; set { _orderOfPriority = value; } }
+        private int? _orderOfPriority;
 
         [Key(5)]
-        public virtual bool? TextMessageCapabilityIndicator  { get; set; }
+        public virtual bool? TextMessageCapabilityIndicator { get => _textMessageCapabilityIndicator; set { _textMessageCapabilityIndicator = value; } }
+        private bool? _textMessageCapabilityIndicator;
 
         // -------------------------------------------------------------
 
@@ -4383,14 +4426,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -4412,14 +4456,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -4441,14 +4486,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -4470,14 +4516,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -4499,14 +4546,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -5547,7 +5595,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
         [DomainSignature]
         [Key(1)]
-        public virtual string MajorSpecialization  { get; set; }
+        public virtual string MajorSpecialization { get => _majorSpecialization; set { _majorSpecialization = value; } }
+        private string _majorSpecialization;
 
         // -------------------------------------------------------------
 
@@ -5580,7 +5629,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         private DateTime? _endDate;
 
         [Key(3)]
-        public virtual string MinorSpecialization  { get; set; }
+        public virtual string MinorSpecialization { get => _minorSpecialization; set { _minorSpecialization = value; } }
+        private string _minorSpecialization;
 
         // -------------------------------------------------------------
 
@@ -6562,7 +6612,8 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual bool? BoardCertificationIndicator  { get; set; }
+        public virtual bool? BoardCertificationIndicator { get => _boardCertificationIndicator; set { _boardCertificationIndicator = value; } }
+        private bool? _boardCertificationIndicator;
 
         [Key(3)]
         public virtual int? CertificationRouteDescriptorId 
@@ -6604,7 +6655,8 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         }
 
         [Key(4)]
-        public virtual string CertificationTitle  { get; set; }
+        public virtual string CertificationTitle { get => _certificationTitle; set { _certificationTitle = value; } }
+        private string _certificationTitle;
 
         [Key(5)]
         public virtual DateTime? CredentialStatusDate 
@@ -7184,14 +7236,15 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -7213,14 +7266,15 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -7242,14 +7296,15 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -7447,7 +7502,8 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
 
         [DomainSignature]
         [Key(8)]
-        public virtual string ProgramName  { get; set; }
+        public virtual string ProgramName { get => _programName; set { _programName = value; } }
+        private string _programName;
 
         [DomainSignature]
         [Key(9)]
@@ -7539,7 +7595,8 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         }
 
         [Key(11)]
-        public virtual string ProgramId  { get; set; }
+        public virtual string ProgramId { get => _programId; set { _programId = value; } }
+        private string _programId;
 
         // -------------------------------------------------------------
 
@@ -8539,14 +8596,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -8568,14 +8626,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -8597,14 +8656,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -8626,14 +8686,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -8655,14 +8716,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -8684,14 +8746,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -8713,14 +8776,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -8984,7 +9048,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
         [DomainSignature]
         [Key(9)]
-        public virtual string EvaluationTitle  { get; set; }
+        public virtual string EvaluationTitle { get => _evaluationTitle; set { _evaluationTitle = value; } }
+        private string _evaluationTitle;
 
         [DomainSignature]
         [Key(10)]
@@ -9151,7 +9216,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(14)]
-        public virtual string EvaluationDescription  { get; set; }
+        public virtual string EvaluationDescription { get => _evaluationDescription; set { _evaluationDescription = value; } }
+        private string _evaluationDescription;
 
         [Key(15)]
         public virtual int? EvaluationTypeDescriptorId 
@@ -9193,13 +9259,16 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         }
 
         [Key(16)]
-        public virtual int? InterRaterReliabilityScore  { get; set; }
+        public virtual int? InterRaterReliabilityScore { get => _interRaterReliabilityScore; set { _interRaterReliabilityScore = value; } }
+        private int? _interRaterReliabilityScore;
 
         [Key(17)]
-        public virtual decimal? MaxRating  { get; set; }
+        public virtual decimal? MaxRating { get => _maxRating; set { _maxRating = value; } }
+        private decimal? _maxRating;
 
         [Key(18)]
-        public virtual decimal? MinRating  { get; set; }
+        public virtual decimal? MinRating { get => _minRating; set { _minRating = value; } }
+        private decimal? _minRating;
 
         // -------------------------------------------------------------
 
@@ -9460,10 +9529,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual decimal? MaxRating  { get; set; }
+        public virtual decimal? MaxRating { get => _maxRating; set { _maxRating = value; } }
+        private decimal? _maxRating;
 
         [Key(3)]
-        public virtual decimal? MinRating  { get; set; }
+        public virtual decimal? MinRating { get => _minRating; set { _minRating = value; } }
+        private decimal? _minRating;
 
         // -------------------------------------------------------------
 
@@ -9669,14 +9740,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -9698,14 +9770,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -9727,14 +9800,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -9756,14 +9830,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -9785,14 +9860,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -9814,14 +9890,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -9843,14 +9920,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -9872,14 +9950,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -9901,14 +9980,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -10118,7 +10198,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
         [DomainSignature]
         [Key(8)]
-        public virtual string EvaluationElementTitle  { get; set; }
+        public virtual string EvaluationElementTitle { get => _evaluationElementTitle; set { _evaluationElementTitle = value; } }
+        private string _evaluationElementTitle;
 
         [DomainSignature]
         [Key(9)]
@@ -10420,13 +10501,16 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         }
 
         [Key(17)]
-        public virtual decimal? MaxRating  { get; set; }
+        public virtual decimal? MaxRating { get => _maxRating; set { _maxRating = value; } }
+        private decimal? _maxRating;
 
         [Key(18)]
-        public virtual decimal? MinRating  { get; set; }
+        public virtual decimal? MinRating { get => _minRating; set { _minRating = value; } }
+        private decimal? _minRating;
 
         [Key(19)]
-        public virtual int? SortOrder  { get; set; }
+        public virtual int? SortOrder { get => _sortOrder; set { _sortOrder = value; } }
+        private int? _sortOrder;
 
         // -------------------------------------------------------------
 
@@ -10689,10 +10773,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual decimal? MaxRating  { get; set; }
+        public virtual decimal? MaxRating { get => _maxRating; set { _maxRating = value; } }
+        private decimal? _maxRating;
 
         [Key(3)]
-        public virtual decimal? MinRating  { get; set; }
+        public virtual decimal? MinRating { get => _minRating; set { _minRating = value; } }
+        private decimal? _minRating;
 
         // -------------------------------------------------------------
 
@@ -10901,14 +10987,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -10930,14 +11017,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -10959,14 +11047,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -10988,14 +11077,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -11017,14 +11107,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -11046,14 +11137,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -11075,14 +11167,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -11104,14 +11197,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -11133,14 +11227,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -11162,14 +11257,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -11191,14 +11287,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -11220,14 +11317,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -11911,13 +12009,16 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(20)]
-        public virtual string AreaOfRefinement  { get; set; }
+        public virtual string AreaOfRefinement { get => _areaOfRefinement; set { _areaOfRefinement = value; } }
+        private string _areaOfRefinement;
 
         [Key(21)]
-        public virtual string AreaOfReinforcement  { get; set; }
+        public virtual string AreaOfReinforcement { get => _areaOfReinforcement; set { _areaOfReinforcement = value; } }
+        private string _areaOfReinforcement;
 
         [Key(22)]
-        public virtual string Comments  { get; set; }
+        public virtual string Comments { get => _comments; set { _comments = value; } }
+        private string _comments;
 
         [Key(23)]
         public virtual int? EvaluationElementRatingLevelDescriptorId 
@@ -11959,7 +12060,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         }
 
         [Key(24)]
-        public virtual string Feedback  { get; set; }
+        public virtual string Feedback { get => _feedback; set { _feedback = value; } }
+        private string _feedback;
 
         // -------------------------------------------------------------
 
@@ -12177,11 +12279,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
         [DomainSignature]
         [Key(1)]
-        public virtual decimal Rating  { get; set; }
+        public virtual decimal Rating { get => _rating; set { _rating = value; } }
+        private decimal _rating;
 
         [DomainSignature]
         [Key(2)]
-        public virtual string RatingResultTitle  { get; set; }
+        public virtual string RatingResultTitle { get => _ratingResultTitle; set { _ratingResultTitle = value; } }
+        private string _ratingResultTitle;
 
         // -------------------------------------------------------------
 
@@ -12619,14 +12723,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -12648,14 +12753,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -12677,14 +12783,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -12706,14 +12813,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -12735,14 +12843,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -12764,14 +12873,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -12793,14 +12903,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -12822,14 +12933,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13037,7 +13149,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
         [DomainSignature]
         [Key(8)]
-        public virtual string EvaluationObjectiveTitle  { get; set; }
+        public virtual string EvaluationObjectiveTitle { get => _evaluationObjectiveTitle; set { _evaluationObjectiveTitle = value; } }
+        private string _evaluationObjectiveTitle;
 
         [DomainSignature]
         [Key(9)]
@@ -13281,7 +13394,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(15)]
-        public virtual string EvaluationObjectiveDescription  { get; set; }
+        public virtual string EvaluationObjectiveDescription { get => _evaluationObjectiveDescription; set { _evaluationObjectiveDescription = value; } }
+        private string _evaluationObjectiveDescription;
 
         [Key(16)]
         public virtual int? EvaluationTypeDescriptorId 
@@ -13323,13 +13437,16 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         }
 
         [Key(17)]
-        public virtual decimal? MaxRating  { get; set; }
+        public virtual decimal? MaxRating { get => _maxRating; set { _maxRating = value; } }
+        private decimal? _maxRating;
 
         [Key(18)]
-        public virtual decimal? MinRating  { get; set; }
+        public virtual decimal? MinRating { get => _minRating; set { _minRating = value; } }
+        private decimal? _minRating;
 
         [Key(19)]
-        public virtual int? SortOrder  { get; set; }
+        public virtual int? SortOrder { get => _sortOrder; set { _sortOrder = value; } }
+        private int? _sortOrder;
 
         // -------------------------------------------------------------
 
@@ -13591,10 +13708,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual decimal? MaxRating  { get; set; }
+        public virtual decimal? MaxRating { get => _maxRating; set { _maxRating = value; } }
+        private decimal? _maxRating;
 
         [Key(3)]
-        public virtual decimal? MinRating  { get; set; }
+        public virtual decimal? MinRating { get => _minRating; set { _minRating = value; } }
+        private decimal? _minRating;
 
         // -------------------------------------------------------------
 
@@ -13802,14 +13921,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13831,14 +13951,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13860,14 +13981,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13889,14 +14011,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13918,14 +14041,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13947,14 +14071,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13976,14 +14101,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -14005,14 +14131,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -14034,14 +14161,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -14063,14 +14191,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -14092,14 +14221,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -14760,7 +14890,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(19)]
-        public virtual string Comments  { get; set; }
+        public virtual string Comments { get => _comments; set { _comments = value; } }
+        private string _comments;
 
         [Key(20)]
         public virtual int? ObjectiveRatingLevelDescriptorId 
@@ -15016,11 +15147,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
         [DomainSignature]
         [Key(1)]
-        public virtual decimal Rating  { get; set; }
+        public virtual decimal Rating { get => _rating; set { _rating = value; } }
+        private decimal _rating;
 
         [DomainSignature]
         [Key(2)]
-        public virtual string RatingResultTitle  { get; set; }
+        public virtual string RatingResultTitle { get => _ratingResultTitle; set { _ratingResultTitle = value; } }
+        private string _ratingResultTitle;
 
         // -------------------------------------------------------------
 
@@ -15460,14 +15593,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -15489,14 +15623,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -15518,14 +15653,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -15547,14 +15683,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -15576,14 +15713,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -15605,14 +15743,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -15634,14 +15773,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -15663,14 +15803,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -15692,14 +15833,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -15721,14 +15863,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -16840,11 +16983,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
         [DomainSignature]
         [Key(1)]
-        public virtual decimal Rating  { get; set; }
+        public virtual decimal Rating { get => _rating; set { _rating = value; } }
+        private decimal _rating;
 
         [DomainSignature]
         [Key(2)]
-        public virtual string RatingResultTitle  { get; set; }
+        public virtual string RatingResultTitle { get => _ratingResultTitle; set { _ratingResultTitle = value; } }
+        private string _ratingResultTitle;
 
         // -------------------------------------------------------------
 
@@ -17111,11 +17256,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
         [DomainSignature]
         [Key(2)]
-        public virtual string FirstName  { get; set; }
+        public virtual string FirstName { get => _firstName; set { _firstName = value; } }
+        private string _firstName;
 
         [DomainSignature]
         [Key(3)]
-        public virtual string LastSurname  { get; set; }
+        public virtual string LastSurname { get => _lastSurname; set { _lastSurname = value; } }
+        private string _lastSurname;
 
         // -------------------------------------------------------------
 
@@ -17433,7 +17580,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual int? InterRaterReliabilityScore  { get; set; }
+        public virtual int? InterRaterReliabilityScore { get => _interRaterReliabilityScore; set { _interRaterReliabilityScore = value; } }
+        private int? _interRaterReliabilityScore;
 
         [Key(2)]
         public virtual DateTime? ReceivedTrainingDate 
@@ -18198,14 +18346,15 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -18227,14 +18376,15 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -18256,14 +18406,15 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -18575,10 +18726,12 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(10)]
-        public virtual decimal? AidAmount  { get; set; }
+        public virtual decimal? AidAmount { get => _aidAmount; set { _aidAmount = value; } }
+        private decimal? _aidAmount;
 
         [Key(11)]
-        public virtual string AidConditionDescription  { get; set; }
+        public virtual string AidConditionDescription { get => _aidConditionDescription; set { _aidConditionDescription = value; } }
+        private string _aidConditionDescription;
 
         [Key(12)]
         public virtual DateTime? EndDate 
@@ -18601,7 +18754,8 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         private DateTime? _endDate;
 
         [Key(13)]
-        public virtual bool? PellGrantRecipient  { get; set; }
+        public virtual bool? PellGrantRecipient { get => _pellGrantRecipient; set { _pellGrantRecipient = value; } }
+        private bool? _pellGrantRecipient;
 
         // -------------------------------------------------------------
 
@@ -19163,14 +19317,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -19192,14 +19347,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -19221,14 +19377,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -19250,14 +19407,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -19279,14 +19437,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -19308,14 +19467,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -19605,7 +19765,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 
         [DomainSignature]
         [Key(10)]
-        public virtual string PerformanceEvaluationTitle  { get; set; }
+        public virtual string PerformanceEvaluationTitle { get => _performanceEvaluationTitle; set { _performanceEvaluationTitle = value; } }
+        private string _performanceEvaluationTitle;
 
         [DomainSignature]
         [Key(11)]
@@ -19756,7 +19917,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         }
 
         [Key(15)]
-        public virtual string PerformanceEvaluationDescription  { get; set; }
+        public virtual string PerformanceEvaluationDescription { get => _performanceEvaluationDescription; set { _performanceEvaluationDescription = value; } }
+        private string _performanceEvaluationDescription;
 
         // -------------------------------------------------------------
 
@@ -20272,10 +20434,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual decimal? MaxRating  { get; set; }
+        public virtual decimal? MaxRating { get => _maxRating; set { _maxRating = value; } }
+        private decimal? _maxRating;
 
         [Key(3)]
-        public virtual decimal? MinRating  { get; set; }
+        public virtual decimal? MinRating { get => _minRating; set { _minRating = value; } }
+        private decimal? _minRating;
 
         // -------------------------------------------------------------
 
@@ -20480,14 +20644,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -20509,14 +20674,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -20538,14 +20704,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -20567,14 +20734,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -20596,14 +20764,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -20625,14 +20794,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -20654,14 +20824,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -20683,14 +20854,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -21266,16 +21438,20 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         private DateTime _actualDate;
 
         [Key(17)]
-        public virtual int? ActualDuration  { get; set; }
+        public virtual int? ActualDuration { get => _actualDuration; set { _actualDuration = value; } }
+        private int? _actualDuration;
 
         [Key(18)]
-        public virtual TimeSpan? ActualTime  { get; set; }
+        public virtual TimeSpan? ActualTime { get => _actualTime; set { _actualTime = value; } }
+        private TimeSpan? _actualTime;
 
         [Key(19)]
-        public virtual bool? Announced  { get; set; }
+        public virtual bool? Announced { get => _announced; set { _announced = value; } }
+        private bool? _announced;
 
         [Key(20)]
-        public virtual string Comments  { get; set; }
+        public virtual string Comments { get => _comments; set { _comments = value; } }
+        private string _comments;
 
         [Key(21)]
         public virtual int? CoteachingStyleObservedDescriptorId 
@@ -21642,11 +21818,13 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
         [DomainSignature]
         [Key(1)]
-        public virtual decimal Rating  { get; set; }
+        public virtual decimal Rating { get => _rating; set { _rating = value; } }
+        private decimal _rating;
 
         [DomainSignature]
         [Key(2)]
-        public virtual string RatingResultTitle  { get; set; }
+        public virtual string RatingResultTitle { get => _ratingResultTitle; set { _ratingResultTitle = value; } }
+        private string _ratingResultTitle;
 
         // -------------------------------------------------------------
 
@@ -21913,11 +22091,13 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
         [DomainSignature]
         [Key(2)]
-        public virtual string FirstName  { get; set; }
+        public virtual string FirstName { get => _firstName; set { _firstName = value; } }
+        private string _firstName;
 
         [DomainSignature]
         [Key(3)]
-        public virtual string LastSurname  { get; set; }
+        public virtual string LastSurname { get => _lastSurname; set { _lastSurname = value; } }
+        private string _lastSurname;
 
         // -------------------------------------------------------------
 
@@ -22235,7 +22415,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual int? InterRaterReliabilityScore  { get; set; }
+        public virtual int? InterRaterReliabilityScore { get => _interRaterReliabilityScore; set { _interRaterReliabilityScore = value; } }
+        private int? _interRaterReliabilityScore;
 
         [Key(2)]
         public virtual DateTime? ReceivedTrainingDate 
@@ -22825,14 +23006,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -22854,14 +23036,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -22883,14 +23066,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -22912,14 +23096,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -22941,14 +23126,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -22970,14 +23156,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -22999,14 +23186,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -23028,14 +23216,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -23057,14 +23246,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -23086,14 +23276,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -23496,7 +23687,8 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
         [DomainSignature]
         [Key(14)]
-        public virtual int RubricRating  { get; set; }
+        public virtual int RubricRating { get => _rubricRating; set { _rubricRating = value; } }
+        private int _rubricRating;
 
         [DomainSignature]
         [Key(15)]
@@ -23586,10 +23778,12 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         [Key(17)]
-        public virtual string CriterionDescription  { get; set; }
+        public virtual string CriterionDescription { get => _criterionDescription; set { _criterionDescription = value; } }
+        private string _criterionDescription;
 
         [Key(18)]
-        public virtual int? DimensionOrder  { get; set; }
+        public virtual int? DimensionOrder { get => _dimensionOrder; set { _dimensionOrder = value; } }
+        private int? _dimensionOrder;
 
         [Key(19)]
         public virtual int? RubricRatingLevelDescriptorId 
@@ -24539,14 +24733,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -24568,14 +24763,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -24597,14 +24793,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -24626,14 +24823,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -24655,14 +24853,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -25243,14 +25442,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -25272,14 +25472,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -25301,14 +25502,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -25330,14 +25532,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -25359,14 +25562,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -25388,14 +25592,15 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }

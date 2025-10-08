@@ -93,9 +93,6 @@
     <property name="WeeklyMileage" column="WeeklyMileage" type="decimal" />
 
     <!-- Aggregate references -->
-    <many-to-one name="BusReferenceData" class="EdFi.Ods.Entities.NHibernate.BusAggregate.Sample.BusReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="BusId" />
-    </many-to-one>
     <many-to-one name="StaffEducationOrganizationAssignmentAssociationReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="BeginDate" />
       <column name="EducationOrganizationId" />

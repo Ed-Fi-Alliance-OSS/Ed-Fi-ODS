@@ -1341,24 +1341,27 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
 
                 if (sourceWithPrimaryKeyValues != null)
                 {
-                    var targetWithNewKeyValues = target as IHasCascadableKeyValues;
+                    var targetWithCascadableKeyValues = target as IHasCascadableKeyValues;
 
-                    if (targetWithNewKeyValues != null)
-                        targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                    if (targetWithCascadableKeyValues != null)
+                    {
+                        targetWithCascadableKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                        targetWithCascadableKeyValues.OriginalKeyValues = (target as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+                    }
                 }
 
-                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
-                if (source.SchoolName != target.SchoolName)
+                // Copy the transient source entity's PK values to the persistent target entity (to ensure reference data resolution related to key value changes)
+                if ((!keyStringComparer.Equals(target.SchoolName, source.SchoolName)))
                 {
-                    source.SchoolName = target.SchoolName;
+                    target.SchoolName = source.SchoolName;
                 }
-                if (source.StudentFirstName != target.StudentFirstName)
+                if ((!keyStringComparer.Equals(target.StudentFirstName, source.StudentFirstName)))
                 {
-                    source.StudentFirstName = target.StudentFirstName;
+                    target.StudentFirstName = source.StudentFirstName;
                 }
-                if (source.StudentLastSurname != target.StudentLastSurname)
+                if ((!keyStringComparer.Equals(target.StudentLastSurname, source.StudentLastSurname)))
                 {
-                    source.StudentLastSurname = target.StudentLastSurname;
+                    target.StudentLastSurname = source.StudentLastSurname;
                 }
             }
 

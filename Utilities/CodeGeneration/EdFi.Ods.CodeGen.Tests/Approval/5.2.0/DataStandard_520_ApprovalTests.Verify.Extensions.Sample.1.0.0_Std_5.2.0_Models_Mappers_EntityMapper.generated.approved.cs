@@ -452,11 +452,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
                 // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
-                if (target.BusResourceId == null)
-                {
-                    target.BusResourceId = null;
-                }
-                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
                 if (target.StaffEducationOrganizationAssignmentAssociationResourceId == null)
                 {
                     target.StaffEducationOrganizationAssignmentAssociationResourceId = null;
@@ -531,8 +526,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                 if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                     || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
                 {
-                target.BusResourceId = source.BusResourceId;
-                target.BusDiscriminator = source.BusDiscriminator;
                 target.StaffEducationOrganizationAssignmentAssociationResourceId = source.StaffEducationOrganizationAssignmentAssociationResourceId;
                 target.StaffEducationOrganizationAssignmentAssociationDiscriminator = source.StaffEducationOrganizationAssignmentAssociationDiscriminator;
                 }

@@ -172,8 +172,6 @@ namespace EdFi.Ods.Entities.Common.Sample
         ICollection<IBusRouteTelephone> BusRouteTelephones { get; set; }
 
         // Resource reference data
-        Guid? BusResourceId { get; set; }
-        string BusDiscriminator { get; set; }
         Guid? StaffEducationOrganizationAssignmentAssociationResourceId { get; set; }
         string StaffEducationOrganizationAssignmentAssociationDiscriminator { get; set; }
     }
@@ -186,7 +184,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     {
         public BusRouteMappingContract(
             bool isBeginDateSupported,
-            bool isBusReferenceSupported,
             bool isBusRouteBusYearsSupported,
             bool isBusRouteDirectionSupported,
             bool isBusRouteDurationSupported,
@@ -219,7 +216,6 @@ namespace EdFi.Ods.Entities.Common.Sample
             )
         {
             IsBeginDateSupported = isBeginDateSupported;
-            IsBusReferenceSupported = isBusReferenceSupported;
             IsBusRouteBusYearsSupported = isBusRouteBusYearsSupported;
             IsBusRouteDirectionSupported = isBusRouteDirectionSupported;
             IsBusRouteDurationSupported = isBusRouteDurationSupported;
@@ -252,7 +248,6 @@ namespace EdFi.Ods.Entities.Common.Sample
         }
 
         public bool IsBeginDateSupported { get; }
-        public bool IsBusReferenceSupported { get; }
         public bool IsBusRouteBusYearsSupported { get; }
         public bool IsBusRouteDirectionSupported { get; }
         public bool IsBusRouteDurationSupported { get; }
@@ -289,8 +284,6 @@ namespace EdFi.Ods.Entities.Common.Sample
             {
                 case "BeginDate":
                     return IsBeginDateSupported;
-                case "BusReference":
-                    return IsBusReferenceSupported;
                 case "BusRouteBusYears":
                     return IsBusRouteBusYearsSupported;
                 case "BusRouteDirection":
