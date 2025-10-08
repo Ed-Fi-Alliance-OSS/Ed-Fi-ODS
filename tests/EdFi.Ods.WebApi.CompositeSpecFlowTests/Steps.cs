@@ -425,7 +425,8 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             if (compositeName.Equals("StudentEducationOrganizationAssociationCollection", StringComparison.OrdinalIgnoreCase) ||
                 compositeName.Equals("StudentLinkedCollectionWithCollection", StringComparison.OrdinalIgnoreCase) ||
                 compositeName.Equals("StudentEducationOrganizationAssociationCollectionWithProperty", StringComparison.OrdinalIgnoreCase) ||
-                compositeName.Equals("BaseResourceCanContainNoProperty", StringComparison.OrdinalIgnoreCase))
+                compositeName.Equals("BaseResourceCanContainNoProperty", StringComparison.OrdinalIgnoreCase) ||
+                compositeName.Equals("StudentUnflattenedReferenceWithProperty", StringComparison.OrdinalIgnoreCase))
             {
                 var domainModelObject = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
 
