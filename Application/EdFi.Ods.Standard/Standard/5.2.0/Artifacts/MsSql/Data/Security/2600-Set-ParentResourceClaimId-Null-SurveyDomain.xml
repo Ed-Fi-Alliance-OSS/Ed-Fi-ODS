@@ -71,17 +71,6 @@
 					</Actions>
 				</ClaimSet>
 			</ClaimSets>
-			<Claims>
-				<Claim name="http://ed-fi.org/ods/identity/claims/survey" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/surveyQuestion" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/surveyQuestionResponse" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/surveyResponse" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/surveySection" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/surveySectionResponse" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/surveyResponsePersonTargetAssociation" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/surveySectionResponsePersonTargetAssociation" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/surveySectionAggregateResponse" />
-			</Claims>
 		</Claim>
 	</Claims>
 </SecurityMetadata>
