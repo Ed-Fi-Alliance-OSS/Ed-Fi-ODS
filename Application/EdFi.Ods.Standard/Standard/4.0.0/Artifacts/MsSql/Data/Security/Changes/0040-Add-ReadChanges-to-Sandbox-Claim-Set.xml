@@ -1,4 +1,4 @@
-<SecurityMetadata modifyHierarchy = 'true'>
+<SecurityMetadata>
   <Claims>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
       <DefaultAuthorization>
@@ -395,46 +395,6 @@
         <Action name="ReadChanges">
           <AuthorizationStrategies>
             <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
-          </AuthorizationStrategies>
-        </Action>
-      </DefaultAuthorization>
-      <ClaimSets>
-        <ClaimSet name="Ed-Fi Sandbox">
-          <Actions>
-            <Action name="Create" />
-            <Action name="Read" />
-            <Action name="Update" />
-            <Action name="Delete" />
-            <Action name="ReadChanges" />
-          </Actions>
-        </ClaimSet>
-      </ClaimSets>
-    </Claim>
-    <Claim name="http://ed-fi.org/ods/identity/claims/domains/surveyDomain">
-      <DefaultAuthorization>
-        <Action name="Create">
-          <AuthorizationStrategies>
-            <AuthorizationStrategy name="NamespaceBased" />
-          </AuthorizationStrategies>
-        </Action>
-        <Action name="Read">
-          <AuthorizationStrategies>
-            <AuthorizationStrategy name="NamespaceBased" />
-          </AuthorizationStrategies>
-        </Action>
-        <Action name="Update">
-          <AuthorizationStrategies>
-            <AuthorizationStrategy name="NamespaceBased" />
-          </AuthorizationStrategies>
-        </Action>
-        <Action name="Delete">
-          <AuthorizationStrategies>
-            <AuthorizationStrategy name="NamespaceBased" />
-          </AuthorizationStrategies>
-        </Action>
-        <Action name="ReadChanges">
-          <AuthorizationStrategies>
-            <AuthorizationStrategy name="NamespaceBased" />
           </AuthorizationStrategies>
         </Action>
       </DefaultAuthorization>
