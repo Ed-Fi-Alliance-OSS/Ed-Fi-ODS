@@ -387,7 +387,9 @@ namespace EdFi.Ods.CodeGen.Generators
                             p => new
                             {
                                 p.PropertyName,
-                                CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name)
+                                CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
+                                CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
+                                CSharpSafeFieldName = "_" + p.PropertyName.MakeSafeForCSharpClass(entity.Name).ToCamelCase(),
                             })
                     },
                     AlternateKeyProperties = entity.Name == "Descriptor" // Added only for equivalence to legacy templates
