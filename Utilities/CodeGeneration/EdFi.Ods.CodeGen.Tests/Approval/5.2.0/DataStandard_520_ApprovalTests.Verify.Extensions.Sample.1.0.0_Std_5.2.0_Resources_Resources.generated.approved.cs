@@ -752,6 +752,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         //                         References
         // -------------------------------------------------------------
 
+        private bool _busReferenceExplicitlyAssigned;
+        private Bus.Sample.BusReference _busReference;
+        private Bus.Sample.BusReference ImplicitBusReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_busReference == null && !_busReferenceExplicitlyAssigned)
+                    _busReference = new Bus.Sample.BusReference();
+
+                return _busReference;
+            }
+        }
+
+        [DataMember(Name="busReference")]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
+        public Bus.Sample.BusReference BusReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitBusReference != null
+                    && (_busReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitBusReference.IsReferenceFullyDefined()))
+                    return ImplicitBusReference;
+
+                return null;
+            }
+            set
+            {
+                _busReferenceExplicitlyAssigned = true;
+                _busReference = value;
+            }
+        }
         private bool _staffEducationOrganizationAssignmentAssociationReferenceExplicitlyAssigned;
         private StaffEducationOrganizationAssignmentAssociation.EdFi.StaffEducationOrganizationAssignmentAssociationReference _staffEducationOrganizationAssignmentAssociationReference;
         private StaffEducationOrganizationAssignmentAssociation.EdFi.StaffEducationOrganizationAssignmentAssociationReference ImplicitStaffEducationOrganizationAssignmentAssociationReference
@@ -792,13 +825,29 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The unique identifier for the bus assigned to the bus route.
+        /// The unique identifier for the bus.
         /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [RequiredWithNonDefault]
-        [NonDefaultStringLength(60, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
-        [DataMember(Name="busId")]
-        public string BusId { get; set; }
+        // IS in a reference, NOT a lookup column 
+        string Entities.Common.Sample.IBusRoute.BusId
+        {
+            get
+            {
+                if (ImplicitBusReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitBusReference.IsReferenceFullyDefined()))
+                    return ImplicitBusReference.BusId;
+
+                return default(string);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // Bus
+                _busReferenceExplicitlyAssigned = false;
+                ImplicitBusReference.BusId = value;
+            }
+        }
 
         /// <summary>
         /// A unique identifier for the bus route.
@@ -830,7 +879,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                 return false;
 
 
-            // Standard Property
+            // Referenced Property
             if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IBusRoute).BusId, compareTo.BusId))
                 return false;
 
@@ -853,9 +902,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         {
             var hash = new HashCode();
 
-            // Standard Property
-                hash.Add((this as Entities.Common.Sample.IBusRoute).BusId);
-
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IBusRoute).BusId);
 
             // Standard Property
                 hash.Add((this as Entities.Common.Sample.IBusRoute).BusRouteNumber);
@@ -1341,6 +1389,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
+        Guid? Entities.Common.Sample.IBusRoute.BusResourceId
+        {
+            get { return null; }
+            set { ImplicitBusReference.ResourceId = value ?? default(Guid); }
+        }
+
+        string Entities.Common.Sample.IBusRoute.BusDiscriminator
+        {
+            // Not supported for Resources
+            get { return null; }
+            set { ImplicitBusReference.Discriminator = value; }
+        }
+
+
         Guid? Entities.Common.Sample.IBusRoute.StaffEducationOrganizationAssignmentAssociationResourceId
         {
             get { return null; }
@@ -10508,6 +10570,231 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     public class StudentPetPreferencePutPostRequestValidator : FluentValidation.AbstractValidator<StudentPetPreference>
     {
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentPetPreference> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
+// Aggregate: StudentAcademicRecord
+
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extensions.Sample
+{
+    /// <summary>
+    /// A class which represents the sample.StudentAcademicRecordExtension table of the StudentAcademicRecord aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
+    public class StudentAcademicRecordExtension : Entities.Common.Sample.IStudentAcademicRecordExtension, IChildEntity
+    {
+        private static FullName _fullName = new FullName("sample", "StudentAcademicRecordExtension");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentAcademicRecordExtensionPutPostRequestValidator _validator = new StudentAcademicRecordExtensionPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IStudentAcademicRecord _studentAcademicRecord;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IStudentAcademicRecord Entities.Common.Sample.IStudentAcademicRecordExtension.StudentAcademicRecord
+        {
+            get { return _studentAcademicRecord; }
+            set { SetStudentAcademicRecord(value); }
+        }
+
+        public Entities.Common.EdFi.IStudentAcademicRecord StudentAcademicRecord
+        {
+            set { SetStudentAcademicRecord(value); }
+        }
+
+        private void SetStudentAcademicRecord(Entities.Common.EdFi.IStudentAcademicRecord value)
+        {
+            _studentAcademicRecord = value;
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.Sample.IStudentAcademicRecordExtension;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentAcademicRecord == null || !_studentAcademicRecord.Equals(compareTo.StudentAcademicRecord))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentAcademicRecord != null)
+                hash.Add(_studentAcademicRecord);
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Free-text field for contextual information
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [NonDefaultStringLength(280, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="notes")]
+        public string Notes { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.Sample.StudentAcademicRecordExtensionMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentAcademicRecordExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.Sample.StudentAcademicRecordExtensionMapper.MapTo(this, (Entities.Common.Sample.IStudentAcademicRecordExtension)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentAcademicRecord = (IStudentAcademicRecord)value;
+        }
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentAcademicRecordExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentAcademicRecordExtension>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentAcademicRecordExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
             {

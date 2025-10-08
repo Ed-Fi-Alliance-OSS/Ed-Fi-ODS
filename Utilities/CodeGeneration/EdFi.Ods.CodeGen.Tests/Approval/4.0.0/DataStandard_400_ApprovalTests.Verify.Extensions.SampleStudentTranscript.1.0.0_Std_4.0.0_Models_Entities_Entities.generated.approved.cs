@@ -467,14 +467,15 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -589,7 +590,8 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         // -------------------------------------------------------------
         [DomainSignature]
         [Key(6)]
-        public virtual string NameOfInstitution  { get; set; }
+        public virtual string NameOfInstitution { get => _nameOfInstitution; set { _nameOfInstitution = value; } }
+        private string _nameOfInstitution;
 
         // -------------------------------------------------------------
 
@@ -602,7 +604,8 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(7)]
-        public virtual bool AcceptanceIndicator  { get; set; }
+        public virtual bool AcceptanceIndicator { get => _acceptanceIndicator; set { _acceptanceIndicator = value; } }
+        private bool _acceptanceIndicator;
 
         [Key(8)]
         public virtual int InstitutionControlDescriptorId 

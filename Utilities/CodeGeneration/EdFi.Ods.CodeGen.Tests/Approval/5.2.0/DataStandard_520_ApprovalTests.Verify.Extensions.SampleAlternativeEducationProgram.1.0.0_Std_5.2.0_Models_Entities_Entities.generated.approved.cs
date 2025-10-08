@@ -238,19 +238,23 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         // -------------------------------------------------------------
         [DomainSignature]
         [IgnoreMember]
-        public override DateTime BeginDate  { get; set; }
+        public override DateTime BeginDate { get => _beginDate; set { _beginDate = value; } }
+        private DateTime _beginDate;
 
         [DomainSignature]
         [IgnoreMember]
-        public override long EducationOrganizationId  { get; set; }
+        public override long EducationOrganizationId { get => _educationOrganizationId; set { _educationOrganizationId = value; } }
+        private long _educationOrganizationId;
 
         [DomainSignature]
         [IgnoreMember]
-        public override long ProgramEducationOrganizationId  { get; set; }
+        public override long ProgramEducationOrganizationId { get => _programEducationOrganizationId; set { _programEducationOrganizationId = value; } }
+        private long _programEducationOrganizationId;
 
         [DomainSignature]
         [IgnoreMember]
-        public override string ProgramName  { get; set; }
+        public override string ProgramName { get => _programName; set { _programName = value; } }
+        private string _programName;
 
         [DomainSignature]
         [IgnoreMember]
@@ -616,11 +620,13 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
 
         [DomainSignature]
         [Key(1)]
-        public virtual TimeSpan EndTime  { get; set; }
+        public virtual TimeSpan EndTime { get => _endTime; set { _endTime = value; } }
+        private TimeSpan _endTime;
 
         [DomainSignature]
         [Key(2)]
-        public virtual TimeSpan StartTime  { get; set; }
+        public virtual TimeSpan StartTime { get => _startTime; set { _startTime = value; } }
+        private TimeSpan _startTime;
 
         // -------------------------------------------------------------
 
