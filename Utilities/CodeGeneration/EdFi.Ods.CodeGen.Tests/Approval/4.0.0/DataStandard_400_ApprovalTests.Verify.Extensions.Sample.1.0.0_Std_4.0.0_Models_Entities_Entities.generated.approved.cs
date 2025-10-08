@@ -763,65 +763,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        private NHibernate.BusAggregate.Sample.BusReferenceData _busReferenceData;
-
-        private bool BusReferenceDataIsProxied()
-        {
-            return _busReferenceData != null 
-                && _busReferenceData.GetType() != typeof(NHibernate.BusAggregate.Sample.BusReferenceData);
-        }
-
-        [IgnoreMember]
-        public virtual NHibernate.BusAggregate.Sample.BusReferenceData BusReferenceData
-        {
-            get => _busReferenceData;
-            set
-            {
-                _busReferenceData = value;
-
-                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
-                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
-                    && !BusReferenceDataIsProxied())
-                {
-                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
-                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
-                }
-            }
-        }
-
-        [Key(6)]
-        public virtual NHibernate.BusAggregate.Sample.BusReferenceData BusSerializedReferenceData { get => _busSerializedReferenceData; set { if (value != null) _busSerializedReferenceData = value; } }
-        private NHibernate.BusAggregate.Sample.BusReferenceData _busSerializedReferenceData;
-
-        /// <summary>
-        /// A read-only property implementation that allows the Bus discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IBusRoute.BusDiscriminator
-        {
-            get
-            {
-                return BusReferenceDataIsProxied()
-                    ? (BusSerializedReferenceData ?? BusReferenceData)?.Discriminator
-                    : (BusReferenceData ?? BusSerializedReferenceData)?.Discriminator;
-            }
-            set { }
-        }
-
-        /// <summary>
-        /// A property implementation whose getter allows the Bus resource identifier value to be mapped to the resource reference,
-        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
-        /// </summary>
-        Guid? Entities.Common.Sample.IBusRoute.BusResourceId
-        {
-            get
-            {
-                return BusReferenceDataIsProxied()
-                    ? (BusSerializedReferenceData ?? BusReferenceData)?.Id
-                    : (BusReferenceData ?? BusSerializedReferenceData)?.Id;
-            }
-            set { if (BusSerializedReferenceData?.IsFullyDefined() == true) BusSerializedReferenceData.Id = value; }
-        }
-
         private NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData _staffEducationOrganizationAssignmentAssociationReferenceData;
 
         private bool StaffEducationOrganizationAssignmentAssociationReferenceDataIsProxied()
@@ -848,7 +789,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             }
         }
 
-        [Key(7)]
+        [Key(6)]
         public virtual NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData StaffEducationOrganizationAssignmentAssociationSerializedReferenceData { get => _staffEducationOrganizationAssignmentAssociationSerializedReferenceData; set { if (value != null) _staffEducationOrganizationAssignmentAssociationSerializedReferenceData = value; } }
         private NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData _staffEducationOrganizationAssignmentAssociationSerializedReferenceData;
 
@@ -887,26 +828,12 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        [Key(8)]
-        public virtual string BusId 
-        {
-            get => _busId;
-            set
-            {
-                _busId = value;
-
-                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
-                {
-                    BusSerializedReferenceData ??= new NHibernate.BusAggregate.Sample.BusReferenceData(trackLookupContext: true);
-                    BusSerializedReferenceData.BusId = value;
-                }
-            }
-        }
-
+        [Key(7)]
+        public virtual string BusId { get => _busId; set { _busId = value; } }
         private string _busId;
 
         [DomainSignature]
-        [Key(9)]
+        [Key(8)]
         public virtual int BusRouteNumber { get => _busRouteNumber; set { _busRouteNumber = value; } }
         private int _busRouteNumber;
 
@@ -920,7 +847,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(10)]
+        [Key(9)]
         public virtual DateTime? BeginDate 
         {
             get { return _beginDate; }
@@ -946,19 +873,19 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private DateTime? _beginDate;
 
-        [Key(11)]
+        [Key(10)]
         public virtual string BusRouteDirection { get => _busRouteDirection; set { _busRouteDirection = value; } }
         private string _busRouteDirection;
 
-        [Key(12)]
+        [Key(11)]
         public virtual int? BusRouteDuration { get => _busRouteDuration; set { _busRouteDuration = value; } }
         private int? _busRouteDuration;
 
-        [Key(13)]
+        [Key(12)]
         public virtual bool? Daily { get => _daily; set { _daily = value; } }
         private bool? _daily;
 
-        [Key(14)]
+        [Key(13)]
         public virtual int? DisabilityDescriptorId 
         {
             get
@@ -997,7 +924,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             }
         }
 
-        [Key(15)]
+        [Key(14)]
         public virtual int? EducationOrganizationId 
         {
             get => _educationOrganizationId;
@@ -1015,23 +942,23 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private int? _educationOrganizationId;
 
-        [Key(16)]
+        [Key(15)]
         public virtual string ExpectedTransitTime { get => _expectedTransitTime; set { _expectedTransitTime = value; } }
         private string _expectedTransitTime;
 
-        [Key(17)]
+        [Key(16)]
         public virtual decimal HoursPerWeek { get => _hoursPerWeek; set { _hoursPerWeek = value; } }
         private decimal _hoursPerWeek;
 
-        [Key(18)]
+        [Key(17)]
         public virtual decimal OperatingCost { get => _operatingCost; set { _operatingCost = value; } }
         private decimal _operatingCost;
 
-        [Key(19)]
+        [Key(18)]
         public virtual decimal? OptimalCapacity { get => _optimalCapacity; set { _optimalCapacity = value; } }
         private decimal? _optimalCapacity;
 
-        [Key(20)]
+        [Key(19)]
         public virtual int? StaffClassificationDescriptorId 
         {
             get
@@ -1088,7 +1015,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             }
         }
 
-        [Key(21)]
+        [Key(20)]
         public virtual int? StaffUSI 
         {
             get
@@ -1165,7 +1092,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             }
         }
 
-        [Key(22)]
+        [Key(21)]
         public virtual DateTime? StartDate 
         {
             get { return _startDate; }
@@ -1185,7 +1112,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private DateTime? _startDate;
 
-        [Key(23)]
+        [Key(22)]
         public virtual decimal? WeeklyMileage { get => _weeklyMileage; set { _weeklyMileage = value; } }
         private decimal? _weeklyMileage;
 
@@ -1207,7 +1134,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear> _busRouteBusYears;
         private ICollection<Entities.Common.Sample.IBusRouteBusYear> _busRouteBusYearsCovariant;
-        [Key(24)]
+        [Key(23)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear>))]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear> BusRouteBusYears
         {
@@ -1261,7 +1188,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram> _busRoutePrograms;
         private ICollection<Entities.Common.Sample.IBusRouteProgram> _busRouteProgramsCovariant;
-        [Key(25)]
+        [Key(24)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram>))]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram> BusRoutePrograms
         {
@@ -1315,7 +1242,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodes;
         private ICollection<Entities.Common.Sample.IBusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodesCovariant;
-        [Key(26)]
+        [Key(25)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode>))]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode> BusRouteServiceAreaPostalCodes
         {
@@ -1369,7 +1296,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime> _busRouteStartTimes;
         private ICollection<Entities.Common.Sample.IBusRouteStartTime> _busRouteStartTimesCovariant;
-        [Key(27)]
+        [Key(26)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime>))]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime> BusRouteStartTimes
         {
@@ -1423,7 +1350,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteTelephone> _busRouteTelephones;
         private ICollection<Entities.Common.Sample.IBusRouteTelephone> _busRouteTelephonesCovariant;
-        [Key(28)]
+        [Key(27)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteTelephone>))]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteTelephone> BusRouteTelephones
         {
@@ -7980,172 +7907,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         }
 
         void IGetByExample.SuspendReferenceAssignmentCheck() { }
-    }
-}
-// Aggregate: StudentAcademicRecord
-
-namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.Sample
-{
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the sample.StudentAcademicRecordExtension table of the StudentAcademicRecord aggregate in the ODS database.
-    /// </summary>
-    [Schema("sample")]
-    [ExcludeFromCodeCoverage]
-    [MessagePackObject]
-    public class StudentAcademicRecordExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentAcademicRecordExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public StudentAcademicRecordExtension()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, IgnoreMember]
-        public virtual EdFi.StudentAcademicRecord StudentAcademicRecord { get; set; }
-
-        Entities.Common.EdFi.IStudentAcademicRecord IStudentAcademicRecordExtension.StudentAcademicRecord
-        {
-            get { return StudentAcademicRecord; }
-            set { StudentAcademicRecord = (EdFi.StudentAcademicRecord) value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [Key(1)]
-        public virtual string Notes { get => _notes; set { _notes = value; } }
-        private string _notes;
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (StudentAcademicRecord as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (entry.Value is string)
-                {
-                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                        return false;
-                }
-            }
-
-            return true;
-        }
-
-        public override int GetHashCode()
-        {
-            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            if (keyValues.Count == 0)
-                return base.GetHashCode();
-
-            var hashCode = new HashCode();
-
-            foreach (DictionaryEntry entry in keyValues)
-            {
-                if (entry.Value is string)
-                {
-                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
-                }
-                else
-                {
-                    hashCode.Add(entry.Value);
-                }
-            }
-
-            return hashCode.ToHashCode();
-        }
-        #endregion
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.Sample.IStudentAcademicRecordExtension)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.Sample.IStudentAcademicRecordExtension) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            StudentAcademicRecord = (EdFi.StudentAcademicRecord) value;
-        }
     }
 }
 // Aggregate: StudentArtProgramAssociation

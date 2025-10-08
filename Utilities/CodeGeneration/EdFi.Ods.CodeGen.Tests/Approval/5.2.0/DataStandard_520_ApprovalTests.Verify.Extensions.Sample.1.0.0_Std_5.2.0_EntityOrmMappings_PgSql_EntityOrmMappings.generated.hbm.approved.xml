@@ -93,9 +93,6 @@
     <property name="WeeklyMileage" column="WeeklyMileage" type="decimal" />
 
     <!-- Aggregate references -->
-    <many-to-one name="BusReferenceData" class="EdFi.Ods.Entities.NHibernate.BusAggregate.Sample.BusReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="BusId" />
-    </many-to-one>
     <many-to-one name="StaffEducationOrganizationAssignmentAssociationReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="BeginDate" />
       <column name="EducationOrganizationId" />
@@ -876,33 +873,6 @@
     <!-- Properties -->
     <property name="MaximumWeight" column="MaximumWeight" type="int" not-null="true" />
     <property name="MinimumWeight" column="MinimumWeight" type="int" not-null="true" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.Sample.StudentAcademicRecordExtension" table="StudentAcademicRecordExtension" lazy="false" schema="sample">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="StudentAcademicRecord">
-        <column name="EducationOrganizationId" />
-        <column name="SchoolYear" />
-        <column name="StudentUSI" />
-        <column name="TermDescriptorId" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="Notes" column="Notes" type="string" length="280" />
 
     <!-- Aggregate references -->
 
