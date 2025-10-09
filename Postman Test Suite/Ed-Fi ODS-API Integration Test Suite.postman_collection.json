@@ -8140,9 +8140,8 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"const __ = require('lodash');\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', __.random(10000));"
+											"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', pm.variables.replaceIn('{{$randomPassword}}'));"
 										],
 										"type": "text/javascript"
 									}
