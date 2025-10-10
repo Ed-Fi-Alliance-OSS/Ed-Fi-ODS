@@ -19489,6 +19489,53 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Create Course 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:course:id:2', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901001\r\n    },\r\n    \"courseCode\": \"TEST-02\",\r\n    \"courseTitle\": \"Test Course 2 Title\",\r\n    \"numberOfParts\": 1,\r\n    \"identificationCodes\": [\r\n      {\r\n        \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#LEA course code\",\r\n        \"courseCatalogURL\": \"http://www.GBISD.edu/coursecatalog\",\r\n        \"identificationCode\": \"TEST-02\"\r\n      }\r\n    ]\r\n  }\r\n  ",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -19541,18 +19588,990 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Get CourseOffering",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"const referencedCourseId = item.courseReference.link.href.split(\"/\").pop();\r",
+													"\r",
+													"pm.test(\"courseReference link references the referenced course\", () => {\r",
+													"  pm.expect(referencedCourseId).to.equal(pm.environment.get('known:course:id:1'));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"courseReference contains a relationship of 'Course'\", () => {\r",
+													"    pm.expect(item.courseReference.link.rel).to.equal(\"Course\");\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:courseReference:rel:1', item.courseReference.link.rel);\r",
+													"pm.environment.set('known:courseReference:href:1', item.courseReference.link.href);\r",
+													"pm.environment.set('known:courseReference:id:1', referencedCourseId);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update CourseOffering (Course TEST-02)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"courseReference\": {\r\n      \"courseCode\": \"TEST-02\",\r\n      \"educationOrganizationId\": 255901001\r\n    },\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"sessionReference\": {{known:sessionReference}},\r\n    \"localCourseCode\": \"TEST-LOCAL-01\"\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get CourseOffering",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"const referencedCourseId = item.courseReference.link.href.split(\"/\").pop();\r",
+													"\r",
+													"pm.test(\"courseReference link has changed\", () => {\r",
+													"  pm.expect(item.courseReference.link.href).to.not.equal(pm.environment.get('known:courseReference:href:1'));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"courseReference link references the newly referenced course\", () => {\r",
+													"  pm.expect(referencedCourseId).to.equal(pm.environment.get('known:course:id:2'));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"courseReference contains a relationship of 'Course'\", () => {\r",
+													"    pm.expect(item.courseReference.link.rel).to.equal(\"Course\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete CourseOffering",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id}}"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
 						{
 							"name": "Teardown",
-							"item": []
+							"item": [
+								{
+									"name": "Delete Course 1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id:1}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses",
+												"{{known:course:id:1}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Course 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id:2}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses",
+												"{{known:course:id:2}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();\r",
+													"\r",
+													"// Important: Prevent reintroduction of any authentication-related artifacts\r",
+													"pm.execution.skipRequest();"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
 				{
 					"name": "Identifying References (with key changes supported)",
-					"item": []
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Identify Session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.environment.set('known:session:sessionName', items[0].sessionName);\r",
+													"pm.environment.set('known:session:schoolYear', items[0].schoolYearTypeReference.schoolYear);\r",
+													"\r",
+													"const sessionReference = {\r",
+													"  schoolId: items[0].schoolReference.schoolId,\r",
+													"  schoolYear: items[0].schoolYearTypeReference.schoolYear,\r",
+													"  sessionName: items[0].sessionName\r",
+													"};\r",
+													"\r",
+													"pm.environment.set('known:sessionReference', JSON.stringify(sessionReference));\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions?limit=1&schoolId=255901001",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "1"
+												},
+												{
+													"key": "schoolId",
+													"value": "255901001"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Course 1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:course:id:1', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901001\r\n    },\r\n    \"courseCode\": \"TEST-01\",\r\n    \"courseTitle\": \"Test Course 1 Title\",\r\n    \"numberOfParts\": 1,\r\n    \"identificationCodes\": [\r\n      {\r\n        \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#LEA course code\",\r\n        \"courseCatalogURL\": \"http://www.GBISD.edu/coursecatalog\",\r\n        \"identificationCode\": \"TEST-01\"\r\n      }\r\n    ]\r\n  }\r\n  ",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Course 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:course:id:2', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901001\r\n    },\r\n    \"courseCode\": \"TEST-02\",\r\n    \"courseTitle\": \"Test Course 2 Title\",\r\n    \"numberOfParts\": 1,\r\n    \"identificationCodes\": [\r\n      {\r\n        \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#LEA course code\",\r\n        \"courseCatalogURL\": \"http://www.GBISD.edu/coursecatalog\",\r\n        \"identificationCode\": \"TEST-02\"\r\n      }\r\n    ]\r\n  }\r\n  ",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create CourseOffering (Course TEST-01)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:courseOffering:id:1', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"courseReference\": {\r\n      \"courseCode\": \"TEST-01\",\r\n      \"educationOrganizationId\": 255901001\r\n    },\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"sessionReference\": {{known:sessionReference}},\r\n    \"localCourseCode\": \"TEST-LOCAL-01\"\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create CourseOffering (Course TEST-02)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:courseOffering:id:2', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"courseReference\": {\r\n      \"courseCode\": \"TEST-02\",\r\n      \"educationOrganizationId\": 255901001\r\n    },\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"sessionReference\": {{known:sessionReference}},\r\n    \"localCourseCode\": \"TEST-LOCAL-02\"\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Section with CourseOffering reference",
+							"item": [
+								{
+									"name": "Create Section (CourseOffering 1)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:section:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"courseOfferingReference\": {\r\n      \"localCourseCode\": \"TEST-LOCAL-01\",\r\n      \"schoolId\": 255901001,\r\n      \"schoolYear\": {{known:session:schoolYear}},\r\n      \"sessionName\": \"{{known:session:sessionName}}\"\r\n    },\r\n    \"sectionIdentifier\": \"TEST-SECTION\"\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Section",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"const referencedCourseOfferingId = item.courseOfferingReference.link.href.split(\"/\").pop();\r",
+													"\r",
+													"pm.test(\"courseOfferingReference link references the referenced course offering\", () => {\r",
+													"  pm.expect(referencedCourseOfferingId).to.equal(pm.environment.get('known:courseOffering:id:1'));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"courseOfferingReference contains a relationship of 'CourseOffering'\", () => {\r",
+													"    pm.expect(item.courseOfferingReference.link.rel).to.equal(\"CourseOffering\");\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:courseOfferingReference:rel:1', item.courseOfferingReference.link.rel);\r",
+													"pm.environment.set('known:courseOfferingReference:href:1', item.courseOfferingReference.link.href);\r",
+													"pm.environment.set('known:courseOfferingReference:id:1', referencedCourseOfferingId);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Section (CourseOffering 2)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"courseOfferingReference\": {\r\n      \"localCourseCode\": \"TEST-LOCAL-02\",\r\n      \"schoolId\": 255901001,\r\n      \"schoolYear\": {{known:session:schoolYear}},\r\n      \"sessionName\": \"{{known:session:sessionName}}\"\r\n    },\r\n    \"sectionIdentifier\": \"TEST-SECTION\"\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Section",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"const referencedCourseOfferingId = item.courseOfferingReference.link.href.split(\"/\").pop();\r",
+													"\r",
+													"pm.test(\"courseOfferingReference link has changed\", () => {\r",
+													"  pm.expect(item.courseOfferingReference.link.href).to.not.equal(pm.environment.get('known:courseOfferingReference:href:1'));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"courseOfferingReference link references the newly referenced courseOffering\", () => {\r",
+													"  pm.expect(referencedCourseOfferingId).to.equal(pm.environment.get('known:courseOffering:id:2'));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"courseOfferingReference contains a relationship of 'CourseOffering'\", () => {\r",
+													"    pm.expect(item.courseOfferingReference.link.rel).to.equal(\"CourseOffering\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Section",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:section:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete CourseOffering 1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id:1}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id:1}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete CourseOffering 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id:2}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id:2}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Course 1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id:1}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses",
+												"{{known:course:id:1}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Course 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id:2}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses",
+												"{{known:course:id:2}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();\r",
+													"\r",
+													"// Important: Prevent reintroduction of any authentication-related artifacts\r",
+													"pm.execution.skipRequest();"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
 				}
 			]
 		},
