@@ -103,14 +103,15 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -132,14 +133,15 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -618,7 +620,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 
         [DomainSignature]
         [Key(1)]
-        public virtual string City  { get; set; }
+        public virtual string City { get => _city; set { _city = value; } }
+        private string _city;
 
         // -------------------------------------------------------------
 
@@ -1099,14 +1102,15 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -1128,14 +1132,15 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -1252,11 +1257,13 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
         // -------------------------------------------------------------
         [DomainSignature]
         [Key(6)]
-        public virtual string FirstName  { get; set; }
+        public virtual string FirstName { get => _firstName; set { _firstName = value; } }
+        private string _firstName;
 
         [DomainSignature]
         [Key(7)]
-        public virtual string LastSurname  { get; set; }
+        public virtual string LastSurname { get => _lastSurname; set { _lastSurname = value; } }
+        private string _lastSurname;
 
         // -------------------------------------------------------------
 
@@ -1457,14 +1464,15 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -1639,7 +1647,8 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // -------------------------------------------------------------
         [DomainSignature]
         [Key(7)]
-        public virtual string SchoolName  { get; set; }
+        public virtual string SchoolName { get => _schoolName; set { _schoolName = value; } }
+        private string _schoolName;
 
         // -------------------------------------------------------------
 
@@ -1890,7 +1899,8 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual string City  { get; set; }
+        public virtual string City { get => _city; set { _city = value; } }
+        private string _city;
 
         // -------------------------------------------------------------
 
@@ -2083,14 +2093,15 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -2205,7 +2216,8 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
         // -------------------------------------------------------------
         [DomainSignature]
         [Key(6)]
-        public virtual string SchoolYear  { get; set; }
+        public virtual string SchoolYear { get => _schoolYear; set { _schoolYear = value; } }
+        private string _schoolYear;
 
         // -------------------------------------------------------------
 
@@ -2406,14 +2418,15 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -2435,14 +2448,15 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -2921,7 +2935,8 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
         [DomainSignature]
         [Key(1)]
-        public virtual string City  { get; set; }
+        public virtual string City { get => _city; set { _city = value; } }
+        private string _city;
 
         // -------------------------------------------------------------
 
@@ -3402,14 +3417,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -3431,14 +3447,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -3951,7 +3968,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
         [DomainSignature]
         [Key(1)]
-        public virtual string City  { get; set; }
+        public virtual string City { get => _city; set { _city = value; } }
+        private string _city;
 
         // -------------------------------------------------------------
 
@@ -4157,14 +4175,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -4186,14 +4205,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -4215,14 +4235,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -4565,11 +4586,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
             return keyValues;
         }
 
-        /// <summary>
-        /// Gets or sets the <see cref="OrderedDictionary"/> capturing the new key values that have
-        /// not been modified directly on the entity.
-        /// </summary>
         OrderedDictionary IHasCascadableKeyValues.NewKeyValues { get; set; }
+        OrderedDictionary IHasCascadableKeyValues.OriginalKeyValues { get => _originalKeyValues; set { _originalKeyValues = value; } }
+
+        private OrderedDictionary _originalKeyValues;
+
+        void IHasCascadableKeyValues.RestoreOriginalKeyValues()
+        {
+            // Restore original key values to prevent NHibernate from processing the key change (see EdFiOdsPostUpdateEventListener)
+            _schoolName = (string) _originalKeyValues["SchoolName"];
+            _studentFirstName = (string) _originalKeyValues["StudentFirstName"];
+            _studentLastSurname = (string) _originalKeyValues["StudentLastSurname"];
+        }
 
         #region Overrides for Equals() and GetHashCode()
         public override bool Equals(object obj)

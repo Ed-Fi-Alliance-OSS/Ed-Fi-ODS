@@ -59,17 +59,20 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
 
                 if (sourceWithPrimaryKeyValues != null)
                 {
-                    var targetWithNewKeyValues = target as IHasCascadableKeyValues;
+                    var targetWithCascadableKeyValues = target as IHasCascadableKeyValues;
 
-                    if (targetWithNewKeyValues != null)
-                        targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                    if (targetWithCascadableKeyValues != null)
+                    {
+                        targetWithCascadableKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                        targetWithCascadableKeyValues.OriginalKeyValues = (target as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+                    }
                 }
 
-                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
+                // Copy the transient source entity's PK values to the persistent target entity (to ensure reference data resolution related to key value changes)
                     {{#BackSynchedPrimaryKeyList}}
-                if (source.{{CSharpSafePrimaryKeyName}} != target.{{CSharpSafePrimaryKeyName}})
+                if ({{#IsDescriptorUsage}}!string.Equals(target.{{PrimaryKeyName}}, source.{{PrimaryKeyName}}, StringComparison.OrdinalIgnoreCase){{/IsDescriptorUsage}}{{#IsString}}(!keyStringComparer.Equals(target.{{PrimaryKeyName}}, source.{{PrimaryKeyName}})){{/IsString}}{{^IsString}}{{^IsDescriptorUsage}}(target.{{PrimaryKeyName}} != source.{{PrimaryKeyName}}){{/IsDescriptorUsage}}{{/IsString}})
                 {
-                    source.{{CSharpSafePrimaryKeyName}} = target.{{CSharpSafePrimaryKeyName}};
+                    target.{{PrimaryKeyName}} = source.{{PrimaryKeyName}};
                 }
                     {{/BackSynchedPrimaryKeyList}}
                 {{/AllowPrimaryKeyUpdates}}

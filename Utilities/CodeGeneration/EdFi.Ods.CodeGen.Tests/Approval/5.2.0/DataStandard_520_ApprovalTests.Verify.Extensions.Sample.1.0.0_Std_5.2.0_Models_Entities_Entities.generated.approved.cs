@@ -285,14 +285,15 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -407,7 +408,8 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
         // -------------------------------------------------------------
         [DomainSignature]
         [Key(6)]
-        public virtual string BusId  { get; set; }
+        public virtual string BusId { get => _busId; set { _busId = value; } }
+        private string _busId;
 
         // -------------------------------------------------------------
 
@@ -608,14 +610,15 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -637,14 +640,15 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -903,7 +907,8 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         [DomainSignature]
         [Key(9)]
-        public virtual int BusRouteNumber  { get; set; }
+        public virtual int BusRouteNumber { get => _busRouteNumber; set { _busRouteNumber = value; } }
+        private int _busRouteNumber;
 
         // -------------------------------------------------------------
 
@@ -942,13 +947,16 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         private DateTime? _beginDate;
 
         [Key(11)]
-        public virtual string BusRouteDirection  { get; set; }
+        public virtual string BusRouteDirection { get => _busRouteDirection; set { _busRouteDirection = value; } }
+        private string _busRouteDirection;
 
         [Key(12)]
-        public virtual int? BusRouteDuration  { get; set; }
+        public virtual int? BusRouteDuration { get => _busRouteDuration; set { _busRouteDuration = value; } }
+        private int? _busRouteDuration;
 
         [Key(13)]
-        public virtual bool? Daily  { get; set; }
+        public virtual bool? Daily { get => _daily; set { _daily = value; } }
+        private bool? _daily;
 
         [Key(14)]
         public virtual int? DisabilityDescriptorId 
@@ -1008,16 +1016,20 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         private long? _educationOrganizationId;
 
         [Key(16)]
-        public virtual string ExpectedTransitTime  { get; set; }
+        public virtual string ExpectedTransitTime { get => _expectedTransitTime; set { _expectedTransitTime = value; } }
+        private string _expectedTransitTime;
 
         [Key(17)]
-        public virtual decimal HoursPerWeek  { get; set; }
+        public virtual decimal HoursPerWeek { get => _hoursPerWeek; set { _hoursPerWeek = value; } }
+        private decimal _hoursPerWeek;
 
         [Key(18)]
-        public virtual decimal OperatingCost  { get; set; }
+        public virtual decimal OperatingCost { get => _operatingCost; set { _operatingCost = value; } }
+        private decimal _operatingCost;
 
         [Key(19)]
-        public virtual decimal? OptimalCapacity  { get; set; }
+        public virtual decimal? OptimalCapacity { get => _optimalCapacity; set { _optimalCapacity = value; } }
+        private decimal? _optimalCapacity;
 
         [Key(20)]
         public virtual int? StaffClassificationDescriptorId 
@@ -1174,7 +1186,8 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         private DateTime? _startDate;
 
         [Key(23)]
-        public virtual decimal? WeeklyMileage  { get; set; }
+        public virtual decimal? WeeklyMileage { get => _weeklyMileage; set { _weeklyMileage = value; } }
+        private decimal? _weeklyMileage;
 
         // -------------------------------------------------------------
 
@@ -1595,7 +1608,8 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual short BusYear  { get; set; }
+        public virtual short BusYear { get => _busYear; set { _busYear = value; } }
+        private short _busYear;
 
         // -------------------------------------------------------------
 
@@ -2073,7 +2087,8 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual string ServiceAreaPostalCode  { get; set; }
+        public virtual string ServiceAreaPostalCode { get => _serviceAreaPostalCode; set { _serviceAreaPostalCode = value; } }
+        private string _serviceAreaPostalCode;
 
         // -------------------------------------------------------------
 
@@ -2235,7 +2250,8 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual TimeSpan StartTime  { get; set; }
+        public virtual TimeSpan StartTime { get => _startTime; set { _startTime = value; } }
+        private TimeSpan _startTime;
 
         // -------------------------------------------------------------
 
@@ -2397,7 +2413,8 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual string TelephoneNumber  { get; set; }
+        public virtual string TelephoneNumber { get => _telephoneNumber; set { _telephoneNumber = value; } }
+        private string _telephoneNumber;
 
         [DomainSignature]
         [Key(2)]
@@ -2450,13 +2467,16 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(3)]
-        public virtual bool? DoNotPublishIndicator  { get; set; }
+        public virtual bool? DoNotPublishIndicator { get => _doNotPublishIndicator; set { _doNotPublishIndicator = value; } }
+        private bool? _doNotPublishIndicator;
 
         [Key(4)]
-        public virtual int? OrderOfPriority  { get; set; }
+        public virtual int? OrderOfPriority { get => _orderOfPriority; set { _orderOfPriority = value; } }
+        private int? _orderOfPriority;
 
         [Key(5)]
-        public virtual bool? TextMessageCapabilityIndicator  { get; set; }
+        public virtual bool? TextMessageCapabilityIndicator { get => _textMessageCapabilityIndicator; set { _textMessageCapabilityIndicator = value; } }
+        private bool? _textMessageCapabilityIndicator;
 
         // -------------------------------------------------------------
 
@@ -2615,7 +2635,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual string SchoolDistrict  { get; set; }
+        public virtual string SchoolDistrict { get => _schoolDistrict; set { _schoolDistrict = value; } }
+        private string _schoolDistrict;
 
         // -------------------------------------------------------------
 
@@ -2980,7 +3001,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual string Author  { get; set; }
+        public virtual string Author { get => _author; set { _author = value; } }
+        private string _author;
 
         // -------------------------------------------------------------
 
@@ -3142,7 +3164,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual decimal CeilingHeight  { get; set; }
+        public virtual decimal CeilingHeight { get => _ceilingHeight; set { _ceilingHeight = value; } }
+        private decimal _ceilingHeight;
 
         // -------------------------------------------------------------
 
@@ -3313,7 +3336,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual string CIPCode  { get; set; }
+        public virtual string CIPCode { get => _cipCode; set { _cipCode = value; } }
+        private string _cipCode;
 
         [Key(2)]
         public virtual int CTEProgramServiceDescriptorId 
@@ -3355,7 +3379,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         }
 
         [Key(3)]
-        public virtual bool? PrimaryIndicator  { get; set; }
+        public virtual bool? PrimaryIndicator { get => _primaryIndicator; set { _primaryIndicator = value; } }
+        private bool? _primaryIndicator;
 
         [Key(4)]
         public virtual DateTime? ServiceBeginDate 
@@ -3783,7 +3808,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual string FavoriteBookTitle  { get; set; }
+        public virtual string FavoriteBookTitle { get => _favoriteBookTitle; set { _favoriteBookTitle = value; } }
+        private string _favoriteBookTitle;
 
         // -------------------------------------------------------------
 
@@ -4372,13 +4398,16 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual string DayOfWeek  { get; set; }
+        public virtual string DayOfWeek { get => _dayOfWeek; set { _dayOfWeek = value; } }
+        private string _dayOfWeek;
 
         [Key(2)]
-        public virtual TimeSpan EndTime  { get; set; }
+        public virtual TimeSpan EndTime { get => _endTime; set { _endTime = value; } }
+        private TimeSpan _endTime;
 
         [Key(3)]
-        public virtual TimeSpan StartTime  { get; set; }
+        public virtual TimeSpan StartTime { get => _startTime; set { _startTime = value; } }
+        private TimeSpan _startTime;
 
         // -------------------------------------------------------------
 
@@ -4538,13 +4567,16 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual string AverageCarLineWait  { get; set; }
+        public virtual string AverageCarLineWait { get => _averageCarLineWait; set { _averageCarLineWait = value; } }
+        private string _averageCarLineWait;
 
         [Key(2)]
-        public virtual short? BecameParent  { get; set; }
+        public virtual short? BecameParent { get => _becameParent; set { _becameParent = value; } }
+        private short? _becameParent;
 
         [Key(3)]
-        public virtual decimal? CoffeeSpend  { get; set; }
+        public virtual decimal? CoffeeSpend { get => _coffeeSpend; set { _coffeeSpend = value; } }
+        private decimal? _coffeeSpend;
 
         [Key(4)]
         public virtual int? CredentialFieldDescriptorId 
@@ -4586,10 +4618,12 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         }
 
         [Key(5)]
-        public virtual int? Duration  { get; set; }
+        public virtual int? Duration { get => _duration; set { _duration = value; } }
+        private int? _duration;
 
         [Key(6)]
-        public virtual decimal? GPA  { get; set; }
+        public virtual decimal? GPA { get => _gpa; set { _gpa = value; } }
+        private decimal? _gpa;
 
         [Key(7)]
         public virtual DateTime? GraduationDate 
@@ -4612,16 +4646,20 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         private DateTime? _graduationDate;
 
         [Key(8)]
-        public virtual bool IsSportsFan  { get; set; }
+        public virtual bool IsSportsFan { get => _isSportsFan; set { _isSportsFan = value; } }
+        private bool _isSportsFan;
 
         [Key(9)]
-        public virtual int? LuckyNumber  { get; set; }
+        public virtual int? LuckyNumber { get => _luckyNumber; set { _luckyNumber = value; } }
+        private int? _luckyNumber;
 
         [Key(10)]
-        public virtual TimeSpan? PreferredWakeUpTime  { get; set; }
+        public virtual TimeSpan? PreferredWakeUpTime { get => _preferredWakeUpTime; set { _preferredWakeUpTime = value; } }
+        private TimeSpan? _preferredWakeUpTime;
 
         [Key(11)]
-        public virtual decimal? RainCertainty  { get; set; }
+        public virtual decimal? RainCertainty { get => _rainCertainty; set { _rainCertainty = value; } }
+        private decimal? _rainCertainty;
 
         // -------------------------------------------------------------
 
@@ -4984,10 +5022,12 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual string Complex  { get; set; }
+        public virtual string Complex { get => _complex; set { _complex = value; } }
+        private string _complex;
 
         [Key(2)]
-        public virtual bool OnBusRoute  { get; set; }
+        public virtual bool OnBusRoute { get => _onBusRoute; set { _onBusRoute = value; } }
+        private bool _onBusRoute;
 
         // -------------------------------------------------------------
 
@@ -5568,7 +5608,8 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual string CIPCode  { get; set; }
+        public virtual string CIPCode { get => _cipCode; set { _cipCode = value; } }
+        private string _cipCode;
 
         [Key(2)]
         public virtual int CTEProgramServiceDescriptorId 
@@ -5610,7 +5651,8 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         }
 
         [Key(3)]
-        public virtual bool? PrimaryIndicator  { get; set; }
+        public virtual bool? PrimaryIndicator { get => _primaryIndicator; set { _primaryIndicator = value; } }
+        private bool? _primaryIndicator;
 
         [Key(4)]
         public virtual DateTime? ServiceBeginDate 
@@ -6047,7 +6089,8 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual bool? IsExemplary  { get; set; }
+        public virtual bool? IsExemplary { get => _isExemplary; set { _isExemplary = value; } }
+        private bool? _isExemplary;
 
         // -------------------------------------------------------------
 
@@ -6265,7 +6308,8 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual string PetName  { get; set; }
+        public virtual string PetName { get => _petName; set { _petName = value; } }
+        private string _petName;
 
         // -------------------------------------------------------------
 
@@ -6278,7 +6322,8 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual bool? IsFixed  { get; set; }
+        public virtual bool? IsFixed { get => _isFixed; set { _isFixed = value; } }
+        private bool? _isFixed;
 
         // -------------------------------------------------------------
 
@@ -6439,10 +6484,12 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual int MaximumWeight  { get; set; }
+        public virtual int MaximumWeight { get => _maximumWeight; set { _maximumWeight = value; } }
+        private int _maximumWeight;
 
         [Key(2)]
-        public virtual int MinimumWeight  { get; set; }
+        public virtual int MinimumWeight { get => _minimumWeight; set { _minimumWeight = value; } }
+        private int _minimumWeight;
 
         // -------------------------------------------------------------
 
@@ -6837,11 +6884,13 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual int MimimumTankVolume  { get; set; }
+        public virtual int MimimumTankVolume { get => _mimimumTankVolume; set { _mimimumTankVolume = value; } }
+        private int _mimimumTankVolume;
 
         [DomainSignature]
         [Key(2)]
-        public virtual string PetName  { get; set; }
+        public virtual string PetName { get => _petName; set { _petName = value; } }
+        private string _petName;
 
         // -------------------------------------------------------------
 
@@ -6854,7 +6903,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(3)]
-        public virtual bool? IsFixed  { get; set; }
+        public virtual bool? IsFixed { get => _isFixed; set { _isFixed = value; } }
+        private bool? _isFixed;
 
         // -------------------------------------------------------------
 
@@ -7057,7 +7107,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual string BookTitle  { get; set; }
+        public virtual string BookTitle { get => _bookTitle; set { _bookTitle = value; } }
+        private string _bookTitle;
 
         // -------------------------------------------------------------
 
@@ -7313,7 +7364,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual int? ArtPieces  { get; set; }
+        public virtual int? ArtPieces { get => _artPieces; set { _artPieces = value; } }
+        private int? _artPieces;
 
         // -------------------------------------------------------------
 
@@ -7467,7 +7519,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual string PetName  { get; set; }
+        public virtual string PetName { get => _petName; set { _petName = value; } }
+        private string _petName;
 
         // -------------------------------------------------------------
 
@@ -7480,7 +7533,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual bool? IsFixed  { get; set; }
+        public virtual bool? IsFixed { get => _isFixed; set { _isFixed = value; } }
+        private bool? _isFixed;
 
         // -------------------------------------------------------------
 
@@ -7641,10 +7695,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual int MaximumWeight  { get; set; }
+        public virtual int MaximumWeight { get => _maximumWeight; set { _maximumWeight = value; } }
+        private int _maximumWeight;
 
         [Key(2)]
-        public virtual int MinimumWeight  { get; set; }
+        public virtual int MinimumWeight { get => _minimumWeight; set { _minimumWeight = value; } }
+        private int _minimumWeight;
 
         // -------------------------------------------------------------
 
@@ -7963,19 +8019,23 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // -------------------------------------------------------------
         [DomainSignature]
         [IgnoreMember]
-        public override DateTime BeginDate  { get; set; }
+        public override DateTime BeginDate { get => _beginDate; set { _beginDate = value; } }
+        private DateTime _beginDate;
 
         [DomainSignature]
         [IgnoreMember]
-        public override long EducationOrganizationId  { get; set; }
+        public override long EducationOrganizationId { get => _educationOrganizationId; set { _educationOrganizationId = value; } }
+        private long _educationOrganizationId;
 
         [DomainSignature]
         [IgnoreMember]
-        public override long ProgramEducationOrganizationId  { get; set; }
+        public override long ProgramEducationOrganizationId { get => _programEducationOrganizationId; set { _programEducationOrganizationId = value; } }
+        private long _programEducationOrganizationId;
 
         [DomainSignature]
         [IgnoreMember]
-        public override string ProgramName  { get; set; }
+        public override string ProgramName { get => _programName; set { _programName = value; } }
+        private string _programName;
 
         [DomainSignature]
         [IgnoreMember]
@@ -8095,7 +8155,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         //                          Properties
         // -------------------------------------------------------------
         [Key(19)]
-        public virtual int? ArtPieces  { get; set; }
+        public virtual int? ArtPieces { get => _artPieces; set { _artPieces = value; } }
+        private int? _artPieces;
 
         [Key(20)]
         public virtual DateTime? ExhibitDate 
@@ -8118,31 +8179,40 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         private DateTime? _exhibitDate;
 
         [Key(21)]
-        public virtual decimal? HoursPerDay  { get; set; }
+        public virtual decimal? HoursPerDay { get => _hoursPerDay; set { _hoursPerDay = value; } }
+        private decimal? _hoursPerDay;
 
         [Key(22)]
-        public virtual string IdentificationCode  { get; set; }
+        public virtual string IdentificationCode { get => _identificationCode; set { _identificationCode = value; } }
+        private string _identificationCode;
 
         [Key(23)]
-        public virtual TimeSpan? KilnReservation  { get; set; }
+        public virtual TimeSpan? KilnReservation { get => _kilnReservation; set { _kilnReservation = value; } }
+        private TimeSpan? _kilnReservation;
 
         [Key(24)]
-        public virtual string KilnReservationLength  { get; set; }
+        public virtual string KilnReservationLength { get => _kilnReservationLength; set { _kilnReservationLength = value; } }
+        private string _kilnReservationLength;
 
         [Key(25)]
-        public virtual decimal? MasteredMediums  { get; set; }
+        public virtual decimal? MasteredMediums { get => _masteredMediums; set { _masteredMediums = value; } }
+        private decimal? _masteredMediums;
 
         [Key(26)]
-        public virtual decimal? NumberOfDaysInAttendance  { get; set; }
+        public virtual decimal? NumberOfDaysInAttendance { get => _numberOfDaysInAttendance; set { _numberOfDaysInAttendance = value; } }
+        private decimal? _numberOfDaysInAttendance;
 
         [Key(27)]
-        public virtual int? PortfolioPieces  { get; set; }
+        public virtual int? PortfolioPieces { get => _portfolioPieces; set { _portfolioPieces = value; } }
+        private int? _portfolioPieces;
 
         [Key(28)]
-        public virtual bool PrivateArtProgram  { get; set; }
+        public virtual bool PrivateArtProgram { get => _privateArtProgram; set { _privateArtProgram = value; } }
+        private bool _privateArtProgram;
 
         [Key(29)]
-        public virtual decimal? ProgramFees  { get; set; }
+        public virtual decimal? ProgramFees { get => _programFees; set { _programFees = value; } }
+        private decimal? _programFees;
 
         // -------------------------------------------------------------
 
@@ -8789,7 +8859,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual string BookTitle  { get; set; }
+        public virtual string BookTitle { get => _bookTitle; set { _bookTitle = value; } }
+        private string _bookTitle;
 
         [Key(2)]
         public virtual int FavoriteBookCategoryDescriptorId 
@@ -9084,7 +9155,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual int? ArtPieces  { get; set; }
+        public virtual int? ArtPieces { get => _artPieces; set { _artPieces = value; } }
+        private int? _artPieces;
 
         // -------------------------------------------------------------
 
@@ -9238,7 +9310,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         [DomainSignature]
         [Key(1)]
-        public virtual short PortfolioYears  { get; set; }
+        public virtual short PortfolioYears { get => _portfolioYears; set { _portfolioYears = value; } }
+        private short _portfolioYears;
 
         // -------------------------------------------------------------
 
@@ -9450,7 +9523,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual bool? PrimaryIndicator  { get; set; }
+        public virtual bool? PrimaryIndicator { get => _primaryIndicator; set { _primaryIndicator = value; } }
+        private bool? _primaryIndicator;
 
         [Key(3)]
         public virtual DateTime? ServiceBeginDate 
@@ -9644,7 +9718,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         [DomainSignature]
         [Key(1)]
-        public virtual string Style  { get; set; }
+        public virtual string Style { get => _style; set { _style = value; } }
+        private string _style;
 
         // -------------------------------------------------------------
 
@@ -10011,7 +10086,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual string FavoriteBookTitle  { get; set; }
+        public virtual string FavoriteBookTitle { get => _favoriteBookTitle; set { _favoriteBookTitle = value; } }
+        private string _favoriteBookTitle;
 
         // -------------------------------------------------------------
 
@@ -10173,7 +10249,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual decimal HoursPerWeek  { get; set; }
+        public virtual decimal HoursPerWeek { get => _hoursPerWeek; set { _hoursPerWeek = value; } }
+        private decimal _hoursPerWeek;
 
         // -------------------------------------------------------------
 
@@ -10335,7 +10412,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual decimal PagesRead  { get; set; }
+        public virtual decimal PagesRead { get => _pagesRead; set { _pagesRead = value; } }
+        private decimal _pagesRead;
 
         // -------------------------------------------------------------
 
@@ -10898,13 +10976,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual bool? DoNotPublishIndicator  { get; set; }
+        public virtual bool? DoNotPublishIndicator { get => _doNotPublishIndicator; set { _doNotPublishIndicator = value; } }
+        private bool? _doNotPublishIndicator;
 
         [Key(2)]
-        public virtual int? OrderOfPriority  { get; set; }
+        public virtual int? OrderOfPriority { get => _orderOfPriority; set { _orderOfPriority = value; } }
+        private int? _orderOfPriority;
 
         [Key(3)]
-        public virtual string TelephoneNumber  { get; set; }
+        public virtual string TelephoneNumber { get => _telephoneNumber; set { _telephoneNumber = value; } }
+        private string _telephoneNumber;
 
         [Key(4)]
         public virtual int TelephoneNumberTypeDescriptorId 
@@ -10946,7 +11027,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         }
 
         [Key(5)]
-        public virtual bool? TextMessageCapabilityIndicator  { get; set; }
+        public virtual bool? TextMessageCapabilityIndicator { get => _textMessageCapabilityIndicator; set { _textMessageCapabilityIndicator = value; } }
+        private bool? _textMessageCapabilityIndicator;
 
         // -------------------------------------------------------------
 
@@ -11166,16 +11248,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(2)]
-        public virtual bool BedtimeReader  { get; set; }
+        public virtual bool BedtimeReader { get => _bedtimeReader; set { _bedtimeReader = value; } }
+        private bool _bedtimeReader;
 
         [Key(3)]
-        public virtual decimal? BedtimeReadingRate  { get; set; }
+        public virtual decimal? BedtimeReadingRate { get => _bedtimeReadingRate; set { _bedtimeReadingRate = value; } }
+        private decimal? _bedtimeReadingRate;
 
         [Key(4)]
-        public virtual decimal? BookBudget  { get; set; }
+        public virtual decimal? BookBudget { get => _bookBudget; set { _bookBudget = value; } }
+        private decimal? _bookBudget;
 
         [Key(5)]
-        public virtual int? BooksBorrowed  { get; set; }
+        public virtual int? BooksBorrowed { get => _booksBorrowed; set { _booksBorrowed = value; } }
+        private int? _booksBorrowed;
 
         [Key(6)]
         public virtual long? EducationOrganizationId 
@@ -11214,16 +11300,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         private string _interventionStudyIdentificationCode;
 
         [Key(8)]
-        public virtual int? LibraryDuration  { get; set; }
+        public virtual int? LibraryDuration { get => _libraryDuration; set { _libraryDuration = value; } }
+        private int? _libraryDuration;
 
         [Key(9)]
-        public virtual TimeSpan? LibraryTime  { get; set; }
+        public virtual TimeSpan? LibraryTime { get => _libraryTime; set { _libraryTime = value; } }
+        private TimeSpan? _libraryTime;
 
         [Key(10)]
-        public virtual short? LibraryVisits  { get; set; }
+        public virtual short? LibraryVisits { get => _libraryVisits; set { _libraryVisits = value; } }
+        private short? _libraryVisits;
 
         [Key(11)]
-        public virtual string PriorContactRestrictions  { get; set; }
+        public virtual string PriorContactRestrictions { get => _priorContactRestrictions; set { _priorContactRestrictions = value; } }
+        private string _priorContactRestrictions;
 
         [Key(12)]
         public virtual DateTime? ReadGreenEggsAndHamDate 
@@ -11246,10 +11336,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         private DateTime? _readGreenEggsAndHamDate;
 
         [Key(13)]
-        public virtual string ReadingTimeSpent  { get; set; }
+        public virtual string ReadingTimeSpent { get => _readingTimeSpent; set { _readingTimeSpent = value; } }
+        private string _readingTimeSpent;
 
         [Key(14)]
-        public virtual short? StudentRead  { get; set; }
+        public virtual short? StudentRead { get => _studentRead; set { _studentRead = value; } }
+        private short? _studentRead;
 
         // -------------------------------------------------------------
 
@@ -11580,7 +11672,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual bool? AnalysisCompleted  { get; set; }
+        public virtual bool? AnalysisCompleted { get => _analysisCompleted; set { _analysisCompleted = value; } }
+        private bool? _analysisCompleted;
 
         [Key(2)]
         public virtual DateTime? AnalysisDate 
@@ -11755,7 +11848,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
         [DomainSignature]
         [Key(1)]
-        public virtual string SchoolDistrict  { get; set; }
+        public virtual string SchoolDistrict { get => _schoolDistrict; set { _schoolDistrict = value; } }
+        private string _schoolDistrict;
 
         // -------------------------------------------------------------
 
@@ -12160,7 +12254,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         private DateTime? _endDate;
 
         [Key(3)]
-        public virtual bool? PrimaryStudentNeedIndicator  { get; set; }
+        public virtual bool? PrimaryStudentNeedIndicator { get => _primaryStudentNeedIndicator; set { _primaryStudentNeedIndicator = value; } }
+        private bool? _primaryStudentNeedIndicator;
 
         // -------------------------------------------------------------
 
@@ -12662,10 +12757,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual string Complex  { get; set; }
+        public virtual string Complex { get => _complex; set { _complex = value; } }
+        private string _complex;
 
         [Key(2)]
-        public virtual bool OnBusRoute  { get; set; }
+        public virtual bool OnBusRoute { get => _onBusRoute; set { _onBusRoute = value; } }
+        private bool _onBusRoute;
 
         // -------------------------------------------------------------
 
@@ -12998,14 +13095,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13027,14 +13125,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13056,14 +13155,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13085,14 +13185,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
-                        Discriminator = null;
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
+                    Discriminator = null;
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -13577,7 +13678,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         //                          Properties
         // -------------------------------------------------------------
         [Key(13)]
-        public virtual TimeSpan? CommencementTime  { get; set; }
+        public virtual TimeSpan? CommencementTime { get => _commencementTime; set { _commencementTime = value; } }
+        private TimeSpan? _commencementTime;
 
         [Key(14)]
         public virtual DateTime EffectiveDate 
@@ -13590,19 +13692,24 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         private DateTime _effectiveDate;
 
         [Key(15)]
-        public virtual decimal? GraduationFee  { get; set; }
+        public virtual decimal? GraduationFee { get => _graduationFee; set { _graduationFee = value; } }
+        private decimal? _graduationFee;
 
         [Key(16)]
-        public virtual string HighSchoolDuration  { get; set; }
+        public virtual string HighSchoolDuration { get => _highSchoolDuration; set { _highSchoolDuration = value; } }
+        private string _highSchoolDuration;
 
         [Key(17)]
-        public virtual decimal HoursPerWeek  { get; set; }
+        public virtual decimal HoursPerWeek { get => _hoursPerWeek; set { _hoursPerWeek = value; } }
+        private decimal _hoursPerWeek;
 
         [Key(18)]
-        public virtual bool? IsActivePlan  { get; set; }
+        public virtual bool? IsActivePlan { get => _isActivePlan; set { _isActivePlan = value; } }
+        private bool? _isActivePlan;
 
         [Key(19)]
-        public virtual decimal? RequiredAttendance  { get; set; }
+        public virtual decimal? RequiredAttendance { get => _requiredAttendance; set { _requiredAttendance = value; } }
+        private decimal? _requiredAttendance;
 
         [Key(20)]
         public virtual int? StaffUSI 
@@ -13682,7 +13789,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         }
 
         [Key(21)]
-        public virtual decimal TargetGPA  { get; set; }
+        public virtual decimal TargetGPA { get => _targetGPA; set { _targetGPA = value; } }
+        private decimal _targetGPA;
 
         // -------------------------------------------------------------
 
@@ -14478,7 +14586,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         [DomainSignature]
         [Key(1)]
-        public virtual int CareerPathwayCode  { get; set; }
+        public virtual int CareerPathwayCode { get => _careerPathwayCode; set { _careerPathwayCode = value; } }
+        private int _careerPathwayCode;
 
         // -------------------------------------------------------------
 
@@ -14650,7 +14759,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual string CIPCode  { get; set; }
+        public virtual string CIPCode { get => _cipCode; set { _cipCode = value; } }
+        private string _cipCode;
 
         [Key(2)]
         public virtual int CTEProgramServiceDescriptorId 
@@ -14692,7 +14802,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         }
 
         [Key(3)]
-        public virtual bool? PrimaryIndicator  { get; set; }
+        public virtual bool? PrimaryIndicator { get => _primaryIndicator; set { _primaryIndicator = value; } }
+        private bool? _primaryIndicator;
 
         [Key(4)]
         public virtual DateTime? ServiceBeginDate 
@@ -14885,7 +14996,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         [DomainSignature]
         [Key(1)]
-        public virtual string Description  { get; set; }
+        public virtual string Description { get => _description; set { _description = value; } }
+        private string _description;
 
         // -------------------------------------------------------------
 
@@ -15048,7 +15160,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         [DomainSignature]
         [Key(1)]
-        public virtual string DesignatedBy  { get; set; }
+        public virtual string DesignatedBy { get => _designatedBy; set { _designatedBy = value; } }
+        private string _designatedBy;
 
         // -------------------------------------------------------------
 
@@ -15211,7 +15324,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         [DomainSignature]
         [Key(1)]
-        public virtual string IndustryCredential  { get; set; }
+        public virtual string IndustryCredential { get => _industryCredential; set { _industryCredential = value; } }
+        private string _industryCredential;
 
         // -------------------------------------------------------------
 
@@ -15702,7 +15816,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         [DomainSignature]
         [Key(1)]
-        public virtual short YearsAttended  { get; set; }
+        public virtual short YearsAttended { get => _yearsAttended; set { _yearsAttended = value; } }
+        private short _yearsAttended;
 
         // -------------------------------------------------------------
 

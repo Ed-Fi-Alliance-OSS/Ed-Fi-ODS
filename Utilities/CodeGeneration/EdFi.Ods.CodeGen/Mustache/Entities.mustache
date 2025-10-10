@@ -120,16 +120,17 @@ namespace {{AggregateNamespace}}
                     {
                         GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                     }
-                    // If key value is changing (i.e. only via Synchronize)
-                    else if (originalValue != default && value != originalValue) 
-                    {
-                        // Clear the values
-                        Id = default;
+                }
+                
+                // If reference's key value is changing from a non-default value (i.e. only via Synchronize) it needs resolution
+                if (originalValue != default && value != originalValue) 
+                {
+                    // Clear the values
+                    Id = default;
                     {{#HasDiscriminator}}
-                        Discriminator = null;
+                    Discriminator = null;
                     {{/HasDiscriminator}}
-                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
-                    }
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
                 }
             }
         }
@@ -741,11 +742,20 @@ namespace {{AggregateNamespace}}
 
         {{/PrimaryKeyMap}}
         {{#AllowsPrimaryKeyUpdates}}
-        /// <summary>
-        /// Gets or sets the <see cref="OrderedDictionary"/> capturing the new key values that have
-        /// not been modified directly on the entity.
-        /// </summary>
         OrderedDictionary IHasCascadableKeyValues.NewKeyValues { get; set; }
+        OrderedDictionary IHasCascadableKeyValues.OriginalKeyValues { get => _originalKeyValues; set { _originalKeyValues = value; } }
+
+        private OrderedDictionary _originalKeyValues;
+
+            {{#PrimaryKeyMap}}
+        void IHasCascadableKeyValues.RestoreOriginalKeyValues()
+        {
+            // Restore original key values to prevent NHibernate from processing the key change (see EdFiOdsPostUpdateEventListener)
+                {{#PropertyNames}}
+            {{CSharpSafeFieldName}} = ({{CSharpDeclaredType}}) _originalKeyValues["{{PropertyName}}"];
+                {{/PropertyNames}}
+        }
+            {{/PrimaryKeyMap}}
 
         {{/AllowsPrimaryKeyUpdates}}
         {{#HasAlternateKeyValues}}

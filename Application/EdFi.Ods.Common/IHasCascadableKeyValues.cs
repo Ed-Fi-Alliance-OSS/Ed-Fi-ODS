@@ -14,9 +14,20 @@ namespace EdFi.Ods.Common
     public interface IHasCascadableKeyValues
     {
         /// <summary>
-        /// Gets or sets the <see cref="OrderedDictionary"/> capturing the new key values that have
-        /// not been modified directly on the entity.
+        /// Gets or sets the <see cref="OrderedDictionary"/> capturing the original key values of the persistent entity.
+        /// </summary>
+        OrderedDictionary OriginalKeyValues { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="OrderedDictionary"/> capturing the new key values that are
+        /// to be used to change the primary key values after NHibernate has persisted the existing entity.
         /// </summary>
         OrderedDictionary NewKeyValues { get; set; }
+
+        /// <summary>
+        /// Restores the original key values of the entity before persistence by NHibernate to avoid letting it
+        /// performing any operations related to the cascading key updates.
+        /// </summary>
+        void RestoreOriginalKeyValues();
     }
 }
