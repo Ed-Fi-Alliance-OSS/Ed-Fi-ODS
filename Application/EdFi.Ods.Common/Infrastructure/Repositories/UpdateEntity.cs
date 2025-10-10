@@ -52,6 +52,13 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                         using (ITransaction trans = Session.BeginTransaction())
                         {
+                            // If the entity supports key changes and a key change is being made...
+                            if (persistentEntity is IHasCascadableKeyValues { OriginalKeyValues: not null } persistentEntityWithKeyValues)
+                            {
+                                // Restore the original key values to prevent NHibernate from handling the key change portion of the update
+                                persistentEntityWithKeyValues.RestoreOriginalKeyValues();
+                            }
+
                             await Session.UpdateAsync(persistentEntity, cancellationToken);
                             await trans.CommitAsync(cancellationToken);
                         }

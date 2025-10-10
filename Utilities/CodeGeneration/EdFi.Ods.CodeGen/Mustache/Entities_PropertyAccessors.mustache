@@ -1,6 +1,7 @@
 {{#IsStandardProperty}}
     {{^HasSerializedReferenceDataMappings}}
- { get; set; }
+{ get => {{CSharpSafeFieldName}}; set { {{CSharpSafeFieldName}} = value; } }
+        private {{CSharpDeclaredType}} {{CSharpSafeFieldName}};
     {{/HasSerializedReferenceDataMappings}}
     {{#HasSerializedReferenceDataMappings}}
 

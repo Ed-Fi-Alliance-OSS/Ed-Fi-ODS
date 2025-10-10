@@ -99,7 +99,13 @@ namespace EdFi.Ods.CodeGen.Generators
                         .OrderBy(
                             x => x.PropertyName)
                         .Select(
-                            x => new {CSharpSafePrimaryKeyName = x.PropertyName.MakeSafeForCSharpClass(resourceClass.Name)}),
+                            x => x.EntityProperty)
+                        .Select(ep => new
+                        {
+                            PrimaryKeyName = ep.GetModelsInterfacePropertyName(),
+                            IsString = ep.PropertyType.IsString(),
+                            IsDescriptorUsage = ep.IsDescriptorUsage,
+                        }),
                 IsDerivedEntity = resourceClass.Entity?.IsDerived,
                 BaseClassNonPkPropertyList = resourceClass.NonIdentifyingProperties
                     .Where(p => p.IsInherited && p.IsSynchronizedProperty())

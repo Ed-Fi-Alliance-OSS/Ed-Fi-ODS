@@ -8302,20 +8302,23 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ClassPeriodAggregate
 
                 if (sourceWithPrimaryKeyValues != null)
                 {
-                    var targetWithNewKeyValues = target as IHasCascadableKeyValues;
+                    var targetWithCascadableKeyValues = target as IHasCascadableKeyValues;
 
-                    if (targetWithNewKeyValues != null)
-                        targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                    if (targetWithCascadableKeyValues != null)
+                    {
+                        targetWithCascadableKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                        targetWithCascadableKeyValues.OriginalKeyValues = (target as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+                    }
                 }
 
-                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
-                if (source.ClassPeriodName != target.ClassPeriodName)
+                // Copy the transient source entity's PK values to the persistent target entity (to ensure reference data resolution related to key value changes)
+                if ((!keyStringComparer.Equals(target.ClassPeriodName, source.ClassPeriodName)))
                 {
-                    source.ClassPeriodName = target.ClassPeriodName;
+                    target.ClassPeriodName = source.ClassPeriodName;
                 }
-                if (source.SchoolId != target.SchoolId)
+                if ((target.SchoolId != source.SchoolId))
                 {
-                    source.SchoolId = target.SchoolId;
+                    target.SchoolId = source.SchoolId;
                 }
             }
 
@@ -24016,56 +24019,59 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeAggregate
 
                 if (sourceWithPrimaryKeyValues != null)
                 {
-                    var targetWithNewKeyValues = target as IHasCascadableKeyValues;
+                    var targetWithCascadableKeyValues = target as IHasCascadableKeyValues;
 
-                    if (targetWithNewKeyValues != null)
-                        targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                    if (targetWithCascadableKeyValues != null)
+                    {
+                        targetWithCascadableKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                        targetWithCascadableKeyValues.OriginalKeyValues = (target as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+                    }
                 }
 
-                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
-                if (source.BeginDate != target.BeginDate)
+                // Copy the transient source entity's PK values to the persistent target entity (to ensure reference data resolution related to key value changes)
+                if ((target.BeginDate != source.BeginDate))
                 {
-                    source.BeginDate = target.BeginDate;
+                    target.BeginDate = source.BeginDate;
                 }
-                if (source.GradeTypeDescriptor != target.GradeTypeDescriptor)
+                if (!string.Equals(target.GradeTypeDescriptor, source.GradeTypeDescriptor, StringComparison.OrdinalIgnoreCase))
                 {
-                    source.GradeTypeDescriptor = target.GradeTypeDescriptor;
+                    target.GradeTypeDescriptor = source.GradeTypeDescriptor;
                 }
-                if (source.GradingPeriodDescriptor != target.GradingPeriodDescriptor)
+                if (!string.Equals(target.GradingPeriodDescriptor, source.GradingPeriodDescriptor, StringComparison.OrdinalIgnoreCase))
                 {
-                    source.GradingPeriodDescriptor = target.GradingPeriodDescriptor;
+                    target.GradingPeriodDescriptor = source.GradingPeriodDescriptor;
                 }
-                if (source.GradingPeriodSchoolYear != target.GradingPeriodSchoolYear)
+                if ((target.GradingPeriodSchoolYear != source.GradingPeriodSchoolYear))
                 {
-                    source.GradingPeriodSchoolYear = target.GradingPeriodSchoolYear;
+                    target.GradingPeriodSchoolYear = source.GradingPeriodSchoolYear;
                 }
-                if (source.GradingPeriodSequence != target.GradingPeriodSequence)
+                if ((target.GradingPeriodSequence != source.GradingPeriodSequence))
                 {
-                    source.GradingPeriodSequence = target.GradingPeriodSequence;
+                    target.GradingPeriodSequence = source.GradingPeriodSequence;
                 }
-                if (source.LocalCourseCode != target.LocalCourseCode)
+                if ((!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode)))
                 {
-                    source.LocalCourseCode = target.LocalCourseCode;
+                    target.LocalCourseCode = source.LocalCourseCode;
                 }
-                if (source.SchoolId != target.SchoolId)
+                if ((target.SchoolId != source.SchoolId))
                 {
-                    source.SchoolId = target.SchoolId;
+                    target.SchoolId = source.SchoolId;
                 }
-                if (source.SchoolYear != target.SchoolYear)
+                if ((target.SchoolYear != source.SchoolYear))
                 {
-                    source.SchoolYear = target.SchoolYear;
+                    target.SchoolYear = source.SchoolYear;
                 }
-                if (source.SectionIdentifier != target.SectionIdentifier)
+                if ((!keyStringComparer.Equals(target.SectionIdentifier, source.SectionIdentifier)))
                 {
-                    source.SectionIdentifier = target.SectionIdentifier;
+                    target.SectionIdentifier = source.SectionIdentifier;
                 }
-                if (source.SessionName != target.SessionName)
+                if ((!keyStringComparer.Equals(target.SessionName, source.SessionName)))
                 {
-                    source.SessionName = target.SessionName;
+                    target.SessionName = source.SessionName;
                 }
-                if (source.StudentUniqueId != target.StudentUniqueId)
+                if ((target.StudentUniqueId != source.StudentUniqueId))
                 {
-                    source.StudentUniqueId = target.StudentUniqueId;
+                    target.StudentUniqueId = source.StudentUniqueId;
                 }
             }
 
@@ -24408,20 +24414,23 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryAggregate
 
                 if (sourceWithPrimaryKeyValues != null)
                 {
-                    var targetWithNewKeyValues = target as IHasCascadableKeyValues;
+                    var targetWithCascadableKeyValues = target as IHasCascadableKeyValues;
 
-                    if (targetWithNewKeyValues != null)
-                        targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                    if (targetWithCascadableKeyValues != null)
+                    {
+                        targetWithCascadableKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                        targetWithCascadableKeyValues.OriginalKeyValues = (target as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+                    }
                 }
 
-                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
-                if (source.GradebookEntryIdentifier != target.GradebookEntryIdentifier)
+                // Copy the transient source entity's PK values to the persistent target entity (to ensure reference data resolution related to key value changes)
+                if ((!keyStringComparer.Equals(target.GradebookEntryIdentifier, source.GradebookEntryIdentifier)))
                 {
-                    source.GradebookEntryIdentifier = target.GradebookEntryIdentifier;
+                    target.GradebookEntryIdentifier = source.GradebookEntryIdentifier;
                 }
-                if (source.Namespace != target.Namespace)
+                if ((!keyStringComparer.Equals(target.Namespace, source.Namespace)))
                 {
-                    source.Namespace = target.Namespace;
+                    target.Namespace = source.Namespace;
                 }
             }
 
@@ -37338,20 +37347,23 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocationAggregate
 
                 if (sourceWithPrimaryKeyValues != null)
                 {
-                    var targetWithNewKeyValues = target as IHasCascadableKeyValues;
+                    var targetWithCascadableKeyValues = target as IHasCascadableKeyValues;
 
-                    if (targetWithNewKeyValues != null)
-                        targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                    if (targetWithCascadableKeyValues != null)
+                    {
+                        targetWithCascadableKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                        targetWithCascadableKeyValues.OriginalKeyValues = (target as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+                    }
                 }
 
-                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
-                if (source.ClassroomIdentificationCode != target.ClassroomIdentificationCode)
+                // Copy the transient source entity's PK values to the persistent target entity (to ensure reference data resolution related to key value changes)
+                if ((!keyStringComparer.Equals(target.ClassroomIdentificationCode, source.ClassroomIdentificationCode)))
                 {
-                    source.ClassroomIdentificationCode = target.ClassroomIdentificationCode;
+                    target.ClassroomIdentificationCode = source.ClassroomIdentificationCode;
                 }
-                if (source.SchoolId != target.SchoolId)
+                if ((target.SchoolId != source.SchoolId))
                 {
-                    source.SchoolId = target.SchoolId;
+                    target.SchoolId = source.SchoolId;
                 }
             }
 
@@ -52076,32 +52088,35 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAggregate
 
                 if (sourceWithPrimaryKeyValues != null)
                 {
-                    var targetWithNewKeyValues = target as IHasCascadableKeyValues;
+                    var targetWithCascadableKeyValues = target as IHasCascadableKeyValues;
 
-                    if (targetWithNewKeyValues != null)
-                        targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                    if (targetWithCascadableKeyValues != null)
+                    {
+                        targetWithCascadableKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                        targetWithCascadableKeyValues.OriginalKeyValues = (target as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+                    }
                 }
 
-                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
-                if (source.LocalCourseCode != target.LocalCourseCode)
+                // Copy the transient source entity's PK values to the persistent target entity (to ensure reference data resolution related to key value changes)
+                if ((!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode)))
                 {
-                    source.LocalCourseCode = target.LocalCourseCode;
+                    target.LocalCourseCode = source.LocalCourseCode;
                 }
-                if (source.SchoolId != target.SchoolId)
+                if ((target.SchoolId != source.SchoolId))
                 {
-                    source.SchoolId = target.SchoolId;
+                    target.SchoolId = source.SchoolId;
                 }
-                if (source.SchoolYear != target.SchoolYear)
+                if ((target.SchoolYear != source.SchoolYear))
                 {
-                    source.SchoolYear = target.SchoolYear;
+                    target.SchoolYear = source.SchoolYear;
                 }
-                if (source.SectionIdentifier != target.SectionIdentifier)
+                if ((!keyStringComparer.Equals(target.SectionIdentifier, source.SectionIdentifier)))
                 {
-                    source.SectionIdentifier = target.SectionIdentifier;
+                    target.SectionIdentifier = source.SectionIdentifier;
                 }
-                if (source.SessionName != target.SessionName)
+                if ((!keyStringComparer.Equals(target.SessionName, source.SessionName)))
                 {
-                    source.SessionName = target.SessionName;
+                    target.SessionName = source.SessionName;
                 }
             }
 
@@ -53610,24 +53625,27 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SessionAggregate
 
                 if (sourceWithPrimaryKeyValues != null)
                 {
-                    var targetWithNewKeyValues = target as IHasCascadableKeyValues;
+                    var targetWithCascadableKeyValues = target as IHasCascadableKeyValues;
 
-                    if (targetWithNewKeyValues != null)
-                        targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                    if (targetWithCascadableKeyValues != null)
+                    {
+                        targetWithCascadableKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                        targetWithCascadableKeyValues.OriginalKeyValues = (target as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+                    }
                 }
 
-                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
-                if (source.SchoolId != target.SchoolId)
+                // Copy the transient source entity's PK values to the persistent target entity (to ensure reference data resolution related to key value changes)
+                if ((target.SchoolId != source.SchoolId))
                 {
-                    source.SchoolId = target.SchoolId;
+                    target.SchoolId = source.SchoolId;
                 }
-                if (source.SchoolYear != target.SchoolYear)
+                if ((target.SchoolYear != source.SchoolYear))
                 {
-                    source.SchoolYear = target.SchoolYear;
+                    target.SchoolYear = source.SchoolYear;
                 }
-                if (source.SessionName != target.SessionName)
+                if ((!keyStringComparer.Equals(target.SessionName, source.SessionName)))
                 {
-                    source.SessionName = target.SessionName;
+                    target.SessionName = source.SessionName;
                 }
             }
 
@@ -72733,24 +72751,27 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolAssociationAggregate
 
                 if (sourceWithPrimaryKeyValues != null)
                 {
-                    var targetWithNewKeyValues = target as IHasCascadableKeyValues;
+                    var targetWithCascadableKeyValues = target as IHasCascadableKeyValues;
 
-                    if (targetWithNewKeyValues != null)
-                        targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                    if (targetWithCascadableKeyValues != null)
+                    {
+                        targetWithCascadableKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                        targetWithCascadableKeyValues.OriginalKeyValues = (target as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+                    }
                 }
 
-                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
-                if (source.EntryDate != target.EntryDate)
+                // Copy the transient source entity's PK values to the persistent target entity (to ensure reference data resolution related to key value changes)
+                if ((target.EntryDate != source.EntryDate))
                 {
-                    source.EntryDate = target.EntryDate;
+                    target.EntryDate = source.EntryDate;
                 }
-                if (source.SchoolId != target.SchoolId)
+                if ((target.SchoolId != source.SchoolId))
                 {
-                    source.SchoolId = target.SchoolId;
+                    target.SchoolId = source.SchoolId;
                 }
-                if (source.StudentUniqueId != target.StudentUniqueId)
+                if ((target.StudentUniqueId != source.StudentUniqueId))
                 {
-                    source.StudentUniqueId = target.StudentUniqueId;
+                    target.StudentUniqueId = source.StudentUniqueId;
                 }
             }
 
@@ -73866,40 +73887,43 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAssociationAggregate
 
                 if (sourceWithPrimaryKeyValues != null)
                 {
-                    var targetWithNewKeyValues = target as IHasCascadableKeyValues;
+                    var targetWithCascadableKeyValues = target as IHasCascadableKeyValues;
 
-                    if (targetWithNewKeyValues != null)
-                        targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                    if (targetWithCascadableKeyValues != null)
+                    {
+                        targetWithCascadableKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
+                        targetWithCascadableKeyValues.OriginalKeyValues = (target as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+                    }
                 }
 
-                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
-                if (source.BeginDate != target.BeginDate)
+                // Copy the transient source entity's PK values to the persistent target entity (to ensure reference data resolution related to key value changes)
+                if ((target.BeginDate != source.BeginDate))
                 {
-                    source.BeginDate = target.BeginDate;
+                    target.BeginDate = source.BeginDate;
                 }
-                if (source.LocalCourseCode != target.LocalCourseCode)
+                if ((!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode)))
                 {
-                    source.LocalCourseCode = target.LocalCourseCode;
+                    target.LocalCourseCode = source.LocalCourseCode;
                 }
-                if (source.SchoolId != target.SchoolId)
+                if ((target.SchoolId != source.SchoolId))
                 {
-                    source.SchoolId = target.SchoolId;
+                    target.SchoolId = source.SchoolId;
                 }
-                if (source.SchoolYear != target.SchoolYear)
+                if ((target.SchoolYear != source.SchoolYear))
                 {
-                    source.SchoolYear = target.SchoolYear;
+                    target.SchoolYear = source.SchoolYear;
                 }
-                if (source.SectionIdentifier != target.SectionIdentifier)
+                if ((!keyStringComparer.Equals(target.SectionIdentifier, source.SectionIdentifier)))
                 {
-                    source.SectionIdentifier = target.SectionIdentifier;
+                    target.SectionIdentifier = source.SectionIdentifier;
                 }
-                if (source.SessionName != target.SessionName)
+                if ((!keyStringComparer.Equals(target.SessionName, source.SessionName)))
                 {
-                    source.SessionName = target.SessionName;
+                    target.SessionName = source.SessionName;
                 }
-                if (source.StudentUniqueId != target.StudentUniqueId)
+                if ((target.StudentUniqueId != source.StudentUniqueId))
                 {
-                    source.StudentUniqueId = target.StudentUniqueId;
+                    target.StudentUniqueId = source.StudentUniqueId;
                 }
             }
 
