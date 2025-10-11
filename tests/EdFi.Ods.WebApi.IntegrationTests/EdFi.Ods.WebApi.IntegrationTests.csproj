@@ -21,7 +21,7 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10204" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10207" />
         <PackageReference Include="EdFi.Suite3.Common" Version="7.3.10195" />
       </ItemGroup>
     </Otherwise>
