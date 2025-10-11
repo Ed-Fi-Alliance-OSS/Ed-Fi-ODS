@@ -62,10 +62,6 @@
 * Test method names should clearly describe the scenario and expected outcome.
 * Aim for high test coverage of critical code paths.
 
-## Running tests
-
-* To build and run tests in the repo, use the command `./build.ps1 UnitTest`
-
 ### Resource Management
 
 * Always use `using` statements or declarations for disposable resources.
