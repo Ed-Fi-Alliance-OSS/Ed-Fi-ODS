@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+blank_issues_enabled: false
+contact_links:
+  - name: 🏠 Ed-Fi Community Hub
+    url: https://community.ed-fi.org
+    about: For technical support, questions, and community discussions
+  - name: 📚 Ed-Fi Documentation
+    url: https://docs.ed-fi.org
+    about: Official Ed-Fi technical documentation and guides
