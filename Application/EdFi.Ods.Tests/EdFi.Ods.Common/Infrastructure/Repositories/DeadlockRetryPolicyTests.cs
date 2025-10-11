@@ -216,7 +216,7 @@ public static class SqlExceptionCreator
             "test error", 
             /* procedure */ "",
             /* lineNumber */ (int)0,
-            /* win32 error code */ (uint)0,
+            /* win32 error code */ (int)0,
             innerException
         ]) as SqlError)!;
 
