@@ -13,7 +13,7 @@ using Shouldly;
 namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 {
     [TestFixture]
-    [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
+    [UseReporter(typeof(DiffReporter), typeof(NUnit3Reporter))]
     public class AggregateDependencyControllerTests : AggregateDependencyControllerTestsBase
     {
 

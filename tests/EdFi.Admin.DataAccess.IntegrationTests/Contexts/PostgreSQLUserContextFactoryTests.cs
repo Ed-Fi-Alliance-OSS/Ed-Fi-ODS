@@ -38,7 +38,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
 
             if (!engine.Equals(DatabaseEngine.Postgres.Value, StringComparison.OrdinalIgnoreCase))
             {
-                Assert.Inconclusive("PostgreSQL UserContextFactory integration tests are not being run because the engine is not set to Postgres.");
+                Assert.Ignore("Skipped: PostgreSQL UserContextFactory integration tests are not being run because the engine is not set to Postgres.");
             }
             
             var connectionString = config.GetConnectionString("EdFi_Admin");

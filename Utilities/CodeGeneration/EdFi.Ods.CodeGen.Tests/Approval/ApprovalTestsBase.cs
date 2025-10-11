@@ -17,7 +17,7 @@ using NUnit.Framework;
 
 namespace EdFi.Ods.CodeGen.Tests.Approval;
 
-[UseReporter(typeof(DiffReporter), typeof(NUnitReporter), typeof(PowerShellClipboardReporter))]
+[UseReporter(typeof(DiffReporter), typeof(NUnit3Reporter), typeof(PowerShellClipboardReporter))]
 public abstract class ApprovalTestsBase<TVersionMetadata>
     where TVersionMetadata : IStandardVersionMetadata, new()
 {
