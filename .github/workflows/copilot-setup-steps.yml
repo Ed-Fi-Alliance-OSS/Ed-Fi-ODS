@@ -1,0 +1,47 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Copilot Setup Steps
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/copilot-setup-steps.yml"
+  pull_request:
+    paths:
+      - ".github/workflows/copilot-setup-steps.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  copilot-setup-steps:
+    name: Copilot Setup Steps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Restore NuGet Packages for EdFi.Admin.DataAccess Solution
+        run: dotnet restore Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln
+
+      - name: Restore NuGet Packages for EdFi.Security.DataAccess Solution
+        run: dotnet restore Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.sln
+
+      - name: Restore NuGet Packages for Code Generation Solution
+        run: dotnet restore Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln
+        
+      - name: Restore NuGet Packages for Data Load Solution
+        run: dotnet restore Utilities/DataLoading/LoadTools.sln
+        
+      - name: Restore NuGet Packages for Generate Security Graphs Solution
+        run: dotnet restore Utilities/GenerateSecurityGraphs/GenerateSecurityGraphs.sln
+        
+      - name: Restore NuGet Packages for SdkGen Solution
+        run: dotnet restore Utilities/SdkGen/EdFi.SdkGen.sln
+        
+      - name: Restore NuGet Packages for Visual Studio Project Templates Solution
+        run: dotnet restore Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln
