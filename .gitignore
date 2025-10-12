@@ -6,7 +6,7 @@ rcf/
 logistics/bin
 .vs/
 
-#User-specific files
+# User-specific files
 *.suo
 *.csproj.user
 *.ccproj.user
@@ -16,56 +16,61 @@ logistics/bin
 *.dbmdl
 .vs/
 
-#NCrunch
+# NCrunch
 _NCrunch*
 *.ncrunchsolution
 *.ncrunchsolution.user
 *.ncrunchproject
 *.ncrunchproject.user
 
-#Vim backup files
+# Vim backup files
 *~
 
-#MS Office Backup Files
+# MS Office Backup Files
 ~*
 
-#Resharper files
+# Resharper files
 _ReSharper.*
 *.resharper
 *.resharper.user
 
-#Rider files
+# Rider files
 .idea/
 
-#Others
+# Others
 *.cache
 *.orig
 *.original
 
-#Packages
+# Packages
 packages/
-/*.dll
-/*.pdb
-/*.XML
+*.dll
+*.pdb
+*.XML
+*.nupkg
 
-#nDevConfig
+# AppSettings
+appsettings.Development.json
+appsettings.user.json
+
+# nDevConfig
 .workspaceInitialized
 nDevConfig/
 
-#Database Project Files
+# Database Project Files
 application/EdFi.Ods.Entities.NHibernate/DescriptorMigration.sql
 application/EduId.Database/EduId.Database.dbmdl
 
-#Release Notes Working File
+# Release Notes Working File
 ReleaseNotes/pending.md
 
-#lib directory
+# lib directory
 libs/
 libs.codegen/
 schema.codegen/
 logistics/Services/
 
-#Generated code
+# Generated code
 *.generated.cs
 *.generated.txt
 *.generated.sql
@@ -74,24 +79,22 @@ logistics/Services/
 *_generated.sql
 *.feature.cs
 
-#Copies of generated code
+# Copies of generated code
 *.generated - Copy.cs
 *.generated - Copy.resx
 
-#Sample MetaEd
+# Sample MetaEd
 Samples/Extensions/**/MetaEdOutput/EdFi/
 Samples/Extensions/**/MetaEdOutput/Documentation/
 Samples/Extensions/**/MetaEdOutput/ApiSchema/
 
-#Database project working files
+# Database project working files
 Import Schema Logs
 
 # Approval tests
 *.received.txt
 Utilities/SdkGen/EdFi.SdkGen.Console/sdk-generate.jar
 
-# Keep older versions of MetaEd artifacts out of source control
-Application/EdFi.Ods.CodeGen/App_Packages
 
 # Keep generated SDK out of source control
 Utilities/SdkGen/EdFi.SdkGen.Console/csharp
@@ -102,3 +105,43 @@ appsettings.Development.json
 *.log
 
 NugetPackages/
+
+
+# ExtensionProjects
+Extensions/**/MetaEdOutput/
+Extensions/**/MetaEdOutput-Experimental/
+
+# ConfigCredentials
+Application/EdFi.Ods.SwaggerUI/SwaggerCredential.config
+credentials-*.xml
+pgpass.conf
+
+# DatabaseTemplate
+DatabaseTemplate/*
+!DatabaseTemplate/Scripts/
+!DatabaseTemplate/Modules/
+
+# Plugin
+**/Plugin/*
+!**/Plugin/*.ps1
+!**/Plugin/configuration.json
+
+# .Net Tools
+tools/
+downloads/
+reports/
+
+# Test Harness
+node_modules/
+newman/
+environment.json
+
+# NetCore Webapi
+/**/WebApiLog*
+/**/TestHarnessLog*
+
+# Sandbox Admin
+/**/SandboxAdminLog*
+
+# Nunit Test Reports (Pester)
+reportsNUnit/

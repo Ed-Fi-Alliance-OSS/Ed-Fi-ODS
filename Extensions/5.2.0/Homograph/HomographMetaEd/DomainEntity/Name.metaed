@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity Name
+    documentation "The set of elements that comprise a person's legal name."
+    shared string FirstName
+        documentation "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change."
+        is part of identity
+    shared string LastSurname
+        documentation "The name borne in common by members of a family."
+        is part of identity

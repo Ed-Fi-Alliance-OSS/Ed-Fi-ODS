@@ -1,0 +1,10 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity Bus
+    documentation "This is an example of a new domain entity."
+    shared string EdFi.IdentificationCode named BusId
+        documentation "The unique identifier for the bus."
+        is part of identity

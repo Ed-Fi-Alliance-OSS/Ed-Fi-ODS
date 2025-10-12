@@ -1,0 +1,184 @@
+{
+  "packages": {
+    "EdFiMinimalTemplate": {
+      "PackageName": "EdFi.Suite3.Ods.Minimal.Template.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10140",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "GrandBend": {
+      "PackageName": "EdFi.Suite3.Ods.Populated.Template.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10168",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "PostgreSqlMinimalTemplate": {
+      "PackageName": "EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10156",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "PostgreSqlPopulatedTemplate": {
+      "PackageName": "EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10138",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "TPDMCoreMinimalTemplate": {
+      "PackageName": "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.{ExtensionVersion}.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10081",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "TPDMCorePopulatedTemplate": {
+      "PackageName": "EdFi.Suite3.Ods.Populated.Template.TPDM.Core.{ExtensionVersion}.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10082",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "TPDMCorePostgreSqlMinimalTemplate": {
+      "PackageName": "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.{ExtensionVersion}.PostgreSQL.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10080",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "TPDMCorePostgreSqlPopulatedTemplate": {
+      "PackageName": "EdFi.Suite3.Ods.Populated.Template.TPDM.Core.{ExtensionVersion}.PostgreSQL.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10085",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "homograph": {
+      "PackageName": "EdFi.Suite3.Ods.Extensions.Homograph.1.0.0.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10131",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "profiles.sample": {
+      "PackageName": "EdFi.Suite3.Ods.Profiles.Sample",
+      "PackageVersion": "7.3.10106",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "sample": {
+      "PackageName": "EdFi.Suite3.Ods.Extensions.Sample.1.0.0.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10114",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "studentTranscript.sample": {
+      "PackageName": "EdFi.Suite3.Ods.Extensions.SampleStudentTranscript.1.0.0.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10058",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "tpdm": {
+      "PackageName": "EdFi.Suite3.Ods.Extensions.TPDM.Core.{ExtensionVersion}.Standard.{StandardVersion}",
+      "PackageVersion": "7.3.10123",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Ods.CodeGen": {
+      "PackageName": "EdFi.Suite3.Ods.CodeGen",
+      "PackageVersion": "7.3.10346",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Db.Deploy": {
+      "PackageName": "EdFi.Suite3.Db.Deploy",
+      "PackageVersion": "4.1.52",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Database.Admin.PostgreSQL": {
+      "PackageName": "EdFi.Database.Admin.PostgreSQL.Standard.{StandardVersion}",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Database.Admin": {
+      "PackageName": "EdFi.Database.Admin.Standard.{StandardVersion}",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Database.Security": {
+      "PackageName": "EdFi.Database.Security.Standard.{StandardVersion}",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Database.Security.PostgreSQL": {
+      "PackageName": "EdFi.Database.Security.PostgreSQL.Standard.{StandardVersion}",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.BulkLoadClient.Console": {
+      "PackageName": "EdFi.Suite3.BulkLoadClient.Console",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.SmokeTest.Console": {
+      "PackageName": "EdFi.Suite3.SmokeTest.Console",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.LoadTools": {
+      "PackageName": "EdFi.Suite3.LoadTools",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Installer.SandboxAdmin": {
+      "PackageName": "EdFi.Suite3.Installer.SandboxAdmin",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.OdsApi.Sdk": {
+      "PackageName": "EdFi.Suite3.OdsApi.Sdk.Standard.{StandardVersion}",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.OdsApi.TestSdk": {
+      "PackageName": "EdFi.Suite3.OdsApi.TestSdk.Standard.{StandardVersion}",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Installer.SwaggerUI": {
+      "PackageName": "EdFi.Suite3.Installer.SwaggerUI",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Installer.WebApi": {
+      "PackageName": "EdFi.Suite3.Installer.WebApi",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Ods.SandboxAdmin": {
+      "PackageName": "EdFi.Suite3.Ods.SandboxAdmin",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Ods.SwaggerUI": {
+      "PackageName": "EdFi.Suite3.Ods.SwaggerUI",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Ods.WebApi": {
+      "PackageName": "EdFi.Suite3.Ods.WebApi.Standard.{StandardVersion}",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.RestApi.Databases": {
+      "PackageName": "EdFi.Suite3.RestApi.Databases.Standard.{StandardVersion}",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "AppCommon": {
+      "PackageName": "EdFi.Installer.AppCommon",
+      "PackageVersion": "3.4.0",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Ods.Common": {
+      "PackageName": "EdFi.Suite3.Ods.Common",
+      "PackageVersion": "7.3.10008",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Ods.Api": {
+      "PackageName": "EdFi.Suite3.Ods.Api",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Ods.Standard": {
+      "PackageName": "EdFi.Suite3.Ods.Standard.{StandardVersion}",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.ProjectTemplates.Installer": {
+      "PackageName": "EdFi.Suite3.ProjectTemplates.Installer",
+      "PackageVersion": "latest",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    }
+  }
+}

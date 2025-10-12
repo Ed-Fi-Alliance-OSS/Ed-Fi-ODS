@@ -1,0 +1,66 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Association StudentGraduationPlanAssociation
+    documentation "This is an example of a new Association."
+    domain entity EdFi.Student
+        documentation "The student assigned a graduation plan."
+    domain entity EdFi.GraduationPlan
+        documentation "The graduation plan assigned to the student."
+    date EffectiveDate
+        documentation "The date the plan went into effect."
+        is required
+    bool IsActivePlan
+        documentation "An indication as to whether the plan is active."
+        is optional
+    string IndustryCredential
+        documentation "Industry-recognized credentials the student will have earned at graduation."
+        is optional collection
+        max length 100
+    year YearsAttended
+        documentation "The number of years the student will have attended high school by the time of graduation."
+        is required collection
+    currency GraduationFee
+        documentation "Any fees the student must resolve prior to graduation, such as library fines and overdue lunch accounts."
+        is optional
+    decimal TargetGPA
+        documentation "The GPA the student is working toward."
+        is required
+        total digits 18
+        decimal places 4
+    duration HighSchoolDuration
+        documentation "The number of years remaining prior to graduation as of when the plan became effective."
+        is optional
+    integer CareerPathwayCode
+        documentation "The code representing the student's intended career pathway after graduation."
+        is optional collection
+    percent RequiredAttendance
+        documentation "The percentage of time the student must attend to graduate, relative to a full-time student."
+        is optional
+    time CommencementTime
+        documentation "The time of day for the commencement ceremony."
+        is optional
+    shared decimal EdFi.HoursPerWeek
+        documentation "The number of hours per week the student will attend to graduate."
+        is required
+    shared string EdFi.Description
+        documentation "A description of the graduation plan."
+        is optional collection
+    shared string EdFi.DesignatedBy
+        documentation "The entity governing this graduation plan."
+        is required collection
+    common EdFi.CTEProgramService
+        documentation "The career and technical program in which the student participates."
+        is optional
+    descriptor EdFi.AcademicSubject
+        documentation "The student's favorite academic subjects."
+        is required collection
+    domain entity EdFi.Staff
+        documentation "The student's mentor."
+        is optional
+    association EdFi.StudentContactAssociation
+        documentation "Contact responsible for graduation plan."
+        is optional collection
+        merge StudentContactAssociation.Student with Student

@@ -30,7 +30,7 @@ namespace EdFi.Ods.CodeGen.Conventions
         /// <summary>
         /// Ed-Fi ODS Implementation Directory
         /// </summary>
-        public const string EdFiOdsImplementationFolderName = "Ed-Fi-ODS-Implementation";
+        public const string EdFiOdsImplementationFolderName = "Get-RepositoryRoot "Ed-Fi-ODS"";
 
         /// <summary>
         /// Application folder

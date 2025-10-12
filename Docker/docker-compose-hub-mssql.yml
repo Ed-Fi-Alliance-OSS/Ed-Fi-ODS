@@ -1,0 +1,96 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+# This docker compose is only intended for local testing of images that have
+# already been published to Docker Hub.
+
+version: "3.8"
+
+services:
+  db-ods:
+    image: edfialliance/ods-api-db-ods-minimal:pre-mssql
+    environment:
+      SQLSERVER_USER: ${SQLSERVER_USER}
+      SQLSERVER_PASSWORD: ${SQLSERVER_PASSWORD}
+      TPDM_ENABLED: ${TPDM_ENABLED:-true}
+      MSSQL_PID: ${MSSQL_PID:-Express}
+    volumes:
+      - vol-db-ods:/var/opt/mssql/data
+      - vol-db-ods:/var/opt/mssql/log
+    restart: always
+    container_name: ed-fi-db-ods
+    hostname: ed-fi-db-ods
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -Q "SELECT 1"
+      start_period: "60s"
+      retries: 3
+
+  db-admin:
+    image: edfialliance/ods-api-db-admin:pre-mssql
+    environment:
+      SQLSERVER_USER: ${SQLSERVER_USER}
+      SQLSERVER_PASSWORD: ${SQLSERVER_PASSWORD}
+      MSSQL_PID: ${MSSQL_PID:-Express}
+    volumes:
+      - vol-db-admin:/var/opt/mssql/data
+      - vol-db-admin:/var/opt/mssql/log
+    restart: always
+    container_name: ed-fi-db-admin
+    hostname: ed-fi-db-admin
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -Q "SELECT 1"
+      start_period: "60s"
+      retries: 3
+
+  api:
+    image: edfialliance/ods-api-web-api:pre-mssql
+    environment:
+      SQLSERVER_USER: ${SQLSERVER_USER}
+      SQLSERVER_PASSWORD: ${SQLSERVER_PASSWORD}
+      SQLSERVER_ODS_DATASOURCE: ed-fi-db-ods
+      SQLSERVER_ADMIN_DATASOURCE: ed-fi-db-admin
+      PATH_BASE: ""
+      TPDM_ENABLED: ${TPDM_ENABLED:-true}
+      ODS_CONNECTION_STRING_ENCRYPTION_KEY: ${ODS_CONNECTION_STRING_ENCRYPTION_KEY}
+    volumes:
+      - ${LOGS_FOLDER}:/app/logs
+    ports:
+      - 8001:80
+    depends_on:
+      - db-ods
+      - db-admin
+    restart: always
+    container_name: ed-fi-ods-api
+    hostname: ed-fi-ods-api
+    healthcheck:
+      test: ${API_HEALTHCHECK_TEST}
+      start_period: "60s"
+      retries: 3
+
+  swagger:
+    image: edfialliance/ods-api-swaggerui:pre
+    environment:
+      SAMPLE_KEY: ${MINIMAL_KEY}
+      SAMPLE_SECRET: ${MINIMAL_SECRET}
+      VERSION_URL: http://localhost:8001
+    ports:
+      - 8002:80
+    depends_on:
+      - api
+    restart: always
+    container_name: ed-fi-swagger
+    hostname: ed-fi-swagger
+    healthcheck:
+      test: ${SWAGGER_HEALTHCHECK_TEST}
+      start_period: "60s"
+      retries: 3
+
+volumes:
+  vol-db-admin:
+    driver: local
+    name: vol-nuget-db-admin-hub
+  vol-db-ods:
+    driver: local
+    name: vol-nuget-db-ods-hub

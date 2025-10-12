@@ -1,0 +1,209 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+@model EdFi.Ods.SandboxAdmin.Services.Models.Sandbox.SandboxIndexViewModel
+
+@{
+    ViewBag.Title = "Sandbox Orphans";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@section head {
+    <style>
+        .counter {
+            padding-left: 10px;
+            padding-top: 1.1rem;
+        }
+    </style>
+}
+
+@section Scripts
+{
+    <script>
+        var EdFiAdmin = EdFiAdmin || {};
+        var orphans = EdFiAdmin.orphans = {};
+
+        orphans.ViewModel = function () {
+            var self = this;
+            this.confirmChecked = ko.observable(false);
+
+            function showRemoveModal() {
+                $('#modal-remove-orphans').modal('show');
+            }
+
+            function hideRemoveModal() {
+                $('#modal-remove-orphans').modal('hide');
+            }
+
+            function initialize() {
+                $('#button-remove-orphans').click(showRemoveModal);
+                $('#modal-remove-orphans').modal({ show: false, backdrop: 'static', keyboard: false });
+                hideWait();
+            }
+
+            function showWait() {
+                $('.wait-spinner').removeClass('d-none');
+            }
+
+            function hideWait() {
+                $('.wait-spinner').addClass('d-none');
+            }
+
+            this.onOkClicked = function () {
+                showWait();
+                $.post(EdFiAdmin.Urls.removeOrphans,
+                    function (data) {
+                        document.location.reload(true);
+                    });
+            };
+
+            initialize();
+        };
+
+        $(function () {
+            var viewModel = new orphans.ViewModel();
+            ko.applyBindings(viewModel);
+        });
+    </script>
+}
+
+@{
+    var enableRemoveButton = Model.HasOrphans
+        ? string.Empty
+        : "disabled";
+}
+<div class="clearfix">
+    <h2 class="pull-left">Orphan Sandboxes</h2>
+    <p class="pull-left counter">(<span id="orphan-count">@Model.OrphanSandboxes.Length</span>)</p>
+    <div class="pull-left" style="padding-left: 15px; padding-top: .7rem">
+        <button id="button-remove-orphans" class="btn btn-danger btn-small" @enableRemoveButton>Remove Orphans</button>
+    </div>
+</div>
+@if (Model.HasOrphans)
+{
+    foreach (var sandbox in Model.OrphanSandboxes)
+    {
+        <p>@sandbox</p>
+    }
+}
+else
+{
+    <p>Zero Orphan Sandboxes</p>
+}
+
+<div class="clearfix">
+    <h2 class="pull-left">Missing Sandboxes</h2>
+    <p class="pull-left counter">(@Model.MissingSandboxes.Length)</p>
+</div>
+@if (Model.HasMissing)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Application Name</th>
+                <th>Client Api Name</th>
+                <th>Sandbox DB</th>
+            </tr>
+        </thead>
+        @foreach (var sandbox in Model.MissingSandboxes)
+        {
+            <tr>
+                <td>@sandbox.User</td>
+                <td>@sandbox.ApplicationName</td>
+                <td>@sandbox.Client</td>
+                <td>@sandbox.Sandbox</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>Zero Missing Sandboxes</p>
+}
+
+<div class="clearfix">
+    <h2 class="pull-left">Owned Sandboxes</h2>
+    <p class="pull-left counter">(@Model.OwnedSandboxes.Length)</p>
+</div>
+@if (Model.HasOwnedSandboxes)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Application Name</th>
+                <th>Client Api Name</th>
+                <th>Sandbox DB</th>
+            </tr>
+        </thead>
+        @foreach (var sandbox in Model.OwnedSandboxes)
+        {
+            <tr>
+                <td>@sandbox.User</td>
+                <td>@sandbox.ApplicationName</td>
+                <td>@sandbox.Client</td>
+                <td>@sandbox.Sandbox</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No Owned Sandboxes</p>
+}
+
+<div class="clearfix">
+    <h2 class="pull-left">All Sandboxes</h2>
+    <p class="pull-left counter">(@Model.AllSandboxes.Length)</p>
+</div>
+@if (Model.HasSandboxes)
+{
+    foreach (var sandbox in Model.AllSandboxes)
+    {
+        <p>@sandbox</p>
+    }
+}
+else
+{
+    <p>No Sandboxes</p>
+}
+
+<div class="modal fade" tabindex="-1" id="modal-remove-orphans">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Remove Orphans</h2>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <span class="confirmModalIcon icon-4x icon-exclamation-sign"></span>
+                    </div>
+                    <div class="span10">
+                        <p>This will remove all orphan databases. They cannot be recovered!</p>
+                        <div class="checkbox">
+                            <label>
+                                <input id="checkbox-confirmoperation" type="checkbox" data-bind="checked: confirmChecked" />
+                                <strong>I understand the danger!</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-removeall" type="submit" class="btn btn-primary" data-bind="enable: confirmChecked, click: onOkClicked">Remove All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

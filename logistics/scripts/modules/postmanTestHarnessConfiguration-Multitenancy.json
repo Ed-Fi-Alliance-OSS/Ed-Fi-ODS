@@ -1,0 +1,46 @@
+{
+  "ApplyOdsDatabaseMigrations": true,
+  "EnableOwnershipBasedAuthorization": true,
+  "Vendors": [
+    {
+      "TenantIdentifier": "Tenant1",
+      "Email": "admin@tenant1.org",
+      "VendorName": "tenant1.org",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "Tenant1",
+              "LocalEducationOrganizations": [255901],
+              "OwnershipToken": "OwnershipToken_Tenant1",
+              "ApiClientOwnershipTokens": [ "OwnershipToken_Tenant1" ]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://tenant1.org"]
+    },
+    {
+      "TenantIdentifier": "Tenant2",
+      "Email": "admin@tenant2.org",
+      "VendorName": "tenant2.org",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "Tenant2",
+              "LocalEducationOrganizations": [355901],
+              "OwnershipToken": "OwnershipToken_Tenant2",
+              "ApiClientOwnershipTokens": [ "OwnershipToken_Tenant2" ]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://tenant2.org"]
+    }
+  ]
+}

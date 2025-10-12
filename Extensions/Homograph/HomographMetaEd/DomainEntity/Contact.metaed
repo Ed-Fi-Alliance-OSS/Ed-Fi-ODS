@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity Contact
+    documentation "This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution."
+    domain entity Name
+        documentation "Full legal name of the person."
+        is part of identity
+        role name Contact
+    association StudentSchoolAssociation
+        documentation "The students association with the contact."
+        is required collection
+    common Address
+        documentation "The set of elements that describes an address, including the street address, city, state, and ZIP code."
+        is required collection

@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "EdFi.Ods.Api.IntegrationTestHarness": {
+      "commandName": "Project",
+      "commandLineArgs": "--configurationFilePath=$(ProjectDir)\\..\\..\\logistics\\scripts\\modules\\postmanTestHarnessConfiguration.json --environmentFilePath=$(ProjectDir)\\..\\..\\logistics\\scripts\\modules --environment=Development",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

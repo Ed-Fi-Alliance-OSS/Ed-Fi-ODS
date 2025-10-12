@@ -1,0 +1,42 @@
+﻿{
+  "ConnectionStrings": {
+    "EdFi_Ods": "host=localhost;port=5432;username=postgres;database=EdFi_{0};Application Name=EdFi.Ods.WebApi",
+    "EdFi_Security": "host=localhost;port=5432;username=postgres;database=EdFi_Security;Application Name=EdFi.Ods.WebApi",
+    "EdFi_Admin": "host=localhost;port=5432;username=postgres;database=EdFi_Admin;Application Name=EdFi.Ods.WebApi",
+    "EdFi_Master": "host=localhost;port=5432;username=postgres;database=postgres;Application Name=EdFi.Ods.WebApi"
+  },
+  "InstallType": "Sandbox",
+  "Tenants": {
+  },  
+  "FeatureManagement": {
+    "OpenApiMetadata": true,
+    "AggregateDependencies": true,
+    "TokenInfo": true,
+    "Extensions": true,
+    "Composites": true,
+    "Profiles": false,
+    "ChangeQueries": true,
+    "IdentityManagement": false,
+    "OwnershipBasedAuthorization": false,
+    "UniqueIdValidation": false,
+    "MultiTenancy": false
+  },
+  "ApiSettings": {
+    "Engine": "PostgreSQL",
+    "ExtensionVersion": "1.1.0",
+    "StandardVersion": "6.0.0",
+    "PopulatedTemplateDBTimeOutInSeconds": "600",
+    "OdsTokens": [],
+    "ExcludedExtensions": [],
+    "OdsDatabaseTemplateName": "",
+    "DropDatabases": false,
+    "MinimalTemplateSuffix": "Ods_Minimal_Template",
+    "PopulatedTemplateSuffix": "Ods_Populated_Template",
+    "MinimalTemplateScript": "PostgreSQLMinimalTemplate",
+    "PopulatedTemplateScript": "PostgreSQLPopulatedTemplate"
+  },
+  "Plugin": {
+    "Folder": "./Plugin",
+    "Scripts": [ "tpdm" ]
+  }
+}

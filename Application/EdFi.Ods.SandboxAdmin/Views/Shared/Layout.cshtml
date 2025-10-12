@@ -1,0 +1,129 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+@using EdFi.Ods.SandboxAdmin.Services.Extensions
+@using EdFi.Ods.SandboxAdmin.Services
+<!DOCTYPE html>
+@{
+    bool isAuthenticated = false;
+    string userName = string.Empty;
+
+    UserLookupResult userLookup = ViewBag.UserLookup;
+    if (userLookup != null && userLookup.HasCurrentUser)
+    {
+        isAuthenticated = true;
+        userName = userLookup.CurrentUser.FullName;
+    }
+
+    var hideOnAuthenticated = isAuthenticated
+        ? "d-none hideWhenAuthenticated"
+        : "hideWhenAuthenticated";
+    var showOnAuthenticated = isAuthenticated
+        ? "showWhenAuthenticated"
+        : "d-none showWhenAuthenticated";
+
+    var isAdmin = false;
+    if (userLookup != null)
+    {
+        isAdmin = userLookup.IsAdmin;
+    }
+}
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    @RenderSection("head", required: false)
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.1/flatly/bootstrap.min.css" integrity="sha512-NnOXwTfcNBeRenMzrDACGwxbThjRcI5H8jvM+VDKKkXA6wkAb2c0t1YgDXWmW2TNX1CUSe6Ma6HXYG2J1rBGDQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js" integrity="sha512-mULnawDVcCnsk9a4aG1QLZZ6rcce/jSzEGqUkeOLy0b6q0+T6syHrxlsAGH7ZVoqC93Pd0lBqd6WguPWih7VHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+</head>
+<body class="pb-4" data-auth="@isAuthenticated.ToString()">
+    <script src="~/js/extensions.js"></script>
+    <script src="~/js/globals.js"></script>
+    <script src="~/js/edfiadmin.auth.js"></script>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link @showOnAuthenticated" href="@Url.Action("Index", "Vendor")">Manage Vendors</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link @showOnAuthenticated" href="@Url.Action("Index", "Application")">Manage Applications</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link @showOnAuthenticated" href="@Url.Action("Index", "Client")">Manage Sandboxes</a>
+                    </li>
+                    @if (isAdmin)
+                    {
+                        <li class="nav-item mx-2">
+                            <div class="dropdown">
+                                <a href="javascript:void(0)" class="nav-link dropdown-toggle" id="account-management-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Manage Accounts
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="account-management-menu">
+                                    <a class="dropdown-item" href="@Url.Action("Create", "Account")">Create Account</a>
+                                    <a class="dropdown-item" href="@Url.Action("ResendAccountActivation", "Account")">Resend Account Activation</a>
+                                    <a class="dropdown-item" href="@Url.Action("Orphans", "Sandbox")">Sandbox Orphan Report</a>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-2 @hideOnAuthenticated">
+                        <a id="btn-showLogin" data-toggle="modal" class="nav-link" href="#loginModal">Login</a>
+                    </li>
+                    <li class="nav-item mx-2 @showOnAuthenticated">
+                        <div class="dropdown">
+                            <a href="javascript:void(0)" class="nav-link dropdown-toggle" id="account-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Account (<span class="authUserName">@userName</span>)
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="account-menu">
+                                <a id="btn-logout" class="dropdown-item" href="javascript:void(0)">
+                                    Logout <span class="authUserName">@userName</span>
+                                </a>
+                                <a class="dropdown-item" href="@Url.Action("ChangePassword", "Account")">Change Password</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container pt-4" id="main-content">
+        @if (TempData.HasErrorMessage())
+        {
+            <div class="alert alert-warning">@TempData.GetErrorMessage()</div>
+        }
+
+        @RenderBody()
+        <partial name="~/Views/Shared/LoginModal.cshtml" />
+        <!-- /container -->
+    </div>
+
+    <partial name="~/Views/Shared/JavascriptVariables.cshtml" />
+    @RenderSection("scripts", required: false)
+</body>
+</html>

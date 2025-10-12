@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Common StudentNeed
+    documentation "Represents student need and time period."
+    bool PrimaryStudentNeedIndicator
+        documentation "Indicates the parent characteristic is a primary student need."
+        is optional
+    date BeginDate
+        documentation "The month, day, and year for the start of the period."
+        is part of identity
+    date EndDate
+        documentation "The month, day, and year for the end of the period."
+        is optional

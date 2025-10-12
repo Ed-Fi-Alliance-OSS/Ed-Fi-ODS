@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Common Pet
+    documentation "Details about pets in the individual's household."
+    string PetName
+        documentation "The pet's name."
+        is part of identity
+        min length 3
+        max length 20
+    bool IsFixed
+        documentation "An indication as to whether the pet has been spayed/neutered."
+        is optional

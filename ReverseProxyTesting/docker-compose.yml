@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  nginx: 
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf"
+    ports:
+      - "54747:54747"
+      - "56642:56642"
+      - "38929:38929"

@@ -1,0 +1,43 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+<div class="modal fade" id="loginModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Have an Account?</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="tab-pane active in" id="tab-login">
+                        <div id="message-login" class="alert alert-danger"></div>
+
+                        <div class="form-group" data-groupname="emailaddress">
+                            <label class="control-label" for="emailaddress">Email Address</label>
+                            <input type="email" name="emailaddress" placeholder="" class="form-control input-small">
+                        </div>
+                        <div class="form-group" data-groupname="password">
+                            <label class="control-label" for="password">Password</label>
+                            <input type="password" name="password" placeholder="" class="form-control input-small">
+                        </div>
+                        <div class="form-group">
+                            <a href="@Url.Action("ForgotPassword", "Account")">Forgot Password?</a>
+                        </div>
+                        <div class="form-group">
+                            <div class="action-row">
+                                <button id="btn-login" class="btn btn-primary">Login</button>
+                                <input class="ml-4" type="checkbox" id="rememberme" name="rememberme"/>
+                                <label class="control-label" for="rememberme">Stay Signed In</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

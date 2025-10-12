@@ -1,0 +1,69 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity EdFi.Contact additions
+    // This is an example of a required simple type element on an extended domain entity.
+    bool IsSportsFan
+        documentation "An indication as to whether the contact is a sports fan."
+        is required
+    currency CoffeeSpend
+        documentation "How much the contact spends on coffee in a week."
+        is optional
+    date GraduationDate
+        documentation "The date the contact graduated high school."
+        is optional
+    decimal CeilingHeight
+        documentation "The height of the ceiling in the rooms of the contact's home."
+        is optional collection
+        total digits 5
+        decimal places 1
+    duration AverageCarLineWait
+        documentation "The time spent per day waiting in the car line."
+        is optional
+    integer LuckyNumber
+        documentation "The contact's lucky number."
+        is optional
+    percent RainCertainty
+        documentation "The percent likelihood that it will rain when the contact volunteers to chaperone a field trip."
+        is optional
+    // This is an example of a required simple type collection on an extended domain entity.
+    string FavoriteBookTitle
+        documentation "The title of the contact's favorite book."
+        is required collection
+        max length 100
+    time PreferredWakeUpTime
+        documentation "The time the contact would prefer to wake up in the morning."
+        is optional
+    year BecameParent
+        documentation "The year in which the contact first became a contact."
+        is optional
+    shared decimal EdFi.GPA
+        documentation "The contact's high school GPA."
+        is optional
+    shared integer EdFi.Duration
+        documentation "The amount of time the contact spends reading to his/her children at bedtime."
+        is optional
+    shared string EdFi.Author
+        documentation "The contact's favorite authors."
+        is optional collection
+    common EdFi.CTEProgramService
+        documentation "A CTE program the contact has completed."
+        is optional
+    descriptor EdFi.CredentialField
+        documentation "The field in which the contact holds a credential."
+        is optional
+    domain entity EdFi.EducationContent
+        documentation "Education content to which the contact has been referred."
+        is optional collection
+    association EdFi.StudentProgramAssociation
+        documentation "Programs the contact's child or children are enrolled in for which the contact provides volunteer services."
+        is optional collection
+    common extension EdFi.Address
+        documentation "Additional details on the contact's address."
+        is optional collection
+    // This is an example of a required common type on an extended domain entity.
+    common TeacherConference
+        documentation "The contact's preferred day of the week and time for contact-teacher conferences."
+        is required

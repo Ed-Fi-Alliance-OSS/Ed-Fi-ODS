@@ -1,0 +1,35 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+@model dynamic
+
+@{
+    ViewBag.Title = "Create Login";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h2>Create Account</h2>
+
+<p>Enter the full name and email address for the account you would like to create. A notification email will be sent to the account holder.</p>
+
+<div id="message-login-create" class="alert alert-danger d-none"></div>
+<div id="create-account-form">
+    <div class="form-group" data-groupname="name">
+        <label class="control-label" for="name">Name</label>
+        <input type="text" name="name" class="form-control input-small" placeholder="John Doe">
+    </div>
+    <div class="form-group" data-groupname="email">
+        <label class="control-label" for="email">Email Address</label>
+        <input type="email" name="email" class="form-control input-small" placeholder="john@example.com">
+    </div>
+    <div class="form-group d-none" id="create-resend">
+        <a href="@Url.Action("ResendAccountActivation", "Account")">Send Registration Email Again?</a>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" id="btn-createAccount">Create Account</button>
+    </div>
+</div>

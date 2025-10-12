@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Common FavoriteBook
+    documentation "Testing nested commons in extensions"
+    descriptor FavoriteBookCategory
+      documentation "This is documentation."
+      is part of identity
+    shared string BookTitle
+      documentation "This is documentation."
+      is optional
+    common FavoriteBookArtMedium
+      documentation "This is documentation."
+      is optional collection

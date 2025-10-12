@@ -1,0 +1,220 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+@{
+    ViewBag.Title = "Sandbox Administration Portal";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<script src="~/js/client.js"></script>
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h3>Sandbox Administration Portal for the Ed-Fi ODS API</h3>
+        <p class="lead">
+            This portal enables you to manage sandboxes for the Ed-Fi ODS API, including the keys and secrets for accessing these sandboxes.
+        </p>
+    </div>
+    <div class="row">
+        <div class="alert alert-danger" data-bind="visible: error">
+            <strong>Error:</strong> <span data-bind="text: error"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button id="add-application" class="btn btn-primary" data-bind="click: addApplicationClicked">Add Sandbox</button>
+        </div>
+    </div>
+    <fieldset>
+        <legend>Existing Sandboxes</legend>
+        <table class="table table-hover" id="clients-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Application</th>
+                    <th>Name</th>
+                    <th>Key</th>
+                    <th>Secret</th>
+                    <th>Operational Context</th>
+                    <th>Sample Data</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: apiClients">
+                <tr data-bind="attr: { 'data-applicationId': $data.Id, 'data-applicationname': $data.Name }">
+                    <td>
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <button class="btn btn-warning dropdown-toggle" id="sandbox-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                    <span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="sandbox-menu">
+                                    <a href="javascript:void(0)" data-bind="click: $parent.updateClientClicked" class="changeSecret dropdown-item">
+                                        Change Secret
+                                    </a>
+                                    <a href="javascript:void(0)" data-bind="click: $parent.deleteClientClicked" class="deleteApplication dropdown-item">
+                                        Delete
+                                    </a>
+                                    <a href="javascript:void(0)" data-bind="click: $parent.tokenClientClicked" class="tokenClient dropdown-item">
+                                        Get Token
+                                    </a>
+                                    <a href="javascript:void(0)" data-bind="click: $parent.resetSandboxClicked" class="resetSandbox dropdown-item">
+                                        Reset Sandbox
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-bind="text: ApplicationName" class="application-name"></td>
+                    <td data-bind="text: Name" class="client-name"></td>
+                    <td data-bind="text: Key" class="application-key"></td>
+                    <td data-bind="text: Secret" class="application-secret"></td>
+                    <td data-bind="text: OperationalContextUri" class="operational-context-name"></td>
+                    <td data-bind="text: HasSampleData" class="application-has-sample-data"></td>
+                    <td data-bind="text: Status" class="application-status"></td>
+                    <td>
+                        <span class="fa fa-spinner fa-spin pull-left dialog-footer-icon wait-spinner" data-bind="visible: IsLoading"></span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="9" data-bind="text: clientStatus"></th>
+                </tr>
+            </tfoot>
+        </table>
+    </fieldset>
+</div>
+
+<div class="modal fade" tabindex="-1" data-bind="with: addApplicationDialog, attr: { id: addApplicationDialog.htmlId }" id="modal-add">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Sandbox</h3>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <p>Creating new sandboxes -- especially populated sandboxes may take a few minutes.</p>
+                    <div class="form-group">
+                        <label class="control-label" for="application">Application:</label>
+                        <select id="application" class="custom-select" data-bind="options: applicationList, optionsCaption: 'Select Application', optionsText: 'Name', value: selectedApplication"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="txtSandboxName">Sandbox Name:</label>
+                        <input id="txtSandboxName" type="text" data-bind="value: sandboxName" class="form-control" placeholder="Name of Sandbox" />
+                    </div>
+                    <div class="form-group mt-2">
+                        <div class="checkbox">
+                            <label>
+                                <input id="checkbox-usesampledata" type="checkbox" data-bind="checked: useSampleData" />
+                                <strong>Populate with sample data</strong>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="text: buttonText, click: function() { onOkClicked(buttonText); }">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modal-confirm" data-bind="with: confirmationDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Are You Sure?</h3>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <span class="confirmModalIcon icon-4x icon-exclamation-sign"></span>
+                    </div>
+                    <div class="span10">
+                        <p data-bind="html: message"></p>
+                        <div class="checkbox">
+                            <label>
+                                <input id="checkbox-confirmoperation" type="checkbox" data-bind="checked: confirmChecked" />
+                                <strong>I understand the danger!</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: function() { onOkClicked(buttonText); }"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modal-token" data-bind="with: tokenDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Your temporary access token for this application is :</h3>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span10">
+                        <p data-bind="html: message"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modal-reset" data-bind="with: resetDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reset Sandbox</h3>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span10">
+                        <p data-bind="html: message"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

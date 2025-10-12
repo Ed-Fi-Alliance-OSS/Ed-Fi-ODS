@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Association EdFi.StudentEducationOrganizationAssociation additions
+    common extension EdFi.Address
+        documentation "The set of elements that describes an address, including the street address, city, state, and ZIP code."
+        is optional collection
+    common extension EdFi.StudentCharacteristic
+        documentation "Reflects important characteristics of the student's home situation:
+        Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth."
+        is optional collection
+    domain entity EdFi.Program
+        documentation "References the student's favorite program."
+        is optional
+        role name Favorite
+        merge FavoriteProgram.EducationOrganization with EducationOrganization

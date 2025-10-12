@@ -1,0 +1,29 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+<div class="row">
+    <div class="jumbotron">
+        <h3>Sandbox Administration Portal for the Ed-Fi ODS API</h3>
+        <p class="lead">
+            This portal enables you to manage sandboxes for the Ed-Fi ODS API, including the keys and secrets for accessing these sandboxes.
+        </p>
+    </div>
+    @*  <!-- disabled because this only works for Azure -->
+        <h2>Reset Sandbox</h2>
+        <p>This function will reset the shared sandbox to it's default values. It will take a few minutes to complete</p>
+        <form data-bind="submit: doResetSandbox, visible: showSubmit">
+            <button type="submit" class="btn btn-primary">Reset</button>
+        </form>
+        <div class="alert alert-warning" data-bind="visible: status">
+            <strong>Status:</strong> <span data-bind="text: status"></span>
+        </div>
+        <div class="alert alert-danger" data-bind="visible: error">
+            <strong>Error:</strong> <span data-bind="text: error"></span>
+        </div>*@
+</div>
+
+<script src="~/js/sandbox.js"></script>

@@ -1,0 +1,23 @@
+{
+  "ApplyOdsDatabaseMigrations": true,
+  "Vendors": [
+    {
+      "TenantIdentifier": "Tenant1",
+      "Email": "test@ed-fi.org",
+      "VendorName": "ed-fi.org",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "ODS/API",
+              "LocalEducationOrganizations": [255901, 19255901, 100000, 200000, 300000]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org", "uri://gbisd.edu"]
+    }
+  ]
+}

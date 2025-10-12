@@ -1,0 +1,139 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+@{
+    ViewBag.Title = "Sandbox Administration Portal";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<script src="~/js/vendor.js"></script>
+
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h3>Sandbox Administration Portal for the Ed-Fi ODS API</h3>
+        <p class="lead">
+            This portal enables you to manage sandboxes for the Ed-Fi ODS API, including the keys and secrets for accessing these sandboxes.
+        </p>
+    </div>
+    <div class="row">
+        <div class="alert alert-danger" data-bind="visible: error">
+            <strong>Error:</strong> <span data-bind="text: error"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button id="add-application" class="btn btn-primary" data-bind="click: addVendorClicked">Add Vendor</button>
+        </div>
+    </div>
+    <fieldset>
+        <legend> Existing Vendors</legend>
+        <table class="table table-hover" id="clients-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Namespace Prefix</th>
+                    <th>Contact Name</th>
+                    <th>Contact Email Address</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: vendors">
+                <tr data-bind="attr: { 'data-applicationId': $data.Id, 'data-applicationname': $data.Name }">
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteVendorClicked, disable: $data.IsDefaultVendor()">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                    <td data-bind="text: Name" class="vendor-name"></td>
+                    <td data-bind="text: NamespacePrefix" class="namespaceprefix-name"></td>
+                    <td data-bind="text: ContactName" class="contactName-name"></td>
+                    <td data-bind="text: ContactEmailAddress" class="contactEmailAddress-name"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5" data-bind="text: vendorStatus"></th>
+                </tr>
+            </tfoot>
+        </table>
+    </fieldset>
+</div>
+<div class="modal fade" tabindex="-1" data-bind="with: addVendorDialog, attr: { id: addVendorDialog.htmlId }" id="modal-add">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Vendor</h3>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label" for="txtVendorName">Vendor Name:</label>
+                        <input id="txtVendorName" type="text" data-bind="value: vendorName" class="form-control" placeholder="Name of Vendor" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="txtNamespacePrefix">Namespace Prefix:</label>
+                        <input id="txtNamespacePrefix" type="text" data-bind="value: namespacePrefix" class="form-control" placeholder="Namespace Prefix" />
+                        <span class="text-secondary"><i>Multiple namespace prefixes may be seperated by commas</i></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="txtContactName">Contact Name:</label>
+                        <input id="txtContactName" type="text" data-bind="value: contactName" class="form-control" placeholder="Name of Contact" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="txtContactEmailAddress">Contact Email Adress:</label>
+                        <input id="txtContactEmailAddress" type="email" data-bind="value: contactEmailAddress" class="form-control" placeholder="Email Address" />
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="text: buttonText, click: function() { onOkClicked(buttonText); }">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modal-confirm" data-bind="with: confirmationDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Are You Sure?</h3>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <span class="confirmModalIcon icon-4x icon-exclamation-sign"></span>
+                    </div>
+                    <div class="span10">
+                        <p data-bind="html: message"></p>
+                        <div class="checkbox">
+                            <label>
+                                <input id="checkbox-confirmoperation" type="checkbox" data-bind="checked: confirmChecked" />
+                                <strong>I understand the danger!</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: function() { onOkClicked(buttonText); }"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

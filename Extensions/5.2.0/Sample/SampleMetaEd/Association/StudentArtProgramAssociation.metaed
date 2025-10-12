@@ -1,0 +1,60 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Association StudentArtProgramAssociation based on EdFi.GeneralStudentProgramAssociation
+    documentation "This is an example of a subclass of an association."
+    shared string EdFi.IdentificationCode
+        documentation "A unique identification code used to identify the student's artwork produced in the program."
+        is optional
+    date ExhibitDate
+        documentation "Start date for the program's art exhibit to display the student's work."
+        is optional
+    descriptor ArtMedium
+        documentation "The art mediums used in the program (i.e., paint, pencils, clay, etc.)."
+        is optional collection
+    currency ProgramFees
+        documentation "Required program fees to purchase materials for the student."
+        is optional
+    common EdFi.Service
+        documentation "Indicates the Service(s) being provided to the Student by the Program."
+        is optional collection
+    common FavoriteBook
+        documentation "The student's favorite art book. Used to test support for Common fields in extension subclasses of EdFi.GeneralStudentProgramAssociation, EdFi.EducationOrganization."
+        is optional
+    shared decimal EdFi.NumberOfDaysInAttendance
+        documentation "Number of days the student is in attendance at the program."
+        is optional
+    decimal HoursPerDay
+        documentation "The number of hours a student spends in the program each school day."
+        is optional
+        total digits 5
+        decimal places 2
+    bool PrivateArtProgram
+        documentation "Indicator that the student participated in art education at a private agency or institution."
+        is required
+    time KilnReservation
+        documentation "The student's reserved time for use of the kiln."
+        is optional
+    duration KilnReservationLength
+        documentation "The number of clock minutes dedicated to the student's kiln reservation."
+        is optional
+    string Style
+        documentation "The art style(s) exhibited by the student in the program."
+        is required collection
+        max length 50
+    shared integer ArtPieces
+        documentation "The total number of art pieces completed by the student during the program."
+        is optional
+    year PortfolioYears
+        documentation "The of year(s) of work included in the student's portfolio."
+        is optional collection
+    integer PortfolioPieces
+        documentation "The total number of pieces in the student's portfolio."
+        is optional
+        min value 0
+        max value 100
+    percent MasteredMediums
+        documentation "Percentage of the mediums taught in the program which the student mastered."
+        is optional

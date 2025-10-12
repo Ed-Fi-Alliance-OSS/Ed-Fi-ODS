@@ -1,0 +1,99 @@
+/*
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+*/
+
+/* centers the progress element */
+#progress {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+/* improve default link hovering */
+a {
+  transition: color 0.5s ease-in;
+}
+
+a:hover {
+  color: #1f69c0;
+  transition: color 0.1s ease-out;
+}
+
+/* adds the fade in animation for most elements */
+.section,
+#pageTitle,
+#progress,
+#progressDescription,
+#errorDescription,
+#version,
+#pageDescription {
+  -webkit-animation: fadein 0.5s ease-out;
+  -moz-animation: fadein 0.5s ease-out;
+  -ms-animation: fadein 0.5s ease-out;
+  -o-animation: fadein 0.5s ease-out;
+  animation: fadein 0.5s ease-out;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.notice {
+    background-color: #ffe484 !important;
+    box-shadow: inset 0 -1px 1px rgba(var(--bs-body-color-rgb), 0.15), 0 0.25rem 1.5rem rgba(255, 255, 255, 0.75);
+}

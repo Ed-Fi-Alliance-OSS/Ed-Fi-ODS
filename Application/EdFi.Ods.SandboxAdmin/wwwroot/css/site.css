@@ -1,0 +1,30 @@
+﻿.navbar {
+    padding: 0.2rem;
+}
+
+.navbar-brand {
+    background: url('../images/ed-fi-logo-light.svg');
+    width: 118px;
+    height: 60px;
+}
+
+.dialog-footer-icon {
+    font-size: 28px;
+    margin-top: 7px;
+}
+
+#clients-table td {
+    vertical-align: middle;
+}
+
+.has-error .help-block, .has-error .control-label {
+    color: #e74c3c
+}
+
+.has-error .form-control, .has-error .form-control:focus {
+    border: 2px solid #e74c3c
+}
+
+.controls .alert {
+    padding: 4px;
+}

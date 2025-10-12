@@ -26,6 +26,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
 </Project>

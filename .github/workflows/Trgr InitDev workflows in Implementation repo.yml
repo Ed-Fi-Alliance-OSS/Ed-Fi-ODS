@@ -40,16 +40,16 @@ jobs:
       shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."        
-    - name: Checkout Ed-Fi-ODS-Implementation
+    - name: Checkout Get-RepositoryRoot "Ed-Fi-ODS"
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation/
-    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+          repository: Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"
+          path: Get-RepositoryRoot "Ed-Fi-ODS"/
+    - name: Is pull request branch exists in Get-RepositoryRoot "Ed-Fi-ODS"
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
-            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath ""
     - name: Set Current Branch Environment Variable
       shell: pwsh
       run: |
@@ -71,7 +71,7 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS-Implementation
+        repo:  Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         workflow: InitDev, MultiTenancy.yml
         workflow_timeout_seconds: 4800
@@ -82,7 +82,7 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS-Implementation
+        repo:  Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         workflow: InitDev, Smoke Tests.yml
         workflow_timeout_seconds: 4800
@@ -93,7 +93,7 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS-Implementation
+        repo:  Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         workflow: InitDev, Unit tests, Integration tests, Package.yml
         workflow_timeout_seconds: 4800
@@ -104,7 +104,7 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS-Implementation
+        repo:  Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         workflow: InitDev Postgres, MultiTenancy.yml
         workflow_timeout_seconds: 4800  
@@ -115,7 +115,7 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS-Implementation
+        repo:  Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         workflow: InitDev Postgres, Smoke Tests.yml
         workflow_timeout_seconds: 4800     
@@ -126,7 +126,7 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS-Implementation
+        repo:  Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         workflow: InitDev Postgres, Unit tests, Integration tests.yml
         workflow_timeout_seconds: 4800                   
@@ -135,7 +135,7 @@ jobs:
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
-        repo: Ed-Fi-ODS-Implementation
+        repo: Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_InitDevMultitenancy.outputs.run_id }}
         run_timeout_seconds: 4800
@@ -145,7 +145,7 @@ jobs:
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
-        repo: Ed-Fi-ODS-Implementation
+        repo: Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_InitDevSmokeTests.outputs.run_id }}
         run_timeout_seconds: 4800
@@ -155,7 +155,7 @@ jobs:
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
-        repo: Ed-Fi-ODS-Implementation
+        repo: Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_InitDevUnittestsIntegrationtestsPackage.outputs.run_id }}
         run_timeout_seconds: 4800
@@ -165,7 +165,7 @@ jobs:
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
-        repo: Ed-Fi-ODS-Implementation
+        repo: Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_InitDevPostgresMultitenancy.outputs.run_id }}
         run_timeout_seconds: 4800
@@ -175,7 +175,7 @@ jobs:
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
-        repo: Ed-Fi-ODS-Implementation
+        repo: Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_InitDevPostgresSmokeTests.outputs.run_id }}
         run_timeout_seconds: 4800
@@ -185,7 +185,7 @@ jobs:
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
-        repo: Ed-Fi-ODS-Implementation
+        repo: Get-RepositoryRoot "Ed-Fi-ODS"
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_InitDevPostgresUnittestsIntegrationtests.outputs.run_id }}
         run_timeout_seconds: 4800

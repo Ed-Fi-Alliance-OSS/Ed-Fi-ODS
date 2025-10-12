@@ -1,0 +1,22 @@
+{
+  "profiles": {
+    "EdFi.Ods.SwaggerUI": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:56641",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Reverse Proxy": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:56641",
+      "launchUrl": "http://localhost:56642",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "WebApiVersionUrl": "http://localhost:54747"
+      }
+    }
+  }
+}

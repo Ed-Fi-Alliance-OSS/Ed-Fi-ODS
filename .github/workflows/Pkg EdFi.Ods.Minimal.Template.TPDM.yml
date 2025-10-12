@@ -94,11 +94,11 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-    - name: Checkout Ed-Fi-ODS-Implementation
+    - name: Checkout Get-RepositoryRoot "Ed-Fi-ODS"
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation/
+          repository: Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"
+          path: Get-RepositoryRoot "Ed-Fi-ODS"/
     - name: Set EdFi-Standard Reference
       working-directory: ./Ed-Fi-ODS/
       run: |
@@ -130,11 +130,11 @@ jobs:
             !eng/testing/**/*.xml
             !eng/testing/**/*.xsd
           sparse-checkout-cone-mode: false
-    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+    - name: Is pull request branch exists in Get-RepositoryRoot "Ed-Fi-ODS"
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath ""
     - name: update BUILD_INCREMENTER 
       run: |      
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
@@ -153,15 +153,15 @@ jobs:
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
+        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/Application/Ed-Fi-Ods.sln"
       shell: pwsh
     - name: Initialize-DevelopmentEnvironment
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Get-RepositoryRoot "Ed-Fi-ODS"/
       run: |
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}') 
         $PSVersionTable
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        . $env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/Initialize-PowershellForDevelopment.ps1
         Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy -NoRestore -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -MssqlSaPassword ${{ env.DB_PASS }}
       shell: pwsh
     - name: Create Database Template (no extensions)
@@ -169,21 +169,21 @@ jobs:
       run: |
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')        
-        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-tpdm-minimal-template.psm1"
+        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Modules/create-tpdm-minimal-template.psm1"
         Initialize-TPDMMinimalTemplate -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
       shell: pwsh
     - name: Set permissions for database backup file
       working-directory: ./
-      run: sudo chmod -R 777 Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/
+      run: sudo chmod -R 777 Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Database/
       shell: pwsh
     - name: pack
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName  "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName  "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
       shell: pwsh
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Get-RepositoryRoot "Ed-Fi-ODS"/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
@@ -204,8 +204,8 @@ jobs:
       if: success() || failure()    
       run: |
         $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/net8.0/logfile.txt"
-        $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessLog.log"
-        $testHarnessRequestResponseDetailsSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessRequestResponseDetailsLog.log"        
+        $testHarnessSourcePath = "${{ github.workspace }}/Get-RepositoryRoot "Ed-Fi-ODS"/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessLog.log"
+        $testHarnessRequestResponseDetailsSourcePath = "${{ github.workspace }}/Get-RepositoryRoot "Ed-Fi-ODS"/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessRequestResponseDetailsLog.log"        
         $destinationPath = "${{ github.workspace }}/CreateDatabaseTemplateLogs/"
         # Create the destination folder if it doesn't exist
         if (!(Test-Path -Path $destinationPath)) {

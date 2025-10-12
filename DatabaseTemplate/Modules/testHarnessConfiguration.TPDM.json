@@ -1,0 +1,36 @@
+{
+  "ApplyOdsDatabaseMigrations": false,
+  "Vendors": [
+    {
+      "Email": "test@tpdm.ed-fi.org",
+      "VendorName": "tpdm.ed-fi.org",
+      "Applications": [
+        {
+          "ApplicationName": "BulkLoadClientBootstrap",
+          "ClaimSetName": "Bootstrap Descriptors and EdOrgs",
+          "ApiClients": [
+            {
+              "ApiClientName": "BulkLoadClientBootstrap",
+              "LocalEducationOrganizations": []
+            }
+          ]
+        },
+        {
+          "ApplicationName": "BulkLoadClientSandbox",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "BulkLoadClientSandbox",
+              "LocalEducationOrganizations": []
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": [
+        "uri://ed-fi.org",
+        "uri://gbisd.edu",
+        "uri://tpdm.ed-fi.org"
+      ]
+    }
+  ]
+}

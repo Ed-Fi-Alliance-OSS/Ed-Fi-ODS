@@ -1,0 +1,31 @@
+<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+@model dynamic
+
+@{
+    ViewBag.Title = "Reset Password";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h2>Resend Account Activation</h2>
+
+<p>Enter your email address below and we will send you a new account activation link.</p>
+
+<div class="row">
+    <div class="col-sm-8">
+        <form method="POST" action="@Url.Action("ResendAccountActivation", "Account")">
+            <div class="form-group">
+                <label for="email" class="control-label">Email Address:</label>
+                <input type="email" name="email" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">Send Activation</button>
+            </div>
+        </form>
+    </div>
+</div>

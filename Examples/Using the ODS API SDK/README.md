@@ -1,0 +1,1 @@
+Contains a C# sample project that consumes the generated client SDK.

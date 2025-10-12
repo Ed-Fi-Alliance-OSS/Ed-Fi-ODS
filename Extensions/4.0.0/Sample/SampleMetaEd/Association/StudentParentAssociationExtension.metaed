@@ -1,0 +1,67 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Association EdFi.StudentParentAssociation additions
+    shared string EdFi.ContactRestrictions
+        documentation "Previous restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual)."
+        is optional
+        role name Prior
+    // This is an example of a required simple type element on an extended association.
+    bool BedtimeReader
+        documentation "An indication as to whether the parent regularly reads to the student before bed."
+        is required
+    currency BookBudget
+        documentation "The parent's estimated monthly budget dedicated to books for the student."
+        is optional
+    date ReadGreenEggsAndHamDate
+        documentation "Date on which the parent first read the student Green Eggs and Ham by Dr. Seuss."
+        is optional
+    decimal PagesRead
+        documentation "Total number of pages the parent has read the student."
+        is optional collection
+        total digits 18
+        decimal places 2
+    duration ReadingTimeSpent
+        documentation "The amount of time the parent spends reading to the student each day."
+        is optional
+    integer BooksBorrowed
+        documentation "The total number of books the parent has borrowed on behalf of the student to date."
+        is optional
+    percent BedtimeReadingRate
+        documentation "The average number of pages the parent reads with the student each day."
+        is optional
+    // This is an example of a required simple type collection on an extended association.
+    string FavoriteBookTitle
+        documentation "The title of the student's favorite book."
+        is required collection
+        max length 100
+    time LibraryTime
+        documentation "The student's regularly scheduled library time during the school day."
+        is optional
+    short LibraryVisits
+        documentation "Total number of visits a student is allowed to the library in a single school day."
+        is optional
+    year StudentRead
+        documentation "The year in which the student's reading habits are being recorded."
+        is optional
+    shared decimal EdFi.HoursPerWeek
+        documentation "Total number of hours per week a student and parent dedicates to reading."
+        is optional collection
+    shared integer EdFi.Duration
+        documentation "The actual or estimated number of clock minutes for a given library visit."
+        is optional
+        role name Library
+    common EdFi.Telephone
+        documentation "The preferred telephone number for contact if the person is listed as an emergency contact for the student."
+        is optional
+    descriptor EdFi.Discipline
+        documentation "The type of action used to discipline the student preferred by the parent."
+        is optional collection
+    domain entity EdFi.InterventionStudy
+        documentation "A reference to the intervention study used to track the student's reading ability based on varying levels of parent involvement."
+        is optional
+    association EdFi.StaffEducationOrganizationEmploymentAssociation
+        documentation "A reference to the staff member and education organization assigned to help track the student's reading abilities with the parent's involvement."
+        is optional collection

@@ -1,0 +1,66 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity BusRoute
+    deprecated "Expect removal of this element in a future release."
+    documentation "This is an example of a new domain entity."
+    domain entity Bus
+        documentation "The designated bus for the bus route."
+        is part of identity
+    integer BusRouteNumber
+        deprecated "Expect removal of this element in a future release."
+        documentation "A unique identifier for the bus route."
+        is part of identity
+    string BusRouteDirection
+        documentation "The direction of the bus route."
+        is required
+        max length 15
+    time StartTime
+        documentation "The time the bus route begins."
+        is required collection
+    bool Daily
+        documentation "An indication as to whether the bus route operates every weekday."
+        is optional
+    currency OperatingCost
+        documentation "The approximate annual cost for the bus route."
+        is required
+    date StartDate
+        documentation "The date the bus route became operational."
+        is optional
+    decimal WeeklyMileage
+        documentation "The approximate weekly mileage for the bus route."
+        is optional
+        total digits 5
+        decimal places 2
+    duration ExpectedTransitTime
+        documentation "The approximate amount of time, in minutes, for the bus route operation each day."
+        is required
+    percent OptimalCapacity
+        documentation "The percentage of seats filled under optimal conditions."
+        is optional
+    year BusYear
+        documentation "The years in which the bus route has been in active."
+        is optional collection
+    shared decimal EdFi.HoursPerWeek
+        documentation "The number of hours per week in which the bus route is operational."
+        is required
+    shared integer EdFi.Duration named BusRouteDuration
+        documentation "The number of minutes per week in which the bus route is operational."
+        is optional
+    shared string EdFi.PostalCode named ServiceAreaPostalCode
+        documentation "The postal codes served by the bus route."
+        is required collection
+    common EdFi.Telephone
+        documentation "Telephone numbers at which dispatchers may be reached for this bus route."
+        is required collection
+    descriptor EdFi.Disability
+        documentation "The disability served by the bus route, if applicable."
+        is optional
+    domain entity EdFi.Program
+        documentation "Programs served by the bus route."
+        is optional collection
+    association EdFi.StaffEducationOrganizationAssignmentAssociation
+        documentation "The staff member (and associated assignment) responsible for assistance loading students on the bus."
+        is optional

@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>EdFi.Ods.Sandbox.Admin</AssemblyName>
+    <RootNamespace>EdFi.Ods.Sandbox.Admin</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackages>true</RestorePackages>
+    <UserSecretsId>f1506d66-289c-44cb-a2e2-80411cc690ea</UserSecretsId>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(UseProjectsOverPackages)' == 'true'" />
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10185" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.3.10173" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="8.0.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="8.0.2" />
+    <PackageReference Include="Hangfire" Version="1.8.14" />
+    <PackageReference Include="Hangfire.PostgreSql" Version="1.20.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="Npgsql" Version="8.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+	<PackageReference Include="CommandLineParser" Version="2.9.1" />	
+    <PackageReference Include="Quartz.AspNetCore" Version="3.11.0" />
+    <PackageReference Include="Quartz.Serialization.Json" Version="3.11.0" />	
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.Ods.SandboxAdmin.Services\EdFi.Ods.SandboxAdmin.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="log4net.config">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="EdFi.Ods.SandboxAdmin.nuspec" CopyToPublishDirectory="Always" />
+    <Content Update="appsettings.*.json" CopyToPublishDirectory="Never" />
+    <Content Update="log4net.*.config" CopyToOutputDirectory="Always" CopyToPublishDirectory="Never" />
+    <Content Include="../../LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
+    <Content Include="../../NOTICES.md" Link="NOTICES.md" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+  </ItemGroup>
+</Project>

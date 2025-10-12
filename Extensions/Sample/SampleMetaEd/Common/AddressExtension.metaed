@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Common EdFi.Address additions
+    // This is an example of a required simple type element on an extended common.
+    shared string Complex
+        documentation "The apartment or housing complex name."
+        is optional
+    descriptor EdFi.Term
+        documentation "Terms applicable to this address."
+        is optional collection
+    bool OnBusRoute
+        documentation "An indicator if the address is on a bus route."
+        is required
+    // This is an example of a required simple type collection on an extended common.
+    string SchoolDistrict
+        documentation "The school district in which the address is located."
+        is required collection
+        max length 250

@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity EdFi.Staff additions
+    common Pet
+        documentation "Details about pets in the staff member's household."
+        is optional collection
+    date FirstPetOwnedDate
+        documentation "The date the staff member adopted the first household pet."
+        is optional
+    common PetPreference
+        documentation "Details about the staff member's pet preferences."
+        is optional

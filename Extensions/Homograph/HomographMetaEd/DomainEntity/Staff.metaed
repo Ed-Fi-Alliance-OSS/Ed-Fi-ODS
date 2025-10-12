@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity Staff
+    documentation "same name as a core domain entity"
+    domain entity Name
+        documentation "Full legal name of the person."
+        is part of identity
+        role name Staff
+    association StudentSchoolAssociation
+        documentation "The students under the instruction of the staff member"
+        is optional collection
+    common Address
+        documentation "The set of elements that describes an address, including the street address, city, state, and ZIP code."
+        is optional collection

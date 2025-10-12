@@ -1,0 +1,9 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Shared Integer ArtPieces
+    documentation "A count of the total number of art pieces created by a student."
+    min value 0
+    max value 100

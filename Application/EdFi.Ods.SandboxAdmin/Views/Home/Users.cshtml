@@ -1,0 +1,30 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in UserManager.Users)
+        {
+            <tr>
+                <td>@user.UserName</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,41 @@
+/*
+SPDX-License-Identifier: Apache-2.0
+Licensed to the Ed-Fi Alliance under one or more agreements.
+The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+See the LICENSE and NOTICES files in the project root for more information.
+*/
+
+.page-title {
+  font-size: 2rem;
+}
+
+.page-title .logo {
+  height: 3.7rem;
+}
+
+.notice {
+  background-color: #ffe484;
+  box-shadow: inset 0 -1px 1px rgba(var(--bs-body-color-rgb), 0.15), 0 0.25rem 1.5rem rgba(255, 255, 255, 0.75);
+}
+
+.version-row {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.version-row:last-child {
+  border-bottom: initial;
+}
+
+#sections {
+  animation: fadein 0.5s ease-out;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

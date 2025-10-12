@@ -1,0 +1,90 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <AssemblyName>EdFi.Ods.Api.IntegrationTestHarness</AssemblyName>
+    <RootNamespace>EdFi.Ods.Api.IntegrationTestHarness</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackages>true</RestorePackages>
+    <UserSecretsId>f1506d66-289c-44cb-a2e2-80411cc690ed</UserSecretsId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="hibernate.cfg.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="AdminCredential.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Profiles.Test\ProfilesTenant1.xml">
+      <Link>ProfilesTenant1.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Profiles.Test\ProfilesTenant2.xml">
+      <Link>ProfilesTenant2.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Plugin\**" LinkBase="Plugin\" Exclude="..\..\Plugin\*.ps1;..\..\Plugin\**\*.nupkg" CopyToPublishDirectory="Always" CopyToOutputDirectory="Never" />
+    <Content Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Profiles.Test\Profiles.xml" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
+    <Content Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Profiles.Test\InvalidProfiles.xml" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(UseProjectsOverPackages)' == 'true'">
+      <ItemGroup>
+        <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
+        <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10185" />
+        <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="7.3.10181" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="dbup-postgresql" Version="5.0.40" />
+    <PackageReference Include="dbup-sqlserver" Version="5.0.41" />
+    <PackageReference Include="log4net" Version="2.0.17" />
+    <PackageReference Include="Npgsql" Version="8.0.3" />
+    <PackageReference Include="NHibernate" Version="5.5.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Composites.Enrollment\EdFi.Ods.Composites.Enrollment.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Composites.Test\EdFi.Ods.Composites.Test.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Features.OwnershipBasedAuthorization\EdFi.Ods.Features.OwnershipBasedAuthorization.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="**.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- 
+    IMPORTANT: Only migration scripts that should be supported here are:
+      * ODS structure (for adding auth views)
+      * Security Data (for adding security metadata) 
+    -->
+    <EmbeddedResource Include="Artifacts\*\Data\Security\*.sql" />
+    <EmbeddedResource Include="Artifacts\*\Structure\ODS\*.sql" />
+    <EmbeddedResource Include="Standard\*\*\Structure\ODS\*.sql" />
+  </ItemGroup>
+</Project>

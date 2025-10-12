@@ -1,0 +1,12 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Association EdFi.StudentCTEProgramAssociation additions
+    bool AnalysisCompleted
+        documentation "A unique identification code used to identify the student's artwork produced in the program."
+        is optional
+    datetime AnalysisDate
+        documentation "The date and time the CTEProgram analysis was completed."
+        is optional

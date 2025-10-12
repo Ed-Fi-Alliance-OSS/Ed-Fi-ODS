@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity EdFi.Student additions
+    common Pet
+        documentation "Details about pets in the student's household."
+        is optional collection
+    common PetPreference
+        documentation "Details about the student's pet preferences."
+        is optional
+    common AquaticPet
+        documentation "Details about aquatic pets in the student's household"
+        is optional collection
+    common FavoriteBook
+        documentation "This is documentation."
+        is optional collection

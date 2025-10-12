@@ -1,0 +1,70 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Common ParentEmployment
+    documentation "This is an example of a new common type."
+    integer FederalEmployerIdentificationNumber
+        documentation "The FEIN of the parent's employer company."
+        is part of identity
+    bool IsPrimary
+        documentation "An indication as to whether the employment is the parent's primary job."
+        is required
+    currency AnnualSalary
+        documentation "The parent's salary."
+        is optional
+    string EmployerName
+        documentation "The name of the company employing the parent."
+        is required collection
+        max length 75
+    integer NAICSCode
+        documentation "The code for the industry in which the employer operates."
+        is optional collection
+    date HireDate
+        documentation "The parent's date of hire."
+        is required
+    decimal FTE
+        documentation "The full-time equivalency for the parent in this position."
+        is required
+        total digits 3
+        decimal places 2
+    duration AverageWorkDayLength
+        documentation "The amount of time in hours of the parent's normal work day."
+        is optional
+    percent RemoteWorkRate
+        documentation "The perecentage of time the parent works remotely."
+        is optional
+    time WorkDayStart
+        documentation "The time the parent's work day starts."
+        is optional
+    year TargetRetirementYear
+        documentation "The year in which the parent hopes to retire."
+        is optional
+	  shared decimal EdFi.HoursPerWeek
+        documentation "The number of hours per week the parent works."
+        is required
+    shared integer EdFi.Duration
+        documentation "The number of years the parent has worked for this employer."
+        is optional
+    shared string EdFi.PositionTitle
+        documentation "The parent's job title."
+        is required collection
+	  common EdFi.Telephone
+        documentation "A telephone number where the parent may be reached at work."
+        is required
+    inline common EdFi.Name
+        documentation "The name of the parent's supervisor."
+        is required
+    descriptor EdFi.SeparationReason
+        documentation "The reason the parent left this employment."
+        is optional
+    domain entity EdFi.Staff
+        documentation "A reference to the staff member that collected these details."
+        is optional
+    association EdFi.StudentProgramAssociation
+        documentation "A student in a program that the parent has mentored."
+        is optional
+    choice EdFi.LearningResourceChoice
+        documentation "Details regarding a LearningResource that is somehow relevant to a parent's employment."
+        is optional

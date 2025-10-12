@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>EdFi.Suite3.Installer.SwaggerUI</id>
+    <version>1.0.0</version>
+    <title>Ed-Fi SwaggerUI Installer Scripts</title>
+    <authors>Ed-Fi Alliance</authors>
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"</projectUrl>
+    <copyright>$copyright$</copyright>
+    <summary>Application installer modules for the Ed-Fi SwaggerUI application</summary>
+    <description>Application installer modules for the Ed-Fi SwaggerUI application</description>
+    <license type="file">LICENSE.txt</license>
+  </metadata>
+  <files>
+    <file src="Install-EdFiOdsSwaggerUI.psm1" target="" /> 
+    <file src="AppCommon/**" /> 
+    <file src="../../LICENSE.txt" />
+    <file src="../../NOTICES.md" />
+  </files>
+</package>

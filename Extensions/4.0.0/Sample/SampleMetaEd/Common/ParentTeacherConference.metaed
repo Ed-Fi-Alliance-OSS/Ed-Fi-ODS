@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Common TeacherConference
+    documentation "The parent's preferred day of the week and time for parent-teacher conferences."
+    string DayOfWeek
+        documentation "The day of the week the parent prefers to meet for parent-teacher conferences."
+        is required
+        max length 10
+    time StartTime
+        documentation "The start time the parent prefers to meet for parent-teacher conferences."
+        is required
+    time EndTime
+        documentation "The end time the parent prefers to meet for parent-teacher conferences."
+        is required

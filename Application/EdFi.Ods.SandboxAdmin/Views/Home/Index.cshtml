@@ -1,0 +1,22 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+@model EdFi.Ods.SandboxAdmin.Services.Models.Home.IndexViewModel
+@{
+    ViewBag.Title = "Sandbox Administration Portal";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@if (Model.UserShouldLogin)
+{
+    <h2>Sandbox Admin</h2>
+    <p>Click "Login" to either log into your current account or create a new account.</p>
+}
+@if (Model.UserIsAdmin)
+{
+    await Html.RenderPartialAsync("ResetSandbox", Model);
+}

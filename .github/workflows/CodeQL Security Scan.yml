@@ -46,16 +46,16 @@ jobs:
         uses: github/codeql-action/init@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
         with:
           languages: 'csharp'
-      - name: Checkout Ed-Fi-ODS-Implementation
+      - name: Checkout Get-RepositoryRoot "Ed-Fi-ODS"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-            path: Ed-Fi-ODS-Implementation/
-      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-        working-directory: ./Ed-Fi-ODS-Implementation/
+            repository: Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"
+            path: Get-RepositoryRoot "Ed-Fi-ODS"/
+      - name: Is pull request branch exists in Get-RepositoryRoot "Ed-Fi-ODS"
+        working-directory: ./Get-RepositoryRoot "Ed-Fi-ODS"/
         shell: pwsh
         run: |
-          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath ""
       - name: Checkout Ed-Fi-ODS
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -67,12 +67,12 @@ jobs:
         run: |
           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
       - name: CodeGen    
-        working-directory: ./Ed-Fi-ODS-Implementation/
+        working-directory: ./Get-RepositoryRoot "Ed-Fi-ODS"/
         shell: pwsh
         run: |
             $ErrorActionPreference = 'Stop'
             $PSVersionTable
-            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+            . $env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/Initialize-PowershellForDevelopment.ps1
             Invoke-CodeGen -Engine PostgreSQL -RepositoryRoot $env:GITHUB_WORKSPACE/ -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
       - name: Cache Nuget packages
         uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
@@ -84,12 +84,12 @@ jobs:
       - name: Restore NuGet packages
         working-directory: ./Ed-Fi-ODS/
         run: |
-          .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
+          .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/Application/Ed-Fi-Ods.sln"
         shell: pwsh            
       - name: build
         shell: pwsh
         working-directory: ./Ed-Fi-ODS/
         run: |
-             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln" -StandardVersion ${{ matrix.StandardVersion }}
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/Application/Ed-Fi-Ods.sln" -StandardVersion ${{ matrix.StandardVersion }}
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169  # v3.28.0

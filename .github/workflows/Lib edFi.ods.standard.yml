@@ -52,16 +52,16 @@ jobs:
       with:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
         path: Ed-Fi-ODS/
-    - name: Checkout Ed-Fi-ODS-Implementation
+    - name: Checkout Get-RepositoryRoot "Ed-Fi-ODS"
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
-        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-        path: Ed-Fi-ODS-Implementation/
-    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+        repository: Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"
+        path: Get-RepositoryRoot "Ed-Fi-ODS"/
+    - name: Is pull request branch exists in Get-RepositoryRoot "Ed-Fi-ODS"
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath ""
     - name: Cache Nuget packages       
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
@@ -87,7 +87,7 @@ jobs:
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+          . $env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/Initialize-PowershellForDevelopment.ps1
           Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE/ -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
     - name: build
       working-directory: ./Ed-Fi-ODS/

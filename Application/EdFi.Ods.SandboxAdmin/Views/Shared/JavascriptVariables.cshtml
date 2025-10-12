@@ -1,0 +1,25 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+@using EdFi.Ods.Sandbox.Admin.Extensions
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    var homeUrl = Context.Request.ToAbsolutePath("~", null, Configuration.GetValue<bool>("ApiSettings:UseReverseProxyHeaders"));
+    var oauthUrl = Configuration.GetValue<string>("OAuthUrl");
+}
+
+<script>
+    var EdFiAdmin = EdFiAdmin || {};
+    var urls = EdFiAdmin.Urls = EdFiAdmin.Urls || {};
+
+    urls.createLogin = '@Url.Action("Create", "Account")';
+    urls.home = '@homeUrl';
+    urls.oauth = '@oauthUrl';
+    urls.removeOrphans = '@Url.Action("RemoveOrphans", "Sandbox")';
+
+</script>

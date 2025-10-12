@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>EdFi.Ods.Api.IntegrationTestHarness</id>
+    <version>0.0.0</version>
+    <authors>Ed-Fi Alliance</authors>
+    <owners>Ed-Fi Alliance</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>EdFi.Ods.Api.IntegrationTestHarness</description>
+    <releaseNotes></releaseNotes>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\net48\*.*" target="tools\"/>
+  </files>
+</package>

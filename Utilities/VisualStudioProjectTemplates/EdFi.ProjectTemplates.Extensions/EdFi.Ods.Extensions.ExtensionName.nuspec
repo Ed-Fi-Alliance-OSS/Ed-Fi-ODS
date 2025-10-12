@@ -6,7 +6,7 @@
     <authors>Ed-Fi Alliance</authors>
     <owners>Ed-Fi Alliance</owners>
     <copyright>$copyright$</copyright>
-    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation</projectUrl>
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$safeprojectname$.$extensionversion$.Standard.$standardversion$</description>
     <releaseNotes></releaseNotes>

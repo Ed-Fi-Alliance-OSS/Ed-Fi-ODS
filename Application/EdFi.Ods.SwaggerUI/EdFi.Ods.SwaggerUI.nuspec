@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>EdFi.Ods.SwaggerUI</id>
+    <version>0.0.0</version>
+    <authors>Ed-Fi Alliance</authors>
+    <owners>Ed-Fi Alliance</owners>
+    <copyright>$copyright$</copyright>
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>EdFi.Ods.SwaggerUI</description>
+    <releaseNotes></releaseNotes>
+    <license type="file">LICENSE.txt</license>
+  </metadata>
+  <files>
+    <file src="**" />
+  </files>
+</package>

@@ -1,0 +1,39 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+@model dynamic
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@section scripts
+{
+    <script>
+
+        $(function() {
+            $('#btn-session').click(function() {
+                EdFiAdmin.Auth.getSessionInfo(function(data) {
+                    var sessionJson = JSON.stringify(data, null, 3);
+                    $('#session-info-output')
+                        .text(sessionJson)
+                        .removeClass('d-none');
+                });
+            });
+        });
+    </script>
+}
+
+<h2>Login</h2>
+
+<div>
+    <button id="btn-session">Session</button>
+</div>
+<div style="margin-top: 20px;">
+    <pre id="session-info-output" class="d-none"></pre>
+</div>

@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>EdFi.Ods.Features.OwnershipBasedAuthorization</RootNamespace>
+    <AssemblyName>EdFi.Ods.Features.OwnershipBasedAuthorization</AssemblyName>
+    <Product>EdFi.Ods.Api.Startup</Product>
+    <Configurations>Debug;Release</Configurations>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(UseProjectsOverPackages)' == 'true'">
+      <ItemGroup>
+        <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.3.10173" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.17" />
+    <PackageReference Include="NHibernate" Version="5.5.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+  </ItemGroup>
+</Project>

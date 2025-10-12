@@ -1,0 +1,6 @@
+Ed-Fi-Common/
+Ed-Fi-ODS/
+Get-RepositoryRoot "Ed-Fi-ODS"/
+AppCommon/
+tools/
+*.log

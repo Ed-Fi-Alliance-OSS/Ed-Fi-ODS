@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "EdFi.Ods.WebApi": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "commandLineArgs": "--environment Development",
+      "applicationUrl": "http://localhost:54746"
+    },
+    "Reverse Proxy": {
+      "commandName": "Project",
+      "commandLineArgs": "--environment Development",
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:54746",
+      "launchUrl": "http://localhost:54747",
+      "environmentVariables": {
+        "ApiSettings:UseReverseProxyHeaders": "true"
+      }
+    }
+  }
+}

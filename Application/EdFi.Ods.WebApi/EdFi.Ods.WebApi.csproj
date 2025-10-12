@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<StandardVersion Condition="'$(StandardVersion)' == '' ">6.0.0</StandardVersion>
+	</PropertyGroup>
+	<PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>EdFi.Ods.WebApi</AssemblyName>
+    <RootNamespace>EdFi.Ods.WebApi</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackages>true</RestorePackages>
+    <UserSecretsId>f1506d66-289c-44cb-a2e2-80411cc690ec</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="log4net.config" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
+    <None Update="hibernate.cfg.xml" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
+    <Content Include="..\..\Plugin\**" LinkBase="Plugin\" Exclude="..\..\Plugin\*.ps1;..\..\Plugin\**\*.nupkg" CopyToPublishDirectory="Always" CopyToOutputDirectory="Never" />
+    <Content Include="EdFi.Ods.WebApi*.nuspec" CopyToPublishDirectory="Always" CopyToOutputDirectory="Never" />
+    <Content Include="../../LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
+    <Content Include="../../NOTICES.md" Link="NOTICES.md" CopyToPublishDirectory="Always" />
+    <Content Update="appsettings.Development.json" CopyToPublishDirectory="Never" CopyToOutputDirectory="Always" />
+    <Content Update="log4net.development.config" CopyToPublishDirectory="Never" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(UseProjectsOverPackages)' == 'true'">
+      <ItemGroup>
+        <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10185" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.9.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="NHibernate" Version="5.5.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Npgsql" Version="8.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Composites.Enrollment\EdFi.Ods.Composites.Enrollment.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Features.OwnershipBasedAuthorization\EdFi.Ods.Features.OwnershipBasedAuthorization.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+  </ItemGroup>
+</Project>

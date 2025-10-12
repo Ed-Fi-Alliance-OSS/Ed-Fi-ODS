@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+// This is an example of an extension to an EducationOrganization subclass
+Domain Entity EdFi.School additions
+    bool IsExemplary
+        documentation "An indication as to whether the school is exemplary."
+        is optional
+    common EdFi.CTEProgramService
+        documentation "A CTE program the school is known for."
+        is optional
+    domain entity Bus
+        documentation "Buses owned by the School directly."
+        is optional collection
+        role name DirectlyOwned
