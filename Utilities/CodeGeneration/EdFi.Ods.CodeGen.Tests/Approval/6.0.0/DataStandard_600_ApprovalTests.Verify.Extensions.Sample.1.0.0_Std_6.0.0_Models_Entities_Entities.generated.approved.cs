@@ -11971,6 +11971,874 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
         }
     }
 }
+// Aggregate: StudentDemographic
+
+namespace EdFi.Ods.Entities.NHibernate.StudentDemographicAggregate.Sample
+{
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the sample.StudentDemographicStudentCharacteristicStudentNeed table of the StudentDemographic aggregate in the ODS database.
+    /// </summary>
+    [Schema("sample")]
+    [ExcludeFromCodeCoverage]
+    [MessagePackObject]
+    public class StudentDemographicStudentCharacteristicStudentNeed : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public StudentDemographicStudentCharacteristicStudentNeed()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, IgnoreMember]
+        public virtual EdFi.StudentDemographicStudentCharacteristic StudentDemographicStudentCharacteristic { get; set; }
+
+        Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension IStudentDemographicStudentCharacteristicStudentNeed.StudentDemographicStudentCharacteristicExtension
+        {
+            get { return (IStudentDemographicStudentCharacteristicExtension) StudentDemographicStudentCharacteristic.Extensions["Sample"]; }
+            set { StudentDemographicStudentCharacteristic.Extensions["Sample"] = value; }
+        }
+
+        [DomainSignature]
+        [Key(1)]
+        public virtual DateTime BeginDate 
+        {
+            get { return _beginDate; }
+            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+            set { _beginDate = new DateTime(value.Year, value.Month, value.Day); }
+        }
+
+        private DateTime _beginDate;
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        [Key(2)]
+        public virtual DateTime? EndDate 
+        {
+            get { return _endDate; }
+            set 
+            { 
+                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+                if(value == null)
+                {
+                    _endDate = null;
+                } else
+                {
+                    var given = (DateTime) value;
+                    _endDate = new DateTime(given.Year, given.Month, given.Day);
+                }
+            }
+        }
+
+        private DateTime? _endDate;
+
+        [Key(3)]
+        public virtual bool? PrimaryStudentNeedIndicator  { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "StudentCharacteristicDescriptor", new LookupColumnDetails { PropertyName = "StudentCharacteristicDescriptorId", LookupTypeName = "StudentCharacteristicDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (StudentDemographicStudentCharacteristic as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("BeginDate", BeginDate);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
+            {
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
+            }
+
+            return hashCode.ToHashCode();
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentDemographicStudentCharacteristic = (EdFi.StudentDemographicStudentCharacteristic) value;
+        }
+    }
+
+    /// <summary>
+    /// An implicitly created entity extension class to enable entity mapping and sychronization behavior for the StudentDemographicStudentCharacteristic entity's aggregate extensions.
+    /// </summary>
+    [ExcludeFromCodeCoverage][MessagePackObject]
+    public class StudentDemographicStudentCharacteristicExtension : IStudentDemographicStudentCharacteristicExtension, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
+    {
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private EdFi.StudentDemographicStudentCharacteristic _studentDemographicStudentCharacteristic;
+
+        Common.EdFi.IStudentDemographicStudentCharacteristic IStudentDemographicStudentCharacteristicExtension.StudentDemographicStudentCharacteristic
+        {
+            get { return _studentDemographicStudentCharacteristic; }
+            set { _studentDemographicStudentCharacteristic = (EdFi.StudentDemographicStudentCharacteristic) value; }
+        }
+
+        private EdFi.StudentDemographicStudentCharacteristic StudentDemographicStudentCharacteristic
+        {
+            get { return (this as IStudentDemographicStudentCharacteristicExtension).StudentDemographicStudentCharacteristic as EdFi.StudentDemographicStudentCharacteristic; }
+        }
+
+        bool IImplicitEntityExtension.IsEmpty()
+        {
+            return (true
+                && ((IList<object>) _studentDemographicStudentCharacteristic.AggregateExtensions["Sample_StudentDemographicStudentCharacteristicStudentNeeds"]).Count == 0
+            );
+        }
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        ICollection<IStudentDemographicStudentCharacteristicStudentNeed> IStudentDemographicStudentCharacteristicExtension.StudentDemographicStudentCharacteristicStudentNeeds
+        {
+            get
+            {
+                var sourceList =  new ContravariantCollectionAdapter<object, StudentDemographicStudentCharacteristicStudentNeed>((IList<object>) _studentDemographicStudentCharacteristic.AggregateExtensions["Sample_StudentDemographicStudentCharacteristicStudentNeeds"]);
+
+                // -------------------------------------------------------------
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (StudentDemographicStudentCharacteristicStudentNeed item in sourceList)
+                    if (item.StudentDemographicStudentCharacteristic == null)
+                        item.StudentDemographicStudentCharacteristic = this.StudentDemographicStudentCharacteristic;
+                // -------------------------------------------------------------
+
+                var adaptedList = new CovariantCollectionAdapter<IStudentDemographicStudentCharacteristicStudentNeed, StudentDemographicStudentCharacteristicStudentNeed>(sourceList);
+
+                return adaptedList;
+            }
+            set
+            {
+                _studentDemographicStudentCharacteristic.AggregateExtensions["Sample_StudentDemographicStudentCharacteristicStudentNeeds"] = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((IStudentDemographicStudentCharacteristicExtension) target, null);
+        }
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((IStudentDemographicStudentCharacteristicExtension) target);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            _studentDemographicStudentCharacteristic = (EdFi.StudentDemographicStudentCharacteristic)value;
+        }
+
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            return (_studentDemographicStudentCharacteristic as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+        }
+
+        void IGetByExample.SuspendReferenceAssignmentCheck() { }
+    }
+}
+// Aggregate: StudentDirectory
+
+namespace EdFi.Ods.Entities.NHibernate.StudentDirectoryAggregate.Sample
+{
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the sample.StudentDirectoryAddressSchoolDistrict table of the StudentDirectory aggregate in the ODS database.
+    /// </summary>
+    [Schema("sample")]
+    [ExcludeFromCodeCoverage]
+    [MessagePackObject]
+    public class StudentDirectoryAddressSchoolDistrict : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public StudentDirectoryAddressSchoolDistrict()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, IgnoreMember]
+        public virtual EdFi.StudentDirectoryAddress StudentDirectoryAddress { get; set; }
+
+        Entities.Common.Sample.IStudentDirectoryAddressExtension IStudentDirectoryAddressSchoolDistrict.StudentDirectoryAddressExtension
+        {
+            get { return (IStudentDirectoryAddressExtension) StudentDirectoryAddress.Extensions["Sample"]; }
+            set { StudentDirectoryAddress.Extensions["Sample"] = value; }
+        }
+
+        [DomainSignature]
+        [Key(1)]
+        public virtual string SchoolDistrict  { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "AddressTypeDescriptor", new LookupColumnDetails { PropertyName = "AddressTypeDescriptorId", LookupTypeName = "AddressTypeDescriptor"} },
+                { "StateAbbreviationDescriptor", new LookupColumnDetails { PropertyName = "StateAbbreviationDescriptorId", LookupTypeName = "StateAbbreviationDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (StudentDirectoryAddress as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("SchoolDistrict", SchoolDistrict);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
+            {
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
+            }
+
+            return hashCode.ToHashCode();
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentDirectoryAddress = (EdFi.StudentDirectoryAddress) value;
+        }
+    }
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the sample.StudentDirectoryAddressTerm table of the StudentDirectory aggregate in the ODS database.
+    /// </summary>
+    [Schema("sample")]
+    [ExcludeFromCodeCoverage]
+    [MessagePackObject]
+    public class StudentDirectoryAddressTerm : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IStudentDirectoryAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public StudentDirectoryAddressTerm()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, IgnoreMember]
+        public virtual EdFi.StudentDirectoryAddress StudentDirectoryAddress { get; set; }
+
+        Entities.Common.Sample.IStudentDirectoryAddressExtension IStudentDirectoryAddressTerm.StudentDirectoryAddressExtension
+        {
+            get { return (IStudentDirectoryAddressExtension) StudentDirectoryAddress.Extensions["Sample"]; }
+            set { StudentDirectoryAddress.Extensions["Sample"] = value; }
+        }
+
+        [DomainSignature]
+        [Key(1)]
+        public virtual int TermDescriptorId 
+        {
+            get
+            {
+                if (_termDescriptorId == default(int))
+                {
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
+                }
+
+                return _termDescriptorId;
+            } 
+            set
+            {
+                _termDescriptorId = value;
+                _termDescriptor = null;
+            }
+        }
+
+        private int _termDescriptorId;
+        private string _termDescriptor;
+
+        [IgnoreMember]
+        public virtual string TermDescriptor
+        {
+            get
+            {
+                if (_termDescriptor == null)
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
+                    
+                return _termDescriptor;
+            }
+            set
+            {
+                _termDescriptor = value;
+                _termDescriptorId = default(int);
+            }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "AddressTypeDescriptor", new LookupColumnDetails { PropertyName = "AddressTypeDescriptorId", LookupTypeName = "AddressTypeDescriptor"} },
+                { "StateAbbreviationDescriptor", new LookupColumnDetails { PropertyName = "StateAbbreviationDescriptorId", LookupTypeName = "StateAbbreviationDescriptor"} },
+                { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (StudentDirectoryAddress as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("TermDescriptorId", TermDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
+            {
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
+            }
+
+            return hashCode.ToHashCode();
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.Sample.IStudentDirectoryAddressTerm)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.Sample.IStudentDirectoryAddressTerm) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentDirectoryAddress = (EdFi.StudentDirectoryAddress) value;
+        }
+    }
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the sample.StudentDirectoryAddressExtension table of the StudentDirectory aggregate in the ODS database.
+    /// </summary>
+    [Schema("sample")]
+    [ExcludeFromCodeCoverage]
+    [MessagePackObject]
+    public class StudentDirectoryAddressExtension : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IStudentDirectoryAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public StudentDirectoryAddressExtension()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, IgnoreMember]
+        public virtual EdFi.StudentDirectoryAddress StudentDirectoryAddress { get; set; }
+
+        Entities.Common.EdFi.IStudentDirectoryAddress IStudentDirectoryAddressExtension.StudentDirectoryAddress
+        {
+            get { return StudentDirectoryAddress; }
+            set { StudentDirectoryAddress = (EdFi.StudentDirectoryAddress) value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        [Key(1)]
+        public virtual string Complex  { get; set; }
+
+        [Key(2)]
+        public virtual bool OnBusRoute  { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        private ICollection<Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict> _studentDirectoryAddressSchoolDistricts;
+        // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
+        ICollection<Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict> IStudentDirectoryAddressExtension.StudentDirectoryAddressSchoolDistricts
+        {
+            get
+            {
+                var sourceList =  new ContravariantCollectionAdapter<object, StudentDirectoryAddressSchoolDistrict>((IList<object>) StudentDirectoryAddress.AggregateExtensions["Sample_StudentDirectoryAddressSchoolDistricts"]);
+
+                // -------------------------------------------------------------
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (StudentDirectoryAddressSchoolDistrict item in sourceList)
+                    if (item.StudentDirectoryAddress == null)
+                        item.StudentDirectoryAddress = this.StudentDirectoryAddress;
+                // -------------------------------------------------------------
+
+                if (_studentDirectoryAddressSchoolDistricts == null)
+                    _studentDirectoryAddressSchoolDistricts = new CovariantCollectionAdapter<Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict, StudentDirectoryAddressSchoolDistrict>(sourceList);
+
+                return _studentDirectoryAddressSchoolDistricts;
+            }
+            set
+            {
+                StudentDirectoryAddress.AggregateExtensions["Sample_StudentDirectoryAddressSchoolDistricts"] = value;
+            }
+        }
+        private ICollection<Entities.Common.Sample.IStudentDirectoryAddressTerm> _studentDirectoryAddressTerms;
+        // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
+        ICollection<Entities.Common.Sample.IStudentDirectoryAddressTerm> IStudentDirectoryAddressExtension.StudentDirectoryAddressTerms
+        {
+            get
+            {
+                var sourceList =  new ContravariantCollectionAdapter<object, StudentDirectoryAddressTerm>((IList<object>) StudentDirectoryAddress.AggregateExtensions["Sample_StudentDirectoryAddressTerms"]);
+
+                // -------------------------------------------------------------
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (StudentDirectoryAddressTerm item in sourceList)
+                    if (item.StudentDirectoryAddress == null)
+                        item.StudentDirectoryAddress = this.StudentDirectoryAddress;
+                // -------------------------------------------------------------
+
+                if (_studentDirectoryAddressTerms == null)
+                    _studentDirectoryAddressTerms = new CovariantCollectionAdapter<Entities.Common.Sample.IStudentDirectoryAddressTerm, StudentDirectoryAddressTerm>(sourceList);
+
+                return _studentDirectoryAddressTerms;
+            }
+            set
+            {
+                StudentDirectoryAddress.AggregateExtensions["Sample_StudentDirectoryAddressTerms"] = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (StudentDirectoryAddress as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
+
+            // Add current key values
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
+            {
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
+            }
+
+            return hashCode.ToHashCode();
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.Sample.IStudentDirectoryAddressExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.Sample.IStudentDirectoryAddressExtension) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentDirectoryAddress = (EdFi.StudentDirectoryAddress) value;
+        }
+    }
+}
 // Aggregate: StudentEducationOrganizationAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.Sample
