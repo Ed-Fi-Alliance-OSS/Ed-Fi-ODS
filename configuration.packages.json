@@ -42,37 +42,37 @@
     },
     "homograph": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.Homograph.1.0.0.Standard.{StandardVersion}",
-      "PackageVersion": "7.3.10131",
+      "PackageVersion": "7.3.10134",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "profiles.sample": {
       "PackageName": "EdFi.Suite3.Ods.Profiles.Sample",
-      "PackageVersion": "7.3.10106",
+      "PackageVersion": "7.3.10109",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "sample": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.Sample.1.0.0.Standard.{StandardVersion}",
-      "PackageVersion": "7.3.10114",
+      "PackageVersion": "7.3.10117",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "studentTranscript.sample": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.SampleStudentTranscript.1.0.0.Standard.{StandardVersion}",
-      "PackageVersion": "7.3.10058",
+      "PackageVersion": "7.3.10061",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "tpdm": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.TPDM.Core.{ExtensionVersion}.Standard.{StandardVersion}",
-      "PackageVersion": "7.3.10123",
+      "PackageVersion": "7.3.10126",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.CodeGen": {
       "PackageName": "EdFi.Suite3.Ods.CodeGen",
-      "PackageVersion": "7.3.10346",
+      "PackageVersion": "7.3.10354",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Db.Deploy": {
       "PackageName": "EdFi.Suite3.Db.Deploy",
-      "PackageVersion": "4.1.52",
+      "PackageVersion": "4.1.98",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Database.Admin.PostgreSQL": {
