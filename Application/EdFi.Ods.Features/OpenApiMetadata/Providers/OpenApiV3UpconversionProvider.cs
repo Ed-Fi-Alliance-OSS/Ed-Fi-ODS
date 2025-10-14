@@ -81,7 +81,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
         IDictionary<string, TenantConfiguration> tenantMap = _tenantConfigurationMapProvider?.GetMap() ?? new Dictionary<string, TenantConfiguration>();
         
-        OpenApiServerVariable serverVariable = new OpenApiServerVariable { Description = GetTenantContextTitle() };
+        OpenApiServerVariable serverVariable = new OpenApiServerVariable { Description = GetTenantContextTitle(), Enum = new() };
         openApiDocument.Servers.Add(odsServer);
 
         var odsRouteContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();

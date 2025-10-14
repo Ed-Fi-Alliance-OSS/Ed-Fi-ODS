@@ -40,7 +40,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
 
             if (!engine.Equals(DatabaseEngine.SqlServer.Value, StringComparison.OrdinalIgnoreCase))
             {
-                Assert.Inconclusive("SQLServer SecurityRepo integration tests are not being run because the engine is not set to SQL Server.");
+                Assert.Ignore("Skipped: SQLServer SecurityRepo integration tests are not being run because the engine is not set to SQL Server.");
             }
 
             // Setup SQL Server
