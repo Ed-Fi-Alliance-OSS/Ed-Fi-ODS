@@ -26,25 +26,25 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" />
-        <PackageReference Include="EdFi.Suite3.Security.DataAccess" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10207" />
+        <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="7.3.10203" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
-    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" />
-    <PackageReference Include="FluentValidation" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" />
-    <PackageReference Include="Microsoft.OpenApi.Readers" />
-    <PackageReference Include="NHibernate" />
-    <PackageReference Include="Quartz.AspNetCore" />
-    <PackageReference Include="Sandwych.QuickGraph.Core" />
-    <PackageReference Include="Standart.Hash.xxHash" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
-    <PackageReference Include="System.CodeDom" />
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.23.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.28" />
+    <PackageReference Include="NHibernate" Version="5.6.0" />
+    <PackageReference Include="Quartz.AspNetCore" Version="3.15.0" />
+    <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
+    <PackageReference Include="Standart.Hash.xxHash" Version="4.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.20" />
+    <PackageReference Include="System.CodeDom" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Services\Metadata\Resources\*.json" />

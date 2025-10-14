@@ -39,7 +39,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
 
             if (!engine.Equals(DatabaseEngine.Postgres.Value, StringComparison.OrdinalIgnoreCase))
             {
-                Assert.Inconclusive("PostgresSQL UserContext integration tests are not being run because the engine is not set to Postgres.");
+                Assert.Ignore("Skipped: PostgresSQL UserContext integration tests are not being run because the engine is not set to Postgres.");
             }
 
             var connectionString = config.GetConnectionString("EdFi_Security");
