@@ -12054,7 +12054,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentDemographicAggregate.Sample
         private DateTime? _endDate;
 
         [Key(3)]
-        public virtual bool? PrimaryStudentNeedIndicator  { get; set; }
+        public virtual bool? PrimaryStudentNeedIndicator { get => _primaryStudentNeedIndicator; set { _primaryStudentNeedIndicator = value; } }
+        private bool? _primaryStudentNeedIndicator;
 
         // -------------------------------------------------------------
 
@@ -12297,7 +12298,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentDirectoryAggregate.Sample
 
         [DomainSignature]
         [Key(1)]
-        public virtual string SchoolDistrict  { get; set; }
+        public virtual string SchoolDistrict { get => _schoolDistrict; set { _schoolDistrict = value; } }
+        private string _schoolDistrict;
 
         // -------------------------------------------------------------
 
@@ -12671,10 +12673,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentDirectoryAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         [Key(1)]
-        public virtual string Complex  { get; set; }
+        public virtual string Complex { get => _complex; set { _complex = value; } }
+        private string _complex;
 
         [Key(2)]
-        public virtual bool OnBusRoute  { get; set; }
+        public virtual bool OnBusRoute { get => _onBusRoute; set { _onBusRoute = value; } }
+        private bool _onBusRoute;
 
         // -------------------------------------------------------------
 
