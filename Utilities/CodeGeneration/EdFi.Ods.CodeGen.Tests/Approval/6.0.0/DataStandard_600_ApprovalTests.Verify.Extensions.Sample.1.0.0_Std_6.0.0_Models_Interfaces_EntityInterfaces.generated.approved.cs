@@ -3258,6 +3258,313 @@ namespace EdFi.Ods.Entities.Common.Sample
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDemographicStudentCharacteristicExtension model.
+    /// </summary>
+    public interface IStudentDemographicStudentCharacteristicExtension : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        EdFi.IStudentDemographicStudentCharacteristic StudentDemographicStudentCharacteristic { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentDemographicStudentCharacteristicStudentNeed> StudentDemographicStudentCharacteristicStudentNeeds { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentDemographicStudentCharacteristicExtensionMappingContract : IMappingContract
+    {
+        public StudentDemographicStudentCharacteristicExtensionMappingContract(
+            bool isStudentDemographicStudentCharacteristicStudentNeedsSupported,
+            bool isStudentDemographicStudentCharacteristicStudentNeedsItemCreatable,
+            Func<IStudentDemographicStudentCharacteristicStudentNeed, bool> isStudentDemographicStudentCharacteristicStudentNeedIncluded
+            )
+        {
+            IsStudentDemographicStudentCharacteristicStudentNeedsSupported = isStudentDemographicStudentCharacteristicStudentNeedsSupported;
+            IsStudentDemographicStudentCharacteristicStudentNeedsItemCreatable = isStudentDemographicStudentCharacteristicStudentNeedsItemCreatable;
+            IsStudentDemographicStudentCharacteristicStudentNeedIncluded = isStudentDemographicStudentCharacteristicStudentNeedIncluded;
+        }
+
+        public bool IsStudentDemographicStudentCharacteristicStudentNeedsSupported { get; }
+        public bool IsStudentDemographicStudentCharacteristicStudentNeedsItemCreatable { get; }
+        public Func<IStudentDemographicStudentCharacteristicStudentNeed, bool> IsStudentDemographicStudentCharacteristicStudentNeedIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentDemographicStudentCharacteristicStudentNeeds":
+                    return IsStudentDemographicStudentCharacteristicStudentNeedsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentDemographicStudentCharacteristicStudentNeeds":
+                    return IsStudentDemographicStudentCharacteristicStudentNeedsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDemographicStudentCharacteristicStudentNeed model.
+    /// </summary>
+    public interface IStudentDemographicStudentCharacteristicStudentNeed : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        IStudentDemographicStudentCharacteristicExtension StudentDemographicStudentCharacteristicExtension { get; set; }
+        
+        DateTime BeginDate { get; set; }
+
+        // Non-PK properties
+        DateTime? EndDate { get; set; }
+        bool? PrimaryStudentNeedIndicator { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentDemographicStudentCharacteristicStudentNeedMappingContract : IMappingContract
+    {
+        public StudentDemographicStudentCharacteristicStudentNeedMappingContract(
+            bool isEndDateSupported,
+            bool isPrimaryStudentNeedIndicatorSupported
+            )
+        {
+            IsEndDateSupported = isEndDateSupported;
+            IsPrimaryStudentNeedIndicatorSupported = isPrimaryStudentNeedIndicatorSupported;
+        }
+
+        public bool IsEndDateSupported { get; }
+        public bool IsPrimaryStudentNeedIndicatorSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EndDate":
+                    return IsEndDateSupported;
+                case "PrimaryStudentNeedIndicator":
+                    return IsPrimaryStudentNeedIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDirectoryAddressExtension model.
+    /// </summary>
+    public interface IStudentDirectoryAddressExtension : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        EdFi.IStudentDirectoryAddress StudentDirectoryAddress { get; set; }
+
+        // Non-PK properties
+        string Complex { get; set; }
+        bool OnBusRoute { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentDirectoryAddressSchoolDistrict> StudentDirectoryAddressSchoolDistricts { get; set; }
+        ICollection<IStudentDirectoryAddressTerm> StudentDirectoryAddressTerms { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentDirectoryAddressExtensionMappingContract : IMappingContract
+    {
+        public StudentDirectoryAddressExtensionMappingContract(
+            bool isComplexSupported,
+            bool isOnBusRouteSupported,
+            bool isStudentDirectoryAddressSchoolDistrictsSupported,
+            bool isStudentDirectoryAddressTermsSupported,
+            bool isStudentDirectoryAddressSchoolDistrictsItemCreatable,
+            Func<IStudentDirectoryAddressSchoolDistrict, bool> isStudentDirectoryAddressSchoolDistrictIncluded,
+            bool isStudentDirectoryAddressTermsItemCreatable,
+            Func<IStudentDirectoryAddressTerm, bool> isStudentDirectoryAddressTermIncluded
+            )
+        {
+            IsComplexSupported = isComplexSupported;
+            IsOnBusRouteSupported = isOnBusRouteSupported;
+            IsStudentDirectoryAddressSchoolDistrictsSupported = isStudentDirectoryAddressSchoolDistrictsSupported;
+            IsStudentDirectoryAddressTermsSupported = isStudentDirectoryAddressTermsSupported;
+            IsStudentDirectoryAddressSchoolDistrictsItemCreatable = isStudentDirectoryAddressSchoolDistrictsItemCreatable;
+            IsStudentDirectoryAddressSchoolDistrictIncluded = isStudentDirectoryAddressSchoolDistrictIncluded;
+            IsStudentDirectoryAddressTermsItemCreatable = isStudentDirectoryAddressTermsItemCreatable;
+            IsStudentDirectoryAddressTermIncluded = isStudentDirectoryAddressTermIncluded;
+        }
+
+        public bool IsComplexSupported { get; }
+        public bool IsOnBusRouteSupported { get; }
+        public bool IsStudentDirectoryAddressSchoolDistrictsSupported { get; }
+        public bool IsStudentDirectoryAddressTermsSupported { get; }
+        public bool IsStudentDirectoryAddressSchoolDistrictsItemCreatable { get; }
+        public Func<IStudentDirectoryAddressSchoolDistrict, bool> IsStudentDirectoryAddressSchoolDistrictIncluded { get; }
+        public bool IsStudentDirectoryAddressTermsItemCreatable { get; }
+        public Func<IStudentDirectoryAddressTerm, bool> IsStudentDirectoryAddressTermIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "Complex":
+                    return IsComplexSupported;
+                case "OnBusRoute":
+                    return IsOnBusRouteSupported;
+                case "StudentDirectoryAddressSchoolDistricts":
+                    return IsStudentDirectoryAddressSchoolDistrictsSupported;
+                case "StudentDirectoryAddressTerms":
+                    return IsStudentDirectoryAddressTermsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentDirectoryAddressSchoolDistricts":
+                    return IsStudentDirectoryAddressSchoolDistrictsItemCreatable;
+                case "StudentDirectoryAddressTerms":
+                    return IsStudentDirectoryAddressTermsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDirectoryAddressSchoolDistrict model.
+    /// </summary>
+    public interface IStudentDirectoryAddressSchoolDistrict : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        IStudentDirectoryAddressExtension StudentDirectoryAddressExtension { get; set; }
+        
+        string SchoolDistrict { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentDirectoryAddressSchoolDistrictMappingContract : IMappingContract
+    {
+        public StudentDirectoryAddressSchoolDistrictMappingContract(
+            )
+        {
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "SchoolDistrict":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDirectoryAddressTerm model.
+    /// </summary>
+    public interface IStudentDirectoryAddressTerm : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        IStudentDirectoryAddressExtension StudentDirectoryAddressExtension { get; set; }
+        
+        string TermDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentDirectoryAddressTermMappingContract : IMappingContract
+    {
+        public StudentDirectoryAddressTermMappingContract(
+            )
+        {
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "TermDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationExtension model.
     /// </summary>
     public interface IStudentEducationOrganizationAssociationExtension : ISynchronizable, IMappable, IGetByExample

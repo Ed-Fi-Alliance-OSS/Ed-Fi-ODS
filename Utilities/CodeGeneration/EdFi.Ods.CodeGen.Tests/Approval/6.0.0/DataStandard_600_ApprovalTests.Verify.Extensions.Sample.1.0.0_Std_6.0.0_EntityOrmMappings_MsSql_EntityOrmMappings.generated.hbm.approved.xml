@@ -1339,6 +1339,125 @@
 
 
   <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentDemographicAggregate.Sample.StudentDemographicStudentCharacteristicStudentNeed" table="StudentDemographicStudentCharacteristicStudentNeed" lazy="false" schema="sample">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="BeginDate" column="BeginDate" type="date" />
+      <key-many-to-one name="StudentDemographicStudentCharacteristic">
+        <column name="StudentCharacteristicDescriptorId" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="EndDate" column="EndDate" type="date" />
+    <property name="PrimaryStudentNeedIndicator" column="PrimaryStudentNeedIndicator" type="bool" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentDirectoryAggregate.Sample.StudentDirectoryAddressSchoolDistrict" table="StudentDirectoryAddressSchoolDistrict" lazy="false" schema="sample">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="SchoolDistrict" column="SchoolDistrict" type="string" length="250" />
+      <key-many-to-one name="StudentDirectoryAddress">
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentDirectoryAggregate.Sample.StudentDirectoryAddressTerm" table="StudentDirectoryAddressTerm" lazy="false" schema="sample">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+      <key-many-to-one name="StudentDirectoryAddress">
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentDirectoryAggregate.Sample.StudentDirectoryAddressExtension" table="StudentDirectoryAddressExtension" lazy="false" schema="sample">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="StudentDirectoryAddress">
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="Complex" column="Complex" type="string" length="255" />
+    <property name="OnBusRoute" column="OnBusRoute" type="bool" not-null="true" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.Sample.StudentEducationOrganizationAssociationExtension" table="StudentEducationOrganizationAssociationExtension" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
