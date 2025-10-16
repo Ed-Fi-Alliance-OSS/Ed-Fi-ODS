@@ -353,6 +353,33 @@ REFERENCES edfi.StudentCTEProgramAssociation (BeginDate, EducationOrganizationId
 ON DELETE CASCADE
 ;
 
+ALTER TABLE sample.StudentDemographicStudentCharacteristicStudentNeed ADD CONSTRAINT FK_f66cf2_StudentDemographicStudentCharacteristic FOREIGN KEY (EducationOrganizationId, StudentUSI, StudentCharacteristicDescriptorId)
+REFERENCES edfi.StudentDemographicStudentCharacteristic (EducationOrganizationId, StudentUSI, StudentCharacteristicDescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE sample.StudentDirectoryAddressExtension ADD CONSTRAINT FK_0af3a2_StudentDirectoryAddress FOREIGN KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES edfi.StudentDirectoryAddress (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ON DELETE CASCADE
+;
+
+ALTER TABLE sample.StudentDirectoryAddressSchoolDistrict ADD CONSTRAINT FK_fd0a9c_StudentDirectoryAddress FOREIGN KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES edfi.StudentDirectoryAddress (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ON DELETE CASCADE
+;
+
+ALTER TABLE sample.StudentDirectoryAddressTerm ADD CONSTRAINT FK_a93d65_StudentDirectoryAddress FOREIGN KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES edfi.StudentDirectoryAddress (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ON DELETE CASCADE
+;
+
+ALTER TABLE sample.StudentDirectoryAddressTerm ADD CONSTRAINT FK_a93d65_TermDescriptor FOREIGN KEY (TermDescriptorId)
+REFERENCES edfi.TermDescriptor (TermDescriptorId)
+;
+
+CREATE INDEX FK_a93d65_TermDescriptor
+ON sample.StudentDirectoryAddressTerm (TermDescriptorId ASC);
+
 ALTER TABLE sample.StudentEducationOrganizationAssociationExtension ADD CONSTRAINT FK_2c2930_Program FOREIGN KEY (EducationOrganizationId, FavoriteProgramName, FavoriteProgramTypeDescriptorId)
 REFERENCES edfi.Program (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
 ;

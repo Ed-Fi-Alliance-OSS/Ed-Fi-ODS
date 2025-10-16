@@ -308,6 +308,34 @@
     {
       "aggregateRootEntityName": {
         "schema": "edfi",
+        "name": "StudentDemographic"
+      },
+      "extensionEntityNames": [
+        {
+          "schema": "sample",
+          "name": "StudentDemographicStudentCharacteristicStudentNeed"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "StudentDirectory"
+      },
+      "extensionEntityNames": [
+        {
+          "schema": "sample",
+          "name": "StudentDirectoryAddressSchoolDistrict"
+        },
+        {
+          "schema": "sample",
+          "name": "StudentDirectoryAddressTerm"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
         "name": "StudentSectionAssociation"
       },
       "extensionEntityNames": [
@@ -4074,6 +4102,313 @@
       "tableNames": {
         "sqlServer": "StudentCTEProgramAssociationExtension",
         "postgreSql": "StudentCTEProgramAssociationExtension"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentDemographicStudentCharacteristicStudentNeed",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The month, day, and year for the start of the period.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "EndDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The month, day, and year for the end of the period.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EndDate",
+            "postgreSql": "EndDate"
+          }
+        },
+        {
+          "propertyName": "PrimaryStudentNeedIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Indicates the parent characteristic is a primary student need.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PrimaryStudentNeedIndicator",
+            "postgreSql": "PrimaryStudentNeedIndicator"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentDemographicStudentCharacteristicStudentNeed_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
+            "StudentCharacteristicDescriptorId",
+            "BeginDate"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentDemographicStudentCharacteristicStudentNeed_PK",
+            "postgreSql": "StudentDemographicStudentCharacteristicStudentNeed_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The time period of student need.",
+      "domains": [],
+      "tableNames": {
+        "sqlServer": "StudentDemographicStudentCharacteristicStudentNeed",
+        "postgreSql": "StudentDemographicStudentCharacteristicStudentNeed"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentDirectoryAddressExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "Complex",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The apartment or housing complex name.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Complex",
+            "postgreSql": "Complex"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "OnBusRoute",
+          "propertyType": {
+            "dbType": "Boolean",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "An indicator if the address is on a bus route.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "OnBusRoute",
+            "postgreSql": "OnBusRoute"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentDirectoryAddressExtension_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
+            "AddressTypeDescriptorId",
+            "City",
+            "PostalCode",
+            "StateAbbreviationDescriptorId",
+            "StreetNumberName"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentDirectoryAddressExtension_PK",
+            "postgreSql": "StudentDirectoryAddressExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "domains": [],
+      "tableNames": {
+        "sqlServer": "StudentDirectoryAddressExtension",
+        "postgreSql": "StudentDirectoryAddressExtension"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentDirectoryAddressSchoolDistrict",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "SchoolDistrict",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 250,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The school district in which the address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolDistrict",
+            "postgreSql": "SchoolDistrict"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentDirectoryAddressSchoolDistrict_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
+            "AddressTypeDescriptorId",
+            "City",
+            "PostalCode",
+            "StateAbbreviationDescriptorId",
+            "StreetNumberName",
+            "SchoolDistrict"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentDirectoryAddressSchoolDistrict_PK",
+            "postgreSql": "StudentDirectoryAddressSchoolDistrict_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The school district in which the address is located.",
+      "domains": [],
+      "tableNames": {
+        "sqlServer": "StudentDirectoryAddressSchoolDistrict",
+        "postgreSql": "StudentDirectoryAddressSchoolDistrict"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentDirectoryAddressTerm",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentDirectoryAddressTerm_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
+            "AddressTypeDescriptorId",
+            "City",
+            "PostalCode",
+            "StateAbbreviationDescriptorId",
+            "StreetNumberName",
+            "TermDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentDirectoryAddressTerm_PK",
+            "postgreSql": "StudentDirectoryAddressTerm_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Terms applicable to this address.",
+      "domains": [],
+      "tableNames": {
+        "sqlServer": "StudentDirectoryAddressTerm",
+        "postgreSql": "StudentDirectoryAddressTerm"
       }
     },
     {
@@ -11976,6 +12311,1004 @@
         "sqlServer": "FK_StudentCTEProgramAssociationExtension_StudentCTEProgramAssociation",
         "postgreSql": "FK_1020a1_StudentCTEProgramAssociation"
       }
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentDemographicStudentCharacteristicStudentNeed_StudentDemographicStudentCharacteristic"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentDemographicStudentCharacteristic"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "StudentCharacteristicDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The characteristic designated for the student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentCharacteristicDescriptorId",
+            "postgreSql": "StudentCharacteristicDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentDemographicStudentCharacteristicStudentNeed"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "StudentCharacteristicDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The characteristic designated for the student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentCharacteristicDescriptorId",
+            "postgreSql": "StudentCharacteristicDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentDemographicStudentCharacteristicStudentNeed_StudentDemographicStudentCharacteristic",
+        "postgreSql": "FK_f66cf2_StudentDemographicStudentCharacteristic"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentDirectoryAddressExtension_StudentDirectoryAddress"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentDirectoryAddress"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "AddressTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AddressTypeDescriptorId",
+            "postgreSql": "AddressTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "PostalCode",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 17,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The five or nine digit zip code or overseas postal code portion of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PostalCode",
+            "postgreSql": "PostalCode"
+          }
+        },
+        {
+          "propertyName": "StateAbbreviationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The abbreviation for the state (within the United States) or outlying area in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StateAbbreviationDescriptorId",
+            "postgreSql": "StateAbbreviationDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StreetNumberName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 150,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The street number and street name or post office box number of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StreetNumberName",
+            "postgreSql": "StreetNumberName"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentDirectoryAddressExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "AddressTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AddressTypeDescriptorId",
+            "postgreSql": "AddressTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "PostalCode",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 17,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The five or nine digit zip code or overseas postal code portion of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PostalCode",
+            "postgreSql": "PostalCode"
+          }
+        },
+        {
+          "propertyName": "StateAbbreviationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The abbreviation for the state (within the United States) or outlying area in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StateAbbreviationDescriptorId",
+            "postgreSql": "StateAbbreviationDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StreetNumberName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 150,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The street number and street name or post office box number of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StreetNumberName",
+            "postgreSql": "StreetNumberName"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentDirectoryAddressExtension_StudentDirectoryAddress",
+        "postgreSql": "FK_0af3a2_StudentDirectoryAddress"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentDirectoryAddressSchoolDistrict_StudentDirectoryAddress"
+      },
+      "cardinality": "OneToOneOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentDirectoryAddress"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "AddressTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AddressTypeDescriptorId",
+            "postgreSql": "AddressTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "PostalCode",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 17,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The five or nine digit zip code or overseas postal code portion of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PostalCode",
+            "postgreSql": "PostalCode"
+          }
+        },
+        {
+          "propertyName": "StateAbbreviationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The abbreviation for the state (within the United States) or outlying area in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StateAbbreviationDescriptorId",
+            "postgreSql": "StateAbbreviationDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StreetNumberName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 150,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The street number and street name or post office box number of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StreetNumberName",
+            "postgreSql": "StreetNumberName"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentDirectoryAddressSchoolDistrict"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "AddressTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AddressTypeDescriptorId",
+            "postgreSql": "AddressTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "PostalCode",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 17,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The five or nine digit zip code or overseas postal code portion of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PostalCode",
+            "postgreSql": "PostalCode"
+          }
+        },
+        {
+          "propertyName": "StateAbbreviationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The abbreviation for the state (within the United States) or outlying area in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StateAbbreviationDescriptorId",
+            "postgreSql": "StateAbbreviationDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StreetNumberName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 150,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The street number and street name or post office box number of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StreetNumberName",
+            "postgreSql": "StreetNumberName"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentDirectoryAddressSchoolDistrict_StudentDirectoryAddress",
+        "postgreSql": "FK_fd0a9c_StudentDirectoryAddress"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentDirectoryAddressTerm_StudentDirectoryAddress"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentDirectoryAddress"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "AddressTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AddressTypeDescriptorId",
+            "postgreSql": "AddressTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "PostalCode",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 17,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The five or nine digit zip code or overseas postal code portion of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PostalCode",
+            "postgreSql": "PostalCode"
+          }
+        },
+        {
+          "propertyName": "StateAbbreviationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The abbreviation for the state (within the United States) or outlying area in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StateAbbreviationDescriptorId",
+            "postgreSql": "StateAbbreviationDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StreetNumberName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 150,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The street number and street name or post office box number of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StreetNumberName",
+            "postgreSql": "StreetNumberName"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentDirectoryAddressTerm"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "AddressTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AddressTypeDescriptorId",
+            "postgreSql": "AddressTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "PostalCode",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 17,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The five or nine digit zip code or overseas postal code portion of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PostalCode",
+            "postgreSql": "PostalCode"
+          }
+        },
+        {
+          "propertyName": "StateAbbreviationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The abbreviation for the state (within the United States) or outlying area in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StateAbbreviationDescriptorId",
+            "postgreSql": "StateAbbreviationDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StreetNumberName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 150,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The street number and street name or post office box number of an address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StreetNumberName",
+            "postgreSql": "StreetNumberName"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentDirectoryAddressTerm_StudentDirectoryAddress",
+        "postgreSql": "FK_a93d65_StudentDirectoryAddress"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentDirectoryAddressTerm_TermDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "TermDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "TermDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermDescriptorId",
+            "postgreSql": "TermDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentDirectoryAddressTerm"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TermDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Terms applicable to this address.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermDescriptorId",
+            "postgreSql": "TermDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentDirectoryAddressTerm_TermDescriptor",
+        "postgreSql": "FK_a93d65_TermDescriptor"
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {

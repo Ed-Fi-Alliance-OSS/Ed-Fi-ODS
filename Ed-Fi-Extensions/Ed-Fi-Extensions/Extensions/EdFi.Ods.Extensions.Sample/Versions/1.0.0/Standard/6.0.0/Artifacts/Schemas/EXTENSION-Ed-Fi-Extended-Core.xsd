@@ -399,6 +399,183 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentDemographicExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="EXTENSION-StudentDemographicRestriction">
+        <xs:sequence>
+          <xs:element name="StudentCharacteristic" type="EXTENSION-StudentCharacteristicExtension" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Reflects important characteristics of the student's home situation:
+                        Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentDemographicRestriction">
+    <xs:annotation>
+      <xs:documentation>Restriction to Student Demographic for replacement of common type with common type extension</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:restriction base="StudentDemographic">
+        <xs:sequence>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference ot the education organization representing the context of the student information.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AncestryEthnicOrigin" type="AncestryEthnicOriginDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The original peoples or cultures with which the individual identifies.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>AncestryEthnicOriginDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Citizenship" type="Citizenship" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Contains information relative to U.S. citizenship status and its associated probationary documentation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Disability" type="Disability" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The disability condition(s) that best describes an individual's impairment, as determined by evaluation(s) conducted by the education organization.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EconomicDisadvantage" type="EconomicDisadvantageDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The indication of an inadequate financial condition of an individual's family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EconomicDisadvantageDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GenderIdentity" type="GenderIdentity" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The student's gender as last reported to the education organization.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="HispanicLatinoEthnicity" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race, as last reported to the education organization. The term "Spanish origin", can be used in addition to "Hispanic or Latino".</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Language" type="Language" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-3 languages codes.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LimitedEnglishProficiency" type="LimitedEnglishProficiencyDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication that the student has been identified as limited English proficient by the Language Proficiency Assessment Committee (LPAC), or English proficient.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>LimitedEnglishProficiencyDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Race" type="RaceDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The general racial category which most clearly reflects the individual's recognition of his or her community or with the which the individual most identifies as last reported to the education organization. The data model allows for multiple entries so that each individual can specify all appropriate races.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>RaceDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Sex" type="SexDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The student's birth sex as reported to the education organization.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>SexDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SupporterMilitaryConnection" type="SupporterMilitaryConnectionDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Military connection of the person/people whom the student is a dependent of.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>SupporterMilitaryConnectionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TribalAffiliation" type="TribalAffiliationDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>An American Indian tribe with which the student is affiliated as last reported to the education organization.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>TribalAffiliationDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentDirectoryExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="EXTENSION-StudentDirectoryRestriction">
+        <xs:sequence>
+          <xs:element name="Address" type="EXTENSION-AddressExtension" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The set of elements that describes an address, including the street address, city, state, and ZIP code.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentDirectoryRestriction">
+    <xs:annotation>
+      <xs:documentation>Restriction to Student Directory for replacement of common type with common type extension</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:restriction base="StudentDirectory">
+        <xs:sequence>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the education organization representing the context of the student information.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ElectronicMail" type="ElectronicMail" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InternationalAddress" type="InternationalAddress" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The set of elements that describes an international address.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Telephone" type="Telephone" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The 10-digit telephone number, including the area code, for the person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-StudentExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>

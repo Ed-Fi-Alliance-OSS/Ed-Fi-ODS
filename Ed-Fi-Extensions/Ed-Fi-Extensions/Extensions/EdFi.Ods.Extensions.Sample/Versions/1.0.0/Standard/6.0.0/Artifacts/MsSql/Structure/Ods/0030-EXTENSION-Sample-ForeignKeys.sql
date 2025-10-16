@@ -373,6 +373,34 @@ REFERENCES [edfi].[StudentCTEProgramAssociation] ([BeginDate], [EducationOrganiz
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [sample].[StudentDemographicStudentCharacteristicStudentNeed] WITH CHECK ADD CONSTRAINT [FK_StudentDemographicStudentCharacteristicStudentNeed_StudentDemographicStudentCharacteristic] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [StudentCharacteristicDescriptorId])
+REFERENCES [edfi].[StudentDemographicStudentCharacteristic] ([EducationOrganizationId], [StudentUSI], [StudentCharacteristicDescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [sample].[StudentDirectoryAddressExtension] WITH CHECK ADD CONSTRAINT [FK_StudentDirectoryAddressExtension_StudentDirectoryAddress] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [AddressTypeDescriptorId], [City], [PostalCode], [StateAbbreviationDescriptorId], [StreetNumberName])
+REFERENCES [edfi].[StudentDirectoryAddress] ([EducationOrganizationId], [StudentUSI], [AddressTypeDescriptorId], [City], [PostalCode], [StateAbbreviationDescriptorId], [StreetNumberName])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [sample].[StudentDirectoryAddressSchoolDistrict] WITH CHECK ADD CONSTRAINT [FK_StudentDirectoryAddressSchoolDistrict_StudentDirectoryAddress] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [AddressTypeDescriptorId], [City], [PostalCode], [StateAbbreviationDescriptorId], [StreetNumberName])
+REFERENCES [edfi].[StudentDirectoryAddress] ([EducationOrganizationId], [StudentUSI], [AddressTypeDescriptorId], [City], [PostalCode], [StateAbbreviationDescriptorId], [StreetNumberName])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [sample].[StudentDirectoryAddressTerm] WITH CHECK ADD CONSTRAINT [FK_StudentDirectoryAddressTerm_StudentDirectoryAddress] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [AddressTypeDescriptorId], [City], [PostalCode], [StateAbbreviationDescriptorId], [StreetNumberName])
+REFERENCES [edfi].[StudentDirectoryAddress] ([EducationOrganizationId], [StudentUSI], [AddressTypeDescriptorId], [City], [PostalCode], [StateAbbreviationDescriptorId], [StreetNumberName])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [sample].[StudentDirectoryAddressTerm] WITH CHECK ADD CONSTRAINT [FK_StudentDirectoryAddressTerm_TermDescriptor] FOREIGN KEY ([TermDescriptorId])
+REFERENCES [edfi].[TermDescriptor] ([TermDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentDirectoryAddressTerm_TermDescriptor]
+ON [sample].[StudentDirectoryAddressTerm] ([TermDescriptorId] ASC)
+GO
+
 ALTER TABLE [sample].[StudentEducationOrganizationAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationExtension_Program] FOREIGN KEY ([EducationOrganizationId], [FavoriteProgramName], [FavoriteProgramTypeDescriptorId])
 REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 GO

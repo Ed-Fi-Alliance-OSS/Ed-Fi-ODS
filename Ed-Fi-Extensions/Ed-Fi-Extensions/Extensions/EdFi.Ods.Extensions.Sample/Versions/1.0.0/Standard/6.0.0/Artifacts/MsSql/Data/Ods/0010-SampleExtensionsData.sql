@@ -418,55 +418,52 @@ WHERE EXISTS
        AND SchoolId = ssae.SchoolId
        AND StudentUSI = ssae.StudentUSI)
 
--- [ODS-6691] Update after updating the Sample extension
--- INSERT INTO sample.StudentEducationOrganizationAssociationAddressExtension
---     (AddressTypeDescriptorId
---     , City
---     , EducationOrganizationId
---     , PostalCode
---     , StateAbbreviationDescriptorId
---     , StreetNumberName
---     , StudentUSI
---     , Complex
---     , OnBusRoute)
--- SELECT
---     AddressTypeDescriptorId
---     , City
---     , EducationOrganizationId
---     , PostalCode
---     , StateAbbreviationDescriptorId
---     , StreetNumberName
---     , StudentUSI
---     , NULL
---     , 0
--- FROM edfi.StudentEducationOrganizationAssociationAddress
--- WHERE NOT EXISTS
---     (SELECT EntryDate, SchoolId, StudentUSI
---     FROM sample.StudentSchoolAssociationExtension ssae
---     WHERE EntryDate = ssae.EntryDate
---     AND SchoolId = ssae.SchoolId
---     AND StudentUSI = ssae.StudentUSI)
-
--- [ODS-6691] Update after updating the Sample extension
--- INSERT INTO sample.StudentEducationOrganizationAssociationAddressSchoolDistrict
---     (AddressTypeDescriptorId
---     , City
---     , EducationOrganizationId
---     , PostalCode
---     , StateAbbreviationDescriptorId
---     , StreetNumberName
---     , StudentUSI
---     , SchoolDistrict)
--- SELECT
---     AddressTypeDescriptorId
---     , City
---     , EducationOrganizationId
---     , PostalCode
---     , StateAbbreviationDescriptorId
---     , StreetNumberName
---     , StudentUSI
---     , 'Test District'
--- FROM sample.StudentEducationOrganizationAssociationAddressExtension
+ INSERT INTO sample.StudentDirectoryAddressExtension
+     (AddressTypeDescriptorId
+     , City
+     , EducationOrganizationId
+     , PostalCode
+     , StateAbbreviationDescriptorId
+     , StreetNumberName
+     , StudentUSI
+     , Complex
+     , OnBusRoute)
+ SELECT
+     AddressTypeDescriptorId
+     , City
+     , EducationOrganizationId
+     , PostalCode
+     , seoaa.StateAbbreviationDescriptorId
+     , StreetNumberName
+     , StudentUSI
+     , NULL
+     , '0'
+ FROM edfi.StudentDirectoryAddress seoaa
+ WHERE NOT EXISTS
+     (SELECT EntryDate, SchoolId, StudentUSI
+     FROM sample.StudentSchoolAssociationExtension ssae
+     WHERE EntryDate = ssae.EntryDate
+     AND SchoolId = ssae.SchoolId
+     AND StudentUSI = ssae.StudentUSI);
+ INSERT INTO sample.StudentDirectoryAddressSchoolDistrict
+     (AddressTypeDescriptorId
+     , City
+     , EducationOrganizationId
+     , PostalCode
+     , StateAbbreviationDescriptorId
+     , StreetNumberName
+     , StudentUSI
+     , SchoolDistrict)
+ SELECT
+     AddressTypeDescriptorId
+     , City
+     , EducationOrganizationId
+     , PostalCode
+     , StateAbbreviationDescriptorId
+     , StreetNumberName
+     , StudentUSI
+     , 'Test District'
+ FROM sample.StudentDirectoryAddressExtension
 
 UPDATE edfi.StudentEducationOrganizationAssociation
 SET

@@ -374,6 +374,49 @@ COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.StudentUSI IS 'A 
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.AnalysisCompleted IS 'A unique identification code used to identify the student''s artwork produced in the program.';
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.AnalysisDate IS 'The date and time the CTEProgram analysis was completed.';
 
+-- Extended Properties [sample].[StudentDemographicStudentCharacteristicStudentNeed] --
+COMMENT ON TABLE sample.StudentDemographicStudentCharacteristicStudentNeed IS 'The time period of student need.';
+COMMENT ON COLUMN sample.StudentDemographicStudentCharacteristicStudentNeed.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentDemographicStudentCharacteristicStudentNeed.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentDemographicStudentCharacteristicStudentNeed.StudentCharacteristicDescriptorId IS 'The characteristic designated for the student.';
+COMMENT ON COLUMN sample.StudentDemographicStudentCharacteristicStudentNeed.BeginDate IS 'The month, day, and year for the start of the period.';
+COMMENT ON COLUMN sample.StudentDemographicStudentCharacteristicStudentNeed.EndDate IS 'The month, day, and year for the end of the period.';
+COMMENT ON COLUMN sample.StudentDemographicStudentCharacteristicStudentNeed.PrimaryStudentNeedIndicator IS 'Indicates the parent characteristic is a primary student need.';
+
+-- Extended Properties [sample].[StudentDirectoryAddressExtension] --
+COMMENT ON TABLE sample.StudentDirectoryAddressExtension IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressExtension.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN sample.StudentDirectoryAddressExtension.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressExtension.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressExtension.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressExtension.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressExtension.Complex IS 'The apartment or housing complex name.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressExtension.OnBusRoute IS 'An indicator if the address is on a bus route.';
+
+-- Extended Properties [sample].[StudentDirectoryAddressSchoolDistrict] --
+COMMENT ON TABLE sample.StudentDirectoryAddressSchoolDistrict IS 'The school district in which the address is located.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressSchoolDistrict.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressSchoolDistrict.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressSchoolDistrict.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN sample.StudentDirectoryAddressSchoolDistrict.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressSchoolDistrict.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressSchoolDistrict.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressSchoolDistrict.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressSchoolDistrict.SchoolDistrict IS 'The school district in which the address is located.';
+
+-- Extended Properties [sample].[StudentDirectoryAddressTerm] --
+COMMENT ON TABLE sample.StudentDirectoryAddressTerm IS 'Terms applicable to this address.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressTerm.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressTerm.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressTerm.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN sample.StudentDirectoryAddressTerm.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressTerm.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressTerm.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressTerm.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN sample.StudentDirectoryAddressTerm.TermDescriptorId IS 'Terms applicable to this address.';
+
 -- Extended Properties [sample].[StudentEducationOrganizationAssociationExtension] --
 COMMENT ON TABLE sample.StudentEducationOrganizationAssociationExtension IS '';
 COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';

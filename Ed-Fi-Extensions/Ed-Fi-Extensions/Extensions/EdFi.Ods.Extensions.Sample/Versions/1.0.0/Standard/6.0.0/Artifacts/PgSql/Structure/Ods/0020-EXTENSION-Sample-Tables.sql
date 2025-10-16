@@ -552,6 +552,65 @@ CREATE TABLE sample.StudentCTEProgramAssociationExtension (
 );
 ALTER TABLE sample.StudentCTEProgramAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
+-- Table sample.StudentDemographicStudentCharacteristicStudentNeed --
+CREATE TABLE sample.StudentDemographicStudentCharacteristicStudentNeed (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    StudentCharacteristicDescriptorId INT NOT NULL,
+    BeginDate DATE NOT NULL,
+    EndDate DATE NULL,
+    PrimaryStudentNeedIndicator BOOLEAN NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentDemographicStudentCharacteristicStudentNeed_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, StudentCharacteristicDescriptorId, BeginDate)
+);
+ALTER TABLE sample.StudentDemographicStudentCharacteristicStudentNeed ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
+
+-- Table sample.StudentDirectoryAddressExtension --
+CREATE TABLE sample.StudentDirectoryAddressExtension (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    AddressTypeDescriptorId INT NOT NULL,
+    City VARCHAR(30) NOT NULL,
+    PostalCode VARCHAR(17) NOT NULL,
+    StateAbbreviationDescriptorId INT NOT NULL,
+    StreetNumberName VARCHAR(150) NOT NULL,
+    Complex VARCHAR(255) NULL,
+    OnBusRoute BOOLEAN NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentDirectoryAddressExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+);
+ALTER TABLE sample.StudentDirectoryAddressExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
+
+-- Table sample.StudentDirectoryAddressSchoolDistrict --
+CREATE TABLE sample.StudentDirectoryAddressSchoolDistrict (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    AddressTypeDescriptorId INT NOT NULL,
+    City VARCHAR(30) NOT NULL,
+    PostalCode VARCHAR(17) NOT NULL,
+    StateAbbreviationDescriptorId INT NOT NULL,
+    StreetNumberName VARCHAR(150) NOT NULL,
+    SchoolDistrict VARCHAR(250) NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentDirectoryAddressSchoolDistrict_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName, SchoolDistrict)
+);
+ALTER TABLE sample.StudentDirectoryAddressSchoolDistrict ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
+
+-- Table sample.StudentDirectoryAddressTerm --
+CREATE TABLE sample.StudentDirectoryAddressTerm (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    AddressTypeDescriptorId INT NOT NULL,
+    City VARCHAR(30) NOT NULL,
+    PostalCode VARCHAR(17) NOT NULL,
+    StateAbbreviationDescriptorId INT NOT NULL,
+    StreetNumberName VARCHAR(150) NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentDirectoryAddressTerm_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName, TermDescriptorId)
+);
+ALTER TABLE sample.StudentDirectoryAddressTerm ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
+
 -- Table sample.StudentEducationOrganizationAssociationExtension --
 CREATE TABLE sample.StudentEducationOrganizationAssociationExtension (
     EducationOrganizationId BIGINT NOT NULL,
