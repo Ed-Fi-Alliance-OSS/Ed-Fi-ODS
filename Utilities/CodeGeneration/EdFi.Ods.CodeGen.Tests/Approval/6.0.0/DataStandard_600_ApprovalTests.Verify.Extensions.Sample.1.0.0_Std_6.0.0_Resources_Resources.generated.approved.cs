@@ -16105,6 +16105,1479 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
     // -----------------------------------------------------------------
 
 }
+// Aggregate: StudentDemographic
+
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentDemographic.EdFi.Extensions.Sample
+{
+    /// <summary>
+    /// A class which represents the sample.StudentDemographicStudentCharacteristicExtension table of the StudentDemographic aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
+    public class StudentDemographicStudentCharacteristicExtension : Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension, IChildEntity, IValidatableObject
+    {
+        private static FullName _fullName = new FullName("sample", "StudentDemographicStudentCharacteristicExtension");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentDemographicStudentCharacteristicExtensionPutPostRequestValidator _validator = new StudentDemographicStudentCharacteristicExtensionPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        public StudentDemographicStudentCharacteristicExtension()
+        {
+            StudentDemographicStudentCharacteristicStudentNeeds = new List<StudentDemographicStudentCharacteristicStudentNeed>();
+        }
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IStudentDemographicStudentCharacteristic _studentDemographicStudentCharacteristic;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IStudentDemographicStudentCharacteristic Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension.StudentDemographicStudentCharacteristic
+        {
+            get { return _studentDemographicStudentCharacteristic; }
+            set { SetStudentDemographicStudentCharacteristic(value); }
+        }
+
+        public Entities.Common.EdFi.IStudentDemographicStudentCharacteristic StudentDemographicStudentCharacteristic
+        {
+            set { SetStudentDemographicStudentCharacteristic(value); }
+        }
+
+        private void SetStudentDemographicStudentCharacteristic(Entities.Common.EdFi.IStudentDemographicStudentCharacteristic value)
+        {
+            _studentDemographicStudentCharacteristic = value;
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentDemographicStudentCharacteristic == null || !_studentDemographicStudentCharacteristic.Equals(compareTo.StudentDemographicStudentCharacteristic))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentDemographicStudentCharacteristic != null)
+                hash.Add(_studentDemographicStudentCharacteristic);
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        private ICollection<StudentDemographicStudentCharacteristicStudentNeed> _studentDemographicStudentCharacteristicStudentNeeds;
+        private ICollection<Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed> _studentDemographicStudentCharacteristicStudentNeedsCovariant;
+
+        [NoDuplicateMembers]
+        [DataMember(Name="studentNeeds")]
+        public ICollection<StudentDemographicStudentCharacteristicStudentNeed> StudentDemographicStudentCharacteristicStudentNeeds
+        {
+            get { return _studentDemographicStudentCharacteristicStudentNeeds; }
+            set
+            {
+                if (value == null) return;
+                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
+                var list = new CollectionAdapterWithAddNotifications<StudentDemographicStudentCharacteristicStudentNeed>(value,
+                    (s, e) => ((Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed)e.Item).StudentDemographicStudentCharacteristicExtension = this);
+                _studentDemographicStudentCharacteristicStudentNeeds = list;
+
+                // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed, StudentDemographicStudentCharacteristicStudentNeed>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed)e.Item).StudentDemographicStudentCharacteristicExtension = this;
+                _studentDemographicStudentCharacteristicStudentNeedsCovariant = covariantList;
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed> Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension.StudentDemographicStudentCharacteristicStudentNeeds
+        {
+            get { return _studentDemographicStudentCharacteristicStudentNeedsCovariant; }
+            set { StudentDemographicStudentCharacteristicStudentNeeds = new List<StudentDemographicStudentCharacteristicStudentNeed>(value.Cast<StudentDemographicStudentCharacteristicStudentNeed>()); }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            // Reconnect collection item parent references on deserialization
+            if (_studentDemographicStudentCharacteristicStudentNeeds != null) foreach (var item in _studentDemographicStudentCharacteristicStudentNeeds)
+            {
+                item.StudentDemographicStudentCharacteristicExtension = this;
+            }
+
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.Sample.StudentDemographicStudentCharacteristicExtensionMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.Sample.StudentDemographicStudentCharacteristicExtensionMapper.MapTo(this, (Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentDemographicStudentCharacteristic = (IStudentDemographicStudentCharacteristic)value;
+        }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StudentDemographicStudentCharacteristicStudentNeeds.Any() && mappingContract?.IsMemberSupported("StudentDemographicStudentCharacteristicStudentNeeds") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("StudentDemographicStudentCharacteristicStudentNeeds");
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentDemographicStudentCharacteristicStudentNeeds, validationContext, validationContext.Items.ForCollection("StudentDemographicStudentCharacteristicStudentNeeds"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDemographicStudentCharacteristicExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentDemographicStudentCharacteristicExtension>
+    {
+        private static readonly FullName _fullName_sample_StudentDemographicStudentCharacteristicExtension = new FullName("sample", "StudentDemographicStudentCharacteristicExtension");
+
+        // Declare collection item validators
+        private StudentDemographicStudentCharacteristicStudentNeedPutPostRequestValidator _studentDemographicStudentCharacteristicStudentNeedsValidator = new ();
+
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentDemographicStudentCharacteristicExtension> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentDemographicStudentCharacteristicExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentDemographicStudentCharacteristicExtension);
+
+            if (mappingContract != null)
+            {
+                if (mappingContract.IsStudentDemographicStudentCharacteristicStudentNeedIncluded != null)
+                {
+                    var hasInvalidStudentDemographicStudentCharacteristicStudentNeedsItems = instance.StudentDemographicStudentCharacteristicStudentNeeds.Any(x => !mappingContract.IsStudentDemographicStudentCharacteristicStudentNeedIncluded(x));
+        
+                    if (hasInvalidStudentDemographicStudentCharacteristicStudentNeedsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentDemographicStudentCharacteristicStudentNeeds", $"A supplied 'StudentDemographicStudentCharacteristicStudentNeed' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
+    /// A class which represents the sample.StudentDemographicStudentCharacteristicStudentNeed table of the StudentDemographic aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class StudentDemographicStudentCharacteristicStudentNeed : Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed
+    {
+        private static FullName _fullName = new FullName("sample", "StudentDemographicStudentCharacteristicStudentNeed");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentDemographicStudentCharacteristicStudentNeedPutPostRequestValidator _validator = new StudentDemographicStudentCharacteristicStudentNeedPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension _studentDemographicStudentCharacteristicExtension;
+
+        [IgnoreDataMember]
+        Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed.StudentDemographicStudentCharacteristicExtension
+        {
+            get { return _studentDemographicStudentCharacteristicExtension; }
+            set { SetStudentDemographicStudentCharacteristicExtension(value); }
+        }
+
+        public Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension StudentDemographicStudentCharacteristicExtension
+        {
+            set { SetStudentDemographicStudentCharacteristicExtension(value); }
+        }
+
+        private void SetStudentDemographicStudentCharacteristicExtension(Entities.Common.Sample.IStudentDemographicStudentCharacteristicExtension value)
+        {
+            _studentDemographicStudentCharacteristicExtension = value;
+        }
+
+        /// <summary>
+        /// The month, day, and year for the start of the period.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime BeginDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentDemographicStudentCharacteristicExtension == null || !_studentDemographicStudentCharacteristicExtension.Equals(compareTo.StudentDemographicStudentCharacteristicExtension))
+                return false;
+
+
+            // Standard Property
+            if (!(this as Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed).BeginDate.Equals(compareTo.BeginDate))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentDemographicStudentCharacteristicExtension != null)
+                hash.Add(_studentDemographicStudentCharacteristicExtension);
+
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed).BeginDate);
+
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The month, day, and year for the end of the period.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? EndDate { get; set; }
+
+        /// <summary>
+        /// Indicates the parent characteristic is a primary student need.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="primaryStudentNeedIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
+        public bool? PrimaryStudentNeedIndicator { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.Sample.StudentDemographicStudentCharacteristicStudentNeedMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.Sample.StudentDemographicStudentCharacteristicStudentNeedMapper.MapTo(this, (Entities.Common.Sample.IStudentDemographicStudentCharacteristicStudentNeed)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDemographicStudentCharacteristicStudentNeedPutPostRequestValidator : FluentValidation.AbstractValidator<StudentDemographicStudentCharacteristicStudentNeed>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentDemographicStudentCharacteristicStudentNeed> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
+// Aggregate: StudentDirectory
+
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentDirectory.EdFi.Extensions.Sample
+{
+    /// <summary>
+    /// A class which represents the sample.StudentDirectoryAddressExtension table of the StudentDirectory aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentDirectoryAddressExtension : Entities.Common.Sample.IStudentDirectoryAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity, IValidatableObject
+    {
+        private static FullName _fullName = new FullName("sample", "StudentDirectoryAddressExtension");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentDirectoryAddressExtensionPutPostRequestValidator _validator = new StudentDirectoryAddressExtensionPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        public StudentDirectoryAddressExtension()
+        {
+            StudentDirectoryAddressSchoolDistricts = new List<StudentDirectoryAddressSchoolDistrict>();
+            StudentDirectoryAddressTerms = new List<StudentDirectoryAddressTerm>();
+        }
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IStudentDirectoryAddress _studentDirectoryAddress;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IStudentDirectoryAddress Entities.Common.Sample.IStudentDirectoryAddressExtension.StudentDirectoryAddress
+        {
+            get { return _studentDirectoryAddress; }
+            set { SetStudentDirectoryAddress(value); }
+        }
+
+        public Entities.Common.EdFi.IStudentDirectoryAddress StudentDirectoryAddress
+        {
+            set { SetStudentDirectoryAddress(value); }
+        }
+
+        private void SetStudentDirectoryAddress(Entities.Common.EdFi.IStudentDirectoryAddress value)
+        {
+            _studentDirectoryAddress = value;
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.Sample.IStudentDirectoryAddressExtension;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentDirectoryAddress == null || !_studentDirectoryAddress.Equals(compareTo.StudentDirectoryAddress))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentDirectoryAddress != null)
+                hash.Add(_studentDirectoryAddress);
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The apartment or housing complex name.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [NonDefaultStringLength(255, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [DataMember(Name="complex")]
+        public string Complex { get; set; }
+        
+        private bool _onBusRouteExplicitlyAssigned = false;
+        private bool _onBusRoute;
+
+        /// <summary>
+        /// An indicator if the address is on a bus route.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="onBusRoute")][JsonConverter(typeof(StrictBooleanConverter))]
+        public bool OnBusRoute 
+        { 
+            get => _onBusRoute;
+            set 
+            { 
+                _onBusRoute = value;
+                _onBusRouteExplicitlyAssigned = true; 
+            }
+        }
+
+        // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_onBusRouteExplicitlyAssigned)
+            {
+                yield return "OnBusRoute";
+            }
+        }
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        private ICollection<StudentDirectoryAddressSchoolDistrict> _studentDirectoryAddressSchoolDistricts;
+        private ICollection<Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict> _studentDirectoryAddressSchoolDistrictsCovariant;
+
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="schoolDistricts")]
+        public ICollection<StudentDirectoryAddressSchoolDistrict> StudentDirectoryAddressSchoolDistricts
+        {
+            get { return _studentDirectoryAddressSchoolDistricts; }
+            set
+            {
+                if (value == null) return;
+                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
+                var list = new CollectionAdapterWithAddNotifications<StudentDirectoryAddressSchoolDistrict>(value,
+                    (s, e) => ((Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict)e.Item).StudentDirectoryAddressExtension = this);
+                _studentDirectoryAddressSchoolDistricts = list;
+
+                // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict, StudentDirectoryAddressSchoolDistrict>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict)e.Item).StudentDirectoryAddressExtension = this;
+                _studentDirectoryAddressSchoolDistrictsCovariant = covariantList;
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict> Entities.Common.Sample.IStudentDirectoryAddressExtension.StudentDirectoryAddressSchoolDistricts
+        {
+            get { return _studentDirectoryAddressSchoolDistrictsCovariant; }
+            set { StudentDirectoryAddressSchoolDistricts = new List<StudentDirectoryAddressSchoolDistrict>(value.Cast<StudentDirectoryAddressSchoolDistrict>()); }
+        }
+
+        private ICollection<StudentDirectoryAddressTerm> _studentDirectoryAddressTerms;
+        private ICollection<Entities.Common.Sample.IStudentDirectoryAddressTerm> _studentDirectoryAddressTermsCovariant;
+
+        [NoDuplicateMembers]
+        [DataMember(Name="terms")]
+        public ICollection<StudentDirectoryAddressTerm> StudentDirectoryAddressTerms
+        {
+            get { return _studentDirectoryAddressTerms; }
+            set
+            {
+                if (value == null) return;
+                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
+                var list = new CollectionAdapterWithAddNotifications<StudentDirectoryAddressTerm>(value,
+                    (s, e) => ((Entities.Common.Sample.IStudentDirectoryAddressTerm)e.Item).StudentDirectoryAddressExtension = this);
+                _studentDirectoryAddressTerms = list;
+
+                // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Sample.IStudentDirectoryAddressTerm, StudentDirectoryAddressTerm>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.Sample.IStudentDirectoryAddressTerm)e.Item).StudentDirectoryAddressExtension = this;
+                _studentDirectoryAddressTermsCovariant = covariantList;
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.Sample.IStudentDirectoryAddressTerm> Entities.Common.Sample.IStudentDirectoryAddressExtension.StudentDirectoryAddressTerms
+        {
+            get { return _studentDirectoryAddressTermsCovariant; }
+            set { StudentDirectoryAddressTerms = new List<StudentDirectoryAddressTerm>(value.Cast<StudentDirectoryAddressTerm>()); }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            // Reconnect collection item parent references on deserialization
+            if (_studentDirectoryAddressSchoolDistricts != null) foreach (var item in _studentDirectoryAddressSchoolDistricts)
+            {
+                item.StudentDirectoryAddressExtension = this;
+            }
+
+            if (_studentDirectoryAddressTerms != null) foreach (var item in _studentDirectoryAddressTerms)
+            {
+                item.StudentDirectoryAddressExtension = this;
+            }
+
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.Sample.StudentDirectoryAddressExtensionMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentDirectoryAddressExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.Sample.StudentDirectoryAddressExtensionMapper.MapTo(this, (Entities.Common.Sample.IStudentDirectoryAddressExtension)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentDirectoryAddress = (IStudentDirectoryAddress)value;
+        }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StudentDirectoryAddressSchoolDistricts.Any() && mappingContract?.IsMemberSupported("StudentDirectoryAddressSchoolDistricts") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("StudentDirectoryAddressSchoolDistricts");
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentDirectoryAddressSchoolDistricts, validationContext, validationContext.Items.ForCollection("StudentDirectoryAddressSchoolDistricts"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentDirectoryAddressTerms.Any() && mappingContract?.IsMemberSupported("StudentDirectoryAddressTerms") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("StudentDirectoryAddressTerms");
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentDirectoryAddressTerms, validationContext, validationContext.Items.ForCollection("StudentDirectoryAddressTerms"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDirectoryAddressExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentDirectoryAddressExtension>
+    {
+        private static readonly FullName _fullName_sample_StudentDirectoryAddressExtension = new FullName("sample", "StudentDirectoryAddressExtension");
+
+        // Declare collection item validators
+        private StudentDirectoryAddressSchoolDistrictPutPostRequestValidator _studentDirectoryAddressSchoolDistrictsValidator = new ();
+        private StudentDirectoryAddressTermPutPostRequestValidator _studentDirectoryAddressTermsValidator = new ();
+
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentDirectoryAddressExtension> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentDirectoryAddressExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentDirectoryAddressExtension);
+
+            if (mappingContract != null)
+            {
+                if (mappingContract.IsStudentDirectoryAddressSchoolDistrictIncluded != null)
+                {
+                    var hasInvalidStudentDirectoryAddressSchoolDistrictsItems = instance.StudentDirectoryAddressSchoolDistricts.Any(x => !mappingContract.IsStudentDirectoryAddressSchoolDistrictIncluded(x));
+        
+                    if (hasInvalidStudentDirectoryAddressSchoolDistrictsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentDirectoryAddressSchoolDistricts", $"A supplied 'StudentDirectoryAddressSchoolDistrict' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.IsStudentDirectoryAddressTermIncluded != null)
+                {
+                    var hasInvalidStudentDirectoryAddressTermsItems = instance.StudentDirectoryAddressTerms.Any(x => !mappingContract.IsStudentDirectoryAddressTermIncluded(x));
+        
+                    if (hasInvalidStudentDirectoryAddressTermsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentDirectoryAddressTerms", $"A supplied 'StudentDirectoryAddressTerm' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
+    /// A class which represents the sample.StudentDirectoryAddressSchoolDistrict table of the StudentDirectory aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class StudentDirectoryAddressSchoolDistrict : Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict
+    {
+        private static FullName _fullName = new FullName("sample", "StudentDirectoryAddressSchoolDistrict");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentDirectoryAddressSchoolDistrictPutPostRequestValidator _validator = new StudentDirectoryAddressSchoolDistrictPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.Sample.IStudentDirectoryAddressExtension _studentDirectoryAddressExtension;
+
+        [IgnoreDataMember]
+        Entities.Common.Sample.IStudentDirectoryAddressExtension Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict.StudentDirectoryAddressExtension
+        {
+            get { return _studentDirectoryAddressExtension; }
+            set { SetStudentDirectoryAddressExtension(value); }
+        }
+
+        public Entities.Common.Sample.IStudentDirectoryAddressExtension StudentDirectoryAddressExtension
+        {
+            set { SetStudentDirectoryAddressExtension(value); }
+        }
+
+        private void SetStudentDirectoryAddressExtension(Entities.Common.Sample.IStudentDirectoryAddressExtension value)
+        {
+            _studentDirectoryAddressExtension = value;
+        }
+
+        /// <summary>
+        /// The school district in which the address is located.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(250, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="schoolDistrict")]
+        public string SchoolDistrict { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentDirectoryAddressExtension == null || !_studentDirectoryAddressExtension.Equals(compareTo.StudentDirectoryAddressExtension))
+                return false;
+
+
+            // Standard Property
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict).SchoolDistrict, compareTo.SchoolDistrict))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentDirectoryAddressExtension != null)
+                hash.Add(_studentDirectoryAddressExtension);
+
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict).SchoolDistrict);
+
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.Sample.StudentDirectoryAddressSchoolDistrictMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.Sample.StudentDirectoryAddressSchoolDistrictMapper.MapTo(this, (Entities.Common.Sample.IStudentDirectoryAddressSchoolDistrict)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDirectoryAddressSchoolDistrictPutPostRequestValidator : FluentValidation.AbstractValidator<StudentDirectoryAddressSchoolDistrict>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentDirectoryAddressSchoolDistrict> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
+    /// A class which represents the sample.StudentDirectoryAddressTerm table of the StudentDirectory aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class StudentDirectoryAddressTerm : Entities.Common.Sample.IStudentDirectoryAddressTerm
+    {
+        private static FullName _fullName = new FullName("sample", "StudentDirectoryAddressTerm");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentDirectoryAddressTermPutPostRequestValidator _validator = new StudentDirectoryAddressTermPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.Sample.IStudentDirectoryAddressExtension _studentDirectoryAddressExtension;
+
+        [IgnoreDataMember]
+        Entities.Common.Sample.IStudentDirectoryAddressExtension Entities.Common.Sample.IStudentDirectoryAddressTerm.StudentDirectoryAddressExtension
+        {
+            get { return _studentDirectoryAddressExtension; }
+            set { SetStudentDirectoryAddressExtension(value); }
+        }
+
+        public Entities.Common.Sample.IStudentDirectoryAddressExtension StudentDirectoryAddressExtension
+        {
+            set { SetStudentDirectoryAddressExtension(value); }
+        }
+
+        private void SetStudentDirectoryAddressExtension(Entities.Common.Sample.IStudentDirectoryAddressExtension value)
+        {
+            _studentDirectoryAddressExtension = value;
+        }
+
+        /// <summary>
+        /// Terms applicable to this address.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        public string TermDescriptor { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.Sample.IStudentDirectoryAddressTerm;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentDirectoryAddressExtension == null || !_studentDirectoryAddressExtension.Equals(compareTo.StudentDirectoryAddressExtension))
+                return false;
+
+
+            // Standard Property
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentDirectoryAddressTerm).TermDescriptor, compareTo.TermDescriptor))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentDirectoryAddressExtension != null)
+                hash.Add(_studentDirectoryAddressExtension);
+
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentDirectoryAddressTerm).TermDescriptor);
+
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.Sample.StudentDirectoryAddressTermMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentDirectoryAddressTerm)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.Sample.StudentDirectoryAddressTermMapper.MapTo(this, (Entities.Common.Sample.IStudentDirectoryAddressTerm)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDirectoryAddressTermPutPostRequestValidator : FluentValidation.AbstractValidator<StudentDirectoryAddressTerm>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentDirectoryAddressTerm> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
 // Aggregate: StudentEducationOrganizationAssociation
 
 namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssociation.EdFi.Extensions.Sample
