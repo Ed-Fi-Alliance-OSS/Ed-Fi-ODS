@@ -51,7 +51,7 @@ namespace EdFi.Ods.Api.Controllers
             if (authorizationHeader != null)
             {
                 var parseSuccess = TryParseAuthorizationHeader(authorizationHeader, out var clientIdAndSecret, out var failureResponse);
-                if (parseSuccess && clientIdAndSecret.Length == 2)
+                if (parseSuccess)
                 {
                     if (!string.IsNullOrWhiteSpace(tokenRequest.Client_id) || !string.IsNullOrWhiteSpace(tokenRequest.Client_secret))
                     {
