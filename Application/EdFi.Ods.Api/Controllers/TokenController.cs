@@ -124,7 +124,6 @@ namespace EdFi.Ods.Api.Controllers
             string[] GetClientIdAndSecret(string encodedClientAndSecret)
                 => Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret)).Split(':');
         }
-    
         [HttpPost]
         [AllowAnonymous]
         [Consumes("application/x-www-form-urlencoded")]

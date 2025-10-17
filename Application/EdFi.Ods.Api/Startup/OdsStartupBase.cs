@@ -94,10 +94,10 @@ namespace EdFi.Ods.Api.Startup
             // Provide access to the web host environment through the container
             services.AddSingleton(_webHostEnvironment);
 
-            // Bind configuration objects to sections 
+            // Bind configuration objects to sections
             services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
             services.Configure<Plugin>(Configuration.GetSection("Plugin"));
-            
+
             // Register sections related to external connection strings configuration
             services.Configure<TenantsSection>(Configuration);
             services.Configure<OdsInstancesSection>(Configuration);
@@ -125,7 +125,7 @@ namespace EdFi.Ods.Api.Startup
 
             var pluginSettings = new Plugin();
             Configuration.Bind("Plugin", pluginSettings);
-            
+
             // Legacy configuration support through the container
             services.AddSingleton(_apiSettings);
             services.AddSingleton(Configuration);
@@ -190,7 +190,7 @@ namespace EdFi.Ods.Api.Startup
             mvcBuilder.AddControllersAsServices();
 
             mvcBuilder.Services.ConfigureOptions<ApiBehaviorOptionsConfigurator>();
-            
+
             services.AddMvc();
 
             if (_apiSettings.BearerTokenType != "basic" && _apiSettings.BearerTokenType != "jwt")
@@ -260,7 +260,7 @@ namespace EdFi.Ods.Api.Startup
             void ConfigurePluginsServices()
             {
                 _logger.Debug("Configuring services in plugins:");
-                
+
                 foreach (var servicesConfigurationActivityType in TypeHelper.GetAssemblyTypes<IServicesConfigurationActivity>())
                 {
                     _logger.Debug($"Executing services configuration activity '{servicesConfigurationActivityType.Name}'...");
@@ -380,7 +380,7 @@ namespace EdFi.Ods.Api.Startup
             // Identifies the current ODS instance for the request
             app.UseOdsInstanceIdentification();
 
-            // Perform additional registered configuration activities 
+            // Perform additional registered configuration activities
             foreach (var configurationActivity in configurationActivities)
             {
                 configurationActivity.Configure(app);
@@ -392,7 +392,7 @@ namespace EdFi.Ods.Api.Startup
                 app.UseOpenApiMetadata();
             }
 
-            app.UseWhen(context => 
+            app.UseWhen(context =>
                 context.Request.Path.StartsWithSegments("/data") ||
                 context.Request.Path.StartsWithSegments("/composites"),
                 builder => builder.UseRequestResponseDetailsLogger());
@@ -499,7 +499,7 @@ namespace EdFi.Ods.Api.Startup
                 _logger.Info($"Loading plugins from: '{pluginFolder}'");
 
                 var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(
-                    pluginFolder, false, 
+                    pluginFolder, false,
                     _apiSettings.IsFeatureEnabled(ApiFeature.Extensions.GetConfigKeyName()));
 
                 // IMPORTANT: Load the plug-in assembly into the Default context

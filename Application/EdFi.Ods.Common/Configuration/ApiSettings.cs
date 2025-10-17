@@ -29,7 +29,7 @@ namespace EdFi.Ods.Common.Configuration
         public string BearerTokenType { get; set; }
 
         public int BearerTokenTimeoutMinutes { get; set; } = 60;
-        
+
         public int BearerTokenPerClientLimit { get; set; } = 15;
 
         public int DefaultPageSizeLimit { get; set; } = 500;
@@ -69,7 +69,7 @@ namespace EdFi.Ods.Common.Configuration
         public string PathBase { get; set; }
 
         public string OdsContextRouteTemplate { get; set; }
-        
+
         public string OdsCorrelationIdHttpHeaderName { get; set; }
 
         public NotificationSettings Notifications { get; set; } = new();
@@ -140,7 +140,7 @@ namespace EdFi.Ods.Common.Configuration
         public bool IsFeatureEnabled(string featureName)
         {
             return _featureEnabledByName.GetOrAdd(featureName,
-                static (n, features) 
+                static (n, features)
                     => features.SingleOrDefault(x => x.Name.EqualsIgnoreCase(n) && x.IsEnabled) != null, Features);
         }
     }
