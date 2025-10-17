@@ -28,23 +28,11 @@ public static class OpenIddictServerServiceExtensions
             options.AddDevelopmentEncryptionCertificate();
             options.AddDevelopmentSigningCertificate();
 
+            // Request validation and token response are handled by ODS pipeline instead of OpenIddict middleware
             options.AddEventHandler<OpenIddictServerEvents.ValidateTokenRequestContext>(builder =>
-                builder.UseScopedHandler<ValidateTokenHandler>());
-
+                builder.UseInlineHandler(ctx => default));
             options.AddEventHandler<OpenIddictServerEvents.HandleTokenRequestContext>(builder =>
-                builder.UseInlineHandler(context =>
-                {
-                    var identity = new ClaimsIdentity(
-                        TokenValidationParameters.DefaultAuthenticationType, OpenIddictConstants.Claims.Name,
-                        OpenIddictConstants.Claims.Role);
-
-                    var cp = new ClaimsPrincipal(identity);
-                    cp.SetScopes(context.Request.GetScopes());
-
-                    context.Principal = cp;
-
-                    return default;
-                }));
+                builder.UseInlineHandler(context => default));
 
             options.UseAspNetCore().EnableTokenEndpointPassthrough();
         });
