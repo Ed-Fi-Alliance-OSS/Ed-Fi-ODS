@@ -47,58 +47,26 @@ namespace EdFi.Ods.Api.Controllers
             // then we process with that information, other we look for a header with a bearer token
             // and parse the response then. We fail when there is a client_secret or client_id in the header and json at the
             // same time.
-            string[] clientIdAndSecret = Array.Empty<string>();
-
             var authorizationHeader = Request.Headers.Authorization.FirstOrDefault();
-            
             if (authorizationHeader != null)
             {
-                string[] encodedClientAndSecret = authorizationHeader.Split(' ');
-
-                if (encodedClientAndSecret.Length != 2)
+                var parseSuccess = TryParseAuthorizationHeader(authorizationHeader, out var clientIdAndSecret, out var failureResponse);
+                if (parseSuccess && clientIdAndSecret.Length == 2)
                 {
-                    _logger.Debug("Header is not in the form of Basic <encoded credentials>");
-                    return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
-                }
-
-                if (!encodedClientAndSecret[0].EqualsIgnoreCase("Basic"))
-                {
-                    _logger.Debug("Authorization scheme is not Basic");
-                    return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
-                }
-
-                if (string.IsNullOrWhiteSpace(encodedClientAndSecret[1]))
-                {
-                    _logger.Debug("Header does not have <encoded credentials> value");
-                    return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
-                }
-
-                try
-                {
-                    clientIdAndSecret = GetClientIdAndSecret(encodedClientAndSecret[1]);
-
-                    if (clientIdAndSecret.Length != 2)
+                    if (!string.IsNullOrWhiteSpace(tokenRequest.Client_id) || !string.IsNullOrWhiteSpace(tokenRequest.Client_secret))
                     {
                         return BadRequest(new TokenError(TokenErrorType.InvalidClient));
                     }
-                }
-                catch (Exception)
-                {
-                    return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
-                }
-            }
 
-            if (clientIdAndSecret.Length == 2)
-            {
-                if (!string.IsNullOrWhiteSpace(tokenRequest.Client_id) || !string.IsNullOrWhiteSpace(tokenRequest.Client_secret))
-                {
-                    return BadRequest(new TokenError(TokenErrorType.InvalidClient));
+                    // Correct format will include 2 entries
+                    // format of the string is <client_id>:<client_secret>
+                    tokenRequest.Client_id = clientIdAndSecret[0];
+                    tokenRequest.Client_secret = clientIdAndSecret[1];
                 }
-
-                // Correct format will include 2 entries
-                // format of the string is <client_id>:<client_secret>
-                tokenRequest.Client_id = clientIdAndSecret[0];
-                tokenRequest.Client_secret = clientIdAndSecret[1];
+                else
+                {
+                    return failureResponse;
+                }
             }
 
             if (string.IsNullOrWhiteSpace(tokenRequest.Client_id) || string.IsNullOrWhiteSpace(tokenRequest.Client_secret))
@@ -120,10 +88,52 @@ namespace EdFi.Ods.Api.Controllers
             }
 
             return Ok(authenticationResult.TokenResponse);
+        }
+
+        private bool TryParseAuthorizationHeader(string authorizationHeader, out string[] decodedClientAndSecret, out ActionResult shortCircuitResponse)
+        {
+            decodedClientAndSecret = [];
+            shortCircuitResponse = null;
+            string[] encodedClientAndSecret = authorizationHeader.Split(' ');
+
+            if (encodedClientAndSecret.Length != 2)
+            {
+                _logger.Debug("Header is not in the form of Basic <encoded credentials>");
+                shortCircuitResponse = BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+            }
+
+            if (!encodedClientAndSecret[0].EqualsIgnoreCase("Basic"))
+            {
+                _logger.Debug("Authorization scheme is not Basic");
+                shortCircuitResponse = Unauthorized(new TokenError(TokenErrorType.InvalidClient));
+            }
+
+            if (string.IsNullOrWhiteSpace(encodedClientAndSecret[1]))
+            {
+                _logger.Debug("Header does not have <encoded credentials> value");
+                shortCircuitResponse = BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+            }
+
+            try
+            {
+                decodedClientAndSecret = GetClientIdAndSecret(encodedClientAndSecret[1]);
+
+                if (decodedClientAndSecret.Length != 2)
+                {
+                    shortCircuitResponse =  BadRequest(new TokenError(TokenErrorType.InvalidClient));
+                }
+            }
+            catch (Exception)
+            {
+                shortCircuitResponse =  BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+            }
 
             string[] GetClientIdAndSecret(string encodedClientAndSecret)
                 => Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret)).Split(':');
+
+            return shortCircuitResponse == null;
         }
+
         [HttpPost]
         [AllowAnonymous]
         [Consumes("application/x-www-form-urlencoded")]
