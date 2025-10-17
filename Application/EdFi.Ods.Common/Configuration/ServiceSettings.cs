@@ -8,9 +8,21 @@ namespace EdFi.Ods.Common.Configuration;
 public class ServiceSettings
 {
     public RedisConfiguration Redis { get; set; } = new();
+    public OpenIddictSettings OpenIddict { get; set; } = new();
 }
 
 public class RedisConfiguration
 {
     public string Configuration { get; set; }
+}
+
+public class OpenIddictSettings
+{
+    public string Issuer { get; set; }
+    public string Audience { get; set; }
+    public string ClientId { get; set; }
+    public string ClientSecret { get; set; }
+
+    public string PrivateKeyPath { get; set; }
+    public string PublicKeyPath { get; set; }
 }
