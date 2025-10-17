@@ -26,6 +26,8 @@ namespace EdFi.Ods.Common.Configuration
             _odsConnectionStringEncryptionKeyBytes = new Lazy<byte[]>(GetEncryptionKeyBytes);
         }
 
+        public string BearerTokenType { get; set; }
+
         public int BearerTokenTimeoutMinutes { get; set; } = 60;
         
         public int BearerTokenPerClientLimit { get; set; } = 15;

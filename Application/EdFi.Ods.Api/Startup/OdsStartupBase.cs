@@ -23,6 +23,7 @@ using EdFi.Ods.Api.InversionOfControl;
 using EdFi.Ods.Api.Jobs.Extensions;
 using EdFi.Ods.Api.MediaTypeFormatters;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Api.Security.Jwt;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
@@ -58,6 +59,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using NHibernate.Engine;
+using OpenIddict.Validation.AspNetCore;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -191,8 +193,20 @@ namespace EdFi.Ods.Api.Startup
             
             services.AddMvc();
 
-            services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
-                .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
+            if (_apiSettings.BearerTokenType != "basic" && _apiSettings.BearerTokenType != "jwt")
+            {
+                _logger.Warn($"Unrecognized BearerTokenType {_apiSettings.BearerTokenType}. Defaulting to basic");
+            }
+            if (_apiSettings.BearerTokenType != "jwt")
+            {
+                services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
+                    .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
+            }
+            else
+            {
+                services.AddOpenIddict(builder => builder.Configure(_apiSettings));
+                services.AddAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+            }
 
             services.AddApplicationInsightsTelemetry(
                 options => { options.ApplicationVersion = ApiVersionConstants.Version; });
