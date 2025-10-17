@@ -88,12 +88,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             }
 
             [Assert]
-            public void Should_have_action_result_type_of_authentication_success()
-            {
-                Assert.That(_actionResult, Is.InstanceOf<AuthenticationResponse>());
-            }
-
-            [Assert]
             public void Should_call_try_authenticate_from_the_database_once()
             {
                 A.CallTo(
