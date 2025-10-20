@@ -10,11 +10,11 @@
     <PackageReference Include="Hangfire.PostgreSql" Version="1.20.12" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.20" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.20" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.20" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.10" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
-    <PackageReference Include="Npgsql" Version="8.0.8" />
+    <PackageReference Include="Npgsql" Version="9.0.4" />
     <PackageReference Include="Quartz.AspNetCore" Version="3.15.0" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.15.0" />	  
   </ItemGroup>

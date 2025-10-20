@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Configurations>Debug;Release</Configurations>
@@ -44,8 +44,8 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10207" />
-        <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="7.3.10203" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10219" />
+        <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="7.3.10215" />
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -54,7 +54,7 @@
     <PackageReference Include="dbup-postgresql" Version="5.0.40" />
     <PackageReference Include="dbup-sqlserver" Version="5.0.41" />
     <PackageReference Include="log4net" Version="3.2.0" />
-    <PackageReference Include="Npgsql" Version="8.0.8" />
+    <PackageReference Include="Npgsql" Version="9.0.4" />
     <PackageReference Include="NHibernate" Version="5.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.20" />
   </ItemGroup>
