@@ -6,7 +6,6 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
@@ -16,7 +15,6 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer

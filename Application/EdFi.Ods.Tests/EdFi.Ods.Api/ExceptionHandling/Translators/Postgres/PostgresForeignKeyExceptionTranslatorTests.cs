@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;

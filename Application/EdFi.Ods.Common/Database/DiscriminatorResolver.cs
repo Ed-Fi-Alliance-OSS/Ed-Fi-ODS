@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
-using System.Threading.Tasks;
 using Dapper;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Database.Querying;
