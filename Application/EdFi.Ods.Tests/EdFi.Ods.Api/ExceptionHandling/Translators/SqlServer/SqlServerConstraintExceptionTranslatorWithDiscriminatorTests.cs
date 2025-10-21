@@ -52,13 +52,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
 
                 _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
-                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminators(
                         A<string>.Ignored,
                         A<string>.Ignored,
                         A<Entity>.Ignored,
                         A<Guid>.Ignored,
                         A<int>.Ignored))
-                    .Returns(new List<string> { "StudentProgramAssociation" });
+                    .Returns(new List<string> { "edfi.StudentProgramAssociation" });
 
                 const string message =
                     "The DELETE statement conflicted with the REFERENCE constraint \"FK_GeneralStudentProgramAssociation_Student\". " +
@@ -123,13 +123,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
 
                 _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
-                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminators(
                         A<string>.Ignored,
                         A<string>.Ignored,
                         A<Entity>.Ignored,
                         A<Guid>.Ignored,
                         A<int>.Ignored))
-                    .Returns(new List<string> { "StudentProgramAssociation", "OtherProgramAssociation" });
+                    .Returns(new List<string> { "edfi.StudentProgramAssociation", "edfi.OtherProgramAssociation" });
 
                 const string message =
                     "The DELETE statement conflicted with the REFERENCE constraint \"FK_GeneralStudentProgramAssociation_Student\". " +
@@ -194,7 +194,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
 
                 _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
-                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminators(
                         A<string>.Ignored,
                         A<string>.Ignored,
                         A<Entity>.Ignored,
@@ -294,7 +294,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             [Test]
             public void Should_not_attempt_discriminator_resolution()
             {
-                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminators(
                         A<string>.Ignored,
                         A<string>.Ignored,
                         A<Entity>.Ignored,
@@ -339,7 +339,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
 
                 _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
-                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminators(
                         A<string>.Ignored,
                         A<string>.Ignored,
                         A<Entity>.Ignored,

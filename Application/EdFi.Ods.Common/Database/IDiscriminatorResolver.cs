@@ -25,7 +25,7 @@ public interface IDiscriminatorResolver
     /// <param name="parentId">Surrogate Id (GUID) of the parent entity</param>
     /// <param name="maxResults">Maximum discriminators to return (default 1 for performance)</param>
     /// <returns>List of distinct discriminator values, or empty if none found</returns>
-    Task<IReadOnlyList<string>> GetDistinctDiscriminatorsAsync(
+    IReadOnlyList<string> GetDistinctDiscriminators(
         string schema,
         string tableName,
         Entity parentEntity,

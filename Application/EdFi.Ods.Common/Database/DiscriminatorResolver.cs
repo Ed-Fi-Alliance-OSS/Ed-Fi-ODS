@@ -39,7 +39,7 @@ public class DiscriminatorResolver : IDiscriminatorResolver
         _databaseEngine = databaseEngine;
     }
 
-    public async Task<IReadOnlyList<string>> GetDistinctDiscriminatorsAsync(
+    public IReadOnlyList<string> GetDistinctDiscriminators(
         string schema,
         string tableName,
         Entity parentEntity,
@@ -49,16 +49,16 @@ public class DiscriminatorResolver : IDiscriminatorResolver
         try
         {
             using var conn = CreateConnection();
-            await conn.OpenAsync();
+            conn.Open();
 
-            var naturalKeyValues = await ResolveNaturalKeysAsync(conn, schema, parentEntity, parentId);
+            var naturalKeyValues = ResolveNaturalKeys(conn, schema, parentEntity, parentId);
             if (naturalKeyValues == null || !naturalKeyValues.Any())
             {
                 return Array.Empty<string>();
             }
 
             // Query for discriminators for dependent table
-            return await QueryDiscriminatorsAsync(conn, schema, tableName, naturalKeyValues, maxResults);
+            return QueryDiscriminators(conn, schema, tableName, naturalKeyValues, maxResults);
         }
         catch
         {
@@ -74,7 +74,7 @@ public class DiscriminatorResolver : IDiscriminatorResolver
             return conn;
         }
 
-        async Task<Dictionary<string, object>> ResolveNaturalKeysAsync(
+        Dictionary<string, object> ResolveNaturalKeys(
             DbConnection conn,
             string schema,
             Entity parentEntity,
@@ -91,7 +91,7 @@ public class DiscriminatorResolver : IDiscriminatorResolver
 
             var template = qb.BuildTemplate();
 
-            var result = await conn.QueryFirstOrDefaultAsync(template.RawSql, template.Parameters);
+            var result = conn.QueryFirstOrDefault(template.RawSql, template.Parameters);
             if (result == null) return null;
 
             var keys = new Dictionary<string, object>();
@@ -108,7 +108,7 @@ public class DiscriminatorResolver : IDiscriminatorResolver
             return keys;
         }
 
-        async Task<IReadOnlyList<string>> QueryDiscriminatorsAsync(
+        IReadOnlyList<string> QueryDiscriminators(
             DbConnection conn,
             string schema,
             string tableName,
@@ -127,7 +127,7 @@ public class DiscriminatorResolver : IDiscriminatorResolver
 
             var template = qb.BuildTemplate();
 
-            var discriminators = await conn.QueryAsync<string>(template.RawSql, template.Parameters);
+            var discriminators = conn.Query<string>(template.RawSql, template.Parameters);
 
             return discriminators.ToList();
         }

@@ -341,13 +341,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
 
                 _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
-                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminators(
                         A<string>.Ignored,
                         A<string>.Ignored,
                         A<Entity>.Ignored,
                         A<Guid>.Ignored,
                         A<int>.Ignored))
-                    .Returns(new List<string> { "StudentProgramAssociation" });
+                    .Returns(new List<string> { "edfi.StudentProgramAssociation" });
 
                 const string message = "update or delete on table \"student\" violates foreign key constraint \"fk_generalstudentprogramassociation_student\" on table \"generalstudentprogramassociation\"";
 
@@ -413,13 +413,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
 
                 _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
-                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminators(
                         A<string>.Ignored,
                         A<string>.Ignored,
                         A<Entity>.Ignored,
                         A<Guid>.Ignored,
                         A<int>.Ignored))
-                    .Returns(new List<string> { "StudentProgramAssociation", "OtherProgramAssociation" });
+                    .Returns(new List<string> { "edfi.StudentProgramAssociation", "edfi.OtherProgramAssociation" });
 
                 const string message = "update or delete on table \"student\" violates foreign key constraint \"fk_generalstudentprogramassociation_student\" on table \"generalstudentprogramassociation\"";
 
@@ -485,7 +485,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
 
                 _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
-                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminators(
                         A<string>.Ignored,
                         A<string>.Ignored,
                         A<Entity>.Ignored,
@@ -557,7 +557,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
 
                 _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
-                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminators(
                         A<string>.Ignored,
                         A<string>.Ignored,
                         A<Entity>.Ignored,

@@ -145,18 +145,18 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 }
 
                 // Query for one discriminator
-                var discriminators = _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                var discriminators = _discriminatorResolver.GetDistinctDiscriminators(
                     schema,
                     table,
                     parentEntity,
                     deleteContext.Id,
-                    maxResults: 1).Result;
+                    maxResults: 1);
 
                 // If a discriminator is found, try to find matching derived entity
                 if (discriminators.Any())
                 {
                     var derivedEntity = entity.DerivedEntities
-                        .FirstOrDefault(d => discriminators[0].Contains(d.Name, StringComparison.OrdinalIgnoreCase));
+                        .FirstOrDefault(d => discriminators.Any(x => x.Equals(d.FullName.ToString(), StringComparison.OrdinalIgnoreCase)));
 
                     if (derivedEntity != null)
                     {
