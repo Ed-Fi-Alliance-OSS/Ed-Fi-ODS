@@ -13,6 +13,7 @@ using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Models.Domain;
+using log4net;
 
 namespace EdFi.Ods.Common.Database;
 
@@ -26,6 +27,8 @@ public class DiscriminatorResolver : IDiscriminatorResolver
     private readonly DbProviderFactory _dbProviderFactory;
     private readonly Dialect _dialect;
     private readonly DatabaseEngine _databaseEngine;
+
+    private static readonly ILog _logger = LogManager.GetLogger(typeof(DiscriminatorResolver));
 
     public DiscriminatorResolver(
         IOdsDatabaseConnectionStringProvider connectionStringProvider,
@@ -60,9 +63,12 @@ public class DiscriminatorResolver : IDiscriminatorResolver
             // Query for discriminators for dependent table
             return QueryDiscriminators(conn, schema, tableName, naturalKeyValues, maxResults);
         }
-        catch
+        catch (Exception ex)
         {
-            // Swallow errors in discriminator resolution; not critical to core operation
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"Failed to refine entity using discriminator for {schema}.{tableName}: {ex.Message}", ex);
+            }
             return Array.Empty<string>();
         }
 

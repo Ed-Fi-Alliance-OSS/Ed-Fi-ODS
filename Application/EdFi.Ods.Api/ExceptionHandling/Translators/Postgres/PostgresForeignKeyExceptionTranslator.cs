@@ -14,6 +14,7 @@ using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
+using log4net;
 using NHibernate.Exceptions;
 using Npgsql;
 
@@ -26,6 +27,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
 
         private static readonly IContextStorage _contextStorage = new CallContextStorage();
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(PostgresForeignKeyExceptionTranslator));
 
         public PostgresForeignKeyExceptionTranslator(
             IDomainModelProvider domainModelProvider,
@@ -142,9 +144,12 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 // If zero discriminators, fall back to the abstract entity
                 return entity;
             }
-            catch
+            catch (Exception ex)
             {
-                // If any error occurs during discriminator resolution, return the original entity
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"Failed to refine entity using discriminator for {schema}.{tableName}: {ex.Message}", ex);
+                }
                 return entity;
             }
         }

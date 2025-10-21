@@ -6,6 +6,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
@@ -13,7 +14,9 @@ using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
+using log4net;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
@@ -25,6 +28,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
 
         private static readonly IContextStorage _contextStorage = new CallContextStorage();
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(SqlServerConstraintExceptionTranslator));
 
         public SqlServerConstraintExceptionTranslator(
             IDomainModelProvider domainModelProvider,
@@ -120,7 +124,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             return false;
         }
 
-        private Entity RefineEntityUsingDiscriminator(Entity entity, string schema, string table)
+        private Entity RefineEntityUsingDiscriminator(Entity entity, string schema, string tableName)
         {
             // Only attempt refinement if the entity is abstract and uses a discriminator
             if (!entity.IsAbstract || !entity.HasDiscriminator())
@@ -147,7 +151,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 // Query for one discriminator
                 var discriminators = _discriminatorResolver.GetDistinctDiscriminators(
                     schema,
-                    table,
+                    tableName,
                     parentEntity,
                     deleteContext.Id,
                     maxResults: 1);
@@ -167,9 +171,12 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 // If zero discriminators, fall back to the abstract entity
                 return entity;
             }
-            catch
+            catch (Exception ex)
             {
-                // If any error occurs during discriminator resolution, return the original entity
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"Failed to refine entity using discriminator for {schema}.{tableName}: {ex.Message}", ex);
+                }
                 return entity;
             }
         }
