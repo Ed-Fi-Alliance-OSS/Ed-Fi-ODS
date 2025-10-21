@@ -2877,15 +2877,6 @@ GO
 ALTER TABLE [edfi].[ContactTelephone] ADD CONSTRAINT [ContactTelephone_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
--- Table [edfi].[ContactTypeDescriptor] --
-CREATE TABLE [edfi].[ContactTypeDescriptor] (
-    [ContactTypeDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [ContactTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [ContactTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 -- Table [edfi].[ContentClassDescriptor] --
 CREATE TABLE [edfi].[ContentClassDescriptor] (
     [ContentClassDescriptorId] [INT] NOT NULL,
