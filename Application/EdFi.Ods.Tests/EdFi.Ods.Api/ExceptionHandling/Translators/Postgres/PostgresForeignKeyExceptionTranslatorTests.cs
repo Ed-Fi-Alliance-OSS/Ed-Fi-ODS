@@ -4,11 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
@@ -16,6 +19,7 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Builders;
 using EdFi.Ods.Tests._Helpers;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NHibernate.Exceptions;
 using NUnit.Framework;
 using Shouldly;
@@ -41,8 +45,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             protected override void Act()
             {
-                var translator = new PostgresForeignKeyExceptionTranslator(Stub<IDomainModelProvider>());
-                
+                var translator = new PostgresForeignKeyExceptionTranslator(
+                Stub<IDomainModelProvider>(), Stub<IDiscriminatorResolver>(), Stub<IContextProvider<DataManagementResourceContext>>());
+
                 result = translator.TryTranslate(exception, out actualError);
             }
 
@@ -73,7 +78,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             protected override void Act()
             {
-                var translator = new PostgresForeignKeyExceptionTranslator(Stub<IDomainModelProvider>());
+                var translator = new PostgresForeignKeyExceptionTranslator(
+                Stub<IDomainModelProvider>(), Stub<IDiscriminatorResolver>(), Stub<IContextProvider<DataManagementResourceContext>>());
 
                 wasHandled = translator.TryTranslate(exception, out actualError);
             }
@@ -136,7 +142,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             protected override void Act()
             {
-                var translator = new PostgresForeignKeyExceptionTranslator(_domainModelProvider);
+                var translator = new PostgresForeignKeyExceptionTranslator(
+                _domainModelProvider, Stub<IDiscriminatorResolver>(), Stub<IContextProvider<DataManagementResourceContext>>());
                 _wasHandled = translator.TryTranslate(_exception, out _actualError);
             }
 
@@ -204,7 +211,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             protected override void Act()
             {
-                var translator = new PostgresForeignKeyExceptionTranslator(_domainModelProvider);
+                var translator = new PostgresForeignKeyExceptionTranslator(
+                _domainModelProvider, Stub<IDiscriminatorResolver>(), Stub<IContextProvider<DataManagementResourceContext>>());
                 wasHandled = translator.TryTranslate(_exception, out actualError);
             }
 
@@ -272,7 +280,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             protected override void Act()
             {
-                var translator = new PostgresForeignKeyExceptionTranslator(_domainModelProvider);
+                var translator = new PostgresForeignKeyExceptionTranslator(
+                _domainModelProvider, Stub<IDiscriminatorResolver>(), Stub<IContextProvider<DataManagementResourceContext>>());
                 wasHandled = translator.TryTranslate(_exception, out actualError);
             }
 
@@ -291,6 +300,308 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     e => e.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:dependent-item-exists")),
                     e => e.Detail.ShouldBe(
                         "The requested action cannot be performed because this item is referenced by an existing 'StudentSchoolAssociation' item."));
+            }
+        }
+
+        public class When_update_or_delete_conflicts_with_abstract_entity_with_single_discriminator : TestFixtureBase
+        {
+            private Exception _exception;
+            private bool _wasHandled;
+            private IEdFiProblemDetails _actualError;
+            private IDomainModelProvider _domainModelProvider;
+            private IDiscriminatorResolver _discriminatorResolver;
+            private IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+            private readonly IContextStorage _contextStorage = new CallContextStorage();
+
+            /*
+                Severity:           ERROR
+                InvariantSeverity:  ERROR
+                SqlState:           23503
+                MessageText:        update or delete on table "student" violates foreign key constraint "fk_generalstudentprogramassociation_student" on table "generalstudentprogramassociation"
+                Detail:             Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+                SchemaName:         edfi
+                TableName:          generalstudentprogramassociation
+                ConstraintName:     fk_generalstudentprogramassociation_student
+                File:               ri_triggers.c
+                Line:               2476
+                Routine:            ri_ReportViolation
+             */
+
+            protected override void Arrange()
+            {
+                var domainModel = this.LoadDomainModel("GeneralStudentProgramAssociation");
+                _domainModelProvider = new DomainModelHelper.SuppliedDomainModelProvider(domainModel);
+
+                var resourceModel = new ResourceModel(domainModel);
+                var studentResource = resourceModel.GetResourceByApiCollectionName("ed-fi", "students");
+                _dataManagementResourceContextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                _dataManagementResourceContextProvider.Set(new DataManagementResourceContext(studentResource));
+
+                var studentId = Guid.NewGuid();
+                _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
+
+                _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                        A<string>.Ignored,
+                        A<string>.Ignored,
+                        A<Entity>.Ignored,
+                        A<Guid>.Ignored,
+                        A<int>.Ignored))
+                    .Returns(new List<string> { "StudentProgramAssociation" });
+
+                const string message = "update or delete on table \"student\" violates foreign key constraint \"fk_generalstudentprogramassociation_student\" on table \"generalstudentprogramassociation\"";
+
+                _exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
+                    GenericSqlExceptionMessage,
+                    message,
+                    PostgresSqlStates.ForeignKeyViolation,
+                    "edfi",
+                    "generalstudentprogramassociation",
+                    "fk_generalstudentprogramassociation_student");
+            }
+
+            protected override void Act()
+            {
+                var translator = new PostgresForeignKeyExceptionTranslator(
+                    _domainModelProvider,
+                    _discriminatorResolver,
+                    _dataManagementResourceContextProvider);
+
+                _wasHandled = translator.TryTranslate(_exception, out _actualError);
+            }
+
+            [Test]
+            public void Should_handle_exception()
+            {
+                _wasHandled.ShouldBeTrue();
+            }
+
+            [Test]
+            public void Should_return_a_409_Conflict_error_with_refined_entity_name()
+            {
+                _actualError.ShouldSatisfyAllConditions(
+                    () => _actualError.ShouldNotBeNull(),
+                    () => _actualError.Status.ShouldBe(409),
+                    () => _actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:dependent-item-exists")),
+                    () => _actualError.Detail.ShouldBe(
+                        "The requested action cannot be performed because this item is referenced by an existing 'StudentProgramAssociation' item.")
+                );
+            }
+        }
+
+        public class When_update_or_delete_conflicts_with_abstract_entity_with_multiple_discriminators : TestFixtureBase
+        {
+            private Exception _exception;
+            private bool _wasHandled;
+            private IEdFiProblemDetails _actualError;
+            private IDomainModelProvider _domainModelProvider;
+            private IDiscriminatorResolver _discriminatorResolver;
+            private IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+            private readonly IContextStorage _contextStorage = new CallContextStorage();
+
+            protected override void Arrange()
+            {
+                var domainModel = this.LoadDomainModel("GeneralStudentProgramAssociation");
+                _domainModelProvider = new DomainModelHelper.SuppliedDomainModelProvider(domainModel);
+
+                var resourceModel = new ResourceModel(domainModel);
+                var studentResource = resourceModel.GetResourceByApiCollectionName("ed-fi", "students");
+                _dataManagementResourceContextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                _dataManagementResourceContextProvider.Set(new DataManagementResourceContext(studentResource));
+
+                var studentId = Guid.NewGuid();
+                _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
+
+                _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                        A<string>.Ignored,
+                        A<string>.Ignored,
+                        A<Entity>.Ignored,
+                        A<Guid>.Ignored,
+                        A<int>.Ignored))
+                    .Returns(new List<string> { "StudentProgramAssociation", "OtherProgramAssociation" });
+
+                const string message = "update or delete on table \"student\" violates foreign key constraint \"fk_generalstudentprogramassociation_student\" on table \"generalstudentprogramassociation\"";
+
+                _exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
+                    GenericSqlExceptionMessage,
+                    message,
+                    PostgresSqlStates.ForeignKeyViolation,
+                    "edfi",
+                    "generalstudentprogramassociation",
+                    "fk_generalstudentprogramassociation_student");
+            }
+
+            protected override void Act()
+            {
+                var translator = new PostgresForeignKeyExceptionTranslator(
+                    _domainModelProvider,
+                    _discriminatorResolver,
+                    _dataManagementResourceContextProvider);
+
+                _wasHandled = translator.TryTranslate(_exception, out _actualError);
+            }
+
+            [Test]
+            public void Should_handle_exception()
+            {
+                _wasHandled.ShouldBeTrue();
+            }
+
+            [Test]
+            public void Should_return_a_409_Conflict_error_with_abstract_entity_name()
+            {
+                _actualError.ShouldSatisfyAllConditions(
+                    () => _actualError.ShouldNotBeNull(),
+                    () => _actualError.Status.ShouldBe(409),
+                    () => _actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:dependent-item-exists")),
+                    () => _actualError.Detail.ShouldBe(
+                        "The requested action cannot be performed because this item is referenced by an existing 'StudentProgramAssociation' item.")
+                );
+            }
+        }
+
+        public class When_update_or_delete_conflicts_with_abstract_entity_but_discriminator_resolution_fails : TestFixtureBase
+        {
+            private Exception _exception;
+            private bool _wasHandled;
+            private IEdFiProblemDetails _actualError;
+            private IDomainModelProvider _domainModelProvider;
+            private IDiscriminatorResolver _discriminatorResolver;
+            private IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+            private readonly IContextStorage _contextStorage = new CallContextStorage();
+
+            protected override void Arrange()
+            {
+                var domainModel = this.LoadDomainModel("GeneralStudentProgramAssociation");
+                _domainModelProvider = new DomainModelHelper.SuppliedDomainModelProvider(domainModel);
+
+                var resourceModel = new ResourceModel(domainModel);
+                var studentResource = resourceModel.GetResourceByApiCollectionName("ed-fi", "students");
+                _dataManagementResourceContextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                _dataManagementResourceContextProvider.Set(new DataManagementResourceContext(studentResource));
+
+                var studentId = Guid.NewGuid();
+                _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
+
+                _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                        A<string>.Ignored,
+                        A<string>.Ignored,
+                        A<Entity>.Ignored,
+                        A<Guid>.Ignored,
+                        A<int>.Ignored))
+                    .Throws<InvalidOperationException>();
+
+                const string message = "update or delete on table \"student\" violates foreign key constraint \"fk_generalstudentprogramassociation_student\" on table \"generalstudentprogramassociation\"";
+
+                _exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
+                    GenericSqlExceptionMessage,
+                    message,
+                    PostgresSqlStates.ForeignKeyViolation,
+                    "edfi",
+                    "generalstudentprogramassociation",
+                    "fk_generalstudentprogramassociation_student");
+            }
+
+            protected override void Act()
+            {
+                var translator = new PostgresForeignKeyExceptionTranslator(
+                    _domainModelProvider,
+                    _discriminatorResolver,
+                    _dataManagementResourceContextProvider);
+
+                _wasHandled = translator.TryTranslate(_exception, out _actualError);
+            }
+
+            [Test]
+            public void Should_handle_exception()
+            {
+                _wasHandled.ShouldBeTrue();
+            }
+
+            [Test]
+            public void Should_gracefully_fallback_to_abstract_entity_name()
+            {
+                _actualError.ShouldSatisfyAllConditions(
+                    () => _actualError.ShouldNotBeNull(),
+                    () => _actualError.Status.ShouldBe(409),
+                    () => _actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:dependent-item-exists")),
+                    () => _actualError.Detail.ShouldBe(
+                        "The requested action cannot be performed because this item is referenced by an existing 'GeneralStudentProgramAssociation' item.")
+                );
+            }
+        }
+
+        public class When_update_or_delete_conflicts_with_abstract_entity_with_no_discriminators_found : TestFixtureBase
+        {
+            private Exception _exception;
+            private bool _wasHandled;
+            private IEdFiProblemDetails _actualError;
+            private IDomainModelProvider _domainModelProvider;
+            private IDiscriminatorResolver _discriminatorResolver;
+            private IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+            private readonly IContextStorage _contextStorage = new CallContextStorage();
+
+            protected override void Arrange()
+            {
+                var domainModel = this.LoadDomainModel("GeneralStudentProgramAssociation");
+                _domainModelProvider = new DomainModelHelper.SuppliedDomainModelProvider(domainModel);
+
+                var resourceModel = new ResourceModel(domainModel);
+                var studentResource = resourceModel.GetResourceByApiCollectionName("ed-fi", "students");
+                _dataManagementResourceContextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                _dataManagementResourceContextProvider.Set(new DataManagementResourceContext(studentResource));
+
+                var studentId = Guid.NewGuid();
+                _contextStorage.SetValue(nameof(DeleteContext), new DeleteContext(studentId, "Student"));
+
+                _discriminatorResolver = A.Fake<IDiscriminatorResolver>();
+                A.CallTo(() => _discriminatorResolver.GetDistinctDiscriminatorsAsync(
+                        A<string>.Ignored,
+                        A<string>.Ignored,
+                        A<Entity>.Ignored,
+                        A<Guid>.Ignored,
+                        A<int>.Ignored))
+                    .Returns(new List<string>());
+
+                const string message = "update or delete on table \"student\" violates foreign key constraint \"fk_generalstudentprogramassociation_student\" on table \"generalstudentprogramassociation\"";
+
+                _exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
+                    GenericSqlExceptionMessage,
+                    message,
+                    PostgresSqlStates.ForeignKeyViolation,
+                    "edfi",
+                    "generalstudentprogramassociation",
+                    "fk_generalstudentprogramassociation_student");
+            }
+
+            protected override void Act()
+            {
+                var translator = new PostgresForeignKeyExceptionTranslator(
+                    _domainModelProvider,
+                    _discriminatorResolver,
+                    _dataManagementResourceContextProvider);
+
+                _wasHandled = translator.TryTranslate(_exception, out _actualError);
+            }
+
+            [Test]
+            public void Should_handle_exception()
+            {
+                _wasHandled.ShouldBeTrue();
+            }
+
+            [Test]
+            public void Should_return_a_409_Conflict_error_with_abstract_entity_name()
+            {
+                _actualError.ShouldSatisfyAllConditions(
+                    () => _actualError.ShouldNotBeNull(),
+                    () => _actualError.Status.ShouldBe(409),
+                    () => _actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:dependent-item-exists")),
+                    () => _actualError.Detail.ShouldBe(
+                        "The requested action cannot be performed because this item is referenced by an existing 'GeneralStudentProgramAssociation' item.")
+                );
             }
         }
     }
