@@ -12,10 +12,6 @@ namespace EdFi.Ods.Api.Providers;
 
 public abstract class TokenRequestProviderBase(IApiClientAuthenticator apiClientAuthenticator)
 {
-    private bool RequestIsRequiredGrantType(TokenRequest request) => request.Grant_type.EqualsIgnoreCase("client_credentials");
-
-    private bool HasIdAndSecret(TokenRequest request)
-        => !string.IsNullOrEmpty(request.Client_secret) && !string.IsNullOrEmpty(request.Client_id);
 
     protected abstract bool HasValidScope(TokenRequest request, ApiClientAuthenticator.AuthenticationResult result, out TokenError error);
 
@@ -47,6 +43,11 @@ public abstract class TokenRequestProviderBase(IApiClientAuthenticator apiClient
 
         return TokenAuthResult.Success(authenticationResult);
     }
+
+    private bool RequestIsRequiredGrantType(TokenRequest request) => request.Grant_type.EqualsIgnoreCase("client_credentials");
+
+    private bool HasIdAndSecret(TokenRequest request)
+        => !string.IsNullOrEmpty(request.Client_secret) && !string.IsNullOrEmpty(request.Client_id);
 
     protected class TokenAuthResult
     {
