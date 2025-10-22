@@ -14,5 +14,7 @@ namespace EdFi.Ods.Api.Models.Tokens
         public string Grant_type { get; set; }
 
         public string Scope { get; set; }
+
+        public string GetCleanedScope() => string.IsNullOrEmpty(Scope) ? null : Scope.Trim();
     }
 }
