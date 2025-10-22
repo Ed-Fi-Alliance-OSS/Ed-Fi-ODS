@@ -58,8 +58,6 @@ namespace EdFi.Ods.Api.Controllers
                         return BadRequest(new TokenError(TokenErrorType.InvalidClient));
                     }
 
-                    // Correct format will include 2 entries
-                    // format of the string is <client_id>:<client_secret>
                     tokenRequest.Client_id = clientIdAndSecret[0];
                     tokenRequest.Client_secret = clientIdAndSecret[1];
                 }
@@ -118,6 +116,8 @@ namespace EdFi.Ods.Api.Controllers
             {
                 decodedClientAndSecret = GetClientIdAndSecret(encodedClientAndSecret[1]);
 
+                // Correct format will include 2 entries
+                // format of the string is <client_id>:<client_secret>
                 if (decodedClientAndSecret.Length != 2)
                 {
                     shortCircuitResponse =  BadRequest(new TokenError(TokenErrorType.InvalidClient));
