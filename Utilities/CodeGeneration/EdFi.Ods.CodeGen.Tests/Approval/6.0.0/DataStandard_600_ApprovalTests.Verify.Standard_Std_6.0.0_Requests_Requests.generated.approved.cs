@@ -4411,59 +4411,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ContactIdentificationSystemDescrip
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.ContactTypeDescriptors.EdFi
-{
-
-    [ExcludeFromCodeCoverage]
-    public class ContactTypeDescriptorGetByExample
-    {
-        public string CodeValue { get; set; }
-        public int ContactTypeDescriptorId { get; set; }
-        public string Description { get; set; }
-        public DateTime EffectiveBeginDate { get; set; }
-        public DateTime EffectiveEndDate { get; set; }
-        public Guid Id { get; set; }
-        public string Namespace { get; set; }
-        public string ShortDescription { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ContactTypeDescriptorGetByIds : IHasIdentifiers<Guid>
-    {
-        public ContactTypeDescriptorGetByIds() { }
-
-        public ContactTypeDescriptorGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ContactTypeDescriptorPost : Resources.ContactTypeDescriptor.EdFi.ContactTypeDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ContactTypeDescriptorPut : Resources.ContactTypeDescriptor.EdFi.ContactTypeDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ContactTypeDescriptorDelete : IHasIdentifier
-    {
-        public ContactTypeDescriptorDelete() { }
-
-        public ContactTypeDescriptorDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
 namespace EdFi.Ods.Api.Common.Models.Requests.ContentClassDescriptors.EdFi
 {
 

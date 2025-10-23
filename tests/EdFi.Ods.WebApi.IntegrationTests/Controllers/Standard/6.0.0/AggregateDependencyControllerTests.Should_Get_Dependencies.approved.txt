@@ -408,14 +408,6 @@
     ]
   },
   {
-    "resource": "/ed-fi/contactTypeDescriptors",
-    "order": 1,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
     "resource": "/ed-fi/contentClassDescriptors",
     "order": 1,
     "operations": [

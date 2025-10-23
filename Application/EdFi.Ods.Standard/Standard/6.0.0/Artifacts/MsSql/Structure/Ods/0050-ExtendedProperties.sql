@@ -2211,12 +2211,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTelephone', @level2type=N'COLUMN', @level2name=N'TextMessageCapabilityIndicator'
 GO
 
--- Extended Properties [edfi].[ContactTypeDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the set of contact types.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTypeDescriptor'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTypeDescriptor', @level2type=N'COLUMN', @level2name=N'ContactTypeDescriptorId'
-GO
-
 -- Extended Properties [edfi].[ContentClassDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The predominate type or kind characterizing the learning resource.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContentClassDescriptor'
 GO

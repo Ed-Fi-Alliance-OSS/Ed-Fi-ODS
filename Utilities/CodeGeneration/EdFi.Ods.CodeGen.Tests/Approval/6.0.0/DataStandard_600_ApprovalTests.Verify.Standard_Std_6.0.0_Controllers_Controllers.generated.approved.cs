@@ -3115,43 +3115,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactIdentificationSystemDescripto
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/contactTypeDescriptors")]
-    public partial class ContactTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ContactTypeDescriptor.EdFi.ContactTypeDescriptor,
-        Entities.Common.EdFi.IContactTypeDescriptor,
-        Entities.NHibernate.ContactTypeDescriptorAggregate.EdFi.ContactTypeDescriptor,
-        Api.Common.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorPut,
-        Api.Common.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorPost,
-        Api.Common.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorDelete,
-        Api.Common.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorGetByExample>
-    {
-        public ContactTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
-            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorGetByExample request, Entities.Common.EdFi.IContactTypeDescriptor specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.CodeValue = request.CodeValue;
-            specification.ContactTypeDescriptorId = request.ContactTypeDescriptorId;
-            specification.Description = request.Description;
-            specification.EffectiveBeginDate = request.EffectiveBeginDate;
-            specification.EffectiveEndDate = request.EffectiveEndDate;
-            specification.Id = request.Id;
-            specification.Namespace = request.Namespace;
-            specification.ShortDescription = request.ShortDescription;
-        }
-    }
-}
-
 namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]

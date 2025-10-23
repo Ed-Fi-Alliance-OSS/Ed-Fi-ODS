@@ -8014,22 +8014,6 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.ContactTypeDescriptorAggregate.EdFi.ContactTypeDescriptorQ" lazy="false" discriminator-value="edfi.ContactTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
-      <join table="ContactTypeDescriptor" >
-          <key>
-            <column name="ContactTypeDescriptorId" />
-          </key>
-
-          <!-- PK properties -->
-          <property name="ContactTypeDescriptorId" column="ContactTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
-
-          <!-- Properties -->
-
-          <!-- Aggregate references -->
-
-          <!-- Collections -->
-      </join>
-    </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.ContentClassDescriptorAggregate.EdFi.ContentClassDescriptorQ" lazy="false" discriminator-value="edfi.ContentClassDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="ContentClassDescriptor" >
           <key>

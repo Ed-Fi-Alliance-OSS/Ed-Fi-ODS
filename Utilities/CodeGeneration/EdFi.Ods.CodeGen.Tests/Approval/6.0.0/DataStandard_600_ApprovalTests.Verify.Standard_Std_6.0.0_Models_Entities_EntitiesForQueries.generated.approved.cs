@@ -8112,43 +8112,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentificationSystemDe
         // -------------------------------------------------------------
     }
 }
-// Aggregate: ContactTypeDescriptor
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactTypeDescriptorAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.ContactTypeDescriptor table of the ContactTypeDescriptor aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class ContactTypeDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual int ContactTypeDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-    }
-}
 // Aggregate: ContentClassDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContentClassDescriptorAggregate.EdFi

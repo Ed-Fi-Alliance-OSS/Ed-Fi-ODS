@@ -1272,10 +1272,6 @@ COMMENT ON COLUMN edfi.ContactTelephone.DoNotPublishIndicator IS 'An indication 
 COMMENT ON COLUMN edfi.ContactTelephone.OrderOfPriority IS 'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.';
 COMMENT ON COLUMN edfi.ContactTelephone.TextMessageCapabilityIndicator IS 'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.';
 
--- Extended Properties [edfi].[ContactTypeDescriptor] --
-COMMENT ON TABLE edfi.ContactTypeDescriptor IS 'This descriptor defines the set of contact types.';
-COMMENT ON COLUMN edfi.ContactTypeDescriptor.ContactTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
 -- Extended Properties [edfi].[ContentClassDescriptor] --
 COMMENT ON TABLE edfi.ContentClassDescriptor IS 'The predominate type or kind characterizing the learning resource.';
 COMMENT ON COLUMN edfi.ContentClassDescriptor.ContentClassDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
