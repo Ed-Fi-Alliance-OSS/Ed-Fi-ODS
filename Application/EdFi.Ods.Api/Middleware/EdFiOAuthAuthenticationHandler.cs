@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Exceptions;
+using log4net;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -23,7 +24,7 @@ namespace EdFi.Ods.Api.Middleware
 
         private readonly IOAuthTokenAuthenticator _oauthTokenAuthenticator;
 
-        private readonly ILogger _logger;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(EdFiOAuthAuthenticationHandler));
 
         public EdFiOAuthAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
@@ -32,7 +33,6 @@ namespace EdFi.Ods.Api.Middleware
             IOAuthTokenAuthenticator oauthTokenAuthenticator)
             : base(options, loggerFactory, encoder)
         {
-            _logger = loggerFactory.CreateLogger(typeof(EdFiOAuthAuthenticationHandler).FullName!);
             _oauthTokenAuthenticator = oauthTokenAuthenticator;
         }
 
@@ -50,20 +50,20 @@ namespace EdFi.Ods.Api.Middleware
                 // If there is an authorization header, but we do not recognize the authentication scheme, do nothing.
                 if (!authHeader.Scheme.EqualsIgnoreCase(BearerHeaderScheme))
                 {
-                    _logger.LogDebug(AuthenticationFailureMessages.UnknownAuthorizationHeaderScheme);
+                    _logger.Debug(AuthenticationFailureMessages.UnknownAuthorizationHeaderScheme);
                     return AuthenticateResult.Fail(AuthenticationFailureMessages.UnknownAuthorizationHeaderScheme);
                 }
 
                 // If the token value is missing, fail authentication
                 if (string.IsNullOrEmpty(authHeader.Parameter))
                 {
-                    _logger.LogDebug(AuthenticationFailureMessages.MissingAuthorizationHeaderBearerTokenValue);
+                    _logger.Debug(AuthenticationFailureMessages.MissingAuthorizationHeaderBearerTokenValue);
                     return AuthenticateResult.Fail(AuthenticationFailureMessages.MissingAuthorizationHeaderBearerTokenValue);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Token authentication failed...");
+                _logger.Error("Token authentication failed...", ex);
                 return AuthenticateResult.Fail(AuthenticationFailureMessages.InvalidAuthorizationHeader);
             }
 
