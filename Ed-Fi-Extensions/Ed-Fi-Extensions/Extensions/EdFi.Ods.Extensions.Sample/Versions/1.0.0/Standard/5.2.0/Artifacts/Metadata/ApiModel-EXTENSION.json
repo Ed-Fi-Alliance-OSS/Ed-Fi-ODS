@@ -2549,6 +2549,71 @@
     },
     {
       "schema": "sample",
+      "name": "StudentAcademicRecordExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Notes",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 280,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Free-text field for contextual information",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Notes",
+            "postgreSql": "Notes"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentAcademicRecordExtension_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "SchoolYear",
+            "StudentUSI",
+            "TermDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentAcademicRecordExtension_PK",
+            "postgreSql": "StudentAcademicRecordExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "",
+      "domains": [],
+      "tableNames": {
+        "sqlServer": "StudentAcademicRecordExtension",
+        "postgreSql": "StudentAcademicRecordExtension"
+      }
+    },
+    {
+      "schema": "sample",
       "name": "StudentAquaticPet",
       "locallyDefinedProperties": [
         {
@@ -8870,6 +8935,167 @@
         "postgreSql": "FK_c50bc3_Staff"
       },
       "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentAcademicRecordExtension_StudentAcademicRecord"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentAcademicRecord"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "TermDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The term for the session during the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermDescriptorId",
+            "postgreSql": "TermDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentAcademicRecordExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "TermDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The term for the session during the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermDescriptorId",
+            "postgreSql": "TermDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentAcademicRecordExtension_StudentAcademicRecord",
+        "postgreSql": "FK_ee832f_StudentAcademicRecord"
+      }
     },
     {
       "fullName": {
