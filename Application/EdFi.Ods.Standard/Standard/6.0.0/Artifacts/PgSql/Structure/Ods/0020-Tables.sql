@@ -1960,12 +1960,6 @@ CREATE TABLE edfi.ContactTelephone (
 );
 ALTER TABLE edfi.ContactTelephone ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
--- Table edfi.ContactTypeDescriptor --
-CREATE TABLE edfi.ContactTypeDescriptor (
-    ContactTypeDescriptorId INT NOT NULL,
-    CONSTRAINT ContactTypeDescriptor_PK PRIMARY KEY (ContactTypeDescriptorId)
-);
-
 -- Table edfi.ContentClassDescriptor --
 CREATE TABLE edfi.ContentClassDescriptor (
     ContentClassDescriptorId INT NOT NULL,

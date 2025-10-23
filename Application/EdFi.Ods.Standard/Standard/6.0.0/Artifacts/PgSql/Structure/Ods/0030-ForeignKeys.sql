@@ -2067,11 +2067,6 @@ REFERENCES edfi.TelephoneNumberTypeDescriptor (TelephoneNumberTypeDescriptorId)
 CREATE INDEX FK_225a51_TelephoneNumberTypeDescriptor
 ON edfi.ContactTelephone (TelephoneNumberTypeDescriptorId ASC);
 
-ALTER TABLE edfi.ContactTypeDescriptor ADD CONSTRAINT FK_47719b_Descriptor FOREIGN KEY (ContactTypeDescriptorId)
-REFERENCES edfi.Descriptor (DescriptorId)
-ON DELETE CASCADE
-;
-
 ALTER TABLE edfi.ContentClassDescriptor ADD CONSTRAINT FK_14a617_Descriptor FOREIGN KEY (ContentClassDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE

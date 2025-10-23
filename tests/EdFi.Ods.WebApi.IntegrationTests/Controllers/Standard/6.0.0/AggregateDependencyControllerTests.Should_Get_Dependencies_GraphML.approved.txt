@@ -84,7 +84,6 @@
 <node id="/ed-fi/contactIdentificationSystemDescriptors"/>
 <node id="/ed-fi/contacts"/>
 <node id="/ed-fi/contacts#Retry"/>
-<node id="/ed-fi/contactTypeDescriptors"/>
 <node id="/ed-fi/contentClassDescriptors"/>
 <node id="/ed-fi/continuationOfServicesReasonDescriptors"/>
 <node id="/ed-fi/costRateDescriptors"/>

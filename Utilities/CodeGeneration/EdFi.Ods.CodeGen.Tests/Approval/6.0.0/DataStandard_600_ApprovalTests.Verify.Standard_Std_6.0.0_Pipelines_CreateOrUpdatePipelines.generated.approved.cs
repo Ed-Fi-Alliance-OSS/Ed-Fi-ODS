@@ -497,12 +497,6 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class ContactTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ContactTypeDescriptor.EdFi.ContactTypeDescriptor, Entities.NHibernate.ContactTypeDescriptorAggregate.EdFi.ContactTypeDescriptor>
-    {
-        public ContactTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
     public class ContentClassDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ContentClassDescriptor.EdFi.ContentClassDescriptor, Entities.NHibernate.ContentClassDescriptorAggregate.EdFi.ContentClassDescriptor>
     {
         public ContentClassDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
