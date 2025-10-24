@@ -90,7 +90,11 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<DescriptorDetailsProvider>()
                 .As<IDescriptorDetailsProvider>()
                 .SingleInstance();
-            
+
+            builder.RegisterType<DiscriminatorResolver>()
+                .As<IDiscriminatorResolver>()
+                .SingleInstance();
+
             builder.Register(c => c.Resolve<ApiSettings>().GetDatabaseEngine())
                 .SingleInstance();
 

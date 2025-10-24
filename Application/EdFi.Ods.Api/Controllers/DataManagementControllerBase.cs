@@ -449,6 +449,10 @@ namespace EdFi.Ods.Api.Controllers
             // Throw an exceptions that occurred for global exception handling
             if (result.Exception != null)
             {
+                // Store DeleteContext for potential use by exception translators
+                // (provides entity Id for discriminator-based error message refinement)
+                _contextStorage.SetValue(nameof(DeleteContext), deleteContext);
+
                 return CreateActionResultFromException(nameof(Delete), result.Exception);
             }
 

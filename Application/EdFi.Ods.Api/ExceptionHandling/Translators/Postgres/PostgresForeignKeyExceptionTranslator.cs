@@ -7,9 +7,14 @@ using System;
 using System.Linq;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
+using log4net;
 using NHibernate.Exceptions;
 using Npgsql;
 
@@ -18,10 +23,20 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
     public class PostgresForeignKeyExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         private readonly IDomainModelProvider _domainModelProvider;
+        private readonly IDiscriminatorResolver _discriminatorResolver;
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
 
-        public PostgresForeignKeyExceptionTranslator(IDomainModelProvider domainModelProvider)
+        private static readonly IContextStorage _contextStorage = new CallContextStorage();
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(PostgresForeignKeyExceptionTranslator));
+
+        public PostgresForeignKeyExceptionTranslator(
+            IDomainModelProvider domainModelProvider,
+            IDiscriminatorResolver discriminatorResolver,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
             _domainModelProvider = domainModelProvider;
+            _discriminatorResolver = discriminatorResolver;
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         }
 
         public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
@@ -59,7 +74,9 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                         {
                             // NOTE: FK violations won't happen in the ODS for "update" because where key updates are allowed, cascade updates are applied.
                             // So this scenario will only happen with deletes where there are child aggregate/resources that must be removed first.
-                            // In this case, the PostgreSQL exception identifies the dependent table (no translation is necesssary)
+
+                            // Attempt discriminator-based refinement for abstract entities
+                            entity = RefineEntityUsingDiscriminator(entity, postgresException.SchemaName, postgresException.TableName);
 
                             problemDetails = new DependentResourceItemExistsException(entity);
 
@@ -78,6 +95,63 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             problemDetails = null;
             return false;
+        }
+
+        private Entity RefineEntityUsingDiscriminator(Entity entity, string schema, string tableName)
+        {
+            // Only attempt refinement if entity is abstract and has discriminator
+            if (!entity.IsAbstract || !entity.HasDiscriminator())
+            {
+                return entity;
+            }
+
+            try
+            {
+                var resourceContext = _dataManagementResourceContextProvider.Get();
+                if (resourceContext?.Resource?.Entity == null)
+                {
+                    return entity; // No context available
+                }
+
+                var parentEntity = resourceContext.Resource.Entity;
+
+                var deleteContext = _contextStorage.GetValue<DeleteContext>(nameof(DeleteContext));
+                if (deleteContext == null)
+                {
+                    return entity; // No delete context available
+                }
+
+                // Query for one discriminator
+                var discriminators = _discriminatorResolver.GetDistinctDiscriminators(
+                    schema,
+                    tableName,
+                    parentEntity,
+                    deleteContext.Id,
+                    maxResults: 1);
+
+                // If a discriminator is found, try to find matching derived entity
+                if (discriminators.Any())
+                {
+                    var derivedEntity = entity.DerivedEntities
+                        .FirstOrDefault(d => discriminators.Any(x => x.Equals(d.FullName.ToString(), StringComparison.OrdinalIgnoreCase)));
+
+                    if (derivedEntity != null)
+                    {
+                        return derivedEntity;
+                    }
+                }
+
+                // If zero discriminators, fall back to the abstract entity
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"Failed to refine entity using discriminator for {schema}.{tableName}: {ex.Message}", ex);
+                }
+                return entity;
+            }
         }
     }
 }
