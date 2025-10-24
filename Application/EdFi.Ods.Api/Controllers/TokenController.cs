@@ -5,12 +5,15 @@
 
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Api.Security.Jwt;
+using EdFi.Ods.Common.Configuration;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,10 +31,12 @@ namespace EdFi.Ods.Api.Controllers
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(TokenController));
         private readonly ITokenRequestProvider _requestProvider;
+        private readonly ApiSettings _apiSettings;
 
-        public TokenController(ITokenRequestProvider provider)
+        public TokenController(ITokenRequestProvider provider, ApiSettings apiSettings)
         {
             _requestProvider = provider;
+            _apiSettings = apiSettings;
         }
 
         [HttpPost]
@@ -83,6 +88,12 @@ namespace EdFi.Ods.Api.Controllers
             if (authenticationResult.TokenError != null)
             {
                 return BadRequest(authenticationResult.TokenError);
+            }
+
+            if (_apiSettings.BearerTokenType == "jwt")
+            {
+                var identity = authenticationResult.TokenResponse.ToClaimsIdentity(_apiSettings, tokenRequest.Client_id);
+                return new SignInResult(new ClaimsPrincipal(identity));
             }
 
             return Ok(authenticationResult.TokenResponse);
