@@ -10,8 +10,11 @@ using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling.Translators;
 using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Builders;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -35,7 +38,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
         protected override void Act()
         {
-            var translator = new SqlServerConstraintExceptionTranslator(Stub<IDomainModelProvider>());
+            var translator = new SqlServerConstraintExceptionTranslator(
+                Stub<IDomainModelProvider>(), Stub<IDiscriminatorResolver>(), Stub<IContextProvider<DataManagementResourceContext>>());
             translator.TryTranslate(_suppliedInsertException, out _actualError);
         }
 
@@ -69,7 +73,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
         protected override void Act()
         {
-            var translator = new SqlServerConstraintExceptionTranslator(Stub<IDomainModelProvider>());
+            var translator = new SqlServerConstraintExceptionTranslator(
+                Stub<IDomainModelProvider>(), Stub<IDiscriminatorResolver>(), Stub<IContextProvider<DataManagementResourceContext>>());
             translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
@@ -107,7 +112,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
         protected override void Act()
         {
-            var translator = new SqlServerConstraintExceptionTranslator(_domainModelProvider);
+            var translator = new SqlServerConstraintExceptionTranslator(
+                _domainModelProvider, Stub<IDiscriminatorResolver>(), Stub<IContextProvider<DataManagementResourceContext>>());
             translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
@@ -146,7 +152,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
         protected override void Act()
         {
-            var translator = new SqlServerConstraintExceptionTranslator(_domainModelProvider);
+            var translator = new SqlServerConstraintExceptionTranslator(
+                _domainModelProvider, Stub<IDiscriminatorResolver>(), Stub<IContextProvider<DataManagementResourceContext>>());
             translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
