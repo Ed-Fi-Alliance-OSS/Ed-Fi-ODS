@@ -11,7 +11,7 @@ using EdFi.Ods.Api.Security.Authentication;
 
 namespace EdFi.Ods.Api.Providers
 {
-    public class ClientCredentialsTokenRequestProvider : TokenRequestProviderBase, ITokenRequestProvider
+    public class ClientCredentialsTokenRequestProvider : TokenRequestProviderBase
     {
         private readonly IAccessTokenFactory _accessTokenFactory;
 
@@ -23,7 +23,7 @@ namespace EdFi.Ods.Api.Providers
             _accessTokenFactory = accessTokenFactory;
         }
 
-        public async Task<AuthenticationResponse> HandleAsync(TokenRequest tokenRequest)
+        public override async Task<AuthenticationResponse> HandleAsync(TokenRequest tokenRequest)
         {
             var authentication = await ValidateAndAuthenticateRequest(tokenRequest);
 

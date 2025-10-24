@@ -6,12 +6,14 @@
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
+using EdFi.Ods.Api.Models.ClientCredentials;
 using EdFi.Ods.Api.Models.Tokens;
 
 namespace EdFi.Ods.Api.Providers;
 
-public abstract class TokenRequestProviderBase(IApiClientAuthenticator apiClientAuthenticator)
+public abstract class TokenRequestProviderBase(IApiClientAuthenticator apiClientAuthenticator) : ITokenRequestProvider
 {
+    public abstract Task<AuthenticationResponse> HandleAsync(TokenRequest tokenRequest);
 
     protected abstract bool HasValidScope(TokenRequest request, ApiClientAuthenticator.AuthenticationResult result, out TokenError error);
 
