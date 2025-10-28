@@ -52,11 +52,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-	  <Content Include="..\..\..\LICENSE.txt">
-		  <Link>LICENSE.txt</Link>
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <IncludeInVSIX>true</IncludeInVSIX>
-	  </Content>
+    <Content Include="..\..\..\LICENSE.txt">
+      <Link>LICENSE.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Release Notes.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -65,7 +65,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <TargetPath>extension.vsixmanifest</TargetPath>
-      <IncludeInVSIX>true</IncludeInVSIX>
     </None>
   </ItemGroup>
   <ItemGroup>
