@@ -259,6 +259,7 @@ function Get-SwaggerPackage {
             PackageVersion = $Config.PackageVersion
             OutputDirectory = $Config.DownloadPath
             PackageSource = $Config.PackageSource
+            ToolsPath = $Config.ToolsPath
         }
         $packageDir = Get-NuGetPackage @parameters
 
