@@ -238,115 +238,27 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         // -------------------------------------------------------------
         [DomainSignature]
         [IgnoreMember]
-        public override DateTime BeginDate { get => _beginDate; set { _beginDate = value; } }
-        private DateTime _beginDate;
+        public override DateTime BeginDate { get => base.BeginDate; set => base.BeginDate = value; }
 
         [DomainSignature]
         [IgnoreMember]
-        public override long EducationOrganizationId { get => _educationOrganizationId; set { _educationOrganizationId = value; } }
-        private long _educationOrganizationId;
+        public override long EducationOrganizationId { get => base.EducationOrganizationId; set => base.EducationOrganizationId = value; }
 
         [DomainSignature]
         [IgnoreMember]
-        public override long ProgramEducationOrganizationId { get => _programEducationOrganizationId; set { _programEducationOrganizationId = value; } }
-        private long _programEducationOrganizationId;
+        public override long ProgramEducationOrganizationId { get => base.ProgramEducationOrganizationId; set => base.ProgramEducationOrganizationId = value; }
 
         [DomainSignature]
         [IgnoreMember]
-        public override string ProgramName { get => _programName; set { _programName = value; } }
-        private string _programName;
+        public override string ProgramName { get => base.ProgramName; set => base.ProgramName = value; }
 
         [DomainSignature]
         [IgnoreMember]
-        public override int ProgramTypeDescriptorId 
-        {
-            get
-            {
-                if (_programTypeDescriptorId == default(int))
-                {
-                    _programTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
-                }
-
-                return _programTypeDescriptorId;
-            } 
-            set
-            {
-                _programTypeDescriptorId = value;
-                _programTypeDescriptor = null;
-            }
-        }
-
-        private int _programTypeDescriptorId;
-        private string _programTypeDescriptor;
-
-        [IgnoreMember]
-        public override string ProgramTypeDescriptor
-        {
-            get
-            {
-                if (_programTypeDescriptor == null)
-                    _programTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", _programTypeDescriptorId);
-                    
-                return _programTypeDescriptor;
-            }
-            set
-            {
-                _programTypeDescriptor = value;
-                _programTypeDescriptorId = default(int);
-            }
-        }
+        public override int ProgramTypeDescriptorId { get => base.ProgramTypeDescriptorId; set => base.ProgramTypeDescriptorId = value; }
 
         [Display(Name="StudentUniqueId")][DomainSignature]
         [IgnoreMember]
-        public override int StudentUSI 
-        {
-            get
-            {
-                if (_studentUSI == default(int) && _studentUniqueId != null)
-                {
-                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
-                        && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
-                    {
-                        _studentUSI = usi;
-                    }
-                }
-
-                return _studentUSI;
-            } 
-            set
-            {
-                _studentUSI = value;
-                GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Student", value);
-            }
-        }
-
-        private int _studentUSI;
-        private string _studentUniqueId;
-
-        [IgnoreMember]
-        public override string StudentUniqueId
-        {
-            get
-            {
-                if (_studentUniqueId == null)
-                {
-                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Student", out var uniqueIdByUsi)
-                        && uniqueIdByUsi.TryGetValue(_studentUSI, out var uniqueId))
-                    {
-                        _studentUniqueId = uniqueId;
-                    }
-                }
-
-                return _studentUniqueId;
-            }
-            set
-            {
-                if (_studentUniqueId != value)
-                        _studentUSI = default(int);
-
-                _studentUniqueId = value;
-            }
-        }
+        public override int StudentUSI { get => base.StudentUSI; set => base.StudentUSI = value; }
 
         // -------------------------------------------------------------
 

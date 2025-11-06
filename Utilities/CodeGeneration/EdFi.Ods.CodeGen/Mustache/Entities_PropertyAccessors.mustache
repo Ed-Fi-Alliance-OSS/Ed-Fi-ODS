@@ -1,7 +1,12 @@
 {{#IsStandardProperty}}
     {{^HasSerializedReferenceDataMappings}}
+        {{^NeedsOverride}}
 { get => {{CSharpSafeFieldName}}; set { {{CSharpSafeFieldName}} = value; } }
         private {{CSharpDeclaredType}} {{CSharpSafeFieldName}};
+        {{/NeedsOverride}}
+        {{#NeedsOverride}}
+{ get => base.{{CSharpSafePropertyName}}; set => base.{{CSharpSafePropertyName}} = value; }
+        {{/NeedsOverride}}
     {{/HasSerializedReferenceDataMappings}}
     {{#HasSerializedReferenceDataMappings}}
 
@@ -25,6 +30,10 @@
     {{/HasSerializedReferenceDataMappings}}
 {{/IsStandardProperty}}
 {{#LookupProperty}}
+    {{#NeedsOverride}}
+{ get => base.{{CSharpSafePropertyName}}; set => base.{{CSharpSafePropertyName}} = value; }
+    {{/NeedsOverride}}
+    {{^NeedsOverride}}    
 
         {
             get
@@ -92,8 +101,13 @@
         {{/HasSerializedReferenceDataMappings}}
             }
         }
+    {{/NeedsOverride}}
 {{/LookupProperty}}
 {{#UsiProperty}}
+    {{#NeedsOverride}}
+{ get => base.{{CSharpSafePropertyName}}; set => base.{{CSharpSafePropertyName}} = value; }
+    {{/NeedsOverride}}
+    {{^NeedsOverride}}
 
         {
             get
@@ -198,9 +212,14 @@
             }
         }
     {{/IsPersonEntity}}
+    {{/NeedsOverride}}
 {{/UsiProperty}}
 {{#UniqueIdProperty}}
 
+    {{#NeedsOverride}}
+        { get => base.{{CSharpSafePropertyName}}; set => base.{{CSharpSafePropertyName}} = value; }
+    {{/NeedsOverride}}
+    {{^NeedsOverride}}
         {
             get
             {
@@ -222,8 +241,13 @@
         }
         private string {{UniqueIdFieldName}};
         
+    {{/NeedsOverride}}
 {{/UniqueIdProperty}}
 {{#DateOnlyProperty}}
+    {{#NeedsOverride}}
+        { get => base.{{CSharpSafePropertyName}}; set => base.{{CSharpSafePropertyName}} = value; }
+    {{/NeedsOverride}}
+    {{^NeedsOverride}}
     {{#IsNullable}}
 
         {
@@ -278,8 +302,13 @@
     {{/IsNullable}}
 
         private {{CSharpDeclaredType}} {{FieldName}};
+    {{/NeedsOverride}}
 {{/DateOnlyProperty}}
 {{#DateTimeProperty}}
+    {{#NeedsOverride}}
+        { get => base.{{CSharpSafePropertyName}}; set => base.{{CSharpSafePropertyName}} = value; }
+    {{/NeedsOverride}}
+    {{^NeedsOverride}}
     {{#IsNullable}}
 
         {
@@ -336,6 +365,7 @@
     {{/IsNullable}}
 
         private {{CSharpDeclaredType}} {{FieldName}};
+    {{/NeedsOverride}}
 {{/DateTimeProperty}}
 {{#DelegatedProperty}}
 
