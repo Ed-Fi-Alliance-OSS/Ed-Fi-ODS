@@ -19962,6 +19962,207 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Inherited Resources",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Create StudentProgramAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set(\"known:studentProgramAssociation:id\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": 255901,\r\n      \"programName\": \"Bilingual\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"604891\"\r\n    },\r\n    \"beginDate\": \"2025-07-04\",\r\n    \"programParticipationStatuses\": [],\r\n    \"services\": [{\"serviceDescriptor\": \"uri://ed-fi.org/ServiceDescriptor#Dyslexia\"}]\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentProgramAssociations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Inherited References",
+							"item": [
+								{
+									"name": "Get StudentProgramAssociation By Id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Inherited EducationOrganization reference's link has a non-default href\", () => {\r",
+													"  const referenceId = item.educationOrganizationReference.link.href.split(\"/\").pop();\r",
+													"  pm.expect(referenceId).to.not.equal(\"00000000000000000000000000000000\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Inherited Program reference's link has a non-default href\", () => {\r",
+													"  const referenceId = item.programReference.link.href.split(\"/\").pop();\r",
+													"  pm.expect(referenceId).to.not.equal(\"00000000000000000000000000000000\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Inherited Student reference's link has a non-default href\", () => {\r",
+													"  const referenceId = item.studentReference.link.href.split(\"/\").pop();\r",
+													"  pm.expect(referenceId).to.not.equal(\"00000000000000000000000000000000\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociation:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentProgramAssociations",
+												"{{known:studentProgramAssociation:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete StudentProgramAssociation By Id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociation:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentProgramAssociations",
+												"{{known:studentProgramAssociation:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();\r",
+													"\r",
+													"// Important: Prevent reintroduction of any authentication-related artifacts\r",
+													"pm.execution.skipRequest();"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
 				}
 			]
 		},
