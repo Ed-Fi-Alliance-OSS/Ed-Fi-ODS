@@ -43,7 +43,7 @@ var httpReponseCode = studentWithHttpInfo.StatusCode; // returns System.Net.Http
 Console.WriteLine("Response code is " + httpReponseCode);
 
 // Parse the total count value out of the "Total-Count" response header
-var totalCount = int.Parse(studentWithHttpInfo.Headers["Total-Count"].First());
+var totalCount = int.Parse(studentWithHttpInfo.Headers["total-count"].First());
 
 int offset = 0;
 int limit = 100;
