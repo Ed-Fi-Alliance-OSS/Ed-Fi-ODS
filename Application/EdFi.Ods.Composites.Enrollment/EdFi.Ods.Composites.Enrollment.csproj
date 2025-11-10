@@ -21,11 +21,22 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Composites.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
+	<Choose>
+		<When Condition="'$(StandardVersion)' == '4.0.0' Or '$(StandardVersion)' == '5.2.0'">
+			<ItemGroup>
+				<EmbeddedResource Include="DS4AndDS5_Composites.xml">
+					<SubType>Designer</SubType>
+				</EmbeddedResource>
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<EmbeddedResource Include="Composites.xml">
+					<SubType>Designer</SubType>
+				</EmbeddedResource>
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
 </Project>

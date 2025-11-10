@@ -31,6 +31,10 @@
             <Property name="PostalCode" />
             <Property name="NameOfCounty" />
           </Collection>
+          <Collection name="EducationOrganizationIdentificationCodes" displayName="identificationCodes">
+            <Property name="EducationOrganizationIdentificationSystemDescriptor" />
+            <Property name="IdentificationCode" />
+          </Collection>
           <Collection name="EducationOrganizationInstitutionTelephones" displayName="institutionTelephones">
             <Property name="InstitutionTelephoneNumberTypeDescriptor" />
             <Property name="TelephoneNumber" />
@@ -67,6 +71,10 @@
           </Collection>
           <Collection name="EducationOrganizationCategories">
             <Property name="EducationOrganizationCategoryDescriptor" displayName="category" />
+          </Collection>
+          <Collection name="EducationOrganizationIdentificationCodes" displayName="identificationCodes">
+            <Property name="EducationOrganizationIdentificationSystemDescriptor" />
+            <Property name="IdentificationCode" />
           </Collection>
           <Collection name="EducationOrganizationInstitutionTelephones" displayName="institutionTelephones">
             <Property name="InstitutionTelephoneNumberTypeDescriptor" />
@@ -178,6 +186,14 @@
               <Property name="EducationOrganizationId" />
             </ReferencedResource>
             <Property name="LoginId" />
+            <Property name="SexDescriptor" />
+            <Property name="HispanicLatinoEthnicity" />
+            <Collection name="StudentEducationOrganizationAssociationLanguages" displayName="languages">
+              <Property name="LanguageDescriptor" />
+            </Collection>
+            <Collection name="StudentEducationOrganizationAssociationRaces" displayName="races">
+              <Property name="RaceDescriptor" />
+            </Collection>
           </LinkedCollection>
         </BaseResource>
       </Composite>
@@ -204,6 +220,27 @@
           <Property name="FirstName" />
           <Property name="LastSurname" />
           <Property name="LoginId" />
+          <Property name="SexDescriptor" />
+          <Property name="HispanicLatinoEthnicity" />
+          <Collection name="StaffElectronicMails" displayName="electronicMails">
+            <Property name="ElectronicMailTypeDescriptor" />
+            <Property name="ElectronicMailAddress" />
+          </Collection>
+          <Collection name="StaffIdentificationCodes" displayName="identificationCodes">
+            <Property name="StaffIdentificationSystemDescriptor" />
+            <Property name="IdentificationCode" />
+          </Collection>
+          <Collection name="StaffLanguages" displayName="languages">
+            <Property name="LanguageDescriptor" />
+          </Collection>
+          <Collection name="StaffRaces" displayName="races">
+            <Property name="RaceDescriptor" />
+          </Collection>
+          <Collection name="StaffTelephones" displayName="telephones">
+            <Property name="TelephoneNumberTypeDescriptor" />
+            <Property name="OrderOfPriority" />
+            <Property name="TelephoneNumber" />
+          </Collection>
           <LinkedCollection name="StaffEducationOrganizationAssignmentAssociations"
                             displayName="educationOrganizationAssignments">
             <Property name="StaffClassificationDescriptor" />
