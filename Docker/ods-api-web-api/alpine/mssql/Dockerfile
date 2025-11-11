@@ -4,7 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM mcr.microsoft.com/dotnet/aspnet:8.0.18-alpine3.21@sha256:d600a99dbc2076ceadc60c4ba60afc294e7916a652cffd88a0f62630d1b3c1fa AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.21-alpine3.21@sha256:d40af50f6a927c552ba686105c56a9986c9ab7f549047151a8eb68c115cc5665 AS base
 RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74 curl=~8 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
