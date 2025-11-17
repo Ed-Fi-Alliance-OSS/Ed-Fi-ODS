@@ -10,7 +10,7 @@ RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
-RUN apk --upgrade --no-cache add postgresql16-client=16.10-r0
+RUN apk --upgrade --no-cache add postgresql16-client=16.11-r0
 ARG SANDBOX_VERSION
 ARG SANDBOX_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.SandboxAdmin/versions/${SANDBOX_VERSION}/content
 
