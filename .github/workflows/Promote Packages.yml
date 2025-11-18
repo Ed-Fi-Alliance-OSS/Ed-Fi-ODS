@@ -19,7 +19,8 @@ on:
         options:
         - Prerelease
         - Release
-
+  pull_request:
+   branches: [main, 'b-v*-patch*','feature-*']
 permissions: read-all
       
 env:
@@ -75,7 +76,7 @@ jobs:
         Write-Host("StandardVersion value is $StandardVersion")
         Write-Host("ExtensionVersion value is $ExtensionVersion")
         # REMOVE PACKAGES when StandardVersion = 6.0.0 AND PackageName contains 'TPDM.Core.'
-        if ([version]$StandardVersion).Major -ge 6) { {
+        if ( ([version]$StandardVersion).Major -ge 6 ) {
             $packagesToRemove = @()
 
             foreach ($package in $config.packages.psobject.Properties) {
@@ -111,5 +112,5 @@ jobs:
       shell: pwsh
       run: |
         $ErrorActionPreference = 'Stop'
-        ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ inputs.promote_packages_view }}" -StandardVersion ${{ matrix.StandardVersion }}
+      #  ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ inputs.promote_packages_view }}" -StandardVersion ${{ matrix.StandardVersion }}
  
