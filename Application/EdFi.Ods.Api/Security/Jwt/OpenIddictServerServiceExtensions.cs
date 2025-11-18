@@ -28,7 +28,7 @@ public static class OpenIddictServerServiceExtensions
             options.AddDevelopmentEncryptionCertificate();
             options.AddDevelopmentSigningCertificate();
 
-            // Request validation and token response are handled by ODS pipeline instead of OpenIddict middleware
+            // Request validation and token response are handled by ODS pipeline (TokenController/OpenIddictTokenRequestProvider)
             options.AddEventHandler<OpenIddictServerEvents.ValidateTokenRequestContext>(builder =>
                 builder.UseInlineHandler(ctx => default));
             options.AddEventHandler<OpenIddictServerEvents.HandleTokenRequestContext>(builder =>
