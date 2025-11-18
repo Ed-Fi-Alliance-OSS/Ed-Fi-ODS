@@ -19,8 +19,7 @@ on:
         options:
         - Prerelease
         - Release
-  pull_request:
-   branches: [main, 'b-v*-patch*','feature-*']
+
 permissions: read-all
       
 env:
@@ -112,5 +111,5 @@ jobs:
       shell: pwsh
       run: |
         $ErrorActionPreference = 'Stop'
-      #  ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ inputs.promote_packages_view }}" -StandardVersion ${{ matrix.StandardVersion }}
+        ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ inputs.promote_packages_view }}" -StandardVersion ${{ matrix.StandardVersion }}
  
