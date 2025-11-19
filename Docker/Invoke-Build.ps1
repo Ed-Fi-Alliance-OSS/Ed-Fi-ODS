@@ -281,7 +281,7 @@ function Invoke-Build {
                         "edfialliance/$($ImageName):$PackageVersion$stdVer$mssql"
                         "edfialliance/$($ImageName):$major$stdVer$mssql"
                     )
-                    $tagArgs = $tags | ForEach-Object { "-t $_" } | Join-String " "
+                    $tagArgs = ($tags | ForEach-Object { "-t $_" }) -join " "
                     Invoke-Expression "docker buildx build --platform $Platforms --push $tagArgs $BuildArgs ."
                 }
                 if ($LASTEXITCODE -gt 0) {
