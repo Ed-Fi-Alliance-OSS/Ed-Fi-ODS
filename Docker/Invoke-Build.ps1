@@ -186,7 +186,7 @@ $ErrorActionPreference = "Stop"
 $versionParts = $PackageVersion -split "\."
 if ($versionParts.Length -eq 3) {
     # Already has patch version (7.3.1), use build metadata
-    $semVer = "$PackageVersion_$Patch"
+    $semVer = "${PackageVersion}_$Patch"
 } else {
     # Traditional major.minor format (7.3), append patch
     $semVer = "$PackageVersion.$Patch"
