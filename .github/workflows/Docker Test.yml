@@ -1,0 +1,98 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Docker Test
+
+on:
+  pull_request:
+    branches: [main, 'b-v*-patch*','feature-*']
+    paths:
+      - "Docker/**/*"
+  workflow_dispatch:
+    inputs:
+      distinct_id:
+        description: 'Distinct ID used when triggered by another workflow'
+        required: false
+        default: 'distinct_id'
+
+permissions: read-all
+
+env:
+  CURRENT_STANDARD_VERSION: "6.0.0"
+  PACKAGE_VERSION: "7.3.1"
+
+jobs:
+  docker-lint:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        image:
+          - ods-api-bulk-load-console/alpine
+          - ods-api-db-admin/alpine/pgsql
+          - ods-api-db-ods-minimal/alpine/pgsql
+          - ods-api-db-ods-sandbox/alpine/pgsql
+          - ods-api-swaggerui/alpine
+          - ods-api-web-api/alpine/mssql
+          - ods-api-web-api/alpine/pgsql
+          - ods-api-web-sandbox-admin/alpine/mssql
+          - ods-api-web-sandbox-admin/alpine/pgsql
+          - ods-api-db-admin/ubuntu/mssql
+          - ods-api-db-ods-minimal/ubuntu/mssql
+          - ods-api-db-ods-sandbox/ubuntu/mssql
+    steps:
+      - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
+        run:  echo "${{ github.event.inputs.distinct_id }}" 
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - uses: hadolint/hadolint-action@54c9adbab1582c2ef04b2016b760714a4bfde3cf # v3.1.0
+        name: Run Linter on Local Dockerfile
+        with:
+          dockerfile: Docker/${{ matrix.image }}/Dockerfile
+
+  FindStandardAndExtensionVersions:
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    with:
+      calling_branch: ${{ github.head_ref || github.ref_name }}
+
+  docker-build:
+    needs: FindStandardAndExtensionVersions
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
+        dockerfile:
+          [
+            { name: "ods-api-bulk-load-console", path: "alpine" },
+            { name: "ods-api-db-admin", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-minimal", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-sandbox", path: "alpine/pgsql" },
+            { name: "ods-api-swaggerui", path: "alpine" },
+            { name: "ods-api-web-api", path: "alpine/pgsql" },
+            { name: "ods-api-web-api", path: "alpine/mssql" },
+            { name: "ods-api-web-sandbox-admin", path: "alpine/pgsql" },
+            { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" },
+            { name: "ods-api-db-admin", path: "ubuntu/mssql" },
+            { name: "ods-api-db-ods-minimal", path: "ubuntu/mssql" },
+            { name: "ods-api-db-ods-sandbox", path: "ubuntu/mssql" }
+          ]        
+    name: ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }}
+        # To confirm no errors occur. The "local" one will be built by the e2e
+        # testing process.
+        run: |
+          # Extract major.minor for NuGet packages (7.3.1 -> 7.3)
+          $nuget_version = ("${{ env.PACKAGE_VERSION }}" -split '\.')[0..1] -join '.'
+
+          ./get-versions.ps1 -PackageVersion $nuget_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
+          ./Invoke-Build.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -PreRelease -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
+        working-directory: Docker
+        shell: pwsh
