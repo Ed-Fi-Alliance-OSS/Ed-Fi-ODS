@@ -22,27 +22,27 @@
         <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
     </ItemGroup>
   <ItemGroup Condition=" '$(StandardVersion)' == '6.0.0' ">
-		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.6.0.0" Version="7.3.10041" />
+		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.6.0.0" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(StandardVersion)' == '5.2.0' ">
-		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.5.2.0" Version="7.3.10041" />
+		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.5.2.0" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(StandardVersion)' == '4.0.0' ">
-		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.4.0.0" Version="7.3.10041" />
+		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.4.0.0" />
 	</ItemGroup>
     <ItemGroup>
-      <PackageReference Include="EdFi.Suite3.Common" Version="7.3.10173" />
-      <PackageReference Include="aqua-graphcompare" Version="1.4.0" />
-      <PackageReference Include="FakeItEasy" Version="8.3.0" />
-      <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
-      <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
-      <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.7" />
-      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-      <PackageReference Include="log4net" Version="2.0.17" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-      <PackageReference Include="NUnit" Version="4.1.0" />
-      <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-      <PackageReference Include="Shouldly" Version="4.2.1" />
+      <PackageReference Include="EdFi.Suite3.Common" />
+      <PackageReference Include="aqua-graphcompare" />
+      <PackageReference Include="FakeItEasy" />
+      <PackageReference Include="FubarCoder.RestSharp.Portable.Core" />
+      <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" />
+      <PackageReference Include="Microsoft.AspNetCore.TestHost" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" />
+      <PackageReference Include="log4net" />
+      <PackageReference Include="Newtonsoft.Json" />
+      <PackageReference Include="NUnit" />
+      <PackageReference Include="NUnit3TestAdapter" />
+      <PackageReference Include="Shouldly" />
     </ItemGroup>
     <ItemGroup>
       <None Update="appsettings.json">
