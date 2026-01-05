@@ -26,25 +26,25 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10185" />
-        <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="7.3.10181" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" />
+        <PackageReference Include="EdFi.Suite3.Security.DataAccess" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="8.0.1" />
-    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="8.0.2" />
-    <PackageReference Include="FluentValidation" Version="11.9.2" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
-    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.15" />
-    <PackageReference Include="NHibernate" Version="5.5.2" />
-    <PackageReference Include="Quartz.AspNetCore" Version="3.11.0" />
-    <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
-    <PackageReference Include="Standart.Hash.xxHash" Version="4.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.7" />
-    <PackageReference Include="System.CodeDom" Version="8.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" />
+    <PackageReference Include="NHibernate" />
+    <PackageReference Include="Quartz.AspNetCore" />
+    <PackageReference Include="Sandwych.QuickGraph.Core" />
+    <PackageReference Include="Standart.Hash.xxHash" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+    <PackageReference Include="System.CodeDom" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Services\Metadata\Resources\*.json" />
