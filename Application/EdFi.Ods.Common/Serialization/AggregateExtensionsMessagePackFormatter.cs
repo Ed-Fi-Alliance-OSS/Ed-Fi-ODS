@@ -16,9 +16,15 @@ using NHibernate.Engine;
 
 namespace EdFi.Ods.Common.Serialization;
 
-public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDictionary>
+public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDictionary<string, object>>
 {
     private readonly Type _containingType;
+
+    public static readonly AggregateExtensionsMessagePackFormatter Instance = new AggregateExtensionsMessagePackFormatter();
+
+    internal AggregateExtensionsMessagePackFormatter()
+    {
+    }
 
     public AggregateExtensionsMessagePackFormatter(string aggregateName, string entityName)
     {
@@ -28,10 +34,8 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
         }
     }
 
-    public void Serialize(ref MessagePackWriter writer, IDictionary value, MessagePackSerializerOptions options)
+    public void Serialize(ref MessagePackWriter writer, IDictionary<string, object> extensionCollectionByName, MessagePackSerializerOptions options)
     {
-        var extensionCollectionByName = value as IDictionary<string, object>;
-
         if (extensionCollectionByName == null)
         {
             writer.WriteNil();
@@ -70,7 +74,7 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
         }
     }
 
-    public IDictionary Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
+    public IDictionary<string, object> Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
     {
         if (reader.TryReadNil())
         {

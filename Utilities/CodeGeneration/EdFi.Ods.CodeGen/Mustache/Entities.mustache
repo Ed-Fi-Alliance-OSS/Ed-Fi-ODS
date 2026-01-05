@@ -245,6 +245,11 @@ namespace {{AggregateNamespace}}
     /// </summary>
     [Schema("{{SchemaName}}")]
     [ExcludeFromCodeCoverage]
+    {{#IsAbstract}}
+    {{#DerivedEntityUnions}}
+    [Union({{UnionKey}}, typeof({{DerivedEntityFullTypeName}}))]
+    {{/DerivedEntityUnions}}
+    {{/IsAbstract}}
     [MessagePackObject]
     public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{#IsConcreteEntityChildClassForBase}}ForBase{{/IsConcreteEntityChildClassForBase}} : {{#IsDerived}}{{BaseAggregateRootRelativeNamespace}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{/IsDerived}}{{^IsDerived}}{{#IsAggregateRoot}}AggregateRootWithCompositeKey{{/IsAggregateRoot}}{{^IsAggregateRoot}}EntityWithCompositeKey{{/IsAggregateRoot}}{{/IsDerived}},{{^IsAggregateRoot}} IChildEntity,{{/IsAggregateRoot}}{{#AllowsPrimaryKeyUpdates}} IHasCascadableKeyValues,{{/AllowsPrimaryKeyUpdates}}
         {{NamespacePrefix}}I{{ClassName}}, IHasPrimaryKeyValues{{#HasAlternateKeyValues}}, IHasAlternateKeyValues{{/HasAlternateKeyValues}}, IHasLookupColumnPropertyMap{{#IsDescriptor}}, IEdFiDescriptor{{/IsDescriptor}}{{#IsPersonEntity}}, IPersonUsiMutator{{/IsPersonEntity}}{{#IsExtendable}}{{^ExtendableConcreteBase}}, IHasExtensions{{/ExtendableConcreteBase}}{{/IsExtendable}}
@@ -572,11 +577,11 @@ namespace {{AggregateNamespace}}
             }
         }
 
-        private IDictionary _aggregateExtensions;
+        private IDictionary<string, object> _aggregateExtensions;
 
         [MessagePackFormatter(typeof(AggregateExtensionsMessagePackFormatter), "{{AggregateName}}", "{{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}")]
         [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
-        public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary AggregateExtensions
+        public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary<string, object> AggregateExtensions
         { 
             get
             {
@@ -584,7 +589,7 @@ namespace {{AggregateNamespace}}
                 {
                     if (_aggregateExtensions[key] is IDeserializedPersistentGenericCollection collection)
                     {
-                        collection.ReattachAggregateExtension(this, (string) key);
+                        collection.ReattachAggregateExtension(this, key);
                     }
                 }
 
@@ -602,7 +607,7 @@ namespace {{AggregateNamespace}}
                     // but they must be there for correct handling of extensions for the API.
                     foreach (var key in _aggregateExtensions.Keys)
                     {
-                        if (!value.Contains(key))
+                        if (!value.ContainsKey(key))
                         {
                             value[key] = _aggregateExtensions[key];
                         }

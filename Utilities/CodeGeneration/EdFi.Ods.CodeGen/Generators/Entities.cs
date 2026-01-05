@@ -176,6 +176,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     SchemaName = entity.Schema,
                     IsAggregateRoot = entity.IsAggregateRoot,
                     IsAbstract = entity.IsAbstractRequiringNoCompositeId(),
+                    DerivedEntityUnions = GetDerivedEntityUnions(entity, aggregate),
                     IsDerived = entity.IsDerived,
                     IsDescriptor = entity.IsDescriptorEntity,
                     IsPersonEntity = entity.IsPersonEntity(),
@@ -752,6 +753,74 @@ namespace EdFi.Ods.CodeGen.Generators
             }
         }
 
+        /// <summary>
+        /// Gets the Union attribute data for abstract or base entity classes.
+        /// </summary>
+        private IEnumerable<DerivedEntityUnion> GetDerivedEntityUnions(Entity entity, Aggregate aggregate)
+        {
+            // Only process abstract entities or concrete base classes
+            if (!entity.IsAbstractRequiringNoCompositeId() && !entity.IsBase)
+            {
+                return Enumerable.Empty<DerivedEntityUnion>();
+            }
+
+            var derivedEntities = new List<Entity>();
+
+            if (entity.IsAbstractRequiringNoCompositeId())
+            {
+                // For abstract entities, search ALL entities in the domain model (not just the aggregate)
+                // because derived types can be in different aggregates
+                var domainModel = TemplateContext.DomainModelProvider.GetDomainModel();
+
+                derivedEntities = domainModel.Entities
+                    .Where(e => !e.IsAbstract && IsDerivedFrom(e, entity))
+                    .Where(e => _shouldRenderEntityForSchema(e)) // Only include entities being rendered
+                    .ToList();
+            }
+            else if (entity.IsBase)
+            {
+                // For concrete base classes, the derived type is itself (without Base suffix)
+                derivedEntities.Add(entity);
+            }
+
+            return derivedEntities
+                .Select((derivedEntity, index) => new DerivedEntityUnion
+                {
+                    UnionKey = index,
+                    DerivedEntityFullTypeName = GetFullEntityTypeName(derivedEntity)
+                })
+                .ToList();
+        }
+
+        /// <summary>
+        /// Checks if an entity is derived from a specified base entity.
+        /// </summary>
+        private bool IsDerivedFrom(Entity entity, Entity baseEntity)
+        {
+            var current = entity;
+            while (current != null)
+            {
+                if (current.BaseEntity?.FullName == baseEntity.FullName)
+                    return true;
+                current = current.BaseEntity;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the full type name for an entity including namespace. 
+        /// </summary>
+        private string GetFullEntityTypeName(Entity entity)
+        {
+            // Use the entity's aggregate namespace, not a parameter
+            var aggregateNamespace = entity.AggregateNamespace(entity.SchemaProperCaseName());
+
+            var className = entity.Name;
+
+            // Use global::  to ensure we're referencing from the root namespace
+            return $"global::{aggregateNamespace}.{className}";
+        }
+
         private static string GetModelParentInterfaceName(Entity entity)
         {
             if (entity.IsAggregateRoot)
@@ -800,6 +869,15 @@ namespace EdFi.Ods.CodeGen.Generators
             /// </summary>
             public bool IsConcreteEntityChildClassForBase { get; set; }
         }
+    }
+
+    /// <summary>
+    /// Represents a Union attribute entry for MessagePack serialization of polymorphic types.
+    /// </summary>
+    public class DerivedEntityUnion
+    {
+        public int UnionKey { get; set; }
+        public string DerivedEntityFullTypeName { get; set; }
     }
 
     public class ReferenceDataPropertyMapping
