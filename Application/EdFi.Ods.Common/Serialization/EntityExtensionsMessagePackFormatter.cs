@@ -30,6 +30,14 @@ public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDicti
     private readonly string _entityName;
     private readonly string _aggregateName;
 
+    public static readonly EntityExtensionsMessagePackFormatter Instance = new EntityExtensionsMessagePackFormatter();
+
+    internal EntityExtensionsMessagePackFormatter()
+    {
+        _aggregateName = string.Empty;
+        _entityName = string.Empty;
+    }
+
     public EntityExtensionsMessagePackFormatter(string aggregateName, string entityName)
     {
         _aggregateName = aggregateName;
