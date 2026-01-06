@@ -1,10 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Configurations>Debug;Release</Configurations>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RestorePackages>true</RestorePackages>
-    <IsPackable>false</IsPackable>
     <RootNamespace>EdFi.Ods.Common.UnitTests</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
@@ -18,13 +14,13 @@
     <EmbeddedResource Include="Utils\Resources\IAmAResource.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="5.2.0">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit3TestAdapter">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.41" />
-    <PackageReference Include="Shouldly" Version="4.3.0" />
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" />
+    <PackageReference Include="Shouldly" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />

@@ -1,29 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Company>Ed-Fi Alliance</Company>
+        <Company>Ed-Fi Alliance</Company>
     <Product>EdFi.Security.DataAccess.IntegrationTests</Product>
     <Assembly>EdFi.Security.DataAccess.IntegrationTests</Assembly>
     <RootNameSpace>EdFi.Security.DataAccess.IntegrationTests</RootNameSpace>
     <Copyright>Copyright © 2024, Ed-Fi Alliance and contributors</Copyright>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <OutputType>Library</OutputType>
-    <IsTestProject>true</IsTestProject>
-  </PropertyGroup>
+          </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FakeItEasy" Version="8.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
-    <PackageReference Include="Npgsql" Version="9.0.4" />
-    <PackageReference Include="NUnit" Version="4.4.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="5.2.0" />
-    <PackageReference Include="Shouldly" Version="4.3.0" />
+    <PackageReference Include="FakeItEasy" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Npgsql" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="Shouldly" />
     <ProjectReference Include="..\..\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
   </ItemGroup>
