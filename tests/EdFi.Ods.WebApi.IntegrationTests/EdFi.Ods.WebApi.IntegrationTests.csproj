@@ -3,10 +3,15 @@
     <StandardVersion Condition="'$(StandardVersion)' == '' ">6.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
-        <AssemblyName>EdFi.Ods.WebApi.IntegrationTests</AssemblyName>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>EdFi.Ods.WebApi.IntegrationTests</AssemblyName>
     <RootNamespace>EdFi.Ods.WebApi.IntegrationTests</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-                  </PropertyGroup>
+    <RestorePackages>true</RestorePackages>
+    <OutputType>Library</OutputType>
+    <IsTestProject>true</IsTestProject>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+  </PropertyGroup>
   <Choose>
     <When Condition="'$(UseProjectsOverPackages)' == 'true'">
       <ItemGroup>

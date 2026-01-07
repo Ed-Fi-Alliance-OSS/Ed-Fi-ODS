@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackages>true</RestorePackages>
+    <IsPackable>false</IsPackable>
     <RootNamespace>EdFi.Ods.Common.UnitTests</RootNamespace>
   </PropertyGroup>
   <ItemGroup>

@@ -1,9 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-        <AssemblyName>EdFi.Security.DataAccess.UnitTests</AssemblyName>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>EdFi.Security.DataAccess.UnitTests</AssemblyName>
     <RootNamespace>EdFi.Security.DataAccess.UnitTests</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-                <NoWarn>CS0618</NoWarn>
+    <RestorePackages>true</RestorePackages>
+    <OutputType>Library</OutputType>
+    <IsTestProject>true</IsTestProject>
+    <NoWarn>CS0618</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>

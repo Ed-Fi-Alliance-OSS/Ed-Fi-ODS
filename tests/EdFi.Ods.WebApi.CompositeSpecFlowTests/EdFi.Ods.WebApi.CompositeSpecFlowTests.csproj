@@ -3,9 +3,14 @@
     <StandardVersion Condition="'$(StandardVersion)' == '' ">6.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
-        <RootNamespace>EdFi.Ods.WebApi.CompositeSpecFlowTests</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>EdFi.Ods.WebApi.CompositeSpecFlowTests</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-                  </PropertyGroup>
+    <RestorePackages>true</RestorePackages>
+    <OutputType>Library</OutputType>
+    <IsTestProject>true</IsTestProject>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />

@@ -1,12 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-        <Company>Ed-Fi Alliance</Company>
+    <TargetFramework>net8.0</TargetFramework>
+    <Company>Ed-Fi Alliance</Company>
     <Product>EdFi.Security.DataAccess.IntegrationTests</Product>
     <Assembly>EdFi.Security.DataAccess.IntegrationTests</Assembly>
     <RootNameSpace>EdFi.Security.DataAccess.IntegrationTests</RootNameSpace>
     <Copyright>Copyright © 2024, Ed-Fi Alliance and contributors</Copyright>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-          </PropertyGroup>
+    <OutputType>Library</OutputType>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>

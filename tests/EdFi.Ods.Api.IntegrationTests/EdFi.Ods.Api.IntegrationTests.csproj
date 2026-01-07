@@ -3,9 +3,14 @@
     <StandardVersion Condition="'$(StandardVersion)' == '' ">6.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Api.IntegrationTests</AssemblyName>
     <RootNamespace>EdFi.Ods.Api.IntegrationTests</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackages>true</RestorePackages>
+    <OutputType>Library</OutputType>
+    <IsTestProject>true</IsTestProject>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
