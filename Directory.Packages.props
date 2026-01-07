@@ -63,12 +63,12 @@
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
 
     <!-- Ed-Fi Packages -->
-    <PackageVersion Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10219" />
+    <PackageVersion Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10260" />
     <PackageVersion Include="EdFi.Suite3.Common" Version="7.3.10246" />
     <PackageVersion Include="EdFi.Suite3.OdsApi.TestSdk.Standard.4.0.0" Version="7.3.10588" />
     <PackageVersion Include="EdFi.Suite3.OdsApi.TestSdk.Standard.5.2.0" Version="7.3.10588" />
     <PackageVersion Include="EdFi.Suite3.OdsApi.TestSdk.Standard.6.0.0" Version="7.3.10588" />
-    <PackageVersion Include="EdFi.Suite3.Security.DataAccess" Version="7.3.10215" />
+    <PackageVersion Include="EdFi.Suite3.Security.DataAccess" Version="7.3.10256" />
 
     <!-- Validation -->
     <PackageVersion Include="FluentValidation" Version="12.0.0" />
