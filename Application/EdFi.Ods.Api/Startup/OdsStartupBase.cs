@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
@@ -44,6 +45,7 @@ using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -57,6 +59,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
+using Microsoft.IdentityModel.Tokens;
 using NHibernate.Engine;
 
 namespace EdFi.Ods.Api.Startup
@@ -99,7 +102,8 @@ namespace EdFi.Ods.Api.Startup
             // Bind configuration objects to sections 
             services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
             services.Configure<Plugin>(Configuration.GetSection("Plugin"));
-            
+            services.Configure<SecuritySettings>(Configuration.GetSection("Security"));
+
             // Register sections related to external connection strings configuration
             services.Configure<TenantsSection>(Configuration);
             services.Configure<OdsInstancesSection>(Configuration);
@@ -201,8 +205,29 @@ namespace EdFi.Ods.Api.Startup
             
             services.AddMvc();
 
-            services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
-                .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
+            // Bind security settings
+            var securitySettings = new SecuritySettings();
+            Configuration.GetSection("Security").Bind(securitySettings);
+
+            if (securitySettings.AccessTokenType == "jwt")
+            {
+                services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securitySettings.SigningKey)),
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateLifetime = true
+                        }
+                    );
+            }
+            else
+            {
+                services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
+                    .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
+            }
 
             services.AddApplicationInsightsTelemetry(
                 options => { options.ApplicationVersion = ApiVersionConstants.Version; });

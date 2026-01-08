@@ -157,7 +157,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
-                var accessToken = new AccessToken(_suppliedAccessToken, _suppliedTTL, Scope: null);
+                var accessToken = new AccessToken(_suppliedAccessToken.ToString("N"), _suppliedTTL, Scope: null);
 
                 A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<int>._, A<string>._))
                     .Returns(accessToken);
@@ -257,7 +257,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
-                var accessToken = new AccessToken(_suppliedAccessToken, _suppliedTTL, null);
+                var accessToken = new AccessToken(_suppliedAccessToken.ToString("N"), _suppliedTTL, null);
 
                 A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<int>._, A<string>._))
                     .Returns(accessToken);
@@ -363,7 +363,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 _accessTokenFactory = Stub<IAccessTokenFactory>();
 
                 A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<int>._, A<string>._))
-                    .Returns(new AccessToken(_suppliedAccessToken, new TimeSpan(0, 10, 0), _requestedScope));
+                    .Returns(new AccessToken(_suppliedAccessToken.ToString("N"), new TimeSpan(0, 10, 0), _requestedScope));
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
                     .Returns(
@@ -741,7 +741,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
                 A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<int>._, A<string>._))
-                    .Returns(new AccessToken(_suppliedAccessToken, new TimeSpan(0, 10, 0), null));
+                    .Returns(new AccessToken(_suppliedAccessToken.ToString("N"), new TimeSpan(0, 10, 0), null));
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
                     .Returns(

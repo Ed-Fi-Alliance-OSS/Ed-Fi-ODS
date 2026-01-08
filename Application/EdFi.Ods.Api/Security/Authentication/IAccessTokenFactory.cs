@@ -13,9 +13,9 @@ public interface IAccessTokenFactory
     Task<AccessToken> CreateAccessTokenAsync(int apiClientId, string scope = null);
 }
 
-public record AccessToken(Guid Id, TimeSpan Duration, string Scope)
+public record AccessToken(string Id, TimeSpan Duration, string Scope)
 {
-    public Guid Id { get; set; } = Id;
+    public string Id { get; set; } = Id;
 
     public TimeSpan Duration { get; set; } = Duration;
 

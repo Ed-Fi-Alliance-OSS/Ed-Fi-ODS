@@ -122,7 +122,9 @@
 									"pm.environment.set(`known:${apiSecretName}`, clientSecret);\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -137,9 +139,21 @@
 									"  const responseItem = pm.response.text();\r",
 									"  pm.expect(responseItem).to.contains(\"access_token\");\r",
 									"});\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    const jsonData = pm.response.json();\r",
+									"\r",
+									"    if (jsonData.access_token.length == 32) {\r",
+									"        pm.environment.set(\"AccessTokenType\", \"guid\");\r",
+									"    } else {\r",
+									"        pm.environment.set(\"AccessTokenType\", \"jwt\");\r",
+									"    }\r",
+									"}\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -874,7 +888,7 @@
 					"response": []
 				},
 				{
-					"name": "InvalidScope with wrong EdorgId  Auth Request",
+					"name": "InvalidScope with non-numeric scope Auth Request",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -892,7 +906,9 @@
 									"pm.environment.set(`known:${apiSecretName}`, clientSecret);\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -900,20 +916,30 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status code is 400\", () => {\r",
-									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"    pm.expect(pm.response.code).to.equal(400);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Should return a invalid_scope\", () => {\r",
-									"  const responseItem = pm.response.json();\r",
-									"  pm.expect(responseItem.error).to.equal(\"invalid_scope\");\r",
+									"    const responseItem = pm.response.json();\r",
+									"    pm.expect(responseItem.error).to.equal(\"invalid_scope\");\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Should return error description The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client).\", () => {\r",
-									"  const responseItem = pm.response.json();\r",
-									"  pm.expect(responseItem.error_description).to.equal(\"The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client).\");\r",
-									"});"
+									"if (pm.environment.get(\"AccessTokenType\") == \"guid\") {\r",
+									"    pm.test(\"Should return error description The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client).\", () => {\r",
+									"        const responseItem = pm.response.json();\r",
+									"        pm.expect(responseItem.error_description).to.equal(\"The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client).\");\r",
+									"    });\r",
+									"} else {\r",
+									"    pm.test(\"Should return error description indicating OneRoster scope provided is invalid.\", () => {\r",
+									"        const responseItem = pm.response.json();\r",
+									"        pm.expect(responseItem.error_description).to.equal(\"The supplied 'scope' is not a valid OneRoster scope.\");\r",
+									"    });\r",
+									"}\r",
+									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
