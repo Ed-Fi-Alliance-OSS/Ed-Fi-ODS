@@ -13,8 +13,10 @@ using EdFi.Ods.Api.Models.ClientCredentials;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Security.Authentication;
+using EdFi.Ods.Common.Configuration;
 using EdFi.TestFixture;
 using FakeItEasy;
+using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Test.Common;
 
@@ -76,7 +78,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             protected override void Act()
             {
                 _clientCredentialsTokenRequestProvider =
-                    new ClientCredentialsTokenRequestProvider( _apiClientAuthenticator, _accessTokenFactory);
+                    new ClientCredentialsTokenRequestProvider( _apiClientAuthenticator, _accessTokenFactory, new OptionsWrapper<SecuritySettings>(new SecuritySettings()));
 
                 _actionResult = _clientCredentialsTokenRequestProvider.HandleAsync(_tokenRequest).GetResultSafely();
             }
@@ -140,7 +142,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             protected override void Act()
             {
                 _clientCredentialsTokenRequestHandler =
-                    new ClientCredentialsTokenRequestProvider(_apiClientAuthenticator, _accessTokenFactory);
+                    new ClientCredentialsTokenRequestProvider(_apiClientAuthenticator, _accessTokenFactory, new OptionsWrapper<SecuritySettings>(new SecuritySettings()));
 
                 _actionResult = _clientCredentialsTokenRequestHandler.HandleAsync(_tokenRequest).Result;
             }
