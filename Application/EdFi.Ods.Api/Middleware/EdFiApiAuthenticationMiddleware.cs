@@ -84,8 +84,8 @@ namespace EdFi.Ods.Api.Middleware
 
                     ApiClientContext apiClientContext = null;
 
-                    // Check for JWT Bearer scheme
-                    if (result.Ticket?.AuthenticationScheme == "Bearer")
+                    // Check for the "jti" claim (from the JWT, if in use)
+                    if (result.Ticket?.Principal?.HasClaim(c => c.Type == JwtRegisteredClaimNames.Jti) == true)
                     {
                         // Extract the ODS API's token from the "jti" claim
                         string guidToken = result.Principal.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti)?.Value;
