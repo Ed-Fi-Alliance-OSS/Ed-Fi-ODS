@@ -11,26 +11,26 @@
     <When Condition="'$(UseProjectsOverPackages)' == 'true'" />
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10219" />
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.3.10195" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" />
+        <PackageReference Include="EdFi.Suite3.Common" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
-    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
-    <PackageReference Include="Hangfire" Version="1.8.21" />
-    <PackageReference Include="Hangfire.PostgreSql" Version="1.20.12" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
-    <PackageReference Include="Npgsql" Version="9.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.20" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.20" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.10" />
-    <PackageReference Include="CommandLineParser" Version="2.9.1" />	
-    <PackageReference Include="Quartz.AspNetCore" Version="3.15.0" />
-    <PackageReference Include="Quartz.Serialization.Json" Version="3.15.0" />	
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" />
+    <PackageReference Include="Hangfire" />
+    <PackageReference Include="Hangfire.PostgreSql" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" />
+    <PackageReference Include="Npgsql" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Include="CommandLineParser" />	
+    <PackageReference Include="Quartz.AspNetCore" />
+    <PackageReference Include="Quartz.Serialization.Json" />	
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Ods.SandboxAdmin.Services\EdFi.Ods.SandboxAdmin.Services.csproj" />

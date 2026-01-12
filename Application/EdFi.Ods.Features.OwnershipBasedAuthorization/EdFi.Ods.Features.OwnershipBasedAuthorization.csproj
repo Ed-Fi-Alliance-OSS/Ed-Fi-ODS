@@ -21,18 +21,18 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.3.10195" />
+        <PackageReference Include="EdFi.Suite3.Common" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="3.2.0" />
-    <PackageReference Include="NHibernate" Version="5.6.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="log4net" />
+    <PackageReference Include="NHibernate" />
+    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
