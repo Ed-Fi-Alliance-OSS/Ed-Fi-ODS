@@ -6,11 +6,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using EdFi.LoadTools.Engine;
 using log4net;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Newtonsoft.Json;
 
 namespace EdFi.LoadTools.ApiClient
@@ -151,7 +152,7 @@ namespace EdFi.LoadTools.ApiClient
             }
         }
 
-        private IEnumerable<JsonModelMetadata> GetProperties(OpenApiSchema schema, string category, string model,
+        private IEnumerable<JsonModelMetadata> GetProperties(IOpenApiSchema schema, string category, string model,
                                                              string modelSchema)
         {
             return schema.Properties
@@ -159,12 +160,12 @@ namespace EdFi.LoadTools.ApiClient
                               p => new JsonModelMetadata
                               {
                                   Category = category,
-                                  Resource = p.Value?.Reference?.ReferenceV3,
+                                  Resource = GetReferenceV3(p.Value),
                                   Model = model,
                                   Property = p.Key,
                                   Type = GetTypeName(p),
                                   Format = p.Value?.Format,
-                                  IsArray = p.Value?.Type == "array",
+                                  IsArray = p.Value?.Type == JsonSchemaType.Array,
                                   IsRequired = schema.Required?.Any(x => x.Equals(p.Key)) ?? false,
                                   Description = p.Value?.Description,
                                   Schema = modelSchema
@@ -174,9 +175,10 @@ namespace EdFi.LoadTools.ApiClient
         private string GetPathForModel(OpenApiDocument swaggerDocument, string modelName)
         {
             return swaggerDocument.Paths
-                .Where(p => p.Value.Operations.Keys.Any(k => k == OperationType.Post))
+                .Where(p => p.Value.Operations.Keys.Any(k => k == HttpMethod.Post))
                 .FirstOrDefault(
-                    p => p.Value.Operations[OperationType.Post].RequestBody.Content.First().Value.Schema.Reference.Id == modelName
+                    p => p.Value.Operations[HttpMethod.Post].RequestBody.Content.First().Value.Schema is OpenApiSchemaReference schemaRef
+                        && schemaRef.Reference.Id == modelName
                  )
                 .Key;
         }
@@ -188,19 +190,28 @@ namespace EdFi.LoadTools.ApiClient
                         .FirstOrDefault();
         }
 
-        private static string GetTypeName(KeyValuePair<string, OpenApiSchema> parameterInfo)
+        private static string GetReferenceV3(IOpenApiSchema schema)
+        {
+            if (schema is OpenApiSchemaReference schemaRef)
+            {
+                return schemaRef.Reference?.ReferenceV3;
+            }
+            return null;
+        }
+
+        private static string GetTypeName(KeyValuePair<string, IOpenApiSchema> parameterInfo)
         {
             var referenceType = string.Empty;
             var parameter = parameterInfo.Value;
 
-            if (parameter?.Type == "array")
+            if (parameter?.Type == JsonSchemaType.Array)
             {
-                referenceType = parameter.Items.Reference.ReferenceV3;
+                referenceType = GetReferenceV3(parameter.Items);
             }
 
-            if ((string.IsNullOrEmpty(parameter?.Type) || parameter?.Type == "object") && !string.IsNullOrEmpty(parameter?.Reference.ReferenceV3))
+            if ((parameter?.Type == null || parameter?.Type == JsonSchemaType.Object) && !string.IsNullOrEmpty(GetReferenceV3(parameter)))
             {
-                referenceType = parameter.Reference.ReferenceV3;
+                referenceType = GetReferenceV3(parameter);
             }
 
             var parameterType = !string.IsNullOrEmpty(referenceType)
@@ -209,7 +220,7 @@ namespace EdFi.LoadTools.ApiClient
 
             return !string.IsNullOrEmpty(parameterType)
                 ? parameterType
-                : parameter?.Type;
+                : parameter?.Type?.ToString().ToLowerInvariant();
         }
     }
 }

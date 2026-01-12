@@ -93,23 +93,29 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         protected int BuildRandomNumber(PropertyInfo propertyInfo)
         {
             var parameter = _metadataLookup.GetMetadata(propertyInfo);
-            
-            if (parameter.Schema.Minimum.HasValue && parameter.Schema.Maximum.HasValue)
-            {
-                var minValue = decimal.Max(parameter.Schema.Minimum.Value, int.MinValue);
-                var maxValue = decimal.Min(parameter.Schema.Maximum.Value, int.MaxValue);
 
-                return Random.Next((int)minValue, (int)maxValue);
-            }
-            else if (parameter.Schema.Minimum.HasValue)
-            {
-                var minValue = decimal.Max(parameter.Schema.Minimum.Value, _counter++);
+            // In Microsoft. OpenApi v2.x, Minimum and Maximum are strings
+            decimal minValue = 0;
+            decimal maxValue = 0;
+            var hasMinimum = !string.IsNullOrEmpty(parameter.Schema.Minimum) && decimal.TryParse(parameter.Schema.Minimum, out minValue);
+            var hasMaximum = !string.IsNullOrEmpty(parameter.Schema.Maximum) && decimal.TryParse(parameter.Schema.Maximum, out maxValue);
 
-                return (int)minValue;
-            }
-            else if(parameter.Schema.Maximum.HasValue)
+            if (hasMinimum && hasMaximum)
             {
-                return (int)decimal.Min(parameter.Schema.Maximum.Value, int.MaxValue);
+                var min = decimal.Max(minValue, int.MinValue);
+                var max = decimal.Min(maxValue, int.MaxValue);
+
+                return Random.Next((int)min, (int)max);
+            }
+            else if (hasMinimum)
+            {
+                var min = decimal.Max(minValue, _counter++);
+
+                return (int)min;
+            }
+            else if (hasMaximum)
+            {
+                return (int)decimal.Min(maxValue, int.MaxValue);
             }
             else
             {

@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.FeatureManagement;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Microsoft.OpenApi.Readers;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers;

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using EdFi.LoadTools.ApiClient;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace EdFi.LoadTools.SmokeTest
 {

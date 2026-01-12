@@ -12,8 +12,7 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using EdFi.LoadTools.Engine;
 using log4net;
-using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
+using Microsoft.OpenApi;
 using Newtonsoft.Json;
 
 namespace EdFi.LoadTools.ApiClient
@@ -52,10 +51,10 @@ namespace EdFi.LoadTools.ApiClient
                         return doc.Paths
                                   .SelectMany(p => p.Value.Operations)
                                   .Where(o =>
-                                    o.Key == OperationType.Get ||
-                                    o.Key == OperationType.Delete ||
-                                    o.Key == OperationType.Post ||
-                                    o.Key == OperationType.Put
+                                    o.Key == HttpMethod.Get ||
+                                    o.Key == HttpMethod.Delete ||
+                                    o.Key == HttpMethod.Post ||
+                                    o.Key == HttpMethod.Put
                                     )
                                   .Select(
                                        o => new OperationRef
@@ -68,14 +67,20 @@ namespace EdFi.LoadTools.ApiClient
                 var referencesBlock = new ActionBlock<OperationRef>(
                     or =>
                     {
-                        for (var i = 0; i < or.Operation.Parameters?.Count; i++)
+                        if (or.Operation.Parameters == null) return;
+
+                        for (var i = 0; i < or.Operation.Parameters.Count; i++)
                         {
                             var parameter = or.Operation.Parameters[i];
 
-                            if (!string.IsNullOrEmpty(parameter.Reference?.ReferenceV3))
+                            // Check if parameter is a reference type
+                            if (parameter is OpenApiParameterReference paramRef)
                             {
-                                or.Operation.Parameters[i] =
-                                    or.References.First(r => r.Key == parameter.Reference.ReferenceV3.Split('/').Last()).Value;
+                                var referenceId = paramRef.Reference?.Id;
+                                if (!string.IsNullOrEmpty(referenceId) && or.References != null && or.References.ContainsKey(referenceId))
+                                {
+                                    or.Operation.Parameters[i] = or.References[referenceId];
+                                }
                             }
                         }
                     });
@@ -150,16 +155,18 @@ namespace EdFi.LoadTools.ApiClient
             };
 
             var stream = await client.GetStreamAsync(endpointUri);
-            var openApiDocument = new OpenApiStreamReader().Read(stream, out var diagnostic);
 
-            return openApiDocument;
+            // In Microsoft.OpenApi v2.x, use OpenApiDocument.LoadAsync
+            var (document, diagnostic) = await OpenApiDocument.LoadAsync(stream);
+
+            return document;
         }
 
         private class OperationRef
         {
             public OpenApiOperation Operation { get; set; }
 
-            public IDictionary<string, OpenApiParameter> References { get; set; }
+            public IDictionary<string, IOpenApiParameter> References { get; set; }
         }
     }
 }
