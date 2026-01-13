@@ -172,6 +172,12 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
         private static string ReplaceVariablesInServer(OpenApiServer server)
         {
+            // Add null check for Variables property (can be null in Microsoft.OpenApi v2.x)
+            if (server.Variables == null || !server.Variables.Any())
+            {
+                return server.Url;
+            }
+
             var variablesToReplace = server.Variables.Select(x => new
             {
                 Name = x.Key,

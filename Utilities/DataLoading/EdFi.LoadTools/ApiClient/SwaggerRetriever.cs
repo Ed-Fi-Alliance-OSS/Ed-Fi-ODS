@@ -144,22 +144,65 @@ namespace EdFi.LoadTools.ApiClient
 
         private static async Task<OpenApiDocument> LoadOpenApiDocument(string endpointUri)
         {
+            var log = LogManager.GetLogger(typeof(SwaggerRetriever));
+
             HttpClientHandler handler = new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
             };
 
-            using var client = new HttpClient(handler)
+            using (var client = new HttpClient(handler))
             {
-                Timeout = new TimeSpan(0, 0, 5, 0)
-            };
+                client.Timeout = new TimeSpan(0, 0, 5, 0);
 
-            var stream = await client.GetStreamAsync(endpointUri);
+                log.Info($"Loading OpenAPI document from: {endpointUri}");
 
-            // In Microsoft.OpenApi v2.x, use OpenApiDocument.LoadAsync
-            var (document, diagnostic) = await OpenApiDocument.LoadAsync(stream);
+                var response = await client.GetAsync(endpointUri);
+                response.EnsureSuccessStatusCode();
 
-            return document;
+                var content = await response.Content.ReadAsStringAsync();
+
+                if (string.IsNullOrWhiteSpace(content))
+                {
+                    log.Error($"Empty content returned from {endpointUri}");
+                    throw new InvalidOperationException($"No content returned from {endpointUri}");
+                }
+
+                 // Convert string to stream for parsing
+                var stream = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(content));
+
+                // Try to load as OpenAPI document
+                var (document, diagnostic) = await OpenApiDocument.LoadAsync(stream);
+
+                // Log any warnings or errors
+                if (diagnostic?.Errors?.Any() == true)
+                {
+                    log.Warn($"OpenAPI parsing errors for {endpointUri}:");
+                    foreach (var error in diagnostic.Errors)
+                    {
+                        log.Warn($"  - {error.Message} at {error.Pointer}");
+                    }
+                }
+
+                if (diagnostic?.Warnings?.Any() == true)
+                {
+                    log.Debug($"OpenAPI parsing warnings for {endpointUri}:");
+                    foreach (var warning in diagnostic.Warnings)
+                    {
+                        log.Debug($"  - {warning.Message} at {warning.Pointer}");
+                    }
+                }
+
+                if (document == null)
+                {
+                    log.Error($"Failed to parse OpenAPI document from {endpointUri}. Document is null.");
+                    log.Error($"Content received: {content}");
+                    throw new InvalidOperationException($"Failed to parse OpenAPI document from {endpointUri}.  Check if the endpoint returns valid OpenAPI/Swagger JSON.");
+                }
+
+                log.Info($"Successfully loaded OpenAPI document from {endpointUri}");
+                return document;
+            }
         }
 
         private class OperationRef
