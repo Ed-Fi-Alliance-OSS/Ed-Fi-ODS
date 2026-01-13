@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>EdFi.Security.DataAccess.UnitTests</AssemblyName>
@@ -27,13 +27,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="EntityFrameworkTesting.FakeItEasy" />
+    <PackageReference Include="FakeItEasy" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="NUnit" />
     <PackageReference Include="NUnit3TestAdapter">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Net.Http" />
+    <PackageReference Include="System.Text.RegularExpressions" />
     <PackageReference Include="TeamCity.VSTest.TestAdapter" />
     <PackageReference Include="Shouldly" />
   </ItemGroup>
