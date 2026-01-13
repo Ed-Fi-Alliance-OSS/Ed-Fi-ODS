@@ -12,6 +12,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FakeItEasy" />
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Include="Microsoft.Identity.Client" />
+    <PackageReference Include="Npgsql" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="NUnit" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" />
