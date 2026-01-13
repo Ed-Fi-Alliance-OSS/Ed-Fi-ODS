@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.FeatureManagement;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Extensions;
+using Microsoft.OpenApi.Writers;
+using System.IO;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
 
@@ -55,7 +57,10 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
     public string GetUpconvertedOpenApiJson(string openApiJson)
     {
-        var openApiDocument = new OpenApiStringReader().Read(openApiJson, out _);
+        // Updated for Microsoft.OpenApi v2.x - Read now returns ReadResult
+        var readResult = new OpenApiStringReader().Read(openApiJson, out var diagnostic);
+        var openApiDocument = readResult;
+
         openApiDocument.Servers.Clear();
         openApiDocument.Components.SecuritySchemes.Clear();
         openApiDocument.SecurityRequirements.Clear();
@@ -157,7 +162,11 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             }
         }
 
-        return openApiDocument.SerializeAsJson(OpenApiSpecVersion.OpenApi3_0);
+        // Updated for Microsoft.OpenApi v2.x - SerializeAsJson signature changed
+        using var stringWriter = new StringWriter();
+        var jsonWriter = new OpenApiJsonWriter(stringWriter);
+        openApiDocument.SerializeAsV3(jsonWriter);
+        return stringWriter.ToString();
 
         // Recursively adds all combinations of valid route context values to the end of the strings in currentEnumValues
         List<string> GenerateContextValuePathCombinations(List<string> currentEnumValues, List<string> routeContextKeys, string adminConnectionString)

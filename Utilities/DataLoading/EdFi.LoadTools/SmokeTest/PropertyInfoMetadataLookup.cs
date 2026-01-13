@@ -12,7 +12,7 @@ using EdFi.Common.Inflection;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace EdFi.LoadTools.SmokeTest
 {

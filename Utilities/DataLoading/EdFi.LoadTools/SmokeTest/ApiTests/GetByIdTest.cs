@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.LoadTools.SmokeTest.ApiTests
@@ -42,7 +42,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             return Path.Combine(path, obj.ToString());
         }
 
-        private IEnumerable<OpenApiParameter> GetParameters()
+        private IEnumerable<IOpenApiParameter> GetParameters()
         {
             return Operation.Parameters.Where(p => p.Name == "id" && p.Required == true && p.In == ParameterLocation.Path);
         }
