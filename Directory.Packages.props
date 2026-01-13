@@ -93,7 +93,7 @@
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.80.0" />
 
     <!-- OpenAPI -->
-    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.28" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="2.3.4" />
     <PackageVersion Include="Microsoft.OpenApi.Readers" Version="1.6.28" />
 
     <!-- Standard Libraries -->

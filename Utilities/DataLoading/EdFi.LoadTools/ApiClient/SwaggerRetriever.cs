@@ -12,8 +12,7 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using EdFi.LoadTools.Engine;
 using log4net;
-using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
+using Microsoft.OpenApi;
 using Newtonsoft.Json;
 
 namespace EdFi.LoadTools.ApiClient
@@ -52,10 +51,10 @@ namespace EdFi.LoadTools.ApiClient
                         return doc.Paths
                                   .SelectMany(p => p.Value.Operations)
                                   .Where(o =>
-                                    o.Key == OperationType.Get ||
-                                    o.Key == OperationType.Delete ||
-                                    o.Key == OperationType.Post ||
-                                    o.Key == OperationType.Put
+                                    o.Key == HttpMethod.Get ||
+                                    o.Key == HttpMethod.Delete ||
+                                    o.Key == HttpMethod.Post ||
+                                    o.Key == HttpMethod.Put
                                     )
                                   .Select(
                                        o => new OperationRef
@@ -68,14 +67,20 @@ namespace EdFi.LoadTools.ApiClient
                 var referencesBlock = new ActionBlock<OperationRef>(
                     or =>
                     {
-                        for (var i = 0; i < or.Operation.Parameters?.Count; i++)
+                        if (or.Operation.Parameters == null) return;
+
+                        for (var i = 0; i < or.Operation.Parameters.Count; i++)
                         {
                             var parameter = or.Operation.Parameters[i];
 
-                            if (!string.IsNullOrEmpty(parameter.Reference?.ReferenceV3))
+                            // Check if parameter is a reference type
+                            if (parameter is OpenApiParameterReference paramRef)
                             {
-                                or.Operation.Parameters[i] =
-                                    or.References.First(r => r.Key == parameter.Reference.ReferenceV3.Split('/').Last()).Value;
+                                var referenceId = paramRef.Reference?.Id;
+                                if (!string.IsNullOrEmpty(referenceId) && or.References != null && or.References.ContainsKey(referenceId))
+                                {
+                                    or.Operation.Parameters[i] = or.References[referenceId];
+                                }
                             }
                         }
                     });
@@ -139,27 +144,72 @@ namespace EdFi.LoadTools.ApiClient
 
         private static async Task<OpenApiDocument> LoadOpenApiDocument(string endpointUri)
         {
+            var log = LogManager.GetLogger(typeof(SwaggerRetriever));
+
             HttpClientHandler handler = new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
             };
 
-            using var client = new HttpClient(handler)
+            using (var client = new HttpClient(handler))
             {
-                Timeout = new TimeSpan(0, 0, 5, 0)
-            };
+                client.Timeout = new TimeSpan(0, 0, 5, 0);
 
-            var stream = await client.GetStreamAsync(endpointUri);
-            var openApiDocument = new OpenApiStreamReader().Read(stream, out var diagnostic);
+                log.Info($"Loading OpenAPI document from: {endpointUri}");
 
-            return openApiDocument;
+                var response = await client.GetAsync(endpointUri);
+                response.EnsureSuccessStatusCode();
+
+                var content = await response.Content.ReadAsStringAsync();
+
+                if (string.IsNullOrWhiteSpace(content))
+                {
+                    log.Error($"Empty content returned from {endpointUri}");
+                    throw new InvalidOperationException($"No content returned from {endpointUri}");
+                }
+
+                 // Convert string to stream for parsing
+                var stream = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(content));
+
+                // Try to load as OpenAPI document
+                var (document, diagnostic) = await OpenApiDocument.LoadAsync(stream);
+
+                // Log any warnings or errors
+                if (diagnostic?.Errors?.Any() == true)
+                {
+                    log.Warn($"OpenAPI parsing errors for {endpointUri}:");
+                    foreach (var error in diagnostic.Errors)
+                    {
+                        log.Warn($"  - {error.Message} at {error.Pointer}");
+                    }
+                }
+
+                if (diagnostic?.Warnings?.Any() == true)
+                {
+                    log.Debug($"OpenAPI parsing warnings for {endpointUri}:");
+                    foreach (var warning in diagnostic.Warnings)
+                    {
+                        log.Debug($"  - {warning.Message} at {warning.Pointer}");
+                    }
+                }
+
+                if (document == null)
+                {
+                    log.Error($"Failed to parse OpenAPI document from {endpointUri}. Document is null.");
+                    log.Error($"Content received: {content}");
+                    throw new InvalidOperationException($"Failed to parse OpenAPI document from {endpointUri}.  Check if the endpoint returns valid OpenAPI/Swagger JSON.");
+                }
+
+                log.Info($"Successfully loaded OpenAPI document from {endpointUri}");
+                return document;
+            }
         }
 
         private class OperationRef
         {
             public OpenApiOperation Operation { get; set; }
 
-            public IDictionary<string, OpenApiParameter> References { get; set; }
+            public IDictionary<string, IOpenApiParameter> References { get; set; }
         }
     }
 }

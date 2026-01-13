@@ -10,7 +10,7 @@ using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.PropertyBuilders;
 using FakeItEasy;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
@@ -369,7 +369,11 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .Returns(new OpenApiParameter
                 {
                     Required = true,
-                    Schema = new OpenApiSchema { Maximum = 9999999999.99999m, Minimum = -9999999999.99999m  }
+                    Schema = new OpenApiSchema
+                    {
+                        Maximum = "9999999999.99999",
+                        Minimum = "-9999999999.99999"
+                    }
                 });
 
             var builder = new SimplePropertyBuilder(lookup, A.Fake<IDestructiveTestConfiguration>());
@@ -388,7 +392,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .Returns(new OpenApiParameter
                 {
                     Required = true,
-                    Schema = new OpenApiSchema { Minimum = -9999999999.99999m }
+                    Schema = new OpenApiSchema { Minimum = "-9999999999.99999" }
                 });
 
             var builder = new SimplePropertyBuilder(lookup, A.Fake<IDestructiveTestConfiguration>());
@@ -407,7 +411,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .Returns(new OpenApiParameter
                 {
                     Required = true,
-                    Schema = new OpenApiSchema { Maximum = 9999999999.99999m }
+                    Schema = new OpenApiSchema { Maximum = "9999999999.99999" }
                 });
 
             var builder = new SimplePropertyBuilder(lookup, A.Fake<IDestructiveTestConfiguration>());

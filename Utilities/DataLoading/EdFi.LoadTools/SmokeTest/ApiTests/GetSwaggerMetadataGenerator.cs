@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using EdFi.Common.Inflection;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
 using log4net;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace EdFi.LoadTools.SmokeTest.ApiTests
 {
@@ -76,13 +77,13 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
                         {
                             Name = GetResoucePath(path.Key, path.Value),
                             BasePath = ReplaceVariablesInServer(doc.Servers.First()),
-                            Path = path.Value,
+                            Path = path.Value as OpenApiPathItem,
                             Schema = GetSchemaNameFromPath(path.Key),
                             Definition = doc.Components
                                 .Schemas
                                 .FirstOrDefault(
                                     d => TypeNameHelper.CompareTypeNames(path.Key, d.Key, "_", uniqueSchemaNames))
-                                .Value
+                                .Value as OpenApiSchema
                         };
                     }
 
@@ -99,7 +100,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
                         {
                             Name = definition.Key.Replace("_", string.Empty),
                             Schema = nameParts[0],
-                            Definition = definition.Value
+                            Definition = definition.Value as OpenApiSchema
                         };
                     }
 
@@ -128,11 +129,11 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             yield return this;
         }
 
-        private static string GetResoucePath(string path, OpenApiPathItem pathItem)
+        private static string GetResoucePath(string path, IOpenApiPathItem pathItem)
         {
             var resoucePath = path;
 
-            foreach (var parameter in pathItem.Operations[OperationType.Get].Parameters)
+            foreach (var parameter in pathItem.Operations[HttpMethod.Get].Parameters)
             {
                 resoucePath = resoucePath.Replace($"{{{parameter.Name}}}", string.Empty);
             }
@@ -171,6 +172,12 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
         private static string ReplaceVariablesInServer(OpenApiServer server)
         {
+            // Add null check for Variables property (can be null in Microsoft.OpenApi v2.x)
+            if (server.Variables == null || !server.Variables.Any())
+            {
+                return server.Url;
+            }
+
             var variablesToReplace = server.Variables.Select(x => new
             {
                 Name = x.Key,
