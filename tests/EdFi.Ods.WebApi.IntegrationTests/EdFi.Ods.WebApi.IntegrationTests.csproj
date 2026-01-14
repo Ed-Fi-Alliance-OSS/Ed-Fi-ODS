@@ -3,7 +3,7 @@
     <StandardVersion Condition="'$(StandardVersion)' == '' ">6.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>EdFi.Ods.WebApi.IntegrationTests</AssemblyName>
     <RootNamespace>EdFi.Ods.WebApi.IntegrationTests</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

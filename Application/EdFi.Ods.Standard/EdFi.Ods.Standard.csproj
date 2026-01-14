@@ -5,7 +5,7 @@
   <PropertyGroup>
     <PackageId>EdFi.Suite3.Ods.Standard</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Standard</AssemblyName>
     <RootNamespace>EdFi.Ods.Standard</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
