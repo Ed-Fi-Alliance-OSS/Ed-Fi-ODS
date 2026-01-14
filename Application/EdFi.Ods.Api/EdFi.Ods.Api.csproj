@@ -2,7 +2,7 @@
   <PropertyGroup>
     <PackageId>EdFi.Suite3.Ods.Api</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Api</AssemblyName>
     <AssemblyVersion>99.99.99.00</AssemblyVersion>
     <RootNamespace>EdFi.Ods.Api</RootNamespace>
