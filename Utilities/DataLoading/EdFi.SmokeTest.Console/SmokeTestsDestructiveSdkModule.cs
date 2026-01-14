@@ -16,7 +16,7 @@ using EdFi.LoadTools.SmokeTest.CommonTests;
 using EdFi.LoadTools.SmokeTest.PropertyBuilders;
 using EdFi.LoadTools.SmokeTest.SdkTests;
 using EdFi.SmokeTest.Console.Application;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using GetAllTest = EdFi.LoadTools.SmokeTest.SdkTests.GetAllTest;
 
 namespace EdFi.SmokeTest.Console

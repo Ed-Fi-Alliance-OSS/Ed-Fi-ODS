@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Microsoft.OpenApi.Readers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -94,7 +94,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(Swagger)))
             {
-                _doc = new OpenApiStreamReader().Read(ms, out var diag);
+                // In Microsoft.OpenApi v2.x, use OpenApiDocument.LoadAsync
+                var (document, diagnostic) = await OpenApiDocument.LoadAsync(ms);
+                _doc = document;
             }
 
             var config = new ConfigurationBuilder()
@@ -109,7 +111,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             {
                 Name = ResourceName,
                 BasePath = _doc.Servers.First().Url,
-                Path = _doc.Paths.Values.First()
+                Path = _doc.Paths.Values.First() as OpenApiPathItem
             };
 
             // Create and start up the host

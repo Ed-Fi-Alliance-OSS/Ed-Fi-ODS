@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace EdFi.LoadTools.ApiClient
 {

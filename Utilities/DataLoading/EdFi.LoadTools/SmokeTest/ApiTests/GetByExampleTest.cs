@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.LoadTools.SmokeTest.ApiTests
@@ -49,7 +49,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
                                 .Select(
                                      x => jobj[x.Name] == null
                                          ? null
-                                         : x.Schema.Type == "date-time"
+                                         : x.Schema.Format == "date-time"
                                              ? $"{x.Name}={jobj[x.Name]:yyyy-MM-dd}"
                                              : $"{x.Name}={Uri.EscapeDataString(jobj[x.Name].ToString())}")
                                 .Where(x => !string.IsNullOrEmpty(x)));

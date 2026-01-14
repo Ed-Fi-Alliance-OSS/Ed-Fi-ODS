@@ -11,7 +11,7 @@ using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.ApiTests;
 using EdFi.LoadTools.SmokeTest.CommonTests;
 using EdFi.SmokeTest.Console.Application;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.SmokeTest.Console

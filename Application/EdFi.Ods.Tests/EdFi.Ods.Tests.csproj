@@ -34,7 +34,7 @@
   </Choose>
   <ItemGroup>
     <PackageReference Include="CompareNETObjects" />
-    <PackageReference Include="EntityFrameworkTesting.FakeItEasy" />
+    <PackageReference Include="FakeItEasy" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="NUnit3TestAdapter">
       <PrivateAssets>all</PrivateAssets>
