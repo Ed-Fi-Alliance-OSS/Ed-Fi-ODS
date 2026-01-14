@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Composites.Enrollment</AssemblyName>
     <RootNamespace>EdFi.Ods.Composites.Enrollment</RootNamespace>
     <RestorePackages>true</RestorePackages>
