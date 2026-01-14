@@ -32,12 +32,7 @@ namespace EdFi.Common.Security
 
         public PackedHash ComputeHash(string secret, int hashAlgorithm, int iterations, byte[] salt)
         {
-            byte[] bytes;
-
-            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(secret, salt, iterations, HashAlgorithmName.SHA1))
-            {
-                bytes = rfc2898DeriveBytes.GetBytes(32);
-            }
+            byte[] bytes = Rfc2898DeriveBytes.Pbkdf2(secret, salt, iterations, HashAlgorithmName.SHA1, 32);
 
             return new PackedHash
             {
@@ -51,14 +46,8 @@ namespace EdFi.Common.Security
 
         public PackedHash ComputeHash(string secret, int hashAlgorithm, int iterations, int saltSizeInBytes)
         {
-            byte[] bytes;
-            byte[] salt;
-
-            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(secret, saltSizeInBytes, iterations, HashAlgorithmName.SHA1))
-            {
-                salt = rfc2898DeriveBytes.Salt;
-                bytes = rfc2898DeriveBytes.GetBytes(32);
-            }
+            byte[] salt = RandomNumberGenerator.GetBytes(saltSizeInBytes);
+            byte[] bytes = Rfc2898DeriveBytes.Pbkdf2(secret, salt, iterations, HashAlgorithmName.SHA1, 32);
 
             return new PackedHash
             {
