@@ -15,6 +15,6 @@
     <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.sql" target="."/>
     <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.json" target="."/>
     <file src="assemblyMetadata.json" target="."/>
-    <file src="bin\$configuration$\net8.0\$safeprojectname$.dll" target="."/>
+    <file src="bin\$configuration$\net10.0\$safeprojectname$.dll" target="."/>
   </files>
 </package>
