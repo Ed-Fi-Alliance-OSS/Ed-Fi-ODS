@@ -51,10 +51,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -139,14 +142,26 @@ namespace EdFi.Ods.Api.Startup
             services.AddSingleton(_apiSettings.GetDatabaseEngine());
             services.AddSingleton(Configuration);
 
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddHttpContextAccessor();
 
-            services.AddScoped(
+            services.AddScoped<IUrlHelper>(
                 serviceProvider =>
                 {
-                    var actionContext = serviceProvider.GetRequiredService<IActionContextAccessor>().ActionContext;
+                    var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
                     var factory = serviceProvider.GetRequiredService<IUrlHelperFactory>();
-                    return factory.GetUrlHelper(actionContext);
+                    var httpContext = httpContextAccessor.HttpContext;
+                    
+                    if (httpContext?.Request != null)
+                    {
+                        var actionContext = new ActionContext(
+                            httpContext,
+                            httpContext.GetRouteData(),
+                            new ActionDescriptor());
+                        return factory.GetUrlHelper(actionContext);
+                    }
+                    
+                    // Fallback for cases where HttpContext is not available
+                    return new UrlHelper(new ActionContext());
                 });
 
             AssemblyLoaderHelper.LoadAssembliesFromFolder();
@@ -162,7 +177,6 @@ namespace EdFi.Ods.Api.Startup
             // this allows the solution to resolve the claims principal. this is not best practice defined by the
             // netcore team, as the claims principal is on the controllers.
             // c.f. https://docs.microsoft.com/en-us/aspnet/core/migration/claimsprincipal-current?view=aspnetcore-3.1
-            services.AddHttpContextAccessor();
 
             // this is opening up all sites to connect to the server. this should probably be reviewed.
             services.AddCors(
