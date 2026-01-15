@@ -27,11 +27,6 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
         protected readonly Dictionary<string, JArray> ResultsDictionary;
         protected readonly IOAuthTokenHandler TokenHandler;
 
-        static GetBaseTest()
-        {
-            ServicePointManager.Expect100Continue = false;
-            ServicePointManager.ReusePort = true;
-        }
 
         protected GetBaseTest(
             Resource resource,
