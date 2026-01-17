@@ -1004,6 +1004,135 @@
 					"response": []
 				},
 				{
+					"name": "OneRoster Multiple Scopes Auth Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const clientSuffix = \"255901\";\r",
+									"\r",
+									"const apiKeyName = `ApiKey_${clientSuffix}`;\r",
+									"const apiSecretName = `ApiSecret_${clientSuffix}`;\r",
+									"\r",
+									"let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;\r",
+									"let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;\r",
+									"\r",
+									"pm.environment.set(`known:${apiKeyName}`, clientId);\r",
+									"pm.environment.set(`known:${apiSecretName}`, clientSecret);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"if (pm.environment.get(\"AccessTokenType\") == \"guid\") {\r",
+									"    pm.test(\"Status code is 400\", () => {\r",
+									"        pm.expect(pm.response.code).to.equal(400);\r",
+									"    });\r",
+									"\r",
+									"    pm.test(\"Should return a invalid_scope\", () => {\r",
+									"        const responseItem = pm.response.json();\r",
+									"        pm.expect(responseItem.error).to.equal(\"invalid_scope\");\r",
+									"    });\r",
+									"\r",
+									"    pm.test(\"Should return error description The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client).\", () => {\r",
+									"        const responseItem = pm.response.json();\r",
+									"        pm.expect(responseItem.error_description).to.equal(\"The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client).\");\r",
+									"    });\r",
+									"} else {\r",
+									"    pm.test(\"Status code is 200\", () => {\r",
+									"        pm.expect(pm.response.code).to.equal(200);\r",
+									"    });\r",
+									"\r",
+									"    pm.test(\"Should return response body with multiple OneRoster 'readonly' scopes (the ones that are assigned).\", () => {\r",
+									"        const responseItem = pm.response.json();\r",
+									"        pm.expect(responseItem.scope).to.equal(\"https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.readonly https://purl.imsglobal.org/spec/or/v1p1/scope/gradebook.readonly\");\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{known:ApiSecret_255901}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{known:ApiKey_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Test Test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								},
+								{
+									"key": "scope",
+									"value": "https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.delete https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.readonly https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.createput",
+									"description": "roster-core readonly/createput/delete",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "scope",
+									"value": "https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.readonly https://purl.imsglobal.org/spec/or/v1p1/scope/gradebook.readonly https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.delete",
+									"description": "roster/gradebook readonly",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/oauth/token",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Token Introspection Request",
 					"event": [
 						{

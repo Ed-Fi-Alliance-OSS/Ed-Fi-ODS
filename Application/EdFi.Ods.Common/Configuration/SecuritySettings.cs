@@ -7,10 +7,27 @@ namespace EdFi.Ods.Common.Configuration;
 
 public class SecuritySettings
 {
-    public string AccessTokenType { get; set; } = "guid";
-    public string SigningKey { get; set; }
-
+    // Constants
     public const string AccessTokenTypeGuid = "guid";
     public const string AccessTokenTypeJwt = "jwt";
     public const string OneRosterScopePrefix = "https://purl.imsglobal.org/spec/or/v1p1/scope/";
+
+    // Access token type (jwt or guid)
+    public string AccessTokenType { get; set; } = "guid";
+
+    // Begin JWT configuration   
+    public JwtSettings Jwt { get; set; }
+
+    public class JwtSettings
+    {
+        public string Issuer { get; set; }
+        public string[] Audiences { get; set; }
+        public SigningKeySettings SigningKey { get; set; }
+    }
+
+    public class SigningKeySettings
+    {
+        public string PublicKey { get; set; }
+        public string PrivateKey { get; set; }
+    }
 }

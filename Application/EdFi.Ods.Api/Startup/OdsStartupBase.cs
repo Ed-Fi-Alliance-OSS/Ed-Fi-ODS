@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
@@ -211,17 +212,36 @@ namespace EdFi.Ods.Api.Startup
 
             if (securitySettings.AccessTokenType == "jwt")
             {
+                // Validate the JWT settings
+                var securitySettingsValidator = new SecuritySettingsValidator();
+                var validationResult = securitySettingsValidator.Validate(securitySettings);
+
+                if (!validationResult.IsValid)
+                {
+                    _logger.Fatal(validationResult.ToString());
+                    Environment.Exit(1);
+                }
+
+                // Use the Public Key for verification
+                var publicRsa = RSA.Create();
+                publicRsa.ImportFromPem(securitySettings.Jwt.SigningKey.PublicKey);
+                var verificationKey = new RsaSecurityKey(publicRsa);
+
                 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
+                    {
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securitySettings.SigningKey)),
-                            ValidateIssuer = false,
-                            ValidateAudience = false,
-                            ValidateLifetime = true
-                        }
-                    );
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+
+                            IssuerSigningKey = verificationKey,
+                            ValidIssuer = securitySettings.Jwt.Issuer,
+                            ValidAudiences = securitySettings.Jwt.Audiences,
+                        };
+                    });
             }
             else
             {
