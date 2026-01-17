@@ -207,8 +207,9 @@ namespace EdFi.Ods.Api.Startup
             services.AddMvc();
 
             // Bind security settings
+            const string securitySettingsSectionName = "Security";
             var securitySettings = new SecuritySettings();
-            Configuration.GetSection("Security").Bind(securitySettings);
+            Configuration.GetSection(securitySettingsSectionName).Bind(securitySettings);
 
             if (securitySettings.AccessTokenType == "jwt")
             {
@@ -218,7 +219,7 @@ namespace EdFi.Ods.Api.Startup
 
                 if (!validationResult.IsValid)
                 {
-                    _logger.Fatal(validationResult.ToString());
+                    _logger.Fatal($"Invalid {securitySettingsSectionName} configuration: {validationResult}");
                     Environment.Exit(1);
                 }
 

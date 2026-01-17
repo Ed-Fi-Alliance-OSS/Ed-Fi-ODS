@@ -14,7 +14,7 @@ public class SecuritySettingsValidator : AbstractValidator<SecuritySettings>
     {
         RuleFor(x => x.AccessTokenType)
             .Matches($"^({SecuritySettings.AccessTokenTypeGuid}|{SecuritySettings.AccessTokenTypeJwt})$")
-            .WithMessage($"Invalid access token type. Must be '{SecuritySettings.AccessTokenTypeGuid}' or '{SecuritySettings.AccessTokenTypeJwt}'.");
+            .WithMessage($"{{PropertyName}}: Invalid access token type. Must be '{SecuritySettings.AccessTokenTypeGuid}' or '{SecuritySettings.AccessTokenTypeJwt}'.");
 
         RuleFor(x => x.Jwt)
             .NotNull()
@@ -30,7 +30,7 @@ public class JwtSettingsValidator : AbstractValidator<SecuritySettings.JwtSettin
     {
         RuleFor(x => x.Audiences).NotEmpty();
         RuleFor(x => x.Issuer).NotEmpty();
-        RuleFor(x => x.SigningKey).NotNull();
+        RuleFor(x => x.SigningKey).NotNull().WithName(nameof(SecuritySettings.JwtSettings.SigningKey));
         RuleFor(x => x.SigningKey).SetValidator(new SigningKeySettingsValidator());
     }
 }
@@ -39,7 +39,7 @@ public class SigningKeySettingsValidator : AbstractValidator<SecuritySettings.Si
 {
     public SigningKeySettingsValidator()
     {
-        RuleFor(x => x.PublicKey).NotNull();
-        RuleFor(x => x.PrivateKey).NotNull();
+        RuleFor(x => x.PublicKey).NotNull().WithName(nameof(SecuritySettings.SigningKeySettings.PublicKey));
+        RuleFor(x => x.PrivateKey).NotNull().WithName(nameof(SecuritySettings.SigningKeySettings.PrivateKey));
     }
 }

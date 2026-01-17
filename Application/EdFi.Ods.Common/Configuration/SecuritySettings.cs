@@ -13,7 +13,7 @@ public class SecuritySettings
     public const string OneRosterScopePrefix = "https://purl.imsglobal.org/spec/or/v1p1/scope/";
 
     // Access token type (jwt or guid)
-    public string AccessTokenType { get; set; } = "guid";
+    public string AccessTokenType { get; set; } = AccessTokenTypeGuid;
 
     // Begin JWT configuration   
     public JwtSettings Jwt { get; set; }
