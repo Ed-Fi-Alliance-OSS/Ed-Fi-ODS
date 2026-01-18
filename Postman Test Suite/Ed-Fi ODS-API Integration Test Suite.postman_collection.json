@@ -1053,7 +1053,7 @@
 									"\r",
 									"    pm.test(\"Should return response body with multiple OneRoster 'readonly' scopes (the ones that are assigned).\", () => {\r",
 									"        const responseItem = pm.response.json();\r",
-									"        pm.expect(responseItem.scope).to.equal(\"https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.readonly https://purl.imsglobal.org/spec/or/v1p1/scope/gradebook.readonly\");\r",
+									"        pm.expect(responseItem.scope).to.equal(\"https://purl.imsglobal.org/spec/or/v1p2/scope/roster-core.readonly https://purl.imsglobal.org/spec/or/v1p2/scope/gradebook.readonly\");\r",
 									"    });\r",
 									"}\r",
 									""
@@ -1106,14 +1106,14 @@
 								},
 								{
 									"key": "scope",
-									"value": "https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.delete https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.readonly https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.createput",
+									"value": "https://purl.imsglobal.org/spec/or/v1p2/scope/roster-core.delete https://purl.imsglobal.org/spec/or/v1p2/scope/roster-core.readonly https://purl.imsglobal.org/spec/or/v1p2/scope/roster-core.createput",
 									"description": "roster-core readonly/createput/delete",
 									"type": "default",
 									"disabled": true
 								},
 								{
 									"key": "scope",
-									"value": "https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.readonly https://purl.imsglobal.org/spec/or/v1p1/scope/gradebook.readonly https://purl.imsglobal.org/spec/or/v1p1/scope/roster-core.delete",
+									"value": "https://purl.imsglobal.org/spec/or/v1p2/scope/roster-core.readonly https://purl.imsglobal.org/spec/or/v1p2/scope/gradebook.readonly https://purl.imsglobal.org/spec/or/v1p2/scope/roster-core.delete",
 									"description": "roster/gradebook readonly",
 									"type": "text"
 								}

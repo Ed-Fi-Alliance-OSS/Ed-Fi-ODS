@@ -10,7 +10,7 @@ public class SecuritySettings
     // Constants
     public const string AccessTokenTypeGuid = "guid";
     public const string AccessTokenTypeJwt = "jwt";
-    public const string OneRosterScopePrefix = "https://purl.imsglobal.org/spec/or/v1p1/scope/";
+    public const string OneRosterScopePrefix = "https://purl.imsglobal.org/spec/or/v1p2/scope/";
 
     // Access token type (jwt or guid)
     public string AccessTokenType { get; set; } = AccessTokenTypeGuid;
