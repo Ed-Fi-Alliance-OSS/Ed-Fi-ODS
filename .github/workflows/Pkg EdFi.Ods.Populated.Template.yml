@@ -185,9 +185,9 @@ jobs:
     - name: Move Log Files
       if: success() || failure()    
       run: |
-        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/net8.0/logfile.txt"
-        $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessLog.log"
-        $testHarnessRequestResponseDetailsSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessRequestResponseDetailsLog.log"        
+        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/net10.0/logfile.txt"
+        $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net10.0/TestHarnessLog.log"
+        $testHarnessRequestResponseDetailsSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net10.0/TestHarnessRequestResponseDetailsLog.log"        
         $destinationPath = "${{ github.workspace }}/CreateDatabaseTemplateLogs/"
         # Create the destination folder if it doesn't exist
         if (!(Test-Path -Path $destinationPath)) {
