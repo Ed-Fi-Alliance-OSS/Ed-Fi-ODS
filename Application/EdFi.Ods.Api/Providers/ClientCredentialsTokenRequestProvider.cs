@@ -102,7 +102,7 @@ namespace EdFi.Ods.Api.Providers
             }
 
             // create a new token
-            var token = await _accessTokenFactory.CreateAccessTokenAsync(authenticationResult.ApiClientDetails.ApiClientId, tokenRequestScope);
+            var token = await _accessTokenFactory.CreateAccessTokenAsync(authenticationResult.ApiClientDetails, tokenRequestScope);
 
             if (token == null)
             {
@@ -112,7 +112,7 @@ namespace EdFi.Ods.Api.Providers
             var tokenResponse = new TokenResponse();
             tokenResponse.SetToken(token.Id, (int) token.Duration.TotalSeconds, token.Scope);
 
-            return new AuthenticationResponse {TokenResponse = tokenResponse};
+            return new AuthenticationResponse {TokenResponse = tokenResponse, ApiClientDetails = authenticationResult.ApiClientDetails };
 
             bool RequestIsRequiredGrantType() => tokenRequest.Grant_type.EqualsIgnoreCase("client_credentials");
 

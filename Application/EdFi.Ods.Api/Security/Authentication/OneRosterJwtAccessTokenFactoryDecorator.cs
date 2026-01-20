@@ -5,29 +5,22 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
-using Dapper;
-using EdFi.Admin.DataAccess.Providers;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Configuration;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using static EdFi.Ods.Common.Constants.RequestActions;
 
 namespace EdFi.Ods.Api.Security.Authentication;
 
 public class OneRosterJwtAccessTokenFactoryDecorator(
     IAccessTokenFactory _next,
-    DbProviderFactory _dbProviderFactory,
-    IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider,
     IClaimSetClaimsProvider _claimSetClaimsProvider,
     IOptions<SecuritySettings> _securitySettings) : IAccessTokenFactory
 {
@@ -39,19 +32,14 @@ public class OneRosterJwtAccessTokenFactoryDecorator(
         return new SigningCredentials(new RsaSecurityKey(rsa), SecurityAlgorithms.RsaSha256);
     });
 
-    private record JwtClaimData(string ClaimSetName, long EducationOrganizationId);
-
-    public async Task<AccessToken> CreateAccessTokenAsync(int apiClientId, string scope = null)
+    public async Task<AccessToken> CreateAccessTokenAsync(ApiClientDetails apiClientDetails, string scope = null)
     {
-        var token = await _next.CreateAccessTokenAsync(apiClientId, scope);
+        var token = await _next.CreateAccessTokenAsync(apiClientDetails, scope);
 
         if (token == null)
         {
             return null;
         }
-
-        // Obtain the necessary data from the Admin database (scope claims and EdOrgIds)
-        var oneRosterClaimData = await GetOneRosterClaimData();
 
         // https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7
         List<Claim> claims = [new(JwtRegisteredClaimNames.Jti, token.Id)];
@@ -61,13 +49,16 @@ public class OneRosterJwtAccessTokenFactoryDecorator(
 
         // EducationOrganizationIds
         claims.AddRange(
-            oneRosterClaimData.EducationOrganizationIds.Select(id => new Claim("educationOrganizationId", id.ToString())));
+            apiClientDetails.EducationOrganizationIds.Select(id => new Claim("educationOrganizationId", id.ToString())));
+
+        // Obtain the necessary data from the Admin database (scope claims and EdOrgIds)
+        var oneRosterScopes = GetOneRosterScopes(apiClientDetails.ClaimSetName);
 
         // Add the scope claims only for OneRoster scopes
-        if (oneRosterClaimData.Scopes.Any())
+        if (oneRosterScopes.Any())
         {
             // https://datatracker.ietf.org/doc/html/rfc7662#section-2.2
-            claims.AddRange(oneRosterClaimData.Scopes.Select(s => new Claim("scope", s)));
+            claims.AddRange(oneRosterScopes.Select(s => new Claim("scope", s)));
         }
 
         var tokenDescriptor = new SecurityTokenDescriptor
@@ -88,42 +79,21 @@ public class OneRosterJwtAccessTokenFactoryDecorator(
         if (!string.IsNullOrEmpty(scope))
         {
             // Preserve the original scope behavior (EdOrgIds)
-            string baseScope = !string.IsNullOrWhiteSpace(token.Scope) ? (token.Scope.Trim() + " ") : string.Empty;
+            string baseScope = string.IsNullOrWhiteSpace(token.Scope)
+                ? string.Empty
+                : (token.Scope.Trim() + ' '); 
 
-            token.Scope = baseScope + string.Join(' ', oneRosterClaimData.Scopes);
+            token.Scope = baseScope + string.Join(' ', oneRosterScopes);
         }
 
         return token;
 
-        async Task<(string[] Scopes, long[] EducationOrganizationIds)> GetOneRosterClaimData()
+        string[] GetOneRosterScopes(string claimSetName)
         {
-            // Get the API client's claim set name (from the associated Application)
-            await using var connection = _dbProviderFactory.CreateConnection();
-            
-            connection!.ConnectionString = _adminDatabaseConnectionStringProvider.GetConnectionString();
-            await connection.OpenAsync();
-
-            var claimData = (await connection.QueryAsync<JwtClaimData>(
-                @"
-                select ClaimsetName, EducationOrganizationId
-                from dbo.applications app 
-                    inner join dbo.apiclients c 
-                        on app.applicationid = c.application_applicationid
-                    inner join dbo.ApiClientApplicationEducationOrganizations apiEdOrgs
-                        on c.ApiClientId = apiEdOrgs.ApiClient_ApiClientId
-                    inner join dbo.ApplicationEducationOrganizations appEdOrgs
-                        on apiEdOrgs.ApplicationEducationOrganization_ApplicationEducationOrganizationId = appEdOrgs.ApplicationEducationOrganizationId
-                where apiclientid = @apiClientId",
-                new { apiClientId = apiClientId }))
-                .ToList();
-
-            string claimSetName = claimData.Select(d => d.ClaimSetName).FirstOrDefault();
-            long[] edOrgIds = claimData.Select(d => d.EducationOrganizationId).ToArray();
-
             // If no scope(s) were requested, return an empty list with the EdOrgIds
             if (scope == null)
             {
-                return (Array.Empty<string>(), edOrgIds);
+                return Array.Empty<string>();
             }
 
             // Inspect the security metadata for the claim set to determine the One Roster scopes
@@ -147,20 +117,20 @@ public class OneRosterJwtAccessTokenFactoryDecorator(
                 .ToList();
 
             // Valid OneRoster bitmask values
-            const int ReadOnly = 2;
-            const int CreatePut = 5;
-            const int Delete = 8;
+            const int readOnly = 2;
+            const int createPut = 5;
+            const int delete = 8;
 
             var scopeList = 
                 // Convert claims metadata to OneRoster scopes
-                claimsMetadata.Where(c => (c.Actions & ReadOnly) != 0).Select(s => $"{s.ClaimName}.readonly")
-                    .Concat(claimsMetadata.Where(c => (c.Actions & CreatePut) != 0).Select(s => $"{s.ClaimName}.createput"))
-                    .Concat(claimsMetadata.Where(c => (c.Actions & Delete) != 0).Select(s => $"{s.ClaimName}.delete"))
+                claimsMetadata.Where(c => (c.Actions & readOnly) != 0).Select(s => $"{s.ClaimName}.readonly")
+                    .Concat(claimsMetadata.Where(c => (c.Actions & createPut) != 0).Select(s => $"{s.ClaimName}.createput"))
+                    .Concat(claimsMetadata.Where(c => (c.Actions & delete) != 0).Select(s => $"{s.ClaimName}.delete"))
                     // Intersect with the requested scopes
                     .Intersect(scope.Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
                     .ToArray();
 
-            return (scopeList, edOrgIds);
+            return scopeList;
         }
     }
 }

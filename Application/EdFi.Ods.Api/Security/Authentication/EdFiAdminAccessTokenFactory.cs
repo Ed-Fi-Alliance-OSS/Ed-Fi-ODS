@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Providers;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Exceptions;
 using Microsoft.AspNetCore.Authentication;
@@ -45,7 +46,7 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
         _tokenPerClientLimit = tokenPerClientLimit;
     }
 
-    public async Task<AccessToken> CreateAccessTokenAsync(int apiClientId, string scope = null)
+    public async Task<AccessToken> CreateAccessTokenAsync(ApiClientDetails apiClientDetails, string scope = null)
     {
         await using var connection = _dbProviderFactory.CreateConnection();
         connection.ConnectionString = _adminDatabaseConnectionStringProvider.GetConnectionString();
@@ -62,7 +63,7 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
             id = Guid.NewGuid(),
             expiration = DateTime.UtcNow.Add(TimeSpan.FromMinutes(_tokenDurationMinutes)),
             scope = scope,
-            apiclientid = apiClientId,
+            apiclientid = apiClientDetails.ApiClientId,
             maxtokencount = _tokenPerClientLimit
         };
 
