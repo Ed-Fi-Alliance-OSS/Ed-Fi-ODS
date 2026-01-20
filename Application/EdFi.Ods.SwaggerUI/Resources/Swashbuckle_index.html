@@ -59,7 +59,7 @@
                     configObject.WebApiVersionUrl = `${configObject.WebApiVersionUrl}/${tenantMatch[1]}`;
                 }
 
-                configObject.urls = await getOpenApiUrls(configObject.WebApiVersionUrl);
+                configObject.urls = await getOpenApiUrls(configObject.WebApiVersionUrl, configObject);
 
                 // Workaround for https://github.com/swagger-api/swagger-ui/issues/5945
                 configObject.urls.forEach(function (item) {
@@ -452,7 +452,7 @@
                 window.ui = ui
             }
 
-            async function getOpenApiUrls(WebApiVersionUrl) {
+            async function getOpenApiUrls(WebApiVersionUrl, configObject) {
 
                 let response = await fetch(WebApiVersionUrl);
 
@@ -483,6 +483,19 @@
                         name: name
                     });
                 });
+
+                // EnableOneRoster from config, using configured metadata URL
+                try {
+                    if (configObject && configObject.EnableOneRoster) {
+                        const specUrl = configObject.OneRosterMetadataUrl;
+                        if (!urls.some(u => u.name === 'OneRoster')) {
+                            urls.push({ url: specUrl, name: 'OneRoster' });
+                            console.log("Added OneRoster via config:", specUrl);
+                        }
+                    }
+                } catch (e) { 
+                    console.warn("Error processing OneRoster configuration:", e);
+                }
 
                 return urls;
             }
