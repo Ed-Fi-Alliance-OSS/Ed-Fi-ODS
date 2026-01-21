@@ -4,9 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
@@ -16,6 +18,7 @@ using EdFi.Ods.Features.TokenInfo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
 using Microsoft.Net.Http.Headers;
 
@@ -32,6 +35,8 @@ namespace EdFi.Ods.Features.Controllers
     {
         private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly ILogContextAccessor _logContextAccessor;
+        private readonly IOptions<SecuritySettings> _securitySettings;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ITokenInfoProvider _tokenInfoProvider;
         private readonly IApiClientDetailsProvider _apiClientDetailsProvider;
         private readonly bool _isEnabled;
@@ -41,12 +46,16 @@ namespace EdFi.Ods.Features.Controllers
             IApiClientDetailsProvider apiClientDetailsProvider,
             IApiClientContextProvider apiClientContextProvider,
             ILogContextAccessor logContextAccessor,
-            IFeatureManager featureManager)
+            IFeatureManager featureManager,
+            IOptions<SecuritySettings> securitySettings,
+            IHttpContextAccessor httpContextAccessor)
         {
             _tokenInfoProvider = tokenInfoProvider;
             _apiClientDetailsProvider = apiClientDetailsProvider;
             _apiClientContextProvider = apiClientContextProvider;
             _logContextAccessor = logContextAccessor;
+            _securitySettings = securitySettings;
+            _httpContextAccessor = httpContextAccessor;
             _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.TokenInfo);
         }
 
@@ -65,9 +74,12 @@ namespace EdFi.Ods.Features.Controllers
                 return NotFound();
             }
 
+            Guid guidAccessToken = Guid.Empty;
+
             // see https://tools.ietf.org/html/rfc7662#section-2.2 for oauth token_info spec
-            if (tokenInfoRequest == null || tokenInfoRequest.Token == null ||
-                !Guid.TryParse(tokenInfoRequest.Token, out Guid accessToken))
+            if (tokenInfoRequest?.Token == null
+                || (_securitySettings.Value.AccessTokenType == SecuritySettings.AccessTokenTypeGuid
+                    && !Guid.TryParse(tokenInfoRequest.Token, out guidAccessToken)))
             {
                 return BadRequest(
                     new BadRequestException(
@@ -78,7 +90,19 @@ namespace EdFi.Ods.Features.Controllers
                     }.AsSerializableModel());
             }
 
-            var oAuthTokenClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(accessToken.ToString("N"));
+            if (_securitySettings.Value.AccessTokenType == SecuritySettings.AccessTokenTypeJwt 
+                && !Guid.TryParse(_httpContextAccessor.HttpContext?.User.FindFirst(JwtRegisteredClaimNames.Jti)?.Value, out guidAccessToken))
+            {
+                return BadRequest(
+                    new BadRequestException(
+                        "An invalid token was provided",
+                        new[] { "The token was not present, or was not processable." })
+                    {
+                        CorrelationId = _logContextAccessor.GetCorrelationId()
+                    }.AsSerializableModel());
+            }
+
+            var oAuthTokenClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(guidAccessToken.ToString("N"));
 
             if (oAuthTokenClientDetails == null)
             {
@@ -99,5 +123,4 @@ namespace EdFi.Ods.Features.Controllers
             return Ok(tokenInfo);
         }
     }
-
 }

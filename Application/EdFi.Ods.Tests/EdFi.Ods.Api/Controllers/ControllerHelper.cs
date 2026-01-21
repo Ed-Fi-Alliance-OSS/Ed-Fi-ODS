@@ -13,6 +13,8 @@ using System;
 using System.Text;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Security.Authentication;
+using EdFi.Ods.Common.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {
@@ -22,7 +24,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             IApiClientAuthenticator apiClientAuthenticator,
             IAccessTokenFactory accessTokenFactory)
         {
-            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(apiClientAuthenticator, accessTokenFactory);
+            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(apiClientAuthenticator, accessTokenFactory, new OptionsWrapper<SecuritySettings>(new SecuritySettings()));
             var controller = new TokenController(tokenRequestProvider);
             var request = A.Fake<HttpRequest>();
             request.Method = "Post";

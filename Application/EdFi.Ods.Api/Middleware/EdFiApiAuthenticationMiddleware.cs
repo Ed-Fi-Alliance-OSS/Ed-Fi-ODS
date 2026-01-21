@@ -4,8 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
@@ -19,6 +22,7 @@ namespace EdFi.Ods.Api.Middleware
 {
     public class EdFiApiAuthenticationMiddleware
     {
+        private readonly IOAuthTokenAuthenticator _oauthTokenAuthenticator;
         private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly RequestDelegate _next;
         private readonly ILogContextAccessor _logContextAccessor;
@@ -26,8 +30,11 @@ namespace EdFi.Ods.Api.Middleware
         public EdFiApiAuthenticationMiddleware(RequestDelegate next,
             IAuthenticationSchemeProvider schemes,
             IApiClientContextProvider apiClientContextProvider,
-            ILogContextAccessor logContextAccessor)
+            ILogContextAccessor logContextAccessor,
+            IOAuthTokenAuthenticator oauthTokenAuthenticator)
         {
+            _oauthTokenAuthenticator = oauthTokenAuthenticator;
+
             if (schemes != null)
             {
                 _next = next ?? throw new ArgumentNullException(nameof(next));
@@ -75,10 +82,36 @@ namespace EdFi.Ods.Api.Middleware
                 {
                     context.User = result.Principal;
 
+                    ApiClientContext apiClientContext = null;
+
+                    // Check for the "jti" claim (from the JWT, if in use)
+                    if (result.Ticket?.Principal?.HasClaim(c => c.Type == JwtRegisteredClaimNames.Jti) == true)
+                    {
+                        // Extract the ODS API's token from the "jti" claim
+                        string guidToken = result.Principal.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti)?.Value;
+
+                        if (!string.IsNullOrEmpty(guidToken))
+                        {
+                            // Authenticate using the unwrapped token
+                            var edfiAuthenticateResult = await _oauthTokenAuthenticator.AuthenticateAsync(guidToken, "Bearer");
+                            apiClientContext = (ApiClientContext) edfiAuthenticateResult.Ticket?.Properties.Parameters[nameof(ApiClientContext)];
+                        }
+                    }
+                    else // "OAuth" is used as the scheme for GUID-based token
+                    {
+                        apiClientContext = (ApiClientContext) result.Ticket?.Properties.Parameters[nameof(ApiClientContext)];
+                    }
+
+                    if (apiClientContext == null)
+                    {
+                        await context.Response.WriteProblemDetailsAsync(new SecurityAuthenticationException("Unable to process token."));
+
+                        return;
+                    }
+
                     // NOTE: For our use case we set the api key context into the call context storage. The rest of this code
                     // is the default implementation and may need to be update on version updates.
                     // see https://github.com/dotnet/aspnetcore/blob/v3.1.9/src/Security/Authentication/Core/src/AuthenticationMiddleware.cs
-                    var apiClientContext = (ApiClientContext)result.Ticket.Properties.Parameters[nameof(ApiClientContext)];
                     _apiClientContextProvider.SetApiClientContext(apiClientContext);
                     LogicalThreadContext.Properties[nameof(apiClientContext.ApiClientId)] = apiClientContext.ApiClientId;
                 }

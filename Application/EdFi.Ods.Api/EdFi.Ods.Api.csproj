@@ -38,6 +38,7 @@
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.OpenApi.Readers" />
     <PackageReference Include="NHibernate" />
     <PackageReference Include="Quartz.AspNetCore" />
