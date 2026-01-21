@@ -64,7 +64,7 @@ using Module = Autofac.Module;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
-    public class ApplicationModule : Module
+    public class ApplicationModule(IOptions<SecuritySettings> _securitySettings) : Module
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(ApplicationModule));
         
@@ -267,6 +267,12 @@ namespace EdFi.Ods.Api.Container.Modules
                         (p, c) => p.Name == "tokenPerClientLimit",
                         (p, c) => c.Resolve<ApiSettings>().BearerTokenPerClientLimit))
                 .SingleInstance();
+
+            // Add the One Roster JWT token support 
+            if (_securitySettings.Value.AccessTokenType == SecuritySettings.AccessTokenTypeJwt)
+            {
+                builder.RegisterDecorator<OneRosterJwtAccessTokenFactoryDecorator, IAccessTokenFactory>();
+            }
 
             builder.RegisterType<PackedHashConverter>()
                 .As<IPackedHashConverter>()

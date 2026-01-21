@@ -6,9 +6,11 @@
 using System;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Providers;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Exceptions;
 using Microsoft.AspNetCore.Authentication;
@@ -44,18 +46,24 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
         _tokenPerClientLimit = tokenPerClientLimit;
     }
 
-    public async Task<AccessToken> CreateAccessTokenAsync(int apiClientId, string scope = null)
+    public async Task<AccessToken> CreateAccessTokenAsync(ApiClientDetails apiClientDetails, string scope = null)
     {
         await using var connection = _dbProviderFactory.CreateConnection();
         connection.ConnectionString = _adminDatabaseConnectionStringProvider.GetConnectionString();
         await connection.OpenAsync();
+
+        // Only persist 'scope' if it's numeric (otherwise the scope should be encoded in the JWT token)
+        if (scope != null && !scope.All(char.IsNumber))
+        {
+            scope = null;
+        }
 
         var @params = new
         {
             id = Guid.NewGuid(),
             expiration = DateTime.UtcNow.Add(TimeSpan.FromMinutes(_tokenDurationMinutes)),
             scope = scope,
-            apiclientid = apiClientId,
+            apiclientid = apiClientDetails.ApiClientId,
             maxtokencount = _tokenPerClientLimit
         };
 
@@ -72,6 +80,6 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
             throw new TooManyTokensException(_tokenPerClientLimit);
         }
 
-        return new AccessToken(@params.id, TimeSpan.FromMinutes(_tokenDurationMinutes), scope);
+        return new AccessToken(@params.id.ToString("N"), TimeSpan.FromMinutes(_tokenDurationMinutes), scope);
     }
 }

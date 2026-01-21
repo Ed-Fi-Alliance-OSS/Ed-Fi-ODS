@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using Shouldly;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Common.Security;
@@ -26,6 +25,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
     [TestFixture]
     public class TokenControllerTests
     {
+        private const int SuppliedApiClientId = 1;
+
         public class With_No_Header_Request : TestFixtureAsyncBase
         {
             private IAccessTokenFactory _accessTokenFactory;
@@ -38,7 +39,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override Task ArrangeAsync()
             {
-                _suppliedClient = new ApiClient {ApiClientId = 1};
+                _suppliedClient = new ApiClient {ApiClientId = SuppliedApiClientId};
 
                 _accessTokenFactory = Stub<IAccessTokenFactory>();
 
@@ -73,7 +74,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_not_use_AccessTokenClientRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>.That.Matches(a => a.ApiClientId == SuppliedApiClientId), null))
                     .MustNotHaveHappened();
             }
 
@@ -128,7 +129,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_not_use_AccessTokenClientRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>.That.Matches(a => a.ApiClientId == SuppliedApiClientId), null))
                     .MustNotHaveHappened();
             }
         }
@@ -157,9 +158,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
-                var accessToken = new AccessToken(_suppliedAccessToken, _suppliedTTL, Scope: null);
+                var accessToken = new AccessToken(_suppliedAccessToken.ToString("N"), _suppliedTTL, Scope: null);
 
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<int>._, A<string>._))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>._, A<string>._))
                     .Returns(accessToken);
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
@@ -228,7 +229,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_use_AccessTokenClientRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>.That.Matches(a => a.ApiClientId == SuppliedApiClientId), null))
                     .MustHaveHappened();
             }
         }
@@ -257,9 +258,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
-                var accessToken = new AccessToken(_suppliedAccessToken, _suppliedTTL, null);
+                var accessToken = new AccessToken(_suppliedAccessToken.ToString("N"), _suppliedTTL, null);
 
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<int>._, A<string>._))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>._, A<string>._))
                     .Returns(accessToken);
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
@@ -325,7 +326,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_use_AccessTokenClientRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>.That.Matches(a => a.ApiClientId == SuppliedApiClientId), null))
                     .MustHaveHappened();
             }
         }
@@ -362,8 +363,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _accessTokenFactory = Stub<IAccessTokenFactory>();
 
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<int>._, A<string>._))
-                    .Returns(new AccessToken(_suppliedAccessToken, new TimeSpan(0, 10, 0), _requestedScope));
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>._, A<string>._))
+                    .Returns(new AccessToken(_suppliedAccessToken.ToString("N"), new TimeSpan(0, 10, 0), _requestedScope));
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
                     .Returns(
@@ -438,7 +439,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_use_AccessTokenClientRepo_to_create_token_using_the_supplied_ApiClientId_and_scope()
             {
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(_suppliedClient.ApiClientId, _requestedScope))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>.That.Matches(a => a.ApiClientId == SuppliedApiClientId), _requestedScope))
                     .MustHaveHappened();
             }
         }
@@ -535,7 +536,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_NOT_use_AccessTokenClientRepo_to_create_token()
             {
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>.That.Matches(a => a.ApiClientId == SuppliedApiClientId), null))
                     .MustNotHaveHappened();
             }
         }
@@ -635,7 +636,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_NOT_use_AccessTokenClientRepo_to_create_token()
             {
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>.That.Matches(a => a.ApiClientId == SuppliedApiClientId), null))
                     .MustNotHaveHappened();
             }
         }
@@ -712,7 +713,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_not_use_AccessTokenClientRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>.That.Matches(a => a.ApiClientId == SuppliedApiClientId), null))
                     .MustNotHaveHappened();
             }
         }
@@ -740,8 +741,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<int>._, A<string>._))
-                    .Returns(new AccessToken(_suppliedAccessToken, new TimeSpan(0, 10, 0), null));
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>._, A<string>._))
+                    .Returns(new AccessToken(_suppliedAccessToken.ToString("N"), new TimeSpan(0, 10, 0), null));
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
                     .Returns(
@@ -802,7 +803,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_not_use_AccessTokenClientRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>.That.Matches(a => a.ApiClientId == SuppliedApiClientId), null))
                     .MustNotHaveHappened();
             }
         }

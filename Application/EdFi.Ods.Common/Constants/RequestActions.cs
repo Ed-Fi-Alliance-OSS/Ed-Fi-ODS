@@ -7,6 +7,9 @@ namespace EdFi.Ods.Common.Constants
 {
     public class RequestActions
     {
+        public const string CreateActionUri = "http://ed-fi.org/odsapi/actions/create";
         public const string ReadActionUri = "http://ed-fi.org/odsapi/actions/read";
+        public const string UpdateActionUri = "http://ed-fi.org/odsapi/actions/update";
+        public const string DeleteActionUri = "http://ed-fi.org/odsapi/actions/delete";
     }
 }

@@ -5,17 +5,18 @@
 
 using System;
 using System.Threading.Tasks;
+using EdFi.Common.Security;
 
 namespace EdFi.Ods.Api.Security.Authentication;
 
 public interface IAccessTokenFactory
 {
-    Task<AccessToken> CreateAccessTokenAsync(int apiClientId, string scope = null);
+    Task<AccessToken> CreateAccessTokenAsync(ApiClientDetails apiClientDetails, string scope = null);
 }
 
-public record AccessToken(Guid Id, TimeSpan Duration, string Scope)
+public record AccessToken(string Id, TimeSpan Duration, string Scope)
 {
-    public Guid Id { get; set; } = Id;
+    public string Id { get; set; } = Id;
 
     public TimeSpan Duration { get; set; } = Duration;
 
