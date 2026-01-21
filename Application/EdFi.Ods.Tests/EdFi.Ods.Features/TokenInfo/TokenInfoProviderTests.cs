@@ -124,7 +124,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
                 A.Fake<IClaimSetClaimsProvider>(), 
                 A.Fake<IResourceClaimUriProvider>(), 
                 A.Fake<ISecurityRepository>(), 
-                A.Fake<IClaimSetRequestEvaluator>());
+                A.Fake<IAuthorizationBasisMetadataSelector>());
 
             var results = await tokenInfoProvider.GetTokenInfoAsync(CreateApiContext());
 
