@@ -10,6 +10,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
@@ -44,6 +46,7 @@ using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -57,6 +60,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
+using Microsoft.IdentityModel.Tokens;
 using NHibernate.Engine;
 
 namespace EdFi.Ods.Api.Startup
@@ -99,7 +103,8 @@ namespace EdFi.Ods.Api.Startup
             // Bind configuration objects to sections 
             services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
             services.Configure<Plugin>(Configuration.GetSection("Plugin"));
-            
+            services.Configure<SecuritySettings>(Configuration.GetSection("Security"));
+
             // Register sections related to external connection strings configuration
             services.Configure<TenantsSection>(Configuration);
             services.Configure<OdsInstancesSection>(Configuration);
@@ -201,8 +206,49 @@ namespace EdFi.Ods.Api.Startup
             
             services.AddMvc();
 
-            services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
-                .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
+            // Bind security settings
+            const string securitySettingsSectionName = "Security";
+            var securitySettings = new SecuritySettings();
+            Configuration.GetSection(securitySettingsSectionName).Bind(securitySettings);
+
+            if (securitySettings.AccessTokenType == "jwt")
+            {
+                // Validate the JWT settings
+                var securitySettingsValidator = new SecuritySettingsValidator();
+                var validationResult = securitySettingsValidator.Validate(securitySettings);
+
+                if (!validationResult.IsValid)
+                {
+                    _logger.Fatal($"Invalid {securitySettingsSectionName} configuration: {validationResult}");
+                    Environment.Exit(1);
+                }
+
+                // Use the Public Key for verification
+                var publicRsa = RSA.Create();
+                publicRsa.ImportFromPem(securitySettings.Jwt.SigningKey.PublicKey);
+                var verificationKey = new RsaSecurityKey(publicRsa);
+
+                services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+
+                            IssuerSigningKey = verificationKey,
+                            ValidIssuer = securitySettings.Jwt.Issuer,
+                            ValidAudiences = securitySettings.Jwt.Audiences,
+                        };
+                    });
+            }
+            else
+            {
+                services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
+                    .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
+            }
 
             services.AddApplicationInsightsTelemetry(
                 options => { options.ApplicationVersion = ApiVersionConstants.Version; });

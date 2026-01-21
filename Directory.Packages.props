@@ -91,6 +91,7 @@
 
     <!-- Authentication -->
     <PackageVersion Include="Microsoft.Identity.Client" Version="4.80.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.22" />    
 
     <!-- OpenAPI -->
     <PackageVersion Include="Microsoft.OpenApi" Version="2.3.4" />

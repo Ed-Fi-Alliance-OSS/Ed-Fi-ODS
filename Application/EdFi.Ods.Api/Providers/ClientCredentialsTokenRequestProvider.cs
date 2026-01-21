@@ -9,6 +9,8 @@ using EdFi.Common.Security;
 using EdFi.Ods.Api.Models.ClientCredentials;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Security.Authentication;
+using EdFi.Ods.Common.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Api.Providers
 {
@@ -17,13 +19,16 @@ namespace EdFi.Ods.Api.Providers
     {
         private readonly IApiClientAuthenticator _apiClientAuthenticator;
         private readonly IAccessTokenFactory _accessTokenFactory;
+        private readonly IOptions<SecuritySettings> _securitySettings;
 
         public ClientCredentialsTokenRequestProvider(
             IApiClientAuthenticator apiClientAuthenticator,
-            IAccessTokenFactory accessTokenFactory)
+            IAccessTokenFactory accessTokenFactory,
+            IOptions<SecuritySettings> securitySettings)
         {
             _apiClientAuthenticator = apiClientAuthenticator;
             _accessTokenFactory = accessTokenFactory;
+            _securitySettings = securitySettings;
         }
 
         public async Task<AuthenticationResponse> HandleAsync(TokenRequest tokenRequest)
@@ -58,31 +63,47 @@ namespace EdFi.Ods.Api.Providers
             // validate client is in scope
             if (tokenRequestScope != null)
             {
-                if (!int.TryParse(tokenRequestScope, out int educationOrganizationScope))
+                if (int.TryParse(tokenRequestScope, out int educationOrganizationScope))
                 {
-                    return new AuthenticationResponse
+                    if (!authenticationResult.ApiClientDetails.EducationOrganizationIds
+                            .Contains(educationOrganizationScope))
                     {
-                        TokenError = new TokenError(
-                            TokenErrorType.InvalidScope,
-                            "The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client).")
-                    };
+                        return new AuthenticationResponse
+                        {
+                            TokenError = new TokenError(
+                                TokenErrorType.InvalidScope,
+                                "The client is not explicitly associated with the EducationOrganizationId specified in the requested 'scope'.")
+                        };
+                    }
                 }
-
-                if (!authenticationResult.ApiClientDetails.EducationOrganizationIds
-                    .Contains(educationOrganizationScope))
+                else
                 {
-                    return new AuthenticationResponse
+                    // Scope should be an EducationOrganizationId unless support for OneRoster JWTs is enabled
+                    if (_securitySettings.Value.AccessTokenType != SecuritySettings.AccessTokenTypeJwt)
                     {
-                        TokenError = new TokenError(
-                            TokenErrorType.InvalidScope,
-                            "The client is not explicitly associated with the EducationOrganizationId specified in the requested 'scope'.")
-                    };
+                        return new AuthenticationResponse
+                        {
+                            TokenError = new TokenError(
+                                TokenErrorType.InvalidScope,
+                                "The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client).")
+                        };
+                    }
+
+                    if (!tokenRequestScope.StartsWith(SecuritySettings.OneRosterScopePrefix))
+                    {
+                        return new AuthenticationResponse
+                        {
+                            TokenError = new TokenError(
+                                TokenErrorType.InvalidScope,
+                                "The supplied 'scope' is not a valid OneRoster scope.")
+                        };
+                    }
                 }
             }
 
             // create a new token
-            var token = await _accessTokenFactory.CreateAccessTokenAsync(authenticationResult.ApiClientDetails.ApiClientId, tokenRequestScope);
-            
+            var token = await _accessTokenFactory.CreateAccessTokenAsync(authenticationResult.ApiClientDetails, tokenRequestScope);
+
             if (token == null)
             {
                 return new AuthenticationResponse {TokenError = new TokenError(TokenErrorType.InvalidClient)};
@@ -91,7 +112,7 @@ namespace EdFi.Ods.Api.Providers
             var tokenResponse = new TokenResponse();
             tokenResponse.SetToken(token.Id, (int) token.Duration.TotalSeconds, token.Scope);
 
-            return new AuthenticationResponse {TokenResponse = tokenResponse};
+            return new AuthenticationResponse {TokenResponse = tokenResponse, ApiClientDetails = authenticationResult.ApiClientDetails };
 
             bool RequestIsRequiredGrantType() => tokenRequest.Grant_type.EqualsIgnoreCase("client_credentials");
 

@@ -20,9 +20,9 @@ namespace EdFi.Ods.Api.Models.Tokens
 
         public string Scope { get; private set; }
 
-        public void SetToken(Guid tokenId, int expiresIn, string scope)
+        public void SetToken(string token, int expiresIn, string scope)
         {
-            Access_token = tokenId.ToString("N");
+            Access_token = token;
             Expires_in = expiresIn;
             Scope = scope;
         }
