@@ -40,6 +40,8 @@ namespace EdFi.Ods.Features.Controllers
         private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiMetadataController));
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
         private readonly ReverseProxySettings _reverseProxySettings;
+        private readonly bool _isOneRosterEnabled;
+        private readonly string _oneRosterVersionUrl;
 
         public OpenApiMetadataController(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
@@ -49,6 +51,8 @@ namespace EdFi.Ods.Features.Controllers
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
             _reverseProxySettings = apiSettings.GetReverseProxySettings();
             _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.OpenApiMetadata);
+            _isOneRosterEnabled = featureManager.IsFeatureEnabled(ApiFeature.OneRoster);
+            _oneRosterVersionUrl = apiSettings.OneRosterVersionUrl;
         }
 
         [HttpGet]
@@ -67,11 +71,22 @@ namespace EdFi.Ods.Features.Controllers
                 }
             }
 
+
             var content = _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
                 .OrderBy(x => x.Section)
                 .ThenBy(x => x.Name)
                 .Select(x => GetSwaggerSectionDetailsForCacheItem(x, version == "2" ? OpenApiSpecVersion.OpenApi2_0 : OpenApiSpecVersion.OpenApi3_0))
                 .ToList();
+
+            if (_isOneRosterEnabled)
+            {
+                content.Add(new OpenApiMetadataSectionDetails
+                {
+                    EndpointUri = $"{_oneRosterVersionUrl}/{OpenApiMetadataDocumentHelper.Json}",
+                    Name = "OneRoster",
+                    Prefix = string.Empty
+                });
+            }
 
             var eTag = HashHelper.GetSha256Hash(JsonConvert.SerializeObject(content))
                 .ToHexString()
