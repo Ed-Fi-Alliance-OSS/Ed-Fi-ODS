@@ -84,7 +84,7 @@ namespace EdFi.Ods.Features.Controllers
                 {
                     EndpointUri = $"{_oneRosterVersionUrl}/{OpenApiMetadataDocumentHelper.Json}",
                     Name = "OneRoster",
-                    Prefix = string.Empty
+                    Prefix = "Ed-Fi OneRoster"
                 });
             }
 
