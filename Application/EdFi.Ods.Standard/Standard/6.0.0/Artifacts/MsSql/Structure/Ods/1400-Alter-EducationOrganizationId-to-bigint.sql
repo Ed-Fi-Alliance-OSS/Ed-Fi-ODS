@@ -35,38 +35,6 @@ IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationO
     DROP VIEW auth.EducationOrganizationIdToStudentUSIThroughDeletedResponsibility;
 GO 
 
-
-ALTER TABLE auth.EducationOrganizationIdToEducationOrganizationId
-DROP CONSTRAINT EducationOrganizationIdToEducationOrganizationId_PK; 
-
-GO
-
-DROP INDEX auth.EducationOrganizationIdToEducationOrganizationId.IX_EducationOrganizationIdToEducationOrganizationId; -- Drop the index
-
-GO
-
-ALTER TABLE auth.EducationOrganizationIdToEducationOrganizationId 
-ALTER COLUMN SourceEducationOrganizationId BIGINT NOT NULL;
-ALTER TABLE auth.EducationOrganizationIdToEducationOrganizationId
-ALTER COLUMN TargetEducationOrganizationId BIGINT NOT NULL;
-
-GO
-
-ALTER TABLE auth.EducationOrganizationIdToEducationOrganizationId
-ADD CONSTRAINT [EducationOrganizationIdToEducationOrganizationId_PK] PRIMARY KEY CLUSTERED (
-        [SourceEducationOrganizationId] ASC,
-        [TargetEducationOrganizationId] ASC
-    )
-GO
-
-CREATE NONCLUSTERED INDEX IX_EducationOrganizationIdToEducationOrganizationId
-ON auth.EducationOrganizationIdToEducationOrganizationId
-(
-	TargetEducationOrganizationId
-) INCLUDE (SourceEducationOrganizationId)
-GO
-
-
 CREATE OR ALTER VIEW auth.EducationOrganizationIdToStudentUSI 
     WITH SCHEMABINDING AS
     SELECT  edOrgs.SourceEducationOrganizationId, ssa.StudentUSI, COUNT_BIG(*) AS Ignored
@@ -74,11 +42,6 @@ CREATE OR ALTER VIEW auth.EducationOrganizationIdToStudentUSI
         INNER JOIN edfi.StudentSchoolAssociation ssa
             ON edOrgs.TargetEducationOrganizationId = ssa.SchoolId
     GROUP BY edOrgs.SourceEducationOrganizationId, ssa.StudentUSI
-
-GO
-
-CREATE UNIQUE CLUSTERED INDEX UX_EducationOrganizationIdToStudentUSI 
-	ON auth.EducationOrganizationIdToStudentUSI (SourceEducationOrganizationId, StudentUSI);
 
 GO
 
@@ -110,11 +73,6 @@ CREATE OR ALTER VIEW auth.EducationOrganizationIdToContactUSI
                 ON ssa.StudentUSI = spa.StudentUSI
     GROUP BY edOrgs.SourceEducationOrganizationId, spa.ContactUSI
     
-GO
-
-CREATE UNIQUE CLUSTERED INDEX UX_EducationOrganizationIdToContactUSI 
-	ON auth.EducationOrganizationIdToContactUSI (SourceEducationOrganizationId, ContactUSI);
-
 GO
 
 CREATE OR ALTER VIEW auth.EducationOrganizationIdToStudentUSIThroughResponsibility

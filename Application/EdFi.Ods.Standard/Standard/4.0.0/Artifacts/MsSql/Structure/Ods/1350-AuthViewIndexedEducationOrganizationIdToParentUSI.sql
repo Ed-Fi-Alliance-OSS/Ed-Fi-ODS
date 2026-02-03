@@ -14,8 +14,3 @@ CREATE OR ALTER VIEW auth.EducationOrganizationIdToParentUSI
     GROUP BY edOrgs.SourceEducationOrganizationId, spa.ParentUSI
     
 GO
-
-CREATE UNIQUE CLUSTERED INDEX UX_EducationOrganizationIdToParentUSI 
-	ON auth.EducationOrganizationIdToParentUSI (SourceEducationOrganizationId, ParentUSI);
-
-GO

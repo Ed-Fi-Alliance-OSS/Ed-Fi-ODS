@@ -19,9 +19,6 @@ DROP VIEW IF EXISTS auth.EducationOrganizationIdToStudentUSIThroughResponsibilit
 
 DROP VIEW IF EXISTS auth.EducationOrganizationIdToStudentUSIThroughDeletedResponsibility;
 
-ALTER TABLE auth.EducationOrganizationIdToEducationOrganizationId ALTER COLUMN SourceEducationOrganizationId TYPE BIGINT;
-ALTER TABLE auth.EducationOrganizationIdToEducationOrganizationId ALTER COLUMN TargetEducationOrganizationId TYPE BIGINT;
-
 CREATE OR REPLACE VIEW auth.EducationOrganizationIdToStudentUSI
 AS
     SELECT  edOrgs.SourceEducationOrganizationId, ssa.StudentUSI
