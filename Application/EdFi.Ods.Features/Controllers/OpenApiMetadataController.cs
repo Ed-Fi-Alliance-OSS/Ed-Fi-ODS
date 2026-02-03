@@ -80,12 +80,20 @@ namespace EdFi.Ods.Features.Controllers
 
             if (_isOneRosterEnabled)
             {
-                content.Add(new OpenApiMetadataSectionDetails
+                if (!string.IsNullOrWhiteSpace(_oneRosterVersionUrl))
                 {
-                    EndpointUri = $"{_oneRosterVersionUrl}/{OpenApiMetadataDocumentHelper.Json}",
-                    Name = "OneRoster",
-                    Prefix = "Ed-Fi OneRoster"
-                });
+                    var baseUrl = _oneRosterVersionUrl.TrimEnd('/');
+                    content.Add(new OpenApiMetadataSectionDetails
+                    {
+                        EndpointUri = $"{baseUrl}/{OpenApiMetadataDocumentHelper.Json}",
+                        Name = "OneRoster",
+                        Prefix = "Ed-Fi OneRoster"
+                    });
+                }
+                else
+                {
+                    _logger.Error("OneRoster is enabled, but the OneRosterVersionUrl is not configured.");
+                }
             }
 
             var eTag = HashHelper.GetSha256Hash(JsonConvert.SerializeObject(content))
