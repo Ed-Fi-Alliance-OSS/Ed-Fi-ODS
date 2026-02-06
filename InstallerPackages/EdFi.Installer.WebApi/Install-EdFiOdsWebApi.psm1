@@ -15,6 +15,7 @@ step before compiling in C#.
 Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Utility/hashtable.psm1
 Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Utility/nuget-helper.psm1
 Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Utility/TaskHelper.psm1
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Utility/public-private-key-pair.psm1
 
 Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Application/Install.psm1
 Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Application/Uninstall.psm1
@@ -159,6 +160,23 @@ function Install-EdFiOdsWebApi {
 
         Install in a single instance with basic database
         configuration, with override all available web.config app settings.
+
+    .EXAMPLE
+        PS c:/> $parameters = @{
+            DbConnectionInfo = @{
+                Engine="SqlServer"
+                Server="localhost"
+                UseIntegratedSecurity=$true
+            }
+            AccessTokenType = "jwt"
+        }
+        PS c:/> Install-EdFiOdsWebApi @parameters
+
+        Install with JWT (JSON Web Token) access tokens instead of the default GUID tokens.
+        When AccessTokenType is set to "jwt", the installer automatically generates a new
+        public/private key pair for signing JWT tokens. This provides enhanced security
+        features such as token verification, expiration claims, and the ability to include
+        additional claims in the token payload.
     #>
     [CmdletBinding()]
     param (
@@ -317,7 +335,12 @@ function Install-EdFiOdsWebApi {
         # Set Encrypt=false for all connection strings
         # Not recomended for production environment.
         [switch]
-        $UnEncryptedConnection
+        $UnEncryptedConnection,
+
+        # Type of access token to be used by the WebApi.
+        [ValidateSet("guid", "jwt")]
+        [string]
+        $AccessTokenType = "guid"
     )
 
     Write-InvocationInfo $MyInvocation
@@ -353,6 +376,7 @@ function Install-EdFiOdsWebApi {
         OdsConnectionStringEncryptionKey = $OdsConnectionStringEncryptionKey
         OdsContextRouteTemplate = $OdsContextRouteTemplate
         UnEncryptedConnection = $UnEncryptedConnection
+        AccessTokenType = $AccessTokenType
     }
 
     $elapsed = Use-StopWatch {
@@ -532,6 +556,16 @@ function Invoke-TransformWebConfigAppSettings {
             $settings.ApiSettings.ExcludedExtensions = $Config.WebApiFeatures.ExcludedExtensions 
         }
 
+        # If AccessTokenType is 'jwt', update Security.Jwt.SigningKey with new key pair
+        if ($Config.AccessTokenType -eq 'jwt') {
+            $keyPair = New-PublicPrivateKeyPair
+            if (-not $settings.Security) { $settings.Security = @{} }
+            $settings.Security.AccessTokenType = "jwt"
+            if (-not $settings.Security.Jwt) { $settings.Security.Jwt = @{} }
+            if (-not $settings.Security.Jwt.SigningKey) { $settings.Security.Jwt.SigningKey = @{} }
+            $settings.Security.Jwt.SigningKey.PublicKey = $keyPair.PublicKey
+            $settings.Security.Jwt.SigningKey.PrivateKey = $keyPair.PrivateKey
+        }
         New-JsonFile $settingsFile $settings -Overwrite
     }
 }

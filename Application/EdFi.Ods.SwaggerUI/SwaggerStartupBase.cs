@@ -25,8 +25,6 @@ namespace EdFi.Ods.SwaggerUI
         private readonly string _pathBase;
         private readonly string _routePrefix;
         private const string DefaultRoutePrefix = "swagger";
-        private readonly bool _enableOneRoster;
-        private readonly string _OneRosterMetadataUrl;
 
         protected SwaggerStartupBase(IConfiguration configuration)
         {
@@ -40,9 +38,6 @@ namespace EdFi.Ods.SwaggerUI
             {
                 _pathBase = "/" + pathBase.Trim('/');
             }
-
-            _enableOneRoster = Configuration.GetValue("EnableOneRoster", false);
-            _OneRosterMetadataUrl = Configuration.GetValue("OneRosterMetadataUrl", string.Empty);
         }
 
         private IConfiguration Configuration { get; }
@@ -110,9 +105,7 @@ namespace EdFi.Ods.SwaggerUI
                                         RoutePrefix = _routePrefix,
                                         Tenants = tenants,
                                         SandboxDisclaimer = sandboxDisclaimer,
-                                        ShowDomains = showDomains,
-                                        EnableOneRoster = _enableOneRoster,
-                                        OneRosterMetadataUrl = _OneRosterMetadataUrl
+                                        ShowDomains = showDomains
                                     }));
                         });
                 });
@@ -144,8 +137,6 @@ namespace EdFi.Ods.SwaggerUI
 
                     options.ConfigObject.AdditionalItems["WebApiVersionUrl"] = webApiUrl;
                     options.ConfigObject.AdditionalItems["ShowDomains"] = showDomains;
-                    options.ConfigObject.AdditionalItems["EnableOneRoster"] = _enableOneRoster;
-                    options.ConfigObject.AdditionalItems["OneRosterMetadataUrl"] = _OneRosterMetadataUrl;
                     options.RoutePrefix = _routePrefix;
                 });
 

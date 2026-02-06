@@ -79,7 +79,7 @@ function mapSections(json) {
 function createSectionLinks(sectionName) {
     const { Tenants } = appSettings;
     var section = sections[sectionName]
-    var prefix = sectionName === 'Resources' || sectionName === 'Ed-Fi OneRoster' ? '' : sectionName + ': '
+    var prefix = sectionName === 'Resources' ? '' : sectionName + ': '
     var routePrefix = ''
     return section.links
         .map(function (link) {
@@ -189,23 +189,6 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
     })
 }
 
-// Fetch OneRoster metadata based on app settings and populate the OneRoster section
-const fetchOneRosterMetadata = () => {
-  const { EnableOneRoster, OneRosterMetadataUrl } = appSettings;
-
-  if (!EnableOneRoster) {
-    console.log('EnableOneRoster is false; not showing OneRoster section.');
-    return Promise.resolve([]);
-  }
-  if (!sections['Ed-Fi OneRoster']) {
-    sections['Ed-Fi OneRoster'] = { color: 'blue-text', description: [], links: [] };
-  }
-    const exists = sections['Ed-Fi OneRoster'].links.some((l) => l.uri === OneRosterMetadataUrl && l.name === 'OneRoster');
-  if (!exists) {
-      sections['Ed-Fi OneRoster'].links.push({ name: 'OneRoster', uri: OneRosterMetadataUrl });
-  }
-  return Promise.resolve(sections['Ed-Fi OneRoster'].links);
-}
 
 function fetchSandboxDisclaimer() {
     const { SandboxDisclaimer } = appSettings;
@@ -224,7 +207,6 @@ fetchAppSettings()
   .then(showVersion)
   .then(fetchOpenApiMetadata)
   .then(mapSections)
-  .then(fetchOneRosterMetadata)
   .then(showPageDescription)
   .then(createSections)
   .then(fetchSandboxDisclaimer)

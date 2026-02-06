@@ -16,5 +16,6 @@
     <file src="AppCommon/**" />
     <file src="../../LICENSE.txt" />
     <file src="../../NOTICES.md" />
+    <file src="../../logistics/scripts/modules/utility/public-private-key-pair.psm1" target="/AppCommon/Utility/public-private-key-pair.psm1" />
   </files>
 </package>

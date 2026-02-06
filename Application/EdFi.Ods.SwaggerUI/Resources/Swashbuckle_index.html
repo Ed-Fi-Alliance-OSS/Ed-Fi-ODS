@@ -483,19 +483,7 @@
                         name: name
                     });
                 });
-
-                // EnableOneRoster from config, using configured metadata URL
-                try {
-                    if (configObject && configObject.EnableOneRoster) {
-                        const specUrl = configObject.OneRosterMetadataUrl;
-                        if (!urls.some(u => u.name === 'OneRoster')) {
-                            urls.push({ url: specUrl, name: 'OneRoster' });
-                            console.log("Added OneRoster via config:", specUrl);
-                        }
-                    }
-                } catch (e) { 
-                    console.warn("Error processing OneRoster configuration:", e);
-                }
+             
 
                 return urls;
             }
