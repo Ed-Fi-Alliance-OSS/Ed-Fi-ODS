@@ -134,6 +134,12 @@ namespace EdFi.Ods.Api.Controllers
                     urlsByName["identity"] = $"{rootUrl}/identity/v{ApiVersionConstants.Identity}/";
                 }
 
+                if (_featureManager.IsFeatureEnabled(ApiFeature.OneRoster)
+                    && !string.IsNullOrEmpty(_apiSettings.OneRosterVersionUrl))
+                {
+                  urlsByName["oneRoster"] = _apiSettings.OneRosterVersionUrl;
+                }
+
                 return urlsByName;
             }
         }
