@@ -55,7 +55,7 @@ namespace EdFi.Ods.Common.Configuration
         public string PathBase { get; set; }
 
         public string OdsContextRouteTemplate { get; set; }
-        
+
         public string OdsCorrelationIdHttpHeaderName { get; set; }
 
         public NotificationSettings Notifications { get; set; } = new();
@@ -67,6 +67,8 @@ namespace EdFi.Ods.Common.Configuration
         public ServiceSettings Services { get; set; } = new();
 
         public string DomainsExcludedFromOpenApi { get; set; }
+
+        public string OneRosterVersionUrl { get; set; }
 
         public string OdsConnectionStringEncryptionKey
         {
