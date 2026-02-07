@@ -291,17 +291,9 @@ The path suffix to append to the repository path. E.g. if $pathSuffix is 'logist
 function Get-CorePathLegacy ([string]$pathSuffix) {
     #This has been switched to a dynamic lookup so that not every "core" repo has to have every folder.
     #Just give a single repo a pass on this check.
-    if ($repositoryNames.Count -gt 1) {
-        $implementationRepo = ($repositoryNames | select -Last 1)
-    }
-    else {
-        Write-Host "Warning: Core path lookups are not typically used in single repository implementations."
-        $implementationRepo = [string]::Empty
-    }
     $checkedRepos = @()
     foreach ($repositoryName in $repositoryNames) {
         #skip the implementation repo. It is not ever going to be "core".
-        if ($repositoryName -eq $implementationRepo) { continue; }
         $checkedRepos += $repositoryName
         $repositoryPath = Get-RootBasedRepositoryPath $repositoryName
         If (Test-Path "$repositoryPath/$pathSuffix") {
@@ -645,7 +637,7 @@ $exportFunction = @(
     'Select-ExtensionArtifactResolvedName'
     'Get-RootPath'
     'Get-CorePath'
-    'Get-RepositoryResolvedPath'    
+    'Get-RepositoryResolvedPath'
     'Get-RepositoryRoot'
     'Get-RepositoryNames'
     'Get-RepositoryNameFromPath'
