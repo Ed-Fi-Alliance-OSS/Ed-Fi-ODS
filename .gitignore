@@ -122,9 +122,9 @@ DatabaseTemplate/*
 !DatabaseTemplate/Modules/
 
 # Plugin
-**/Plugin/*
-!**/Plugin/*.ps1
-!**/Plugin/configuration.json
+Plugin/*
+!Plugin/*.ps1
+!Plugin/configuration.json
 
 # .Net Tools
 tools/
