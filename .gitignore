@@ -127,7 +127,7 @@ Plugin/*
 !Plugin/configuration.json
 
 # .Net Tools
-tools/
+tools/*
 downloads/
 reports/
 
