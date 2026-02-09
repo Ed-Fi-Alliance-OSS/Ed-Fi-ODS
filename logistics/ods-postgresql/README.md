@@ -17,3 +17,5 @@ POSTGRES_PORT=5432
 ```
 
 This will allow the container to work with the default connection strings used during `initdev -Engine PostgreSql`
+
+The deploy includes a local copy of PgAdmin with default user name `admin@admin.local` and password `admin`.

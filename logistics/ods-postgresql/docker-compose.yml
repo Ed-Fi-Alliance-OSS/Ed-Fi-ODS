@@ -18,8 +18,24 @@ services:
     volumes:
       - ed-fi-ods-dev:/var/lib/postgresql/data
 
+  pgadmin:
+    container_name: ODS-pgadmin
+    image: dpage/pgadmin4:9.5.0@sha256:2a830466aafd9cbc2aea0f76ff81a80dbbba819f2f5db7e69cb40e9cbdb6bc7b
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin-ods-data:/var/lib/pgadmin
+      - ./pgadmin/servers.json:/pgadmin4/servers.json:ro
+    depends_on:
+      - db
+
 volumes:
   ed-fi-ods-dev:
+    driver: local
+  pgadmin-ods-data:
     driver: local
 
 networks:
