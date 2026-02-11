@@ -445,7 +445,7 @@ PS C:/> Select-ExtensionArtifactResolvedName EdFi.Ods.Extensions.GrandBend
 GrandBend
 
 -------------------------- EXAMPLE 2 --------------------------
-PS C:/> Select-ExtensionArtifactResolvedName C:/Projects/Get-RepositoryRoot "Ed-Fi-ODS"/Application/EdFi.Ods.Extensions.GrandBend
+PS C:/> Select-ExtensionArtifactResolvedName C:/Projects/Ed-Fi-ODS/Application/EdFi.Ods.Extensions.GrandBend
 GrandBend
 
 -------------------------- EXAMPLE 3 --------------------------

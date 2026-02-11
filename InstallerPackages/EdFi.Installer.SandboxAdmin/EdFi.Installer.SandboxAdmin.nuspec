@@ -5,7 +5,7 @@
     <version>1.0.0</version>
     <title>Ed-Fi SwaggerUI Installer Scripts</title>
     <authors>Ed-Fi Alliance</authors>
-    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"</projectUrl>
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</projectUrl>
     <copyright>$copyright$</copyright>
     <summary>Application installer modules for the Ed-Fi ODS/API Sandbox Admin application</summary>
     <description>Application installer modules for the Ed-Fi ODS/API Sandbox Admin application</description>
@@ -13,7 +13,7 @@
   </metadata>
   <files>
     <file src="Install-EdFiOdsSandboxAdmin.psm1" />
-    <file src="AppCommon/**" /> 
+    <file src="AppCommon/**" />
     <file src="../../LICENSE.txt" />
     <file src="../../NOTICES.md" />
   </files>

@@ -46,9 +46,9 @@ jobs:
     steps:
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
-      run: | 
+      run: |
         echo "::error::Missing Azure Token"
-        exit 1 
+        exit 1
     - name: Support longpaths
       run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS
@@ -61,18 +61,18 @@ jobs:
       shell: powershell
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
-    - name: Checkout Get-RepositoryRoot "Ed-Fi-ODS"
+    - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
-          repository: Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"
-          path: Get-RepositoryRoot "Ed-Fi-ODS"/
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-FI-ODS/
     - name: Is pull request branch exists in Get-RepositoryRoot "Ed-Fi-ODS"
       working-directory: ./Ed-Fi-ODS/
       shell: powershell
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath ""
-    - name: update BUILD_INCREMENTER 
-      run: |      
+    - name: update BUILD_INCREMENTER
+      run: |
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
             if ($newRevision -lt 0) {
                 $newRevision = 1
@@ -88,7 +88,7 @@ jobs:
           $confPath = "C:\Program Files\PostgreSQL\16\data\pg_hba.conf"
           (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
           Restart-Service postgresql-x64-16
-    - name: Create Admin Database 
+    - name: Create Admin Database
       shell: powershell
       run: |
           $ErrorActionPreference = 'Stop'
@@ -114,10 +114,10 @@ jobs:
         nuget pack $AdminPostgreSQLNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
-      working-directory: ./Ed-Fi-ODS/      
-      run: |      
+      working-directory: ./Ed-Fi-ODS/
+      run: |
         .\build.githubactions.ps1 InstallCredentialHandler
-      shell: powershell 
+      shell: powershell
     - name: Publish Nuget package
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-ODS/

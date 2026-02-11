@@ -8,17 +8,17 @@ param(
     # Command to execute, defaults to "Build".
     [string]
     [ValidateSet(
-        "DotnetClean", 
-        "Restore", 
-        "Build", 
-        "Test", 
-        "Pack", 
-        "Publish", 
-        "CheckoutBranch", 
-        "InstallCredentialHandler", 
-        "StandardVersions", 
-        "StandardTag", 
-        "TpdmTag", 
+        "DotnetClean",
+        "Restore",
+        "Build",
+        "Test",
+        "Pack",
+        "Publish",
+        "CheckoutBranch",
+        "InstallCredentialHandler",
+        "StandardVersions",
+        "StandardTag",
+        "TpdmTag",
         "TriggerImplementationRepositoryWorkflows")]
     $Command = "Build",
 
@@ -156,7 +156,7 @@ function Pack {
         }
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName){
- 
+
         $xml = [xml](Get-Content $NuspecFilePath)
         $xml.package.metadata.id = $PackageName
         $xml.package.metadata.description = $PackageName
@@ -270,12 +270,12 @@ function InstallCredentialHandler {
     # request to https://api.github.com/repos/Microsoft/artifacts-credprovider/releases/latest to infer the latest version.
 
     $downloadPath = Join-Path ([IO.Path]::GetTempPath()) 'cred-provider.zip'
-    
+
     $credProviderUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.4.1/Microsoft.Net6.NuGet.CredentialProvider.zip'
     Write-Host "Downloading artifacts-credprovider from $credProviderUrl ..."
     $webClient = New-Object System.Net.WebClient
     $webClient.DownloadFile($credProviderUrl, $downloadPath)
-    Write-Host "Download complete." 
+    Write-Host "Download complete."
 
     if (-not (Test-Path $downloadPath)) {
         throw "'$downloadPath' not found."
@@ -327,11 +327,11 @@ function RepositoryTag {
 function TriggerImplementationRepositoryWorkflows {
     <#
     .SYNOPSIS
-        Searches for the corresponding PR in the Implementation repository; if found, 
+        Searches for the corresponding PR in the Implementation repository; if found,
         adds and removes a label to the PR, restarting all the PR workflows.
         Note that the workflows must be configured to be triggered by the `unlabeled` pull_request event type.
     #>
-    
+
     Assert-EnvironmentVariablesInitialized(@("current_branch", "REPOSITORY_OWNER", "EDFI_ODS_IMP_TOKEN"))
 
     $headers = @{
@@ -349,7 +349,7 @@ function TriggerImplementationRepositoryWorkflows {
     Write-Host "Looking for a PR in the Implementation repository with the next parameters=$($body | ConvertTo-Json)."
 
     $pr = Invoke-WebRequest `
-        -Uri "https://api.github.com/repos/$Env:REPOSITORY_OWNER/Get-RepositoryRoot "Ed-Fi-ODS"/pulls" `
+        -Uri "https://api.github.com/repos/$Env:REPOSITORY_OWNER/Ed-Fi-ODS/pulls" `
         -Body $body `
         -Headers $headers `
     | ConvertFrom-Json `
@@ -360,22 +360,22 @@ function TriggerImplementationRepositoryWorkflows {
         return
     }
 
-    Write-Host "Triggering workflows in the matching PR: https://github.com/Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"/pull/$($pr.number)"
+    Write-Host "Triggering workflows in the matching PR: https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/pull/$($pr.number)"
 
     $label = "Trigger from ODS repo"
     Invoke-WebRequest `
         -Method Post `
         -ContentType 'application/json' `
-        -Uri "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"/issues/$($pr.number)/labels" `
+        -Uri "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/issues/$($pr.number)/labels" `
         -Body @(@{labels = @($label) } | ConvertTo-Json) `
         -Headers $headers `
     | Out-Null
-    
+
     Start-Sleep -Seconds 1
-    
+
     Invoke-WebRequest `
         -Method Delete `
-        -Uri "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"/issues/$($pr.number)/labels/$([uri]::EscapeDataString($label))" `
+        -Uri "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/issues/$($pr.number)/labels/$([uri]::EscapeDataString($label))" `
         -Headers $headers `
     | Out-Null
 
@@ -389,7 +389,7 @@ function Assert-EnvironmentVariablesInitialized {
     )
 
     foreach ($name in $Names) {
-        if (-not (Test-Path "Env:$name")) { 
+        if (-not (Test-Path "Env:$name")) {
             throw "The environment variable '$name' must be initialized."
         }
     }

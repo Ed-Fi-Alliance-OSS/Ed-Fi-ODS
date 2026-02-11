@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: CodeQL Security Scan Schedule 
+name: CodeQL Security Scan Schedule
 
 on:
   schedule:
@@ -46,11 +46,11 @@ jobs:
         uses: github/codeql-action/init@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
         with:
           languages: 'csharp'
-      - name: Checkout Get-RepositoryRoot "Ed-Fi-ODS"
+      - name: Checkout Ed-Fi-ODS
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-            repository: Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"
-            path: Get-RepositoryRoot "Ed-Fi-ODS"/
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+            path: Ed-FI-ODS/
       - name: Is pull request branch exists in Get-RepositoryRoot "Ed-Fi-ODS"
         working-directory: ./Get-RepositoryRoot "Ed-Fi-ODS"/
         shell: pwsh
@@ -66,7 +66,7 @@ jobs:
         shell: pwsh
         run: |
           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
-      - name: CodeGen    
+      - name: CodeGen
         working-directory: ./Get-RepositoryRoot "Ed-Fi-ODS"/
         shell: pwsh
         run: |
@@ -85,7 +85,7 @@ jobs:
         working-directory: ./Ed-Fi-ODS/
         run: |
           .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/Application/Ed-Fi-Ods.sln"
-        shell: pwsh            
+        shell: pwsh
       - name: build
         shell: pwsh
         working-directory: ./Ed-Fi-ODS/

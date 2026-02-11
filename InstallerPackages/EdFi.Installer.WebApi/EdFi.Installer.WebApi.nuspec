@@ -5,14 +5,14 @@
     <version>1.0.0</version>
     <title>ODS/API WebApi Installer Scripts</title>
     <authors>Ed-Fi Alliance</authors>
-    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"</projectUrl>
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</projectUrl>
     <copyright>$copyright$</copyright>
     <summary>Application installer modules for the Ed-Fi ODS/API WebApi application</summary>
     <description>Application installer modules for the Ed-Fi ODS/API WebApi application</description>
     <license type="file">LICENSE.txt</license>
   </metadata>
   <files>
-    <file src="Install-EdFiOdsWebApi.psm1" />  
+    <file src="Install-EdFiOdsWebApi.psm1" />
     <file src="AppCommon/**" />
     <file src="../../LICENSE.txt" />
     <file src="../../NOTICES.md" />

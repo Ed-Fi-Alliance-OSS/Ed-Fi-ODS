@@ -17,7 +17,7 @@ permissions: read-all
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-  
+
 env:
   INFORMATIONAL_VERSION: "7.3"
   BUILD_INCREMENTER: "5618"
@@ -40,19 +40,19 @@ jobs:
       run:  echo "${{ github.event.inputs.distinct_id }}"
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
-      run: | 
+      run: |
         echo "::error::Missing Azure Token"
-        exit 1 
+        exit 1
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
         path: Ed-Fi-ODS/
-    - name: Checkout Get-RepositoryRoot "Ed-Fi-ODS"
+    - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
-        repository: Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"
-        path: Get-RepositoryRoot "Ed-Fi-ODS"/
+        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: Ed-FI-ODS/
     - name: Is pull request branch exists in Get-RepositoryRoot "Ed-Fi-ODS"
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
@@ -68,7 +68,7 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
-    - name: Cache Nuget packages   
+    - name: Cache Nuget packages
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
         path: ~/.nuget/packages
@@ -79,9 +79,9 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 restore -Solution "Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
-      shell: pwsh       
-    - name: update BUILD_INCREMENTER 
-      run: |      
+      shell: pwsh
+    - name: update BUILD_INCREMENTER
+      run: |
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
             if ($newRevision -lt 0) {
                 $newRevision = 1
@@ -93,8 +93,8 @@ jobs:
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
       shell: pwsh
-    - name: Run Unit tests for  codegen Project 
-      working-directory: ./Ed-Fi-ODS/    
+    - name: Run Unit tests for  codegen Project
+      working-directory: ./Ed-Fi-ODS/
       run: |
         $ErrorActionPreference = 'Stop'
         $solution = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
@@ -116,7 +116,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
-      shell: pwsh    
+      shell: pwsh
     - name: publish codegen
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-ODS/

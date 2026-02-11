@@ -1,5 +1,5 @@
-# When to Use : 
-   # 1.At the time of  every major/minor version new development must run to get new major/minor version updated in Azure Artifacts 
+# When to Use :
+   # 1.At the time of  every major/minor version new development must run to get new major/minor version updated in Azure Artifacts
    # 2.If any new database changes which related to ODS Core Standard in /Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj which interacts with EDFI_ODS Database.
    # 3.If any .NET new major/minor version upgrade or Nuget package version upgrade happens in Ed-Fi-ODS/Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj  Project.
 
@@ -44,33 +44,33 @@ jobs:
     steps:
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
-      run: | 
+      run: |
         echo "::error::Missing Azure Token"
-        exit 1 
+        exit 1
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
         path: Ed-Fi-ODS/
-    - name: Checkout Get-RepositoryRoot "Ed-Fi-ODS"
+    - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
-        repository: Ed-Fi-Alliance-OSS/Get-RepositoryRoot "Ed-Fi-ODS"
-        path: Get-RepositoryRoot "Ed-Fi-ODS"/
+        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: Ed-FI-ODS/
     - name: Is pull request branch exists in Get-RepositoryRoot "Ed-Fi-ODS"
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath ""
-    - name: Cache Nuget packages       
+    - name: Cache Nuget packages
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
-    - name: update BUILD_INCREMENTER 
-      run: |      
+    - name: update BUILD_INCREMENTER
+      run: |
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
             if ($newRevision -lt 0) {
                 $newRevision = 1
@@ -81,7 +81,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 restore -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
-      shell: pwsh        
+      shell: pwsh
     - name: CodeGen
       shell: pwsh
       run: |
@@ -115,10 +115,10 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" -PackageName  "EdFi.Suite3.Ods.Standard.${{ matrix.StandardVersion }}"
-      shell: pwsh      
+      shell: pwsh
     - name: Upload EdFi.Ods.Standard Artifacts
       if: success()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
-        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Standard.*.nupkg 
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Standard.*.nupkg

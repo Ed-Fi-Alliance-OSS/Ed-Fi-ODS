@@ -8,7 +8,7 @@
 param (
     [string]
     [Parameter(Mandatory = $true)]
-    $PackageDirectory 
+    $PackageDirectory
 )
 $ErrorActionPreference = "Stop"
 
@@ -16,7 +16,7 @@ Push-Location $PackageDirectory
 
 $edFiRepoContainer = "$PackageDirectory/../../.."
 $repositoryNames = @('Get-RepositoryRoot "Ed-Fi-ODS"')
-& "$edFiRepoContainer/Get-RepositoryRoot "Ed-Fi-ODS"/logistics/scripts/modules/load-path-resolver.ps1" $repositoryNames
+& "$edFiRepoContainer/Ed-Fi-ODS/logistics/scripts/modules/load-path-resolver.ps1" $repositoryNames
 Import-Module -Force $folders.modules.invoke("packaging/nuget-helper.psm1")
 
 $configurationFile = (Get-RepositoryResolvedPath 'configuration.packages.json')
