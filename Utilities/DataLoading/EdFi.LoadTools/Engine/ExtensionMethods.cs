@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using static EdFi.LoadTools.Engine.Constants;
 
 namespace EdFi.LoadTools.Engine
 {
@@ -18,10 +19,26 @@ namespace EdFi.LoadTools.Engine
             return text.Substring(0, 1).ToUpperInvariant() + text.Substring(1);
         }
 
+        public static IReadOnlyCollection<string> NormalizeJsonTypes(string jsonType)
+        {
+            if (string.IsNullOrWhiteSpace(jsonType))
+                return Array.Empty<string>();
+
+            return jsonType
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(t => t.ToLowerInvariant())
+                .ToArray();
+        }
+
+
         public static bool AreMatchingSimpleTypes(string jsonType, string xmlType)
         {
+            var jsonTypes = NormalizeJsonTypes(jsonType);
+
             return string.Compare(jsonType, xmlType, StringComparison.OrdinalIgnoreCase) == 0
-                   || Constants.AtomicTypes.Any(x => x.Json == jsonType && x.Xml == xmlType);
+                   || Constants.AtomicTypes.Any( p => 
+                                jsonTypes.Contains(p.Json, StringComparer.OrdinalIgnoreCase) 
+                                && p.Xml == xmlType);
         }
 
         public static bool AreMatchingDateTypes(string jsonType, string xmlType)
