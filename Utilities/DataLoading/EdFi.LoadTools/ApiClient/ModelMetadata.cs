@@ -3,9 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.LoadTools.Engine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.LoadTools.Engine;
 
 namespace EdFi.LoadTools.ApiClient
 {
@@ -52,7 +53,21 @@ namespace EdFi.LoadTools.ApiClient
 
         public override bool IsAttribute => false;
 
-        public override bool IsSimpleType => Constants.JsonAtomicTypes.Contains(Type);
+        public override bool IsSimpleType
+        {
+            get
+            {
+                // Split union types like "null, string" and normalize
+                var types = Type?
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                    .Select(t => t.Trim().ToLowerInvariant())
+                    .ToList() ?? new List<string>();
+
+                // Return true if any type is atomic
+                return types.Any(t => Constants.JsonAtomicTypes.Contains(t));
+            }
+        }
+
     }
 
     public class ModelMetadataEqualityComparer<T> :
