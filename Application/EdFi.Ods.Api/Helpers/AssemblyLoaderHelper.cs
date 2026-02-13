@@ -329,7 +329,7 @@ namespace EdFi.Ods.Api.Helpers
                     {
                         new ApiModelExistsValidator(),
                         new IsExtensionPluginValidator(),
-                        new IsApiVersionValidValidator(ApiVersionConstants.InformationalVersion)
+                        new IsApiVersionValidValidator(ApiVersionConstants.Version)
                     });
             }
 
