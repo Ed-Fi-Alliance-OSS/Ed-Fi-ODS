@@ -1,0 +1,187 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: InitDev Postgres, Multitenancy
+
+run-name: ${{github.event.client_payload.branch}}
+
+on:
+  pull_request:
+   branches: [main, 'b-v*-patch*','feature-*']
+   types: [opened, synchronize, reopened, unlabeled]
+  push:
+   branches: [main, 'b-v*-patch*','feature-*']
+  workflow_dispatch:
+    inputs:
+      distinct_id:
+        description: 'distinct ID for Trgr InitDev workflows in Implementation repo workflow'
+        required: false
+        default: 'distinct_id'
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  INFORMATIONAL_VERSION: "7.3"
+  BUILD_INCREMENTER: "-1450"
+  CONFIGURATION: "Release"
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
+  EDFI_SUITE_NUMBER: "Suite3"
+  msbuild_buildConfiguration: "Release"
+  LANG: "en_US.utf8"
+
+jobs:
+  FindStandardAndExtensionVersions:
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    with:
+      calling_branch: ${{ github.head_ref || github.ref_name }}
+
+  build:
+    needs: FindStandardAndExtensionVersions
+    runs-on: ubuntu-24.04
+    permissions: 
+      checks: write
+    strategy:
+      fail-fast: false     
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
+    name: build (Standard Version ${{ matrix.StandardVersion }}) 
+
+    services:
+      postgres:
+        image: postgres:16.10-alpine3.22@sha256:1c6d2f6e4d30d49c529e09a627e8178db5011dde88d955eb08db2e135e64aa09
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+    - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
+      run:  echo "${{ github.event.inputs.distinct_id }}"
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/
+    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+    - name: Is pull request branch exists in Ed-Fi-ODS
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+    - name: Cache Nuget packages   
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+          ${{ runner.os }}-
+          nuget-
+        enableCrossOsArchive: true  
+    - name: Restore NuGet packages
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
+        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
+      shell: pwsh                  
+    - name: ODS/API InitDev and SdkGen
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        [int]$BuildCounter =  "${{ github.run_number }}"
+        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+        [int]$newRevision =  $BuildCounter + $BuildIncrementer
+        [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+  "." + $newRevision.ToString()
+        .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64/bin/java
+      shell: pwsh
+    - name: Upload initdev logs
+      if: success() || failure()
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
+      with:
+        name: MultiTenant Initdev logs-${{ matrix.StandardVersion }}
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
+    - name: ODS/API MultiTenancy Smoke Tests
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+
+        .\build.github.ps1 -Engine PostgreSQL -InstallType MultiTenant -Tenants "Tenant1;Tenant2" -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64\bin\java
+
+        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish) {
+          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish -Recurse
+        }
+       
+        $params = @{
+                testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
+                testHarnessLogNamePrefix = "SmokeTestSandbox"
+                apiUrl = "http://localhost:8765/Tenant1"
+                isMultiTenancy = $true
+        }
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
+      shell: pwsh
+    - name: Upload MultiTenancy Smoke Tests Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
+      with:
+        name: MultiTenant Smoke Tests Logs-${{ matrix.StandardVersion }}
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
+    - name: ODS/API Postman Test MultiTenancy
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |           
+        $ErrorActionPreference = 'Stop'
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+
+        Reset-TestAdminDatabase
+        Reset-TestSecurityDatabase
+        Reset-TestPopulatedTemplateDatabase
+        
+        Write-FlatHashtable (Get-DeploymentSettings)
+        ./logistics/scripts/Invoke-PostmanIntegrationTests.ps1 -isMultiTenancy -configurationFile "./logistics/scripts/modules/postmanTestHarnessConfiguration-Multitenancy.json"
+      shell: pwsh
+    - name: Postman MultiTenancy Test Report
+      uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5 # v1.9.1
+      if: success() || failure()
+      with:
+        name: MultiTenant Postman Tests
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.xml
+        path-replace-backslashes: 'true'
+        working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
+        reporter: java-junit
+    - name: Upload MultiTenancy Postman Tests Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
+      with:
+        name: MultiTenant Postman Tests Logs-${{ matrix.StandardVersion }}
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessRequestResponseDetailsLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.html
