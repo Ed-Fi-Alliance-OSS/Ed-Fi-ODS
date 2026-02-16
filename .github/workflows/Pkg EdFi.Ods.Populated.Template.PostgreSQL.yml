@@ -60,23 +60,22 @@ jobs:
           - 5432:5432
 
     steps:
+
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
       run:  echo "${{ github.event.inputs.distinct_id }}"
+
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
       run: |
         echo "::error::Missing Azure Token"
         exit 1
+
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-    - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-          path: Ed-FI-ODS/
+
     - name: Set Ed-Fi-Standard Reference
       working-directory: ./Ed-Fi-ODS/
       run: |
@@ -84,6 +83,7 @@ jobs:
         echo "EDFI_STANDARD_REFERENCE=$standardTag">> $env:GITHUB_ENV
         Write-host "Ed-Fi-Standard Tag is  $standardTag"
       shell: pwsh
+
     - name: Checkout Ed-Fi-Data-Standard
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
@@ -95,11 +95,7 @@ jobs:
             !eng/xml-validator/testing/**/*.xml
             !eng/xml-validator/testing/**/*.xsd
           sparse-checkout-cone-mode: false
-    - name: Is pull request branch exists in Get-RepositoryRoot "Ed-Fi-ODS"
-      working-directory: ./Ed-Fi-ODS/
-      shell: pwsh
-      run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath ""
+
     - name: Install postgresql-client-16 package
       run: |
         sudo apt-get update
@@ -109,6 +105,7 @@ jobs:
         sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
         sudo apt-get update
         sudo apt-get -y install postgresql-client-16=16.11-1.pgdg24.04+1
+
     - name: Cache Nuget packages
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
@@ -116,6 +113,7 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
+
     - name: update BUILD_INCREMENTER
       run: |
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
@@ -124,22 +122,25 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
+
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/Application/Ed-Fi-Ods.sln"
+        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/Ed-Fi-Ods.sln"
       shell: pwsh
+
     - name: Initialize-DevelopmentEnvironment
-      working-directory: ./Get-RepositoryRoot "Ed-Fi-ODS"/
+      working-directory: ./Ed-Fi-ODS/
       run: |
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/Initialize-PowershellForDevelopment.ps1
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Initialize-PowershellForDevelopment.ps1
         Initialize-DevelopmentEnvironment  -NoDeploy -Engine PostgreSQL -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
       shell: pwsh
+
     - name: Remove Plug-Ins
-      working-directory: ./Get-RepositoryRoot "Ed-Fi-ODS"/
+      working-directory: ./Ed-Fi-ODS/
       run: |
         $ErrorActionPreference = 'Stop'
         if (Test-Path "./Plugin/Extensions.*") {
@@ -149,44 +150,50 @@ jobs:
             Write-Host "No Plug-in Extensions found. Skipping removal."
         }
       shell: pwsh
+
     - name: Create Database Template (no extensions)
       working-directory: ./
       run: |
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
-        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Modules/create-populated-template.psm1"
+        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/DatabaseTemplate/Modules/create-populated-template.psm1"
         Initialize-PopulatedTemplate -samplePath "./Ed-Fi-Data-Standard/" -noExtensions -Engine PostgreSQL -StandardVersion ${{ matrix.StandardVersion }}  -ExtensionVersion ${{ matrix.ExtensionVersion }}
       shell: pwsh
+
     - name: pack
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName "EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}"
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName "EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}"
       shell: pwsh
+
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
+
     - name: publish
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}"
       shell: pwsh
+
     - name: Upload EdFi.Ods.Populated.Template Artifacts
       if: success() || failure()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
-        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL*.nupkg
+        path: ./Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL*.nupkg
+
     - name: Move Log Files
       if: success() || failure()
       run: |
-        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/net8.0/logfile.txt"
-        $testHarnessSourcePath = "${{ github.workspace }}/Get-RepositoryRoot "Ed-Fi-ODS"/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessLog.log"
-        $testHarnessRequestResponseDetailsSourcePath = "${{ github.workspace }}/Get-RepositoryRoot "Ed-Fi-ODS"/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessRequestResponseDetailsLog.log"
-        $destinationPath = "${{ github.workspace }}/CreateDatabaseTemplateLogs/"
+        $bulkLoadClientSourcePath = "./Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/net8.0/logfile.txt"
+        $testHarnessSourcePath = "./Ed-Fi-ODS/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessLog.log"
+        $testHarnessRequestResponseDetailsSourcePath = "./Ed-Fi-ODS/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessRequestResponseDetailsLog.log"
+        $destinationPath = "./CreateDatabaseTemplateLogs/"
         # Create the destination folder if it doesn't exist
         if (!(Test-Path -Path $destinationPath)) {
             New-Item -ItemType Directory -Path $destinationPath -Force
@@ -196,10 +203,11 @@ jobs:
         Move-Item -Path $testHarnessSourcePath -Destination $destinationPath -Force
         Move-Item -Path $testHarnessRequestResponseDetailsSourcePath -Destination $destinationPath -Force
       shell: pwsh
+
     - name: Upload Create Database Template Logs
       if: success() || failure()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: Create Database Template Logs-${{ matrix.StandardVersion }}
         path: |
-          ${{ github.workspace }}/CreateDatabaseTemplateLogs/*.*
+          ./CreateDatabaseTemplateLogs/*.*

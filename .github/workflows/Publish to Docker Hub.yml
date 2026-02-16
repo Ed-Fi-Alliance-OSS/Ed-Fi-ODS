@@ -38,7 +38,7 @@ env:
 
 jobs:
   FindStandardAndExtensionVersions:
-    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    uses: ./.github/workflows/Find Standard and Extension Versions.yml
     with:
       calling_branch: ${{ github.head_ref || github.ref_name }}
 
@@ -62,20 +62,20 @@ jobs:
             { name: "ods-api-web-api", path: "alpine/mssql" },
             { name: "ods-api-web-sandbox-admin", path: "alpine/pgsql" },
             { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" }
-          ]        
-    name: ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})     
+          ]
+    name: ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
     steps:
       - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
-        run:  echo "${{ github.event.inputs.distinct_id }}" 
+        run:  echo "${{ github.event.inputs.distinct_id }}"
       - name: Check for Docker Hub Token
         if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.DOCKER_HUB_TOKEN == '' }}
-        run: | 
+        run: |
           echo "::error::Missing Docker Hub Token"
-          exit 1   
+          exit 1
       - name: Exit success if Docker Hub Token is missing in forked repository
         if: ${{ env.DOCKER_HUB_TOKEN == '' }}
         run: |
-          echo "Skipping Publish"           
+          echo "Skipping Publish"
       - name: Wait 20s for Azure Artifacts caching
         run: sleep 20
 
@@ -103,10 +103,10 @@ jobs:
           if ($env:EVENT_NAME -eq "workflow_dispatch") {
             $package_version="${{ inputs.package_version }}"
           }
-          
+
           # Extract major.minor for NuGet packages (7.3.1 -> 7.3)
           $nuget_version = ($package_version -split '\.')[0..1] -join '.'
-          
+
           if (($env:EVENT_NAME -eq "release" -and $env:EVENT_ACTION -eq "published") -or ($env:EVENT_NAME -eq "workflow_dispatch" -and "${{ inputs.is_release }}" -eq "true")) {
             ./get-versions.ps1 -PackageVersion $nuget_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
             ./Invoke-Build.ps1 -Push -IsMultiPlatform -Platforms "linux/amd64,linux/arm64" -PackageVersion $package_version -Patch ${{ github.run_number }}  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}

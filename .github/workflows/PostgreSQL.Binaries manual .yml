@@ -1,5 +1,11 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+
 # When to Use :
-   # 1.If Postgresql database version upgrade happens 
+   # 1.If Postgresql database version upgrade happens
    # 2.If any code change happens in \Ed-Fi-ODS-Implementation\logistics\scripts folder
    # 3.If Powershell upgrade major/minor version upgrade happens
 
@@ -24,31 +30,26 @@ jobs:
   build:
 
     runs-on: ubuntu-24.04
- 
+
     steps:
+
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
-      run: | 
+      run: |
         echo "::error::Missing Azure Token"
           exit 1
-    - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation/
+
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-          path: Ed-Fi-ODS/
+
     - name: New-PostgresBinariesPackage
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
           Import-Module -Force -Scope Global $env:GITHUB_WORKSPACE/${{ env.SCRIPT_BUILD_POSTGRES_BINARIES }}
           New-PostgresBinariesPackage
+
     - name: Pack Release version
-      working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
       run: |
         [int]$BuildCounter =  "${{ github.run_number }}"
@@ -58,21 +59,22 @@ jobs:
         $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
         $NuspecFilePath = Join-Path ([IO.Path]::GetTempPath()) 'PostgreSQL.Binaries/package/package.nuspec'
         nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -Properties "id=PostgreSQL.Binaries" -Properties "title=PostgreSQL.Binaries" -Properties "description=PostgreSQL.Binaries" -NoPackageAnalysis -NoDefaultExcludes
+
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
-      working-directory: ./Ed-Fi-ODS-Implementation/      
-      run: |      
+      run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
+
     - name: Publish release Version
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
-      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "PostgreSQL.Binaries"
       shell: pwsh
+
     - name: Upload PostgreSQL.Binaries Artifacts
       if: success()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: NugetPackages.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/PostgreSQL.Binaries.*.nupkg
+        path: ./Ed-Fi-ODS-Implementation/NugetPackages/PostgreSQL.Binaries.*.nupkg

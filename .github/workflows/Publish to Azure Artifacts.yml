@@ -7,7 +7,7 @@ name: Publish to Azure Artifacts
 
 on:
   workflow_dispatch:
-          
+
   workflow_run:
     workflows: ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"]
     types:
@@ -28,7 +28,7 @@ env:
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
   REPO_DISPATCH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
-  
+
   ##### WARNING #####
   # When triggered by `workflow_run`, GitHub always uses the workflow definition of the main branch.
   # We should keep this workflow's definition the same as the main branch across patch branches to avoid
@@ -50,20 +50,21 @@ jobs:
 
   FindStandardAndExtensionVersions:
     needs: assert-all-required-workflows-succeeded
-    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    uses: ./.github/workflows/Find Standard and Extension Versions.yml
     with:
       calling_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
-      
+
   PublishToAzureArtifacts:
-    runs-on: ubuntu-24.04    
+    runs-on: ubuntu-24.04
     needs: FindStandardAndExtensionVersions
 
     strategy:
-      fail-fast: false    
+      fail-fast: false
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
     steps:
+
     - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
@@ -73,7 +74,7 @@ jobs:
 
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
-      run: | 
+      run: |
         echo "::error::Missing Azure Token"
         exit 1
 
@@ -83,7 +84,7 @@ jobs:
         workflow: InitDev, Unit tests, Integration tests, Package.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
+        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
         commit: ${{ env.INITDEV_COMMIT || github.sha }}
         check_artifacts: true
         if_no_artifact_found: fail
@@ -94,15 +95,15 @@ jobs:
         workflow: InitDev, Smoke Tests.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
+        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
         commit: ${{ env.INITDEV_COMMIT || github.sha }}
         check_artifacts: true
         if_no_artifact_found: fail
 
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
-      working-directory: ./Ed-Fi-ODS-Implementation/      
-      run: |      
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
 
@@ -110,7 +111,7 @@ jobs:
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        Get-ChildItem "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/" -Filter *.nupkg | 
+        Get-ChildItem "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/" -Filter *.nupkg |
         Foreach-Object {
             Write-Host "nupkg full path is " $_.FullName
             $packagePath = $_.FullName
@@ -123,6 +124,7 @@ jobs:
     needs: PublishToAzureArtifacts
     runs-on: ubuntu-24.04
     steps:
+
     - name: Dispatch Docker Test workflow
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
       id: docker_test_dispatch

@@ -43,7 +43,7 @@ jobs:
           - ods-api-db-ods-sandbox/ubuntu/mssql
     steps:
       - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
-        run:  echo "${{ github.event.inputs.distinct_id }}" 
+        run:  echo "${{ github.event.inputs.distinct_id }}"
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
@@ -53,7 +53,7 @@ jobs:
           dockerfile: Docker/${{ matrix.image }}/Dockerfile
 
   FindStandardAndExtensionVersions:
-    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    uses: ./.github/workflows/Find Standard and Extension Versions.yml
     with:
       calling_branch: ${{ github.head_ref || github.ref_name }}
 
@@ -78,7 +78,7 @@ jobs:
             { name: "ods-api-db-admin", path: "ubuntu/mssql" },
             { name: "ods-api-db-ods-minimal", path: "ubuntu/mssql" },
             { name: "ods-api-db-ods-sandbox", path: "ubuntu/mssql" }
-          ]        
+          ]
     name: ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
 
     steps:

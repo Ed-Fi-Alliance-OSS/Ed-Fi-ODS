@@ -39,7 +39,7 @@ env:
 
 jobs:
   FindStandardAndExtensionVersions:
-    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    uses: ./.github/workflows/Find Standard and Extension Versions.yml
     with:
       calling_branch: ${{ github.head_ref || github.ref_name }}
 
@@ -56,9 +56,9 @@ jobs:
         ports:
           - 1433:1433
         options: >-
-          --health-cmd "exit 0" 
-          --health-interval 10s 
-          --health-timeout 5s 
+          --health-cmd "exit 0"
+          --health-interval 10s
+          --health-timeout 5s
           --health-retries 3
           --name mssql
           --user root
@@ -66,39 +66,25 @@ jobs:
     permissions:
       checks: write
     strategy:
-      fail-fast: false     
+      fail-fast: false
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
-    name: build (Standard Version ${{ matrix.StandardVersion }}) 
+    name: build (Standard Version ${{ matrix.StandardVersion }})
 
     steps:
+
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
       run:  echo "${{ github.event.inputs.distinct_id }}"
+
     - name: Set permissions for database server container backup directory
       run: docker exec --user root mssql chmod 777 /DatabaseBackups
       shell: pwsh
-    - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation/
-    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-          path: Ed-Fi-ODS/
-    - name: Is pull request branch exists in Ed-Fi-ODS
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
-    - name: Cache Nuget packages   
+
+    - name: Cache Nuget packages
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
         path: ~/.nuget/packages
@@ -108,15 +94,15 @@ jobs:
           ${{ runner.os }}-
           nuget-
         enableCrossOsArchive: true
+
     - name: Restore NuGet packages
-      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
-        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
-        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
+        .\build.githubactions.ps1 restore -Solution "./EUtilities/SdkGen/EdFi.SdkGen.sln"
+        .\build.githubactions.ps1 restore -Solution "./Application/Ed-Fi-Ods.sln"
+        .\build.githubactions.ps1 restore -Solution "./EUtilities/DataLoading/LoadTools.sln"
       shell: pwsh
+
     - name: ODS/API InitDev and SdkGen
-      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
         [int]$BuildCounter =  "${{ github.run_number }}"
@@ -128,7 +114,7 @@ jobs:
                           -UsePlugins `
                           -RunSdkGen `
                           -GenerateTestSdkPackage `
-                          -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages" `
+                          -PackageOutput "./NugetPackages" `
                           -NoPackaging `
                           -NoRestore `
                           -StandardVersion "${{ matrix.StandardVersion }}" `
@@ -137,18 +123,19 @@ jobs:
                           -LocalDbBackupDirectory /MssqlBackupVolume `
                           -DbServerBackupDirectory /DatabaseBackups
       shell: pwsh
+
     - name: Upload initdev logs
       if: success() || failure()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: MultiTenant Initdev logs-${{ matrix.StandardVersion }}
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
+          ./Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
+
     - name: ODS/API MultiTenancy Smoke Tests
-      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        . ./Initialize-PowershellForDevelopment.ps1
 
         .\build.github.ps1 -InstallType MultiTenant `
                           -Tenants "Tenant1;Tenant2" `
@@ -163,56 +150,60 @@ jobs:
                           -DbServerBackupDirectory /DatabaseBackups
 
 
-        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish) {
-          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish -Recurse
+        if(Test-Path ./EUtilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish) {
+          Remove-Item -Path ./EUtilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish -Recurse
         }
-       
+
         $params = @{
                 testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
-                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
+                smokeTestDll             = "./EUtilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
                 testHarnessLogNamePrefix = "SmokeTestSandbox"
                 apiUrl = "http://localhost:8765/Tenant1"
                 isMultiTenancy = $true
         }
 
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
+        . ./logistics/scripts/run-smoke-tests.ps1 @params
       shell: pwsh
+
     - name: Upload MultiTenancy Smoke Tests Logs
       if: success() || failure()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: MultiTenant Smoke Tests Logs-${{ matrix.StandardVersion }}
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
+          ./EUtilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+          ./Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
+
     - name: ODS/API Postman Test MultiTenancy
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |           
+      working-directory: ./
+      run: |
         $ErrorActionPreference = 'Stop'
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        . ./Initialize-PowershellForDevelopment.ps1
 
         Reset-TestAdminDatabase
         Reset-TestSecurityDatabase
         Reset-TestPopulatedTemplateDatabase
-        
+
         Write-FlatHashtable (Get-DeploymentSettings)
         ./logistics/scripts/Invoke-PostmanIntegrationTests.ps1 -isMultiTenancy -configurationFile "./logistics/scripts/modules/postmanTestHarnessConfiguration-Multitenancy.json"
       shell: pwsh
+
     - name: Postman MultiTenancy Test Report
       uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5 # v1.9.1
       if: success() || failure()
       with:
         name: MultiTenant Postman Tests
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.xml
+        path: ./reports/*.xml
         path-replace-backslashes: 'true'
-        working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS-Implementation
         reporter: java-junit
+
     - name: Upload MultiTenancy Postman Tests Logs
       if: success() || failure()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: MultiTenant Postman Tests Logs-${{ matrix.StandardVersion }}
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessRequestResponseDetailsLog.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.html
+          ./Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
+          ./Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessRequestResponseDetailsLog.log
+          ./reports/*.html

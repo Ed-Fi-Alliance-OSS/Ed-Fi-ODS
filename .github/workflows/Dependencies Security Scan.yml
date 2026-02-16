@@ -18,7 +18,7 @@ concurrency:
 env:
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
-  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
 
 jobs:
   scan-actions:
@@ -36,15 +36,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Checkout Ed-Fi-ODS
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-            path: Ed-Fi-ODS/
-      - name: Is pull request branch exists in Ed-Fi-ODS
-        working-directory: ./Ed-Fi-ODS/
-        shell: pwsh
-        run: |
-             .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+
       - name: Dependency Review ("Dependabot on PR")
         uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019  # v4.5.0

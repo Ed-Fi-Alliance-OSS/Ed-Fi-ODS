@@ -6,9 +6,9 @@
 name: Cleanup Caches by a branch
 on:
   pull_request:
-    branches: [main, 'b-v*-patch*','feature-*']
-    types: [ closed ]
-  
+    branches: [main, "b-v*-patch*", "feature-*"]
+    types: [closed]
+
 permissions: read-all
 
 env:
@@ -21,20 +21,22 @@ jobs:
     steps:
       - name: Check for Repo Dispatch Token
         if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.GH_TOKEN == '' }}
-        run: | 
+        run: |
           echo "::error::Missing GitHub Token"
-          exit 1 
+          exit 1
+
       - name: Check out code
         if: ${{ env.GH_TOKEN != '' }}
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
       - name: Cleanup
         run: |
           gh extension install actions/gh-actions-cache
-          
+
           REPO=${{ github.repository }}
           PULLREQUESTBRANCH="refs/pull/${{ github.event.pull_request.number }}/merge"
-          cacheKeysForPR=$(gh actions-cache list -R $REPO -B $PULLREQUESTBRANCH | cut -f 1 )          
-          ## Setting this to not fail the workflow while deleting cache keys. 
+          cacheKeysForPR=$(gh actions-cache list -R $REPO -B $PULLREQUESTBRANCH | cut -f 1 )
+          ## Setting this to not fail the workflow while deleting cache keys.
           set +e
           echo "Deleting caches for  PULLREQUESTBRANCH $PULLREQUESTBRANCH..."
           for cacheKey in $cacheKeysForPR
@@ -42,7 +44,7 @@ jobs:
               gh actions-cache delete $cacheKey -R $REPO -B $PULLREQUESTBRANCH --confirm
           done
 
-          WORKINGBRANCH=${{ GITHUB.HEAD_REF }}         
+          WORKINGBRANCH=${{ GITHUB.HEAD_REF }}
           echo "HEAD_REF: " ${{ GITHUB.HEAD_REF }}
           echo "REF_NAME: " ${{ GITHUB.REF_NAME }}
           echo "Fetching list of cache key"
@@ -52,5 +54,5 @@ jobs:
           for cacheKey in $cacheKeysForPR
           do
               gh actions-cache delete $cacheKey -R $REPO -B $WORKINGBRANCH --confirm
-          done          
+          done
           echo "Done"

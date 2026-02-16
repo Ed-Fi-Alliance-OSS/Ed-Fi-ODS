@@ -1,0 +1,168 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Analyze Docker Images
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  CURRENT_STANDARD_VERSION: "6.0.0"
+  PACKAGE_VERSION: "7.3"
+  DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+  DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+
+jobs:
+  FindStandardAndExtensionVersions:
+    uses: ./.github/workflows/Find Standard and Extension Versions.yml
+    with:
+      calling_branch: ${{ github.head_ref || github.ref_name }}
+
+  analyze-docker:
+    needs: FindStandardAndExtensionVersions
+    runs-on: ubuntu-24.04
+    permissions:
+      pull-requests: write
+      security-events: write
+    strategy:
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
+        dockerfile:
+          [
+            { name: "ods-api-bulk-load-console", path: "alpine" },
+            { name: "ods-api-db-admin", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-minimal", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-sandbox", path: "alpine/pgsql" },
+            { name: "ods-api-swaggerui", path: "alpine" },
+            { name: "ods-api-web-api", path: "alpine/pgsql" },
+            { name: "ods-api-web-api", path: "alpine/mssql" },
+            { name: "ods-api-web-sandbox-admin", path: "alpine/pgsql" },
+            { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" },
+            { name: "ods-api-db-admin", path: "ubuntu/mssql" },
+            { name: "ods-api-db-ods-minimal", path: "ubuntu/mssql" },
+            { name: "ods-api-db-ods-sandbox", path: "ubuntu/mssql" }
+          ]
+    name: ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
+    continue-on-error: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567  # v3.3.0
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_HUB_TOKEN }}
+
+      - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }}
+        run: |
+          ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
+          ./Invoke-Build.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -PreRelease -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
+          $image ="edfialliance/${{ matrix.dockerfile.name }}:${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}"
+
+          if ("${{ matrix.dockerfile.path }}".EndsWith("mssql")) {
+              $image += "-mssql"
+          }
+          echo "IMAGENAME=$image">> $env:GITHUB_ENV
+        working-directory: Docker
+        shell: pwsh
+
+      - name: Analyze
+        uses: docker/scout-action@b23590dc1e4d09febc00cfcbc51e9e8c0f7ee9f3  # v1.16.1
+        with:
+          command: cves
+          image: ${{ env.IMAGENAME }}
+          sarif-file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
+          summary: true
+          only-severities: "critical,high"
+
+      - name: Set Dockerfile Path with Hyphens
+        id: set-dockerfile-path
+        run: |
+          $newPath = "${{ matrix.dockerfile.path }}" -replace '/', '-'
+          echo "DockerFile-ModifiedPath=$newPath">> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Upload vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }} Report
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
+        with:
+          name: vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}
+          path: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
+
+      - name: Upload SARIF result
+        id: upload-sarif
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: github/codeql-action/upload-sarif@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
+        with:
+          sarif_file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
+
+      - name: Check for Critical and High vulnerabilities
+        run: |
+          $sarifFile = "sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json"
+          $sarifContent = Get-Content -Path $sarifFile | ConvertFrom-Json
+          foreach ($result in $sarifContent.runs.results) {
+            $severity = ($result.message.text -match "Severity\s+:\s+(.*)\s*\n") | Out-Null
+            $severity = $matches[1].Trim()
+
+            if ($severity -ieq "critical" -or $severity -ieq "high") {
+              $criticalHighVulnerabilities++
+              Write-Host "Found $severity vulnerability: $($result.ruleId)"
+            }
+          }
+
+          if ($criticalHighVulnerabilities -gt 0) {
+            Write-Error "Found $criticalHighVulnerabilities critical or high vulnerabilities."
+            exit 1
+          } else {
+            Write-Host "No critical or high vulnerabilities found."
+          }
+        shell: pwsh
+
+  finalize:
+    needs: analyze-docker  # Depends on the analyze-docker job
+    runs-on: ubuntu-24.04
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Download all vulnerability reports
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 #v4.1.8
+        with:
+          path: ./vulnerability-reports
+      - name: Determine if there were critical or high vulnerabilities
+        run: |
+          # Get all files in the directory
+          $files = Get-ChildItem -Path ./vulnerability-reports -Recurse -File
+          foreach ($file in $files) {
+            $sarifData = Get-Content $file.FullName | ConvertFrom-Json
+              foreach ($result in $sarifData.runs.results) {
+                $severity = ($result.message.text -match "Severity\s+:\s+(.*)\s*\n") | Out-Null
+                $severity = $matches[1].Trim()
+
+                if ($severity -ieq "critical" -or $severity -ieq "high") {
+                  $criticalHighVulnerabilities++
+                  Write-Host "Found $severity vulnerability: $($result.ruleId) in $file.FullName"
+                }
+              }
+          }
+
+          if ( $criticalHighVulnerabilities  -gt 0) {
+            Write-Error "Critical or High vulnerabilities found in previous jobs."
+            exit 1
+          } else {
+            Write-Host "No critical or high vulnerabilities found."
+          }
+        shell: pwsh
