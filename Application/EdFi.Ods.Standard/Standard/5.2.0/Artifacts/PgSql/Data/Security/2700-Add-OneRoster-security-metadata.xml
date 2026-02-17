@@ -1,0 +1,77 @@
+﻿<SecurityMetadata modifyHierarchy="true">
+  <Claims>
+    <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <Claims>
+        <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/roster-core">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/roster">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="ReadChanges" /> <!-- Not Applicable to OneRoster permissions -->
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/roster-demographics">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/resource">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Delete" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/gradebook">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Read" />
+                <Action name="Create" />
+                <Action name="Update" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
