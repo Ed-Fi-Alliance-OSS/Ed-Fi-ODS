@@ -37,7 +37,7 @@
           <ClaimSets>
             <ClaimSet name="Ed-Fi Sandbox">
               <Actions>
-                 <Action name="Read" />
+                <Action name="Read" />
               </Actions>
             </ClaimSet>
             <ClaimSet name="Roster Vendor">

@@ -1,4 +1,4 @@
-<SecurityMetadata modifyHierarchy="true">
+﻿<SecurityMetadata modifyHierarchy="true">
   <Claims>
     <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope">
       <DefaultAuthorization>
@@ -37,7 +37,7 @@
           <ClaimSets>
             <ClaimSet name="Ed-Fi Sandbox">
               <Actions>
-                 <Action name="Read" />
+                <Action name="Read" />
               </Actions>
             </ClaimSet>
             <ClaimSet name="Roster Vendor">
