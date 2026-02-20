@@ -1,0 +1,135 @@
+<SecurityMetadata modifyHierarchy="true">
+  <Claims>
+    <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope">
+      <DefaultAuthorization>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+       </DefaultAuthorization>
+      <Claims>
+        <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/roster-core">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Roster Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Read">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/roster">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Roster Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Read">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/roster-demographics">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Roster Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Read">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/resource">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+               <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Roster Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Read">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/gradebook">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Roster Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Read">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
