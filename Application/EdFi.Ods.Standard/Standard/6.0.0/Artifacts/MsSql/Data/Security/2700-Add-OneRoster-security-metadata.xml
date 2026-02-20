@@ -1,32 +1,32 @@
-﻿<SecurityMetadata modifyHierarchy="true">
+<SecurityMetadata modifyHierarchy="true">
   <Claims>
     <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope">
       <DefaultAuthorization>
-        <Action name="Create">
-          <AuthorizationStrategies>
-            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
-          </AuthorizationStrategies>
-        </Action>
         <Action name="Read">
           <AuthorizationStrategies>
             <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
           </AuthorizationStrategies>
         </Action>
-        <Action name="Update">
-          <AuthorizationStrategies>
-            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
-          </AuthorizationStrategies>
-        </Action>
-        <Action name="Delete">
-          <AuthorizationStrategies>
-            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
-          </AuthorizationStrategies>
-        </Action>
-      </DefaultAuthorization>
+       </DefaultAuthorization>
       <Claims>
         <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/roster-core">
           <ClaimSets>
             <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Roster Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Read">
               <Actions>
                 <Action name="Read" />
               </Actions>
@@ -37,7 +37,22 @@
           <ClaimSets>
             <ClaimSet name="Ed-Fi Sandbox">
               <Actions>
-                <Action name="ReadChanges" /> <!-- Not Applicable to OneRoster permissions -->
+                 <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Roster Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Read">
+              <Actions>
+                <Action name="Read" />
               </Actions>
             </ClaimSet>
           </ClaimSets>
@@ -49,13 +64,43 @@
                 <Action name="Read" />
               </Actions>
             </ClaimSet>
+            <ClaimSet name="Roster Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Read">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
           </ClaimSets>
         </Claim>
         <Claim name="https://purl.imsglobal.org/spec/or/v1p2/scope/resource">
           <ClaimSets>
             <ClaimSet name="Ed-Fi Sandbox">
               <Actions>
-                <Action name="Delete" />
+               <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Roster Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Read">
+              <Actions>
+                <Action name="Read" />
               </Actions>
             </ClaimSet>
           </ClaimSets>
@@ -65,8 +110,21 @@
             <ClaimSet name="Ed-Fi Sandbox">
               <Actions>
                 <Action name="Read" />
-                <Action name="Create" />
-                <Action name="Update" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Roster Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Vendor">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Assessment Read">
+              <Actions>
+                <Action name="Read" />
               </Actions>
             </ClaimSet>
           </ClaimSets>
