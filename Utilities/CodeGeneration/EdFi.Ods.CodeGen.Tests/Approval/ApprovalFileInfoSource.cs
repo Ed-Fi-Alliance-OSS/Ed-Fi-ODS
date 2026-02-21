@@ -31,7 +31,7 @@ public class ApprovalFileInfoSource<TVersionMetadata> : IEnumerable
             $"{_versionMetadata.ApprovalsFileNamePrefix}.Generated_File_List.Standard.{_versionMetadata.StandardVersion}.approved.txt");
 
         var files = File.ReadAllLines(generatedFileList)
-            .Select(x => new ApprovalFileInfo(Path.Combine(ApprovalTestHelpers.RepositoryRoot, x), ApprovalTestHelpers.OdsRepository, ApprovalTestHelpers.ExtensionRepository))
+            .Select(x => new ApprovalFileInfo(Path.Combine(ApprovalTestHelpers.RepositoryRoot, x), ApprovalTestHelpers.OdsRepository))
             .ToList();
 
         foreach (var file in files)

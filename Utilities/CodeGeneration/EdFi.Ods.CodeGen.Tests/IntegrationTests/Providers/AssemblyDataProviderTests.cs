@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -49,9 +49,10 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
 
             protected override void Arrange()
             {
-                var container = ContainerHelper.CreateContainer(new Options {
-                        StandardVersion = StandardVersion,
-                        ExtensionVersion = "1.1.0"
+                var container = ContainerHelper.CreateContainer(new Options
+                {
+                    StandardVersion = StandardVersion,
+                    ExtensionVersion = "1.1.0"
                 });
 
                 _assemblyDataProviders = container.Resolve<IEnumerable<IAssemblyDataProvider>>();
@@ -85,11 +86,11 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                 var container = ContainerHelper.CreateContainer(
                     new Options
                     {
-                        ExtensionPaths = new[]
-                        {
+                        ExtensionPaths =
+                        [
                             new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
-                                CodeRepositoryConventions.ExtensionsRepositoryName]
-                        },
+                                CodeRepositoryConventions.Ods]
+                        ],
                         StandardVersion = StandardVersion,
                         ExtensionVersion = "1.1.0"
                     });
@@ -169,11 +170,10 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                 var container = ContainerHelper.CreateContainer(
                     new Options
                     {
-                        ExtensionPaths = new[]
-                        {
+                        ExtensionPaths = [
                             new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
-                                CodeRepositoryConventions.ExtensionsRepositoryName]
-                        },
+                                CodeRepositoryConventions.Ods]
+                        ],
                         StandardVersion = StandardVersion,
                         ExtensionVersion = "1.1.0"
                     });

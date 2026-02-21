@@ -11,12 +11,10 @@ namespace EdFi.Ods.CodeGen.Tests.Approval
     public class ApprovalFileInfo
     {
         private readonly string _odsRepository;
-        private readonly string _extensionRepository;
 
-        public ApprovalFileInfo(string sourcePath, string odsRepository, string extensionRepository)
+        public ApprovalFileInfo(string sourcePath, string odsRepository)
         {
             _odsRepository = odsRepository;
-            _extensionRepository = extensionRepository;
 
             SourcePath = sourcePath.Replace("\\", "/");
             Scenario = $"{CreateScenario(sourcePath)}";
@@ -31,7 +29,6 @@ namespace EdFi.Ods.CodeGen.Tests.Approval
 
         private string CreateScenario(string sourcePath)
             => sourcePath
-                .Replace(_extensionRepository, string.Empty)
                 .Replace(_odsRepository, string.Empty)
                 .Replace("/", "_")
                 .Replace("_Application_", string.Empty)

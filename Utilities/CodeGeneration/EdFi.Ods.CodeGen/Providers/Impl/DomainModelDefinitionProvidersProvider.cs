@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -37,12 +37,12 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             Options options)
         {
             _solutionPath = Path.Combine(
-                codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation),
-                "Application");
+                codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods),
+                CodeRepositoryConventions.Application);
 
             _extensionsPath = codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                CodeRepositoryConventions.ExtensionsRepositoryName,
-                "Extensions");
+                CodeRepositoryConventions.Ods,
+                CodeRepositoryConventions.Extensions);
 
             _domainModelDefinitionProvidersByProjectName =
                 new Lazy<Dictionary<string, IDomainModelDefinitionsProvider>>(CreateDomainModelDefinitionsByPath);
@@ -74,22 +74,16 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         private Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
         {
-            DirectoryInfo[] directoriesToEvaluate;
 
             var domainModelDefinitionsByPath =
                 new Dictionary<string, IDomainModelDefinitionsProvider>(StringComparer.InvariantCultureIgnoreCase);
 
-            string edFiOdsImplementationApplicationPath = _solutionPath;
 
-            int index = _solutionPath.LastIndexOf(CodeRepositoryConventions.EdFiOdsImplementationFolderName);
+            int index = _solutionPath.LastIndexOf(CodeRepositoryConventions.EdFiOdsFolderName);
 
-            string edFiOdsApplicationPath = _solutionPath
-                .Remove(index, CodeRepositoryConventions.EdFiOdsImplementationFolderName.Length)
-                .Insert(index, CodeRepositoryConventions.EdFiOdsFolderName);
+            string edFiOdsApplicationPath = _solutionPath;
 
-            directoriesToEvaluate = GetProjectDirectoriesToEvaluate(edFiOdsImplementationApplicationPath)
-                .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
-                .ToArray();
+            DirectoryInfo[] directoriesToEvaluate = [.. GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath)];
 
             var extensionPaths = _extensionPluginsProviderProvider.GetExtensionLocationPlugins();
 
@@ -99,12 +93,10 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                     {
                         if (!Directory.Exists(x))
                         {
-                            throw new Exception($"Unable to find extension Location project path  at location {x}.");
+                            throw new Exception($"Unable to find extension Location project path at location {x}.");
                         }
 
-                        directoriesToEvaluate = directoriesToEvaluate.Concat(GetProjectDirectoriesToEvaluate(x))
-                            .Append(new DirectoryInfo(x))
-                            .ToArray();
+                        directoriesToEvaluate = [.. directoriesToEvaluate, .. GetProjectDirectoriesToEvaluate(x), new DirectoryInfo(x)];
                     });
 
             var modelProjects = directoriesToEvaluate.Where(p => p.Name.IsExtensionAssembly() || p.Name.IsStandardAssembly());

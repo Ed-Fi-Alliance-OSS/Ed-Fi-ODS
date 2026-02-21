@@ -29,19 +29,11 @@ namespace EdFi.Ods.CodeGen.Helpers
             _repositoryByName.Add(CodeRepositoryConventions.Ods, 
                 Path.Combine(resolveSharedRootPath, CodeRepositoryConventions.EdFiOdsFolderName));
 
-            _repositoryByName.Add(CodeRepositoryConventions.Implementation,
-                Path.Combine(resolveSharedRootPath, CodeRepositoryConventions.EdFiOdsImplementationFolderName));
-
-            _repositoryByName.Add(CodeRepositoryConventions.ExtensionsRepositoryName, 
-                Path.Combine(resolveSharedRootPath, CodeRepositoryConventions.ExtensionsRepositoryName));
-
             string ResolveSharedRootPath()
             {
                 string[] repositoryFolderNames =
                 {
                     CodeRepositoryConventions.EdFiOdsFolderName,
-                    CodeRepositoryConventions.EdFiOdsImplementationFolderName,
-                    CodeRepositoryConventions.ExtensionsRepositoryName
                 };
 
                 string probePath = codeRepositoryPath.TrimEnd(Path.DirectorySeparatorChar);

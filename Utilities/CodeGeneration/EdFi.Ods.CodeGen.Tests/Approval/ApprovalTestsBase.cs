@@ -36,7 +36,7 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
 
         _approvalsFileNamePrefix = metadata.ApprovalsFileNamePrefix;
         _standardVersion = metadata.StandardVersion;
-        _extensionRepositoryExtensionsFolder = Path.Combine(ApprovalTestHelpers.ExtensionRepository, CodeRepositoryConventions.Extensions);
+        _extensionRepositoryExtensionsFolder = Path.Combine(ApprovalTestHelpers.OdsRepository, CodeRepositoryConventions.Extensions);
         _odsRepositoryProjects = Path.Combine(ApprovalTestHelpers.OdsRepository, CodeRepositoryConventions.Application);
     }
 
