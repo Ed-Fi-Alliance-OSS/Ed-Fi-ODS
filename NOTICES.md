@@ -3,7 +3,7 @@
 This product includes software developed at the [Ed-Fi
 Alliance](https://www.ed-fi.org).
 
-Copyright (c) 2020 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2026 Ed-Fi Alliance, LLC and contributors.
 
 This software distribution includes or contains external references to several
 open source packages that are attributed below in this notice. Where required,
@@ -385,7 +385,7 @@ https://github.com/martinjw/dbschemareader
 
     (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 
-## dbup-postgresql & dbup-sqlserver  
+## dbup-postgresql & dbup-sqlserver
 https://github.com/DbUp/DbUp
 
     MIT License
@@ -811,25 +811,25 @@ https://github.com/FubarDevelopment/restsharp.portable
 
     Copyright (c) 2013-2016, RestSharp.Portable project, All rights reserved.
 
-    Redistribution and use in source and binary forms, with or without 
+    Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
 
-    - Redistributions of source code must retain the above copyright notice, this 
+    - Redistributions of source code must retain the above copyright notice, this
       list of conditions and the following disclaimer.
-    - Redistributions in binary form must reproduce the above copyright notice, 
-      this list of conditions and the following disclaimer in the documentation 
+    - Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
       and/or other materials provided with the distribution.
 
-    **THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
-    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+    **THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
     OF THE POSSIBILITY OF SUCH DAMAGE.**
 
 ## Font Awesome
@@ -1810,7 +1810,7 @@ https://github.com/dotnet/sqlclient
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE
 
-## Microsoft.EntityFrameworkCore & Microsoft.EntityFrameworkCore.Abstractions & Microsoft.EntityFrameworkCore.Proxies & 
+## Microsoft.EntityFrameworkCore & Microsoft.EntityFrameworkCore.Abstractions & Microsoft.EntityFrameworkCore.Proxies &
 ## Microsoft.EntityFrameworkCore.Relational & Microsoft.EntityFrameworkCore.SqlServer
 https://github.com/dotnet/efcore
 
@@ -2534,7 +2534,7 @@ https://nhibernate.info
     on the Library (independent of the use of the Library in a tool for
     writing it).  Whether that is true depends on what the Library does
     and what the program that uses the Library does.
-      
+
       1. You may copy and distribute verbatim copies of the Library's
     complete source code as you receive it, in any medium, provided that
     you conspicuously and appropriately publish on each copy an
@@ -3448,7 +3448,7 @@ https://github.com/KeRNeLith/QuikGraph
 
     (B) Patent Grant- Subject to the terms of this license, including the license conditions and limitations in section 3,
     each contributor grants you a non-exclusive, worldwide, royalty-free license under its licensed patents to make,
-    have made, use, sell, offer for sale, import, and/or otherwise dispose of its contribution in the software 
+    have made, use, sell, offer for sale, import, and/or otherwise dispose of its contribution in the software
     or derivative works of the contribution in the software.
 
     3. Conditions and Limitations
@@ -3458,16 +3458,16 @@ https://github.com/KeRNeLith/QuikGraph
     (B) If you bring a patent claim against any contributor over patents that you claim are infringed by the software,
     your patent license from such contributor to the software ends automatically.
 
-    (C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, 
+    (C) If you distribute any portion of the software, you must retain all copyright, patent, trademark,
     and attribution notices that are present in the software.
 
     (D) If you distribute any portion of the software in source code form, you may do so only under this license
-    by including a complete copy of this license with your distribution. 
+    by including a complete copy of this license with your distribution.
     If you distribute any portion of the software in compiled or object code form, you may only do so under a license that complies with this license.
 
-    (E) The software is licensed "as-is." You bear the risk of using it. 
-    The contributors give no express warranties, guarantees or conditions. 
-    You may have additional consumer rights under your local laws which this license cannot change. 
+    (E) The software is licensed "as-is." You bear the risk of using it.
+    The contributors give no express warranties, guarantees or conditions.
+    You may have additional consumer rights under your local laws which this license cannot change.
     To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability,
     fitness for a particular purpose and non-infringement.
 
@@ -3587,16 +3587,16 @@ https://docs.shouldly.org
 
     Redistribution and use in source and binary forms, with or without modification,
     are permitted provided that the following conditions are met:
-     
+
         * Redistributions of source code must retain the above copyright notice,
         this list of conditions and the following disclaimer.
         * Redistributions in binary form must reproduce the above copyright notice,
         this list of conditions and the following disclaimer in the documentation
         and/or other materials provided with the distribution.
-        * Neither the names of the copyright holders nor the names of 
+        * Neither the names of the copyright holders nor the names of
         contributors may be used to endorse or promote products derived from this
         software without specific prior written permission.
-     
+
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -3701,22 +3701,22 @@ https://github.com/stubbleorg/stubble
     Redistribution and use in source and binary forms, with or without modification
     , are permitted provided that the following conditions are met:
 
-    1. Redistributions of source code must retain the above copyright notice, this 
+    1. Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
 
-    2. Redistributions in binary form must reproduce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation 
+    2. Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation
        and/or other materials provided with the distribution.
 
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
-    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
     DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
     CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
     OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## Swagger code-gen
