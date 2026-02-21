@@ -15,7 +15,9 @@ param(
         "Pack",
         "Publish",
         "CheckoutBranch",
+        "MaximumPathLengthLimitation",
         "InstallCredentialHandler",
+        "ExtensionVersions",
         "StandardVersions",
         "StandardTag",
         "TpdmTag",
@@ -73,7 +75,16 @@ param(
     $Copyright = "Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors",
 
     [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
-    [string]  $StandardVersion
+    [string]  $StandardVersion,
+
+    [ValidateScript({
+            if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
+                $true
+            } else {
+                throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
+            }
+    })]
+    [string]  $ExtensionVersion
 
 )
 
@@ -157,6 +168,8 @@ function Pack {
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName){
 
+        Write-Host "Updating package id and description to $PackageName"
+
         $xml = [xml](Get-Content $NuspecFilePath)
         $xml.package.metadata.id = $PackageName
         $xml.package.metadata.description = $PackageName
@@ -170,7 +183,7 @@ function Pack {
             BuildConfiguration    = $Configuration
         }
 
-        & "$PSScriptRoot//Initialize-PowershellForDevelopment.ps1"
+        & "$PSScriptRoot/Initialize-PowershellForDevelopment.ps1"
 
         New-Package @params | Out-Host
     }
@@ -210,6 +223,7 @@ function Test {
     }
 }
 
+# TODO: can we remove this now?
 function CheckoutBranch {
     Set-Location $RelativeRepoPath
     $odsBranch = $Env:REPOSITORY_DISPATCH_BRANCH
@@ -262,6 +276,50 @@ function Get-IsWindows {
     return $IsWindows
 }
 
+function MaximumPathLengthLimitation {
+
+    $ErrorActionPreference = 'Stop'
+
+    $error.Clear()
+
+    & "$PSScriptRoot/logistics/scripts/modules/load-path-resolver.ps1"
+
+    $pluginParentFolderPath = (Get-RepositoryResolvedPath "Plugin/")
+    $extensionFolderName = $PackageName.Replace('EdFi.Suite3.Ods.','')
+    $extensionFolderName = $extensionFolderName -replace "^.*?(Extensions\.[^\.]+).*", '$1'
+    $desinationPath = "$pluginParentFolderPath/$extensionFolderName.zip"
+    Copy-Item -Path $packagePath -Destination $desinationPath -Recurse -Force -PassThru
+    if (Test-Path $desinationPath) {
+      Expand-Archive -Force -Path $desinationPath -DestinationPath "$pluginParentFolderPath/$extensionFolderName/"
+    }
+    Remove-Item -Path $desinationPath -Force
+    $baseRootPathLength = (Get-RepositoryRoot "Ed-Fi-ODS").Length - ("Ed-Fi-ODS".Length)
+    $sqlFileNameValues = "";
+    $isMaximumPathLengthFound = $false
+    $message = "";
+
+    Get-ChildItem -Path $pluginParentFolderPath -Recurse -Force -Filter "*.sql" | Sort-Object {($_.FullName.Length)} -Descending | ForEach-Object {
+        $sqlFilePath = $_.FullName
+        $sqlFileLength = ($_.FullName.Length) -($baseRootPathLength)
+        $sqlFileLength = $sqlFileLength -as [int]
+        $sqlFileName = Split-Path $sqlFilePath -leaf
+        $maximumlength = 180
+
+        if ($sqlFileLength -ge $maximumlength)
+        {
+            $isMaximumPathLengthFound = $true
+            $sqlFileNameValues +=  $sqlFileName + "`r`n"
+            $message += "Found plugin extension SQL file '$sqlFilePath' exceeds 180 characters full file path length,"
+            $message += "So Windows Operating system don't allow due to Maximum Path Length Limitation."
+            $message += "Please reduce length of SQL file name and retry.`r`n"
+        }
+    }
+    if ($true -eq $isMaximumPathLengthFound) {
+        Write-Host $message -ForegroundColor Green
+        throw "Found plugin extension SQL file names '$sqlFileNameValues' exceeds 180 characters full file path length."
+    }
+}
+
 function InstallCredentialHandler {
 
     # Does the same as: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) }"
@@ -285,6 +343,15 @@ function InstallCredentialHandler {
     Write-Host "Extracting $downloadPath ..."
     Expand-Archive -Force -Path $downloadPath -DestinationPath '~/.nuget/'
     Write-Host "The artifacts-credprovider was successfully installed" -ForegroundColor Green
+}
+
+function ExtensionVersions {
+
+    $extensionProjectDirectory = Split-Path $Solution  -Resolve
+    $extensionProjectPath = Join-Path $extensionProjectDirectory "/Versions/"
+    $versions = (Get-ChildItem -Path $extensionProjectPath -Directory -Force -ErrorAction SilentlyContinue | Select -ExpandProperty Name | %{ "'" + $_ + "'" }) -Join ','
+    $extensionVersions = "[$versions]"
+    return $extensionVersions
 }
 
 function StandardVersions {
@@ -429,6 +496,14 @@ function Invoke-InstallCredentialHandler {
     Invoke-Step { InstallCredentialHandler }
 }
 
+function Invoke-MaximumPathLengthLimitation {
+    Invoke-Step { MaximumPathLengthLimitation }
+}
+
+function Invoke-ExtensionVersions {
+    Invoke-Step { ExtensionVersions }
+}
+
 function Invoke-StandardVersions {
      Invoke-Step { StandardVersions }
 }
@@ -450,7 +525,9 @@ Invoke-Main {
         Pack { Invoke-Pack }
         Publish { Invoke-Publish }
         CheckoutBranch { Invoke-CheckoutBranch }
+        MaximumPathLengthLimitation { Invoke-MaximumPathLengthLimitation }
         InstallCredentialHandler { Invoke-InstallCredentialHandler }
+        ExtensionVersions { Invoke-ExtensionVersions }
         StandardVersions { Invoke-StandardVersions }
         StandardTag { Invoke-StandardTag }
         TpdmTag { Invoke-TpdmTag }
