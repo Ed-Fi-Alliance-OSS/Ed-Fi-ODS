@@ -86,11 +86,10 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                 var container = ContainerHelper.CreateContainer(
                     new Options
                     {
-                        ExtensionPaths =
-                        [
-                            new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
-                                CodeRepositoryConventions.Ods]
-                        ],
+                        ExtensionPaths = new List<string>
+                        {
+                            new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[CodeRepositoryConventions.Extensions]
+                        },
                         StandardVersion = StandardVersion,
                         ExtensionVersion = "1.1.0"
                     });
@@ -171,8 +170,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                     new Options
                     {
                         ExtensionPaths = [
-                            new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
-                                CodeRepositoryConventions.Ods]
+                           new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[CodeRepositoryConventions.Extensions]
                         ],
                         StandardVersion = StandardVersion,
                         ExtensionVersion = "1.1.0"

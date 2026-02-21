@@ -25,9 +25,11 @@ namespace EdFi.Ods.CodeGen.Helpers
             string resolveSharedRootPath = ResolveSharedRootPath();
             
             _repositoryByName.Add(CodeRepositoryConventions.Root, resolveSharedRootPath);
-            
-            _repositoryByName.Add(CodeRepositoryConventions.Ods, 
-                Path.Combine(resolveSharedRootPath, CodeRepositoryConventions.EdFiOdsFolderName));
+
+            var odsPath = Path.Combine(resolveSharedRootPath, CodeRepositoryConventions.EdFiOdsFolderName);
+            _repositoryByName.Add(CodeRepositoryConventions.Ods, odsPath);
+            _repositoryByName.Add(CodeRepositoryConventions.Extensions,
+                Path.Combine(odsPath, CodeRepositoryConventions.Extensions));
 
             string ResolveSharedRootPath()
             {

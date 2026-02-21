@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.IO;
+
 namespace EdFi.Ods.CodeGen.Conventions
 {
     public static class CodeRepositoryConventions
@@ -35,6 +37,6 @@ namespace EdFi.Ods.CodeGen.Conventions
         /// <summary>
         /// Extension repository's extension folder
         /// </summary>
-        public const string Extensions = "Ed-Fi-Extensions/Extensions";
+        public static readonly string Extensions = Path.Combine("Ed-Fi-Extensions","Extensions");
     }
 }

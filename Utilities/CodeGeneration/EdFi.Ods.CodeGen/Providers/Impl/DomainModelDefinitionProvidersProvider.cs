@@ -99,7 +99,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                         directoriesToEvaluate = [.. directoriesToEvaluate, .. GetProjectDirectoriesToEvaluate(x), new DirectoryInfo(x)];
                     });
 
-            var modelProjects = directoriesToEvaluate.Where(p => p.Name.IsExtensionAssembly() || p.Name.IsStandardAssembly());
+            var modelProjects = directoriesToEvaluate.Where(p => p.Name.IsExtensionAssembly() || p.Name.IsStandardAssembly()).DistinctBy(x => x.FullName);
 
             foreach (var modelProject in modelProjects)
             {
