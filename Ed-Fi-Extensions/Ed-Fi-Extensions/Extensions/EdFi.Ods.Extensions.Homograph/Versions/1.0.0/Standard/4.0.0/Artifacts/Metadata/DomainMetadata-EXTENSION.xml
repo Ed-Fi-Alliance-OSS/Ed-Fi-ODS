@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AggregateExtensions logicalSchema="Homograph" schema="homograph">
+  <Aggregate root="Name">
+    <Entity table="Name" schema="homograph"/>
+  </Aggregate>
+  <Aggregate root="Parent">
+    <Entity table="Parent" schema="homograph"/>
+    <Entity table="ParentAddress" schema="homograph" isRequiredCollection="true"/>
+    <Entity table="ParentStudentSchoolAssociation" schema="homograph" isRequiredCollection="true"/>
+  </Aggregate>
+  <Aggregate root="School">
+    <Entity table="School" schema="homograph"/>
+    <Entity table="SchoolAddress" schema="homograph"/>
+  </Aggregate>
+  <Aggregate root="SchoolYearType">
+    <Entity table="SchoolYearType" schema="homograph"/>
+  </Aggregate>
+  <Aggregate root="Staff">
+    <Entity table="Staff" schema="homograph"/>
+    <Entity table="StaffAddress" schema="homograph"/>
+    <Entity table="StaffStudentSchoolAssociation" schema="homograph"/>
+  </Aggregate>
+  <Aggregate root="Student">
+    <Entity table="Student" schema="homograph"/>
+    <Entity table="StudentAddress" schema="homograph"/>
+  </Aggregate>
+  <Aggregate root="StudentSchoolAssociation" allowPrimaryKeyUpdates="true">
+    <Entity table="StudentSchoolAssociation" schema="homograph"/>
+  </Aggregate>
+</AggregateExtensions>

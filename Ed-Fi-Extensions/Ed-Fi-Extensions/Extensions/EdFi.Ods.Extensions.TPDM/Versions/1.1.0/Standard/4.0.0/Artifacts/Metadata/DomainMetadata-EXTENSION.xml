@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AggregateExtensions logicalSchema="TPDM" schema="tpdm">
+  <Aggregate root="AccreditationStatusDescriptor">
+    <Entity table="AccreditationStatusDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="AidTypeDescriptor">
+    <Entity table="AidTypeDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="Candidate">
+    <Entity table="Candidate" schema="tpdm"/>
+    <Entity table="CandidateAddress" schema="tpdm"/>
+    <Entity table="CandidateAddressPeriod" schema="tpdm"/>
+    <Entity table="CandidateDisability" schema="tpdm"/>
+    <Entity table="CandidateDisabilityDesignation" schema="tpdm"/>
+    <Entity table="CandidateElectronicMail" schema="tpdm"/>
+    <Entity table="CandidateLanguage" schema="tpdm"/>
+    <Entity table="CandidateLanguageUse" schema="tpdm"/>
+    <Entity table="CandidateOtherName" schema="tpdm"/>
+    <Entity table="CandidatePersonalIdentificationDocument" schema="tpdm"/>
+    <Entity table="CandidateRace" schema="tpdm"/>
+    <Entity table="CandidateTelephone" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="CandidateEducatorPreparationProgramAssociation">
+    <Entity table="CandidateEducatorPreparationProgramAssociation" schema="tpdm"/>
+    <Entity table="CandidateEducatorPreparationProgramAssociationCohortYear" schema="tpdm"/>
+    <Entity table="CandidateEducatorPreparationProgramAssociationDegreeSpecialization" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="CertificationRouteDescriptor">
+    <Entity table="CertificationRouteDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="CoteachingStyleObservedDescriptor">
+    <Entity table="CoteachingStyleObservedDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="CredentialStatusDescriptor">
+    <Entity table="CredentialStatusDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EPPProgramPathwayDescriptor">
+    <Entity table="EPPProgramPathwayDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EducatorPreparationProgram">
+    <Entity table="EducatorPreparationProgram" schema="tpdm"/>
+    <Entity table="EducatorPreparationProgramGradeLevel" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EducatorRoleDescriptor">
+    <Entity table="EducatorRoleDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EnglishLanguageExamDescriptor">
+    <Entity table="EnglishLanguageExamDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="Evaluation">
+    <Entity table="Evaluation" schema="tpdm"/>
+    <Entity table="EvaluationRatingLevel" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EvaluationElement">
+    <Entity table="EvaluationElement" schema="tpdm"/>
+    <Entity table="EvaluationElementRatingLevel" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EvaluationElementRating">
+    <Entity table="EvaluationElementRating" schema="tpdm"/>
+    <Entity table="EvaluationElementRatingResult" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EvaluationElementRatingLevelDescriptor">
+    <Entity table="EvaluationElementRatingLevelDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EvaluationObjective">
+    <Entity table="EvaluationObjective" schema="tpdm"/>
+    <Entity table="EvaluationObjectiveRatingLevel" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EvaluationObjectiveRating">
+    <Entity table="EvaluationObjectiveRating" schema="tpdm"/>
+    <Entity table="EvaluationObjectiveRatingResult" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EvaluationPeriodDescriptor">
+    <Entity table="EvaluationPeriodDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EvaluationRating">
+    <Entity table="EvaluationRating" schema="tpdm"/>
+    <Entity table="EvaluationRatingResult" schema="tpdm"/>
+    <Entity table="EvaluationRatingReviewer" schema="tpdm"/>
+    <Entity table="EvaluationRatingReviewerReceivedTraining" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EvaluationRatingLevelDescriptor">
+    <Entity table="EvaluationRatingLevelDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EvaluationRatingStatusDescriptor">
+    <Entity table="EvaluationRatingStatusDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EvaluationTypeDescriptor">
+    <Entity table="EvaluationTypeDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="FinancialAid">
+    <Entity table="FinancialAid" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="GenderDescriptor">
+    <Entity table="GenderDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="ObjectiveRatingLevelDescriptor">
+    <Entity table="ObjectiveRatingLevelDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="PerformanceEvaluation">
+    <Entity table="PerformanceEvaluation" schema="tpdm"/>
+    <Entity table="PerformanceEvaluationGradeLevel" schema="tpdm"/>
+    <Entity table="PerformanceEvaluationRatingLevel" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="PerformanceEvaluationRating">
+    <Entity table="PerformanceEvaluationRating" schema="tpdm"/>
+    <Entity table="PerformanceEvaluationRatingResult" schema="tpdm"/>
+    <Entity table="PerformanceEvaluationRatingReviewer" schema="tpdm"/>
+    <Entity table="PerformanceEvaluationRatingReviewerReceivedTraining" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="PerformanceEvaluationRatingLevelDescriptor">
+    <Entity table="PerformanceEvaluationRatingLevelDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="PerformanceEvaluationTypeDescriptor">
+    <Entity table="PerformanceEvaluationTypeDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="RubricDimension">
+    <Entity table="RubricDimension" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="RubricRatingLevelDescriptor">
+    <Entity table="RubricRatingLevelDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="SurveyResponsePersonTargetAssociation">
+    <Entity table="SurveyResponsePersonTargetAssociation" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="SurveySectionResponsePersonTargetAssociation">
+    <Entity table="SurveySectionResponsePersonTargetAssociation" schema="tpdm"/>
+  </Aggregate>
+  <AggregateExtension root="Credential">
+    <Entity table="CredentialStudentAcademicRecord" schema="tpdm"/>
+  </AggregateExtension>
+</AggregateExtensions>

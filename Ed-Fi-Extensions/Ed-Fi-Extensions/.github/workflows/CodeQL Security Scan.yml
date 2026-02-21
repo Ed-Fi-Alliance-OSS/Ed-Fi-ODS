@@ -1,0 +1,120 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: CodeQL Security Scan Schedule 
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions: read-all
+
+env:
+  CONFIGURATION: "Release"
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
+
+jobs:
+  FindStandardAndExtensionVersions:
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    with:
+      calling_branch: ${{ github.head_ref || github.ref_name }}
+      extension_path: 'Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj'
+      
+  analyze:
+    if: ${{ always() }}
+    needs: FindStandardAndExtensionVersions
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
+    name: Analyze Code (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
+        with:
+          languages: 'csharp'
+      - name: Checkout Ed-Fi-Extensions
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+            path: Ed-Fi-Extensions/
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+            path: Ed-Fi-ODS-Implementation/
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+            path: Ed-Fi-ODS/
+      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-Extensions/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+      - name: Is pull request branch exists in Ed-Fi-ODS
+        working-directory: ./Ed-Fi-Extensions/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+      - name: Is pull request branch exists in Ed-Fi-Extensions
+        working-directory: ./Ed-Fi-Extensions/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+      - name: restore
+        shell: pwsh
+        working-directory: ./Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Homograph/
+        run: |
+             dotnet restore
+             cd ../EdFi.Ods.Extensions.Sample/
+             dotnet restore
+             cd ../EdFi.Ods.Extensions.SampleStudentTranscript/
+             dotnet restore
+             cd ../EdFi.Ods.Extensions.SampleAlternativeEducationProgram/
+             dotnet restore
+             cd ../EdFi.Ods.Extensions.TPDM/
+             dotnet restore
+             cd ../EdFi.Ods.Profiles.Sample/
+             dotnet restore
+        
+      - name: CodeGen    
+        working-directory: ./Ed-Fi-Extensions/
+        shell: pwsh
+        run: |
+            $ErrorActionPreference = 'Stop'
+            $PSVersionTable
+            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+            Invoke-CodeGen -Engine PostgreSQL  -ExtensionPaths  $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/ -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+      - name: build
+        shell: pwsh
+        working-directory: ./Ed-Fi-Extensions/
+        run: |
+             $standardVersion = '${{ matrix.StandardVersion }}'
+             $majorVersion = [int]($standardVersion.Split('.')[0])
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Homograph/EdFi.Ods.Extensions.Homograph.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/EdFi.Ods.Extensions.Sample.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SampleStudentTranscript/EdFi.Ods.Extensions.SampleStudentTranscript.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SampleAlternativeEducationProgram/EdFi.Ods.Extensions.SampleAlternativeEducationProgram.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+             if ($majorVersion -lt 6) {
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+             }
+             else {
+              Write-Host "Skipping EdFi.Ods.Extensions.TPDM.csproj because StandardVersion ($standardVersion) is >= 6.0.0"
+             }
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/EdFi.Ods.Profiles.Sample.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169  # v3.28.0
