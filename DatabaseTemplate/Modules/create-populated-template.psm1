@@ -43,8 +43,8 @@ function Initialize-PopulatedTemplate {
         * Executes first load scenario using the bootstrap data and claimset
         * Executes second load scenario using the rest of the sample data and the sandbox claimset
         * Stops the test harness api
-        * Creates a backup of the new populated template at: Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Database/Populated.Template.bak
-        * Creates a .nuspec file for the new populated template at: Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Database/Populated.Template.nuspec
+        * Creates a backup of the new populated template at: ./DatabaseTemplate/Database/Populated.Template.bak
+        * Creates a .nuspec file for the new populated template at: ./DatabaseTemplate/Database/Populated.Template.nuspec
 
     .PARAMETER samplePath
         An absolute path to the folder to load samples from, for example: C:/MySampleXmlData/.

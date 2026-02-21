@@ -179,7 +179,7 @@ jobs:
 
     - name: Set permissions for database backup file
       working-directory: ./
-      run: sudo chmod -R 777 Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Database/
+      run: sudo chmod -R 777 Ed-Fi-ODS/DatabaseTemplate/Database/
       shell: pwsh
 
     - name: pack

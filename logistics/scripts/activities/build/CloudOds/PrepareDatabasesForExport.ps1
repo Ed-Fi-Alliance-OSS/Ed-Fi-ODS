@@ -48,7 +48,7 @@ if (-not (Test-Path $sqlPackagePath)) { throw "Could not find sqlpackage.exe at 
 
 $ErrorActionPreference = 'Stop'
 
-$repositoryNames = @('Ed-Fi-Ods', 'Get-RepositoryRoot "Ed-Fi-ODS"', 'Ed-Fi-ODS-AdminApp/Application/EdFi.Ods.AdminApp.Web')
+$repositoryNames = @('Ed-Fi-Ods', 'Ed-Fi-ODS-AdminApp/Application/EdFi.Ods.AdminApp.Web')
 Import-Module -Force -Scope Global "$PSScriptRoot/../../../../../logistics/scripts/modules/path-resolver.psm1" -ArgumentList @(, $repositoryNames)
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-database-bacpac.psm1')

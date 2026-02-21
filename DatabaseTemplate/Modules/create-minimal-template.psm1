@@ -49,8 +49,8 @@ function Initialize-MinimalTemplate {
         * Executes first load scenario using the bootstrap data and claimset
         * Executes second load scenario using the rest of the sample data and the sandbox claimset
         * Stops the test harness api
-        * Creates a backup of the new minimal template at: Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Database/Minimal.Template.bak
-        * Creates a .nuspec file for the new minimal template at: Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Database/Minimal.Template.nuspec
+        * Creates a backup of the new minimal template at: ./DatabaseTemplate/Database/Minimal.Template.bak
+        * Creates a .nuspec file for the new minimal template at: ./DatabaseTemplate/Database/Minimal.Template.nuspec
 
     .PARAMETER samplePath
         An absolute path to the folder to load samples from, for example: C:/MySampleXmlData/.

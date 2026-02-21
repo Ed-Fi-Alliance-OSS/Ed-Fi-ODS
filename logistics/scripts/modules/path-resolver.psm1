@@ -14,7 +14,7 @@ A folder anchor is used to allow resolution across repositories.
 For overrides to work, the relative folder paths for the override and the core implementation must be the same.
 
 .Parameter repositoryNames
-The RepositoryNames argument has a default value of Ed-Fi-ODS and Get-RepositoryRoot "Ed-Fi-ODS".
+The RepositoryNames argument has a default value of Ed-Fi-ODS.
 The value can be overridden by either passing the repository names when the module is imported or by specifying an environment
 variable 'PathResolverRepositoryOverride'. If both are specified, the repositories passed directly to the module during import have
 preeminence. The format for the environment variable is semicolon separated values.
@@ -221,7 +221,7 @@ Return the most next most general repository path with the specified path suffix
 .Description
 Return the next most general repository path with the specified path suffix. There must be more than 1 repositories in $repositoryNames, do not look in the calling or more specific repositories at all.
 
-For example, if there are four repositories: Get-RepositoryRoot "Ed-Fi-ODS", Ed-Fi-ODS, Ed-Fi-Dashboards-Core and Ed-Fi-Apps and the calling script is in Ed-Fi-Apps look first in Ed-Fi-Dashboards-Core, if it does not have it then Ed-Fi-ODS, if it does return it. The assumption is then that the Ed-Fi-ODS script would again call this function and during that call the Ed-Fi-Apps, Ed-Fi-Dashboards-Core, and Ed-Fi-ODS repositroies would be ignored, and Get-RepositoryRoot "Ed-Fi-ODS" would be searched.
+For example, if there are four repositories: Ed-Fi-ODS, Ed-Fi-ODS, Ed-Fi-Dashboards-Core and Ed-Fi-Apps and the calling script is in Ed-Fi-Apps look first in Ed-Fi-Dashboards-Core, if it does not have it then Ed-Fi-ODS, if it does return it. The assumption is then that the Ed-Fi-ODS script would again call this function and during that call the Ed-Fi-Apps, Ed-Fi-Dashboards-Core, and Ed-Fi-ODS repositroies would be ignored, and Ed-Fi-ODS would be searched.
 
 .Notes
 This is useful when dot-sourcing or importing core scripts in an extension, so that the parent repository functionality can be inherited if it exists.

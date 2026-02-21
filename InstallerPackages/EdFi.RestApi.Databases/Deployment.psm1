@@ -15,7 +15,7 @@ function Initialize-DeploymentEnvironment {
     .description
         Deploy databases from the EdFi.RestApi.Databases NuGet package created by ./prep-package.ps1
     .parameter PathResolverRepositoryOverride
-        A semicolon-separated string of repositories to pass to path-resolver, such as 'Ed-Fi-ODS;Get-RepositoryRoot "Ed-Fi-ODS"'
+        A semicolon-separated string of repositories to pass to path-resolver, such as 'Ed-Fi-ODS;Ed-Fi-ODS-Implementation'
     .parameter InstallType
         The type of deployment to install: 'Sandbox', 'SingleTenant' or 'MultiTenant'
     .parameter Engine
@@ -38,13 +38,13 @@ function Initialize-DeploymentEnvironment {
     .parameter NoDuration
         Turn off duration display
     .parameter UsePlugins
-        Runs database scripts from downloaded plugin extensions in addition to extensions found in the Get-RepositoryRoot "Ed-Fi-ODS"
+        Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-ODS
     .parameter StandardVersion
         Standard Version.
     .parameter ExtensionVersion
         Extension Version.
     .parameter MssqlSaPassword
-        IMPORTANT: Only use this parameter for deployment in isolated, ephemeral environments (i.e. a disposable container in an isolated CI/CD pipeline.) 
+        IMPORTANT: Only use this parameter for deployment in isolated, ephemeral environments (i.e. a disposable container in an isolated CI/CD pipeline.)
                    This password will be stored as plain-text in connection strings and may be present in log files or other unprotected formats.
         When using SQLServer, the password for 'sa' user account, which will be used for all database connection, overriding all other authentication methods or credentials.
     #>
@@ -126,7 +126,7 @@ function Initialize-DeploymentEnvironment {
             $script:deploymentSettingsFiles += @((Join-Path $PSScriptRoot 'configuration.json'))
         }
     }
-    
+
     $settings = @{ ApiSettings = @{ NoDuration = $NoDuration.IsPresent } }
 
     if ($InstallType) { $settings.InstallType = $InstallType }
@@ -144,7 +144,7 @@ function Initialize-DeploymentEnvironment {
     Set-DeploymentSettings $settings | Out-Null
     $settings = Get-DeploymentSettings
     Write-FlatHashtable $settings
-    
+
     $script:result = @()
 
     $elapsed = Use-StopWatch {
@@ -184,7 +184,7 @@ function Set-DeploymentSettingsFiles([string[]] $DeploymentSettingsFiles) {
         when using initdev this uses
             appsettings.json, appsettings.Development.json, appsettings.user.json from the EdFi.Ods.WebApi project
         when using EdFi.RestApi.Databases for deployment this uses
-            Get-RepositoryRoot "Ed-Fi-ODS"/InstallerPackages/EdFi.RestApi.Databases/configuration.json
+            Ed-Fi-ODS/InstallerPackages/EdFi.RestApi.Databases/configuration.json
     #>
 
     $script:deploymentSettingsFiles = $DeploymentSettingsFiles
@@ -280,7 +280,7 @@ $deploymentTasks = @{
             Source  = @($packageSettings.packageSource, (Join-Path $env:toolsPath "CachedPackages"))
             Path    = $env:toolsPath
         }
-        
+
         Install-DotNetTool @parameters
     }
     'Reset-AdminDatabase'             = {

@@ -59,9 +59,9 @@ function Initialize-DevelopmentEnvironment {
     .parameter Engine
         The database engine provider, either "SQLServer" or "PostgreSQL".
     .parameter NoRebuild
-        Skip the Invoke-RebuildSolution task which uses MSBuild to rebuild the main solution file: Get-RepositoryRoot "Ed-Fi-ODS"/Application/Ed-Fi-Ods.sln.
+        Skip the Invoke-RebuildSolution task which uses MSBuild to rebuild the main solution file: ./Application/Ed-Fi-Ods.sln.
     .parameter NoRestore
-        Ignore the Restoring Nuget package on Invoke-RebuildSolution task which uses MSBuild to rebuild the main solution file: Get-RepositoryRoot "Ed-Fi-ODS"/Application/Ed-Fi-Ods.sln.
+        Ignore the Restoring Nuget package on Invoke-RebuildSolution task which uses MSBuild to rebuild the main solution file: ./Application/Ed-Fi-Ods.sln.
     .parameter NoCodeGen
         Skip the Invoke-CodeGen task which is to generate artifacts consumed by the api.
     .parameter NoDeploy
@@ -69,7 +69,7 @@ function Initialize-DevelopmentEnvironment {
     .parameter RunPester
         Runs the Invoke-PesterTests task which will run the Pester tests in addition to the other initdev pipeline tasks.
     .parameter RunDotnetTest
-        Runs the dotnet tests for the main solution file: Get-RepositoryRoot "Ed-Fi-ODS"/Application/Ed-Fi-Ods.sln.
+        Runs the dotnet tests for the main solution file: ./Application/Ed-Fi-Ods.sln.
     .parameter RunPostman
         Runs the Invoke-PostmanIntegrationTests task which will run the Postman integration tests in addition to the other initdev pipeline tasks.
     .parameter RunSmokeTest
@@ -81,11 +81,11 @@ function Initialize-DevelopmentEnvironment {
     .parameter GenerateTestSdkPackage
         Generates TestSdk package after running SdkGen
     .parameter UsePlugins
-        Runs database scripts from downloaded plugin extensions in addition to extensions found in the Get-RepositoryRoot "Ed-Fi-ODS".
+        Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-ODS.
     .parameter PackageVersion
         Package version passed from CI that is used in Invoke-SdkGen
     .parameter MssqlSaPassword
-        IMPORTANT: Only use this parameter for deployment in isolated, ephemeral environments (i.e. a disposable container in an isolated CI/CD pipeline.) 
+        IMPORTANT: Only use this parameter for deployment in isolated, ephemeral environments (i.e. a disposable container in an isolated CI/CD pipeline.)
                    This password will be stored as plain-text in connection strings and may be present in log files or other unprotected formats.
         When using SQLServer, the password for 'sa' user account, which will be used for all database connection, overriding all other authentication methods or credentials.
     .parameter LocalDbBackupDirectory
@@ -107,7 +107,7 @@ function Initialize-DevelopmentEnvironment {
         [Alias('OdsYears')]
         [Parameter(Mandatory=$false)]
         [string[]] $OdsTokens,
-        
+
         [Parameter(Mandatory=$false)]
         [string[]] $Tenants,
 
@@ -181,7 +181,7 @@ function Initialize-DevelopmentEnvironment {
                 }
         })]
         [String] $ExtensionVersion = '1.1.0',
-		
+
 		[Parameter(Mandatory=$false)]
         [String] $JavaPath
     )
@@ -189,7 +189,7 @@ function Initialize-DevelopmentEnvironment {
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'SingleTenant') -and ($InstallType -ine 'MultiTenant')) {
         throw "The OdsTokens parameter can only be used with the 'SingleTenant' or 'MultiTenant' InstallType."
     }
-    
+
     if (($InstallType -eq 'MultiTenant') -and ([string]::IsNullOrWhiteSpace($Tenants))) {
         throw "The Tenants parameter is required with the 'MultiTenant' InstallType."
     }
@@ -223,10 +223,10 @@ function Initialize-DevelopmentEnvironment {
         $appsettings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
 
         $pluginFolderPath = $appsettings.Plugin.Folder
-        if ((-not [string]::IsNullOrWhiteSpace($pluginFolderPath)) -AND (($pluginFolderPath -eq './Plugin') -OR ($pluginFolderPath -eq '../../Plugin'))) { 
+        if ((-not [string]::IsNullOrWhiteSpace($pluginFolderPath)) -AND (($pluginFolderPath -eq './Plugin') -OR ($pluginFolderPath -eq '../../Plugin'))) {
             $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginFolder))
         }
-        
+
         $global:InvokedTasks = $null
         $script:result += Invoke-NewDevelopmentAppSettings $settings
 
@@ -465,15 +465,15 @@ function Invoke-CodeGen {
     param(
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine,
-        
+
         [string[]] $ExtensionPaths,
-        
+
         [String] $RepositoryRoot,
-        
+
         [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
         [Parameter(Mandatory=$true)]
         [string] $StandardVersion,
-        
+
         [ValidateScript({
                 if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
                     $true
@@ -504,12 +504,12 @@ function Invoke-CodeGen {
             "--standardVersion", $StandardVersion,
             "--extensionVersion", $ExtensionVersion
         )
-        
+
         if ($ExtensionPaths.Length -gt 0) {
             $parameters += "--ExtensionPaths"
             $parameters += $ExtensionPaths
         }
-        
+
         Write-Host -ForegroundColor Magenta "& $codeGen $parameters"
         & $codeGen $parameters | Out-Host
     }
@@ -555,7 +555,7 @@ function Invoke-PesterTests {
             Install-Module -Name Pester -Scope CurrentUser -MinimumVersion 5.3.3 -Force -SkipPublisherCheck | Out-Null
         }
 
-        $reports = (Get-RepositoryRoot "Get-RepositoryRoot "Ed-Fi-ODS"") + "/reportsNUnit"
+        $reports = (Get-RepositoryRoot "Ed-Fi-ODS") + "/reportsNUnit"
 
         if (Test-Path $reports) {
             Remove-Item -Path $reports -Force -Recurse
@@ -567,7 +567,7 @@ function Invoke-PesterTests {
             Run = @{
                 Exit = $true
             }
-            TestResult = @{ 
+            TestResult = @{
                 Enabled = $true
                 OutputPath  = $reports + "/PesterTestResults.xml"
             }

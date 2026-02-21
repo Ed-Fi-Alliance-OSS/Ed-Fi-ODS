@@ -223,7 +223,7 @@ function Test {
     }
 }
 
-# TODO: can we remove this now?
+# SFTODO: can we remove this now?
 function CheckoutBranch {
     Set-Location $RelativeRepoPath
     $odsBranch = $Env:REPOSITORY_DISPATCH_BRANCH

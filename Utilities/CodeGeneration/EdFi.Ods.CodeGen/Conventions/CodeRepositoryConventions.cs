@@ -7,6 +7,8 @@ namespace EdFi.Ods.CodeGen.Conventions
 {
     public static class CodeRepositoryConventions
     {
+        // SFTODO
+
         /// <summary>
         /// Ods repository key
         /// </summary>
@@ -30,7 +32,7 @@ namespace EdFi.Ods.CodeGen.Conventions
         /// <summary>
         /// Ed-Fi ODS Implementation Directory
         /// </summary>
-        public const string EdFiOdsImplementationFolderName = "Get-RepositoryRoot "Ed-Fi-ODS"";
+        public const string EdFiOdsImplementationFolderName = "Ed-Fi-ODS";
 
         /// <summary>
         /// Application folder

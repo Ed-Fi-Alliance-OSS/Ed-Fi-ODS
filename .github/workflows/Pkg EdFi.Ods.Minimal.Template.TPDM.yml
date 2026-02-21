@@ -155,7 +155,7 @@ jobs:
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/Ed-Fi-Ods.sln"
+        .\build.githubactions.ps1 restore -Solution "./Application/Ed-Fi-Ods.sln"
       shell: pwsh
 
     - name: Initialize-DevelopmentEnvironment
@@ -164,7 +164,7 @@ jobs:
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Initialize-PowershellForDevelopment.ps1
+        . ./Initialize-PowershellForDevelopment.ps1
         Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy -NoRestore -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -MssqlSaPassword ${{ env.DB_PASS }}
       shell: pwsh
 
@@ -173,19 +173,19 @@ jobs:
       run: |
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
-        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/DatabaseTemplate/Modules/create-tpdm-minimal-template.psm1"
+        Import-Module -Force -Scope Global "./DatabaseTemplate/Modules/create-tpdm-minimal-template.psm1"
         Initialize-TPDMMinimalTemplate -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
       shell: pwsh
 
     - name: Set permissions for database backup file
       working-directory: ./
-      run: sudo chmod -R 777 Get-RepositoryRoot "Ed-Fi-ODS"/DatabaseTemplate/Database/
+      run: sudo chmod -R 777 ./DatabaseTemplate/Database/
       shell: pwsh
 
     - name: pack
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName  "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "./DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName  "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
       shell: pwsh
 
     - name: Install-credential-handler

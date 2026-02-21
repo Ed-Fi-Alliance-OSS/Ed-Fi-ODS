@@ -20,7 +20,7 @@ param(
     [switch] $isMultiTenancy
 )
 
-& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+& "$PSScriptRoot/modules/load-path-resolver.ps1"
 Import-Module -Force -Scope Global  (Get-RepositoryResolvedPath "Initialize-PowershellForDevelopment.ps1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/TestHarness.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/cross-platform.psm1')
@@ -93,7 +93,7 @@ function Invoke-Newman {
     $collectionFileDirectory = (Get-RepositoryResolvedPath "Postman Test Suite/")
     if ($isMultiTenancy.IsPresent) { $collectionFileDirectory = (Get-RepositoryResolvedPath "Postman Test Suite/Multitenancy") }
     $collectionFiles = Get-ChildItem $collectionFileDirectory -Filter "*.postman_collection.json"
-    $reportPath = (Get-RepositoryRoot "Get-RepositoryRoot "Ed-Fi-ODS"") + "/reports/"
+    $reportPath = "./reports/"
 
     foreach ($collectionFile in $collectionFiles) {
         Write-host $script:environmentJson
@@ -110,7 +110,7 @@ function Invoke-Newman {
 function Invoke-PostmanIntegrationTests {
     $logPath = ((Get-ChildItem "$(Get-RepositoryResolvedPath "Application/EdFi.Ods.Api.IntegrationTestHarness")/bin/**/*")  | Select-Object -First 1).FullName
     if ($Null -eq $logPath) {
-        $logPath = (Get-RepositoryRoot "Get-RepositoryRoot "Ed-Fi-ODS"")
+        $logPath = "./"
     }
     $logPath += "/PostmanIntegrationTestsLog.log"
 
