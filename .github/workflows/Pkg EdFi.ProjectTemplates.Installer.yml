@@ -47,9 +47,6 @@ jobs:
 
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-          path: Ed-Fi-ODS/
 
     - name: Setup MSBuild for .NET Framework 4.8
       uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce #v2.0.0
@@ -72,7 +69,6 @@ jobs:
       shell: powershell
 
     - name: Update  version number in source.extension.vsixmanifest file
-      working-directory: ./Ed-Fi-ODS/
       run: |
         $BuildCounter = ${{ github.run_number }}
         $BuildIncrementer = ${{env.BUILD_INCREMENTER}}
@@ -80,7 +76,7 @@ jobs:
         $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
         $version = "$InformationalVersion.$newRevision"
         Write-Host "ODS/API Version : $version"
-        $vsixManifestPath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/source.extension.vsixmanifest"
+        $vsixManifestPath = "./Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/source.extension.vsixmanifest"
         $vsixManifestContent = Get-Content $vsixManifestPath -Raw
 
         # Use regex to find the first <Identity> tag and extract the Version attribute value
@@ -103,19 +99,17 @@ jobs:
       shell: powershell
 
     - name: Restore NuGet packages
-      working-directory: ./Ed-Fi-ODS/
-      run: msbuild "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /t:Restore
+      run: msbuild "./Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /t:Restore
       shell: powershell
 
     - name: build
-      run: msbuild "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /p:Configuration=${{ env.CONFIGURATION }}
+      run: msbuild "./Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /p:Configuration=${{ env.CONFIGURATION }}
       shell: powershell
 
     - name: pack using nuget nuspec file
-      working-directory: ./Ed-Fi-ODS/
       shell: powershell
       run: |
-        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "EdFi.Suite3.ProjectTemplates.Installer" -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.nuspec"
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "EdFi.Suite3.ProjectTemplates.Installer" -NuspecFilePath "./Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.nuspec"
 
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}

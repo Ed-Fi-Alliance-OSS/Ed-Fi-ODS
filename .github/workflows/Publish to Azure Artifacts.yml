@@ -68,8 +68,6 @@ jobs:
     - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation/
           ref: ${{ env.INITDEV_COMMIT || github.sha }}
 
     - name: Check for Azure token
@@ -84,7 +82,7 @@ jobs:
         workflow: InitDev, Unit tests, Integration tests, Package.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
+        path: ./NugetPackages/
         commit: ${{ env.INITDEV_COMMIT || github.sha }}
         check_artifacts: true
         if_no_artifact_found: fail
@@ -95,23 +93,23 @@ jobs:
         workflow: InitDev, Smoke Tests.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
+        path: ./NugetPackages/
         commit: ${{ env.INITDEV_COMMIT || github.sha }}
         check_artifacts: true
         if_no_artifact_found: fail
 
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
 
     - name: Publish to Azure Artifacts
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./
       run: |
-        Get-ChildItem "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/" -Filter *.nupkg |
+        Get-ChildItem "./NugetPackages/" -Filter *.nupkg |
         Foreach-Object {
             Write-Host "nupkg full path is " $_.FullName
             $packagePath = $_.FullName
@@ -126,32 +124,8 @@ jobs:
     steps:
 
     - name: Dispatch Docker Test workflow
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: ./.github/workflows/Docker Test.yml
       id: docker_test_dispatch
-      with:
-        token: ${{ env.REPO_DISPATCH_TOKEN }}
-        ref: ${{ env.INITDEV_BRANCH || github.ref_name }}
-        repo: Ed-Fi-ODS-Implementation
-        owner: ${{ github.repository_owner }}
-        workflow: Docker Test.yml
-        workflow_timeout_seconds: 4800
-
-    - name: Await Docker Test
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.REPO_DISPATCH_TOKEN }}
-        repo: Ed-Fi-ODS-Implementation
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.docker_test_dispatch.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
 
     - name: Dispatch Publish to Docker Hub workflow
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
-      with:
-        token: ${{ env.REPO_DISPATCH_TOKEN }}
-        ref: ${{ env.INITDEV_BRANCH || github.ref_name }}
-        repo: Ed-Fi-ODS-Implementation
-        owner: ${{ github.repository_owner }}
-        workflow: Publish to Docker Hub.yml
-        workflow_timeout_seconds: 4800
+      uses: ./.github/workflows/Publish to Docker Hub.yml

@@ -37,6 +37,7 @@ env:
   CONFIGURATION: "Release"
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
+  REPOSITORY_NAME: ${{ github.repository }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_ODS_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
 
@@ -56,7 +57,7 @@ jobs:
 
     steps:
 
-    - name: Checkout Ed-Fi-ODS-Implementation
+    - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           fetch-depth: 0
@@ -79,22 +80,11 @@ jobs:
           exit 1
         }
 
-    - name: Check ${{ env.current_branch }} branch exists in all 3 repositories or not
-      shell: pwsh
-      run: |
-
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/branches/${{ env.current_branch }}"
-        .\build.githubactions.ps1  TestBranchExists -RepoName "Ed-Fi-ODS-Implementation" -BranchName "${{ env.current_branch }}" -Url $url
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/branches/${{ env.current_branch }}"
-        .\build.githubactions.ps1  TestBranchExists -RepoName "Ed-Fi-ODS" -BranchName "${{ env.current_branch }}" -Url $url
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/branches/${{ env.current_branch }}"
-        .\build.githubactions.ps1  TestBranchExists -RepoName "Ed-Fi-Extensions" -BranchName "${{ env.current_branch }}" -Url $url
-
     - name: Check for any failed previous workflow runs in the current branch
       shell: pwsh
       run: |
         $workflow_file_name = "Rebuild Database Templates.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         $expectedConclusions = @('failure', 'cancelled')
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions $expectedConclusions -StatusEnvName 'failed_buildexists'
 
@@ -107,22 +97,11 @@ jobs:
         workflow_conclusion: ("failure","cancelled")
         path: ./
         run_id: ${{  env.rebuild_database_templates_lastrunId }}
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+        repo: ${{ env.REPOSITORY_NAME }}
         check_artifacts: true
         allow_forks: false
         if_no_artifact_found: ignore
       continue-on-error: true
-
-    - name: Read the last commit for Ed-Fi-ODS-Implementation and store it in repositories.json
-      shell: pwsh
-      run: |
-
-        $oneEightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneEightyDaysAgo"
-        $branchName = "${{ env.current_branch }}"
-        $sinceDate = $oneEightyDaysAgo
-        $implementationUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
-        .\build.githubactions.ps1 'CreateOrUpdateRepositoriesJson' -Url $implementationUrl -RepoName 'Ed-Fi-ODS-Implementation'
 
     - name: Read the last commit for Ed-Fi-ODS and store it in repositories.json
       shell: pwsh
@@ -132,19 +111,8 @@ jobs:
         Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneEightyDaysAgo"
         $branchName = "${{ env.current_branch }}"
         $sinceDate = $oneEightyDaysAgo
-        $odsUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
-        .\build.githubactions.ps1  'CreateOrUpdateRepositoriesJson' -Url $odsUrl -RepoName 'Ed-Fi-ODS'
-
-    - name: Read the last commit for Ed-Fi-Extensions and store it in repositories.json
-      shell: pwsh
-      run: |
-
-        $oneEightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneEightyDaysAgo"
-        $branchName = "${{ env.current_branch }}"
-        $sinceDate = $oneEightyDaysAgo
-        $extensionsUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
-        .\build.githubactions.ps1  'CreateOrUpdateRepositoriesJson' -Url $extensionsUrl -RepoName 'Ed-Fi-Extensions'
+        $implementationUrl = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
+        .\build.githubactions.ps1 'CreateOrUpdateRepositoriesJson' -Url $implementationUrl -RepoName 'Ed-Fi-ODS'
 
     - name: Check for IscommitChanged in repositories.json
       shell: pwsh
@@ -194,7 +162,7 @@ jobs:
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.CodeGen.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'codeGen_successful_runexist'
 
     - name: Check if configuration.packages.json has an updated EdFi.Ods.CodeGen package version
@@ -205,26 +173,8 @@ jobs:
 
     - name: Dispatch EdFi.Ods.CodeGen workflow
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.CodeGen.yml
       id: return_dispatch_codegen
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.CodeGen.yml
-        workflow_timeout_seconds: 4800
-
-    - name: Await to complete the execution for EdFi.Ods.CodeGen RunID ${{ steps.return_dispatch_codegen.outputs.run_id }}
-      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_codegen.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
 
     - name: Download Codegen artifact using Run Id ${{ steps.return_dispatch_codegen.outputs.run_id }}
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
@@ -233,16 +183,16 @@ jobs:
         workflow: Pkg EdFi.Ods.CodeGen.yml
         workflow_conclusion: success
         name: NugetPackage.Artifacts
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
+        path: ./NugetPackages/
         run_id: ${{ steps.return_dispatch_codegen.outputs.run_id }}
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        repo: ${{ env.REPOSITORY_NAME }}
         check_artifacts: true
 
     - name: Update configuration.packages.json with EdFi.Ods.CodeGen new package version
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
       shell: pwsh
       run: |
-        $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.CodeGen.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.CodeGen.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
         $newRevision =$folderParts[$folderParts.Count- 2]
         $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -275,7 +225,7 @@ jobs:
       run: |
 
         $workflow_file_name = "Pkg EdFi.Ods.Profiles.Sample.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'Profiles_sample_successful_runexist'
 
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Profiles.Sample package Version
@@ -290,7 +240,7 @@ jobs:
       run: |
 
         $workflow_file_name = "Pkg EdFi.Ods.Extensions.Homograph.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'Homograph_successful_runexist'
 
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Extensions.Homograph package Version
@@ -304,7 +254,7 @@ jobs:
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Extensions.Sample.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'Sample_successful_runexist'
 
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Extensions.Sample package Version
@@ -318,7 +268,7 @@ jobs:
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Extensions.SampleStudentTranscript.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'SampleStudentTranscript_successful_runexist'
 
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Extensions.SampleStudentTranscript package Version
@@ -332,7 +282,7 @@ jobs:
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Extensions.TPDM.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'TPDM_successful_runexist'
 
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Extensions.TPDM package Version
@@ -343,118 +293,28 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Profiles.Sample workflow
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Profiles_sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Profiles.Sample.yml
       id: return_dispatch_profiles_sample
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Profiles.Sample.yml
-        workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Extensions.Homograph workflow
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Homograph_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Extensions.Homograph.yml
       id: return_dispatch_homograph
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Extensions.Homograph.yml
-        workflow_timeout_seconds: 4800
 
     - name: Dispatch  EdFi.Ods.Extensions.Sample workflow
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Extensions.Sample.yml
       id: return_dispatch_sample
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Extensions.Sample.yml
-        workflow_timeout_seconds: 4800
 
     - name: Dispatch  EdFi.Ods.Extensions.SampleStudentTranscript workflow
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.SampleStudentTranscript_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Extensions.SampleStudentTranscript.yml
       id: return_dispatch_SampleStudentTranscript
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Extensions.SampleStudentTranscript.yml
-        workflow_timeout_seconds: 4800
 
     - name: Dispatch  EdFi.Ods.Extensions.TPDM worflow
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.TPDM_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Extensions.TPDM.yml
       id: return_dispatch_TPDM
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Extensions.TPDM.yml
-        workflow_timeout_seconds: 4800
-
-    - name: Await to complete the execution for EdFi.Ods.Profiles.Sample RunID ${{ steps.return_dispatch_profiles_sample.outputs.run_id }}
-      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Profiles_sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_profiles_sample.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Extensions.Homograph RunID ${{ steps.return_dispatch_homograph.outputs.run_id }}
-      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Homograph_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_homograph.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Extensions.Sample RunID ${{ steps.return_dispatch_sample.outputs.run_id }}
-      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_sample.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Extensions.SampleStudentTranscript RunID ${{ steps.return_dispatch_SampleStudentTranscript.outputs.run_id }}
-      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.SampleStudentTranscript_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_SampleStudentTranscript.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Extensions.TPDM RunID ${{ steps.return_dispatch_TPDM.outputs.run_id }}
-      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.TPDM_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_TPDM.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
 
     - name: Download EdFi.Ods.Profiles.Sample artifact using Run Id ${{ steps.return_dispatch_profiles_sample.outputs.run_id }}
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Profiles_sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
@@ -463,9 +323,9 @@ jobs:
         workflow: Pkg EdFi.Ods.Profiles.Sample.yml
         workflow_conclusion: success
         name: EdFi.Ods.Profiles.Sample.Artifacts
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
+        path: ./NugetPackages/
         run_id: ${{ steps.return_dispatch_profiles_sample.outputs.run_id }}
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+        repo: ${{ env.REPOSITORY_NAME }}
         check_artifacts: true
 
     - name: Download EdFi.Ods.Extensions.Homograph artifact using Run Id ${{ steps.return_dispatch_homograph.outputs.run_id }}
@@ -475,9 +335,9 @@ jobs:
         workflow: Pkg EdFi.Ods.Extensions.Homograph.yml
         workflow_conclusion: success
         name: EdFi.Ods.Extensions.Homograph.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
+        path: ./NugetPackages/
         run_id: ${{ steps.return_dispatch_homograph.outputs.run_id }}
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+        repo: ${{ env.REPOSITORY_NAME }}
         check_artifacts: true
 
     - name: Download EdFi.Ods.Extensions.Sample artifact using Run Id ${{ steps.return_dispatch_sample.outputs.run_id }}
@@ -487,9 +347,9 @@ jobs:
         workflow: Pkg EdFi.Ods.Extensions.Sample.yml
         workflow_conclusion: success
         name: EdFi.Ods.Extensions.Sample.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
+        path: ./NugetPackages/
         run_id: ${{ steps.return_dispatch_sample.outputs.run_id }}
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+        repo: ${{ env.REPOSITORY_NAME }}
         check_artifacts: true
 
     - name: Download EdFi.Ods.Extensions.SampleStudentTranscript artifact using Run Id ${{ steps.return_dispatch_SampleStudentTranscript.outputs.run_id }}
@@ -499,9 +359,9 @@ jobs:
         workflow: Pkg EdFi.Ods.Extensions.SampleStudentTranscript.yml
         workflow_conclusion: success
         name: EdFi.Ods.Extensions.SampleStudentTranscript.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
+        path: ./NugetPackages/
         run_id: ${{ steps.return_dispatch_SampleStudentTranscript.outputs.run_id }}
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+        repo: ${{ env.REPOSITORY_NAME }}
         check_artifacts: true
 
     - name: Download EdFi.Ods.Extensions.TPDM artifact using Run Id ${{ steps.return_dispatch_TPDM.outputs.run_id }}
@@ -511,9 +371,9 @@ jobs:
         workflow: Pkg EdFi.Ods.Extensions.TPDM.yml
         workflow_conclusion: success
         name: EdFi.Ods.Extensions.TPDM.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
+        path: ./NugetPackages/
         run_id: ${{ steps.return_dispatch_TPDM.outputs.run_id }}
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+        repo: ${{ env.REPOSITORY_NAME }}
         check_artifacts: true
 
     - name: Update configuration.packages.json with all Extensions Homograph, TPDM, Sample, SampleStudentTranscript, Profiles.Sample new package version
@@ -542,7 +402,7 @@ jobs:
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
-            $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Homograph.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+            $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Extensions.Homograph.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
             $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -552,7 +412,7 @@ jobs:
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
-            $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Profiles.Sample.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+            $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Profiles.Sample.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
             $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -563,7 +423,7 @@ jobs:
         $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:Sample_package_alreadyupdated -eq 'false'
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
-            $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Sample.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+            $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Extensions.Sample.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
             $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -574,7 +434,7 @@ jobs:
         $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:SampleStudentTranscript_package_alreadyupdated -eq 'false'
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
-            $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.SampleStudentTranscript.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+            $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Extensions.SampleStudentTranscript.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
             $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -585,7 +445,7 @@ jobs:
         $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:TPDM_package_alreadyupdated -eq 'false'
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
-            $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+            $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Extensions.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
             $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -617,7 +477,7 @@ jobs:
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Populated.Template.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'populated_template_successful_runexist'
 
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Populated.Template package Version
@@ -631,7 +491,7 @@ jobs:
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'populated_template_postgreSQL_successful_runexist'
 
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Populated.Template.PostgreSQL package Version
@@ -645,7 +505,7 @@ jobs:
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Minimal.Template.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'minimal_template_successful_runexist'
 
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Minimal.Template package Version
@@ -659,7 +519,7 @@ jobs:
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml"
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
+        $url = "https://api.github.com/repos/${{ env.REPOSITORY_NAME }}/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'minimal_template_postgreSQL_successful_runexist'
 
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Minimal.Template.PostgreSQL package Version
@@ -670,95 +530,23 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Populated.Template workflow
       if: ${{ ((env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Populated.Template.yml
       id: return_dispatch_populated_template
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Populated.Template.yml
-        workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Populated.Template.PostgreSQL workflow
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml
       id: return_dispatch_populated_template_postgresql
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml
-        workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Minimal.Template  workflow
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Minimal.Template.yml
       id: return_dispatch_minimal_template
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Minimal.Template.yml
-        workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Minimal.Template.PostgreSQL  workflow
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml
       id: return_dispatch_minimal_template_postgresql
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml
-        workflow_timeout_seconds: 4800
-
-    - name: Await to complete the execution for EdFi.Ods.Minimal.Template.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
-      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Minimal.Template RunID ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
-      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Populated.Template RunID ${{ steps.return_dispatch_populated_template.outputs.run_id }}
-      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_populated_template.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Populated.Template.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
-      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
 
     - name: Download EdFi.Ods.Minimal.Template artifact using Run Id ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
@@ -767,8 +555,8 @@ jobs:
         workflow: Pkg EdFi.Ods.Minimal.Template.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: ./NugetPackages/
+        repo: ${{ env.REPOSITORY_NAME }}
         run_id: ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
         check_artifacts: true
 
@@ -779,8 +567,8 @@ jobs:
         workflow: Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: ./NugetPackages/
+        repo: ${{ env.REPOSITORY_NAME }}
         run_id: ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
         check_artifacts: true
 
@@ -791,8 +579,8 @@ jobs:
         workflow: Pkg EdFi.Ods.Populated.Template.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: ./NugetPackages/
+        repo: ${{ env.REPOSITORY_NAME }}
         run_id: ${{ steps.return_dispatch_populated_template.outputs.run_id }}
         check_artifacts: true
 
@@ -803,8 +591,8 @@ jobs:
         workflow: Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: ./NugetPackages/
+        repo: ${{ env.REPOSITORY_NAME }}
         run_id: ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
         check_artifacts: true
 
@@ -830,8 +618,6 @@ jobs:
         Write-Host "minimal_template_postgreSQL_successful_runexist: $env:minimal_template_postgreSQL_successful_runexist"
         Write-Host "minimal_template_postgreSQL_package_alreadyupdated: $env:minimal_template_postgreSQL_package_alreadyupdated"
 
-
-
         # Evaluate conditions based on environment variables
         $isCommitNotChanged = $env:NoNewCommitsInAllThreeRepositories -eq 'false'
         $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:minimal_template_package_alreadyupdated -eq 'false'
@@ -844,7 +630,7 @@ jobs:
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
-            $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+            $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Minimal.Template.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
             $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -856,7 +642,7 @@ jobs:
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
-            $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+            $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
             $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -868,7 +654,7 @@ jobs:
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
-            $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Populated.Template.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+            $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Populated.Template.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
             $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -880,7 +666,7 @@ jobs:
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
-            $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+            $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
             $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -908,95 +694,23 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Populated.Template.TPDM.yml
       id: return_dispatch_populated_template_TPDM
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Populated.Template.TPDM.yml
-        workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM.PostgreSQL workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
       id: return_dispatch_populated_template_TPDM_postgresql
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
-        workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Minimal.Template.TPDM  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Minimal.Template.TPDM.yml
       id: return_dispatch_minimal_template_TPDM
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Minimal.Template.TPDM.yml
-        workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Minimal.Template.TPDM.PostgreSQL  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
+      uses: ./.github/workflows/Pkg EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
       id: return_dispatch_minimal_template_TPDM_postgresql
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{  env.current_branch  }}
-        repo:  Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        workflow: Pkg EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
-        workflow_timeout_seconds: 4800
-
-    - name: Await to complete the execution for EdFi.Ods.Minimal.Template.TPDM.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
-      if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Minimal.Template.TPDM RunID ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
-      if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Populated.Template.TPDM RunID ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
-      if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Populated.Template.TPDM.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
-      if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
 
     - name: Download EdFi.Ods.Minimal.Template.TPDM artifact using Run Id ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
@@ -1005,8 +719,8 @@ jobs:
         workflow: Pkg EdFi.Ods.Minimal.Template.TPDM.yml
         workflow_conclusion: success
         name: EdFi.Ods.Minimal.Template.TPDM.Core.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: ./NugetPackages/
+        repo: ${{ env.REPOSITORY_NAME }}
         run_id: ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
         check_artifacts: true
 
@@ -1017,8 +731,8 @@ jobs:
         workflow: Pkg EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: ./NugetPackages/
+        repo: ${{ env.REPOSITORY_NAME }}
         run_id: ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
         check_artifacts: true
 
@@ -1029,8 +743,8 @@ jobs:
         workflow: Pkg EdFi.Ods.Populated.Template.TPDM.yml
         workflow_conclusion: success
         name: EdFi.Ods.Populated.Template.TPDM.Core.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: ./NugetPackages/
+        repo: ${{ env.REPOSITORY_NAME }}
         run_id: ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
         check_artifacts: true
 
@@ -1041,8 +755,8 @@ jobs:
         workflow: Pkg EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{  env.standard_version  }}
-        path: ./Ed-Fi-ODS-Implementation/NugetPackages/
-        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: ./NugetPackages/
+        repo: ${{ env.REPOSITORY_NAME }}
         run_id: ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
         check_artifacts: true
 
@@ -1050,7 +764,7 @@ jobs:
       if: inputs.rebuildLevel == 'DatabaseTemplates'
       shell: pwsh
       run: |
-        $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
 
         $folderParts = $packageFolder -split "\."
         $newRevision =$folderParts[$folderParts.Count- 2]
@@ -1060,21 +774,21 @@ jobs:
         $config = Get-Content $filePath | ConvertFrom-Json
         $config.packages.'TPDMCoreMinimalTemplate'.PackageVersion = $packageversion
 
-        $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.*.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.*.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
         $newRevision =$folderParts[$folderParts.Count- 2]
         $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
         Write-Host "EdFi.Suite3.Ods.Minimal.Template.TPDM.PostgreSQL latestVersion"  $packageversion
         $config.packages.'TPDMCorePostgreSqlMinimalTemplate'.PackageVersion = $packageversion
 
-        $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
         $newRevision =$folderParts[$folderParts.Count- 2]
         $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
         Write-Host " EdFi.Suite3.Ods.Populated.Template.TPDM latestVersion"  $packageversion
         $config.packages.'TPDMCorePopulatedTemplate'.PackageVersion = $packageversion
 
-        $packageFolder = Get-Item -Path "./Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.*.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $packageFolder = Get-Item -Path "./NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.*.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
         $newRevision =$folderParts[$folderParts.Count- 2]
         $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
@@ -1104,4 +818,4 @@ jobs:
       with:
         name: NugetPackages.Artifacts
         path: |
-               ./Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
+               ./NugetPackages/*.nupkg

@@ -38,26 +38,11 @@ jobs:
      steps:
      - name: Checkout Ed-Fi-ODS
        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-       with:
-           path: Ed-Fi-ODS/
-
-     - name: Checkout Ed-Fi-Extensions
-       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-       with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
-          path: Ed-Fi-Extensions/
-
-     - name: Checkout calling branch if in Ed-Fi-Extensions
-       working-directory: ./Ed-Fi-ODS/
-       shell: pwsh
-       run: |
-         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
 
      - name: Set StandardVersions
        id: Set_StandardVersions
-       working-directory: ./Ed-Fi-ODS/
        run: |
-         $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+         $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
          Add-Content -Path $env:GITHUB_OUTPUT -Value "StandardVersions=$output"
          Write-host "StandardVersions is  $output"
        shell: pwsh

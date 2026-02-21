@@ -93,7 +93,6 @@ jobs:
       shell: pwsh
 
     - name: ODS/API InitDev and SdkGen
-      working-directory: ./
       run: |
         $ErrorActionPreference = 'Stop'
         [int]$BuildCounter =  "${{ github.run_number }}"
@@ -112,7 +111,6 @@ jobs:
           ./Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
 
     - name: Run Unit Tests for EdFi.LoadTools
-      working-directory: ./
       run: |
         .\build.githubactions.ps1 Restore -Solution "./Utilities/DataLoading/LoadTools.sln"
         .\build.githubactions.ps1 Build -Solution "./Utilities/DataLoading/LoadTools.sln"

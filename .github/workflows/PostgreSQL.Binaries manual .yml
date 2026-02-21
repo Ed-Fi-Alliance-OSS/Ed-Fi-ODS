@@ -20,7 +20,6 @@ env:
   INFORMATIONAL_VERSION: "16.3"
   BUILD_INCREMENTER: "5"
   CONFIGURATION: "Release"
-  SCRIPT_BUILD_POSTGRES_BINARIES: "Ed-Fi-ODS-Implementation/logistics/scripts/modules/postgres-binaries/build-postgres-binaries.psm1"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
@@ -37,7 +36,7 @@ jobs:
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
       run: |
         echo "::error::Missing Azure Token"
-          exit 1
+        exit 1
 
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -46,7 +45,7 @@ jobs:
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
-          Import-Module -Force -Scope Global $env:GITHUB_WORKSPACE/${{ env.SCRIPT_BUILD_POSTGRES_BINARIES }}
+          Import-Module -Force -Scope Global ./logistics/scripts/modules/postgres-binaries/build-postgres-binaries.psm1
           New-PostgresBinariesPackage
 
     - name: Pack Release version
@@ -56,7 +55,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-        $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
+        $packageOutput = "./NugetPackages"
         $NuspecFilePath = Join-Path ([IO.Path]::GetTempPath()) 'PostgreSQL.Binaries/package/package.nuspec'
         nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -Properties "id=PostgreSQL.Binaries" -Properties "title=PostgreSQL.Binaries" -Properties "description=PostgreSQL.Binaries" -NoPackageAnalysis -NoDefaultExcludes
 

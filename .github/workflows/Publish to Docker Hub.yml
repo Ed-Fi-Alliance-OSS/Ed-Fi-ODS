@@ -65,17 +65,21 @@ jobs:
           ]
     name: ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
     steps:
+
       - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
         run:  echo "${{ github.event.inputs.distinct_id }}"
+
       - name: Check for Docker Hub Token
         if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.DOCKER_HUB_TOKEN == '' }}
         run: |
           echo "::error::Missing Docker Hub Token"
           exit 1
+
       - name: Exit success if Docker Hub Token is missing in forked repository
         if: ${{ env.DOCKER_HUB_TOKEN == '' }}
         run: |
           echo "Skipping Publish"
+
       - name: Wait 20s for Azure Artifacts caching
         run: sleep 20
 
