@@ -4,24 +4,15 @@
 
 This repository hosts the core code for the Ed-Fi Operational Data Store (ODS) and Ed-Fi ODS API.
 
-For more information, see:
-
-* For more information, go to [Ed-Fi Tech Docs](https://techdocs.ed-fi.org/) for instructions on getting started, a summary of our code repositories and additional technical information.
-* Also see repository [Ed-Fi-ODS](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS).
-* [How to Submit an Issue](https://techdocs.ed-fi.org/display/ETKB/How+To%3A+Submit+an+Issue).
-* [How Submit a Feature Request](https://techdocs.ed-fi.org/display/ETKB/How+To%3A+Submit+a+Feature+Request).
-* Review on-going development work in the [ODS Project in Tracker](https://tracker.ed-fi.org/browse/ODS).
+For more information, visit [Ed-Fi Docs](https://docs.ed-fi.org/) for instructions on getting started, a summary of our code repositories, and additional technical information.
 
 ## Contributing
 
 The Ed-Fi Alliance welcomes code contributions from the community. Please read
 the [Ed-Fi Contribution
-Guidelines](https://techdocs.ed-fi.org/display/ETKB/Code+Contribution+Guidelines)
+Guidelines](https://docs.ed-fi.org/community/sdlc/code-contribution-guidelines/)
 for detailed information on how to contribute source code.
 
-Looking for an easy way to get started? Search for tickets with label
-"up-for-grabs" in [Tracker](https://tracker.ed-fi.org/issues/?filter=14105); these are nice-to-have but low priority tickets that should not
-require in-depth knowledge of the code base and architecture.
 
 ## Legal Information
 
