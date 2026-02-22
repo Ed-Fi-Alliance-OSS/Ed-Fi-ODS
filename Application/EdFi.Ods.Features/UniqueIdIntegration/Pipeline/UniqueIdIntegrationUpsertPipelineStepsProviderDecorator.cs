@@ -38,7 +38,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Pipeline
         {
             return _next.GetSteps()
                         .InsertBefore(
-                             typeof(PersistEntityModel<,,,>),
+                             typeof(ValidateResourceModel<,,,>),
                              typeof(PopulateIdFromUniqueIdOnPeople<,,,>))
                         .ToArray();
         }

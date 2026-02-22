@@ -214,6 +214,9 @@ namespace {{ResourceClassesNamespace}}
         [DataMember(Name="id")]
         [JsonConverter(typeof({{GuidConverterTypeName}}))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         {{/Guid}}
         // ------------------------------------------------------------
 

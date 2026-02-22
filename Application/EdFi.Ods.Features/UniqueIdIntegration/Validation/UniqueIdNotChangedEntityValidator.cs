@@ -13,7 +13,7 @@ using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
 {
-    public class UniqueIdNotChangedEntityValidator : ObjectValidatorBase
+    public class UniqueIdNotChangedEntityValidator : ObjectValidatorBase, IResourceValidator
     {
         private readonly IPersonUniqueIdToIdCache _personIdentifiersCache;
         private readonly IPersonEntitySpecification _personEntitySpecification;
@@ -29,7 +29,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
         public virtual ICollection<ValidationResult> ValidateObject(object @object)
         {
             var validationResults = new List<ValidationResult>();
-            var objType = @object.GetType();
+            var objType = @object.GetType().BaseType;
 
             if (_personEntitySpecification.IsPersonEntity(objType))
             {
@@ -42,7 +42,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
 
                 if (persistedUniqueId != null && persistedUniqueId != newUniqueId)
                 {
-                    validationResults.Add(new ValidationResult("A person's UniqueId cannot be modified."));
+                    validationResults.Add(new ValidationResult("A person's UniqueId cannot be modified.", [$"{objType.Name}UniqueId"]));
                 }
             }
 
