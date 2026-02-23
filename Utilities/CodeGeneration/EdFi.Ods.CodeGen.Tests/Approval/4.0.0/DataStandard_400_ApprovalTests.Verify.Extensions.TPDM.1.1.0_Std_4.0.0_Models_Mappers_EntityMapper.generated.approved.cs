@@ -106,6 +106,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.AccreditationStatusDescriptorId = source.AccreditationStatusDescriptorId;
 
@@ -258,6 +262,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.AidTypeDescriptorId = source.AidTypeDescriptorId;
@@ -647,6 +655,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.CandidateIdentifier = source.CandidateIdentifier;
@@ -1999,6 +2011,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.BeginDate = source.BeginDate;
             target.CandidateIdentifier = source.CandidateIdentifier;
@@ -2349,6 +2365,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.CertificationRouteDescriptorId = source.CertificationRouteDescriptorId;
 
@@ -2501,6 +2521,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.CoteachingStyleObservedDescriptorId = source.CoteachingStyleObservedDescriptorId;
@@ -2937,6 +2961,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.CredentialStatusDescriptorId = source.CredentialStatusDescriptorId;
 
@@ -3082,6 +3110,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
@@ -3304,6 +3336,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.EducatorRoleDescriptorId = source.EducatorRoleDescriptorId;
 
@@ -3457,6 +3493,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.EnglishLanguageExamDescriptorId = source.EnglishLanguageExamDescriptorId;
 
@@ -3609,6 +3649,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EPPProgramPathwayDescriptorId = source.EPPProgramPathwayDescriptorId;
@@ -3780,6 +3824,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
@@ -4047,6 +4095,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
@@ -4329,6 +4381,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
             target.EvaluationDate = source.EvaluationDate;
@@ -4581,6 +4637,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.EvaluationElementRatingLevelDescriptorId = source.EvaluationElementRatingLevelDescriptorId;
 
@@ -4752,6 +4812,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
@@ -5014,6 +5078,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
             target.EvaluationDate = source.EvaluationDate;
@@ -5256,6 +5324,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.EvaluationPeriodDescriptorId = source.EvaluationPeriodDescriptorId;
 
@@ -5459,6 +5531,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
@@ -5986,6 +6062,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.EvaluationRatingLevelDescriptorId = source.EvaluationRatingLevelDescriptorId;
 
@@ -6138,6 +6218,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EvaluationRatingStatusDescriptorId = source.EvaluationRatingStatusDescriptorId;
@@ -6292,6 +6376,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.EvaluationTypeDescriptorId = source.EvaluationTypeDescriptorId;
 
@@ -6436,6 +6524,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.AidTypeDescriptor = source.AidTypeDescriptor;
@@ -6592,6 +6684,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.GenderDescriptorId = source.GenderDescriptorId;
 
@@ -6744,6 +6840,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.ObjectiveRatingLevelDescriptorId = source.ObjectiveRatingLevelDescriptorId;
@@ -6911,6 +7011,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
@@ -7286,6 +7390,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
@@ -7815,6 +7923,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.PerformanceEvaluationRatingLevelDescriptorId = source.PerformanceEvaluationRatingLevelDescriptorId;
 
@@ -7968,6 +8080,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.PerformanceEvaluationTypeDescriptorId = source.PerformanceEvaluationTypeDescriptorId;
 
@@ -8114,6 +8230,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
@@ -8273,6 +8393,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.RubricRatingLevelDescriptorId = source.RubricRatingLevelDescriptorId;
@@ -8611,6 +8735,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.Namespace = source.Namespace;
             target.PersonId = source.PersonId;
@@ -8731,6 +8859,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.Namespace = source.Namespace;

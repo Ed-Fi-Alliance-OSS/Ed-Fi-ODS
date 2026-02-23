@@ -15,7 +15,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AbsenceEventCategoryDescriptor model.
     /// </summary>
-    public interface IAbsenceEventCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAbsenceEventCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -91,7 +91,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AcademicHonorCategoryDescriptor model.
     /// </summary>
-    public interface IAcademicHonorCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAcademicHonorCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -167,7 +167,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AcademicSubjectDescriptor model.
     /// </summary>
-    public interface IAcademicSubjectDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAcademicSubjectDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -243,7 +243,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AcademicWeek model.
     /// </summary>
-    public interface IAcademicWeek : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IAcademicWeek : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -325,7 +325,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AccommodationDescriptor model.
     /// </summary>
-    public interface IAccommodationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAccommodationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -401,7 +401,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AccountabilityRating model.
     /// </summary>
-    public interface IAccountabilityRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IAccountabilityRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -500,7 +500,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AccountTypeDescriptor model.
     /// </summary>
-    public interface IAccountTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAccountTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -576,7 +576,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AccreditationStatusDescriptor model.
     /// </summary>
-    public interface IAccreditationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAccreditationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -652,7 +652,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AchievementCategoryDescriptor model.
     /// </summary>
-    public interface IAchievementCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAchievementCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -728,7 +728,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AdditionalCreditTypeDescriptor model.
     /// </summary>
-    public interface IAdditionalCreditTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAdditionalCreditTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -804,7 +804,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AddressTypeDescriptor model.
     /// </summary>
-    public interface IAddressTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAddressTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -880,7 +880,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AdministrationEnvironmentDescriptor model.
     /// </summary>
-    public interface IAdministrationEnvironmentDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAdministrationEnvironmentDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -956,7 +956,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AdministrativeFundingControlDescriptor model.
     /// </summary>
-    public interface IAdministrativeFundingControlDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAdministrativeFundingControlDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -1032,7 +1032,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AidTypeDescriptor model.
     /// </summary>
-    public interface IAidTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAidTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -1108,7 +1108,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AncestryEthnicOriginDescriptor model.
     /// </summary>
-    public interface IAncestryEthnicOriginDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAncestryEthnicOriginDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -1184,7 +1184,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ApplicantProfile model.
     /// </summary>
-    public interface IApplicantProfile : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IApplicantProfile : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -2936,7 +2936,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Application model.
     /// </summary>
-    public interface IApplication : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IApplication : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -3146,7 +3146,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ApplicationEvent model.
     /// </summary>
-    public interface IApplicationEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IApplicationEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -3263,7 +3263,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ApplicationEventResultDescriptor model.
     /// </summary>
-    public interface IApplicationEventResultDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IApplicationEventResultDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -3339,7 +3339,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ApplicationEventTypeDescriptor model.
     /// </summary>
-    public interface IApplicationEventTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IApplicationEventTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -3552,7 +3552,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ApplicationSourceDescriptor model.
     /// </summary>
-    public interface IApplicationSourceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IApplicationSourceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -3628,7 +3628,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ApplicationStatusDescriptor model.
     /// </summary>
-    public interface IApplicationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IApplicationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -3759,7 +3759,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Assessment model.
     /// </summary>
-    public interface IAssessment : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IAssessment : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -4035,7 +4035,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentAdministration model.
     /// </summary>
-    public interface IAssessmentAdministration : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IAssessmentAdministration : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -4212,7 +4212,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentAdministrationParticipation model.
     /// </summary>
-    public interface IAssessmentAdministrationParticipation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IAssessmentAdministrationParticipation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -4517,7 +4517,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentBatteryPart model.
     /// </summary>
-    public interface IAssessmentBatteryPart : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IAssessmentBatteryPart : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -4669,7 +4669,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentCategoryDescriptor model.
     /// </summary>
-    public interface IAssessmentCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAssessmentCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -5000,7 +5000,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentIdentificationSystemDescriptor model.
     /// </summary>
-    public interface IAssessmentIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAssessmentIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -5076,7 +5076,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentItem model.
     /// </summary>
-    public interface IAssessmentItem : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IAssessmentItem : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -5216,7 +5216,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentItemCategoryDescriptor model.
     /// </summary>
-    public interface IAssessmentItemCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAssessmentItemCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -5421,7 +5421,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentItemResultDescriptor model.
     /// </summary>
-    public interface IAssessmentItemResultDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAssessmentItemResultDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -5702,7 +5702,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentPeriodDescriptor model.
     /// </summary>
-    public interface IAssessmentPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAssessmentPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -5903,7 +5903,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentReportingMethodDescriptor model.
     /// </summary>
-    public interface IAssessmentReportingMethodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAssessmentReportingMethodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -6052,7 +6052,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentScoreRangeLearningStandard model.
     /// </summary>
-    public interface IAssessmentScoreRangeLearningStandard : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IAssessmentScoreRangeLearningStandard : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -6313,7 +6313,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AssignmentLateStatusDescriptor model.
     /// </summary>
-    public interface IAssignmentLateStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAssignmentLateStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -6389,7 +6389,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AttemptStatusDescriptor model.
     /// </summary>
-    public interface IAttemptStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAttemptStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -6465,7 +6465,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AttendanceEventCategoryDescriptor model.
     /// </summary>
-    public interface IAttendanceEventCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAttendanceEventCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -6541,7 +6541,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the BackgroundCheckStatusDescriptor model.
     /// </summary>
-    public interface IBackgroundCheckStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IBackgroundCheckStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -6617,7 +6617,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the BackgroundCheckTypeDescriptor model.
     /// </summary>
-    public interface IBackgroundCheckTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IBackgroundCheckTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -6693,7 +6693,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the BalanceSheetDimension model.
     /// </summary>
-    public interface IBalanceSheetDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IBalanceSheetDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -6833,7 +6833,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the BarrierToInternetAccessInResidenceDescriptor model.
     /// </summary>
-    public interface IBarrierToInternetAccessInResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IBarrierToInternetAccessInResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -6909,7 +6909,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the BehaviorDescriptor model.
     /// </summary>
-    public interface IBehaviorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IBehaviorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -6985,7 +6985,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the BellSchedule model.
     /// </summary>
-    public interface IBellSchedule : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IBellSchedule : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -7294,7 +7294,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the BusRouteDescriptor model.
     /// </summary>
-    public interface IBusRouteDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IBusRouteDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -7370,7 +7370,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Calendar model.
     /// </summary>
-    public interface ICalendar : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICalendar : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -7471,7 +7471,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CalendarDate model.
     /// </summary>
-    public interface ICalendarDate : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICalendarDate : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -7620,7 +7620,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CalendarEventDescriptor model.
     /// </summary>
-    public interface ICalendarEventDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICalendarEventDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -7751,7 +7751,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CalendarTypeDescriptor model.
     /// </summary>
-    public interface ICalendarTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICalendarTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -7827,7 +7827,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Candidate model.
     /// </summary>
-    public interface ICandidate : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICandidate : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -8650,7 +8650,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CandidateCharacteristicDescriptor model.
     /// </summary>
-    public interface ICandidateCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICandidateCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -8875,7 +8875,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CandidateEducatorPreparationProgramAssociation model.
     /// </summary>
-    public interface ICandidateEducatorPreparationProgramAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICandidateEducatorPreparationProgramAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -9396,7 +9396,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CandidateIdentificationCode model.
     /// </summary>
-    public interface ICandidateIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICandidateIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -9573,7 +9573,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CandidateIdentificationSystemDescriptor model.
     /// </summary>
-    public interface ICandidateIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICandidateIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -10201,7 +10201,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CandidateRelationshipToStaffAssociation model.
     /// </summary>
-    public interface ICandidateRelationshipToStaffAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICandidateRelationshipToStaffAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -10423,7 +10423,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CareerPathwayDescriptor model.
     /// </summary>
-    public interface ICareerPathwayDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICareerPathwayDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -10499,7 +10499,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Certification model.
     /// </summary>
-    public interface ICertification : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICertification : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -10745,7 +10745,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CertificationExam model.
     /// </summary>
-    public interface ICertificationExam : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICertificationExam : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -10840,7 +10840,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CertificationExamResult model.
     /// </summary>
-    public interface ICertificationExamResult : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICertificationExamResult : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -10979,7 +10979,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CertificationExamStatusDescriptor model.
     /// </summary>
-    public interface ICertificationExamStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICertificationExamStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -11055,7 +11055,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CertificationExamTypeDescriptor model.
     /// </summary>
-    public interface ICertificationExamTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICertificationExamTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -11131,7 +11131,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CertificationFieldDescriptor model.
     /// </summary>
-    public interface ICertificationFieldDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICertificationFieldDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -11262,7 +11262,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CertificationLevelDescriptor model.
     /// </summary>
-    public interface ICertificationLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICertificationLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -11393,7 +11393,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CertificationRouteDescriptor model.
     /// </summary>
-    public interface ICertificationRouteDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICertificationRouteDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -11469,7 +11469,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CertificationStandardDescriptor model.
     /// </summary>
-    public interface ICertificationStandardDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICertificationStandardDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -11545,7 +11545,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CharterApprovalAgencyTypeDescriptor model.
     /// </summary>
-    public interface ICharterApprovalAgencyTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICharterApprovalAgencyTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -11621,7 +11621,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CharterStatusDescriptor model.
     /// </summary>
-    public interface ICharterStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICharterStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -11697,7 +11697,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ChartOfAccount model.
     /// </summary>
-    public interface IChartOfAccount : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IChartOfAccount : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -11964,7 +11964,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CitizenshipStatusDescriptor model.
     /// </summary>
-    public interface ICitizenshipStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICitizenshipStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -12040,7 +12040,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ClassPeriod model.
     /// </summary>
-    public interface IClassPeriod : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IClassPeriod : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -12190,7 +12190,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ClassroomPositionDescriptor model.
     /// </summary>
-    public interface IClassroomPositionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IClassroomPositionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -12266,7 +12266,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Cohort model.
     /// </summary>
-    public interface ICohort : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICohort : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -12446,7 +12446,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CohortScopeDescriptor model.
     /// </summary>
-    public interface ICohortScopeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICohortScopeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -12522,7 +12522,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CohortTypeDescriptor model.
     /// </summary>
-    public interface ICohortTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICohortTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -12598,7 +12598,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CohortYearTypeDescriptor model.
     /// </summary>
-    public interface ICohortYearTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICohortYearTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -12674,7 +12674,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CommunityOrganization model.
     /// </summary>
-    public interface ICommunityOrganization : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICommunityOrganization : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -12820,7 +12820,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CommunityProvider model.
     /// </summary>
-    public interface ICommunityProvider : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICommunityProvider : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -13008,7 +13008,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CommunityProviderLicense model.
     /// </summary>
-    public interface ICommunityProviderLicense : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICommunityProviderLicense : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -13124,7 +13124,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CompetencyLevelDescriptor model.
     /// </summary>
-    public interface ICompetencyLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICompetencyLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -13200,7 +13200,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CompetencyObjective model.
     /// </summary>
-    public interface ICompetencyObjective : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICompetencyObjective : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -13287,7 +13287,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Contact model.
     /// </summary>
-    public interface IContact : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IIdentifiablePerson, IGetByExample
+    public interface IContact : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IIdentifiablePerson, IGetByExample
     {
         // Primary Key properties
         [UniqueId]
@@ -13818,7 +13818,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ContactIdentificationCode model.
     /// </summary>
-    public interface IContactIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IContactIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -13906,7 +13906,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ContactIdentificationSystemDescriptor model.
     /// </summary>
-    public interface IContactIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IContactIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -14473,7 +14473,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ContentClassDescriptor model.
     /// </summary>
-    public interface IContentClassDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IContentClassDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -14549,7 +14549,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ContinuationOfServicesReasonDescriptor model.
     /// </summary>
-    public interface IContinuationOfServicesReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IContinuationOfServicesReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -14625,7 +14625,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CostRateDescriptor model.
     /// </summary>
-    public interface ICostRateDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICostRateDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -14701,7 +14701,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CoteachingStyleObservedDescriptor model.
     /// </summary>
-    public interface ICoteachingStyleObservedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICoteachingStyleObservedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -14777,7 +14777,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CountryDescriptor model.
     /// </summary>
-    public interface ICountryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICountryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -14853,7 +14853,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Course model.
     /// </summary>
-    public interface ICourse : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICourse : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -15160,7 +15160,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CourseAttemptResultDescriptor model.
     /// </summary>
-    public interface ICourseAttemptResultDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICourseAttemptResultDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -15291,7 +15291,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CourseDefinedByDescriptor model.
     /// </summary>
-    public interface ICourseDefinedByDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICourseDefinedByDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -15367,7 +15367,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CourseGPAApplicabilityDescriptor model.
     /// </summary>
-    public interface ICourseGPAApplicabilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICourseGPAApplicabilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -15516,7 +15516,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CourseIdentificationSystemDescriptor model.
     /// </summary>
-    public interface ICourseIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICourseIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -15709,7 +15709,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CourseLevelCharacteristicDescriptor model.
     /// </summary>
-    public interface ICourseLevelCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICourseLevelCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -15840,7 +15840,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CourseOffering model.
     /// </summary>
-    public interface ICourseOffering : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICourseOffering : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -16164,7 +16164,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CourseRepeatCodeDescriptor model.
     /// </summary>
-    public interface ICourseRepeatCodeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICourseRepeatCodeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -16240,7 +16240,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CourseTranscript model.
     /// </summary>
-    public interface ICourseTranscript : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICourseTranscript : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -17022,7 +17022,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Credential model.
     /// </summary>
-    public interface ICredential : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICredential : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -17375,7 +17375,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CredentialEvent model.
     /// </summary>
-    public interface ICredentialEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICredentialEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -17454,7 +17454,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CredentialEventTypeDescriptor model.
     /// </summary>
-    public interface ICredentialEventTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICredentialEventTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -17530,7 +17530,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CredentialFieldDescriptor model.
     /// </summary>
-    public interface ICredentialFieldDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICredentialFieldDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -17661,7 +17661,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CredentialStatusDescriptor model.
     /// </summary>
-    public interface ICredentialStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICredentialStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -17811,7 +17811,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CredentialTypeDescriptor model.
     /// </summary>
-    public interface ICredentialTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICredentialTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -17887,7 +17887,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CreditCategoryDescriptor model.
     /// </summary>
-    public interface ICreditCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICreditCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -17963,7 +17963,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CreditTypeDescriptor model.
     /// </summary>
-    public interface ICreditTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICreditTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -18039,7 +18039,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CrisisEvent model.
     /// </summary>
-    public interface ICrisisEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ICrisisEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -18117,7 +18117,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CrisisTypeDescriptor model.
     /// </summary>
-    public interface ICrisisTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICrisisTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -18193,7 +18193,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CTEProgramServiceDescriptor model.
     /// </summary>
-    public interface ICTEProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICTEProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -18269,7 +18269,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the CurriculumUsedDescriptor model.
     /// </summary>
-    public interface ICurriculumUsedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ICurriculumUsedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -18345,7 +18345,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DegreeDescriptor model.
     /// </summary>
-    public interface IDegreeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDegreeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -18421,7 +18421,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DeliveryMethodDescriptor model.
     /// </summary>
-    public interface IDeliveryMethodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDeliveryMethodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -18497,7 +18497,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Descriptor model.
     /// </summary>
-    public interface IDescriptor : IHasIdentifier, IGetByExample
+    public interface IDescriptor : IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -18579,7 +18579,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DescriptorMapping model.
     /// </summary>
-    public interface IDescriptorMapping : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IDescriptorMapping : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -18721,7 +18721,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DiagnosisDescriptor model.
     /// </summary>
-    public interface IDiagnosisDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDiagnosisDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -18797,7 +18797,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DiplomaLevelDescriptor model.
     /// </summary>
-    public interface IDiplomaLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDiplomaLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -18873,7 +18873,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DiplomaTypeDescriptor model.
     /// </summary>
-    public interface IDiplomaTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDiplomaTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -18949,7 +18949,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DisabilityDescriptor model.
     /// </summary>
-    public interface IDisabilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDisabilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -19025,7 +19025,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DisabilityDesignationDescriptor model.
     /// </summary>
-    public interface IDisabilityDesignationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDisabilityDesignationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -19101,7 +19101,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DisabilityDeterminationSourceTypeDescriptor model.
     /// </summary>
-    public interface IDisabilityDeterminationSourceTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDisabilityDeterminationSourceTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -19177,7 +19177,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DisciplineAction model.
     /// </summary>
-    public interface IDisciplineAction : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IDisciplineAction : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -19404,7 +19404,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DisciplineActionLengthDifferenceReasonDescriptor model.
     /// </summary>
-    public interface IDisciplineActionLengthDifferenceReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDisciplineActionLengthDifferenceReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -19612,7 +19612,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DisciplineDescriptor model.
     /// </summary>
-    public interface IDisciplineDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDisciplineDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -19688,7 +19688,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DisciplineIncident model.
     /// </summary>
-    public interface IDisciplineIncident : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IDisciplineIncident : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -19979,7 +19979,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DisciplineIncidentParticipationCodeDescriptor model.
     /// </summary>
-    public interface IDisciplineIncidentParticipationCodeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDisciplineIncidentParticipationCodeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -20110,7 +20110,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DisplacedStudentStatusDescriptor model.
     /// </summary>
-    public interface IDisplacedStudentStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDisplacedStudentStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -20186,7 +20186,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DualCreditInstitutionDescriptor model.
     /// </summary>
-    public interface IDualCreditInstitutionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDualCreditInstitutionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -20262,7 +20262,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the DualCreditTypeDescriptor model.
     /// </summary>
-    public interface IDualCreditTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IDualCreditTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -20338,7 +20338,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EconomicDisadvantageDescriptor model.
     /// </summary>
-    public interface IEconomicDisadvantageDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEconomicDisadvantageDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -20414,7 +20414,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationalEnvironmentDescriptor model.
     /// </summary>
-    public interface IEducationalEnvironmentDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEducationalEnvironmentDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -20490,7 +20490,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationContent model.
     /// </summary>
-    public interface IEducationContent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEducationContent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -21144,7 +21144,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganization model.
     /// </summary>
-    public interface IEducationOrganization : IHasIdentifier, IGetByExample
+    public interface IEducationOrganization : IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -21498,7 +21498,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationAssociationTypeDescriptor model.
     /// </summary>
-    public interface IEducationOrganizationAssociationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEducationOrganizationAssociationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -21629,7 +21629,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationCategoryDescriptor model.
     /// </summary>
-    public interface IEducationOrganizationCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEducationOrganizationCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -21705,7 +21705,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationIdentificationCode model.
     /// </summary>
-    public interface IEducationOrganizationIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEducationOrganizationIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -21782,7 +21782,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationIdentificationSystemDescriptor model.
     /// </summary>
-    public interface IEducationOrganizationIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEducationOrganizationIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -22189,7 +22189,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationInterventionPrescriptionAssociation model.
     /// </summary>
-    public interface IEducationOrganizationInterventionPrescriptionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEducationOrganizationInterventionPrescriptionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -22277,7 +22277,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationNetwork model.
     /// </summary>
-    public interface IEducationOrganizationNetwork : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEducationOrganizationNetwork : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -22429,7 +22429,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationNetworkAssociation model.
     /// </summary>
-    public interface IEducationOrganizationNetworkAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEducationOrganizationNetworkAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -22512,7 +22512,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationPeerAssociation model.
     /// </summary>
-    public interface IEducationOrganizationPeerAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEducationOrganizationPeerAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -22584,7 +22584,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationPlanDescriptor model.
     /// </summary>
-    public interface IEducationPlanDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEducationPlanDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -22660,7 +22660,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationServiceCenter model.
     /// </summary>
-    public interface IEducationServiceCenter : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEducationServiceCenter : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -22818,7 +22818,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducatorPreparationProgram model.
     /// </summary>
-    public interface IEducatorPreparationProgram : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEducatorPreparationProgram : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -22975,7 +22975,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EducatorRoleDescriptor model.
     /// </summary>
-    public interface IEducatorRoleDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEducatorRoleDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23051,7 +23051,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ElectronicMailTypeDescriptor model.
     /// </summary>
-    public interface IElectronicMailTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IElectronicMailTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23127,7 +23127,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EligibilityDelayReasonDescriptor model.
     /// </summary>
-    public interface IEligibilityDelayReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEligibilityDelayReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23203,7 +23203,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EligibilityEvaluationTypeDescriptor model.
     /// </summary>
-    public interface IEligibilityEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEligibilityEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23279,7 +23279,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EmploymentStatusDescriptor model.
     /// </summary>
-    public interface IEmploymentStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEmploymentStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23355,7 +23355,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EnglishLanguageExamDescriptor model.
     /// </summary>
-    public interface IEnglishLanguageExamDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEnglishLanguageExamDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23431,7 +23431,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EnrollmentTypeDescriptor model.
     /// </summary>
-    public interface IEnrollmentTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEnrollmentTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23507,7 +23507,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EntryGradeLevelReasonDescriptor model.
     /// </summary>
-    public interface IEntryGradeLevelReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEntryGradeLevelReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23583,7 +23583,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EntryTypeDescriptor model.
     /// </summary>
-    public interface IEntryTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEntryTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23659,7 +23659,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EPPDegreeTypeDescriptor model.
     /// </summary>
-    public interface IEPPDegreeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEPPDegreeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23735,7 +23735,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EPPProgramPathwayDescriptor model.
     /// </summary>
-    public interface IEPPProgramPathwayDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEPPProgramPathwayDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -23811,7 +23811,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Evaluation model.
     /// </summary>
-    public interface IEvaluation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEvaluation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -23947,7 +23947,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationDelayReasonDescriptor model.
     /// </summary>
-    public interface IEvaluationDelayReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEvaluationDelayReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -24023,7 +24023,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationElement model.
     /// </summary>
-    public interface IEvaluationElement : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEvaluationElement : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -24161,7 +24161,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationElementRating model.
     /// </summary>
-    public interface IEvaluationElementRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEvaluationElementRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -24391,7 +24391,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationElementRatingLevelDescriptor model.
     /// </summary>
-    public interface IEvaluationElementRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEvaluationElementRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -24532,7 +24532,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationObjective model.
     /// </summary>
-    public interface IEvaluationObjective : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEvaluationObjective : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -24672,7 +24672,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationObjectiveRating model.
     /// </summary>
-    public interface IEvaluationObjectiveRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEvaluationObjectiveRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -24945,7 +24945,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationPeriodDescriptor model.
     /// </summary>
-    public interface IEvaluationPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEvaluationPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -25021,7 +25021,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationRating model.
     /// </summary>
-    public interface IEvaluationRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEvaluationRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -25282,7 +25282,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationRatingLevelDescriptor model.
     /// </summary>
-    public interface IEvaluationRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEvaluationRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -25583,7 +25583,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationRatingStatusDescriptor model.
     /// </summary>
-    public interface IEvaluationRatingStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEvaluationRatingStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -25659,7 +25659,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationRubricDimension model.
     /// </summary>
-    public interface IEvaluationRubricDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IEvaluationRubricDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -25766,7 +25766,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationTypeDescriptor model.
     /// </summary>
-    public interface IEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -25842,7 +25842,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the EventCircumstanceDescriptor model.
     /// </summary>
-    public interface IEventCircumstanceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IEventCircumstanceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -25918,7 +25918,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ExitWithdrawTypeDescriptor model.
     /// </summary>
-    public interface IExitWithdrawTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IExitWithdrawTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -25994,7 +25994,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FederalLocaleCodeDescriptor model.
     /// </summary>
-    public interface IFederalLocaleCodeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IFederalLocaleCodeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -26070,7 +26070,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FeederSchoolAssociation model.
     /// </summary>
-    public interface IFeederSchoolAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IFeederSchoolAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -26156,7 +26156,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FieldworkExperience model.
     /// </summary>
-    public interface IFieldworkExperience : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IFieldworkExperience : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -26362,7 +26362,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FieldworkExperienceSectionAssociation model.
     /// </summary>
-    public interface IFieldworkExperienceSectionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IFieldworkExperienceSectionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -26458,7 +26458,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FieldworkTypeDescriptor model.
     /// </summary>
-    public interface IFieldworkTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IFieldworkTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -26534,7 +26534,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FinancialAid model.
     /// </summary>
-    public interface IFinancialAid : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IFinancialAid : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -26627,7 +26627,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FinancialCollectionDescriptor model.
     /// </summary>
-    public interface IFinancialCollectionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IFinancialCollectionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -26703,7 +26703,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FunctionDimension model.
     /// </summary>
-    public interface IFunctionDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IFunctionDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -26843,7 +26843,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FundDimension model.
     /// </summary>
-    public interface IFundDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IFundDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -26983,7 +26983,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FundingSourceDescriptor model.
     /// </summary>
-    public interface IFundingSourceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IFundingSourceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -27059,7 +27059,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GeneralStudentProgramAssociation model.
     /// </summary>
-    public interface IGeneralStudentProgramAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IGeneralStudentProgramAssociation : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -27256,7 +27256,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Goal model.
     /// </summary>
-    public interface IGoal : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IGoal : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -27464,7 +27464,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GoalTypeDescriptor model.
     /// </summary>
-    public interface IGoalTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IGoalTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -27540,7 +27540,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Grade model.
     /// </summary>
-    public interface IGrade : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IGrade : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -27711,7 +27711,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GradebookEntry model.
     /// </summary>
-    public interface IGradebookEntry : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IGradebookEntry : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -27956,7 +27956,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GradebookEntryTypeDescriptor model.
     /// </summary>
-    public interface IGradebookEntryTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IGradebookEntryTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -28118,7 +28118,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GradeLevelDescriptor model.
     /// </summary>
-    public interface IGradeLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IGradeLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -28194,7 +28194,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GradePointAverageTypeDescriptor model.
     /// </summary>
-    public interface IGradePointAverageTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IGradePointAverageTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -28270,7 +28270,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GradeTypeDescriptor model.
     /// </summary>
-    public interface IGradeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IGradeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -28346,7 +28346,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GradingPeriod model.
     /// </summary>
-    public interface IGradingPeriod : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IGradingPeriod : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -28448,7 +28448,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GradingPeriodDescriptor model.
     /// </summary>
-    public interface IGradingPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IGradingPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -28524,7 +28524,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GraduationPlan model.
     /// </summary>
-    public interface IGraduationPlan : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IGraduationPlan : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -29351,7 +29351,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GraduationPlanTypeDescriptor model.
     /// </summary>
-    public interface IGraduationPlanTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IGraduationPlanTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -29427,7 +29427,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the GunFreeSchoolsActReportingStatusDescriptor model.
     /// </summary>
-    public interface IGunFreeSchoolsActReportingStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IGunFreeSchoolsActReportingStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -29503,7 +29503,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the HireStatusDescriptor model.
     /// </summary>
-    public interface IHireStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IHireStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -29579,7 +29579,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the HiringSourceDescriptor model.
     /// </summary>
-    public interface IHiringSourceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IHiringSourceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -29655,7 +29655,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the HomelessPrimaryNighttimeResidenceDescriptor model.
     /// </summary>
-    public interface IHomelessPrimaryNighttimeResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IHomelessPrimaryNighttimeResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -29731,7 +29731,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the HomelessProgramServiceDescriptor model.
     /// </summary>
-    public interface IHomelessProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IHomelessProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -29807,7 +29807,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the IDEAPartDescriptor model.
     /// </summary>
-    public interface IIDEAPartDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IIDEAPartDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -29883,7 +29883,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the IdentificationDocumentUseDescriptor model.
     /// </summary>
-    public interface IIdentificationDocumentUseDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IIdentificationDocumentUseDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -29959,7 +29959,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ImmunizationTypeDescriptor model.
     /// </summary>
-    public interface IImmunizationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IImmunizationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30035,7 +30035,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the IncidentLocationDescriptor model.
     /// </summary>
-    public interface IIncidentLocationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IIncidentLocationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30111,7 +30111,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the IndicatorDescriptor model.
     /// </summary>
-    public interface IIndicatorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IIndicatorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30187,7 +30187,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the IndicatorGroupDescriptor model.
     /// </summary>
-    public interface IIndicatorGroupDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IIndicatorGroupDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30263,7 +30263,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the IndicatorLevelDescriptor model.
     /// </summary>
-    public interface IIndicatorLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IIndicatorLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30339,7 +30339,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InstitutionTelephoneNumberTypeDescriptor model.
     /// </summary>
-    public interface IInstitutionTelephoneNumberTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IInstitutionTelephoneNumberTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30415,7 +30415,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InstructionalSettingDescriptor model.
     /// </summary>
-    public interface IInstructionalSettingDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IInstructionalSettingDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30491,7 +30491,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InteractivityStyleDescriptor model.
     /// </summary>
-    public interface IInteractivityStyleDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IInteractivityStyleDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30567,7 +30567,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InternetAccessDescriptor model.
     /// </summary>
-    public interface IInternetAccessDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IInternetAccessDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30643,7 +30643,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InternetAccessTypeInResidenceDescriptor model.
     /// </summary>
-    public interface IInternetAccessTypeInResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IInternetAccessTypeInResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30719,7 +30719,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InternetPerformanceInResidenceDescriptor model.
     /// </summary>
-    public interface IInternetPerformanceInResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IInternetPerformanceInResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -30795,7 +30795,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Intervention model.
     /// </summary>
-    public interface IIntervention : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IIntervention : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -31159,7 +31159,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InterventionClassDescriptor model.
     /// </summary>
-    public interface IInterventionClassDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IInterventionClassDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -31352,7 +31352,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InterventionEffectivenessRatingDescriptor model.
     /// </summary>
-    public interface IInterventionEffectivenessRatingDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IInterventionEffectivenessRatingDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -31663,7 +31663,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InterventionPrescription model.
     /// </summary>
-    public interface IInterventionPrescription : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IInterventionPrescription : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -32317,7 +32317,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InterventionStudy model.
     /// </summary>
-    public interface IInterventionStudy : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IInterventionStudy : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -33060,7 +33060,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LanguageDescriptor model.
     /// </summary>
-    public interface ILanguageDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILanguageDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -33136,7 +33136,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LanguageInstructionProgramServiceDescriptor model.
     /// </summary>
-    public interface ILanguageInstructionProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILanguageInstructionProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -33212,7 +33212,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LanguageUseDescriptor model.
     /// </summary>
-    public interface ILanguageUseDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILanguageUseDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -33288,7 +33288,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LearningStandard model.
     /// </summary>
-    public interface ILearningStandard : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ILearningStandard : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -33519,7 +33519,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LearningStandardCategoryDescriptor model.
     /// </summary>
-    public interface ILearningStandardCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILearningStandardCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -33783,7 +33783,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LearningStandardEquivalenceAssociation model.
     /// </summary>
-    public interface ILearningStandardEquivalenceAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ILearningStandardEquivalenceAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -33877,7 +33877,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LearningStandardEquivalenceStrengthDescriptor model.
     /// </summary>
-    public interface ILearningStandardEquivalenceStrengthDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILearningStandardEquivalenceStrengthDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -34067,7 +34067,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LearningStandardScopeDescriptor model.
     /// </summary>
-    public interface ILearningStandardScopeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILearningStandardScopeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -34143,7 +34143,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LengthOfContractDescriptor model.
     /// </summary>
-    public interface ILengthOfContractDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILengthOfContractDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -34219,7 +34219,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LevelOfEducationDescriptor model.
     /// </summary>
-    public interface ILevelOfEducationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILevelOfEducationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -34295,7 +34295,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LicenseStatusDescriptor model.
     /// </summary>
-    public interface ILicenseStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILicenseStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -34371,7 +34371,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LicenseTypeDescriptor model.
     /// </summary>
-    public interface ILicenseTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILicenseTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -34447,7 +34447,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LimitedEnglishProficiencyDescriptor model.
     /// </summary>
-    public interface ILimitedEnglishProficiencyDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILimitedEnglishProficiencyDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -34523,7 +34523,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LocalAccount model.
     /// </summary>
-    public interface ILocalAccount : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ILocalAccount : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -34699,7 +34699,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LocalActual model.
     /// </summary>
-    public interface ILocalActual : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ILocalActual : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -34784,7 +34784,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LocalBudget model.
     /// </summary>
-    public interface ILocalBudget : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ILocalBudget : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -34869,7 +34869,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LocalContractedStaff model.
     /// </summary>
-    public interface ILocalContractedStaff : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ILocalContractedStaff : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -34965,7 +34965,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LocaleDescriptor model.
     /// </summary>
-    public interface ILocaleDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILocaleDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -35041,7 +35041,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LocalEducationAgency model.
     /// </summary>
-    public interface ILocalEducationAgency : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ILocalEducationAgency : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -35342,7 +35342,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LocalEducationAgencyCategoryDescriptor model.
     /// </summary>
-    public interface ILocalEducationAgencyCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILocalEducationAgencyCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -35521,7 +35521,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LocalEncumbrance model.
     /// </summary>
-    public interface ILocalEncumbrance : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ILocalEncumbrance : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -35606,7 +35606,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the LocalPayroll model.
     /// </summary>
-    public interface ILocalPayroll : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ILocalPayroll : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -35702,7 +35702,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Location model.
     /// </summary>
-    public interface ILocation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ILocation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -35778,7 +35778,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the MagnetSpecialProgramEmphasisSchoolDescriptor model.
     /// </summary>
-    public interface IMagnetSpecialProgramEmphasisSchoolDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IMagnetSpecialProgramEmphasisSchoolDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -35854,7 +35854,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the MediumOfInstructionDescriptor model.
     /// </summary>
-    public interface IMediumOfInstructionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IMediumOfInstructionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -35930,7 +35930,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the MethodCreditEarnedDescriptor model.
     /// </summary>
-    public interface IMethodCreditEarnedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IMethodCreditEarnedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -36006,7 +36006,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the MigrantEducationProgramServiceDescriptor model.
     /// </summary>
-    public interface IMigrantEducationProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IMigrantEducationProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -36082,7 +36082,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ModelEntityDescriptor model.
     /// </summary>
-    public interface IModelEntityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IModelEntityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -36158,7 +36158,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the MonitoredDescriptor model.
     /// </summary>
-    public interface IMonitoredDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IMonitoredDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -36234,7 +36234,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the NeglectedOrDelinquentProgramDescriptor model.
     /// </summary>
-    public interface INeglectedOrDelinquentProgramDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface INeglectedOrDelinquentProgramDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -36310,7 +36310,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the NeglectedOrDelinquentProgramServiceDescriptor model.
     /// </summary>
-    public interface INeglectedOrDelinquentProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface INeglectedOrDelinquentProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -36386,7 +36386,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the NetworkPurposeDescriptor model.
     /// </summary>
-    public interface INetworkPurposeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface INetworkPurposeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -36462,7 +36462,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the NonMedicalImmunizationExemptionDescriptor model.
     /// </summary>
-    public interface INonMedicalImmunizationExemptionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface INonMedicalImmunizationExemptionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -36538,7 +36538,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ObjectDimension model.
     /// </summary>
-    public interface IObjectDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IObjectDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -36678,7 +36678,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ObjectiveAssessment model.
     /// </summary>
-    public interface IObjectiveAssessment : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IObjectiveAssessment : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -37196,7 +37196,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ObjectiveRatingLevelDescriptor model.
     /// </summary>
-    public interface IObjectiveRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IObjectiveRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -37272,7 +37272,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the OpenStaffPosition model.
     /// </summary>
-    public interface IOpenStaffPosition : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IOpenStaffPosition : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -37541,7 +37541,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the OpenStaffPositionEvent model.
     /// </summary>
-    public interface IOpenStaffPositionEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IOpenStaffPositionEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -37620,7 +37620,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the OpenStaffPositionEventStatusDescriptor model.
     /// </summary>
-    public interface IOpenStaffPositionEventStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IOpenStaffPositionEventStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -37696,7 +37696,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the OpenStaffPositionEventTypeDescriptor model.
     /// </summary>
-    public interface IOpenStaffPositionEventTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IOpenStaffPositionEventTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -37827,7 +37827,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the OpenStaffPositionReasonDescriptor model.
     /// </summary>
-    public interface IOpenStaffPositionReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IOpenStaffPositionReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -37903,7 +37903,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the OperationalStatusDescriptor model.
     /// </summary>
-    public interface IOperationalStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IOperationalStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -37979,7 +37979,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the OperationalUnitDimension model.
     /// </summary>
-    public interface IOperationalUnitDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IOperationalUnitDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -38119,7 +38119,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the OrganizationDepartment model.
     /// </summary>
-    public interface IOrganizationDepartment : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IOrganizationDepartment : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -38284,7 +38284,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the OtherNameTypeDescriptor model.
     /// </summary>
-    public interface IOtherNameTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IOtherNameTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -38360,7 +38360,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ParticipationDescriptor model.
     /// </summary>
-    public interface IParticipationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IParticipationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -38436,7 +38436,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ParticipationStatusDescriptor model.
     /// </summary>
-    public interface IParticipationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IParticipationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -38512,7 +38512,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Path model.
     /// </summary>
-    public interface IPath : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IPath : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -38596,7 +38596,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PathMilestone model.
     /// </summary>
-    public interface IPathMilestone : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IPathMilestone : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -38666,7 +38666,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PathMilestoneStatusDescriptor model.
     /// </summary>
-    public interface IPathMilestoneStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPathMilestoneStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -38742,7 +38742,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PathMilestoneTypeDescriptor model.
     /// </summary>
-    public interface IPathMilestoneTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPathMilestoneTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -38818,7 +38818,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PathPhase model.
     /// </summary>
-    public interface IPathPhase : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IPathPhase : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -38986,7 +38986,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PathPhaseStatusDescriptor model.
     /// </summary>
-    public interface IPathPhaseStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPathPhaseStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -39062,7 +39062,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PerformanceBaseConversionDescriptor model.
     /// </summary>
-    public interface IPerformanceBaseConversionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPerformanceBaseConversionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -39138,7 +39138,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PerformanceEvaluation model.
     /// </summary>
-    public interface IPerformanceEvaluation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IPerformanceEvaluation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -39327,7 +39327,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PerformanceEvaluationRating model.
     /// </summary>
-    public interface IPerformanceEvaluationRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IPerformanceEvaluationRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -39573,7 +39573,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PerformanceEvaluationRatingLevelDescriptor model.
     /// </summary>
-    public interface IPerformanceEvaluationRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPerformanceEvaluationRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -39874,7 +39874,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PerformanceEvaluationTypeDescriptor model.
     /// </summary>
-    public interface IPerformanceEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPerformanceEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -39950,7 +39950,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PerformanceLevelDescriptor model.
     /// </summary>
-    public interface IPerformanceLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPerformanceLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -40026,7 +40026,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Person model.
     /// </summary>
-    public interface IPerson : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IPerson : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -40084,7 +40084,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PersonalInformationVerificationDescriptor model.
     /// </summary>
-    public interface IPersonalInformationVerificationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPersonalInformationVerificationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -40160,7 +40160,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PlatformTypeDescriptor model.
     /// </summary>
-    public interface IPlatformTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPlatformTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -40236,7 +40236,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PopulationServedDescriptor model.
     /// </summary>
-    public interface IPopulationServedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPopulationServedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -40312,7 +40312,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PostingResultDescriptor model.
     /// </summary>
-    public interface IPostingResultDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPostingResultDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -40388,7 +40388,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PostSecondaryEvent model.
     /// </summary>
-    public interface IPostSecondaryEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IPostSecondaryEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -40469,7 +40469,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PostSecondaryEventCategoryDescriptor model.
     /// </summary>
-    public interface IPostSecondaryEventCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPostSecondaryEventCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -40545,7 +40545,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PostSecondaryInstitution model.
     /// </summary>
-    public interface IPostSecondaryInstitution : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IPostSecondaryInstitution : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -40723,7 +40723,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PostSecondaryInstitutionLevelDescriptor model.
     /// </summary>
-    public interface IPostSecondaryInstitutionLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPostSecondaryInstitutionLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -40854,7 +40854,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PreviousCareerDescriptor model.
     /// </summary>
-    public interface IPreviousCareerDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPreviousCareerDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -40930,7 +40930,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PrimaryLearningDeviceAccessDescriptor model.
     /// </summary>
-    public interface IPrimaryLearningDeviceAccessDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPrimaryLearningDeviceAccessDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -41006,7 +41006,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PrimaryLearningDeviceAwayFromSchoolDescriptor model.
     /// </summary>
-    public interface IPrimaryLearningDeviceAwayFromSchoolDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPrimaryLearningDeviceAwayFromSchoolDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -41082,7 +41082,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PrimaryLearningDeviceProviderDescriptor model.
     /// </summary>
-    public interface IPrimaryLearningDeviceProviderDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPrimaryLearningDeviceProviderDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -41158,7 +41158,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProfessionalDevelopmentEvent model.
     /// </summary>
-    public interface IProfessionalDevelopmentEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IProfessionalDevelopmentEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -41246,7 +41246,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProfessionalDevelopmentEventAttendance model.
     /// </summary>
-    public interface IProfessionalDevelopmentEventAttendance : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IProfessionalDevelopmentEventAttendance : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -41342,7 +41342,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProfessionalDevelopmentOfferedByDescriptor model.
     /// </summary>
-    public interface IProfessionalDevelopmentOfferedByDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProfessionalDevelopmentOfferedByDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -41418,7 +41418,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProficiencyDescriptor model.
     /// </summary>
-    public interface IProficiencyDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProficiencyDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -41494,7 +41494,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Program model.
     /// </summary>
-    public interface IProgram : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IProgram : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -41618,7 +41618,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramAssignmentDescriptor model.
     /// </summary>
-    public interface IProgramAssignmentDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProgramAssignmentDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -41749,7 +41749,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramCharacteristicDescriptor model.
     /// </summary>
-    public interface IProgramCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProgramCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -41825,7 +41825,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramDimension model.
     /// </summary>
-    public interface IProgramDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IProgramDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -41965,7 +41965,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramEvaluation model.
     /// </summary>
-    public interface IProgramEvaluation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IProgramEvaluation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -42085,7 +42085,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramEvaluationElement model.
     /// </summary>
-    public interface IProgramEvaluationElement : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IProgramEvaluationElement : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -42362,7 +42362,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramEvaluationObjective model.
     /// </summary>
-    public interface IProgramEvaluationObjective : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IProgramEvaluationObjective : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -42559,7 +42559,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramEvaluationPeriodDescriptor model.
     /// </summary>
-    public interface IProgramEvaluationPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProgramEvaluationPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -42635,7 +42635,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramEvaluationTypeDescriptor model.
     /// </summary>
-    public interface IProgramEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProgramEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -42828,7 +42828,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramSponsorDescriptor model.
     /// </summary>
-    public interface IProgramSponsorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProgramSponsorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -42904,7 +42904,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramTypeDescriptor model.
     /// </summary>
-    public interface IProgramTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProgramTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -42980,7 +42980,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgressDescriptor model.
     /// </summary>
-    public interface IProgressDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProgressDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -43056,7 +43056,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgressLevelDescriptor model.
     /// </summary>
-    public interface IProgressLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProgressLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -43132,7 +43132,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProjectDimension model.
     /// </summary>
-    public interface IProjectDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IProjectDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -43272,7 +43272,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProviderCategoryDescriptor model.
     /// </summary>
-    public interface IProviderCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProviderCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -43348,7 +43348,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProviderProfitabilityDescriptor model.
     /// </summary>
-    public interface IProviderProfitabilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProviderProfitabilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -43424,7 +43424,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ProviderStatusDescriptor model.
     /// </summary>
-    public interface IProviderStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IProviderStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -43500,7 +43500,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PublicationStatusDescriptor model.
     /// </summary>
-    public interface IPublicationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPublicationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -43576,7 +43576,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the QuantitativeMeasure model.
     /// </summary>
-    public interface IQuantitativeMeasure : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IQuantitativeMeasure : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -43685,7 +43685,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the QuantitativeMeasureDatatypeDescriptor model.
     /// </summary>
-    public interface IQuantitativeMeasureDatatypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IQuantitativeMeasureDatatypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -43761,7 +43761,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the QuantitativeMeasureScore model.
     /// </summary>
-    public interface IQuantitativeMeasureScore : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IQuantitativeMeasureScore : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -43889,7 +43889,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the QuantitativeMeasureTypeDescriptor model.
     /// </summary>
-    public interface IQuantitativeMeasureTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IQuantitativeMeasureTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -43965,7 +43965,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the QuestionFormDescriptor model.
     /// </summary>
-    public interface IQuestionFormDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IQuestionFormDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -44041,7 +44041,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RaceDescriptor model.
     /// </summary>
-    public interface IRaceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IRaceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -44117,7 +44117,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RatingLevelDescriptor model.
     /// </summary>
-    public interface IRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -44193,7 +44193,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ReasonExitedDescriptor model.
     /// </summary>
-    public interface IReasonExitedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IReasonExitedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -44269,7 +44269,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ReasonNotTestedDescriptor model.
     /// </summary>
-    public interface IReasonNotTestedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IReasonNotTestedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -44345,7 +44345,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RecognitionTypeDescriptor model.
     /// </summary>
-    public interface IRecognitionTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IRecognitionTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -44421,7 +44421,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RecruitmentEvent model.
     /// </summary>
-    public interface IRecruitmentEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IRecruitmentEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -44508,7 +44508,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendance model.
     /// </summary>
-    public interface IRecruitmentEventAttendance : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IRecruitmentEventAttendance : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -45463,7 +45463,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendeeTypeDescriptor model.
     /// </summary>
-    public interface IRecruitmentEventAttendeeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IRecruitmentEventAttendeeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -45539,7 +45539,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RecruitmentEventTypeDescriptor model.
     /// </summary>
-    public interface IRecruitmentEventTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IRecruitmentEventTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -45615,7 +45615,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RelationDescriptor model.
     /// </summary>
-    public interface IRelationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IRelationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -45691,7 +45691,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RepeatIdentifierDescriptor model.
     /// </summary>
-    public interface IRepeatIdentifierDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IRepeatIdentifierDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -45767,7 +45767,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ReportCard model.
     /// </summary>
-    public interface IReportCard : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IReportCard : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -46158,7 +46158,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ReporterDescriptionDescriptor model.
     /// </summary>
-    public interface IReporterDescriptionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IReporterDescriptionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -46234,7 +46234,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ReportingTagDescriptor model.
     /// </summary>
-    public interface IReportingTagDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IReportingTagDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -46310,7 +46310,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ResidencyStatusDescriptor model.
     /// </summary>
-    public interface IResidencyStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IResidencyStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -46386,7 +46386,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ResponseIndicatorDescriptor model.
     /// </summary>
-    public interface IResponseIndicatorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IResponseIndicatorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -46462,7 +46462,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ResponsibilityDescriptor model.
     /// </summary>
-    public interface IResponsibilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IResponsibilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -46538,7 +46538,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RestraintEvent model.
     /// </summary>
-    public interface IRestraintEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IRestraintEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -46798,7 +46798,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RestraintEventReasonDescriptor model.
     /// </summary>
-    public interface IRestraintEventReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IRestraintEventReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -46874,7 +46874,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ResultDatatypeTypeDescriptor model.
     /// </summary>
-    public interface IResultDatatypeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IResultDatatypeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -46950,7 +46950,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RetestIndicatorDescriptor model.
     /// </summary>
-    public interface IRetestIndicatorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IRetestIndicatorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -47026,7 +47026,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RubricDimension model.
     /// </summary>
-    public interface IRubricDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IRubricDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -47141,7 +47141,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the RubricRatingLevelDescriptor model.
     /// </summary>
-    public interface IRubricRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IRubricRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -47217,7 +47217,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SalaryTypeDescriptor model.
     /// </summary>
-    public interface ISalaryTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISalaryTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -47293,7 +47293,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the School model.
     /// </summary>
-    public interface ISchool : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISchool : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -47618,7 +47618,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SchoolCategoryDescriptor model.
     /// </summary>
-    public interface ISchoolCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISchoolCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -47694,7 +47694,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SchoolChoiceBasisDescriptor model.
     /// </summary>
-    public interface ISchoolChoiceBasisDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISchoolChoiceBasisDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -47770,7 +47770,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SchoolChoiceImplementStatusDescriptor model.
     /// </summary>
-    public interface ISchoolChoiceImplementStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISchoolChoiceImplementStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -47846,7 +47846,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SchoolFoodServiceProgramServiceDescriptor model.
     /// </summary>
-    public interface ISchoolFoodServiceProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISchoolFoodServiceProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -47977,7 +47977,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SchoolTypeDescriptor model.
     /// </summary>
-    public interface ISchoolTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISchoolTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -48053,7 +48053,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SchoolYearType model.
     /// </summary>
-    public interface ISchoolYearType : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISchoolYearType : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -48119,7 +48119,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Section model.
     /// </summary>
-    public interface ISection : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISection : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -48364,7 +48364,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Section504DisabilityDescriptor model.
     /// </summary>
-    public interface ISection504DisabilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISection504DisabilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -48440,7 +48440,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SectionAttendanceTakenEvent model.
     /// </summary>
-    public interface ISectionAttendanceTakenEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISectionAttendanceTakenEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -48606,7 +48606,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SectionCharacteristicDescriptor model.
     /// </summary>
-    public interface ISectionCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISectionCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -48924,7 +48924,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SectionTypeDescriptor model.
     /// </summary>
-    public interface ISectionTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISectionTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -49000,7 +49000,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SeparationDescriptor model.
     /// </summary>
-    public interface ISeparationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISeparationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -49076,7 +49076,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SeparationReasonDescriptor model.
     /// </summary>
-    public interface ISeparationReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISeparationReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -49152,7 +49152,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ServiceDescriptor model.
     /// </summary>
-    public interface IServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -49228,7 +49228,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Session model.
     /// </summary>
-    public interface ISession : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISession : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -49489,7 +49489,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SexDescriptor model.
     /// </summary>
-    public interface ISexDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISexDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -49565,7 +49565,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SourceDimension model.
     /// </summary>
-    public interface ISourceDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISourceDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -49705,7 +49705,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SourceSystemDescriptor model.
     /// </summary>
-    public interface ISourceSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISourceSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -49781,7 +49781,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SpecialEducationExitReasonDescriptor model.
     /// </summary>
-    public interface ISpecialEducationExitReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISpecialEducationExitReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -49857,7 +49857,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SpecialEducationProgramServiceDescriptor model.
     /// </summary>
-    public interface ISpecialEducationProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISpecialEducationProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -49933,7 +49933,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SpecialEducationSettingDescriptor model.
     /// </summary>
-    public interface ISpecialEducationSettingDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISpecialEducationSettingDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -50009,7 +50009,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Staff model.
     /// </summary>
-    public interface IStaff : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IIdentifiablePerson, IGetByExample
+    public interface IStaff : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IIdentifiablePerson, IGetByExample
     {
         // Primary Key properties
         [UniqueId]
@@ -50291,7 +50291,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffAbsenceEvent model.
     /// </summary>
-    public interface IStaffAbsenceEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffAbsenceEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -50372,7 +50372,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffClassificationDescriptor model.
     /// </summary>
-    public interface IStaffClassificationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStaffClassificationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -50448,7 +50448,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffCohortAssociation model.
     /// </summary>
-    public interface IStaffCohortAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffCohortAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -50606,7 +50606,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffDemographic model.
     /// </summary>
-    public interface IStaffDemographic : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffDemographic : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -51233,7 +51233,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffDirectory model.
     /// </summary>
-    public interface IStaffDirectory : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffDirectory : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -51832,7 +51832,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffDisciplineIncidentAssociation model.
     /// </summary>
-    public interface IStaffDisciplineIncidentAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffDisciplineIncidentAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -51984,7 +51984,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffEducationOrganizationAssignmentAssociation model.
     /// </summary>
-    public interface IStaffEducationOrganizationAssignmentAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffEducationOrganizationAssignmentAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -52138,7 +52138,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffEducationOrganizationEmploymentAssociation model.
     /// </summary>
-    public interface IStaffEducationOrganizationEmploymentAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffEducationOrganizationEmploymentAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -52645,7 +52645,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffEducatorPreparationProgramAssociation model.
     /// </summary>
-    public interface IStaffEducatorPreparationProgramAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffEducatorPreparationProgramAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -52867,7 +52867,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffIdentificationCode model.
     /// </summary>
-    public interface IStaffIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -52955,7 +52955,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffIdentificationSystemDescriptor model.
     /// </summary>
-    public interface IStaffIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStaffIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -53031,7 +53031,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffLeave model.
     /// </summary>
-    public interface IStaffLeave : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffLeave : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -53118,7 +53118,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffLeaveEventCategoryDescriptor model.
     /// </summary>
-    public interface IStaffLeaveEventCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStaffLeaveEventCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -53368,7 +53368,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffProgramAssociation model.
     /// </summary>
-    public interface IStaffProgramAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffProgramAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -53591,7 +53591,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffSchoolAssociation model.
     /// </summary>
-    public interface IStaffSchoolAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffSchoolAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -53836,7 +53836,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffSectionAssociation model.
     /// </summary>
-    public interface IStaffSectionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStaffSectionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -53958,7 +53958,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffToCandidateRelationshipDescriptor model.
     /// </summary>
-    public interface IStaffToCandidateRelationshipDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStaffToCandidateRelationshipDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -54034,7 +54034,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StateAbbreviationDescriptor model.
     /// </summary>
-    public interface IStateAbbreviationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStateAbbreviationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -54110,7 +54110,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StateEducationAgency model.
     /// </summary>
-    public interface IStateEducationAgency : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStateEducationAgency : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -54418,7 +54418,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Student model.
     /// </summary>
-    public interface IStudent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IIdentifiablePerson, IGetByExample
+    public interface IStudent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IIdentifiablePerson, IGetByExample
     {
         // Primary Key properties
         [UniqueId]
@@ -54625,7 +54625,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentAcademicRecord model.
     /// </summary>
-    public interface IStudentAcademicRecord : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentAcademicRecord : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -55489,7 +55489,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentAssessment model.
     /// </summary>
-    public interface IStudentAssessment : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentAssessment : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -55835,7 +55835,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentAssessmentEducationOrganizationAssociation model.
     /// </summary>
-    public interface IStudentAssessmentEducationOrganizationAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentAssessmentEducationOrganizationAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -56238,7 +56238,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentAssessmentRegistration model.
     /// </summary>
-    public interface IStudentAssessmentRegistration : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentAssessmentRegistration : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -56553,7 +56553,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentAssessmentRegistrationBatteryPartAssociation model.
     /// </summary>
-    public interface IStudentAssessmentRegistrationBatteryPartAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentAssessmentRegistrationBatteryPartAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -57035,7 +57035,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentCharacteristicDescriptor model.
     /// </summary>
-    public interface IStudentCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStudentCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -57111,7 +57111,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentCohortAssociation model.
     /// </summary>
-    public interface IStudentCohortAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentCohortAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -57296,7 +57296,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentCompetencyObjective model.
     /// </summary>
-    public interface IStudentCompetencyObjective : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentCompetencyObjective : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -57606,7 +57606,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentContactAssociation model.
     /// </summary>
-    public interface IStudentContactAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentContactAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -57720,7 +57720,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentCTEProgramAssociation model.
     /// </summary>
-    public interface IStudentCTEProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentCTEProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -57943,7 +57943,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentDemographic model.
     /// </summary>
-    public interface IStudentDemographic : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentDemographic : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -58908,7 +58908,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentDirectory model.
     /// </summary>
-    public interface IStudentDirectory : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentDirectory : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -59507,7 +59507,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentDisciplineIncidentBehaviorAssociation model.
     /// </summary>
-    public interface IStudentDisciplineIncidentBehaviorAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentDisciplineIncidentBehaviorAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -59738,7 +59738,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentDisciplineIncidentNonOffenderAssociation model.
     /// </summary>
-    public interface IStudentDisciplineIncidentNonOffenderAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentDisciplineIncidentNonOffenderAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -59890,7 +59890,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssessmentAccommodation model.
     /// </summary>
-    public interface IStudentEducationOrganizationAssessmentAccommodation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentEducationOrganizationAssessmentAccommodation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -60038,7 +60038,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociation model.
     /// </summary>
-    public interface IStudentEducationOrganizationAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentEducationOrganizationAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -60525,7 +60525,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationResponsibilityAssociation model.
     /// </summary>
-    public interface IStudentEducationOrganizationResponsibilityAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentEducationOrganizationResponsibilityAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -60611,7 +60611,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentGradebookEntry model.
     /// </summary>
-    public interface IStudentGradebookEntry : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentGradebookEntry : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -60753,7 +60753,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentHealth model.
     /// </summary>
-    public interface IStudentHealth : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentHealth : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -61152,7 +61152,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentHomelessProgramAssociation model.
     /// </summary>
-    public interface IStudentHomelessProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentHomelessProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -61369,7 +61369,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentIdentificationCode model.
     /// </summary>
-    public interface IStudentIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentIdentificationCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -61457,7 +61457,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentIdentificationSystemDescriptor model.
     /// </summary>
-    public interface IStudentIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStudentIdentificationSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -61533,7 +61533,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentInterventionAssociation model.
     /// </summary>
-    public interface IStudentInterventionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentInterventionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -61736,7 +61736,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentInterventionAttendanceEvent model.
     /// </summary>
-    public interface IStudentInterventionAttendanceEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentInterventionAttendanceEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -61844,7 +61844,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentLanguageInstructionProgramAssociation model.
     /// </summary>
-    public interface IStudentLanguageInstructionProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentLanguageInstructionProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -62154,7 +62154,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentMigrantEducationProgramAssociation model.
     /// </summary>
-    public interface IStudentMigrantEducationProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentMigrantEducationProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -62407,7 +62407,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentNeglectedOrDelinquentProgramAssociation model.
     /// </summary>
-    public interface IStudentNeglectedOrDelinquentProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentNeglectedOrDelinquentProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -62709,7 +62709,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentPath model.
     /// </summary>
-    public interface IStudentPath : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentPath : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -62806,7 +62806,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentPathMilestoneStatus model.
     /// </summary>
-    public interface IStudentPathMilestoneStatus : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentPathMilestoneStatus : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -63058,7 +63058,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentPathPhaseStatus model.
     /// </summary>
-    public interface IStudentPathPhaseStatus : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentPathPhaseStatus : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -63388,7 +63388,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentProgramAssociation model.
     /// </summary>
-    public interface IStudentProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -63587,7 +63587,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentProgramAttendanceEvent model.
     /// </summary>
-    public interface IStudentProgramAttendanceEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentProgramAttendanceEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -63710,7 +63710,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentProgramEvaluation model.
     /// </summary>
-    public interface IStudentProgramEvaluation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentProgramEvaluation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -64108,7 +64108,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentSchoolAssociation model.
     /// </summary>
-    public interface IStudentSchoolAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentSchoolAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -64513,7 +64513,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentSchoolAttendanceEvent model.
     /// </summary>
-    public interface IStudentSchoolAttendanceEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentSchoolAttendanceEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -64643,7 +64643,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentSchoolFoodServiceProgramAssociation model.
     /// </summary>
-    public interface IStudentSchoolFoodServiceProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentSchoolFoodServiceProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -64848,7 +64848,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentSection504ProgramAssociation model.
     /// </summary>
-    public interface IStudentSection504ProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentSection504ProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -64990,7 +64990,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentSectionAssociation model.
     /// </summary>
-    public interface IStudentSectionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentSectionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -65240,7 +65240,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentSectionAttendanceEvent model.
     /// </summary>
-    public interface IStudentSectionAttendanceEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentSectionAttendanceEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -65455,7 +65455,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentSpecialEducationProgramAssociation model.
     /// </summary>
-    public interface IStudentSpecialEducationProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentSpecialEducationProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -66090,7 +66090,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentSpecialEducationProgramEligibilityAssociation model.
     /// </summary>
-    public interface IStudentSpecialEducationProgramEligibilityAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentSpecialEducationProgramEligibilityAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -66275,7 +66275,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentTitleIPartAProgramAssociation model.
     /// </summary>
-    public interface IStudentTitleIPartAProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentTitleIPartAProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -66480,7 +66480,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentTransportation model.
     /// </summary>
-    public interface IStudentTransportation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface IStudentTransportation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -66803,7 +66803,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SubmissionStatusDescriptor model.
     /// </summary>
-    public interface ISubmissionStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISubmissionStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -66879,7 +66879,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SupporterMilitaryConnectionDescriptor model.
     /// </summary>
-    public interface ISupporterMilitaryConnectionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISupporterMilitaryConnectionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -66955,7 +66955,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Survey model.
     /// </summary>
-    public interface ISurvey : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurvey : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -67075,7 +67075,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyCategoryDescriptor model.
     /// </summary>
-    public interface ISurveyCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISurveyCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -67151,7 +67151,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyCourseAssociation model.
     /// </summary>
-    public interface ISurveyCourseAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveyCourseAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -67231,7 +67231,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyLevelDescriptor model.
     /// </summary>
-    public interface ISurveyLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISurveyLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -67307,7 +67307,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyProgramAssociation model.
     /// </summary>
-    public interface ISurveyProgramAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveyProgramAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -67391,7 +67391,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyQuestion model.
     /// </summary>
-    public interface ISurveyQuestion : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveyQuestion : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -67587,7 +67587,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyQuestionResponse model.
     /// </summary>
-    public interface ISurveyQuestionResponse : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveyQuestionResponse : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -67933,7 +67933,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyResponse model.
     /// </summary>
-    public interface ISurveyResponse : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveyResponse : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -68111,7 +68111,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyResponseEducationOrganizationTargetAssociation model.
     /// </summary>
-    public interface ISurveyResponseEducationOrganizationTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveyResponseEducationOrganizationTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -68191,7 +68191,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyResponsePersonTargetAssociation model.
     /// </summary>
-    public interface ISurveyResponsePersonTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveyResponsePersonTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -68275,7 +68275,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyResponseStaffTargetAssociation model.
     /// </summary>
-    public interface ISurveyResponseStaffTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveyResponseStaffTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -68410,7 +68410,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveySection model.
     /// </summary>
-    public interface ISurveySection : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveySection : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -68540,7 +68540,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveySectionAggregateResponse model.
     /// </summary>
-    public interface ISurveySectionAggregateResponse : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveySectionAggregateResponse : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -68670,7 +68670,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveySectionAssociation model.
     /// </summary>
-    public interface ISurveySectionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveySectionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -68762,7 +68762,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveySectionResponse model.
     /// </summary>
-    public interface ISurveySectionResponse : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveySectionResponse : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -68848,7 +68848,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveySectionResponseEducationOrganizationTargetAssociation model.
     /// </summary>
-    public interface ISurveySectionResponseEducationOrganizationTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveySectionResponseEducationOrganizationTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -68932,7 +68932,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveySectionResponsePersonTargetAssociation model.
     /// </summary>
-    public interface ISurveySectionResponsePersonTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveySectionResponsePersonTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -69020,7 +69020,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveySectionResponseStaffTargetAssociation model.
     /// </summary>
-    public interface ISurveySectionResponseStaffTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    public interface ISurveySectionResponseStaffTargetAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -69104,7 +69104,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TeachingCredentialBasisDescriptor model.
     /// </summary>
-    public interface ITeachingCredentialBasisDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITeachingCredentialBasisDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69180,7 +69180,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TeachingCredentialDescriptor model.
     /// </summary>
-    public interface ITeachingCredentialDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITeachingCredentialDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69256,7 +69256,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TechnicalSkillsAssessmentDescriptor model.
     /// </summary>
-    public interface ITechnicalSkillsAssessmentDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITechnicalSkillsAssessmentDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69332,7 +69332,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TelephoneNumberTypeDescriptor model.
     /// </summary>
-    public interface ITelephoneNumberTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITelephoneNumberTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69408,7 +69408,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TermDescriptor model.
     /// </summary>
-    public interface ITermDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITermDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69484,7 +69484,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TitleIPartAParticipantDescriptor model.
     /// </summary>
-    public interface ITitleIPartAParticipantDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITitleIPartAParticipantDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69560,7 +69560,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TitleIPartAProgramServiceDescriptor model.
     /// </summary>
-    public interface ITitleIPartAProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITitleIPartAProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69636,7 +69636,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TitleIPartASchoolDesignationDescriptor model.
     /// </summary>
-    public interface ITitleIPartASchoolDesignationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITitleIPartASchoolDesignationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69712,7 +69712,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TransportationPublicExpenseEligibilityTypeDescriptor model.
     /// </summary>
-    public interface ITransportationPublicExpenseEligibilityTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITransportationPublicExpenseEligibilityTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69788,7 +69788,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TransportationTypeDescriptor model.
     /// </summary>
-    public interface ITransportationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITransportationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69864,7 +69864,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TravelDayofWeekDescriptor model.
     /// </summary>
-    public interface ITravelDayofWeekDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITravelDayofWeekDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -69940,7 +69940,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TravelDirectionDescriptor model.
     /// </summary>
-    public interface ITravelDirectionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITravelDirectionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -70016,7 +70016,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the TribalAffiliationDescriptor model.
     /// </summary>
-    public interface ITribalAffiliationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ITribalAffiliationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -70092,7 +70092,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the VisaDescriptor model.
     /// </summary>
-    public interface IVisaDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IVisaDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -70168,7 +70168,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the WeaponDescriptor model.
     /// </summary>
-    public interface IWeaponDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IWeaponDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -70244,7 +70244,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// <summary>
     /// Defines available properties and methods for the abstraction of the WithdrawReasonDescriptor model.
     /// </summary>
-    public interface IWithdrawReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IWithdrawReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]

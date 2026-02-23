@@ -164,6 +164,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -1335,6 +1338,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -1660,6 +1666,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -2326,6 +2335,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -2646,6 +2658,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -3817,6 +3832,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -4603,6 +4621,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================

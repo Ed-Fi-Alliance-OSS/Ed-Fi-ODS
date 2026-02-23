@@ -16,7 +16,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InstitutionControlDescriptor model.
     /// </summary>
-    public interface IInstitutionControlDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IInstitutionControlDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -92,7 +92,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     /// <summary>
     /// Defines available properties and methods for the abstraction of the InstitutionLevelDescriptor model.
     /// </summary>
-    public interface IInstitutionLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IInstitutionLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -168,7 +168,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     /// <summary>
     /// Defines available properties and methods for the abstraction of the PostSecondaryOrganization model.
     /// </summary>
-    public interface IPostSecondaryOrganization : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IPostSecondaryOrganization : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -232,7 +232,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SpecialEducationGraduationStatusDescriptor model.
     /// </summary>
-    public interface ISpecialEducationGraduationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISpecialEducationGraduationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -419,7 +419,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SubmissionCertificationDescriptor model.
     /// </summary>
-    public interface ISubmissionCertificationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISubmissionCertificationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]

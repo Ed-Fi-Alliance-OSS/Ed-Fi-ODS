@@ -106,6 +106,10 @@ namespace EdFi.Ods.Entities.Common.SampleAlternativeEducationProgram //.Alternat
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.AlternativeEducationEligibilityReasonDescriptorId = source.AlternativeEducationEligibilityReasonDescriptorId;
 
@@ -293,6 +297,10 @@ namespace EdFi.Ods.Entities.Common.SampleAlternativeEducationProgram //.StudentA
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.BeginDate = source.BeginDate;

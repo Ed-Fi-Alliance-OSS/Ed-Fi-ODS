@@ -16,7 +16,7 @@ namespace EdFi.Ods.Entities.Common.SampleAlternativeEducationProgram
     /// <summary>
     /// Defines available properties and methods for the abstraction of the AlternativeEducationEligibilityReasonDescriptor model.
     /// </summary>
-    public interface IAlternativeEducationEligibilityReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAlternativeEducationEligibilityReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -92,7 +92,7 @@ namespace EdFi.Ods.Entities.Common.SampleAlternativeEducationProgram
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentAlternativeEducationProgramAssociation model.
     /// </summary>
-    public interface IStudentAlternativeEducationProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStudentAlternativeEducationProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
