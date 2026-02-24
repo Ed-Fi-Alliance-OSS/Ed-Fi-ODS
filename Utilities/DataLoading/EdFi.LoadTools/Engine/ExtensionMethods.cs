@@ -27,7 +27,7 @@ namespace EdFi.LoadTools.Engine
         {
             var jsonTypes = TypeNameHelper.NormalizeJsonTypes(jsonType);
 
-            return string.Compare(jsonType, xmlType, StringComparison.OrdinalIgnoreCase) == 0
+            return jsonTypes.Contains(xmlType, StringComparer.OrdinalIgnoreCase)
                    || Constants.AtomicTypes.Any( p => 
                                 jsonTypes.Contains(p.Json, StringComparer.OrdinalIgnoreCase) 
                                 && p.Xml == xmlType);
