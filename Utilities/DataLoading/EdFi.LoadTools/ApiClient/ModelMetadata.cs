@@ -60,7 +60,7 @@ namespace EdFi.LoadTools.ApiClient
                 // Split union types like "null, string" and normalize
                 var types = Type?
                     .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                    .Select(t => t.Trim().ToLowerInvariant())
+                    .Select(t => t.ToLowerInvariant())
                     .ToList() ?? new List<string>();
 
                 // Return true if any type is atomic
