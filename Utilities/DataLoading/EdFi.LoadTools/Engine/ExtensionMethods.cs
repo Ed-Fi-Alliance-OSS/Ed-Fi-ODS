@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.LoadTools.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,21 +20,12 @@ namespace EdFi.LoadTools.Engine
             return text.Substring(0, 1).ToUpperInvariant() + text.Substring(1);
         }
 
-        public static IReadOnlyCollection<string> NormalizeJsonTypes(string jsonType)
-        {
-            if (string.IsNullOrWhiteSpace(jsonType))
-                return Array.Empty<string>();
 
-            return jsonType
-                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                .Select(t => t.ToLowerInvariant())
-                .ToArray();
-        }
 
 
         public static bool AreMatchingSimpleTypes(string jsonType, string xmlType)
         {
-            var jsonTypes = NormalizeJsonTypes(jsonType);
+            var jsonTypes = TypeNameHelper.NormalizeJsonTypes(jsonType);
 
             return string.Compare(jsonType, xmlType, StringComparison.OrdinalIgnoreCase) == 0
                    || Constants.AtomicTypes.Any( p => 

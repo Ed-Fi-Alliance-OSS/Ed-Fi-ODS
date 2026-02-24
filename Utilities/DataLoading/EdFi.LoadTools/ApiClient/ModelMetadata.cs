@@ -3,10 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 
 namespace EdFi.LoadTools.ApiClient
 {
@@ -58,10 +60,7 @@ namespace EdFi.LoadTools.ApiClient
             get
             {
                 // Split union types like "null, string" and normalize
-                var types = Type?
-                    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                    .Select(t => t.ToLowerInvariant())
-                    .ToList() ?? new List<string>();
+                var types = TypeNameHelper.NormalizeJsonTypes(Type);
 
                 // Return true if any type is atomic
                 return types.Any(t => Constants.JsonAtomicTypes.Contains(t));

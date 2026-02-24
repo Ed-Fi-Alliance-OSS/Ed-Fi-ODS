@@ -3,10 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.LoadTools.ApiClient;
+using EdFi.LoadTools.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.LoadTools.ApiClient;
 
 namespace EdFi.LoadTools.Engine.Mapping
 {
@@ -30,9 +31,8 @@ namespace EdFi.LoadTools.Engine.Mapping
             var jModels = targetModels.Where(
                 j =>
                     j.Property.EndsWith("descriptor", StringComparison.InvariantCultureIgnoreCase) &&
-                      j.Type
-                        .Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                        .Any(t => t == Constants.JsonTypes.String))
+                      TypeNameHelper.NormalizeJsonTypes(j.Type)
+                          .Contains(Constants.JsonTypes.String, StringComparer.OrdinalIgnoreCase))
                 .ToList();
 
             var maps = xModels.SelectMany(

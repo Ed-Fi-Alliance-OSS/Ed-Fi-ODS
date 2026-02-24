@@ -27,5 +27,17 @@ namespace EdFi.LoadTools.Common
 
             return key.Equals(resourceName, StringComparison.InvariantCultureIgnoreCase);
         }
+
+        public static IReadOnlyCollection<string> NormalizeJsonTypes(string jsonType)
+        {
+            if (string.IsNullOrWhiteSpace(jsonType))
+                return Array.Empty<string>();
+
+            return jsonType
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(t => t.ToLowerInvariant())
+                .ToArray();
+        }
+
     }
 }
