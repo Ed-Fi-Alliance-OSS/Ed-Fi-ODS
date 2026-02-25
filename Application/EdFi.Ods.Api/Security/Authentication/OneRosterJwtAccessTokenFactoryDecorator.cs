@@ -10,19 +10,28 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Extensions;
 using Microsoft.Extensions.Options;
+using Microsoft.FeatureManagement;
 using Microsoft.IdentityModel.Tokens;
 using static EdFi.Ods.Common.Constants.RequestActions;
+using System.Text.Json;
 
 namespace EdFi.Ods.Api.Security.Authentication;
 
 public class OneRosterJwtAccessTokenFactoryDecorator(
     IAccessTokenFactory _next,
     IClaimSetClaimsProvider _claimSetClaimsProvider,
-    IOptions<SecuritySettings> _securitySettings) : IAccessTokenFactory
+    IOptions<SecuritySettings> _securitySettings,
+    IFeatureManager featureManager,
+    IUsersContextFactory _usersContextFactory,
+    IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider) : IAccessTokenFactory
 {
     private readonly Lazy<SigningCredentials> _signingCredentials = new(() =>
     {
@@ -50,6 +59,35 @@ public class OneRosterJwtAccessTokenFactoryDecorator(
         // EducationOrganizationIds
         claims.AddRange(
             apiClientDetails.EducationOrganizationIds.Select(id => new Claim("educationOrganizationId", id.ToString())));
+
+        // TenantId and OdsInstance details
+        if (featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
+        {
+            var tenantConfig = _tenantConfigurationContextProvider.Get();
+            if (tenantConfig is null)
+                return token;
+
+            using var usersContext = _usersContextFactory.CreateContext();
+            var odsInstanceIds = apiClientDetails.OdsInstanceIds;
+
+            var apiClientOdsInstanceIds = usersContext.ApiClientOdsInstances
+             .Where(apiClient => apiClient.ApiClient.ApiClientId.Equals(apiClientDetails.ApiClientId))
+             .Select(instance => instance.OdsInstance.OdsInstanceId)
+             .ToList();
+            var odsInstanceContextsList = usersContext.OdsInstanceContexts
+              .Where(context => context.OdsInstance != null && apiClientOdsInstanceIds.Contains(context.OdsInstance.OdsInstanceId))
+              .ToList();
+
+            var odsInstanceContextsByInstanceId = apiClientOdsInstanceIds
+                .ToDictionary(
+                    id => id,
+                    id => odsInstanceContextsList
+                        .Where(context => context.OdsInstance.OdsInstanceId == id)
+                        .ToArray()
+                );
+            claims.Add(new Claim("tenantId", tenantConfig.TenantIdentifier));
+            claims.Add(new Claim("odsInstances", JsonSerializer.Serialize(odsInstanceContextsByInstanceId)));
+        }
 
         // Obtain the necessary data from the Admin database (scope claims and EdOrgIds)
         var oneRosterScopes = GetOneRosterScopes(apiClientDetails.ClaimSetName);
