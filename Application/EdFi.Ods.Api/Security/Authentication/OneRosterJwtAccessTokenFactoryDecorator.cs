@@ -68,25 +68,34 @@ public class OneRosterJwtAccessTokenFactoryDecorator(
                 return token;
 
             using var usersContext = _usersContextFactory.CreateContext();
-            var odsInstanceIds = apiClientDetails.OdsInstanceIds;
 
             var apiClientOdsInstanceIds = usersContext.ApiClientOdsInstances
              .Where(apiClient => apiClient.ApiClient.ApiClientId.Equals(apiClientDetails.ApiClientId))
              .Select(instance => instance.OdsInstance.OdsInstanceId)
              .ToList();
+
             var odsInstanceContextsList = usersContext.OdsInstanceContexts
               .Where(context => context.OdsInstance != null && apiClientOdsInstanceIds.Contains(context.OdsInstance.OdsInstanceId))
               .ToList();
 
-            var odsInstanceContextsByInstanceId = apiClientOdsInstanceIds
-                .ToDictionary(
-                    id => id,
-                    id => odsInstanceContextsList
+            var odsInstancesJson = new
+            {
+                OdsInstances = apiClientOdsInstanceIds.Select(id => new
+                {
+                    OdsInstanceId = id,
+                    OdsInstanceContext = odsInstanceContextsList
                         .Where(context => context.OdsInstance.OdsInstanceId == id)
-                        .ToArray()
-                );
+                        .Select(context => new
+                        {
+                            context.ContextKey,
+                            context.ContextValue
+                        })
+                        .FirstOrDefault() // Only one context per instance
+                }).ToArray()
+            };
+
             claims.Add(new Claim("tenantId", tenantConfig.TenantIdentifier));
-            claims.Add(new Claim("odsInstances", JsonSerializer.Serialize(odsInstanceContextsByInstanceId)));
+            claims.Add(new Claim("odsInstances", JsonSerializer.Serialize(odsInstancesJson)));
         }
 
         // Obtain the necessary data from the Admin database (scope claims and EdOrgIds)
