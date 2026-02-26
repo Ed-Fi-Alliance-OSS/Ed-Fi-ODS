@@ -43,10 +43,14 @@ public class StrictBooleanConverter : JsonConverter
 
         if (reader.TokenType == JsonToken.String)
         {
-            var textValue = (string)reader.Value;
+            var textValue = ((string)reader.Value)?.Trim();
 
             if (textValue.EqualsIgnoreCase("true")) return true;
             if (textValue.EqualsIgnoreCase("false")) return false;
+
+            // Accept numeric booleans serialized as strings
+            if (textValue == "0") return false;
+            if (textValue == "1") return true;
         }
 
         if (reader.TokenType == JsonToken.Integer)
