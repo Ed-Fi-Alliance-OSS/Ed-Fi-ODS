@@ -30,10 +30,7 @@ namespace EdFi.LoadTools.Engine.Mapping
             var jModels = targetModels.Where(
                 j =>
                     j.Property.EndsWith("descriptor", StringComparison.InvariantCultureIgnoreCase) &&
-                      j.Type
-                        .Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                        .Any(t => t == Constants.JsonTypes.String))
-                .ToList();
+                    j.Type == Constants.JsonTypes.String).ToList();
 
             var maps = xModels.SelectMany(
                     x => jModels.Select(
