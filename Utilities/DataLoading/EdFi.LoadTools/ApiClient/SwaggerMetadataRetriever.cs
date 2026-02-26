@@ -220,7 +220,25 @@ namespace EdFi.LoadTools.ApiClient
 
             return !string.IsNullOrEmpty(parameterType)
                 ? parameterType
-                : parameter?.Type?.ToString().ToLowerInvariant();
+                : NormalizeJsonSchemaType(parameter?.Type);
         }
+
+        private static string NormalizeJsonSchemaType(JsonSchemaType? type)
+        {
+            if (type is null)
+            {
+                return null;
+            }
+            // JsonSchemaType is [Flags], e.g. String|Null => "String, Null" 
+            // Drop Null and keep the primary type.
+            var nonNullType = type.Value & ~JsonSchemaType.Null;
+            // If it was just "null", keep it.
+            if (nonNullType == 0)
+            {
+                nonNullType = JsonSchemaType.Null;
+            }
+            return nonNullType.ToString().ToLowerInvariant();
+        }
+
     }
 }
