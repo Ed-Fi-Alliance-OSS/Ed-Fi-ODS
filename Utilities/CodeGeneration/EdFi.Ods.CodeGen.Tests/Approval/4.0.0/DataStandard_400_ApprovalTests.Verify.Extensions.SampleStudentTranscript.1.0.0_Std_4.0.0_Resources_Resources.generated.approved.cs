@@ -62,6 +62,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -333,6 +336,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -694,6 +700,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -957,6 +966,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -1749,6 +1761,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================

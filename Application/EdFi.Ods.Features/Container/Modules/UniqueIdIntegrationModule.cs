@@ -4,12 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Features.UniqueIdIntegration.Caching;
 using EdFi.Ods.Features.UniqueIdIntegration.Pipeline;
+using EdFi.Ods.Features.UniqueIdIntegration.Validation;
 using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
@@ -31,6 +33,14 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterGeneric(typeof(PopulateIdFromUniqueIdOnPeople<,,,>))
                 .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterType<UniqueIdNotChangedEntityValidator>()
+                .As<IResourceValidator>()
+                .SingleInstance();
+
+            builder.RegisterType<EnsureUniqueIdAlreadyExistsEntityValidator>()
+                .As<IResourceValidator>()
                 .SingleInstance();
 
             builder.RegisterDecorator(

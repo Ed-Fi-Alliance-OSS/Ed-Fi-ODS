@@ -19,7 +19,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
     /// there is a UniqueId system in the environment, and the UniqueIds supplied to the API are expected
     /// to be present and available through the PersonIdentifiersCache.
     /// </summary>
-    public class EnsureUniqueIdAlreadyExistsEntityValidator : ObjectValidatorBase
+    public class EnsureUniqueIdAlreadyExistsEntityValidator : ObjectValidatorBase, IResourceValidator
     {
         private readonly IPersonEntitySpecification _personEntitySpecification;
 
@@ -32,7 +32,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
         {
             var validationResults = new List<ValidationResult>();
 
-            var objType = @object.GetType();
+            var objType = @object.GetType().BaseType;
 
             if (!_personEntitySpecification.IsPersonEntity(objType))
             {
@@ -78,7 +78,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
                     new ValidationResult(
                         string.Format(
                             "The supplied UniqueId value '{0}' was not resolved.",
-                            person.UniqueId)));
+                            person.UniqueId), [$"{objType.Name}UniqueId"]));
             }
 
             if (validationResults.Any())

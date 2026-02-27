@@ -39,7 +39,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Pipeline
                 return Task.CompletedTask;
             }
 
-            var entityWithId = context.PersistentModel as IHasIdentifier;
+            var entityWithId = context.Resource as IHasIdentifier;
 
             if (entityWithId == null || entityWithId.Id != default(Guid))
             {
@@ -52,7 +52,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Pipeline
             entityWithId.Id = id;
 
             // Mark identifier as being system supplied
-            var entityWithIdSource = context.PersistentModel as IHasIdentifierSource;
+            var entityWithIdSource = context.Resource as IHasIdentifierSource;
             entityWithIdSource.IdSource = IdentifierSource.SystemSupplied;
 
             return Task.CompletedTask;

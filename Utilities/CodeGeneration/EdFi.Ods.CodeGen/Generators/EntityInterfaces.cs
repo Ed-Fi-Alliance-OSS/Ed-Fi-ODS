@@ -238,6 +238,7 @@ namespace EdFi.Ods.CodeGen.Generators
             if (resourceClass is Resource)
             {
                 AddInterface("IHasIdentifier", interfaceStringBuilder);
+                AddInterface("IHasIdentifierSource", interfaceStringBuilder);
             }
 
             if (resourceClass.Properties.Where(p => p.IsIdentifying)
