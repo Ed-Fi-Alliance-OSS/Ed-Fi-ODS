@@ -47,7 +47,7 @@ jobs:
     name: build (Standard Version ${{ matrix.StandardVersion }})
     services:
       postgres:
-        image: postgres:16.13-alpine3.22@sha256:06d2e8e0209618cc512188715825d369d441e03045bcc86bf557e591cbf789be
+        image: postgres:16.13-alpine3.22@sha256:c0d136ffd8300dcb64803e4631a3c947c5f9a28a1f7c3fa33825b1cab53ce97c
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
         # Set health checks to wait until postgres has started
