@@ -555,7 +555,7 @@ namespace EdFi.Ods.Common.Validation
                 // NOTE: Customization BEGIN
                 // --------------------------
                 // If property is not included in mapping contract, don't include it in the list of properties to be validated
-                if (!(new[] {"Id", "Extensions", "ETag", "LastModifiedDate"}).Contains(property.Name) && mappingContract?.IsMemberSupported(property.Name) == false)
+                if (!(new[] {"Id", "IdSource", "Extensions", "ETag", "LastModifiedDate"}).Contains(property.Name) && mappingContract?.IsMemberSupported(property.Name) == false)
                 {
                     continue;
                 }
