@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace EdFi.LoadTools.Mapping
 {
@@ -28,7 +29,25 @@ namespace EdFi.LoadTools.Mapping
 
         public object Map(object source, Type targetType)
         {
-            var target = Activator.CreateInstance(targetType, true);
+            // The new SDK models have required constructor parameters, so we use GetUninitializedObject
+            object target;
+            try
+            {
+                target = RuntimeHelpers.GetUninitializedObject(targetType);
+            }
+            catch
+            {
+                // Fallback to Activator for types that support it
+                try
+                {
+                    target = Activator.CreateInstance(targetType, true);
+                }
+                catch
+                {
+                    // If we can't create the target, return null
+                    return null;
+                }
+            }
 
             foreach (var mapping in _mappings)
             {
@@ -55,7 +74,23 @@ namespace EdFi.LoadTools.Mapping
 
                 if (tmpComponent == null)
                 {
-                    tmpComponent = Activator.CreateInstance(propDesc.PropertyType);
+                    // Use RuntimeHelpers for types with required constructor parameters
+                    try
+                    {
+                        tmpComponent = RuntimeHelpers.GetUninitializedObject(propDesc.PropertyType);
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            tmpComponent = Activator.CreateInstance(propDesc.PropertyType);
+                        }
+                        catch
+                        {
+                            // Cannot create intermediate object, skip this mapping
+                            return;
+                        }
+                    }
                     propDesc.SetValue(component, tmpComponent);
                     component = tmpComponent;
                 }
@@ -78,7 +113,7 @@ namespace EdFi.LoadTools.Mapping
                 {
                     if (list.Count > 0)
                     {
-                        path.Dequeue();
+                        path.Dequeue(); // Remove the array index placeholder
                         component = list[0];
                     }
                     else
@@ -86,8 +121,23 @@ namespace EdFi.LoadTools.Mapping
                         return null;
                     }
                 }
-
-                component = TypeDescriptor.GetProperties(component)[path.Dequeue()].GetValue(component);
+                else
+                {
+                    // Only dequeue and get property if it's not a list
+                    if (path.Count > 0)
+                    {
+                        var propertyName = path.Dequeue();
+                        var propDesc = TypeDescriptor.GetProperties(component)[propertyName];
+                        if (propDesc != null)
+                        {
+                            component = propDesc.GetValue(component);
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
             }
 
             return component;

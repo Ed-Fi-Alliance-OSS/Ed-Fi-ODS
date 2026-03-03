@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -28,12 +29,39 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         private static object[] FillInputParameters(MethodInfo methodInfo)
         {
-            var inputParams = new List<object>
-                              {
-                                  1, 1
-                              };
+            var parameters = methodInfo.GetParameters();
+            var inputParams = new List<object>();
 
-            inputParams.AddRange(Enumerable.Repeat<object>(null, methodInfo.GetParameters().Length - 2).ToList());
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var param = parameters[i];
+
+                // First two parameters are typically offset and limit
+                if (i < 2)
+                {
+                    // Check if parameter is Option<int> type
+                    if (param.ParameterType.IsGenericType && 
+                        param.ParameterType.GetGenericTypeDefinition().Name == "Option`1")
+                    {
+                        // Create Option<int>(1) using reflection
+                        var optionType = param.ParameterType;
+                        var optionInstance = Activator.CreateInstance(optionType, 1);
+                        inputParams.Add(optionInstance);
+                    }
+                    else
+                    {
+                        inputParams.Add(1);
+                    }
+                }
+                else if (param.HasDefaultValue)
+                {
+                    inputParams.Add(Type.Missing);
+                }
+                else
+                {
+                    inputParams.Add(null);
+                }
+            }
 
             return inputParams.ToArray();
         }
