@@ -29,6 +29,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
         public virtual ICollection<ValidationResult> ValidateObject(object @object)
         {
             var validationResults = new List<ValidationResult>();
+            // The base class of @object (the request model) is the resource class
             var objType = @object.GetType().BaseType;
 
             if (_personEntitySpecification.IsPersonEntity(objType))
