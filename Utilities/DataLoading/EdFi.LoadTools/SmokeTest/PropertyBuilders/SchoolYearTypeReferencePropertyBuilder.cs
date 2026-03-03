@@ -6,6 +6,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using EdFi.LoadTools.Engine;
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
@@ -28,7 +29,23 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                 return false;
             }
 
-            var target = Activator.CreateInstance(propertyInfo.PropertyType, true);
+            // Use RuntimeHelpers for types with required constructor parameters (new SDK)
+            object target;
+            try
+            {
+                target = RuntimeHelpers.GetUninitializedObject(propertyInfo.PropertyType);
+            }
+            catch
+            {
+                try
+                {
+                    target = Activator.CreateInstance(propertyInfo.PropertyType, true);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
 
             var schoolYear = target.GetType()
                 .GetProperties()

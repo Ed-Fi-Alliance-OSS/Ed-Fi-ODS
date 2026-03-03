@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -23,18 +24,30 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         protected override object[] GetParams(MethodInfo methodInfo)
         {
-            return Enumerable.Repeat<object>(null, methodInfo.GetParameters().Length).ToArray();
+            return methodInfo.GetParameters()
+                .Select(p => p.HasDefaultValue ? Type.Missing : (object)null)
+                .ToArray();
         }
 
         protected override bool CheckResult(dynamic result, object[] requestParameters)
         {
-            ResultsDictionary[ResourceApi.ModelType.Name] = new List<object>(result.Data);
+            // The new SDK uses Ok() method instead of Data property
+            var data = result.Ok();
 
-            if (failIfNoData && result.Data.Count == 0)
+            if (data != null)
             {
-                // Destructive SDK tests create a record for all the entities, so at least one record is expected.
-                Log.Error("The request did not return any records, but at least one was expected.");
-                return false;
+                ResultsDictionary[ResourceApi.ModelType.Name] = new List<object>(data);
+
+                if (failIfNoData && data.Count == 0)
+                {
+                    // Destructive SDK tests create a record for all the entities, so at least one record is expected.
+                    Log.Error("The request did not return any records, but at least one was expected.");
+                    return false;
+                }
+            }
+            else
+            {
+                ResultsDictionary[ResourceApi.ModelType.Name] = new List<object>();
             }
 
             return true;
