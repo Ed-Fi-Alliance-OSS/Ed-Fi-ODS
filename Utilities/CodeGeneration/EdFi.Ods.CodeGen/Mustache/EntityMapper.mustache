@@ -244,6 +244,10 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             {{/IsRootEntity}}
             // Copy contextual primary key values
             {{#ContextualKeysList}}

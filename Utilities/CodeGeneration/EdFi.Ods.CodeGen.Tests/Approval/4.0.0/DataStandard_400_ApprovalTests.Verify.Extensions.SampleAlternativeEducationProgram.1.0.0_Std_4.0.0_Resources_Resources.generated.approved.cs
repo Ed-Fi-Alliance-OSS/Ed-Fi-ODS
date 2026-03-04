@@ -62,6 +62,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -453,6 +456,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================

@@ -106,6 +106,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.ArtMediumDescriptorId = source.ArtMediumDescriptorId;
 
@@ -212,6 +216,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.BusId = source.BusId;
@@ -476,6 +484,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.BusId = source.BusId;
@@ -2353,6 +2365,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.FavoriteBookCategoryDescriptorId = source.FavoriteBookCategoryDescriptorId;
 
@@ -2505,6 +2521,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.MembershipTypeDescriptorId = source.MembershipTypeDescriptorId;
@@ -4252,6 +4272,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.BeginDate = source.BeginDate;
@@ -6673,6 +6697,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;

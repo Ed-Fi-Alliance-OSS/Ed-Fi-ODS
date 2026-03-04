@@ -106,6 +106,10 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionControl
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.InstitutionControlDescriptorId = source.InstitutionControlDescriptorId;
 
@@ -259,6 +263,10 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionLevelDe
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.InstitutionLevelDescriptorId = source.InstitutionLevelDescriptorId;
 
@@ -386,6 +394,10 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.PostSecondaryOrgan
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.NameOfInstitution = source.NameOfInstitution;
@@ -526,6 +538,10 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SpecialEducationGr
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.SpecialEducationGraduationStatusDescriptorId = source.SpecialEducationGraduationStatusDescriptorId;
@@ -866,6 +882,10 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SubmissionCertific
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.SubmissionCertificationDescriptorId = source.SubmissionCertificationDescriptorId;

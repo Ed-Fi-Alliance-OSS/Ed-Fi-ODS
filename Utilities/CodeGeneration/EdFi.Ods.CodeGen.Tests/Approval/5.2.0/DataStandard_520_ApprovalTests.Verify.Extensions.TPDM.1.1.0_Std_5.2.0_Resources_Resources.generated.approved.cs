@@ -62,6 +62,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -333,6 +336,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -704,6 +710,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -5067,6 +5076,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -6259,6 +6271,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -6530,6 +6545,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -7676,6 +7694,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -8056,6 +8077,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -8737,6 +8761,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -9008,6 +9035,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -9279,6 +9309,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -9691,6 +9724,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -10706,6 +10742,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -11803,6 +11842,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -13203,6 +13245,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -13623,6 +13668,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -14687,6 +14735,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -15994,6 +16045,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -16431,6 +16485,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -18526,6 +18583,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -18797,6 +18857,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -19068,6 +19131,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -19453,6 +19519,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -19800,6 +19869,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -20071,6 +20143,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -20476,6 +20551,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -21715,6 +21793,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -23408,6 +23489,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -23679,6 +23763,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -24112,6 +24199,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -24708,6 +24798,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -25701,6 +25794,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -26287,6 +26383,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================

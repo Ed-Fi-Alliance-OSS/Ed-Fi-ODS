@@ -62,6 +62,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -422,6 +425,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -746,6 +752,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -2957,6 +2966,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -3228,6 +3240,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -10985,6 +11000,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================
@@ -15710,6 +15728,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         [DataMember(Name="id")]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
         // ------------------------------------------------------------
 
         // =============================================================

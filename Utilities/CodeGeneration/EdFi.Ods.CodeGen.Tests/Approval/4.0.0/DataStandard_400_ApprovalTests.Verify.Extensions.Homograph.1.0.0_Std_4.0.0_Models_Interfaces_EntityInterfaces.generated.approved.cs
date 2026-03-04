@@ -15,7 +15,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Name model.
     /// </summary>
-    public interface IName : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IName : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Parent model.
     /// </summary>
-    public interface IParent : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IParent : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -266,7 +266,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     /// <summary>
     /// Defines available properties and methods for the abstraction of the School model.
     /// </summary>
-    public interface ISchool : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISchool : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -393,7 +393,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     /// <summary>
     /// Defines available properties and methods for the abstraction of the SchoolYearType model.
     /// </summary>
-    public interface ISchoolYearType : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISchoolYearType : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -439,7 +439,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Staff model.
     /// </summary>
-    public interface IStaff : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStaff : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -640,7 +640,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Student model.
     /// </summary>
-    public interface IStudent : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStudent : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -776,7 +776,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentSchoolAssociation model.
     /// </summary>
-    public interface IStudentSchoolAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStudentSchoolAssociation : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         

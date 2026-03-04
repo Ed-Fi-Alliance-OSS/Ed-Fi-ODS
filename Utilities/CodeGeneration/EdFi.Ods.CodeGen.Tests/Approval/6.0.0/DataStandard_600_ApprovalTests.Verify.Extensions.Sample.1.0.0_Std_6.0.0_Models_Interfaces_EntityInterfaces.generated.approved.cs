@@ -16,7 +16,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     /// <summary>
     /// Defines available properties and methods for the abstraction of the ArtMediumDescriptor model.
     /// </summary>
-    public interface IArtMediumDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IArtMediumDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -92,7 +92,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Bus model.
     /// </summary>
-    public interface IBus : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IBus : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -138,7 +138,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     /// <summary>
     /// Defines available properties and methods for the abstraction of the BusRoute model.
     /// </summary>
-    public interface IBusRoute : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IBusRoute : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         
@@ -1431,7 +1431,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     /// <summary>
     /// Defines available properties and methods for the abstraction of the FavoriteBookCategoryDescriptor model.
     /// </summary>
-    public interface IFavoriteBookCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IFavoriteBookCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -1507,7 +1507,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     /// <summary>
     /// Defines available properties and methods for the abstraction of the MembershipTypeDescriptor model.
     /// </summary>
-    public interface IMembershipTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IMembershipTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
@@ -2088,7 +2088,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentArtProgramAssociation model.
     /// </summary>
-    public interface IStudentArtProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStudentArtProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
 
@@ -3860,7 +3860,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentGraduationPlanAssociation model.
     /// </summary>
-    public interface IStudentGraduationPlanAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStudentGraduationPlanAssociation : ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         

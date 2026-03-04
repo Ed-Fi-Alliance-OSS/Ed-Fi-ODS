@@ -61,6 +61,10 @@ namespace EdFi.Ods.Entities.Common.Homograph //.NameAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.FirstName = source.FirstName;
             target.LastSurname = source.LastSurname;
@@ -183,6 +187,10 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.ParentFirstName = source.ParentFirstName;
@@ -499,6 +507,10 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.SchoolName = source.SchoolName;
 
@@ -709,6 +721,10 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolYearTypeAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.SchoolYear = source.SchoolYear;
 
@@ -830,6 +846,10 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.StaffFirstName = source.StaffFirstName;
@@ -1152,6 +1172,10 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
             // Copy resource Id
             target.Id = source.Id;
 
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
             // Copy contextual primary key values
             target.StudentFirstName = source.StudentFirstName;
             target.StudentLastSurname = source.StudentLastSurname;
@@ -1399,6 +1423,10 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
     
             // Copy resource Id
             target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
 
             // Copy contextual primary key values
             target.SchoolName = source.SchoolName;
