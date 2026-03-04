@@ -4,9 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.Json;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
@@ -18,6 +20,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Security.Claims;
 using FakeItEasy;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
 using NUnit.Framework;
@@ -86,42 +89,30 @@ MIIBOgIBAAJBALeQw...
 
         var claimSetResourceClaimMetadata = new ClaimSetResourceClaimMetadata("Ed-Fi Sandbox", []);
 
-        // Setup UsersContext
-        var usersContext = A.Fake<IUsersContext>(); 
+        // Setup UsersContext backed by in-memory queryable DbSets
+        var usersContext = A.Fake<IUsersContext>();
 
-        // Create fake DbSets
-        var fakeApiClientOdsInstances = A.Fake<DbSet<ApiClientOdsInstance>>();
-        var fakeOdsInstanceContexts = A.Fake<DbSet<OdsInstanceContext>>();
-        var fakeApiClients = A.Fake<DbSet<ApiClient>>();
-
-        // Setup the queryable behavior
-        A.CallTo(() => fakeApiClientOdsInstances.AsQueryable())
-            .Returns(new List<ApiClientOdsInstance>
+        var apiClientOdsInstances = new TestDbSet<ApiClientOdsInstance>
+        ([
+            new()
             {
-                new() {
-                    ApiClient = new ApiClient { ApiClientId = 1 },
-                    OdsInstance = new OdsInstance { OdsInstanceId = 10 }
-                }
-            }.AsQueryable());
+                ApiClient = new ApiClient { ApiClientId = 1 },
+                OdsInstance = new OdsInstance { OdsInstanceId = 10 }
+            }
+        ]);
 
-        A.CallTo(() => fakeOdsInstanceContexts.AsQueryable())
-            .Returns(new List<OdsInstanceContext>
+        var odsInstanceContexts = new TestDbSet<OdsInstanceContext>
+        ([
+            new()
             {
-                new() {
-                    OdsInstance = new OdsInstance { OdsInstanceId = 10 },
-                    ContextKey = "key",
-                    ContextValue = "value"
-                }
-            }.AsQueryable());
-        A.CallTo(() => fakeApiClients.AsQueryable()).Returns(new List<ApiClient>
-        {
-            new() { ApiClientId = 1 }
-        }.AsQueryable());
+                OdsInstance = new OdsInstance { OdsInstanceId = 10 },
+                ContextKey = "key",
+                ContextValue = "value"
+            }
+        ]);
 
-        // Setup the context properties
-        A.CallTo(() => usersContext.ApiClientOdsInstances).Returns(fakeApiClientOdsInstances);
-        A.CallTo(() => usersContext.OdsInstanceContexts).Returns(fakeOdsInstanceContexts);
-        A.CallTo(() => usersContext.ApiClients).Returns(fakeApiClients);
+        A.CallTo(() => usersContext.ApiClientOdsInstances).Returns(apiClientOdsInstances);
+        A.CallTo(() => usersContext.OdsInstanceContexts).Returns(odsInstanceContexts);
 
         A.CallTo(() => _usersContextFactory.CreateContext()).Returns(usersContext);
 
@@ -145,8 +136,8 @@ MIIBOgIBAAJBALeQw...
         var apiClientDetails = new ApiClientDetails { ApiClientId = 1, ClaimSetName = "TestClaimSet" };
 
         var usersContext = A.Fake<IUsersContext>();
-        A.CallTo(() => usersContext.ApiClientOdsInstances.AsQueryable()).Returns(new List<ApiClientOdsInstance>().AsQueryable());
-        A.CallTo(() => usersContext.OdsInstanceContexts.AsQueryable()).Returns(new List<OdsInstanceContext>().AsQueryable());
+        A.CallTo(() => usersContext.ApiClientOdsInstances).Returns(new TestDbSet<ApiClientOdsInstance>([]));
+        A.CallTo(() => usersContext.OdsInstanceContexts).Returns(new TestDbSet<OdsInstanceContext>([]));
         A.CallTo(() => _usersContextFactory.CreateContext()).Returns(usersContext);
 
         A.CallTo(() => _claimSetClaimsProvider.GetClaims("Ed-Fi Sandbox")).Returns([claimSetResourceClaimMetadata]);
@@ -171,33 +162,39 @@ MIIBOgIBAAJBALeQw...
 
         // Setup UsersContext with two OdsInstances, each with a context
         var usersContext = A.Fake<IUsersContext>();
-        A.CallTo(() => usersContext.ApiClientOdsInstances.AsQueryable())
-            .Returns(new List<ApiClientOdsInstance>
-            {
-            new() {
-                ApiClient = new ApiClient { ApiClientId = 1 },
-                OdsInstance = new OdsInstance { OdsInstanceId = 10 }
-            },
-            new() {
-                ApiClient = new ApiClient { ApiClientId = 1 },
-                OdsInstance = new OdsInstance { OdsInstanceId = 20 }
-            }
-            }.AsQueryable());
+        A.CallTo(() => usersContext.ApiClientOdsInstances)
+            .Returns(
+                new TestDbSet<ApiClientOdsInstance>
+                ([
+                    new()
+                    {
+                        ApiClient = new ApiClient { ApiClientId = 1 },
+                        OdsInstance = new OdsInstance { OdsInstanceId = 10 }
+                    },
+                    new()
+                    {
+                        ApiClient = new ApiClient { ApiClientId = 1 },
+                        OdsInstance = new OdsInstance { OdsInstanceId = 20 }
+                    }
+                ]));
 
-        A.CallTo(() => usersContext.OdsInstanceContexts.AsQueryable())
-            .Returns(new List<OdsInstanceContext>
-            {
-            new() {
-                OdsInstance = new OdsInstance { OdsInstanceId = 10 },
-                ContextKey = "key1",
-                ContextValue = "value1"
-            },
-            new() {
-                OdsInstance = new OdsInstance { OdsInstanceId = 20 },
-                ContextKey = "key2",
-                ContextValue = "value2"
-            }
-            }.AsQueryable());
+        A.CallTo(() => usersContext.OdsInstanceContexts)
+            .Returns(
+                new TestDbSet<OdsInstanceContext>
+                ([
+                    new()
+                    {
+                        OdsInstance = new OdsInstance { OdsInstanceId = 10 },
+                        ContextKey = "key1",
+                        ContextValue = "value1"
+                    },
+                    new()
+                    {
+                        OdsInstance = new OdsInstance { OdsInstanceId = 20 },
+                        ContextKey = "key2",
+                        ContextValue = "value2"
+                    }
+                ]));
 
         A.CallTo(() => _usersContextFactory.CreateContext()).Returns(usersContext);
 
@@ -215,7 +212,7 @@ MIIBOgIBAAJBALeQw...
         var json = odsInstancesClaim.Value;
         json.ShouldContain("OdsInstances");
 
-        var doc = System.Text.Json.JsonDocument.Parse(json);
+        using var doc = JsonDocument.Parse(json);
         var root = doc.RootElement;
         var instances = root.GetProperty("OdsInstances");
         instances.GetArrayLength().ShouldBe(2);
@@ -240,8 +237,8 @@ MIIBOgIBAAJBALeQw...
         var apiClientDetails = new ApiClientDetails { ApiClientId = 1, ClaimSetName = "TestClaimSet" };
 
         var usersContext = A.Fake<IUsersContext>();
-        A.CallTo(() => usersContext.ApiClientOdsInstances.AsQueryable()).Returns(new List<ApiClientOdsInstance>().AsQueryable());
-        A.CallTo(() => usersContext.OdsInstanceContexts.AsQueryable()).Returns(new List<OdsInstanceContext>().AsQueryable());
+        A.CallTo(() => usersContext.ApiClientOdsInstances).Returns(new TestDbSet<ApiClientOdsInstance>([]));
+        A.CallTo(() => usersContext.OdsInstanceContexts).Returns(new TestDbSet<OdsInstanceContext>([]));
         A.CallTo(() => _usersContextFactory.CreateContext()).Returns(usersContext);
 
         A.CallTo(() => _featureManager.IsEnabledAsync(A<string>._)).Returns(false);
@@ -262,4 +259,22 @@ MIIBOgIBAAJBALeQw...
         result.Claims.Any(c => c.Type == "scope" && c.Value == studentsReadOnlyScope).ShouldBeTrue();
         result.OneRosterScopes.ShouldContain(studentsReadOnlyScope);
     }
+}
+
+internal sealed class TestDbSet<TEntity>(IEnumerable<TEntity> entities) : DbSet<TEntity>, IQueryable<TEntity>
+    where TEntity : class
+{
+    private readonly IQueryable<TEntity> _queryable = (entities ?? []).ToList().AsQueryable();
+
+    public override IEntityType EntityType => throw new NotImplementedException();
+
+    Type IQueryable.ElementType => _queryable.ElementType;
+
+    Expression IQueryable.Expression => _queryable.Expression;
+
+    IQueryProvider IQueryable.Provider => _queryable.Provider;
+
+    IEnumerator IEnumerable.GetEnumerator() => _queryable.GetEnumerator();
+
+    IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator() => _queryable.GetEnumerator();
 }

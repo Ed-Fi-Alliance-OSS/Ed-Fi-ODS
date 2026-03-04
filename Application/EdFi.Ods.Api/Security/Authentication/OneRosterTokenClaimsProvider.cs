@@ -16,7 +16,6 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
 using static EdFi.Ods.Common.Constants.RequestActions;
@@ -64,7 +63,6 @@ public class OneRosterTokenClaimsProvider(
         using var usersContext = _usersContextFactory.CreateContext();
 
         var apiClientOdsInstanceIds = usersContext.ApiClientOdsInstances
-            .AsQueryable()
             .Where(x => x.ApiClient != null && x.ApiClient.ApiClientId == apiClientDetails.ApiClientId)
             .Select(x => x.OdsInstance)
             .Where(o => o != null)
@@ -73,7 +71,6 @@ public class OneRosterTokenClaimsProvider(
             .ToArray();
 
         var odsInstanceContextsList = usersContext.OdsInstanceContexts
-            .AsQueryable()
             .Where(context => context.OdsInstance != null && apiClientOdsInstanceIds.Contains(context.OdsInstance.OdsInstanceId))
             .Select(context => new
             {
