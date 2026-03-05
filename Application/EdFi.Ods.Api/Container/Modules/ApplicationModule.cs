@@ -271,6 +271,10 @@ namespace EdFi.Ods.Api.Container.Modules
             // Add the One Roster JWT token support 
             if (_securitySettings.Value.AccessTokenType == SecuritySettings.AccessTokenTypeJwt)
             {
+                builder.RegisterType<OneRosterTokenClaimsProvider>()
+                    .As<IOneRosterTokenClaimsProvider>()
+                    .SingleInstance();
+
                 builder.RegisterDecorator<OneRosterJwtAccessTokenFactoryDecorator, IAccessTokenFactory>();
             }
 

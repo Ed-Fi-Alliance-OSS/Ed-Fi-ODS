@@ -4,24 +4,20 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using EdFi.Common.Security;
-using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using static EdFi.Ods.Common.Constants.RequestActions;
 
 namespace EdFi.Ods.Api.Security.Authentication;
 
 public class OneRosterJwtAccessTokenFactoryDecorator(
     IAccessTokenFactory _next,
-    IClaimSetClaimsProvider _claimSetClaimsProvider,
+    IOneRosterTokenClaimsProvider _claimsProvider,
     IOptions<SecuritySettings> _securitySettings) : IAccessTokenFactory
 {
     private readonly Lazy<SigningCredentials> _signingCredentials = new(() =>
@@ -41,30 +37,12 @@ public class OneRosterJwtAccessTokenFactoryDecorator(
             return null;
         }
 
-        // https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7
-        List<Claim> claims = [new(JwtRegisteredClaimNames.Jti, token.Id)];
-
-        // Add audiences (from configuration)
-        claims.AddRange(_securitySettings.Value.Jwt.Audiences.Select(a => new Claim(JwtRegisteredClaimNames.Aud, a)));
-
-        // EducationOrganizationIds
-        claims.AddRange(
-            apiClientDetails.EducationOrganizationIds.Select(id => new Claim("educationOrganizationId", id.ToString())));
-
-        // Obtain the necessary data from the Admin database (scope claims and EdOrgIds)
-        var oneRosterScopes = GetOneRosterScopes(apiClientDetails.ClaimSetName);
-
-        // Add the scope claims only for OneRoster scopes
-        if (oneRosterScopes.Any())
-        {
-            // https://datatracker.ietf.org/doc/html/rfc7662#section-2.2
-            claims.AddRange(oneRosterScopes.Select(s => new Claim("scope", s)));
-        }
+        var claimsResult = _claimsProvider.CreateClaims(apiClientDetails, token, scope);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Issuer = _securitySettings.Value.Jwt.Issuer,
-            Subject = new ClaimsIdentity(claims),
+            Subject = new ClaimsIdentity(claimsResult.Claims),
             Expires = DateTime.UtcNow.Add(token.Duration),
             SigningCredentials = _signingCredentials.Value,
         };
@@ -83,54 +61,9 @@ public class OneRosterJwtAccessTokenFactoryDecorator(
                 ? string.Empty
                 : (token.Scope.Trim() + ' '); 
 
-            token.Scope = baseScope + string.Join(' ', oneRosterScopes);
+            token.Scope = baseScope + string.Join(' ', claimsResult.OneRosterScopes);
         }
 
         return token;
-
-        string[] GetOneRosterScopes(string claimSetName)
-        {
-            // If no scope(s) were requested, return an empty list with the EdOrgIds
-            if (scope == null)
-            {
-                return Array.Empty<string>();
-            }
-
-            // Inspect the security metadata for the claim set to determine the One Roster scopes
-            var claimsMetadata = _claimSetClaimsProvider.GetClaims(claimSetName)
-                .Where(c => c.ClaimName.StartsWith(SecuritySettings.OneRosterScopePrefix))
-                .Select(c => new
-                {
-                    c.ClaimName,
-                    // Distill the actions into a CRUD bitmask
-                    Actions = c.Actions
-                        .Select(a => a.Name switch
-                        {
-                            CreateActionUri => 1,
-                            ReadActionUri => 2, 
-                            UpdateActionUri => 4, 
-                            DeleteActionUri => 8,
-                            _ => 0
-                        })
-                        .Aggregate((a, b) => a | b)
-                })
-                .ToList();
-
-            // Valid OneRoster bitmask values
-            const int readOnly = 2;
-            const int createPut = 5;
-            const int delete = 8;
-
-            var scopeList = 
-                // Convert claims metadata to OneRoster scopes
-                claimsMetadata.Where(c => (c.Actions & readOnly) != 0).Select(s => $"{s.ClaimName}.readonly")
-                    .Concat(claimsMetadata.Where(c => (c.Actions & createPut) != 0).Select(s => $"{s.ClaimName}.createput"))
-                    .Concat(claimsMetadata.Where(c => (c.Actions & delete) != 0).Select(s => $"{s.ClaimName}.delete"))
-                    // Intersect with the requested scopes
-                    .Intersect(scope.Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
-                    .ToArray();
-
-            return scopeList;
-        }
     }
 }
