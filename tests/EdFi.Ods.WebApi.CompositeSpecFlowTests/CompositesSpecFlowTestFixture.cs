@@ -8,7 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
-using EdFi.Ods.Common.Infrastructure.Compatibility;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 using log4net;
 using log4net.Config;
 using Microsoft.AspNetCore.Hosting;
