@@ -87,6 +87,5 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         {
             get => "EdFiOdsWebApiCompositeSpecFlowTests";
         }
-
     }
 }
