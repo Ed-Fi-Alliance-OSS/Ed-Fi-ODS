@@ -39,7 +39,7 @@ namespace EdFi.Ods.Api.Container.Modules
         {
             // Configure Npgsql for .NET 10+ DateOnly/TimeOnly and legacy timestamp compatibility
             // This must happen before NHibernate session factory is created
-            ConfigureNpgsqlLegacyDateTimeSupport();
+            NpgsqlConfigurationHelper.ConfigureLegacyDateTimeSupport();
 
             builder.RegisterInstance(DatabaseEngine.Postgres);
 
@@ -81,19 +81,5 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
         }
 
-        private static void ConfigureNpgsqlLegacyDateTimeSupport()
-        {
-            // Configure Npgsql for .NET 10+ DateOnly/TimeOnly and legacy timestamp compatibility
-            // - Npgsql 10.0+ maps SQL DATE to DateOnly by default, but NHibernate expects DateTime
-            // - Enables legacy timestamp behavior for DateTime/DateTimeOffset mapping
-            // See: https://www.npgsql.org/doc/release-notes/10.0.html
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
-            #pragma warning disable CS0618 // GlobalTypeMapper is obsolete but required for NHibernate compatibility
-            #pragma warning disable NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates
-            NpgsqlConnection.GlobalTypeMapper.AddTypeInfoResolverFactory(new LegacyDateAndTimeResolverFactory());
-            #pragma warning restore NPG9001
-            #pragma warning restore CS0618
-        }
     }
 }
