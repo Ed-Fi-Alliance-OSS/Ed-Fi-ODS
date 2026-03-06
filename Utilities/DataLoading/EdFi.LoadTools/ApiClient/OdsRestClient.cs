@@ -30,18 +30,23 @@ namespace EdFi.LoadTools.ApiClient
 
         public OdsRestClient(IApiConfiguration configuration, OAuthTokenHandler tokenHandler, List<string> schemaNames)
         {
-            ServicePointManager.Expect100Continue = false;
-            ServicePointManager.ReusePort = true;
-            ServicePointManager.DefaultConnectionLimit = configuration.ConnectionLimit;
-
             _configuration = configuration;
             _tokenHandler = tokenHandler;
             _schemaNames = schemaNames;
 
-            _httpClient = new HttpClient
-                          {
-                              Timeout = new TimeSpan(0, 0, 5, 0), BaseAddress = new Uri(_configuration.Url.TrimEnd('/'))
-                          };
+            var handler = new HttpClientHandler
+            {
+                MaxConnectionsPerServer = configuration.ConnectionLimit,
+            };
+
+            _httpClient = new HttpClient(handler)
+            {
+                Timeout = new TimeSpan(0, 0, 5, 0),
+                BaseAddress = new Uri(_configuration.Url.TrimEnd('/'))
+            };
+            
+            // Configure default headers to avoid 100-continue behavior
+            _httpClient.DefaultRequestHeaders.ExpectContinue = false;
         }
 
         public async Task<HttpResponseMessage> GetAll(string elementName, int offset = 0)

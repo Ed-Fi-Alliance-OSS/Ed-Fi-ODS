@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Data.Common;
 using Autofac;
 using Autofac.Core;
@@ -36,6 +37,10 @@ namespace EdFi.Ods.Api.Container.Modules
 
         protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
+            // Configure Npgsql for .NET 10+ DateOnly/TimeOnly and legacy timestamp compatibility
+            // This must happen before NHibernate session factory is created
+            NpgsqlConfigurationHelper.ConfigureLegacyDateTimeSupport();
+
             builder.RegisterInstance(DatabaseEngine.Postgres);
 
             builder.RegisterType<ParameterListSetter>()
@@ -75,5 +80,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IPartitionsQueryBuilderPartitionsApplicator>()
                 .SingleInstance();
         }
+
     }
 }

@@ -35,7 +35,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         protected virtual bool NoDataAvailableForTheResource => GetResult() == null;
 
-        public virtual Task<bool> PerformTest()
+        public virtual async Task<bool> PerformTest()
         {
             using (LogicalThreadContext.Stacks["NDC"]
                 .Push(ResourceApi.Name))
@@ -47,19 +47,19 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 if (methodInfo == null)
                 {
                     Log.Error($"Unable to find method info for {ResourceApi.Name}.");
-                    return Task.FromResult(false);
+                    return false;
                 }
 
                 if (!ShouldPerformTest())
                 {
                     Log.Info("Skipped - Should not perform test.");
-                    return Task.FromResult(true);
+                    return true;
                 }
 
                 if (NoDataAvailableForTheResource)
                 {
                     Log.Info("Skipped - No data available for the resource.");
-                    return Task.FromResult(true);
+                    return true;
                 }
 
                 var @params = GetParams(methodInfo);
@@ -67,13 +67,36 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 if (@params == null)
                 {
                     Log.Error($"Unable to find the test data for {ResourceApi.Name}.");
-                    return Task.FromResult(false);
+                    return false;
                 }
 
                 try
                 {
                     var api = GetApiInstance();
-                    result = methodInfo.Invoke(api, @params);
+                    Log.Debug($"API instance type: {api.GetType().FullName}");
+
+                    var taskResult = methodInfo.Invoke(api, @params);
+
+                    // The SDK methods return Task<IResponse>, so we need to await them
+                    if (taskResult is Task task)
+                    {
+                        await task;
+                        // Get the Result property from the completed task
+                        var resultProperty = task.GetType().GetProperty("Result");
+                        if (resultProperty != null)
+                        {
+                            result = resultProperty.GetValue(task);
+                            Log.Debug($"Response status: {result.StatusCode}, Raw content length: {result.RawContent?.Length ?? 0}");
+                            if (result.StatusCode == HttpStatusCode.NotFound && !string.IsNullOrEmpty(result.RawContent))
+                            {
+                                Log.Debug($"404 Response content: {result.RawContent}");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        result = taskResult;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -86,7 +109,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
                     Log.Debug("----- END EXCEPTION INFORMATION -----");
 
-                    return Task.FromResult(false);
+                    return false;
                 }
 
                 var responseStatusCode = (HttpStatusCode) result.StatusCode;
@@ -94,11 +117,11 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 if (IsExpectedResponse(responseStatusCode) && CheckResult(result, @params))
                 {
                     Log.Info($"{(int) responseStatusCode} {responseStatusCode}");
-                    return Task.FromResult(true);
+                    return true;
                 }
 
                 Log.Error($"{(int) responseStatusCode} {responseStatusCode}");
-                return Task.FromResult(false);
+                return false;
             }
         }
 
@@ -113,10 +136,95 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         private object GetApiInstance()
         {
+            var serviceProvider = SdkConfigurationFactory.SdkConfiguration as IServiceProvider;
+
+            if (serviceProvider != null)
+            {
+                // The SDK registers APIs by their interface (IXxxxApi), not concrete type
+                // Find the interface that the concrete type implements
+                var apiInterface = ResourceApi.ApiType.GetInterfaces()
+                    .FirstOrDefault(i => i.Namespace != null && i.Namespace.Contains("Apis.All") && i.Name.StartsWith("I"));
+
+                if (apiInterface != null)
+                {
+                    try
+                    {
+                        var apiInstance = serviceProvider.GetService(apiInterface);
+                        if (apiInstance != null)
+                        {
+                            return apiInstance;
+                        }
+
+                        Log.Warn($"Service provider returned null for interface {apiInterface.FullName}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Warn($"DI resolution failed for interface {apiInterface.FullName}: {ex.Message}");
+                    }
+                }
+
+                // Try to resolve by concrete type as fallback
+                try
+                {
+                    var apiInstance = serviceProvider.GetService(ResourceApi.ApiType);
+                    if (apiInstance != null)
+                    {
+                        return apiInstance;
+                    }
+
+                    Log.Warn($"Service provider returned null for type {ResourceApi.ApiType.FullName}");
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn($"DI resolution failed for {ResourceApi.ApiType.FullName}: {ex.Message}");
+                }
+            }
+
+            // Manual construction: create API with required dependencies
+            // Constructor signature: (ILogger, ILoggerFactory, HttpClient, JsonSerializerOptionsProvider, ApiEvents, TokenProvider)
+            try
+            {
+                var constructor = ResourceApi.ApiType.GetConstructors().FirstOrDefault();
+                if (constructor != null)
+                {
+                    var parameters = constructor.GetParameters();
+                    var args = new List<object>();
+
+                    foreach (var param in parameters)
+                    {
+                        if (serviceProvider != null)
+                        {
+                            var service = serviceProvider.GetService(param.ParameterType);
+                            if (service != null)
+                            {
+                                args.Add(service);
+                            }
+                            else
+                            {
+                                // Add null for optional parameters
+                                args.Add(null);
+                            }
+                        }
+                        else
+                        {
+                            args.Add(null);
+                        }
+                    }
+
+                    return constructor.Invoke(args.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Manual API construction failed for {ResourceApi.ApiType.FullName}: {ex.Message}");
+            }
+
+            // Last resort fallback
+            Log.Debug($"Falling back to Activator.CreateInstance for {ResourceApi.ApiType.FullName}");
             return Activator.CreateInstance(ResourceApi.ApiType, SdkConfigurationFactory.SdkConfiguration);
         }
 
-        protected object GetResourceFromUri(Uri resourceUri)
+        protected async Task<object> GetResourceFromUri(Uri resourceUri)
         {
             var api = GetApiInstance();
             var getByIdMethod = ResourceApi.GetByIdMethod;
@@ -128,8 +236,23 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
             try
             {
-                dynamic result = getByIdMethod.Invoke(api, @params);
-                return result.Data;
+                var taskResult = getByIdMethod.Invoke(api, @params);
+
+                // The SDK methods return Task<IResponse>, so we need to await them
+                if (taskResult is Task task)
+                {
+                    await task;
+                    // Get the Result property from the completed task
+                    var resultProperty = task.GetType().GetProperty("Result");
+                    if (resultProperty != null)
+                    {
+                        dynamic result = resultProperty.GetValue(task);
+                        // The new SDK uses Ok() method instead of Data property
+                        return result.Ok();
+                    }
+                }
+
+                return null;
             }
             catch (Exception e)
             {

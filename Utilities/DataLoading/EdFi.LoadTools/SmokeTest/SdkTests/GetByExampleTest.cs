@@ -53,7 +53,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                               .Select(
                                    t => t.ParameterInfo.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase)
                                        ? null
-                                       : sourceObjectType.GetProperty(t.Name)?.GetValue(sourceObject, null))
+                                       : t.ParameterInfo.HasDefaultValue
+                                           ? Type.Missing
+                                           : sourceObjectType.GetProperty(t.Name)?.GetValue(sourceObject, null))
                               .ToArray();
 
             return methodParams;

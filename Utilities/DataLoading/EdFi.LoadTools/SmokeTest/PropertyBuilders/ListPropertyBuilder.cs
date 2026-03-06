@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
@@ -27,7 +28,22 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             {
                 if (IsRequired(propertyInfo))
                 {
-                    propertyInfo.SetValue(obj, Activator.CreateInstance(propertyType));
+                    try
+                    {
+                        propertyInfo.SetValue(obj, Activator.CreateInstance(propertyType));
+                    }
+                    catch
+                    {
+                        // Lists should always have parameterless constructors, but handle edge cases
+                        try
+                        {
+                            propertyInfo.SetValue(obj, RuntimeHelpers.GetUninitializedObject(propertyType));
+                        }
+                        catch
+                        {
+                            return false;
+                        }
+                    }
                 }
 
                 return true;

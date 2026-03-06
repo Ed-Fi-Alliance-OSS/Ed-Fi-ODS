@@ -6,10 +6,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace EdFi.SmokeTest.Console.Application
 {
@@ -17,6 +22,7 @@ namespace EdFi.SmokeTest.Console.Application
     {
         private readonly Type _configType;
         private readonly IOAuthTokenHandler _tokenHandler;
+        private readonly IServiceProvider _serviceProvider;
         public object SdkConfig;
 
         public SdkConfigurationFactory(IApiConfiguration apiConfiguration,
@@ -24,53 +30,118 @@ namespace EdFi.SmokeTest.Console.Application
         {
             _tokenHandler = tokenHandler;
 
-            var defaultHeader = new Dictionary<string, string>
-                                {
-                                    {
-                                        "Content-Type","application/json"
-                                    }
-                                };
-
             var sdkGenerationBasePath = sdkLibraryConfiguration.Path;
             var owinServerUrl = apiConfiguration.Url;
 
-            object[] args =
-            {
-                defaultHeader, new Dictionary<string, string>(), new Dictionary<string, string>(), owinServerUrl
-            };
-
+            // Get HostConfiguration type from the SDK
             var sdkConfigurationNamespace = $"{sdkLibraryConfiguration.SdkNamespacePrefix}.{EdFiConstants.SdkConfigurationClassName}";
             _configType = GetTypeFromAssembly(sdkGenerationBasePath, sdkConfigurationNamespace);
 
-            var configInstance = Activator.CreateInstance(_configType, args);
+            // Configure service collection for DI
+            var services = new ServiceCollection();
 
-            SdkConfig = configInstance;
+            // Add logging
+            services.AddSingleton<ILoggerFactory>(NullLoggerFactory.Instance);
+            services.AddSingleton(typeof(ILogger<>), typeof(NullLogger<>));
+
+            // Register the OAuth token handler as singleton
+            services.AddSingleton(_tokenHandler);
+
+            // Get the SDK assembly
+            var sdkAssembly = Assembly.LoadFrom(sdkGenerationBasePath);
+
+            // Register IOAuthTokenHandler so it can be used by TokenProvider
+            services.AddSingleton(_tokenHandler);
+
+            // Create and register TokenProvider that gets tokens from IOAuthTokenHandler
+            var tokenProvider = TokenProviderFactory.CreateTokenProvider(sdkAssembly, _tokenHandler);
+            if (tokenProvider != null)
+            {
+                var tokenProviderType = tokenProvider.GetType().BaseType;
+                services.AddSingleton(tokenProviderType, tokenProvider);
+            }
+
+            // Create HostConfiguration instance and use its proper methods
+            var hostConfiguration = Activator.CreateInstance(_configType, new object[] { services });
+
+            // Call AddApiHttpClients with our HTTP client configuration
+            var addApiHttpClientsMethod = _configType.GetMethod("AddApiHttpClients");
+            if (addApiHttpClientsMethod != null)
+            {
+                // Create delegate for configuring HttpClient
+                Action<HttpClient> configureClient = (client) =>
+                {
+                    // CRITICAL: The SDK constructs URLs by concatenating BaseAddress.AbsolutePath + "/ed-fi/..."
+                    // So we need to include /data/v3 in the base address WITHOUT a trailing slash
+                    // to avoid double slashes: /data/v3//ed-fi/...
+                    var baseUri = new Uri(owinServerUrl);
+
+                    // If the base URL doesn't have /data/v3, add it
+                    if (!baseUri.AbsolutePath.Contains("/data/v3"))
+                    {
+                        var uriBuilder = new UriBuilder(baseUri)
+                        {
+                            Path = "/data/v3"  // No trailing slash
+                        };
+                        client.BaseAddress = uriBuilder.Uri;
+                    }
+                    else
+                    {
+                        // Remove trailing slash if present
+                        var path = baseUri.AbsolutePath.TrimEnd('/');
+                        var uriBuilder = new UriBuilder(baseUri)
+                        {
+                            Path = path
+                        };
+                        client.BaseAddress = uriBuilder.Uri;
+                    }
+                };
+
+                // Call AddApiHttpClients(configureClient, null)
+                var parameters = addApiHttpClientsMethod.GetParameters();
+                if (parameters.Length == 2)
+                {
+                    hostConfiguration = addApiHttpClientsMethod.Invoke(hostConfiguration, new object[] { configureClient, null });
+                }
+            }
+
+            // Build the service provider AFTER calling AddApiHttpClients
+            _serviceProvider = services.BuildServiceProvider();
+            SdkConfig = hostConfiguration;
         }
 
         public object SdkConfiguration
         {
             get
             {
-                var accessTokenProperty = _configType.GetProperty(EdFiConstants.AccessToken);
-                var token = _tokenHandler.GetBearerToken();
-
-                if (accessTokenProperty != null)
-                {
-                    accessTokenProperty.SetValue(SdkConfig, token);
-                }
-
-                return SdkConfig;
+                // Return the service provider for API instantiation
+                return _serviceProvider;
             }
         }
 
         private static Type GetTypeFromAssembly(string sdkAssemblyPath, string typeToRetrieve)
         {
-            var reflectedAssemblyTypes = Assembly.LoadFrom(sdkAssemblyPath).GetExportedTypes();
+            var assembly = Assembly.LoadFrom(sdkAssemblyPath);
+            var reflectedAssemblyTypes = assembly.GetExportedTypes();
 
-            var resourceApiType =
-                reflectedAssemblyTypes.First(type => type.FullName != null && type.FullName.Contains(typeToRetrieve));
+            var configType = reflectedAssemblyTypes.FirstOrDefault(
+                type => type.FullName != null && type.FullName.Contains(typeToRetrieve));
 
-            return resourceApiType;
+            if (configType == null)
+            {
+                var availableTypes = string.Join(Environment.NewLine, 
+                    reflectedAssemblyTypes
+                        .Where(t => t.FullName != null && t.Namespace != null && t.Namespace.Contains("Client"))
+                        .Select(t => $"  - {t.FullName}")
+                        .OrderBy(s => s));
+
+                throw new InvalidOperationException(
+                    $"Could not find type '{typeToRetrieve}' in assembly '{sdkAssemblyPath}'.{Environment.NewLine}" +
+                    $"Assembly: {assembly.FullName}{Environment.NewLine}" +
+                    $"Available types in 'Client' namespace:{Environment.NewLine}{availableTypes}");
+            }
+
+            return configType;
         }
     }
 }

@@ -58,12 +58,10 @@ namespace EdFi.LoadTools.ApiClient
 
             using (var reader = new StreamReader(Filename))
             {
-                while (!reader.EndOfStream)
+                string line;
+                while ((line = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
                 {
-                    var obj = await reader.ReadLineAsync()
-                                          .ConfigureAwait(false);
-
-                    var info = JsonConvert.DeserializeObject<JsonModelMetadata>(obj);
+                    var info = JsonConvert.DeserializeObject<JsonModelMetadata>(line);
 
                     if (info.Schema != null && !_schemaNames.Contains(info.Schema))
                     {
@@ -72,8 +70,6 @@ namespace EdFi.LoadTools.ApiClient
 
                     result.Add(info);
                 }
-
-                reader.Close();
             }
 
             return result;

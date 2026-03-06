@@ -21,25 +21,54 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         public SdkCategorizer(ISdkLibraryFactory sdkLibraryFactory)
         {
-            _apiTypes = sdkLibraryFactory.SdkLibrary.GetExportedTypes().Where(
+            var exportedTypes = sdkLibraryFactory.SdkLibrary.GetExportedTypes();
+
+            _apiTypes = exportedTypes.Where(
                                            x => x.Namespace != null
                                                 && !x.IsInterface
                                                 && x.Namespace.Contains("Apis.All")
                                                 && !x.Name.Contains("TypesApi"))
                                       .ToArray();
 
-            _modelTypes = sdkLibraryFactory.SdkLibrary.GetExportedTypes().Where(
+            _modelTypes = exportedTypes.Where(
                 x => x.Namespace != null
                      && !x.IsInterface
                      && x.Namespace.Contains(
                          "Models.All")).ToArray();
+
+            if (_apiTypes.Length == 0 || _modelTypes.Length == 0)
+            {
+                var allNamespaces = exportedTypes
+                    .Where(t => t.Namespace != null)
+                    .Select(t => t.Namespace)
+                    .Distinct()
+                    .OrderBy(ns => ns)
+                    .ToList();
+
+                var diagnosticInfo = string.Join(Environment.NewLine,
+                    new[]
+                    {
+                        $"SDK Assembly: {sdkLibraryFactory.SdkLibrary.FullName}",
+                        $"Total exported types: {exportedTypes.Length}",
+                        $"API types found: {_apiTypes.Length}",
+                        $"Model types found: {_modelTypes.Length}",
+                        $"Available namespaces in assembly:",
+                    }.Concat(allNamespaces.Select(ns => $"  - {ns}")));
+
+                throw new InvalidOperationException(
+                    $"Could not find expected API or Model types in SDK assembly. " +
+                    $"Expected namespaces containing 'Apis.All' and 'Models.All'.{Environment.NewLine}{diagnosticInfo}");
+            }
         }
 
         public IEnumerable<Type> ApiTypes => _apiTypes;
 
         public IEnumerable<Type> ModelTypes => _modelTypes;
 
-        public IEnumerable<IResourceApi> ResourceApis => ApiTypes.Select(x => new ResourceApi(x));
+        public IEnumerable<IResourceApi> ResourceApis => ApiTypes
+            .Select(x => new ResourceApi(x))
+            .Where(api => !string.IsNullOrEmpty(api.Name)) // Filter out APIs without names
+            .ToList();
     }
 
     public class ResourceApi : IResourceApi
@@ -55,10 +84,10 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             {
                 var methods = ApiType.GetMethods()
                     .Where(x =>
-                        x.Name.EndsWith("HttpInfo", StringComparison.CurrentCultureIgnoreCase)
-                        && !x.Name.EndsWith("AsyncWithHttpInfo", StringComparison.CurrentCultureIgnoreCase)
-                        // ODS-3845: Exclude methods from other resources folded into the class by the SDK code generation process
-                        && !Regex.IsMatch(x.Name, @"_\d+"))
+                        x.Name.EndsWith("Async", StringComparison.CurrentCultureIgnoreCase)
+                        && !x.Name.Contains("_")
+                        && !x.Name.Contains("OrDefault") // Exclude OrDefault variants
+                        && !x.IsSpecialName)
                     .ToList();
 
                 IEnumerable<MethodInfo> FilterByVerb(string verb, Func<MethodInfo, bool> additionalFilter = null)
@@ -79,11 +108,11 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
                 // GET methods: split into non-ById and ById
                 var getNonByIdMethods = FilterByVerb("Get", m =>
-                    m.Name.EndsWith("WithHttpInfo", StringComparison.CurrentCultureIgnoreCase)
-                    && !m.Name.EndsWith("ByIdWithHttpInfo", StringComparison.CurrentCultureIgnoreCase));
+                    !m.Name.Contains("ById", StringComparison.CurrentCultureIgnoreCase)
+                    && !m.Name.Contains("Partitions", StringComparison.CurrentCultureIgnoreCase));
 
                 var getByIdMethods = FilterByVerb("Get", m =>
-                    m.Name.EndsWith("ByIdWithHttpInfo", StringComparison.CurrentCultureIgnoreCase));
+                    m.Name.Contains("ById", StringComparison.CurrentCultureIgnoreCase));
 
                 // Other verbs
                 var postMethods = FilterByVerb("Post");
@@ -111,19 +140,18 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
         public MethodInfo GetAllMethod
             => GetMethods.SingleOrDefault(
                 m =>
-                    m.Name.EndsWith("WithHttpInfo")
-                    && !m.Name.Contains("Async")
-                    && !m.Name.Contains("ById")
+                    !m.Name.Contains("ById")
                     && !m.Name.Contains("Partitions"));
 
-        public MethodInfo GetByIdMethod => GetMethods.SingleOrDefault(m => m.Name.EndsWith("ByIdWithHttpInfo"));
+        public MethodInfo GetByIdMethod => GetMethods.SingleOrDefault(
+            m => m.Name.Contains("ById", StringComparison.CurrentCultureIgnoreCase));
 
         public MethodInfo PostMethod
         {
             get
             {
                 var methods = RestMethods
-                    .Where(m => m.Name.StartsWith("Post") && m.Name.EndsWith("WithHttpInfo"))
+                    .Where(m => m.Name.StartsWith("Post"))
                     .ToArray();
 
                 // Detect multiple matching methods, and report details
@@ -147,9 +175,10 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             }
         }
 
-        public MethodInfo PutMethod => RestMethods.SingleOrDefault(m => m.Name.StartsWith("Put") && m.Name.EndsWith("WithHttpInfo"));
+        public MethodInfo PutMethod => RestMethods.SingleOrDefault(m => m.Name.StartsWith("Put"));
 
-        public MethodInfo DeleteMethod => RestMethods.SingleOrDefault(m => m.Name.StartsWith("Delete") && !m.Name.Contains("Deletes") && m.Name.EndsWith("WithHttpInfo"));
+        public MethodInfo DeleteMethod => RestMethods.SingleOrDefault(
+            m => m.Name.StartsWith("Delete") && !m.Name.Contains("Deletes"));
 
         public string Name => ModelType?.Name;
     }

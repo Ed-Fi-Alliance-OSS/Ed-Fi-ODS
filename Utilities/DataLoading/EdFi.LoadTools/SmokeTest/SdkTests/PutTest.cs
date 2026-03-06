@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading.Tasks;
 using EdFi.LoadTools.Engine;
 
 namespace EdFi.LoadTools.SmokeTest.SdkTests
@@ -34,7 +35,8 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
             var uri = _createdDictionary[ResourceApi.ModelType.Name];
             var id = Path.GetFileName(uri.ToString());
-            dynamic model = GetResourceFromUri(uri);
+            // GetResourceFromUri is now async, so we need to wait for it synchronously
+            dynamic model = GetResourceFromUri(uri).GetAwaiter().GetResult();
 
             return new object[]
                 {
