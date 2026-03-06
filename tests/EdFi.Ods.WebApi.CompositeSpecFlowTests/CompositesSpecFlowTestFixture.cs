@@ -96,11 +96,11 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             // See: https://www.npgsql.org/doc/release-notes/10.0.html
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-#pragma warning disable CS0618 // GlobalTypeMapper is obsolete but required for NHibernate compatibility
-#pragma warning disable NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates
+            #pragma warning disable CS0618 // GlobalTypeMapper is obsolete but required for NHibernate compatibility
+            #pragma warning disable NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates
             NpgsqlConnection.GlobalTypeMapper.AddTypeInfoResolverFactory(new LegacyDateAndTimeResolverFactory());
-#pragma warning restore NPG9001
-#pragma warning restore CS0618
+            #pragma warning restore NPG9001
+            #pragma warning restore CS0618
         }
     }
 }
