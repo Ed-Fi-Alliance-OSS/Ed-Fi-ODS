@@ -9,6 +9,7 @@ using Autofac.Core;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Controllers.Partitions.Controllers;
 using EdFi.Ods.Api.Database.NamingConventions;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Activities;
@@ -73,6 +74,11 @@ namespace EdFi.Ods.Api.Container.Modules
                         (p, c) => p.ParameterType == typeof(int) && p.Name == "_defaultPartitionCount",
                         (p, c) => c.Resolve<ApiSettings>().DefaultPartitionCount))
                 .As<IPartitionsQueryBuilderPartitionsApplicator>()
+                .SingleInstance();
+
+            // Register Npgsql type mapper startup command for legacy DateTime/TimeSpan behavior
+            builder.RegisterType<PostgresNpgsqlTypeMapperStartupCommand>()
+                .As<IStartupCommand>()
                 .SingleInstance();
         }
     }
