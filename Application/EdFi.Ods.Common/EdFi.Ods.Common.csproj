@@ -60,7 +60,4 @@
   <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\Compatibility\" />
-  </ItemGroup>
 </Project>
