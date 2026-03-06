@@ -28,6 +28,11 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
+            ConfigureNpgsqlLegacyDateTimeSupport();
+        }
+
+        private static void ConfigureNpgsqlLegacyDateTimeSupport()
+        {
             // Configure Npgsql for .NET 10+ DateOnly/TimeOnly compatibility
             // Npgsql 10.0+ maps SQL DATE to DateOnly by default, but NHibernate expects DateTime
             // See: https://www.npgsql.org/doc/release-notes/10.0.html
