@@ -101,11 +101,6 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
         {
             string extensionCollectionName = reader.ReadString();
 
-            if (extensionCollectionName == null)
-            {
-                throw new Exception($"Extension collection name cannot be null when deserializing aggregate extensions for '{_containingType?.Name ?? "unknown type"}'.");
-            }
-
             if (aggregateExtensionByName?.TryGetValue(extensionCollectionName, out var extensionEntity) != true)
             {
                 throw new Exception($"Unable to find the deserialized aggregate extension '{extensionCollectionName}' on '{_containingType.Name}' in the current model.");
