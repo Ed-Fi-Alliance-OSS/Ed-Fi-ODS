@@ -85,7 +85,7 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
 
         IList<string> missingExtensionEntries;
 
-        if (GeneratedArtifactStaticDependencies.EntityExtensionRegistrar?.AggregateExtensionEntityNamesByType.TryGetValue(_containingType, out var aggregateExtensionByName) == true)
+        if (_containingType != null && GeneratedArtifactStaticDependencies.EntityExtensionRegistrar?.AggregateExtensionEntityNamesByType.TryGetValue(_containingType, out var aggregateExtensionByName) == true)
         {
             missingExtensionEntries = new List<string>(aggregateExtensionByName.Keys);
         }
@@ -100,6 +100,11 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
         for (int i = 0; i < count; i++)
         {
             string extensionCollectionName = reader.ReadString();
+
+            if (extensionCollectionName == null)
+            {
+                throw new Exception($"Extension collection name cannot be null when deserializing aggregate extensions for '{_containingType?.Name ?? "unknown type"}'.");
+            }
 
             if (aggregateExtensionByName?.TryGetValue(extensionCollectionName, out var extensionEntity) != true)
             {
