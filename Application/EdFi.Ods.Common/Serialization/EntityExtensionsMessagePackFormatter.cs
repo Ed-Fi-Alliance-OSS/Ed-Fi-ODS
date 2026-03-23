@@ -8,7 +8,6 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Conventions;
@@ -20,7 +19,13 @@ using MessagePack.Formatters;
 
 namespace EdFi.Ods.Common.Serialization;
 
+// MsgPack013: This formatter is only used via [MessagePackFormatter(typeof(...), arg1, arg2)] with constructor
+// arguments and is never intended to be included in the source-generated resolver.
+#pragma warning disable MsgPack013
+#pragma warning disable MsgPack009 // Colliding formatters
 public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDictionary>
+#pragma warning restore MsgPack009 // Colliding formatters
+#pragma warning restore MsgPack013
 {
     private static readonly Lazy<string[]> _availableExtensionSchemas = new(
         () => ResourceModelHelper.ResourceModel.Value.SchemaNameMapProvider.GetSchemaNameMaps()
@@ -29,14 +34,6 @@ public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDicti
 
     private readonly string _entityName;
     private readonly string _aggregateName;
-
-    public static readonly EntityExtensionsMessagePackFormatter Instance = new EntityExtensionsMessagePackFormatter();
-
-    internal EntityExtensionsMessagePackFormatter()
-    {
-        _aggregateName = string.Empty;
-        _entityName = string.Empty;
-    }
 
     public EntityExtensionsMessagePackFormatter(string aggregateName, string entityName)
     {

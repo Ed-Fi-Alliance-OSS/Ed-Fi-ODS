@@ -55,4 +55,13 @@
   <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
   </ItemGroup>
+  <!-- Disable the MessagePack v3 source generator for this project. Entity types use
+       [MessagePackFormatter(typeof(T), arg1, arg2)] with constructor arguments, which the
+       source generator does not support (it only handles singleton/default-constructor formatters).
+       The DynamicObjectResolver handles these types at runtime via Activator.CreateInstance. -->
+  <Target Name="RemoveMessagePackSourceGenerator" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'MessagePack.SourceGenerator'" />
+    </ItemGroup>
+  </Target>
 </Project>

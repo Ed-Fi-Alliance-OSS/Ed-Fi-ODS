@@ -6,7 +6,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models.Domain;
@@ -16,15 +15,15 @@ using NHibernate.Engine;
 
 namespace EdFi.Ods.Common.Serialization;
 
-public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDictionary<string, object>>
+// MsgPack013: This formatter is only used via [MessagePackFormatter(typeof(...), arg1, arg2)] with constructor
+// arguments and is never intended to be included in the source-generated resolver.
+#pragma warning disable MsgPack013
+#pragma warning disable MsgPack009 // Colliding formatters
+public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDictionary>
+#pragma warning restore MsgPack009 // Colliding formatters
+#pragma warning restore MsgPack013
 {
     private readonly Type _containingType;
-
-    public static readonly AggregateExtensionsMessagePackFormatter Instance = new AggregateExtensionsMessagePackFormatter();
-
-    internal AggregateExtensionsMessagePackFormatter()
-    {
-    }
 
     public AggregateExtensionsMessagePackFormatter(string aggregateName, string entityName)
     {
@@ -34,8 +33,10 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
         }
     }
 
-    public void Serialize(ref MessagePackWriter writer, IDictionary<string, object> extensionCollectionByName, MessagePackSerializerOptions options)
+    public void Serialize(ref MessagePackWriter writer, IDictionary value, MessagePackSerializerOptions options)
     {
+        var extensionCollectionByName = value as IDictionary<string, object>;
+
         if (extensionCollectionByName == null)
         {
             writer.WriteNil();
@@ -74,7 +75,7 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
         }
     }
 
-    public IDictionary<string, object> Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
+    public IDictionary Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
     {
         if (reader.TryReadNil())
         {
