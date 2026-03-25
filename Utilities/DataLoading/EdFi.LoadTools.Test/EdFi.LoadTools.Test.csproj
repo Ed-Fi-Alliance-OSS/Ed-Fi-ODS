@@ -21,7 +21,7 @@
     <ItemGroup>
         <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
     </ItemGroup>
-  <ItemGroup Condition=" '$(StandardVersion)' == '6.0.0' ">
+  <ItemGroup Condition=" '$(StandardVersion)' == '6.1.0' ">
 		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.6.0.0" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(StandardVersion)' == '5.2.0' ">

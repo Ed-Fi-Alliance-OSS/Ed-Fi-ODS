@@ -37,7 +37,7 @@
       </ItemGroup>
     </Otherwise>
   </Choose>
-  <Target Name="CopyDirectory" AfterTargets="AfterBuild" Condition=" '$(StandardVersion)' == '6.0.0' ">
+  <Target Name="CopyDirectory" AfterTargets="AfterBuild" Condition=" '$(StandardVersion)' == '6.1.0' ">
     <ItemGroup>
       <MySourceDirectory Include="$(MSBuildProjectDirectory)\6.0.0\**\*" />
       <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />
