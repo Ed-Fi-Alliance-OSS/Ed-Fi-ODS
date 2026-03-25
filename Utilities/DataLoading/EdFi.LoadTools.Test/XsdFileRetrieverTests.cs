@@ -56,7 +56,7 @@ namespace EdFi.LoadTools.Test
                     new Dictionary<string, string>
                     {
                         {"name", "Ed-Fi"},
-                        {"version", "6.0.0"}
+                        {"version", "6.1.0"}
                     },
                     new Dictionary<string, string>
                     {
