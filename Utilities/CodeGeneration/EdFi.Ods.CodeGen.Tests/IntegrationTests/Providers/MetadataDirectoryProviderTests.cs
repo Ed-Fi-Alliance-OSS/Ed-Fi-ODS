@@ -14,7 +14,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
 {
     [TestFixture("4.0.0")]
     [TestFixture("5.2.0")]
-    [TestFixture("6.0.0")]
+    [TestFixture("6.1.0")]
     [LocalTestOnly]
     public class MetadataDirectoryProviderTests : TestFixtureBase
     {
