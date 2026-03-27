@@ -686,7 +686,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             protected override Task ArrangeAsync()
             {
-                _suppliedTokenInfo = new TokenInfo(SuppliedApiKey, null, null, null, null, null, null, null);
+                _suppliedTokenInfo = TokenInfo.Create(
+                    ClientContextFor(SuppliedApiKey),
+                    Array.Empty<TokenInfoEducationOrganizationData>(),
+                    Array.Empty<TokenInfoResource>(),
+                    Array.Empty<TokenInfoService>());
                 return Task.CompletedTask;
             }
 
