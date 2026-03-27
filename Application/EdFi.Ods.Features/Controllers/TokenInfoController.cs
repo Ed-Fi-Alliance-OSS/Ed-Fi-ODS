@@ -135,7 +135,11 @@ namespace EdFi.Ods.Features.Controllers
 
             var tokenInfo = await _tokenInfoProvider.GetTokenInfoAsync(apiContext);
 
-            Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue { NoCache = true };
+            var typedHeaders = _httpContextAccessor.HttpContext?.Response?.GetTypedHeaders();
+            if (typedHeaders != null)
+            {
+                typedHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true };
+            }
             return Ok(tokenInfo);
         }
     }
