@@ -496,6 +496,11 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.graduationplan
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'ideaevent') THEN
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.ideaevent
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'intervention') THEN
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.intervention
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
@@ -1086,6 +1091,26 @@ END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentidentificationcode') THEN
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentidentificationcode
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentiep') THEN
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentiep
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentiepgoal') THEN
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentiepgoal
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentiepservicedelivery') THEN
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentiepservicedelivery
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentiepserviceprescription') THEN
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentiepserviceprescription
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 

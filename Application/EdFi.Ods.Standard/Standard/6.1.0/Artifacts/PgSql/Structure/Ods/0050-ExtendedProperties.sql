@@ -53,6 +53,10 @@ COMMENT ON COLUMN edfi.AchievementCategoryDescriptor.AchievementCategoryDescript
 COMMENT ON TABLE edfi.AdditionalCreditTypeDescriptor IS 'The type of additional credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.AdditionalCreditTypeDescriptor.AdditionalCreditTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[AddressCharacteristicDescriptor] --
+COMMENT ON TABLE edfi.AddressCharacteristicDescriptor IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+COMMENT ON COLUMN edfi.AddressCharacteristicDescriptor.AddressCharacteristicDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[AddressTypeDescriptor] --
 COMMENT ON TABLE edfi.AddressTypeDescriptor IS 'The type of address listed for an individual or organization.';
 COMMENT ON COLUMN edfi.AddressTypeDescriptor.AddressTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -99,7 +103,7 @@ COMMENT ON COLUMN edfi.ApplicantProfile.YearsOfPriorTeachingExperience IS 'The t
 -- Extended Properties [edfi].[ApplicantProfileAddress] --
 COMMENT ON TABLE edfi.ApplicantProfileAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
 COMMENT ON COLUMN edfi.ApplicantProfileAddress.ApplicantProfileIdentifier IS 'Identifier assigned to a person making formal application for entrance into a program or an open staff position.';
-COMMENT ON COLUMN edfi.ApplicantProfileAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ApplicantProfileAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.ApplicantProfileAddress.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.ApplicantProfileAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.ApplicantProfileAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -114,10 +118,20 @@ COMMENT ON COLUMN edfi.ApplicantProfileAddress.LocaleDescriptorId IS 'A general 
 COMMENT ON COLUMN edfi.ApplicantProfileAddress.Longitude IS 'The geographic longitude of the physical address.';
 COMMENT ON COLUMN edfi.ApplicantProfileAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.';
 
+-- Extended Properties [edfi].[ApplicantProfileAddressCharacteristic] --
+COMMENT ON TABLE edfi.ApplicantProfileAddressCharacteristic IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+COMMENT ON COLUMN edfi.ApplicantProfileAddressCharacteristic.ApplicantProfileIdentifier IS 'Identifier assigned to a person making formal application for entrance into a program or an open staff position.';
+COMMENT ON COLUMN edfi.ApplicantProfileAddressCharacteristic.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ApplicantProfileAddressCharacteristic.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN edfi.ApplicantProfileAddressCharacteristic.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN edfi.ApplicantProfileAddressCharacteristic.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN edfi.ApplicantProfileAddressCharacteristic.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN edfi.ApplicantProfileAddressCharacteristic.AddressCharacteristicDescriptorId IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+
 -- Extended Properties [edfi].[ApplicantProfileAddressPeriod] --
 COMMENT ON TABLE edfi.ApplicantProfileAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
 COMMENT ON COLUMN edfi.ApplicantProfileAddressPeriod.ApplicantProfileIdentifier IS 'Identifier assigned to a person making formal application for entrance into a program or an open staff position.';
-COMMENT ON COLUMN edfi.ApplicantProfileAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ApplicantProfileAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.ApplicantProfileAddressPeriod.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.ApplicantProfileAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.ApplicantProfileAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -196,7 +210,7 @@ COMMENT ON COLUMN edfi.ApplicantProfileIdentificationDocument.IssuerName IS 'Nam
 -- Extended Properties [edfi].[ApplicantProfileInternationalAddress] --
 COMMENT ON TABLE edfi.ApplicantProfileInternationalAddress IS 'The set of elements that describes an international address.';
 COMMENT ON COLUMN edfi.ApplicantProfileInternationalAddress.ApplicantProfileIdentifier IS 'Identifier assigned to a person making formal application for entrance into a program or an open staff position.';
-COMMENT ON COLUMN edfi.ApplicantProfileInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ApplicantProfileInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.ApplicantProfileInternationalAddress.AddressLine1 IS 'The first line of the address.';
 COMMENT ON COLUMN edfi.ApplicantProfileInternationalAddress.AddressLine2 IS 'The second line of the address.';
 COMMENT ON COLUMN edfi.ApplicantProfileInternationalAddress.AddressLine3 IS 'The third line of the address.';
@@ -707,7 +721,7 @@ COMMENT ON COLUMN edfi.Candidate.TuitionCost IS 'The tuition for a person''s par
 -- Extended Properties [edfi].[CandidateAddress] --
 COMMENT ON TABLE edfi.CandidateAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
 COMMENT ON COLUMN edfi.CandidateAddress.CandidateIdentifier IS 'A unique alphanumeric code assigned to a candidate.';
-COMMENT ON COLUMN edfi.CandidateAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.CandidateAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.CandidateAddress.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.CandidateAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.CandidateAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -722,10 +736,20 @@ COMMENT ON COLUMN edfi.CandidateAddress.LocaleDescriptorId IS 'A general geograp
 COMMENT ON COLUMN edfi.CandidateAddress.Longitude IS 'The geographic longitude of the physical address.';
 COMMENT ON COLUMN edfi.CandidateAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.';
 
+-- Extended Properties [edfi].[CandidateAddressCharacteristic] --
+COMMENT ON TABLE edfi.CandidateAddressCharacteristic IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+COMMENT ON COLUMN edfi.CandidateAddressCharacteristic.CandidateIdentifier IS 'A unique alphanumeric code assigned to a candidate.';
+COMMENT ON COLUMN edfi.CandidateAddressCharacteristic.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.CandidateAddressCharacteristic.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN edfi.CandidateAddressCharacteristic.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN edfi.CandidateAddressCharacteristic.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN edfi.CandidateAddressCharacteristic.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN edfi.CandidateAddressCharacteristic.AddressCharacteristicDescriptorId IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+
 -- Extended Properties [edfi].[CandidateAddressPeriod] --
 COMMENT ON TABLE edfi.CandidateAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
 COMMENT ON COLUMN edfi.CandidateAddressPeriod.CandidateIdentifier IS 'A unique alphanumeric code assigned to a candidate.';
-COMMENT ON COLUMN edfi.CandidateAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.CandidateAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.CandidateAddressPeriod.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.CandidateAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.CandidateAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -867,7 +891,7 @@ COMMENT ON COLUMN edfi.CandidateIndicator.IndicatorGroup IS 'The name for a grou
 -- Extended Properties [edfi].[CandidateInternationalAddress] --
 COMMENT ON TABLE edfi.CandidateInternationalAddress IS 'The set of elements that describes an international address.';
 COMMENT ON COLUMN edfi.CandidateInternationalAddress.CandidateIdentifier IS 'A unique alphanumeric code assigned to a candidate.';
-COMMENT ON COLUMN edfi.CandidateInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.CandidateInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.CandidateInternationalAddress.AddressLine1 IS 'The first line of the address.';
 COMMENT ON COLUMN edfi.CandidateInternationalAddress.AddressLine2 IS 'The second line of the address.';
 COMMENT ON COLUMN edfi.CandidateInternationalAddress.AddressLine3 IS 'The third line of the address.';
@@ -1171,7 +1195,7 @@ COMMENT ON COLUMN edfi.Contact.SourceSystemDescriptorId IS 'This descriptor defi
 -- Extended Properties [edfi].[ContactAddress] --
 COMMENT ON TABLE edfi.ContactAddress IS 'Contact''s address, if different from the student address.';
 COMMENT ON COLUMN edfi.ContactAddress.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
-COMMENT ON COLUMN edfi.ContactAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ContactAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.ContactAddress.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.ContactAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.ContactAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -1186,10 +1210,20 @@ COMMENT ON COLUMN edfi.ContactAddress.LocaleDescriptorId IS 'A general geographi
 COMMENT ON COLUMN edfi.ContactAddress.Longitude IS 'The geographic longitude of the physical address.';
 COMMENT ON COLUMN edfi.ContactAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.';
 
+-- Extended Properties [edfi].[ContactAddressCharacteristic] --
+COMMENT ON TABLE edfi.ContactAddressCharacteristic IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+COMMENT ON COLUMN edfi.ContactAddressCharacteristic.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactAddressCharacteristic.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ContactAddressCharacteristic.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN edfi.ContactAddressCharacteristic.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN edfi.ContactAddressCharacteristic.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN edfi.ContactAddressCharacteristic.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN edfi.ContactAddressCharacteristic.AddressCharacteristicDescriptorId IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+
 -- Extended Properties [edfi].[ContactAddressPeriod] --
 COMMENT ON TABLE edfi.ContactAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
 COMMENT ON COLUMN edfi.ContactAddressPeriod.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
-COMMENT ON COLUMN edfi.ContactAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ContactAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.ContactAddressPeriod.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.ContactAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.ContactAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -1220,7 +1254,7 @@ COMMENT ON COLUMN edfi.ContactIdentificationSystemDescriptor.ContactIdentificati
 -- Extended Properties [edfi].[ContactInternationalAddress] --
 COMMENT ON TABLE edfi.ContactInternationalAddress IS 'The set of elements that describes an international address.';
 COMMENT ON COLUMN edfi.ContactInternationalAddress.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
-COMMENT ON COLUMN edfi.ContactInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.ContactInternationalAddress.AddressLine1 IS 'The first line of the address.';
 COMMENT ON COLUMN edfi.ContactInternationalAddress.AddressLine2 IS 'The second line of the address.';
 COMMENT ON COLUMN edfi.ContactInternationalAddress.AddressLine3 IS 'The third line of the address.';
@@ -1783,6 +1817,10 @@ COMMENT ON COLUMN edfi.DualCreditInstitutionDescriptor.DualCreditInstitutionDesc
 COMMENT ON TABLE edfi.DualCreditTypeDescriptor IS 'Indicates the type of the dual credit program.';
 COMMENT ON COLUMN edfi.DualCreditTypeDescriptor.DualCreditTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[DurationIntervalDescriptor] --
+COMMENT ON TABLE edfi.DurationIntervalDescriptor IS 'The frequency period for the prescribed service duration. Examples include: Per Session, Per Week, Per Month.';
+COMMENT ON COLUMN edfi.DurationIntervalDescriptor.DurationIntervalDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[EconomicDisadvantageDescriptor] --
 COMMENT ON TABLE edfi.EconomicDisadvantageDescriptor IS 'This descriptor defines the type of economic disadvantage experienced by an individual.';
 COMMENT ON COLUMN edfi.EconomicDisadvantageDescriptor.EconomicDisadvantageDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -1857,7 +1895,7 @@ COMMENT ON COLUMN edfi.EducationOrganization.WebSite IS 'The public web site add
 -- Extended Properties [edfi].[EducationOrganizationAddress] --
 COMMENT ON TABLE edfi.EducationOrganizationAddress IS 'The set of elements that describes an address for the education entity, including the street address, city, state, ZIP code, and ZIP code + 4.';
 COMMENT ON COLUMN edfi.EducationOrganizationAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.EducationOrganizationAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.EducationOrganizationAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.EducationOrganizationAddress.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.EducationOrganizationAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.EducationOrganizationAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -1872,10 +1910,20 @@ COMMENT ON COLUMN edfi.EducationOrganizationAddress.LocaleDescriptorId IS 'A gen
 COMMENT ON COLUMN edfi.EducationOrganizationAddress.Longitude IS 'The geographic longitude of the physical address.';
 COMMENT ON COLUMN edfi.EducationOrganizationAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.';
 
+-- Extended Properties [edfi].[EducationOrganizationAddressCharacteristic] --
+COMMENT ON TABLE edfi.EducationOrganizationAddressCharacteristic IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+COMMENT ON COLUMN edfi.EducationOrganizationAddressCharacteristic.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.EducationOrganizationAddressCharacteristic.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.EducationOrganizationAddressCharacteristic.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN edfi.EducationOrganizationAddressCharacteristic.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN edfi.EducationOrganizationAddressCharacteristic.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN edfi.EducationOrganizationAddressCharacteristic.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN edfi.EducationOrganizationAddressCharacteristic.AddressCharacteristicDescriptorId IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+
 -- Extended Properties [edfi].[EducationOrganizationAddressPeriod] --
 COMMENT ON TABLE edfi.EducationOrganizationAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
 COMMENT ON COLUMN edfi.EducationOrganizationAddressPeriod.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.EducationOrganizationAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.EducationOrganizationAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.EducationOrganizationAddressPeriod.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.EducationOrganizationAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.EducationOrganizationAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -1932,7 +1980,7 @@ COMMENT ON COLUMN edfi.EducationOrganizationInstitutionTelephone.TelephoneNumber
 -- Extended Properties [edfi].[EducationOrganizationInternationalAddress] --
 COMMENT ON TABLE edfi.EducationOrganizationInternationalAddress IS 'The set of elements that describes the international physical location of the education entity.';
 COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.AddressLine1 IS 'The first line of the address.';
 COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.AddressLine2 IS 'The second line of the address.';
 COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.AddressLine3 IS 'The third line of the address.';
@@ -2309,6 +2357,14 @@ COMMENT ON COLUMN edfi.EvaluationTypeDescriptor.EvaluationTypeDescriptorId IS 'A
 COMMENT ON TABLE edfi.EventCircumstanceDescriptor IS 'An unusual event occurred during the administration of the assessment. This could include fire alarm, student became ill, etc.';
 COMMENT ON COLUMN edfi.EventCircumstanceDescriptor.EventCircumstanceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[EventComplianceDescriptor] --
+COMMENT ON TABLE edfi.EventComplianceDescriptor IS 'The type of compliance represented by this event.';
+COMMENT ON COLUMN edfi.EventComplianceDescriptor.EventComplianceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[EventReasonDescriptor] --
+COMMENT ON TABLE edfi.EventReasonDescriptor IS 'The reason why the IDEA event occurred.';
+COMMENT ON COLUMN edfi.EventReasonDescriptor.EventReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[ExitWithdrawTypeDescriptor] --
 COMMENT ON TABLE edfi.ExitWithdrawTypeDescriptor IS 'This descriptor defines the circumstances under which the student exited from membership in an educational institution.';
 COMMENT ON COLUMN edfi.ExitWithdrawTypeDescriptor.ExitWithdrawTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -2374,6 +2430,10 @@ COMMENT ON COLUMN edfi.FinancialAid.PellGrantRecipient IS 'Indicates a person wh
 -- Extended Properties [edfi].[FinancialCollectionDescriptor] --
 COMMENT ON TABLE edfi.FinancialCollectionDescriptor IS 'The accounting period or grouping for which financial information is collected.';
 COMMENT ON COLUMN edfi.FinancialCollectionDescriptor.FinancialCollectionDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[FrequencyIntervalDescriptor] --
+COMMENT ON TABLE edfi.FrequencyIntervalDescriptor IS 'The frequency period for the prescribed service. Examples include: Session, Week, Month.';
+COMMENT ON COLUMN edfi.FrequencyIntervalDescriptor.FrequencyIntervalDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[FunctionDimension] --
 COMMENT ON TABLE edfi.FunctionDimension IS 'The NCES function accounting dimension representing an expenditure. The function describes the activity for which a service or material object is acquired. The functions of a school district are generally classified into five broad areas, including instruction, support services, operation of non-instructional services, facilities acquisition and construction, and debt service.';
@@ -2673,6 +2733,22 @@ COMMENT ON COLUMN edfi.HomelessPrimaryNighttimeResidenceDescriptor.HomelessPrima
 COMMENT ON TABLE edfi.HomelessProgramServiceDescriptor IS 'This descriptor defines the services provided by an education organization to populations of students associated with a homeless program.';
 COMMENT ON COLUMN edfi.HomelessProgramServiceDescriptor.HomelessProgramServiceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[IDEAEvent] --
+COMMENT ON TABLE edfi.IDEAEvent IS 'EARLY ACCESS: An IDEA related student event describing status, dates and narrative.';
+COMMENT ON COLUMN edfi.IDEAEvent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.IDEAEvent.IDEAEventDescriptorId IS 'The IDEA event recorded for the student.';
+COMMENT ON COLUMN edfi.IDEAEvent.IDEAEventIdentifier IS '	A unique identifier for the event record as assigned by the provider of IEP services.';
+COMMENT ON COLUMN edfi.IDEAEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.IDEAEvent.BeginDate IS 'The date when the IDEA related event started. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.IDEAEvent.EndDate IS 'The date when the IDEA related event concluded. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.IDEAEvent.EventComplianceDescriptorId IS 'The type of compliance represented by this event.';
+COMMENT ON COLUMN edfi.IDEAEvent.EventNarrative IS 'Detailed and summary notes recorded during the event.';
+COMMENT ON COLUMN edfi.IDEAEvent.EventReasonDescriptorId IS 'The reason why the IDEA event occurred.';
+
+-- Extended Properties [edfi].[IDEAEventDescriptor] --
+COMMENT ON TABLE edfi.IDEAEventDescriptor IS 'The IDEA event recorded for the student.';
+COMMENT ON COLUMN edfi.IDEAEventDescriptor.IDEAEventDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[IDEAPartDescriptor] --
 COMMENT ON TABLE edfi.IDEAPartDescriptor IS 'Indicates if the evaluation is done under Part B IDEA or Part C IDEA.';
 COMMENT ON COLUMN edfi.IDEAPartDescriptor.IDEAPartDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -2680,6 +2756,14 @@ COMMENT ON COLUMN edfi.IDEAPartDescriptor.IDEAPartDescriptorId IS 'A unique iden
 -- Extended Properties [edfi].[IdentificationDocumentUseDescriptor] --
 COMMENT ON TABLE edfi.IdentificationDocumentUseDescriptor IS 'Identifies the type of use given to an identification document.';
 COMMENT ON COLUMN edfi.IdentificationDocumentUseDescriptor.IdentificationDocumentUseDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[IEPGoalTypeDescriptor] --
+COMMENT ON TABLE edfi.IEPGoalTypeDescriptor IS 'A focused goal for an Individualized Education Program (IEP).';
+COMMENT ON COLUMN edfi.IEPGoalTypeDescriptor.IEPGoalTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[IEPStatusDescriptor] --
+COMMENT ON TABLE edfi.IEPStatusDescriptor IS 'The current status of the IEP.';
+COMMENT ON COLUMN edfi.IEPStatusDescriptor.IEPStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ImmunizationTypeDescriptor] --
 COMMENT ON TABLE edfi.ImmunizationTypeDescriptor IS 'An indication of the type of immunization that an individual has satisfactorily received.';
@@ -4252,9 +4336,25 @@ COMMENT ON COLUMN edfi.SeparationDescriptor.SeparationDescriptorId IS 'A unique 
 COMMENT ON TABLE edfi.SeparationReasonDescriptor IS 'This descriptor defines the reasons for terminating the employment.';
 COMMENT ON COLUMN edfi.SeparationReasonDescriptor.SeparationReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[ServiceDeliveryDescriptor] --
+COMMENT ON TABLE edfi.ServiceDeliveryDescriptor IS 'The type of service provided to a student.';
+COMMENT ON COLUMN edfi.ServiceDeliveryDescriptor.ServiceDeliveryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[ServiceDescriptor] --
 COMMENT ON TABLE edfi.ServiceDescriptor IS 'This descriptor defines the services provided by an education organization to populations of students associated with a program.';
 COMMENT ON COLUMN edfi.ServiceDescriptor.ServiceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[ServiceLocationTypeDescriptor] --
+COMMENT ON TABLE edfi.ServiceLocationTypeDescriptor IS 'The location type where the prescribed service is to be provided. Examples include: Home, Hospital, School.';
+COMMENT ON COLUMN edfi.ServiceLocationTypeDescriptor.ServiceLocationTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[ServicePrescriptionDescriptor] --
+COMMENT ON TABLE edfi.ServicePrescriptionDescriptor IS 'The type of service prescribed.';
+COMMENT ON COLUMN edfi.ServicePrescriptionDescriptor.ServicePrescriptionDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[ServiceProviderTypeDescriptor] --
+COMMENT ON TABLE edfi.ServiceProviderTypeDescriptor IS 'Indicates service provider type, including specialist, internal staff, external staff, etc.';
+COMMENT ON COLUMN edfi.ServiceProviderTypeDescriptor.ServiceProviderTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[Session] --
 COMMENT ON TABLE edfi.Session IS 'A specific designated unit of time during which instruction is provided, grades are reported and academic credits are awarded to students (whenever applicable). Sessions serve as organized segments of the academic year and can be interrupted by vacations or other events.';
@@ -4430,7 +4530,7 @@ COMMENT ON COLUMN edfi.StaffDirectory.StaffUSI IS 'A unique alphanumeric code as
 COMMENT ON TABLE edfi.StaffDirectoryAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
 COMMENT ON COLUMN edfi.StaffDirectoryAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StaffDirectoryAddress.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffDirectoryAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.StaffDirectoryAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.StaffDirectoryAddress.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.StaffDirectoryAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.StaffDirectoryAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -4445,11 +4545,22 @@ COMMENT ON COLUMN edfi.StaffDirectoryAddress.LocaleDescriptorId IS 'A general ge
 COMMENT ON COLUMN edfi.StaffDirectoryAddress.Longitude IS 'The geographic longitude of the physical address.';
 COMMENT ON COLUMN edfi.StaffDirectoryAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.';
 
+-- Extended Properties [edfi].[StaffDirectoryAddressCharacteristic] --
+COMMENT ON TABLE edfi.StaffDirectoryAddressCharacteristic IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+COMMENT ON COLUMN edfi.StaffDirectoryAddressCharacteristic.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StaffDirectoryAddressCharacteristic.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+COMMENT ON COLUMN edfi.StaffDirectoryAddressCharacteristic.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.StaffDirectoryAddressCharacteristic.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN edfi.StaffDirectoryAddressCharacteristic.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN edfi.StaffDirectoryAddressCharacteristic.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN edfi.StaffDirectoryAddressCharacteristic.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN edfi.StaffDirectoryAddressCharacteristic.AddressCharacteristicDescriptorId IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+
 -- Extended Properties [edfi].[StaffDirectoryAddressPeriod] --
 COMMENT ON TABLE edfi.StaffDirectoryAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
 COMMENT ON COLUMN edfi.StaffDirectoryAddressPeriod.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StaffDirectoryAddressPeriod.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffDirectoryAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.StaffDirectoryAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.StaffDirectoryAddressPeriod.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.StaffDirectoryAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.StaffDirectoryAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -4470,7 +4581,7 @@ COMMENT ON COLUMN edfi.StaffDirectoryElectronicMail.PrimaryEmailAddressIndicator
 COMMENT ON TABLE edfi.StaffDirectoryInternationalAddress IS 'The set of elements that describes an international address.';
 COMMENT ON COLUMN edfi.StaffDirectoryInternationalAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StaffDirectoryInternationalAddress.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffDirectoryInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.StaffDirectoryInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.StaffDirectoryInternationalAddress.AddressLine1 IS 'The first line of the address.';
 COMMENT ON COLUMN edfi.StaffDirectoryInternationalAddress.AddressLine2 IS 'The second line of the address.';
 COMMENT ON COLUMN edfi.StaffDirectoryInternationalAddress.AddressLine3 IS 'The third line of the address.';
@@ -5274,7 +5385,7 @@ COMMENT ON COLUMN edfi.StudentDirectory.StudentUSI IS 'A unique alphanumeric cod
 COMMENT ON TABLE edfi.StudentDirectoryAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
 COMMENT ON COLUMN edfi.StudentDirectoryAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentDirectoryAddress.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentDirectoryAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.StudentDirectoryAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.StudentDirectoryAddress.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.StudentDirectoryAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.StudentDirectoryAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -5289,11 +5400,22 @@ COMMENT ON COLUMN edfi.StudentDirectoryAddress.LocaleDescriptorId IS 'A general 
 COMMENT ON COLUMN edfi.StudentDirectoryAddress.Longitude IS 'The geographic longitude of the physical address.';
 COMMENT ON COLUMN edfi.StudentDirectoryAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.';
 
+-- Extended Properties [edfi].[StudentDirectoryAddressCharacteristic] --
+COMMENT ON TABLE edfi.StudentDirectoryAddressCharacteristic IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+COMMENT ON COLUMN edfi.StudentDirectoryAddressCharacteristic.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentDirectoryAddressCharacteristic.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentDirectoryAddressCharacteristic.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.StudentDirectoryAddressCharacteristic.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN edfi.StudentDirectoryAddressCharacteristic.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN edfi.StudentDirectoryAddressCharacteristic.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN edfi.StudentDirectoryAddressCharacteristic.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN edfi.StudentDirectoryAddressCharacteristic.AddressCharacteristicDescriptorId IS 'The address characteristic mainly to reflect if Primary and type of communication to be received, e.g.: Primary, Validated, Gets Copy of Report, Discipline Correspondence.';
+
 -- Extended Properties [edfi].[StudentDirectoryAddressPeriod] --
 COMMENT ON TABLE edfi.StudentDirectoryAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
 COMMENT ON COLUMN edfi.StudentDirectoryAddressPeriod.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentDirectoryAddressPeriod.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentDirectoryAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.StudentDirectoryAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.StudentDirectoryAddressPeriod.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.StudentDirectoryAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN edfi.StudentDirectoryAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
@@ -5314,7 +5436,7 @@ COMMENT ON COLUMN edfi.StudentDirectoryElectronicMail.PrimaryEmailAddressIndicat
 COMMENT ON TABLE edfi.StudentDirectoryInternationalAddress IS 'The set of elements that describes an international address.';
 COMMENT ON COLUMN edfi.StudentDirectoryInternationalAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentDirectoryInternationalAddress.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentDirectoryInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.StudentDirectoryInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. (For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.StudentDirectoryInternationalAddress.AddressLine1 IS 'The first line of the address.';
 COMMENT ON COLUMN edfi.StudentDirectoryInternationalAddress.AddressLine2 IS 'The second line of the address.';
 COMMENT ON COLUMN edfi.StudentDirectoryInternationalAddress.AddressLine3 IS 'The third line of the address.';
@@ -5436,9 +5558,10 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIndicatorPe
 COMMENT ON TABLE edfi.StudentEducationOrganizationResponsibilityAssociation IS 'This association indicates a relationship between a student and an education organization other than an enrollment relationship, and generally indicating some kind of responsibility of the education organization for the student. Enrollment relationship semantics are covered by StudentSchoolAssociation.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationResponsibilityAssociation.BeginDate IS 'Month, day, and year of the start date of an education organization''s responsibility for a student.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationResponsibilityAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationResponsibilityAssociation.ResponsibilityDescriptorId IS 'Indications of an education organization''s responsibility for a student, such as accountability, attendance, funding, etc.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationResponsibilityAssociation.ResponsibilityDescriptorId IS 'The type of responsibility that the responsible education organization has for the student (for example, accountability, residency, funding).';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationResponsibilityAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationResponsibilityAssociation.EndDate IS 'Month, day, and year of the end date of an education organization''s responsibility for a student.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationResponsibilityAssociation.ResponsibleEducationOrganizationId IS 'The identifier assigned to an education organization.';
 
 -- Extended Properties [edfi].[StudentGradebookEntry] --
 COMMENT ON TABLE edfi.StudentGradebookEntry IS 'This entity holds a student''s grade or competency level for a gradebook entry.';
@@ -5529,6 +5652,168 @@ COMMENT ON COLUMN edfi.StudentIdentificationCode.IdentificationCode IS 'A unique
 -- Extended Properties [edfi].[StudentIdentificationSystemDescriptor] --
 COMMENT ON TABLE edfi.StudentIdentificationSystemDescriptor IS 'This descriptor defines the originating record system and code that is used for record-keeping purposes of the student.';
 COMMENT ON COLUMN edfi.StudentIdentificationSystemDescriptor.StudentIdentificationSystemDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[StudentIEP] --
+COMMENT ON TABLE edfi.StudentIEP IS 'EARLY ACCESS: This entity represents an Individualized Education Program (IEP) for a student receiving special education services. The IEP is a legally required document that outlines a student''s special education services.';
+COMMENT ON COLUMN edfi.StudentIEP.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEP.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEP.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEP.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEP.IEPAmendedDate IS 'The date when the IEP was last amended, if any. When amended, a new StudentIEP should be created with the amended data recorded. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEP.IEPBeginDate IS 'The projected date for the beginning of special education and related services. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEP.IEPEndDate IS 'The effective end date of the IEP. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEP.IEPStatusDescriptorId IS 'The current status of the IEP.';
+COMMENT ON COLUMN edfi.StudentIEP.MedicallyFragile IS 'Indicates whether the student receiving special education and related services is: 1) in the age range of birth to 22 years, and 2) has a serious, ongoing illness or a chronic condition that has lasted or is anticipated to last at least 12 or more months or has required at least one month of hospitalization, and that requires daily, ongoing medical treatments and monitoring by appropriately trained personnel which may include parents or other family members, and 3) requires the routine use of medical device or of assistive technology to compensate for the loss of usefulness of a body function needed to participate in activities of daily living, and 4) lives with ongoing threat to his or her continued well-being. Aligns with federal requirements.';
+COMMENT ON COLUMN edfi.StudentIEP.MultiplyDisabled IS 'Indicates whether the student receiving special education and related services has been designated as multiply disabled by the admission, review, and dismissal committee as aligned with federal requirements.';
+COMMENT ON COLUMN edfi.StudentIEP.ReasonExitedDescriptorId IS 'The reason why a person stops receiving special education services.';
+COMMENT ON COLUMN edfi.StudentIEP.SchoolHoursPerWeek IS 'Indicate the total number of hours of instructional time per week for the school that the student attends.';
+COMMENT ON COLUMN edfi.StudentIEP.SpecialEducationHoursPerWeek IS 'Indicates the total number of hours of time per week specific to special education related services.';
+COMMENT ON COLUMN edfi.StudentIEP.SpecialEducationSettingDescriptorId IS 'The major instructional setting (more than 50 percent of a student''s special education program).';
+
+-- Extended Properties [edfi].[StudentIEPAccommodation] --
+COMMENT ON TABLE edfi.StudentIEPAccommodation IS 'The special variation(s) to be used in how various services (in general) are presented, how they are administered, or how the student is allowed to respond. This generally refers to changes that do not substantially alter the content that the service renders. The proper use of accommodations does not substantially change academic level or performance criteria.';
+COMMENT ON COLUMN edfi.StudentIEPAccommodation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPAccommodation.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPAccommodation.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPAccommodation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPAccommodation.AccommodationDescriptorId IS 'The special variation(s) to be used in how various services (in general) are presented, how they are administered, or how the student is allowed to respond. This generally refers to changes that do not substantially alter the content that the service renders. The proper use of accommodations does not substantially change academic level or performance criteria.';
+
+-- Extended Properties [edfi].[StudentIEPDisability] --
+COMMENT ON TABLE edfi.StudentIEPDisability IS 'The disability condition(s) that best describes an individual''s impairment, as determined by evaluation(s) conducted by the education organization.';
+COMMENT ON COLUMN edfi.StudentIEPDisability.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPDisability.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPDisability.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPDisability.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPDisability.DisabilityDescriptorId IS 'A disability category that describes a individual''s impairment.';
+COMMENT ON COLUMN edfi.StudentIEPDisability.DisabilityDeterminationSourceTypeDescriptorId IS 'The source that provided the disability determination.';
+COMMENT ON COLUMN edfi.StudentIEPDisability.DisabilityDiagnosis IS 'A description of the disability diagnosis.';
+COMMENT ON COLUMN edfi.StudentIEPDisability.OrderOfDisability IS 'The order by severity of individual''s disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.';
+
+-- Extended Properties [edfi].[StudentIEPDisabilityDesignation] --
+COMMENT ON TABLE edfi.StudentIEPDisabilityDesignation IS 'Whether the disability is IDEA, Section 504, or other disability designation.';
+COMMENT ON COLUMN edfi.StudentIEPDisabilityDesignation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPDisabilityDesignation.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPDisabilityDesignation.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPDisabilityDesignation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPDisabilityDesignation.DisabilityDescriptorId IS 'A disability category that describes a individual''s impairment.';
+COMMENT ON COLUMN edfi.StudentIEPDisabilityDesignation.DisabilityDesignationDescriptorId IS 'Whether the disability is IDEA, Section 504, or other disability designation.';
+
+-- Extended Properties [edfi].[StudentIEPGoal] --
+COMMENT ON TABLE edfi.StudentIEPGoal IS 'EARLY ACCESS: A goal prescribed to a student as part of their Individual Education Program (IEP).';
+COMMENT ON COLUMN edfi.StudentIEPGoal.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPGoal.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPGoal.IEPGoalIdentifier IS 'A unique identifier assigned by the provider of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPGoal.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPGoal.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPGoal.IEPGoalDetails IS 'Instructions or other details specific to the student and/or provider for achieving the stated goal.';
+COMMENT ON COLUMN edfi.StudentIEPGoal.IEPGoalTypeDescriptorId IS 'A focused goal prescribed as part of the IEP. Examples include Academic Goal, Behavioral Goal, Attendance Goal.';
+
+-- Extended Properties [edfi].[StudentIEPGoalAchievementPeriod] --
+COMMENT ON TABLE edfi.StudentIEPGoalAchievementPeriod IS 'The time period for which the goal is applicable or effective.';
+COMMENT ON COLUMN edfi.StudentIEPGoalAchievementPeriod.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPGoalAchievementPeriod.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPGoalAchievementPeriod.IEPGoalIdentifier IS 'A unique identifier assigned by the provider of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPGoalAchievementPeriod.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPGoalAchievementPeriod.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPGoalAchievementPeriod.BeginDate IS 'The month, day, and year for the start of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPGoalAchievementPeriod.EndDate IS 'The month, day, and year for the end of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+
+-- Extended Properties [edfi].[StudentIEPGoalIDEAEvent] --
+COMMENT ON TABLE edfi.StudentIEPGoalIDEAEvent IS 'A reference to one or more IDEA events associated with a student.';
+COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.IEPGoalIdentifier IS 'A unique identifier assigned by the provider of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.IDEAEventDescriptorId IS 'The IDEA event recorded for the student.';
+COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.IDEAEventIdentifier IS '	A unique identifier for the event record as assigned by the provider of IEP services.';
+
+-- Extended Properties [edfi].[StudentIEPIDEAEvent] --
+COMMENT ON TABLE edfi.StudentIEPIDEAEvent IS 'A reference to the IDEA events associated with the student''s IEP.';
+COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.IDEAEventDescriptorId IS 'The IDEA event recorded for the student.';
+COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.IDEAEventIdentifier IS '	A unique identifier for the event record as assigned by the provider of IEP services.';
+
+-- Extended Properties [edfi].[StudentIEPServiceDelivery] --
+COMMENT ON TABLE edfi.StudentIEPServiceDelivery IS 'EARLY ACCESS: Services delivered to a student as prescribed by their Individual Education Program (IEP).';
+COMMENT ON COLUMN edfi.StudentIEPServiceDelivery.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDelivery.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDelivery.IEPServiceDeliveryIdentifier IS 'A unique identifier assigned by the provider of IEP services for the delivery record.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDelivery.ServiceDeliveryDate IS 'The date when prescribed services were delivered for a student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDelivery.ServiceDeliveryDescriptorId IS 'The type of services delivered to the student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDelivery.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDelivery.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDelivery.ServicePrescriptionDate IS 'The date the service was prescribed.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDelivery.ServicePrescriptionDescriptorId IS 'The type of service prescribed. Examples include: Auditory Specialist, Vocational Therapy.';
+
+-- Extended Properties [edfi].[StudentIEPServiceDeliveryIDEAEvent] --
+COMMENT ON TABLE edfi.StudentIEPServiceDeliveryIDEAEvent IS 'A reference to one or more student IDEA events.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.IEPServiceDeliveryIdentifier IS 'A unique identifier assigned by the provider of IEP services for the delivery record.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.ServiceDeliveryDate IS 'The date when prescribed services were delivered for a student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.ServiceDeliveryDescriptorId IS 'The type of services delivered to the student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.IDEAEventDescriptorId IS 'The IDEA event recorded for the student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.IDEAEventIdentifier IS '	A unique identifier for the event record as assigned by the provider of IEP services.';
+
+-- Extended Properties [edfi].[StudentIEPServiceDeliveryProvider] --
+COMMENT ON TABLE edfi.StudentIEPServiceDeliveryProvider IS 'The service provider that delivered the prescribed service to the student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.IEPServiceDeliveryIdentifier IS 'A unique identifier assigned by the provider of IEP services for the delivery record.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.ServiceDeliveryDate IS 'The date when prescribed services were delivered for a student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.ServiceDeliveryDescriptorId IS 'The type of services delivered to the student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.LastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.PrimaryProvider IS 'Indicates that this provider was the Primary Service Provider.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.ProviderCode IS 'A code assigned to the service provider.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.ServiceProviderTypeDescriptorId IS 'Indicates service provider type, including specialist, internal staff, external staff, etc.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryProvider.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+
+-- Extended Properties [edfi].[StudentIEPServicePrescription] --
+COMMENT ON TABLE edfi.StudentIEPServicePrescription IS 'EARLY ACCESS: The service prescribed to a student as part of their Individual Education Program (IEP).';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.ServicePrescriptionDate IS 'The date the service was prescribed.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.ServicePrescriptionDescriptorId IS 'The type of service prescribed. Examples include: Auditory Specialist, Vocational Therapy.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.BeginDate IS 'The effective date when service is to begin. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.Duration IS 'The length of time for the prescribed service in minutes.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.DurationIntervalDescriptorId IS 'How often the prescribed service is to be provided within the specified duration period. Examples include: Per Session, Per Week, Per Month.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.EndDate IS 'The effective date when the prescribed service ended. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.Frequency IS 'The number of times the prescribed service is to be provided within the specified duration period.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.FrequencyIntervalDescriptorId IS 'How often the frequency should repeat for the prescribed service. Examples include: Per Session, Weekly, Monthly.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescription.ServiceLocationTypeDescriptorId IS 'The type of location where the prescribed service is to be provided. Examples include: Home, Hospital, School';
+
+-- Extended Properties [edfi].[StudentIEPServicePrescriptionIDEAEvent] --
+COMMENT ON TABLE edfi.StudentIEPServicePrescriptionIDEAEvent IS 'A reference to one or more IDEA events associated with a student.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.ServicePrescriptionDate IS 'The date the service was prescribed.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.ServicePrescriptionDescriptorId IS 'The type of service prescribed. Examples include: Auditory Specialist, Vocational Therapy.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.IDEAEventDescriptorId IS 'The IDEA event recorded for the student.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.IDEAEventIdentifier IS '	A unique identifier for the event record as assigned by the provider of IEP services.';
+
+-- Extended Properties [edfi].[StudentIEPServicePrescriptionStaff] --
+COMMENT ON TABLE edfi.StudentIEPServicePrescriptionStaff IS 'A reference to the staff member(s) assigned to provide the prescribed service.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionStaff.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionStaff.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionStaff.ServicePrescriptionDate IS 'The date the service was prescribed.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionStaff.ServicePrescriptionDescriptorId IS 'The type of service prescribed. Examples include: Auditory Specialist, Vocational Therapy.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionStaff.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionStaff.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionStaff.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [edfi].[StudentInterventionAssociation] --
 COMMENT ON TABLE edfi.StudentInterventionAssociation IS 'This association indicates the students participating in an intervention.';
@@ -5855,7 +6140,7 @@ COMMENT ON COLUMN edfi.StudentSchoolAssociation.EntryGradeLevelReasonDescriptorI
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.EntryTypeDescriptorId IS 'The process by which a student enters a school during a given academic session.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.ExitWithdrawDate IS 'The recorded exit or withdraw date for the student.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.ExitWithdrawTypeDescriptorId IS 'The circumstances under which the student exited from membership in an educational institution.';
-COMMENT ON COLUMN edfi.StudentSchoolAssociation.FullTimeEquivalency IS 'The full-time equivalent ratio for the student’s assignment to a school for services or instruction. For example, a full-time student would have an FTE value of 1 while a half-time student would have an FTE value of 0.5.';
+COMMENT ON COLUMN edfi.StudentSchoolAssociation.FullTimeEquivalency IS 'The full-time equivalent ratio for the student''s assignment to a school for services or instruction. For example, a full-time student would have an FTE value of 1 while a half-time student would have an FTE value of 0.5.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.NextYearGradeLevelDescriptorId IS 'The anticipated grade level for the student for the next school year.';
