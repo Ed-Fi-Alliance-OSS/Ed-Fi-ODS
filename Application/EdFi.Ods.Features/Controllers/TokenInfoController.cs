@@ -84,42 +84,62 @@ namespace EdFi.Ods.Features.Controllers
                 return BadRequest(
                     new BadRequestException(
                         "An invalid token was provided",
-                        new[] { "The token was not present, or was not processable as a GUID value." })
-                    {
-                        CorrelationId = _logContextAccessor.GetCorrelationId()
-                    }.AsSerializableModel());
-            }
-
-            if (_securitySettings.Value.AccessTokenType == SecuritySettings.AccessTokenTypeJwt 
-                && !Guid.TryParse(_httpContextAccessor.HttpContext?.User.FindFirst(JwtRegisteredClaimNames.Jti)?.Value, out guidAccessToken))
-            {
-                return BadRequest(
-                    new BadRequestException(
-                        "An invalid token was provided",
                         new[] { "The token was not present, or was not processable." })
                     {
                         CorrelationId = _logContextAccessor.GetCorrelationId()
                     }.AsSerializableModel());
             }
 
+            if (_securitySettings.Value.AccessTokenType == SecuritySettings.AccessTokenTypeJwt)
+            {
+                // Validate that the submitted token matches the Bearer token used to authenticate
+                // this request (RFC 7662 §2 — the caller must submit the token to be introspected).
+                var authHeader = _httpContextAccessor.HttpContext?.Request.Headers[HeaderNames.Authorization].ToString();
+                var bearerToken = authHeader?.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase) == true
+                    ? authHeader["Bearer ".Length..].Trim()
+                    : null;
+
+                if (bearerToken == null || !string.Equals(tokenInfoRequest.Token, bearerToken, StringComparison.Ordinal))
+                {
+                    return BadRequest(
+                        new BadRequestException(
+                            "An invalid token was provided",
+                            new[] { "The token was not present, or was not processable." })
+                        {
+                            CorrelationId = _logContextAccessor.GetCorrelationId()
+                        }.AsSerializableModel());
+                }
+
+                if (!Guid.TryParse(_httpContextAccessor.HttpContext?.User.FindFirst(JwtRegisteredClaimNames.Jti)?.Value, out guidAccessToken))
+                {
+                    return BadRequest(
+                        new BadRequestException(
+                            "An invalid token was provided",
+                            new[] { "The token was not present, or was not processable." })
+                        {
+                            CorrelationId = _logContextAccessor.GetCorrelationId()
+                        }.AsSerializableModel());
+                }
+            }
+
             var oAuthTokenClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(guidAccessToken.ToString("N"));
 
-            if (oAuthTokenClientDetails == null)
+            ApiClientContext apiContext = _apiClientContextProvider.GetApiClientContext();
+
+            // Return 404 for both missing tokens and tokens owned by another client to
+            // prevent enumeration: callers must not learn whether a foreign token exists.
+            if (oAuthTokenClientDetails == null || oAuthTokenClientDetails.ApiKey != apiContext.ApiKey)
             {
                 return NotFound();
             }
 
-            ApiClientContext apiContext = _apiClientContextProvider.GetApiClientContext();
-
-            // must be able to see my specific items ie vendor a cannot look at vendor b
-            if (oAuthTokenClientDetails.ApiKey != apiContext.ApiKey)
-            {
-                return Unauthorized();
-            }
-
             var tokenInfo = await _tokenInfoProvider.GetTokenInfoAsync(apiContext);
 
-            Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue { NoCache = true };
+            var typedHeaders = _httpContextAccessor.HttpContext?.Response?.GetTypedHeaders();
+            if (typedHeaders != null)
+            {
+                typedHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true };
+            }
             return Ok(tokenInfo);
         }
     }

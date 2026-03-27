@@ -17,7 +17,7 @@ public static class LogContextAccessorExtensions
     /// <returns>The previously set correlation id.</returns>
     public static string GetCorrelationId(this ILogContextAccessor logContextAccessor)
     {
-        return (string)logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+        return logContextAccessor.GetValue(CorrelationConstants.LogContextKey) as string;
     }
 
     /// <summary>
