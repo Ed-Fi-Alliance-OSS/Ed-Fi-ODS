@@ -525,6 +525,14 @@ ALTER TABLE [edfi].[GraduationPlan] ADD CONSTRAINT GraduationPlan_DF_ChangeVersi
 END
 
 
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[IDEAEvent]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[IDEAEvent] ADD [ChangeVersion] [BIGINT] CONSTRAINT IDEAEvent_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[IDEAEvent] DROP CONSTRAINT IDEAEvent_DF_ChangeVersion;
+ALTER TABLE [edfi].[IDEAEvent] ADD CONSTRAINT IDEAEvent_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Intervention]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [edfi].[Intervention] ADD [ChangeVersion] [BIGINT] CONSTRAINT Intervention_DF_ChangeVersion DEFAULT (0) NOT NULL;
@@ -1130,6 +1138,38 @@ BEGIN
 ALTER TABLE [edfi].[StudentHealth] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentHealth_DF_ChangeVersion DEFAULT (0) NOT NULL;
 ALTER TABLE [edfi].[StudentHealth] DROP CONSTRAINT StudentHealth_DF_ChangeVersion;
 ALTER TABLE [edfi].[StudentHealth] ADD CONSTRAINT StudentHealth_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentIEP]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[StudentIEP] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentIEP_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StudentIEP] DROP CONSTRAINT StudentIEP_DF_ChangeVersion;
+ALTER TABLE [edfi].[StudentIEP] ADD CONSTRAINT StudentIEP_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentIEPGoal]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[StudentIEPGoal] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentIEPGoal_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StudentIEPGoal] DROP CONSTRAINT StudentIEPGoal_DF_ChangeVersion;
+ALTER TABLE [edfi].[StudentIEPGoal] ADD CONSTRAINT StudentIEPGoal_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentIEPServiceDelivery]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[StudentIEPServiceDelivery] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentIEPServiceDelivery_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StudentIEPServiceDelivery] DROP CONSTRAINT StudentIEPServiceDelivery_DF_ChangeVersion;
+ALTER TABLE [edfi].[StudentIEPServiceDelivery] ADD CONSTRAINT StudentIEPServiceDelivery_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentIEPServicePrescription]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[StudentIEPServicePrescription] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentIEPServicePrescription_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StudentIEPServicePrescription] DROP CONSTRAINT StudentIEPServicePrescription_DF_ChangeVersion;
+ALTER TABLE [edfi].[StudentIEPServicePrescription] ADD CONSTRAINT StudentIEPServicePrescription_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 

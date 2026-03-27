@@ -133,6 +133,8 @@ CREATE INDEX IF NOT EXISTS UX_5a18f9_ChangeVersion ON edfi.GradingPeriod(ChangeV
 
 CREATE INDEX IF NOT EXISTS UX_be1ea4_ChangeVersion ON edfi.GraduationPlan(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_a16a88_ChangeVersion ON edfi.IDEAEvent(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_0fae05_ChangeVersion ON edfi.Intervention(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_e93bc3_ChangeVersion ON edfi.InterventionPrescription(ChangeVersion);
@@ -284,6 +286,14 @@ CREATE INDEX IF NOT EXISTS UX_42aa64_ChangeVersion ON edfi.StudentEducationOrgan
 CREATE INDEX IF NOT EXISTS UX_c2efaa_ChangeVersion ON edfi.StudentGradebookEntry(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_12f7e6_ChangeVersion ON edfi.StudentHealth(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_d153ae_ChangeVersion ON edfi.StudentIEP(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_5453a5_ChangeVersion ON edfi.StudentIEPGoal(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_524fcd_ChangeVersion ON edfi.StudentIEPServiceDelivery(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_d0ad1a_ChangeVersion ON edfi.StudentIEPServicePrescription(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_06688a_ChangeVersion ON edfi.StudentIdentificationCode(ChangeVersion);
 
