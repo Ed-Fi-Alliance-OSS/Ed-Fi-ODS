@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/6.0.0" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/6.0.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/6.1.0" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/6.1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="Ed-Fi-Core.xsd" />
   <xs:annotation>
-    <xs:documentation>===== Ed-Fi 6.0.0 Extensions =====</xs:documentation>
+    <xs:documentation>===== Ed-Fi 6.1.0 Extensions =====</xs:documentation>
   </xs:annotation>
   <xs:annotation>
     <xs:documentation>===== Domain Entities =====</xs:documentation>
@@ -86,51 +86,6 @@
     <xs:complexContent>
       <xs:restriction base="StudentAcademicRecord">
         <xs:sequence>
-          <xs:element name="CumulativeEarnedCredits" type="Credits" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The cumulative number of credits an individual earns by completing courses or examinations during his or her enrollment in the current school as well as those credits transferred from schools in which the individual had been previously enrolled.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="CumulativeAttemptedCredits" type="Credits" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The total number of credits a student has earned plus the total number of credits the student has attempted but not earned from distinct courses. This includes credits attempted and earned from all schools the student has been enrolled.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AcademicHonor" type="AcademicHonor" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Academic distinctions earned by or awarded to the student.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="Recognition" type="Recognition" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Recognitions given to the student for accomplishments in a co-curricular or extracurricular activity.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProjectedGraduationDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The month and year the student is projected to graduate.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SessionEarnedCredits" type="Credits" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The number of credits an individual earned in this session.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SessionAttemptedCredits" type="Credits" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The number of credits an individual attempted to earn in this session.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="GradePointAverage" type="GradePointAverage" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The grade point average for an individual computed as the grade points earned divided by the number of credits attempted.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="Diploma" type="Diploma" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Diploma(s) earned by the student.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="StudentReference" type="StudentReferenceType">
             <xs:annotation>
               <xs:documentation>Identifies the student who is associated with the student academic record.</xs:documentation>
@@ -152,6 +107,51 @@
               <xs:appinfo>
                 <ann:Descriptor>TermDescriptor</ann:Descriptor>
               </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AcademicHonor" type="AcademicHonor" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Academic distinctions earned by or awarded to the student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CumulativeAttemptedCredits" type="Credits" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The total number of credits a student has earned plus the total number of credits the student has attempted but not earned from distinct courses. This includes credits attempted and earned from all schools the student has been enrolled.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CumulativeEarnedCredits" type="Credits" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The cumulative number of credits an individual earns by completing courses or examinations during his or her enrollment in the current school as well as those credits transferred from schools in which the individual had been previously enrolled.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SessionAttemptedCredits" type="Credits" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The number of credits an individual attempted to earn in this session.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SessionEarnedCredits" type="Credits" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The number of credits an individual earned in this session.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Diploma" type="Diploma" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Diploma(s) earned by the student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GradePointAverage" type="GradePointAverage" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The grade point average for an individual computed as the grade points earned divided by the number of credits attempted.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProjectedGraduationDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The month and year the student is projected to graduate.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Recognition" type="Recognition" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Recognitions given to the student for accomplishments in a co-curricular or extracurricular activity.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="ReportCardReference" type="ReportCardReferenceType" minOccurs="0" maxOccurs="unbounded">
