@@ -389,6 +389,43 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.AddressCharacteristicDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/addressCharacteristicDescriptors")]
+    public partial class AddressCharacteristicDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.AddressCharacteristicDescriptor.EdFi.AddressCharacteristicDescriptor,
+        Entities.Common.EdFi.IAddressCharacteristicDescriptor,
+        Entities.NHibernate.AddressCharacteristicDescriptorAggregate.EdFi.AddressCharacteristicDescriptor,
+        Api.Common.Models.Requests.AddressCharacteristicDescriptors.EdFi.AddressCharacteristicDescriptorPut,
+        Api.Common.Models.Requests.AddressCharacteristicDescriptors.EdFi.AddressCharacteristicDescriptorPost,
+        Api.Common.Models.Requests.AddressCharacteristicDescriptors.EdFi.AddressCharacteristicDescriptorDelete,
+        Api.Common.Models.Requests.AddressCharacteristicDescriptors.EdFi.AddressCharacteristicDescriptorGetByExample>
+    {
+        public AddressCharacteristicDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.AddressCharacteristicDescriptors.EdFi.AddressCharacteristicDescriptorGetByExample request, Entities.Common.EdFi.IAddressCharacteristicDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AddressCharacteristicDescriptorId = request.AddressCharacteristicDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -4749,6 +4786,43 @@ namespace EdFi.Ods.Api.Services.Controllers.DualCreditTypeDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.DurationIntervalDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/durationIntervalDescriptors")]
+    public partial class DurationIntervalDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.DurationIntervalDescriptor.EdFi.DurationIntervalDescriptor,
+        Entities.Common.EdFi.IDurationIntervalDescriptor,
+        Entities.NHibernate.DurationIntervalDescriptorAggregate.EdFi.DurationIntervalDescriptor,
+        Api.Common.Models.Requests.DurationIntervalDescriptors.EdFi.DurationIntervalDescriptorPut,
+        Api.Common.Models.Requests.DurationIntervalDescriptors.EdFi.DurationIntervalDescriptorPost,
+        Api.Common.Models.Requests.DurationIntervalDescriptors.EdFi.DurationIntervalDescriptorDelete,
+        Api.Common.Models.Requests.DurationIntervalDescriptors.EdFi.DurationIntervalDescriptorGetByExample>
+    {
+        public DurationIntervalDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.DurationIntervalDescriptors.EdFi.DurationIntervalDescriptorGetByExample request, Entities.Common.EdFi.IDurationIntervalDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.DurationIntervalDescriptorId = request.DurationIntervalDescriptorId;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.EconomicDisadvantageDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -6233,6 +6307,80 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.EventComplianceDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/eventComplianceDescriptors")]
+    public partial class EventComplianceDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EventComplianceDescriptor.EdFi.EventComplianceDescriptor,
+        Entities.Common.EdFi.IEventComplianceDescriptor,
+        Entities.NHibernate.EventComplianceDescriptorAggregate.EdFi.EventComplianceDescriptor,
+        Api.Common.Models.Requests.EventComplianceDescriptors.EdFi.EventComplianceDescriptorPut,
+        Api.Common.Models.Requests.EventComplianceDescriptors.EdFi.EventComplianceDescriptorPost,
+        Api.Common.Models.Requests.EventComplianceDescriptors.EdFi.EventComplianceDescriptorDelete,
+        Api.Common.Models.Requests.EventComplianceDescriptors.EdFi.EventComplianceDescriptorGetByExample>
+    {
+        public EventComplianceDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EventComplianceDescriptors.EdFi.EventComplianceDescriptorGetByExample request, Entities.Common.EdFi.IEventComplianceDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.EventComplianceDescriptorId = request.EventComplianceDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EventReasonDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/eventReasonDescriptors")]
+    public partial class EventReasonDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EventReasonDescriptor.EdFi.EventReasonDescriptor,
+        Entities.Common.EdFi.IEventReasonDescriptor,
+        Entities.NHibernate.EventReasonDescriptorAggregate.EdFi.EventReasonDescriptor,
+        Api.Common.Models.Requests.EventReasonDescriptors.EdFi.EventReasonDescriptorPut,
+        Api.Common.Models.Requests.EventReasonDescriptors.EdFi.EventReasonDescriptorPost,
+        Api.Common.Models.Requests.EventReasonDescriptors.EdFi.EventReasonDescriptorDelete,
+        Api.Common.Models.Requests.EventReasonDescriptors.EdFi.EventReasonDescriptorGetByExample>
+    {
+        public EventReasonDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EventReasonDescriptors.EdFi.EventReasonDescriptorGetByExample request, Entities.Common.EdFi.IEventReasonDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.EventReasonDescriptorId = request.EventReasonDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -6524,6 +6672,43 @@ namespace EdFi.Ods.Api.Services.Controllers.FinancialCollectionDescriptors.EdFi
             specification.EffectiveBeginDate = request.EffectiveBeginDate;
             specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.FinancialCollectionDescriptorId = request.FinancialCollectionDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.FrequencyIntervalDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/frequencyIntervalDescriptors")]
+    public partial class FrequencyIntervalDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FrequencyIntervalDescriptor.EdFi.FrequencyIntervalDescriptor,
+        Entities.Common.EdFi.IFrequencyIntervalDescriptor,
+        Entities.NHibernate.FrequencyIntervalDescriptorAggregate.EdFi.FrequencyIntervalDescriptor,
+        Api.Common.Models.Requests.FrequencyIntervalDescriptors.EdFi.FrequencyIntervalDescriptorPut,
+        Api.Common.Models.Requests.FrequencyIntervalDescriptors.EdFi.FrequencyIntervalDescriptorPost,
+        Api.Common.Models.Requests.FrequencyIntervalDescriptors.EdFi.FrequencyIntervalDescriptorDelete,
+        Api.Common.Models.Requests.FrequencyIntervalDescriptors.EdFi.FrequencyIntervalDescriptorGetByExample>
+    {
+        public FrequencyIntervalDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.FrequencyIntervalDescriptors.EdFi.FrequencyIntervalDescriptorGetByExample request, Entities.Common.EdFi.IFrequencyIntervalDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.FrequencyIntervalDescriptorId = request.FrequencyIntervalDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
@@ -7301,6 +7486,82 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.IDEAEvents.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/ideaEvents")]
+    public partial class IDEAEventsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.IDEAEvent.EdFi.IDEAEvent,
+        Entities.Common.EdFi.IIDEAEvent,
+        Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEvent,
+        Api.Common.Models.Requests.IDEAEvents.EdFi.IDEAEventPut,
+        Api.Common.Models.Requests.IDEAEvents.EdFi.IDEAEventPost,
+        Api.Common.Models.Requests.IDEAEvents.EdFi.IDEAEventDelete,
+        Api.Common.Models.Requests.IDEAEvents.EdFi.IDEAEventGetByExample>
+    {
+        public IDEAEventsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.IDEAEvents.EdFi.IDEAEventGetByExample request, Entities.Common.EdFi.IIDEAEvent specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BeginDate = request.BeginDate;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EndDate = request.EndDate;
+            specification.EventComplianceDescriptor = request.EventComplianceDescriptor;
+            specification.EventNarrative = request.EventNarrative;
+            specification.EventReasonDescriptor = request.EventReasonDescriptor;
+            specification.Id = request.Id;
+            specification.IDEAEventDescriptor = request.IDEAEventDescriptor;
+            specification.IDEAEventIdentifier = request.IDEAEventIdentifier;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.IDEAEventDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/ideaEventDescriptors")]
+    public partial class IDEAEventDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.IDEAEventDescriptor.EdFi.IDEAEventDescriptor,
+        Entities.Common.EdFi.IIDEAEventDescriptor,
+        Entities.NHibernate.IDEAEventDescriptorAggregate.EdFi.IDEAEventDescriptor,
+        Api.Common.Models.Requests.IDEAEventDescriptors.EdFi.IDEAEventDescriptorPut,
+        Api.Common.Models.Requests.IDEAEventDescriptors.EdFi.IDEAEventDescriptorPost,
+        Api.Common.Models.Requests.IDEAEventDescriptors.EdFi.IDEAEventDescriptorDelete,
+        Api.Common.Models.Requests.IDEAEventDescriptors.EdFi.IDEAEventDescriptorGetByExample>
+    {
+        public IDEAEventDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.IDEAEventDescriptors.EdFi.IDEAEventDescriptorGetByExample request, Entities.Common.EdFi.IIDEAEventDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.IDEAEventDescriptorId = request.IDEAEventDescriptorId;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.IDEAPartDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -7369,6 +7630,80 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
             specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.IdentificationDocumentUseDescriptorId = request.IdentificationDocumentUseDescriptorId;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.IEPGoalTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/iepGoalTypeDescriptors")]
+    public partial class IEPGoalTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.IEPGoalTypeDescriptor.EdFi.IEPGoalTypeDescriptor,
+        Entities.Common.EdFi.IIEPGoalTypeDescriptor,
+        Entities.NHibernate.IEPGoalTypeDescriptorAggregate.EdFi.IEPGoalTypeDescriptor,
+        Api.Common.Models.Requests.IEPGoalTypeDescriptors.EdFi.IEPGoalTypeDescriptorPut,
+        Api.Common.Models.Requests.IEPGoalTypeDescriptors.EdFi.IEPGoalTypeDescriptorPost,
+        Api.Common.Models.Requests.IEPGoalTypeDescriptors.EdFi.IEPGoalTypeDescriptorDelete,
+        Api.Common.Models.Requests.IEPGoalTypeDescriptors.EdFi.IEPGoalTypeDescriptorGetByExample>
+    {
+        public IEPGoalTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.IEPGoalTypeDescriptors.EdFi.IEPGoalTypeDescriptorGetByExample request, Entities.Common.EdFi.IIEPGoalTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.IEPGoalTypeDescriptorId = request.IEPGoalTypeDescriptorId;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.IEPStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/iepStatusDescriptors")]
+    public partial class IEPStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.IEPStatusDescriptor.EdFi.IEPStatusDescriptor,
+        Entities.Common.EdFi.IIEPStatusDescriptor,
+        Entities.NHibernate.IEPStatusDescriptorAggregate.EdFi.IEPStatusDescriptor,
+        Api.Common.Models.Requests.IEPStatusDescriptors.EdFi.IEPStatusDescriptorPut,
+        Api.Common.Models.Requests.IEPStatusDescriptors.EdFi.IEPStatusDescriptorPost,
+        Api.Common.Models.Requests.IEPStatusDescriptors.EdFi.IEPStatusDescriptorDelete,
+        Api.Common.Models.Requests.IEPStatusDescriptors.EdFi.IEPStatusDescriptorGetByExample>
+    {
+        public IEPStatusDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.IEPStatusDescriptors.EdFi.IEPStatusDescriptorGetByExample request, Entities.Common.EdFi.IIEPStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.IEPStatusDescriptorId = request.IEPStatusDescriptorId;
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
         }
@@ -13093,6 +13428,43 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.ServiceDeliveryDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/serviceDeliveryDescriptors")]
+    public partial class ServiceDeliveryDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ServiceDeliveryDescriptor.EdFi.ServiceDeliveryDescriptor,
+        Entities.Common.EdFi.IServiceDeliveryDescriptor,
+        Entities.NHibernate.ServiceDeliveryDescriptorAggregate.EdFi.ServiceDeliveryDescriptor,
+        Api.Common.Models.Requests.ServiceDeliveryDescriptors.EdFi.ServiceDeliveryDescriptorPut,
+        Api.Common.Models.Requests.ServiceDeliveryDescriptors.EdFi.ServiceDeliveryDescriptorPost,
+        Api.Common.Models.Requests.ServiceDeliveryDescriptors.EdFi.ServiceDeliveryDescriptorDelete,
+        Api.Common.Models.Requests.ServiceDeliveryDescriptors.EdFi.ServiceDeliveryDescriptorGetByExample>
+    {
+        public ServiceDeliveryDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ServiceDeliveryDescriptors.EdFi.ServiceDeliveryDescriptorGetByExample request, Entities.Common.EdFi.IServiceDeliveryDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ServiceDeliveryDescriptorId = request.ServiceDeliveryDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -13125,6 +13497,117 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.ServiceDescriptorId = request.ServiceDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ServiceLocationTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/serviceLocationTypeDescriptors")]
+    public partial class ServiceLocationTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ServiceLocationTypeDescriptor.EdFi.ServiceLocationTypeDescriptor,
+        Entities.Common.EdFi.IServiceLocationTypeDescriptor,
+        Entities.NHibernate.ServiceLocationTypeDescriptorAggregate.EdFi.ServiceLocationTypeDescriptor,
+        Api.Common.Models.Requests.ServiceLocationTypeDescriptors.EdFi.ServiceLocationTypeDescriptorPut,
+        Api.Common.Models.Requests.ServiceLocationTypeDescriptors.EdFi.ServiceLocationTypeDescriptorPost,
+        Api.Common.Models.Requests.ServiceLocationTypeDescriptors.EdFi.ServiceLocationTypeDescriptorDelete,
+        Api.Common.Models.Requests.ServiceLocationTypeDescriptors.EdFi.ServiceLocationTypeDescriptorGetByExample>
+    {
+        public ServiceLocationTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ServiceLocationTypeDescriptors.EdFi.ServiceLocationTypeDescriptorGetByExample request, Entities.Common.EdFi.IServiceLocationTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ServiceLocationTypeDescriptorId = request.ServiceLocationTypeDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ServicePrescriptionDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/servicePrescriptionDescriptors")]
+    public partial class ServicePrescriptionDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ServicePrescriptionDescriptor.EdFi.ServicePrescriptionDescriptor,
+        Entities.Common.EdFi.IServicePrescriptionDescriptor,
+        Entities.NHibernate.ServicePrescriptionDescriptorAggregate.EdFi.ServicePrescriptionDescriptor,
+        Api.Common.Models.Requests.ServicePrescriptionDescriptors.EdFi.ServicePrescriptionDescriptorPut,
+        Api.Common.Models.Requests.ServicePrescriptionDescriptors.EdFi.ServicePrescriptionDescriptorPost,
+        Api.Common.Models.Requests.ServicePrescriptionDescriptors.EdFi.ServicePrescriptionDescriptorDelete,
+        Api.Common.Models.Requests.ServicePrescriptionDescriptors.EdFi.ServicePrescriptionDescriptorGetByExample>
+    {
+        public ServicePrescriptionDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ServicePrescriptionDescriptors.EdFi.ServicePrescriptionDescriptorGetByExample request, Entities.Common.EdFi.IServicePrescriptionDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ServicePrescriptionDescriptorId = request.ServicePrescriptionDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ServiceProviderTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/serviceProviderTypeDescriptors")]
+    public partial class ServiceProviderTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ServiceProviderTypeDescriptor.EdFi.ServiceProviderTypeDescriptor,
+        Entities.Common.EdFi.IServiceProviderTypeDescriptor,
+        Entities.NHibernate.ServiceProviderTypeDescriptorAggregate.EdFi.ServiceProviderTypeDescriptor,
+        Api.Common.Models.Requests.ServiceProviderTypeDescriptors.EdFi.ServiceProviderTypeDescriptorPut,
+        Api.Common.Models.Requests.ServiceProviderTypeDescriptors.EdFi.ServiceProviderTypeDescriptorPost,
+        Api.Common.Models.Requests.ServiceProviderTypeDescriptors.EdFi.ServiceProviderTypeDescriptorDelete,
+        Api.Common.Models.Requests.ServiceProviderTypeDescriptors.EdFi.ServiceProviderTypeDescriptorGetByExample>
+    {
+        public ServiceProviderTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ServiceProviderTypeDescriptors.EdFi.ServiceProviderTypeDescriptorGetByExample request, Entities.Common.EdFi.IServiceProviderTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ServiceProviderTypeDescriptorId = request.ServiceProviderTypeDescriptorId;
             specification.ShortDescription = request.ShortDescription;
         }
     }
@@ -14840,6 +15323,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
             specification.EndDate = request.EndDate;
             specification.Id = request.Id;
             specification.ResponsibilityDescriptor = request.ResponsibilityDescriptor;
+            specification.ResponsibleEducationOrganizationId = request.ResponsibleEducationOrganizationId;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
     }
@@ -15034,6 +15518,169 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
             specification.StudentIdentificationSystemDescriptorId = request.StudentIdentificationSystemDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentIEPs.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentIEPs")]
+    public partial class StudentIEPsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentIEP.EdFi.StudentIEP,
+        Entities.Common.EdFi.IStudentIEP,
+        Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEP,
+        Api.Common.Models.Requests.StudentIEPs.EdFi.StudentIEPPut,
+        Api.Common.Models.Requests.StudentIEPs.EdFi.StudentIEPPost,
+        Api.Common.Models.Requests.StudentIEPs.EdFi.StudentIEPDelete,
+        Api.Common.Models.Requests.StudentIEPs.EdFi.StudentIEPGetByExample>
+    {
+        public StudentIEPsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentIEPs.EdFi.StudentIEPGetByExample request, Entities.Common.EdFi.IStudentIEP specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IEPAmendedDate = request.IEPAmendedDate;
+            specification.IEPBeginDate = request.IEPBeginDate;
+            specification.IEPEndDate = request.IEPEndDate;
+            specification.IEPFinalizedDate = request.IEPFinalizedDate;
+            specification.IEPStatusDescriptor = request.IEPStatusDescriptor;
+            specification.MedicallyFragile = request.MedicallyFragile;
+            specification.MultiplyDisabled = request.MultiplyDisabled;
+            specification.ReasonExitedDescriptor = request.ReasonExitedDescriptor;
+            specification.SchoolHoursPerWeek = request.SchoolHoursPerWeek;
+            specification.SpecialEducationHoursPerWeek = request.SpecialEducationHoursPerWeek;
+            specification.SpecialEducationSettingDescriptor = request.SpecialEducationSettingDescriptor;
+            specification.StudentIEPIdentifier = request.StudentIEPIdentifier;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentIEPGoals.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentIEPGoals")]
+    public partial class StudentIEPGoalsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentIEPGoal.EdFi.StudentIEPGoal,
+        Entities.Common.EdFi.IStudentIEPGoal,
+        Entities.NHibernate.StudentIEPGoalAggregate.EdFi.StudentIEPGoal,
+        Api.Common.Models.Requests.StudentIEPGoals.EdFi.StudentIEPGoalPut,
+        Api.Common.Models.Requests.StudentIEPGoals.EdFi.StudentIEPGoalPost,
+        Api.Common.Models.Requests.StudentIEPGoals.EdFi.StudentIEPGoalDelete,
+        Api.Common.Models.Requests.StudentIEPGoals.EdFi.StudentIEPGoalGetByExample>
+    {
+        public StudentIEPGoalsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentIEPGoals.EdFi.StudentIEPGoalGetByExample request, Entities.Common.EdFi.IStudentIEPGoal specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IEPFinalizedDate = request.IEPFinalizedDate;
+            specification.IEPGoalDetails = request.IEPGoalDetails;
+            specification.IEPGoalIdentifier = request.IEPGoalIdentifier;
+            specification.IEPGoalTypeDescriptor = request.IEPGoalTypeDescriptor;
+            specification.StudentIEPIdentifier = request.StudentIEPIdentifier;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentIEPServiceDeliveries.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentIEPServiceDeliveries")]
+    public partial class StudentIEPServiceDeliveriesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentIEPServiceDelivery.EdFi.StudentIEPServiceDelivery,
+        Entities.Common.EdFi.IStudentIEPServiceDelivery,
+        Entities.NHibernate.StudentIEPServiceDeliveryAggregate.EdFi.StudentIEPServiceDelivery,
+        Api.Common.Models.Requests.StudentIEPServiceDeliveries.EdFi.StudentIEPServiceDeliveryPut,
+        Api.Common.Models.Requests.StudentIEPServiceDeliveries.EdFi.StudentIEPServiceDeliveryPost,
+        Api.Common.Models.Requests.StudentIEPServiceDeliveries.EdFi.StudentIEPServiceDeliveryDelete,
+        Api.Common.Models.Requests.StudentIEPServiceDeliveries.EdFi.StudentIEPServiceDeliveryGetByExample>
+    {
+        public StudentIEPServiceDeliveriesController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentIEPServiceDeliveries.EdFi.StudentIEPServiceDeliveryGetByExample request, Entities.Common.EdFi.IStudentIEPServiceDelivery specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.IEPFinalizedDate = request.IEPFinalizedDate;
+            specification.IEPServiceDeliveryIdentifier = request.IEPServiceDeliveryIdentifier;
+            specification.ServiceDeliveryDate = request.ServiceDeliveryDate;
+            specification.ServiceDeliveryDescriptor = request.ServiceDeliveryDescriptor;
+            specification.ServicePrescriptionDate = request.ServicePrescriptionDate;
+            specification.ServicePrescriptionDescriptor = request.ServicePrescriptionDescriptor;
+            specification.StudentIEPIdentifier = request.StudentIEPIdentifier;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentIEPServicePrescriptions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentIEPServicePrescriptions")]
+    public partial class StudentIEPServicePrescriptionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentIEPServicePrescription.EdFi.StudentIEPServicePrescription,
+        Entities.Common.EdFi.IStudentIEPServicePrescription,
+        Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescription,
+        Api.Common.Models.Requests.StudentIEPServicePrescriptions.EdFi.StudentIEPServicePrescriptionPut,
+        Api.Common.Models.Requests.StudentIEPServicePrescriptions.EdFi.StudentIEPServicePrescriptionPost,
+        Api.Common.Models.Requests.StudentIEPServicePrescriptions.EdFi.StudentIEPServicePrescriptionDelete,
+        Api.Common.Models.Requests.StudentIEPServicePrescriptions.EdFi.StudentIEPServicePrescriptionGetByExample>
+    {
+        public StudentIEPServicePrescriptionsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentIEPServicePrescriptions.EdFi.StudentIEPServicePrescriptionGetByExample request, Entities.Common.EdFi.IStudentIEPServicePrescription specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BeginDate = request.BeginDate;
+            specification.Duration = request.Duration;
+            specification.DurationIntervalDescriptor = request.DurationIntervalDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EndDate = request.EndDate;
+            specification.Frequency = request.Frequency;
+            specification.FrequencyIntervalDescriptor = request.FrequencyIntervalDescriptor;
+            specification.Id = request.Id;
+            specification.IEPFinalizedDate = request.IEPFinalizedDate;
+            specification.ServiceLocationTypeDescriptor = request.ServiceLocationTypeDescriptor;
+            specification.ServicePrescriptionDate = request.ServicePrescriptionDate;
+            specification.ServicePrescriptionDescriptor = request.ServicePrescriptionDescriptor;
+            specification.StudentIEPIdentifier = request.StudentIEPIdentifier;
+            specification.StudentUniqueId = request.StudentUniqueId;
         }
     }
 }
