@@ -8,9 +8,9 @@
       "commandName": "Project",
       "commandLineArgs": "-e SQLServer --standardVersion 5.2.0"
     },
-    "EdFi.CodeGen - SQLServer 6.0.0": {
+    "EdFi.CodeGen - SQLServer 6.1.0": {
       "commandName": "Project",
-      "commandLineArgs": "-e SQLServer --standardVersion 6.0.0"
+      "commandLineArgs": "-e SQLServer --standardVersion 6.1.0"
     },
     "EdFi.CodeGen - PostgreSQL 4.0.0": {
       "commandName": "Project",
@@ -20,9 +20,9 @@
       "commandName": "Project",
       "commandLineArgs": "-e PostgreSQL --standardVersion 5.2.0"
     },
-    "EdFi.CodeGen - PostgreSQL 6.0.0": {
+    "EdFi.CodeGen - PostgreSQL 6.1.0": {
       "commandName": "Project",
-      "commandLineArgs": "-e PostgreSQL --standardVersion 6.0.0"
+      "commandLineArgs": "-e PostgreSQL --standardVersion 6.1.0"
     }
   }
 }

@@ -802,6 +802,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the AddressCharacteristicDescriptor model.
+    /// </summary>
+    public interface IAddressCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int AddressCharacteristicDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class AddressCharacteristicDescriptorMappingContract : IMappingContract
+    {
+        public AddressCharacteristicDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AddressCharacteristicDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the AddressTypeDescriptor model.
     /// </summary>
     public interface IAddressTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
@@ -1598,6 +1674,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
+        ICollection<IApplicantProfileAddressCharacteristic> ApplicantProfileAddressCharacteristics { get; set; }
         ICollection<IApplicantProfileAddressPeriod> ApplicantProfileAddressPeriods { get; set; }
 
         // Resource reference data
@@ -1611,6 +1688,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         public ApplicantProfileAddressMappingContract(
             bool isApartmentRoomSuiteNumberSupported,
+            bool isApplicantProfileAddressCharacteristicsSupported,
             bool isApplicantProfileAddressPeriodsSupported,
             bool isBuildingSiteNumberSupported,
             bool isCongressionalDistrictSupported,
@@ -1620,12 +1698,15 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isLocaleDescriptorSupported,
             bool isLongitudeSupported,
             bool isNameOfCountySupported,
+            bool isApplicantProfileAddressCharacteristicsItemCreatable,
+            Func<IApplicantProfileAddressCharacteristic, bool> isApplicantProfileAddressCharacteristicIncluded,
             bool isApplicantProfileAddressPeriodsItemCreatable,
             Func<IApplicantProfileAddressPeriod, bool> isApplicantProfileAddressPeriodIncluded,
             IReadOnlyList<string> supportedExtensions
             )
         {
             IsApartmentRoomSuiteNumberSupported = isApartmentRoomSuiteNumberSupported;
+            IsApplicantProfileAddressCharacteristicsSupported = isApplicantProfileAddressCharacteristicsSupported;
             IsApplicantProfileAddressPeriodsSupported = isApplicantProfileAddressPeriodsSupported;
             IsBuildingSiteNumberSupported = isBuildingSiteNumberSupported;
             IsCongressionalDistrictSupported = isCongressionalDistrictSupported;
@@ -1635,12 +1716,15 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsLocaleDescriptorSupported = isLocaleDescriptorSupported;
             IsLongitudeSupported = isLongitudeSupported;
             IsNameOfCountySupported = isNameOfCountySupported;
+            IsApplicantProfileAddressCharacteristicsItemCreatable = isApplicantProfileAddressCharacteristicsItemCreatable;
+            IsApplicantProfileAddressCharacteristicIncluded = isApplicantProfileAddressCharacteristicIncluded;
             IsApplicantProfileAddressPeriodsItemCreatable = isApplicantProfileAddressPeriodsItemCreatable;
             IsApplicantProfileAddressPeriodIncluded = isApplicantProfileAddressPeriodIncluded;
             SupportedExtensions = supportedExtensions;
         }
 
         public bool IsApartmentRoomSuiteNumberSupported { get; }
+        public bool IsApplicantProfileAddressCharacteristicsSupported { get; }
         public bool IsApplicantProfileAddressPeriodsSupported { get; }
         public bool IsBuildingSiteNumberSupported { get; }
         public bool IsCongressionalDistrictSupported { get; }
@@ -1650,6 +1734,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsLocaleDescriptorSupported { get; }
         public bool IsLongitudeSupported { get; }
         public bool IsNameOfCountySupported { get; }
+        public bool IsApplicantProfileAddressCharacteristicsItemCreatable { get; }
+        public Func<IApplicantProfileAddressCharacteristic, bool> IsApplicantProfileAddressCharacteristicIncluded { get; }
         public bool IsApplicantProfileAddressPeriodsItemCreatable { get; }
         public Func<IApplicantProfileAddressPeriod, bool> IsApplicantProfileAddressPeriodIncluded { get; }
 
@@ -1659,6 +1745,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ApartmentRoomSuiteNumber":
                     return IsApartmentRoomSuiteNumberSupported;
+                case "ApplicantProfileAddressCharacteristics":
+                    return IsApplicantProfileAddressCharacteristicsSupported;
                 case "ApplicantProfileAddressPeriods":
                     return IsApplicantProfileAddressPeriodsSupported;
                 case "BuildingSiteNumber":
@@ -1697,12 +1785,69 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "ApplicantProfileAddressCharacteristics":
+                    return IsApplicantProfileAddressCharacteristicsItemCreatable;
                 case "ApplicantProfileAddressPeriods":
                     return IsApplicantProfileAddressPeriodsItemCreatable;
                 default:
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileAddressCharacteristic model.
+    /// </summary>
+    public interface IApplicantProfileAddressCharacteristic : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IApplicantProfileAddress ApplicantProfileAddress { get; set; }
+        
+        string AddressCharacteristicDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ApplicantProfileAddressCharacteristicMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public ApplicantProfileAddressCharacteristicMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AddressCharacteristicDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
         public IReadOnlyList<string> SupportedExtensions { get; }
 
@@ -8318,6 +8463,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
+        ICollection<ICandidateAddressCharacteristic> CandidateAddressCharacteristics { get; set; }
         ICollection<ICandidateAddressPeriod> CandidateAddressPeriods { get; set; }
 
         // Resource reference data
@@ -8332,6 +8478,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public CandidateAddressMappingContract(
             bool isApartmentRoomSuiteNumberSupported,
             bool isBuildingSiteNumberSupported,
+            bool isCandidateAddressCharacteristicsSupported,
             bool isCandidateAddressPeriodsSupported,
             bool isCongressionalDistrictSupported,
             bool isCountyFIPSCodeSupported,
@@ -8340,6 +8487,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isLocaleDescriptorSupported,
             bool isLongitudeSupported,
             bool isNameOfCountySupported,
+            bool isCandidateAddressCharacteristicsItemCreatable,
+            Func<ICandidateAddressCharacteristic, bool> isCandidateAddressCharacteristicIncluded,
             bool isCandidateAddressPeriodsItemCreatable,
             Func<ICandidateAddressPeriod, bool> isCandidateAddressPeriodIncluded,
             IReadOnlyList<string> supportedExtensions
@@ -8347,6 +8496,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             IsApartmentRoomSuiteNumberSupported = isApartmentRoomSuiteNumberSupported;
             IsBuildingSiteNumberSupported = isBuildingSiteNumberSupported;
+            IsCandidateAddressCharacteristicsSupported = isCandidateAddressCharacteristicsSupported;
             IsCandidateAddressPeriodsSupported = isCandidateAddressPeriodsSupported;
             IsCongressionalDistrictSupported = isCongressionalDistrictSupported;
             IsCountyFIPSCodeSupported = isCountyFIPSCodeSupported;
@@ -8355,6 +8505,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsLocaleDescriptorSupported = isLocaleDescriptorSupported;
             IsLongitudeSupported = isLongitudeSupported;
             IsNameOfCountySupported = isNameOfCountySupported;
+            IsCandidateAddressCharacteristicsItemCreatable = isCandidateAddressCharacteristicsItemCreatable;
+            IsCandidateAddressCharacteristicIncluded = isCandidateAddressCharacteristicIncluded;
             IsCandidateAddressPeriodsItemCreatable = isCandidateAddressPeriodsItemCreatable;
             IsCandidateAddressPeriodIncluded = isCandidateAddressPeriodIncluded;
             SupportedExtensions = supportedExtensions;
@@ -8362,6 +8514,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         public bool IsApartmentRoomSuiteNumberSupported { get; }
         public bool IsBuildingSiteNumberSupported { get; }
+        public bool IsCandidateAddressCharacteristicsSupported { get; }
         public bool IsCandidateAddressPeriodsSupported { get; }
         public bool IsCongressionalDistrictSupported { get; }
         public bool IsCountyFIPSCodeSupported { get; }
@@ -8370,6 +8523,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsLocaleDescriptorSupported { get; }
         public bool IsLongitudeSupported { get; }
         public bool IsNameOfCountySupported { get; }
+        public bool IsCandidateAddressCharacteristicsItemCreatable { get; }
+        public Func<ICandidateAddressCharacteristic, bool> IsCandidateAddressCharacteristicIncluded { get; }
         public bool IsCandidateAddressPeriodsItemCreatable { get; }
         public Func<ICandidateAddressPeriod, bool> IsCandidateAddressPeriodIncluded { get; }
 
@@ -8381,6 +8536,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsApartmentRoomSuiteNumberSupported;
                 case "BuildingSiteNumber":
                     return IsBuildingSiteNumberSupported;
+                case "CandidateAddressCharacteristics":
+                    return IsCandidateAddressCharacteristicsSupported;
                 case "CandidateAddressPeriods":
                     return IsCandidateAddressPeriodsSupported;
                 case "CongressionalDistrict":
@@ -8417,12 +8574,69 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "CandidateAddressCharacteristics":
+                    return IsCandidateAddressCharacteristicsItemCreatable;
                 case "CandidateAddressPeriods":
                     return IsCandidateAddressPeriodsItemCreatable;
                 default:
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateAddressCharacteristic model.
+    /// </summary>
+    public interface ICandidateAddressCharacteristic : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        ICandidateAddress CandidateAddress { get; set; }
+        
+        string AddressCharacteristicDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class CandidateAddressCharacteristicMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public CandidateAddressCharacteristicMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AddressCharacteristicDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
         public IReadOnlyList<string> SupportedExtensions { get; }
 
@@ -13569,6 +13783,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
+        ICollection<IContactAddressCharacteristic> ContactAddressCharacteristics { get; set; }
         ICollection<IContactAddressPeriod> ContactAddressPeriods { get; set; }
 
         // Resource reference data
@@ -13584,6 +13799,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isApartmentRoomSuiteNumberSupported,
             bool isBuildingSiteNumberSupported,
             bool isCongressionalDistrictSupported,
+            bool isContactAddressCharacteristicsSupported,
             bool isContactAddressPeriodsSupported,
             bool isCountyFIPSCodeSupported,
             bool isDoNotPublishIndicatorSupported,
@@ -13591,6 +13807,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isLocaleDescriptorSupported,
             bool isLongitudeSupported,
             bool isNameOfCountySupported,
+            bool isContactAddressCharacteristicsItemCreatable,
+            Func<IContactAddressCharacteristic, bool> isContactAddressCharacteristicIncluded,
             bool isContactAddressPeriodsItemCreatable,
             Func<IContactAddressPeriod, bool> isContactAddressPeriodIncluded,
             IReadOnlyList<string> supportedExtensions
@@ -13599,6 +13817,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsApartmentRoomSuiteNumberSupported = isApartmentRoomSuiteNumberSupported;
             IsBuildingSiteNumberSupported = isBuildingSiteNumberSupported;
             IsCongressionalDistrictSupported = isCongressionalDistrictSupported;
+            IsContactAddressCharacteristicsSupported = isContactAddressCharacteristicsSupported;
             IsContactAddressPeriodsSupported = isContactAddressPeriodsSupported;
             IsCountyFIPSCodeSupported = isCountyFIPSCodeSupported;
             IsDoNotPublishIndicatorSupported = isDoNotPublishIndicatorSupported;
@@ -13606,6 +13825,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsLocaleDescriptorSupported = isLocaleDescriptorSupported;
             IsLongitudeSupported = isLongitudeSupported;
             IsNameOfCountySupported = isNameOfCountySupported;
+            IsContactAddressCharacteristicsItemCreatable = isContactAddressCharacteristicsItemCreatable;
+            IsContactAddressCharacteristicIncluded = isContactAddressCharacteristicIncluded;
             IsContactAddressPeriodsItemCreatable = isContactAddressPeriodsItemCreatable;
             IsContactAddressPeriodIncluded = isContactAddressPeriodIncluded;
             SupportedExtensions = supportedExtensions;
@@ -13614,6 +13835,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsApartmentRoomSuiteNumberSupported { get; }
         public bool IsBuildingSiteNumberSupported { get; }
         public bool IsCongressionalDistrictSupported { get; }
+        public bool IsContactAddressCharacteristicsSupported { get; }
         public bool IsContactAddressPeriodsSupported { get; }
         public bool IsCountyFIPSCodeSupported { get; }
         public bool IsDoNotPublishIndicatorSupported { get; }
@@ -13621,6 +13843,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsLocaleDescriptorSupported { get; }
         public bool IsLongitudeSupported { get; }
         public bool IsNameOfCountySupported { get; }
+        public bool IsContactAddressCharacteristicsItemCreatable { get; }
+        public Func<IContactAddressCharacteristic, bool> IsContactAddressCharacteristicIncluded { get; }
         public bool IsContactAddressPeriodsItemCreatable { get; }
         public Func<IContactAddressPeriod, bool> IsContactAddressPeriodIncluded { get; }
 
@@ -13634,6 +13858,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsBuildingSiteNumberSupported;
                 case "CongressionalDistrict":
                     return IsCongressionalDistrictSupported;
+                case "ContactAddressCharacteristics":
+                    return IsContactAddressCharacteristicsSupported;
                 case "ContactAddressPeriods":
                     return IsContactAddressPeriodsSupported;
                 case "CountyFIPSCode":
@@ -13668,12 +13894,69 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "ContactAddressCharacteristics":
+                    return IsContactAddressCharacteristicsItemCreatable;
                 case "ContactAddressPeriods":
                     return IsContactAddressPeriodsItemCreatable;
                 default:
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ContactAddressCharacteristic model.
+    /// </summary>
+    public interface IContactAddressCharacteristic : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IContactAddress ContactAddress { get; set; }
+        
+        string AddressCharacteristicDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ContactAddressCharacteristicMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public ContactAddressCharacteristicMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AddressCharacteristicDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
         public IReadOnlyList<string> SupportedExtensions { get; }
 
@@ -20336,6 +20619,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the DurationIntervalDescriptor model.
+    /// </summary>
+    public interface IDurationIntervalDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int DurationIntervalDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class DurationIntervalDescriptorMappingContract : IMappingContract
+    {
+        public DurationIntervalDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "DurationIntervalDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the EconomicDisadvantageDescriptor model.
     /// </summary>
     public interface IEconomicDisadvantageDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
@@ -21320,6 +21679,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
+        ICollection<IEducationOrganizationAddressCharacteristic> EducationOrganizationAddressCharacteristics { get; set; }
         ICollection<IEducationOrganizationAddressPeriod> EducationOrganizationAddressPeriods { get; set; }
 
         // Resource reference data
@@ -21337,11 +21697,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isCongressionalDistrictSupported,
             bool isCountyFIPSCodeSupported,
             bool isDoNotPublishIndicatorSupported,
+            bool isEducationOrganizationAddressCharacteristicsSupported,
             bool isEducationOrganizationAddressPeriodsSupported,
             bool isLatitudeSupported,
             bool isLocaleDescriptorSupported,
             bool isLongitudeSupported,
             bool isNameOfCountySupported,
+            bool isEducationOrganizationAddressCharacteristicsItemCreatable,
+            Func<IEducationOrganizationAddressCharacteristic, bool> isEducationOrganizationAddressCharacteristicIncluded,
             bool isEducationOrganizationAddressPeriodsItemCreatable,
             Func<IEducationOrganizationAddressPeriod, bool> isEducationOrganizationAddressPeriodIncluded,
             IReadOnlyList<string> supportedExtensions
@@ -21352,11 +21715,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsCongressionalDistrictSupported = isCongressionalDistrictSupported;
             IsCountyFIPSCodeSupported = isCountyFIPSCodeSupported;
             IsDoNotPublishIndicatorSupported = isDoNotPublishIndicatorSupported;
+            IsEducationOrganizationAddressCharacteristicsSupported = isEducationOrganizationAddressCharacteristicsSupported;
             IsEducationOrganizationAddressPeriodsSupported = isEducationOrganizationAddressPeriodsSupported;
             IsLatitudeSupported = isLatitudeSupported;
             IsLocaleDescriptorSupported = isLocaleDescriptorSupported;
             IsLongitudeSupported = isLongitudeSupported;
             IsNameOfCountySupported = isNameOfCountySupported;
+            IsEducationOrganizationAddressCharacteristicsItemCreatable = isEducationOrganizationAddressCharacteristicsItemCreatable;
+            IsEducationOrganizationAddressCharacteristicIncluded = isEducationOrganizationAddressCharacteristicIncluded;
             IsEducationOrganizationAddressPeriodsItemCreatable = isEducationOrganizationAddressPeriodsItemCreatable;
             IsEducationOrganizationAddressPeriodIncluded = isEducationOrganizationAddressPeriodIncluded;
             SupportedExtensions = supportedExtensions;
@@ -21367,11 +21733,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsCongressionalDistrictSupported { get; }
         public bool IsCountyFIPSCodeSupported { get; }
         public bool IsDoNotPublishIndicatorSupported { get; }
+        public bool IsEducationOrganizationAddressCharacteristicsSupported { get; }
         public bool IsEducationOrganizationAddressPeriodsSupported { get; }
         public bool IsLatitudeSupported { get; }
         public bool IsLocaleDescriptorSupported { get; }
         public bool IsLongitudeSupported { get; }
         public bool IsNameOfCountySupported { get; }
+        public bool IsEducationOrganizationAddressCharacteristicsItemCreatable { get; }
+        public Func<IEducationOrganizationAddressCharacteristic, bool> IsEducationOrganizationAddressCharacteristicIncluded { get; }
         public bool IsEducationOrganizationAddressPeriodsItemCreatable { get; }
         public Func<IEducationOrganizationAddressPeriod, bool> IsEducationOrganizationAddressPeriodIncluded { get; }
 
@@ -21389,6 +21758,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCountyFIPSCodeSupported;
                 case "DoNotPublishIndicator":
                     return IsDoNotPublishIndicatorSupported;
+                case "EducationOrganizationAddressCharacteristics":
+                    return IsEducationOrganizationAddressCharacteristicsSupported;
                 case "EducationOrganizationAddressPeriods":
                     return IsEducationOrganizationAddressPeriodsSupported;
                 case "Latitude":
@@ -21419,12 +21790,69 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "EducationOrganizationAddressCharacteristics":
+                    return IsEducationOrganizationAddressCharacteristicsItemCreatable;
                 case "EducationOrganizationAddressPeriods":
                     return IsEducationOrganizationAddressPeriodsItemCreatable;
                 default:
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EducationOrganizationAddressCharacteristic model.
+    /// </summary>
+    public interface IEducationOrganizationAddressCharacteristic : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IEducationOrganizationAddress EducationOrganizationAddress { get; set; }
+        
+        string AddressCharacteristicDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class EducationOrganizationAddressCharacteristicMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public EducationOrganizationAddressCharacteristicMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AddressCharacteristicDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
         public IReadOnlyList<string> SupportedExtensions { get; }
 
@@ -25916,6 +26344,158 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the EventComplianceDescriptor model.
+    /// </summary>
+    public interface IEventComplianceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int EventComplianceDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class EventComplianceDescriptorMappingContract : IMappingContract
+    {
+        public EventComplianceDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EventComplianceDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EventReasonDescriptor model.
+    /// </summary>
+    public interface IEventReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int EventReasonDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class EventReasonDescriptorMappingContract : IMappingContract
+    {
+        public EventReasonDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EventReasonDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the ExitWithdrawTypeDescriptor model.
     /// </summary>
     public interface IExitWithdrawTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
@@ -26690,6 +27270,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortDescriptionSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "FinancialCollectionDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the FrequencyIntervalDescriptor model.
+    /// </summary>
+    public interface IFrequencyIntervalDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int FrequencyIntervalDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class FrequencyIntervalDescriptorMappingContract : IMappingContract
+    {
+        public FrequencyIntervalDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "FrequencyIntervalDescriptorId":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29805,6 +30461,192 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the IDEAEvent model.
+    /// </summary>
+    public interface IIDEAEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        
+        long EducationOrganizationId { get; set; }
+        
+        string IDEAEventDescriptor { get; set; }
+        
+        string IDEAEventIdentifier { get; set; }
+        
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+        DateTime BeginDate { get; set; }
+        DateTime? EndDate { get; set; }
+        string EventComplianceDescriptor { get; set; }
+        string EventNarrative { get; set; }
+        string EventReasonDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+        Guid? StudentResourceId { get; set; }
+        string StudentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class IDEAEventMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public IDEAEventMappingContract(
+            bool isBeginDateSupported,
+            bool isEducationOrganizationReferenceSupported,
+            bool isEndDateSupported,
+            bool isEventComplianceDescriptorSupported,
+            bool isEventNarrativeSupported,
+            bool isEventReasonDescriptorSupported,
+            bool isStudentReferenceSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsBeginDateSupported = isBeginDateSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
+            IsEndDateSupported = isEndDateSupported;
+            IsEventComplianceDescriptorSupported = isEventComplianceDescriptorSupported;
+            IsEventNarrativeSupported = isEventNarrativeSupported;
+            IsEventReasonDescriptorSupported = isEventReasonDescriptorSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsBeginDateSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
+        public bool IsEndDateSupported { get; }
+        public bool IsEventComplianceDescriptorSupported { get; }
+        public bool IsEventNarrativeSupported { get; }
+        public bool IsEventReasonDescriptorSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "BeginDate":
+                    return IsBeginDateSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
+                case "EndDate":
+                    return IsEndDateSupported;
+                case "EventComplianceDescriptor":
+                    return IsEventComplianceDescriptorSupported;
+                case "EventNarrative":
+                    return IsEventNarrativeSupported;
+                case "EventReasonDescriptor":
+                    return IsEventReasonDescriptorSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "IDEAEventDescriptor":
+                    return true;
+                case "IDEAEventIdentifier":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the IDEAEventDescriptor model.
+    /// </summary>
+    public interface IIDEAEventDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int IDEAEventDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class IDEAEventDescriptorMappingContract : IMappingContract
+    {
+        public IDEAEventDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "IDEAEventDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the IDEAPartDescriptor model.
     /// </summary>
     public interface IIDEAPartDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
@@ -29946,6 +30788,158 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortDescriptionSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IdentificationDocumentUseDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the IEPGoalTypeDescriptor model.
+    /// </summary>
+    public interface IIEPGoalTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int IEPGoalTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class IEPGoalTypeDescriptorMappingContract : IMappingContract
+    {
+        public IEPGoalTypeDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "IEPGoalTypeDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the IEPStatusDescriptor model.
+    /// </summary>
+    public interface IIEPStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int IEPStatusDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class IEPStatusDescriptorMappingContract : IMappingContract
+    {
+        public IEPStatusDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "IEPStatusDescriptorId":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -49150,6 +50144,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the ServiceDeliveryDescriptor model.
+    /// </summary>
+    public interface IServiceDeliveryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int ServiceDeliveryDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ServiceDeliveryDescriptorMappingContract : IMappingContract
+    {
+        public ServiceDeliveryDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ServiceDeliveryDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the ServiceDescriptor model.
     /// </summary>
     public interface IServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
@@ -49215,6 +50285,234 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortDescriptionSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ServiceDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ServiceLocationTypeDescriptor model.
+    /// </summary>
+    public interface IServiceLocationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int ServiceLocationTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ServiceLocationTypeDescriptorMappingContract : IMappingContract
+    {
+        public ServiceLocationTypeDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ServiceLocationTypeDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ServicePrescriptionDescriptor model.
+    /// </summary>
+    public interface IServicePrescriptionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int ServicePrescriptionDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ServicePrescriptionDescriptorMappingContract : IMappingContract
+    {
+        public ServicePrescriptionDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ServicePrescriptionDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ServiceProviderTypeDescriptor model.
+    /// </summary>
+    public interface IServiceProviderTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int ServiceProviderTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ServiceProviderTypeDescriptorMappingContract : IMappingContract
+    {
+        public ServiceProviderTypeDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ServiceProviderTypeDescriptorId":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -51397,6 +52695,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
+        ICollection<IStaffDirectoryAddressCharacteristic> StaffDirectoryAddressCharacteristics { get; set; }
         ICollection<IStaffDirectoryAddressPeriod> StaffDirectoryAddressPeriods { get; set; }
 
         // Resource reference data
@@ -51418,7 +52717,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isLocaleDescriptorSupported,
             bool isLongitudeSupported,
             bool isNameOfCountySupported,
+            bool isStaffDirectoryAddressCharacteristicsSupported,
             bool isStaffDirectoryAddressPeriodsSupported,
+            bool isStaffDirectoryAddressCharacteristicsItemCreatable,
+            Func<IStaffDirectoryAddressCharacteristic, bool> isStaffDirectoryAddressCharacteristicIncluded,
             bool isStaffDirectoryAddressPeriodsItemCreatable,
             Func<IStaffDirectoryAddressPeriod, bool> isStaffDirectoryAddressPeriodIncluded,
             IReadOnlyList<string> supportedExtensions
@@ -51433,7 +52735,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsLocaleDescriptorSupported = isLocaleDescriptorSupported;
             IsLongitudeSupported = isLongitudeSupported;
             IsNameOfCountySupported = isNameOfCountySupported;
+            IsStaffDirectoryAddressCharacteristicsSupported = isStaffDirectoryAddressCharacteristicsSupported;
             IsStaffDirectoryAddressPeriodsSupported = isStaffDirectoryAddressPeriodsSupported;
+            IsStaffDirectoryAddressCharacteristicsItemCreatable = isStaffDirectoryAddressCharacteristicsItemCreatable;
+            IsStaffDirectoryAddressCharacteristicIncluded = isStaffDirectoryAddressCharacteristicIncluded;
             IsStaffDirectoryAddressPeriodsItemCreatable = isStaffDirectoryAddressPeriodsItemCreatable;
             IsStaffDirectoryAddressPeriodIncluded = isStaffDirectoryAddressPeriodIncluded;
             SupportedExtensions = supportedExtensions;
@@ -51448,7 +52753,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsLocaleDescriptorSupported { get; }
         public bool IsLongitudeSupported { get; }
         public bool IsNameOfCountySupported { get; }
+        public bool IsStaffDirectoryAddressCharacteristicsSupported { get; }
         public bool IsStaffDirectoryAddressPeriodsSupported { get; }
+        public bool IsStaffDirectoryAddressCharacteristicsItemCreatable { get; }
+        public Func<IStaffDirectoryAddressCharacteristic, bool> IsStaffDirectoryAddressCharacteristicIncluded { get; }
         public bool IsStaffDirectoryAddressPeriodsItemCreatable { get; }
         public Func<IStaffDirectoryAddressPeriod, bool> IsStaffDirectoryAddressPeriodIncluded { get; }
 
@@ -51474,6 +52782,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLongitudeSupported;
                 case "NameOfCounty":
                     return IsNameOfCountySupported;
+                case "StaffDirectoryAddressCharacteristics":
+                    return IsStaffDirectoryAddressCharacteristicsSupported;
                 case "StaffDirectoryAddressPeriods":
                     return IsStaffDirectoryAddressPeriodsSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
@@ -51496,12 +52806,69 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "StaffDirectoryAddressCharacteristics":
+                    return IsStaffDirectoryAddressCharacteristicsItemCreatable;
                 case "StaffDirectoryAddressPeriods":
                     return IsStaffDirectoryAddressPeriodsItemCreatable;
                 default:
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StaffDirectoryAddressCharacteristic model.
+    /// </summary>
+    public interface IStaffDirectoryAddressCharacteristic : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStaffDirectoryAddress StaffDirectoryAddress { get; set; }
+        
+        string AddressCharacteristicDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StaffDirectoryAddressCharacteristicMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StaffDirectoryAddressCharacteristicMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AddressCharacteristicDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
         public IReadOnlyList<string> SupportedExtensions { get; }
 
@@ -59072,6 +60439,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
+        ICollection<IStudentDirectoryAddressCharacteristic> StudentDirectoryAddressCharacteristics { get; set; }
         ICollection<IStudentDirectoryAddressPeriod> StudentDirectoryAddressPeriods { get; set; }
 
         // Resource reference data
@@ -59093,7 +60461,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isLocaleDescriptorSupported,
             bool isLongitudeSupported,
             bool isNameOfCountySupported,
+            bool isStudentDirectoryAddressCharacteristicsSupported,
             bool isStudentDirectoryAddressPeriodsSupported,
+            bool isStudentDirectoryAddressCharacteristicsItemCreatable,
+            Func<IStudentDirectoryAddressCharacteristic, bool> isStudentDirectoryAddressCharacteristicIncluded,
             bool isStudentDirectoryAddressPeriodsItemCreatable,
             Func<IStudentDirectoryAddressPeriod, bool> isStudentDirectoryAddressPeriodIncluded,
             IReadOnlyList<string> supportedExtensions
@@ -59108,7 +60479,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsLocaleDescriptorSupported = isLocaleDescriptorSupported;
             IsLongitudeSupported = isLongitudeSupported;
             IsNameOfCountySupported = isNameOfCountySupported;
+            IsStudentDirectoryAddressCharacteristicsSupported = isStudentDirectoryAddressCharacteristicsSupported;
             IsStudentDirectoryAddressPeriodsSupported = isStudentDirectoryAddressPeriodsSupported;
+            IsStudentDirectoryAddressCharacteristicsItemCreatable = isStudentDirectoryAddressCharacteristicsItemCreatable;
+            IsStudentDirectoryAddressCharacteristicIncluded = isStudentDirectoryAddressCharacteristicIncluded;
             IsStudentDirectoryAddressPeriodsItemCreatable = isStudentDirectoryAddressPeriodsItemCreatable;
             IsStudentDirectoryAddressPeriodIncluded = isStudentDirectoryAddressPeriodIncluded;
             SupportedExtensions = supportedExtensions;
@@ -59123,7 +60497,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsLocaleDescriptorSupported { get; }
         public bool IsLongitudeSupported { get; }
         public bool IsNameOfCountySupported { get; }
+        public bool IsStudentDirectoryAddressCharacteristicsSupported { get; }
         public bool IsStudentDirectoryAddressPeriodsSupported { get; }
+        public bool IsStudentDirectoryAddressCharacteristicsItemCreatable { get; }
+        public Func<IStudentDirectoryAddressCharacteristic, bool> IsStudentDirectoryAddressCharacteristicIncluded { get; }
         public bool IsStudentDirectoryAddressPeriodsItemCreatable { get; }
         public Func<IStudentDirectoryAddressPeriod, bool> IsStudentDirectoryAddressPeriodIncluded { get; }
 
@@ -59149,6 +60526,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLongitudeSupported;
                 case "NameOfCounty":
                     return IsNameOfCountySupported;
+                case "StudentDirectoryAddressCharacteristics":
+                    return IsStudentDirectoryAddressCharacteristicsSupported;
                 case "StudentDirectoryAddressPeriods":
                     return IsStudentDirectoryAddressPeriodsSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
@@ -59171,12 +60550,69 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "StudentDirectoryAddressCharacteristics":
+                    return IsStudentDirectoryAddressCharacteristicsItemCreatable;
                 case "StudentDirectoryAddressPeriods":
                     return IsStudentDirectoryAddressPeriodsItemCreatable;
                 default:
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDirectoryAddressCharacteristic model.
+    /// </summary>
+    public interface IStudentDirectoryAddressCharacteristic : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentDirectoryAddress StudentDirectoryAddress { get; set; }
+        
+        string AddressCharacteristicDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentDirectoryAddressCharacteristicMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentDirectoryAddressCharacteristicMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AddressCharacteristicDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
         public IReadOnlyList<string> SupportedExtensions { get; }
 
@@ -60539,6 +61975,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         DateTime? EndDate { get; set; }
+        long? ResponsibleEducationOrganizationId { get; set; }
 
         // One-to-one relationships
 
@@ -60547,6 +61984,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Resource reference data
         Guid? EducationOrganizationResourceId { get; set; }
         string EducationOrganizationDiscriminator { get; set; }
+        Guid? ResponsibleEducationOrganizationResourceId { get; set; }
+        string ResponsibleEducationOrganizationDiscriminator { get; set; }
         Guid? StudentResourceId { get; set; }
         string StudentDiscriminator { get; set; }
     }
@@ -60560,18 +61999,24 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public StudentEducationOrganizationResponsibilityAssociationMappingContract(
             bool isEducationOrganizationReferenceSupported,
             bool isEndDateSupported,
+            bool isResponsibleEducationOrganizationIdSupported,
+            bool isResponsibleEducationOrganizationReferenceSupported,
             bool isStudentReferenceSupported,
             IReadOnlyList<string> supportedExtensions
             )
         {
             IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
             IsEndDateSupported = isEndDateSupported;
+            IsResponsibleEducationOrganizationIdSupported = isResponsibleEducationOrganizationIdSupported;
+            IsResponsibleEducationOrganizationReferenceSupported = isResponsibleEducationOrganizationReferenceSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             SupportedExtensions = supportedExtensions;
         }
 
         public bool IsEducationOrganizationReferenceSupported { get; }
         public bool IsEndDateSupported { get; }
+        public bool IsResponsibleEducationOrganizationIdSupported { get; }
+        public bool IsResponsibleEducationOrganizationReferenceSupported { get; }
         public bool IsStudentReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -60582,6 +62027,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationReferenceSupported;
                 case "EndDate":
                     return IsEndDateSupported;
+                case "ResponsibleEducationOrganizationId":
+                    return IsResponsibleEducationOrganizationIdSupported;
+                case "ResponsibleEducationOrganizationReference":
+                    return IsResponsibleEducationOrganizationReferenceSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
@@ -61528,6 +62977,1303 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEP model.
+    /// </summary>
+    public interface IStudentIEP : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        
+        long EducationOrganizationId { get; set; }
+        
+        DateTime IEPFinalizedDate { get; set; }
+        
+        string StudentIEPIdentifier { get; set; }
+        
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+        DateTime? IEPAmendedDate { get; set; }
+        DateTime IEPBeginDate { get; set; }
+        DateTime IEPEndDate { get; set; }
+        string IEPStatusDescriptor { get; set; }
+        bool? MedicallyFragile { get; set; }
+        bool? MultiplyDisabled { get; set; }
+        string ReasonExitedDescriptor { get; set; }
+        decimal? SchoolHoursPerWeek { get; set; }
+        decimal? SpecialEducationHoursPerWeek { get; set; }
+        string SpecialEducationSettingDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentIEPAccommodation> StudentIEPAccommodations { get; set; }
+        ICollection<IStudentIEPDisability> StudentIEPDisabilities { get; set; }
+        ICollection<IStudentIEPIDEAEvent> StudentIEPIDEAEvents { get; set; }
+
+        // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+        Guid? StudentResourceId { get; set; }
+        string StudentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPMappingContract(
+            bool isEducationOrganizationReferenceSupported,
+            bool isIEPAmendedDateSupported,
+            bool isIEPBeginDateSupported,
+            bool isIEPEndDateSupported,
+            bool isIEPStatusDescriptorSupported,
+            bool isMedicallyFragileSupported,
+            bool isMultiplyDisabledSupported,
+            bool isReasonExitedDescriptorSupported,
+            bool isSchoolHoursPerWeekSupported,
+            bool isSpecialEducationHoursPerWeekSupported,
+            bool isSpecialEducationSettingDescriptorSupported,
+            bool isStudentIEPAccommodationsSupported,
+            bool isStudentIEPDisabilitiesSupported,
+            bool isStudentIEPIDEAEventsSupported,
+            bool isStudentReferenceSupported,
+            bool isStudentIEPAccommodationsItemCreatable,
+            Func<IStudentIEPAccommodation, bool> isStudentIEPAccommodationIncluded,
+            bool isStudentIEPDisabilitiesItemCreatable,
+            Func<IStudentIEPDisability, bool> isStudentIEPDisabilityIncluded,
+            bool isStudentIEPIDEAEventsItemCreatable,
+            Func<IStudentIEPIDEAEvent, bool> isStudentIEPIDEAEventIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
+            IsIEPAmendedDateSupported = isIEPAmendedDateSupported;
+            IsIEPBeginDateSupported = isIEPBeginDateSupported;
+            IsIEPEndDateSupported = isIEPEndDateSupported;
+            IsIEPStatusDescriptorSupported = isIEPStatusDescriptorSupported;
+            IsMedicallyFragileSupported = isMedicallyFragileSupported;
+            IsMultiplyDisabledSupported = isMultiplyDisabledSupported;
+            IsReasonExitedDescriptorSupported = isReasonExitedDescriptorSupported;
+            IsSchoolHoursPerWeekSupported = isSchoolHoursPerWeekSupported;
+            IsSpecialEducationHoursPerWeekSupported = isSpecialEducationHoursPerWeekSupported;
+            IsSpecialEducationSettingDescriptorSupported = isSpecialEducationSettingDescriptorSupported;
+            IsStudentIEPAccommodationsSupported = isStudentIEPAccommodationsSupported;
+            IsStudentIEPDisabilitiesSupported = isStudentIEPDisabilitiesSupported;
+            IsStudentIEPIDEAEventsSupported = isStudentIEPIDEAEventsSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsStudentIEPAccommodationsItemCreatable = isStudentIEPAccommodationsItemCreatable;
+            IsStudentIEPAccommodationIncluded = isStudentIEPAccommodationIncluded;
+            IsStudentIEPDisabilitiesItemCreatable = isStudentIEPDisabilitiesItemCreatable;
+            IsStudentIEPDisabilityIncluded = isStudentIEPDisabilityIncluded;
+            IsStudentIEPIDEAEventsItemCreatable = isStudentIEPIDEAEventsItemCreatable;
+            IsStudentIEPIDEAEventIncluded = isStudentIEPIDEAEventIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsEducationOrganizationReferenceSupported { get; }
+        public bool IsIEPAmendedDateSupported { get; }
+        public bool IsIEPBeginDateSupported { get; }
+        public bool IsIEPEndDateSupported { get; }
+        public bool IsIEPStatusDescriptorSupported { get; }
+        public bool IsMedicallyFragileSupported { get; }
+        public bool IsMultiplyDisabledSupported { get; }
+        public bool IsReasonExitedDescriptorSupported { get; }
+        public bool IsSchoolHoursPerWeekSupported { get; }
+        public bool IsSpecialEducationHoursPerWeekSupported { get; }
+        public bool IsSpecialEducationSettingDescriptorSupported { get; }
+        public bool IsStudentIEPAccommodationsSupported { get; }
+        public bool IsStudentIEPDisabilitiesSupported { get; }
+        public bool IsStudentIEPIDEAEventsSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
+        public bool IsStudentIEPAccommodationsItemCreatable { get; }
+        public Func<IStudentIEPAccommodation, bool> IsStudentIEPAccommodationIncluded { get; }
+        public bool IsStudentIEPDisabilitiesItemCreatable { get; }
+        public Func<IStudentIEPDisability, bool> IsStudentIEPDisabilityIncluded { get; }
+        public bool IsStudentIEPIDEAEventsItemCreatable { get; }
+        public Func<IStudentIEPIDEAEvent, bool> IsStudentIEPIDEAEventIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
+                case "IEPAmendedDate":
+                    return IsIEPAmendedDateSupported;
+                case "IEPBeginDate":
+                    return IsIEPBeginDateSupported;
+                case "IEPEndDate":
+                    return IsIEPEndDateSupported;
+                case "IEPStatusDescriptor":
+                    return IsIEPStatusDescriptorSupported;
+                case "MedicallyFragile":
+                    return IsMedicallyFragileSupported;
+                case "MultiplyDisabled":
+                    return IsMultiplyDisabledSupported;
+                case "ReasonExitedDescriptor":
+                    return IsReasonExitedDescriptorSupported;
+                case "SchoolHoursPerWeek":
+                    return IsSchoolHoursPerWeekSupported;
+                case "SpecialEducationHoursPerWeek":
+                    return IsSpecialEducationHoursPerWeekSupported;
+                case "SpecialEducationSettingDescriptor":
+                    return IsSpecialEducationSettingDescriptorSupported;
+                case "StudentIEPAccommodations":
+                    return IsStudentIEPAccommodationsSupported;
+                case "StudentIEPDisabilities":
+                    return IsStudentIEPDisabilitiesSupported;
+                case "StudentIEPIDEAEvents":
+                    return IsStudentIEPIDEAEventsSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "IEPFinalizedDate":
+                    return true;
+                case "StudentIEPIdentifier":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentIEPAccommodations":
+                    return IsStudentIEPAccommodationsItemCreatable;
+                case "StudentIEPDisabilities":
+                    return IsStudentIEPDisabilitiesItemCreatable;
+                case "StudentIEPIDEAEvents":
+                    return IsStudentIEPIDEAEventsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPAccommodation model.
+    /// </summary>
+    public interface IStudentIEPAccommodation : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentIEP StudentIEP { get; set; }
+        
+        string AccommodationDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPAccommodationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPAccommodationMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AccommodationDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPDisability model.
+    /// </summary>
+    public interface IStudentIEPDisability : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentIEP StudentIEP { get; set; }
+        
+        string DisabilityDescriptor { get; set; }
+
+        // Non-PK properties
+        string DisabilityDeterminationSourceTypeDescriptor { get; set; }
+        string DisabilityDiagnosis { get; set; }
+        int? OrderOfDisability { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentIEPDisabilityDesignation> StudentIEPDisabilityDesignations { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPDisabilityMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPDisabilityMappingContract(
+            bool isDisabilityDeterminationSourceTypeDescriptorSupported,
+            bool isDisabilityDiagnosisSupported,
+            bool isOrderOfDisabilitySupported,
+            bool isStudentIEPDisabilityDesignationsSupported,
+            bool isStudentIEPDisabilityDesignationsItemCreatable,
+            Func<IStudentIEPDisabilityDesignation, bool> isStudentIEPDisabilityDesignationIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsDisabilityDeterminationSourceTypeDescriptorSupported = isDisabilityDeterminationSourceTypeDescriptorSupported;
+            IsDisabilityDiagnosisSupported = isDisabilityDiagnosisSupported;
+            IsOrderOfDisabilitySupported = isOrderOfDisabilitySupported;
+            IsStudentIEPDisabilityDesignationsSupported = isStudentIEPDisabilityDesignationsSupported;
+            IsStudentIEPDisabilityDesignationsItemCreatable = isStudentIEPDisabilityDesignationsItemCreatable;
+            IsStudentIEPDisabilityDesignationIncluded = isStudentIEPDisabilityDesignationIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsDisabilityDeterminationSourceTypeDescriptorSupported { get; }
+        public bool IsDisabilityDiagnosisSupported { get; }
+        public bool IsOrderOfDisabilitySupported { get; }
+        public bool IsStudentIEPDisabilityDesignationsSupported { get; }
+        public bool IsStudentIEPDisabilityDesignationsItemCreatable { get; }
+        public Func<IStudentIEPDisabilityDesignation, bool> IsStudentIEPDisabilityDesignationIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "DisabilityDeterminationSourceTypeDescriptor":
+                    return IsDisabilityDeterminationSourceTypeDescriptorSupported;
+                case "DisabilityDiagnosis":
+                    return IsDisabilityDiagnosisSupported;
+                case "OrderOfDisability":
+                    return IsOrderOfDisabilitySupported;
+                case "StudentIEPDisabilityDesignations":
+                    return IsStudentIEPDisabilityDesignationsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "DisabilityDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentIEPDisabilityDesignations":
+                    return IsStudentIEPDisabilityDesignationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPDisabilityDesignation model.
+    /// </summary>
+    public interface IStudentIEPDisabilityDesignation : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentIEPDisability StudentIEPDisability { get; set; }
+        
+        string DisabilityDesignationDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPDisabilityDesignationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPDisabilityDesignationMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "DisabilityDesignationDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPGoal model.
+    /// </summary>
+    public interface IStudentIEPGoal : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        
+        long EducationOrganizationId { get; set; }
+        
+        DateTime IEPFinalizedDate { get; set; }
+        
+        string IEPGoalIdentifier { get; set; }
+        
+        string StudentIEPIdentifier { get; set; }
+        
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+        string IEPGoalDetails { get; set; }
+        string IEPGoalTypeDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        IStudentIEPGoalAchievementPeriod StudentIEPGoalAchievementPeriod { get; set; }
+
+        // Lists
+        ICollection<IStudentIEPGoalIDEAEvent> StudentIEPGoalIDEAEvents { get; set; }
+
+        // Resource reference data
+        Guid? StudentIEPResourceId { get; set; }
+        string StudentIEPDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPGoalMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPGoalMappingContract(
+            bool isIEPGoalDetailsSupported,
+            bool isIEPGoalTypeDescriptorSupported,
+            bool isStudentIEPGoalAchievementPeriodSupported,
+            bool isStudentIEPGoalIDEAEventsSupported,
+            bool isStudentIEPReferenceSupported,
+            bool isStudentIEPGoalAchievementPeriodCreatable,
+            bool isStudentIEPGoalIDEAEventsItemCreatable,
+            Func<IStudentIEPGoalIDEAEvent, bool> isStudentIEPGoalIDEAEventIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsIEPGoalDetailsSupported = isIEPGoalDetailsSupported;
+            IsIEPGoalTypeDescriptorSupported = isIEPGoalTypeDescriptorSupported;
+            IsStudentIEPGoalAchievementPeriodSupported = isStudentIEPGoalAchievementPeriodSupported;
+            IsStudentIEPGoalIDEAEventsSupported = isStudentIEPGoalIDEAEventsSupported;
+            IsStudentIEPReferenceSupported = isStudentIEPReferenceSupported;
+            IsStudentIEPGoalAchievementPeriodCreatable = isStudentIEPGoalAchievementPeriodCreatable;
+            IsStudentIEPGoalIDEAEventsItemCreatable = isStudentIEPGoalIDEAEventsItemCreatable;
+            IsStudentIEPGoalIDEAEventIncluded = isStudentIEPGoalIDEAEventIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsIEPGoalDetailsSupported { get; }
+        public bool IsIEPGoalTypeDescriptorSupported { get; }
+        public bool IsStudentIEPGoalAchievementPeriodSupported { get; }
+        public bool IsStudentIEPGoalIDEAEventsSupported { get; }
+        public bool IsStudentIEPReferenceSupported { get; }
+        public bool IsStudentIEPGoalAchievementPeriodCreatable { get; }
+        public bool IsStudentIEPGoalIDEAEventsItemCreatable { get; }
+        public Func<IStudentIEPGoalIDEAEvent, bool> IsStudentIEPGoalIDEAEventIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "IEPGoalDetails":
+                    return IsIEPGoalDetailsSupported;
+                case "IEPGoalTypeDescriptor":
+                    return IsIEPGoalTypeDescriptorSupported;
+                case "StudentIEPGoalAchievementPeriod":
+                    return IsStudentIEPGoalAchievementPeriodSupported;
+                case "StudentIEPGoalIDEAEvents":
+                    return IsStudentIEPGoalIDEAEventsSupported;
+                case "StudentIEPReference":
+                    return IsStudentIEPReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "IEPFinalizedDate":
+                    return true;
+                case "IEPGoalIdentifier":
+                    return true;
+                case "StudentIEPIdentifier":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentIEPGoalAchievementPeriod":
+                    return IsStudentIEPGoalAchievementPeriodCreatable;
+                case "StudentIEPGoalIDEAEvents":
+                    return IsStudentIEPGoalIDEAEventsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPGoalAchievementPeriod model.
+    /// </summary>
+    public interface IStudentIEPGoalAchievementPeriod : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentIEPGoal StudentIEPGoal { get; set; }
+
+        // Non-PK properties
+        DateTime BeginDate { get; set; }
+        DateTime? EndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPGoalAchievementPeriodMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPGoalAchievementPeriodMappingContract(
+            bool isBeginDateSupported,
+            bool isEndDateSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsBeginDateSupported = isBeginDateSupported;
+            IsEndDateSupported = isEndDateSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsBeginDateSupported { get; }
+        public bool IsEndDateSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "BeginDate":
+                    return IsBeginDateSupported;
+                case "EndDate":
+                    return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPGoalIDEAEvent model.
+    /// </summary>
+    public interface IStudentIEPGoalIDEAEvent : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentIEPGoal StudentIEPGoal { get; set; }
+        
+        string IDEAEventDescriptor { get; set; }
+        
+        string IDEAEventIdentifier { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? IDEAEventResourceId { get; set; }
+        string IDEAEventDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPGoalIDEAEventMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPGoalIDEAEventMappingContract(
+            bool isIDEAEventReferenceSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsIDEAEventReferenceSupported = isIDEAEventReferenceSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsIDEAEventReferenceSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "IDEAEventReference":
+                    return IsIDEAEventReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "IDEAEventDescriptor":
+                    return true;
+                case "IDEAEventIdentifier":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPIDEAEvent model.
+    /// </summary>
+    public interface IStudentIEPIDEAEvent : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentIEP StudentIEP { get; set; }
+        
+        string IDEAEventDescriptor { get; set; }
+        
+        string IDEAEventIdentifier { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? IDEAEventResourceId { get; set; }
+        string IDEAEventDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPIDEAEventMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPIDEAEventMappingContract(
+            bool isIDEAEventReferenceSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsIDEAEventReferenceSupported = isIDEAEventReferenceSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsIDEAEventReferenceSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "IDEAEventReference":
+                    return IsIDEAEventReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "IDEAEventDescriptor":
+                    return true;
+                case "IDEAEventIdentifier":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPServiceDelivery model.
+    /// </summary>
+    public interface IStudentIEPServiceDelivery : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        
+        long EducationOrganizationId { get; set; }
+        
+        DateTime IEPFinalizedDate { get; set; }
+        
+        string IEPServiceDeliveryIdentifier { get; set; }
+        
+        DateTime ServiceDeliveryDate { get; set; }
+        
+        string ServiceDeliveryDescriptor { get; set; }
+        
+        string StudentIEPIdentifier { get; set; }
+        
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+        DateTime? ServicePrescriptionDate { get; set; }
+        string ServicePrescriptionDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentIEPServiceDeliveryIDEAEvent> StudentIEPServiceDeliveryIDEAEvents { get; set; }
+        ICollection<IStudentIEPServiceDeliveryProvider> StudentIEPServiceDeliveryProviders { get; set; }
+
+        // Resource reference data
+        Guid? StudentIEPResourceId { get; set; }
+        string StudentIEPDiscriminator { get; set; }
+        Guid? StudentIEPServicePrescriptionResourceId { get; set; }
+        string StudentIEPServicePrescriptionDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPServiceDeliveryMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPServiceDeliveryMappingContract(
+            bool isServicePrescriptionDateSupported,
+            bool isServicePrescriptionDescriptorSupported,
+            bool isStudentIEPReferenceSupported,
+            bool isStudentIEPServiceDeliveryIDEAEventsSupported,
+            bool isStudentIEPServiceDeliveryProvidersSupported,
+            bool isStudentIEPServicePrescriptionReferenceSupported,
+            bool isStudentIEPServiceDeliveryIDEAEventsItemCreatable,
+            Func<IStudentIEPServiceDeliveryIDEAEvent, bool> isStudentIEPServiceDeliveryIDEAEventIncluded,
+            bool isStudentIEPServiceDeliveryProvidersItemCreatable,
+            Func<IStudentIEPServiceDeliveryProvider, bool> isStudentIEPServiceDeliveryProviderIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsServicePrescriptionDateSupported = isServicePrescriptionDateSupported;
+            IsServicePrescriptionDescriptorSupported = isServicePrescriptionDescriptorSupported;
+            IsStudentIEPReferenceSupported = isStudentIEPReferenceSupported;
+            IsStudentIEPServiceDeliveryIDEAEventsSupported = isStudentIEPServiceDeliveryIDEAEventsSupported;
+            IsStudentIEPServiceDeliveryProvidersSupported = isStudentIEPServiceDeliveryProvidersSupported;
+            IsStudentIEPServicePrescriptionReferenceSupported = isStudentIEPServicePrescriptionReferenceSupported;
+            IsStudentIEPServiceDeliveryIDEAEventsItemCreatable = isStudentIEPServiceDeliveryIDEAEventsItemCreatable;
+            IsStudentIEPServiceDeliveryIDEAEventIncluded = isStudentIEPServiceDeliveryIDEAEventIncluded;
+            IsStudentIEPServiceDeliveryProvidersItemCreatable = isStudentIEPServiceDeliveryProvidersItemCreatable;
+            IsStudentIEPServiceDeliveryProviderIncluded = isStudentIEPServiceDeliveryProviderIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsServicePrescriptionDateSupported { get; }
+        public bool IsServicePrescriptionDescriptorSupported { get; }
+        public bool IsStudentIEPReferenceSupported { get; }
+        public bool IsStudentIEPServiceDeliveryIDEAEventsSupported { get; }
+        public bool IsStudentIEPServiceDeliveryProvidersSupported { get; }
+        public bool IsStudentIEPServicePrescriptionReferenceSupported { get; }
+        public bool IsStudentIEPServiceDeliveryIDEAEventsItemCreatable { get; }
+        public Func<IStudentIEPServiceDeliveryIDEAEvent, bool> IsStudentIEPServiceDeliveryIDEAEventIncluded { get; }
+        public bool IsStudentIEPServiceDeliveryProvidersItemCreatable { get; }
+        public Func<IStudentIEPServiceDeliveryProvider, bool> IsStudentIEPServiceDeliveryProviderIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "ServicePrescriptionDate":
+                    return IsServicePrescriptionDateSupported;
+                case "ServicePrescriptionDescriptor":
+                    return IsServicePrescriptionDescriptorSupported;
+                case "StudentIEPReference":
+                    return IsStudentIEPReferenceSupported;
+                case "StudentIEPServiceDeliveryIDEAEvents":
+                    return IsStudentIEPServiceDeliveryIDEAEventsSupported;
+                case "StudentIEPServiceDeliveryProviders":
+                    return IsStudentIEPServiceDeliveryProvidersSupported;
+                case "StudentIEPServicePrescriptionReference":
+                    return IsStudentIEPServicePrescriptionReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "IEPFinalizedDate":
+                    return true;
+                case "IEPServiceDeliveryIdentifier":
+                    return true;
+                case "ServiceDeliveryDate":
+                    return true;
+                case "ServiceDeliveryDescriptor":
+                    return true;
+                case "StudentIEPIdentifier":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentIEPServiceDeliveryIDEAEvents":
+                    return IsStudentIEPServiceDeliveryIDEAEventsItemCreatable;
+                case "StudentIEPServiceDeliveryProviders":
+                    return IsStudentIEPServiceDeliveryProvidersItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPServiceDeliveryIDEAEvent model.
+    /// </summary>
+    public interface IStudentIEPServiceDeliveryIDEAEvent : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentIEPServiceDelivery StudentIEPServiceDelivery { get; set; }
+        
+        string IDEAEventDescriptor { get; set; }
+        
+        string IDEAEventIdentifier { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? IDEAEventResourceId { get; set; }
+        string IDEAEventDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPServiceDeliveryIDEAEventMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPServiceDeliveryIDEAEventMappingContract(
+            bool isIDEAEventReferenceSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsIDEAEventReferenceSupported = isIDEAEventReferenceSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsIDEAEventReferenceSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "IDEAEventReference":
+                    return IsIDEAEventReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "IDEAEventDescriptor":
+                    return true;
+                case "IDEAEventIdentifier":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPServiceDeliveryProvider model.
+    /// </summary>
+    public interface IStudentIEPServiceDeliveryProvider : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentIEPServiceDelivery StudentIEPServiceDelivery { get; set; }
+        
+        string FirstName { get; set; }
+        
+        string LastSurname { get; set; }
+
+        // Non-PK properties
+        string MiddleName { get; set; }
+        bool? PrimaryProvider { get; set; }
+        string ProviderCode { get; set; }
+        string ServiceProviderTypeDescriptor { get; set; }
+        string StaffUniqueId { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? StaffResourceId { get; set; }
+        string StaffDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPServiceDeliveryProviderMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPServiceDeliveryProviderMappingContract(
+            bool isMiddleNameSupported,
+            bool isPrimaryProviderSupported,
+            bool isProviderCodeSupported,
+            bool isServiceProviderTypeDescriptorSupported,
+            bool isStaffReferenceSupported,
+            bool isStaffUniqueIdSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsMiddleNameSupported = isMiddleNameSupported;
+            IsPrimaryProviderSupported = isPrimaryProviderSupported;
+            IsProviderCodeSupported = isProviderCodeSupported;
+            IsServiceProviderTypeDescriptorSupported = isServiceProviderTypeDescriptorSupported;
+            IsStaffReferenceSupported = isStaffReferenceSupported;
+            IsStaffUniqueIdSupported = isStaffUniqueIdSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsMiddleNameSupported { get; }
+        public bool IsPrimaryProviderSupported { get; }
+        public bool IsProviderCodeSupported { get; }
+        public bool IsServiceProviderTypeDescriptorSupported { get; }
+        public bool IsStaffReferenceSupported { get; }
+        public bool IsStaffUniqueIdSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "MiddleName":
+                    return IsMiddleNameSupported;
+                case "PrimaryProvider":
+                    return IsPrimaryProviderSupported;
+                case "ProviderCode":
+                    return IsProviderCodeSupported;
+                case "ServiceProviderTypeDescriptor":
+                    return IsServiceProviderTypeDescriptorSupported;
+                case "StaffReference":
+                    return IsStaffReferenceSupported;
+                case "StaffUniqueId":
+                    return IsStaffUniqueIdSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "FirstName":
+                    return true;
+                case "LastSurname":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPServicePrescription model.
+    /// </summary>
+    public interface IStudentIEPServicePrescription : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        
+        long EducationOrganizationId { get; set; }
+        
+        DateTime IEPFinalizedDate { get; set; }
+        
+        DateTime ServicePrescriptionDate { get; set; }
+        
+        string ServicePrescriptionDescriptor { get; set; }
+        
+        string StudentIEPIdentifier { get; set; }
+        
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+        DateTime BeginDate { get; set; }
+        int Duration { get; set; }
+        string DurationIntervalDescriptor { get; set; }
+        DateTime? EndDate { get; set; }
+        decimal Frequency { get; set; }
+        string FrequencyIntervalDescriptor { get; set; }
+        string ServiceLocationTypeDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentIEPServicePrescriptionIDEAEvent> StudentIEPServicePrescriptionIDEAEvents { get; set; }
+        ICollection<IStudentIEPServicePrescriptionStaff> StudentIEPServicePrescriptionStaffs { get; set; }
+
+        // Resource reference data
+        Guid? StudentIEPResourceId { get; set; }
+        string StudentIEPDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPServicePrescriptionMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPServicePrescriptionMappingContract(
+            bool isBeginDateSupported,
+            bool isDurationSupported,
+            bool isDurationIntervalDescriptorSupported,
+            bool isEndDateSupported,
+            bool isFrequencySupported,
+            bool isFrequencyIntervalDescriptorSupported,
+            bool isServiceLocationTypeDescriptorSupported,
+            bool isStudentIEPReferenceSupported,
+            bool isStudentIEPServicePrescriptionIDEAEventsSupported,
+            bool isStudentIEPServicePrescriptionStaffsSupported,
+            bool isStudentIEPServicePrescriptionIDEAEventsItemCreatable,
+            Func<IStudentIEPServicePrescriptionIDEAEvent, bool> isStudentIEPServicePrescriptionIDEAEventIncluded,
+            bool isStudentIEPServicePrescriptionStaffsItemCreatable,
+            Func<IStudentIEPServicePrescriptionStaff, bool> isStudentIEPServicePrescriptionStaffIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsBeginDateSupported = isBeginDateSupported;
+            IsDurationSupported = isDurationSupported;
+            IsDurationIntervalDescriptorSupported = isDurationIntervalDescriptorSupported;
+            IsEndDateSupported = isEndDateSupported;
+            IsFrequencySupported = isFrequencySupported;
+            IsFrequencyIntervalDescriptorSupported = isFrequencyIntervalDescriptorSupported;
+            IsServiceLocationTypeDescriptorSupported = isServiceLocationTypeDescriptorSupported;
+            IsStudentIEPReferenceSupported = isStudentIEPReferenceSupported;
+            IsStudentIEPServicePrescriptionIDEAEventsSupported = isStudentIEPServicePrescriptionIDEAEventsSupported;
+            IsStudentIEPServicePrescriptionStaffsSupported = isStudentIEPServicePrescriptionStaffsSupported;
+            IsStudentIEPServicePrescriptionIDEAEventsItemCreatable = isStudentIEPServicePrescriptionIDEAEventsItemCreatable;
+            IsStudentIEPServicePrescriptionIDEAEventIncluded = isStudentIEPServicePrescriptionIDEAEventIncluded;
+            IsStudentIEPServicePrescriptionStaffsItemCreatable = isStudentIEPServicePrescriptionStaffsItemCreatable;
+            IsStudentIEPServicePrescriptionStaffIncluded = isStudentIEPServicePrescriptionStaffIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsBeginDateSupported { get; }
+        public bool IsDurationSupported { get; }
+        public bool IsDurationIntervalDescriptorSupported { get; }
+        public bool IsEndDateSupported { get; }
+        public bool IsFrequencySupported { get; }
+        public bool IsFrequencyIntervalDescriptorSupported { get; }
+        public bool IsServiceLocationTypeDescriptorSupported { get; }
+        public bool IsStudentIEPReferenceSupported { get; }
+        public bool IsStudentIEPServicePrescriptionIDEAEventsSupported { get; }
+        public bool IsStudentIEPServicePrescriptionStaffsSupported { get; }
+        public bool IsStudentIEPServicePrescriptionIDEAEventsItemCreatable { get; }
+        public Func<IStudentIEPServicePrescriptionIDEAEvent, bool> IsStudentIEPServicePrescriptionIDEAEventIncluded { get; }
+        public bool IsStudentIEPServicePrescriptionStaffsItemCreatable { get; }
+        public Func<IStudentIEPServicePrescriptionStaff, bool> IsStudentIEPServicePrescriptionStaffIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "BeginDate":
+                    return IsBeginDateSupported;
+                case "Duration":
+                    return IsDurationSupported;
+                case "DurationIntervalDescriptor":
+                    return IsDurationIntervalDescriptorSupported;
+                case "EndDate":
+                    return IsEndDateSupported;
+                case "Frequency":
+                    return IsFrequencySupported;
+                case "FrequencyIntervalDescriptor":
+                    return IsFrequencyIntervalDescriptorSupported;
+                case "ServiceLocationTypeDescriptor":
+                    return IsServiceLocationTypeDescriptorSupported;
+                case "StudentIEPReference":
+                    return IsStudentIEPReferenceSupported;
+                case "StudentIEPServicePrescriptionIDEAEvents":
+                    return IsStudentIEPServicePrescriptionIDEAEventsSupported;
+                case "StudentIEPServicePrescriptionStaffs":
+                    return IsStudentIEPServicePrescriptionStaffsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "IEPFinalizedDate":
+                    return true;
+                case "ServicePrescriptionDate":
+                    return true;
+                case "ServicePrescriptionDescriptor":
+                    return true;
+                case "StudentIEPIdentifier":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentIEPServicePrescriptionIDEAEvents":
+                    return IsStudentIEPServicePrescriptionIDEAEventsItemCreatable;
+                case "StudentIEPServicePrescriptionStaffs":
+                    return IsStudentIEPServicePrescriptionStaffsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPServicePrescriptionIDEAEvent model.
+    /// </summary>
+    public interface IStudentIEPServicePrescriptionIDEAEvent : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentIEPServicePrescription StudentIEPServicePrescription { get; set; }
+        
+        string IDEAEventDescriptor { get; set; }
+        
+        string IDEAEventIdentifier { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? IDEAEventResourceId { get; set; }
+        string IDEAEventDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPServicePrescriptionIDEAEventMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPServicePrescriptionIDEAEventMappingContract(
+            bool isIDEAEventReferenceSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsIDEAEventReferenceSupported = isIDEAEventReferenceSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsIDEAEventReferenceSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "IDEAEventReference":
+                    return IsIDEAEventReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "IDEAEventDescriptor":
+                    return true;
+                case "IDEAEventIdentifier":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentIEPServicePrescriptionStaff model.
+    /// </summary>
+    public interface IStudentIEPServicePrescriptionStaff : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentIEPServicePrescription StudentIEPServicePrescription { get; set; }
+        
+        string StaffUniqueId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? StaffResourceId { get; set; }
+        string StaffDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentIEPServicePrescriptionStaffMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentIEPServicePrescriptionStaffMappingContract(
+            bool isStaffReferenceSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsStaffReferenceSupported = isStaffReferenceSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsStaffReferenceSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StaffReference":
+                    return IsStaffReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "StaffUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
     }
 
     /// <summary>

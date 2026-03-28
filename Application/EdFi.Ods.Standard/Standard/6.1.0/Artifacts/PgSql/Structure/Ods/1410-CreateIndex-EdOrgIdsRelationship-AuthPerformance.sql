@@ -100,6 +100,8 @@ CREATE INDEX IF NOT EXISTS IX_GradingPeriod_SchoolId ON edfi.GradingPeriod(Schoo
 
 CREATE INDEX IF NOT EXISTS IX_GraduationPlan_EducationOrganizationId ON edfi.GraduationPlan(EducationOrganizationId) INCLUDE (Id);
 
+CREATE INDEX IF NOT EXISTS IX_IDEAEvent_EducationOrganizationId ON edfi.IDEAEvent(EducationOrganizationId) INCLUDE (Id);
+
 CREATE INDEX IF NOT EXISTS IX_Intervention_EducationOrganizationId ON edfi.Intervention(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_InterventionPrescription_EducationOrganizationId ON edfi.InterventionPrescription(EducationOrganizationId) INCLUDE (Id);
@@ -215,6 +217,14 @@ CREATE INDEX IF NOT EXISTS IX_StudentEducationOrganizationResponsibilityAssociat
 CREATE INDEX IF NOT EXISTS IX_StudentHealth_EducationOrganizationId ON edfi.StudentHealth(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_StudentIdentificationCode_EducationOrganizationId ON edfi.StudentIdentificationCode(EducationOrganizationId) INCLUDE (Id);
+
+CREATE INDEX IF NOT EXISTS IX_StudentIEP_EducationOrganizationId ON edfi.StudentIEP(EducationOrganizationId) INCLUDE (Id);
+
+CREATE INDEX IF NOT EXISTS IX_StudentIEPGoal_EducationOrganizationId ON edfi.StudentIEPGoal(EducationOrganizationId) INCLUDE (Id);
+
+CREATE INDEX IF NOT EXISTS IX_StudentIEPServiceDelivery_EducationOrganizationId ON edfi.StudentIEPServiceDelivery(EducationOrganizationId) INCLUDE (Id);
+
+CREATE INDEX IF NOT EXISTS IX_StudentIEPServicePrescription_EducationOrganizationId ON edfi.StudentIEPServicePrescription(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_StudentInterventionAssociation_EducationOrganizationId ON edfi.StudentInterventionAssociation(EducationOrganizationId) INCLUDE (Id);
 

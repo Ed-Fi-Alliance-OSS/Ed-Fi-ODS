@@ -133,6 +133,8 @@ ALTER TABLE [edfi].[GradingPeriod] ADD [CreatedByOwnershipTokenId] SMALLINT NULL
 
 ALTER TABLE [edfi].[GraduationPlan] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
+ALTER TABLE [edfi].[IDEAEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
 ALTER TABLE [edfi].[Intervention] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[InterventionPrescription] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
@@ -286,6 +288,14 @@ ALTER TABLE [edfi].[StudentGradebookEntry] ADD [CreatedByOwnershipTokenId] SMALL
 ALTER TABLE [edfi].[StudentHealth] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StudentIdentificationCode] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
+ALTER TABLE [edfi].[StudentIEP] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
+ALTER TABLE [edfi].[StudentIEPGoal] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
+ALTER TABLE [edfi].[StudentIEPServiceDelivery] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
+ALTER TABLE [edfi].[StudentIEPServicePrescription] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StudentInterventionAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 

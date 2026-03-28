@@ -65,6 +65,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class AddressCharacteristicDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AddressCharacteristicDescriptor.EdFi.AddressCharacteristicDescriptor, Entities.NHibernate.AddressCharacteristicDescriptorAggregate.EdFi.AddressCharacteristicDescriptor>
+    {
+        public AddressCharacteristicDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class AddressTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AddressTypeDescriptor.EdFi.AddressTypeDescriptor, Entities.NHibernate.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptor>
     {
         public AddressTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -755,6 +761,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class DurationIntervalDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.DurationIntervalDescriptor.EdFi.DurationIntervalDescriptor, Entities.NHibernate.DurationIntervalDescriptorAggregate.EdFi.DurationIntervalDescriptor>
+    {
+        public DurationIntervalDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class EconomicDisadvantageDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EconomicDisadvantageDescriptor.EdFi.EconomicDisadvantageDescriptor, Entities.NHibernate.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptor>
     {
         public EconomicDisadvantageDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -989,6 +1001,18 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class EventComplianceDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EventComplianceDescriptor.EdFi.EventComplianceDescriptor, Entities.NHibernate.EventComplianceDescriptorAggregate.EdFi.EventComplianceDescriptor>
+    {
+        public EventComplianceDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EventReasonDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EventReasonDescriptor.EdFi.EventReasonDescriptor, Entities.NHibernate.EventReasonDescriptorAggregate.EdFi.EventReasonDescriptor>
+    {
+        public EventReasonDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class ExitWithdrawTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ExitWithdrawTypeDescriptor.EdFi.ExitWithdrawTypeDescriptor, Entities.NHibernate.ExitWithdrawTypeDescriptorAggregate.EdFi.ExitWithdrawTypeDescriptor>
     {
         public ExitWithdrawTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1034,6 +1058,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class FinancialCollectionDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.FinancialCollectionDescriptor.EdFi.FinancialCollectionDescriptor, Entities.NHibernate.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptor>
     {
         public FinancialCollectionDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FrequencyIntervalDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.FrequencyIntervalDescriptor.EdFi.FrequencyIntervalDescriptor, Entities.NHibernate.FrequencyIntervalDescriptorAggregate.EdFi.FrequencyIntervalDescriptor>
+    {
+        public FrequencyIntervalDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1157,6 +1187,18 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class IDEAEventCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IDEAEvent.EdFi.IDEAEvent, Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEvent>
+    {
+        public IDEAEventCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IDEAEventDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IDEAEventDescriptor.EdFi.IDEAEventDescriptor, Entities.NHibernate.IDEAEventDescriptorAggregate.EdFi.IDEAEventDescriptor>
+    {
+        public IDEAEventDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class IDEAPartDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IDEAPartDescriptor.EdFi.IDEAPartDescriptor, Entities.NHibernate.IDEAPartDescriptorAggregate.EdFi.IDEAPartDescriptor>
     {
         public IDEAPartDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1166,6 +1208,18 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class IdentificationDocumentUseDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IdentificationDocumentUseDescriptor.EdFi.IdentificationDocumentUseDescriptor, Entities.NHibernate.IdentificationDocumentUseDescriptorAggregate.EdFi.IdentificationDocumentUseDescriptor>
     {
         public IdentificationDocumentUseDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IEPGoalTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IEPGoalTypeDescriptor.EdFi.IEPGoalTypeDescriptor, Entities.NHibernate.IEPGoalTypeDescriptorAggregate.EdFi.IEPGoalTypeDescriptor>
+    {
+        public IEPGoalTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IEPStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IEPStatusDescriptor.EdFi.IEPStatusDescriptor, Entities.NHibernate.IEPStatusDescriptorAggregate.EdFi.IEPStatusDescriptor>
+    {
+        public IEPStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2087,9 +2141,33 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class ServiceDeliveryDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ServiceDeliveryDescriptor.EdFi.ServiceDeliveryDescriptor, Entities.NHibernate.ServiceDeliveryDescriptorAggregate.EdFi.ServiceDeliveryDescriptor>
+    {
+        public ServiceDeliveryDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class ServiceDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ServiceDescriptor.EdFi.ServiceDescriptor, Entities.NHibernate.ServiceDescriptorAggregate.EdFi.ServiceDescriptor>
     {
         public ServiceDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ServiceLocationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ServiceLocationTypeDescriptor.EdFi.ServiceLocationTypeDescriptor, Entities.NHibernate.ServiceLocationTypeDescriptorAggregate.EdFi.ServiceLocationTypeDescriptor>
+    {
+        public ServiceLocationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ServicePrescriptionDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ServicePrescriptionDescriptor.EdFi.ServicePrescriptionDescriptor, Entities.NHibernate.ServicePrescriptionDescriptorAggregate.EdFi.ServicePrescriptionDescriptor>
+    {
+        public ServicePrescriptionDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ServiceProviderTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ServiceProviderTypeDescriptor.EdFi.ServiceProviderTypeDescriptor, Entities.NHibernate.ServiceProviderTypeDescriptorAggregate.EdFi.ServiceProviderTypeDescriptor>
+    {
+        public ServiceProviderTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2390,6 +2468,30 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class StudentIdentificationSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentIdentificationSystemDescriptor.EdFi.StudentIdentificationSystemDescriptor, Entities.NHibernate.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptor>
     {
         public StudentIdentificationSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentIEPCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentIEP.EdFi.StudentIEP, Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEP>
+    {
+        public StudentIEPCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentIEPGoalCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentIEPGoal.EdFi.StudentIEPGoal, Entities.NHibernate.StudentIEPGoalAggregate.EdFi.StudentIEPGoal>
+    {
+        public StudentIEPGoalCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentIEPServiceDeliveryCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentIEPServiceDelivery.EdFi.StudentIEPServiceDelivery, Entities.NHibernate.StudentIEPServiceDeliveryAggregate.EdFi.StudentIEPServiceDelivery>
+    {
+        public StudentIEPServiceDeliveryCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentIEPServicePrescriptionCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentIEPServicePrescription.EdFi.StudentIEPServicePrescription, Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescription>
+    {
+        public StudentIEPServicePrescriptionCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

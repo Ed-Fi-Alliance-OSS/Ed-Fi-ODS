@@ -307,6 +307,18 @@
     <!-- Back references -->
 
     <!-- Collections -->
+    <set name="ApplicantProfileAddressCharacteristics" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="ApplicantProfileIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ApplicantProfileAggregate.EdFi.ApplicantProfileAddressCharacteristic" />
+    </set>
+
     <set name="ApplicantProfileAddressPeriods" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="AddressTypeDescriptorId" />
@@ -319,6 +331,35 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.ApplicantProfileAggregate.EdFi.ApplicantProfileAddressPeriod" />
     </set>
 
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ApplicantProfileAggregate.EdFi.ApplicantProfileAddressCharacteristic" table="ApplicantProfileAddressCharacteristic" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AddressCharacteristicDescriptorId" column="AddressCharacteristicDescriptorId" type="int" />
+      <key-many-to-one name="ApplicantProfileAddress">
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="ApplicantProfileIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
 </class>
 
 
@@ -2703,6 +2744,18 @@
     <!-- Back references -->
 
     <!-- Collections -->
+    <set name="CandidateAddressCharacteristics" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.EdFi.CandidateAddressCharacteristic" />
+    </set>
+
     <set name="CandidateAddressPeriods" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="AddressTypeDescriptorId" />
@@ -2715,6 +2768,35 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.EdFi.CandidateAddressPeriod" />
     </set>
 
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.EdFi.CandidateAddressCharacteristic" table="CandidateAddressCharacteristic" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AddressCharacteristicDescriptorId" column="AddressCharacteristicDescriptorId" type="int" />
+      <key-many-to-one name="CandidateAddress">
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
 </class>
 
 
@@ -4352,6 +4434,18 @@
     <!-- Back references -->
 
     <!-- Collections -->
+    <set name="ContactAddressCharacteristics" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="ContactUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ContactAggregate.EdFi.ContactAddressCharacteristic" />
+    </set>
+
     <set name="ContactAddressPeriods" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="AddressTypeDescriptorId" />
@@ -4364,6 +4458,35 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.ContactAggregate.EdFi.ContactAddressPeriod" />
     </set>
 
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ContactAggregate.EdFi.ContactAddressCharacteristic" table="ContactAddressCharacteristic" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AddressCharacteristicDescriptorId" column="AddressCharacteristicDescriptorId" type="int" />
+      <key-many-to-one name="ContactAddress">
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="ContactUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
 </class>
 
 
@@ -5987,6 +6110,22 @@
           <!-- Collections -->
       </join>
     </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AddressCharacteristicDescriptorAggregate.EdFi.AddressCharacteristicDescriptor" lazy="false" discriminator-value="edfi.AddressCharacteristicDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AddressCharacteristicDescriptor" >
+          <key>
+            <column name="AddressCharacteristicDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="AddressCharacteristicDescriptorId" column="AddressCharacteristicDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptor" lazy="false" discriminator-value="edfi.AddressTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="AddressTypeDescriptor" >
           <key>
@@ -7219,6 +7358,22 @@
           <!-- Collections -->
       </join>
     </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DurationIntervalDescriptorAggregate.EdFi.DurationIntervalDescriptor" lazy="false" discriminator-value="edfi.DurationIntervalDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DurationIntervalDescriptor" >
+          <key>
+            <column name="DurationIntervalDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="DurationIntervalDescriptorId" column="DurationIntervalDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.EconomicDisadvantageDescriptorAggregate.EdFi.EconomicDisadvantageDescriptor" lazy="false" discriminator-value="edfi.EconomicDisadvantageDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="EconomicDisadvantageDescriptor" >
           <key>
@@ -7603,6 +7758,38 @@
           <!-- Collections -->
       </join>
     </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EventComplianceDescriptorAggregate.EdFi.EventComplianceDescriptor" lazy="false" discriminator-value="edfi.EventComplianceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EventComplianceDescriptor" >
+          <key>
+            <column name="EventComplianceDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="EventComplianceDescriptorId" column="EventComplianceDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EventReasonDescriptorAggregate.EdFi.EventReasonDescriptor" lazy="false" discriminator-value="edfi.EventReasonDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EventReasonDescriptor" >
+          <key>
+            <column name="EventReasonDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="EventReasonDescriptorId" column="EventReasonDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.ExitWithdrawTypeDescriptorAggregate.EdFi.ExitWithdrawTypeDescriptor" lazy="false" discriminator-value="edfi.ExitWithdrawTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="ExitWithdrawTypeDescriptor" >
           <key>
@@ -7659,6 +7846,22 @@
 
           <!-- PK properties -->
           <property name="FinancialCollectionDescriptorId" column="FinancialCollectionDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.FrequencyIntervalDescriptorAggregate.EdFi.FrequencyIntervalDescriptor" lazy="false" discriminator-value="edfi.FrequencyIntervalDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="FrequencyIntervalDescriptor" >
+          <key>
+            <column name="FrequencyIntervalDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="FrequencyIntervalDescriptorId" column="FrequencyIntervalDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -7875,6 +8078,22 @@
           <!-- Collections -->
       </join>
     </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.IDEAEventDescriptorAggregate.EdFi.IDEAEventDescriptor" lazy="false" discriminator-value="edfi.IDEAEventDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="IDEAEventDescriptor" >
+          <key>
+            <column name="IDEAEventDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.IDEAPartDescriptorAggregate.EdFi.IDEAPartDescriptor" lazy="false" discriminator-value="edfi.IDEAPartDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="IDEAPartDescriptor" >
           <key>
@@ -7899,6 +8118,38 @@
 
           <!-- PK properties -->
           <property name="IdentificationDocumentUseDescriptorId" column="IdentificationDocumentUseDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.IEPGoalTypeDescriptorAggregate.EdFi.IEPGoalTypeDescriptor" lazy="false" discriminator-value="edfi.IEPGoalTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="IEPGoalTypeDescriptor" >
+          <key>
+            <column name="IEPGoalTypeDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="IEPGoalTypeDescriptorId" column="IEPGoalTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.IEPStatusDescriptorAggregate.EdFi.IEPStatusDescriptor" lazy="false" discriminator-value="edfi.IEPStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="IEPStatusDescriptor" >
+          <key>
+            <column name="IEPStatusDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="IEPStatusDescriptorId" column="IEPStatusDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -9619,6 +9870,22 @@
           <!-- Collections -->
       </join>
     </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ServiceDeliveryDescriptorAggregate.EdFi.ServiceDeliveryDescriptor" lazy="false" discriminator-value="edfi.ServiceDeliveryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ServiceDeliveryDescriptor" >
+          <key>
+            <column name="ServiceDeliveryDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ServiceDeliveryDescriptorId" column="ServiceDeliveryDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.ServiceDescriptorAggregate.EdFi.ServiceDescriptor" lazy="false" discriminator-value="edfi.ServiceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="ServiceDescriptor" >
           <key>
@@ -9627,6 +9894,54 @@
 
           <!-- PK properties -->
           <property name="ServiceDescriptorId" column="ServiceDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ServiceLocationTypeDescriptorAggregate.EdFi.ServiceLocationTypeDescriptor" lazy="false" discriminator-value="edfi.ServiceLocationTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ServiceLocationTypeDescriptor" >
+          <key>
+            <column name="ServiceLocationTypeDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ServiceLocationTypeDescriptorId" column="ServiceLocationTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ServicePrescriptionDescriptorAggregate.EdFi.ServicePrescriptionDescriptor" lazy="false" discriminator-value="edfi.ServicePrescriptionDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ServicePrescriptionDescriptor" >
+          <key>
+            <column name="ServicePrescriptionDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ServicePrescriptionDescriptorId" column="ServicePrescriptionDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ServiceProviderTypeDescriptorAggregate.EdFi.ServiceProviderTypeDescriptor" lazy="false" discriminator-value="edfi.ServiceProviderTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ServiceProviderTypeDescriptor" >
+          <key>
+            <column name="ServiceProviderTypeDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ServiceProviderTypeDescriptorId" column="ServiceProviderTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -11231,6 +11546,18 @@
     <!-- Back references -->
 
     <!-- Collections -->
+    <set name="EducationOrganizationAddressCharacteristics" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="EducationOrganizationId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationAddressCharacteristic" />
+    </set>
+
     <set name="EducationOrganizationAddressPeriods" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="AddressTypeDescriptorId" />
@@ -11243,6 +11570,35 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationAddressPeriod" />
     </set>
 
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationAddressCharacteristic" table="EducationOrganizationAddressCharacteristic" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AddressCharacteristicDescriptorId" column="AddressCharacteristicDescriptorId" type="int" />
+      <key-many-to-one name="EducationOrganizationAddress">
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="EducationOrganizationId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
 </class>
 
 
@@ -14468,6 +14824,66 @@
     <many-to-one name="CertificationReferenceData" class="EdFi.Ods.Entities.NHibernate.CertificationAggregate.EdFi.CertificationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="CertificationIdentifier" />
       <column name="Namespace" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEventReferenceData" table="IDEAEvent" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
+            <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int"  />
+            <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string"  length="120"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEvent" table="IDEAEvent" lazy="false" discriminator-value="null">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" />
+      <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string" length="120" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Properties -->
+    <property name="BeginDate" column="BeginDate" type="date" not-null="true" />
+    <property name="EndDate" column="EndDate" type="date" />
+    <property name="EventComplianceDescriptorId" column="EventComplianceDescriptorId" type="int" />
+    <property name="EventNarrative" column="EventNarrative" type="string" length="2048" />
+    <property name="EventReasonDescriptorId" column="EventReasonDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+    </many-to-one>
+    <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StudentUSI" />
     </many-to-one>
 
     <!-- Back references -->
@@ -20912,6 +21328,19 @@
     <!-- Back references -->
 
     <!-- Collections -->
+    <set name="StaffDirectoryAddressCharacteristics" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="EducationOrganizationId" />
+        <column name="StaffUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StaffDirectoryAggregate.EdFi.StaffDirectoryAddressCharacteristic" />
+    </set>
+
     <set name="StaffDirectoryAddressPeriods" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="AddressTypeDescriptorId" />
@@ -20925,6 +21354,36 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StaffDirectoryAggregate.EdFi.StaffDirectoryAddressPeriod" />
     </set>
 
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StaffDirectoryAggregate.EdFi.StaffDirectoryAddressCharacteristic" table="StaffDirectoryAddressCharacteristic" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AddressCharacteristicDescriptorId" column="AddressCharacteristicDescriptorId" type="int" />
+      <key-many-to-one name="StaffDirectoryAddress">
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="EducationOrganizationId" />
+        <column name="StaffUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
 </class>
 
 
@@ -24114,6 +24573,19 @@
     <!-- Back references -->
 
     <!-- Collections -->
+    <set name="StudentDirectoryAddressCharacteristics" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentDirectoryAggregate.EdFi.StudentDirectoryAddressCharacteristic" />
+    </set>
+
     <set name="StudentDirectoryAddressPeriods" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="AddressTypeDescriptorId" />
@@ -24127,6 +24599,36 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentDirectoryAggregate.EdFi.StudentDirectoryAddressPeriod" />
     </set>
 
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentDirectoryAggregate.EdFi.StudentDirectoryAddressCharacteristic" table="StudentDirectoryAddressCharacteristic" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AddressCharacteristicDescriptorId" column="AddressCharacteristicDescriptorId" type="int" />
+      <key-many-to-one name="StudentDirectoryAddress">
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
 </class>
 
 
@@ -24807,10 +25309,14 @@
 
     <!-- Properties -->
     <property name="EndDate" column="EndDate" type="date" />
+    <property name="ResponsibleEducationOrganizationId" column="ResponsibleEducationOrganizationId" type="long" />
 
     <!-- Aggregate references -->
     <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
+    </many-to-one>
+    <many-to-one name="ResponsibleEducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ResponsibleEducationOrganizationId" />
     </many-to-one>
     <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="StudentUSI" />
@@ -25158,6 +25664,708 @@
     </many-to-one>
     <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPReferenceData" table="StudentIEP" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
+            <key-property name="IEPFinalizedDate" column="IEPFinalizedDate" type="date"  />
+            <key-property name="StudentIEPIdentifier" column="StudentIEPIdentifier" type="string"  length="120"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEP" table="StudentIEP" lazy="false" discriminator-value="null">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="IEPFinalizedDate" column="IEPFinalizedDate" type="date" />
+      <key-property name="StudentIEPIdentifier" column="StudentIEPIdentifier" type="string" length="120" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Properties -->
+    <property name="IEPAmendedDate" column="IEPAmendedDate" type="date" />
+    <property name="IEPBeginDate" column="IEPBeginDate" type="date" not-null="true" />
+    <property name="IEPEndDate" column="IEPEndDate" type="date" not-null="true" />
+    <property name="IEPStatusDescriptorId" column="IEPStatusDescriptorId" type="int" not-null="true" />
+    <property name="MedicallyFragile" column="MedicallyFragile" type="bool" />
+    <property name="MultiplyDisabled" column="MultiplyDisabled" type="bool" />
+    <property name="ReasonExitedDescriptorId" column="ReasonExitedDescriptorId" type="int" />
+    <property name="SchoolHoursPerWeek" column="SchoolHoursPerWeek" type="decimal" />
+    <property name="SpecialEducationHoursPerWeek" column="SpecialEducationHoursPerWeek" type="decimal" />
+    <property name="SpecialEducationSettingDescriptorId" column="SpecialEducationSettingDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+    </many-to-one>
+    <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentIEPAccommodations" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPAccommodation" />
+    </set>
+
+    <set name="StudentIEPDisabilities" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPDisability" />
+    </set>
+
+    <set name="StudentIEPIDEAEvents" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPIDEAEvent" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPAccommodation" table="StudentIEPAccommodation" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AccommodationDescriptorId" column="AccommodationDescriptorId" type="int" />
+      <key-many-to-one name="StudentIEP">
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPDisability" table="StudentIEPDisability" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="DisabilityDescriptorId" column="DisabilityDescriptorId" type="int" />
+      <key-many-to-one name="StudentIEP">
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="DisabilityDeterminationSourceTypeDescriptorId" column="DisabilityDeterminationSourceTypeDescriptorId" type="int" />
+    <property name="DisabilityDiagnosis" column="DisabilityDiagnosis" type="string" length="80" />
+    <property name="OrderOfDisability" column="OrderOfDisability" type="int" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentIEPDisabilityDesignations" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="DisabilityDescriptorId" />
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPDisabilityDesignation" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPDisabilityDesignation" table="StudentIEPDisabilityDesignation" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="DisabilityDesignationDescriptorId" column="DisabilityDesignationDescriptorId" type="int" />
+      <key-many-to-one name="StudentIEPDisability">
+        <column name="DisabilityDescriptorId" />
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPIDEAEvent" table="StudentIEPIDEAEvent" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" />
+      <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string" length="120" />
+      <key-many-to-one name="StudentIEP">
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="IDEAEventReferenceData" class="EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEventReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="IDEAEventDescriptorId" />
+      <column name="IDEAEventIdentifier" />
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StudentIEPGoalAggregate.EdFi.StudentIEPGoalReferenceData" table="StudentIEPGoal" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
+            <key-property name="IEPFinalizedDate" column="IEPFinalizedDate" type="date"  />
+            <key-property name="IEPGoalIdentifier" column="IEPGoalIdentifier" type="string"  length="120"  />
+            <key-property name="StudentIEPIdentifier" column="StudentIEPIdentifier" type="string"  length="120"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPGoalAggregate.EdFi.StudentIEPGoal" table="StudentIEPGoal" lazy="false" discriminator-value="null">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="IEPFinalizedDate" column="IEPFinalizedDate" type="date" />
+      <key-property name="IEPGoalIdentifier" column="IEPGoalIdentifier" type="string" length="120" />
+      <key-property name="StudentIEPIdentifier" column="StudentIEPIdentifier" type="string" length="120" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Properties -->
+    <property name="IEPGoalDetails" column="IEPGoalDetails" type="string" length="2048" not-null="true" />
+    <property name="IEPGoalTypeDescriptorId" column="IEPGoalTypeDescriptorId" type="int" not-null="true" />
+
+    <!-- One-to-one child mappings -->
+    <set name="StudentIEPGoalAchievementPeriod" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="IEPGoalIdentifier" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentIEPGoalAggregate.EdFi.StudentIEPGoalAchievementPeriod" />
+    </set>
+
+    <!-- Aggregate references -->
+    <many-to-one name="StudentIEPReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="IEPFinalizedDate" />
+      <column name="StudentIEPIdentifier" />
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentIEPGoalIDEAEvents" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="IEPGoalIdentifier" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentIEPGoalAggregate.EdFi.StudentIEPGoalIDEAEvent" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPGoalAggregate.EdFi.StudentIEPGoalAchievementPeriod" table="StudentIEPGoalAchievementPeriod" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="StudentIEPGoal">
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="IEPGoalIdentifier" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="BeginDate" column="BeginDate" type="date" not-null="true" />
+    <property name="EndDate" column="EndDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPGoalAggregate.EdFi.StudentIEPGoalIDEAEvent" table="StudentIEPGoalIDEAEvent" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" />
+      <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string" length="120" />
+      <key-many-to-one name="StudentIEPGoal">
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="IEPGoalIdentifier" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="IDEAEventReferenceData" class="EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEventReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="IDEAEventDescriptorId" />
+      <column name="IDEAEventIdentifier" />
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StudentIEPServiceDeliveryAggregate.EdFi.StudentIEPServiceDeliveryReferenceData" table="StudentIEPServiceDelivery" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
+            <key-property name="IEPFinalizedDate" column="IEPFinalizedDate" type="date"  />
+            <key-property name="IEPServiceDeliveryIdentifier" column="IEPServiceDeliveryIdentifier" type="string"  length="120"  />
+            <key-property name="ServiceDeliveryDate" column="ServiceDeliveryDate" type="date"  />
+            <key-property name="ServiceDeliveryDescriptorId" column="ServiceDeliveryDescriptorId" type="int"  />
+            <key-property name="StudentIEPIdentifier" column="StudentIEPIdentifier" type="string"  length="120"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPServiceDeliveryAggregate.EdFi.StudentIEPServiceDelivery" table="StudentIEPServiceDelivery" lazy="false" discriminator-value="null">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="IEPFinalizedDate" column="IEPFinalizedDate" type="date" />
+      <key-property name="IEPServiceDeliveryIdentifier" column="IEPServiceDeliveryIdentifier" type="string" length="120" />
+      <key-property name="ServiceDeliveryDate" column="ServiceDeliveryDate" type="date" />
+      <key-property name="ServiceDeliveryDescriptorId" column="ServiceDeliveryDescriptorId" type="int" />
+      <key-property name="StudentIEPIdentifier" column="StudentIEPIdentifier" type="string" length="120" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Properties -->
+    <property name="ServicePrescriptionDate" column="ServicePrescriptionDate" type="date" />
+    <property name="ServicePrescriptionDescriptorId" column="ServicePrescriptionDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="StudentIEPReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="IEPFinalizedDate" />
+      <column name="StudentIEPIdentifier" />
+      <column name="StudentUSI" />
+    </many-to-one>
+    <many-to-one name="StudentIEPServicePrescriptionReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescriptionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="IEPFinalizedDate" />
+      <column name="ServicePrescriptionDate" />
+      <column name="ServicePrescriptionDescriptorId" />
+      <column name="StudentIEPIdentifier" />
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentIEPServiceDeliveryIDEAEvents" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="IEPServiceDeliveryIdentifier" />
+        <column name="ServiceDeliveryDate" />
+        <column name="ServiceDeliveryDescriptorId" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentIEPServiceDeliveryAggregate.EdFi.StudentIEPServiceDeliveryIDEAEvent" />
+    </set>
+
+    <set name="StudentIEPServiceDeliveryProviders" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="IEPServiceDeliveryIdentifier" />
+        <column name="ServiceDeliveryDate" />
+        <column name="ServiceDeliveryDescriptorId" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentIEPServiceDeliveryAggregate.EdFi.StudentIEPServiceDeliveryProvider" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPServiceDeliveryAggregate.EdFi.StudentIEPServiceDeliveryIDEAEvent" table="StudentIEPServiceDeliveryIDEAEvent" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" />
+      <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string" length="120" />
+      <key-many-to-one name="StudentIEPServiceDelivery">
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="IEPServiceDeliveryIdentifier" />
+        <column name="ServiceDeliveryDate" />
+        <column name="ServiceDeliveryDescriptorId" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="IDEAEventReferenceData" class="EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEventReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="IDEAEventDescriptorId" />
+      <column name="IDEAEventIdentifier" />
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPServiceDeliveryAggregate.EdFi.StudentIEPServiceDeliveryProvider" table="StudentIEPServiceDeliveryProvider" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="FirstName" column="FirstName" type="string" length="75" />
+      <key-property name="LastSurname" column="LastSurname" type="string" length="75" />
+      <key-many-to-one name="StudentIEPServiceDelivery">
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="IEPServiceDeliveryIdentifier" />
+        <column name="ServiceDeliveryDate" />
+        <column name="ServiceDeliveryDescriptorId" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="MiddleName" column="MiddleName" type="string" length="75" />
+    <property name="PrimaryProvider" column="PrimaryProvider" type="bool" />
+    <property name="ProviderCode" column="ProviderCode" type="string" length="16" />
+    <property name="ServiceProviderTypeDescriptorId" column="ServiceProviderTypeDescriptorId" type="int" />
+    <property name="StaffUSI" column="StaffUSI" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="StaffReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.StaffReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StaffUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescriptionReferenceData" table="StudentIEPServicePrescription" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
+            <key-property name="IEPFinalizedDate" column="IEPFinalizedDate" type="date"  />
+            <key-property name="ServicePrescriptionDate" column="ServicePrescriptionDate" type="date"  />
+            <key-property name="ServicePrescriptionDescriptorId" column="ServicePrescriptionDescriptorId" type="int"  />
+            <key-property name="StudentIEPIdentifier" column="StudentIEPIdentifier" type="string"  length="120"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescription" table="StudentIEPServicePrescription" lazy="false" discriminator-value="null">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="IEPFinalizedDate" column="IEPFinalizedDate" type="date" />
+      <key-property name="ServicePrescriptionDate" column="ServicePrescriptionDate" type="date" />
+      <key-property name="ServicePrescriptionDescriptorId" column="ServicePrescriptionDescriptorId" type="int" />
+      <key-property name="StudentIEPIdentifier" column="StudentIEPIdentifier" type="string" length="120" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Properties -->
+    <property name="BeginDate" column="BeginDate" type="date" not-null="true" />
+    <property name="Duration" column="Duration" type="int" not-null="true" />
+    <property name="DurationIntervalDescriptorId" column="DurationIntervalDescriptorId" type="int" not-null="true" />
+    <property name="EndDate" column="EndDate" type="date" />
+    <property name="Frequency" column="Frequency" type="decimal" not-null="true" />
+    <property name="FrequencyIntervalDescriptorId" column="FrequencyIntervalDescriptorId" type="int" not-null="true" />
+    <property name="ServiceLocationTypeDescriptorId" column="ServiceLocationTypeDescriptorId" type="int" not-null="true" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="StudentIEPReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="IEPFinalizedDate" />
+      <column name="StudentIEPIdentifier" />
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentIEPServicePrescriptionIDEAEvents" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="ServicePrescriptionDate" />
+        <column name="ServicePrescriptionDescriptorId" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescriptionIDEAEvent" />
+    </set>
+
+    <set name="StudentIEPServicePrescriptionStaffs" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="ServicePrescriptionDate" />
+        <column name="ServicePrescriptionDescriptorId" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescriptionStaff" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescriptionIDEAEvent" table="StudentIEPServicePrescriptionIDEAEvent" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" />
+      <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string" length="120" />
+      <key-many-to-one name="StudentIEPServicePrescription">
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="ServicePrescriptionDate" />
+        <column name="ServicePrescriptionDescriptorId" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="IDEAEventReferenceData" class="EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEventReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="IDEAEventDescriptorId" />
+      <column name="IDEAEventIdentifier" />
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescriptionStaff" table="StudentIEPServicePrescriptionStaff" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="StaffUSI" column="StaffUSI" type="int" />
+      <key-many-to-one name="StudentIEPServicePrescription">
+        <column name="EducationOrganizationId" />
+        <column name="IEPFinalizedDate" />
+        <column name="ServicePrescriptionDate" />
+        <column name="ServicePrescriptionDescriptorId" />
+        <column name="StudentIEPIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="StaffReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.StaffReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StaffUSI" />
     </many-to-one>
 
     <!-- Back references -->

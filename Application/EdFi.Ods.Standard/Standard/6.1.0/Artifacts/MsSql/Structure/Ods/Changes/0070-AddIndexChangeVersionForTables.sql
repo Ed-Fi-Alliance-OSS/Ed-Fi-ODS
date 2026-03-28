@@ -394,6 +394,12 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.IDEAEvent') AND name = N'UX_IDEAEvent_ChangeVersion')
+    CREATE INDEX [UX_IDEAEvent_ChangeVersion] ON [edfi].[IDEAEvent] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Intervention') AND name = N'UX_Intervention_ChangeVersion')
     CREATE INDEX [UX_Intervention_ChangeVersion] ON [edfi].[Intervention] ([ChangeVersion] ASC)
     GO
@@ -846,6 +852,30 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentHealth') AND name = N'UX_StudentHealth_ChangeVersion')
     CREATE INDEX [UX_StudentHealth_ChangeVersion] ON [edfi].[StudentHealth] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIEP') AND name = N'UX_StudentIEP_ChangeVersion')
+    CREATE INDEX [UX_StudentIEP_ChangeVersion] ON [edfi].[StudentIEP] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIEPGoal') AND name = N'UX_StudentIEPGoal_ChangeVersion')
+    CREATE INDEX [UX_StudentIEPGoal_ChangeVersion] ON [edfi].[StudentIEPGoal] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIEPServiceDelivery') AND name = N'UX_StudentIEPServiceDelivery_ChangeVersion')
+    CREATE INDEX [UX_StudentIEPServiceDelivery_ChangeVersion] ON [edfi].[StudentIEPServiceDelivery] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIEPServicePrescription') AND name = N'UX_StudentIEPServicePrescription_ChangeVersion')
+    CREATE INDEX [UX_StudentIEPServicePrescription_ChangeVersion] ON [edfi].[StudentIEPServicePrescription] ([ChangeVersion] ASC)
     GO
 COMMIT
 

@@ -459,6 +459,13 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.IDEAEvent') AND name = N'UX_IDEAEvent_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_IDEAEvent_Id ON [edfi].[IDEAEvent]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Intervention') AND name = N'UX_Intervention_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_Intervention_Id ON [edfi].[Intervention]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
@@ -993,6 +1000,34 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIdentificationCode') AND name = N'UX_StudentIdentificationCode_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_StudentIdentificationCode_Id ON [edfi].[StudentIdentificationCode]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIEP') AND name = N'UX_StudentIEP_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentIEP_Id ON [edfi].[StudentIEP]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIEPGoal') AND name = N'UX_StudentIEPGoal_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentIEPGoal_Id ON [edfi].[StudentIEPGoal]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIEPServiceDelivery') AND name = N'UX_StudentIEPServiceDelivery_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentIEPServiceDelivery_Id ON [edfi].[StudentIEPServiceDelivery]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentIEPServicePrescription') AND name = N'UX_StudentIEPServicePrescription_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentIEPServicePrescription_Id ON [edfi].[StudentIEPServicePrescription]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT

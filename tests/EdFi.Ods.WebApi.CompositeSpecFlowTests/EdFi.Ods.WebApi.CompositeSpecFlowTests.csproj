@@ -39,7 +39,7 @@
   </Choose>
   <Target Name="CopyDirectory" AfterTargets="AfterBuild" Condition=" '$(StandardVersion)' == '6.1.0' ">
     <ItemGroup>
-      <MySourceDirectory Include="$(MSBuildProjectDirectory)\6.0.0\**\*" />
+      <MySourceDirectory Include="$(MSBuildProjectDirectory)\6.1.0\**\*" />
       <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />
     </ItemGroup>
     <Copy SourceFiles="@(MySourceDirectory)" DestinationFiles="@(MySourceDirectory->'$(MSBuildProjectDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
@@ -81,6 +81,6 @@
   <ItemGroup>
     <Folder Include="4.0.0\" />
     <Folder Include="5.2.0\" />
-    <Folder Include="6.0.0\" />
+    <Folder Include="6.1.0\" />
   </ItemGroup>
 </Project>

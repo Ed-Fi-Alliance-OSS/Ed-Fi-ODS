@@ -329,6 +329,11 @@ ALTER TABLE edfi.GraduationPlan ADD COLUMN AggregateId int NOT NULL DEFAULT next
 CREATE INDEX ix_GraduationPlan_aggid ON edfi.GraduationPlan (AggregateId);
 
 
+CREATE SEQUENCE edfi.IDEAEvent_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.IDEAEvent ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.IDEAEvent_aggseq'), ADD COLUMN AggregateData bytea;
+CREATE INDEX ix_IDEAEvent_aggid ON edfi.IDEAEvent (AggregateId);
+
+
 CREATE SEQUENCE edfi.Intervention_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.Intervention ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.Intervention_aggseq'), ADD COLUMN AggregateData bytea;
 CREATE INDEX ix_Intervention_aggid ON edfi.Intervention (AggregateId);
@@ -712,6 +717,26 @@ CREATE INDEX ix_StudentHealth_aggid ON edfi.StudentHealth (AggregateId);
 CREATE SEQUENCE edfi.StudentIdentificationCode_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.StudentIdentificationCode ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StudentIdentificationCode_aggseq'), ADD COLUMN AggregateData bytea;
 CREATE INDEX ix_StudentIdentificationCode_aggid ON edfi.StudentIdentificationCode (AggregateId);
+
+
+CREATE SEQUENCE edfi.StudentIEP_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.StudentIEP ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StudentIEP_aggseq'), ADD COLUMN AggregateData bytea;
+CREATE INDEX ix_StudentIEP_aggid ON edfi.StudentIEP (AggregateId);
+
+
+CREATE SEQUENCE edfi.StudentIEPGoal_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.StudentIEPGoal ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StudentIEPGoal_aggseq'), ADD COLUMN AggregateData bytea;
+CREATE INDEX ix_StudentIEPGoal_aggid ON edfi.StudentIEPGoal (AggregateId);
+
+
+CREATE SEQUENCE edfi.StudentIEPServiceDelivery_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.StudentIEPServiceDelivery ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StudentIEPServiceDelivery_aggseq'), ADD COLUMN AggregateData bytea;
+CREATE INDEX ix_StudentIEPServiceDelivery_aggid ON edfi.StudentIEPServiceDelivery (AggregateId);
+
+
+CREATE SEQUENCE edfi.StudentIEPServicePrescription_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.StudentIEPServicePrescription ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.StudentIEPServicePrescription_aggseq'), ADD COLUMN AggregateData bytea;
+CREATE INDEX ix_StudentIEPServicePrescription_aggid ON edfi.StudentIEPServicePrescription (AggregateId);
 
 
 CREATE SEQUENCE edfi.StudentInterventionAssociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;

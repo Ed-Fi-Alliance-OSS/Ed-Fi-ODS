@@ -133,6 +133,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_5a18f9_Id ON edfi.GradingPeriod(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_be1ea4_Id ON edfi.GraduationPlan(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_a16a88_Id ON edfi.IDEAEvent(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_0fae05_Id ON edfi.Intervention(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_e93bc3_Id ON edfi.InterventionPrescription(Id);
@@ -286,6 +288,14 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_c2efaa_Id ON edfi.StudentGradebookEntry(Id)
 CREATE UNIQUE INDEX IF NOT EXISTS UX_12f7e6_Id ON edfi.StudentHealth(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_06688a_Id ON edfi.StudentIdentificationCode(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_d153ae_Id ON edfi.StudentIEP(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_5453a5_Id ON edfi.StudentIEPGoal(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_524fcd_Id ON edfi.StudentIEPServiceDelivery(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_d0ad1a_Id ON edfi.StudentIEPServicePrescription(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_25cb9c_Id ON edfi.StudentInterventionAssociation(Id);
 

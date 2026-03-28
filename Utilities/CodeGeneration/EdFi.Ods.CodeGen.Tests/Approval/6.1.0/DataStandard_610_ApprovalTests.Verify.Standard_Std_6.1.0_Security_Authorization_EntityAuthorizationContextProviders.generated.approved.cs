@@ -62,6 +62,7 @@ using EdFi.Ods.Entities.NHibernate.GradeAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.GradebookEntryAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.GradingPeriodAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.GraduationPlanAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.InterventionAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.InterventionPrescriptionAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.InterventionStudyAggregate.EdFi;
@@ -133,6 +134,10 @@ using EdFi.Ods.Entities.NHibernate.StudentGradebookEntryAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentHomelessProgramAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentIdentificationCodeAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StudentIEPGoalAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StudentIEPServiceDeliveryAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentInterventionAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentInterventionAttendanceEventAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentLanguageInstructionProgramAssociationAggregate.EdFi;
@@ -2576,6 +2581,51 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public RelationshipsAuthorizationContextData GetContextData(object resource)
         {
             return GetContextData((GraduationPlan) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.IDEAEvent table of the IDEAEvent aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class IDEAEventRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IIDEAEvent>
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public RelationshipsAuthorizationContextData GetContextData(IIDEAEvent resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'ideaEvent' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as IDEAEvent;
+
+            var contextData = new RelationshipsAuthorizationContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
+        {
+            return GetContextData((IDEAEvent) resource);
         }
     }
 
@@ -5541,6 +5591,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 
             var contextData = new RelationshipsAuthorizationContextData();
             contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            // ResponsibleEducationOrganizationId = entity.ResponsibleEducationOrganizationId, // Role name applied and not part of primary key
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -5553,6 +5604,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
            var properties = new string[]
                 {
                     "EducationOrganizationId",
+                    // "ResponsibleEducationOrganizationId",
                     "StudentUSI",
                 };
 
@@ -5745,6 +5797,186 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public RelationshipsAuthorizationContextData GetContextData(object resource)
         {
             return GetContextData((StudentIdentificationCode) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentIEP table of the StudentIEP aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class StudentIEPRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IStudentIEP>
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public RelationshipsAuthorizationContextData GetContextData(IStudentIEP resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'studentIEP' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as StudentIEP;
+
+            var contextData = new RelationshipsAuthorizationContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
+        {
+            return GetContextData((StudentIEP) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentIEPGoal table of the StudentIEPGoal aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class StudentIEPGoalRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IStudentIEPGoal>
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public RelationshipsAuthorizationContextData GetContextData(IStudentIEPGoal resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'studentIEPGoal' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as StudentIEPGoal;
+
+            var contextData = new RelationshipsAuthorizationContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
+        {
+            return GetContextData((StudentIEPGoal) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentIEPServiceDelivery table of the StudentIEPServiceDelivery aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class StudentIEPServiceDeliveryRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IStudentIEPServiceDelivery>
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public RelationshipsAuthorizationContextData GetContextData(IStudentIEPServiceDelivery resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'studentIEPServiceDelivery' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as StudentIEPServiceDelivery;
+
+            var contextData = new RelationshipsAuthorizationContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
+        {
+            return GetContextData((StudentIEPServiceDelivery) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentIEPServicePrescription table of the StudentIEPServicePrescription aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class StudentIEPServicePrescriptionRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IStudentIEPServicePrescription>
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public RelationshipsAuthorizationContextData GetContextData(IStudentIEPServicePrescription resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'studentIEPServicePrescription' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as StudentIEPServicePrescription;
+
+            var contextData = new RelationshipsAuthorizationContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
+        {
+            return GetContextData((StudentIEPServicePrescription) resource);
         }
     }
 
