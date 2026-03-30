@@ -406,6 +406,34 @@ BEGIN
     WHERE ClaimSetId = @claimSetId AND ResourceClaimId = @claimId
     
 
+    -- Claim set-specific Read authorization
+    PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @ReadActionId) -- Read
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        THROW 50000, @msg, 1
+    END
+
+    PRINT 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ' for ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
+
+
     -- Claim set-specific Create authorization
     PRINT 'Creating ''Create'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @CreateActionId) + ').'
 
@@ -429,6 +457,34 @@ BEGIN
     END
 
     PRINT 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ' for ''Create'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @CreateActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
+
+
+    -- Claim set-specific Update authorization
+    PRINT 'Creating ''Update'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @UpdateActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @UpdateActionId) -- Update
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        THROW 50000, @msg, 1
+    END
+
+    PRINT 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ' for ''Update'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @UpdateActionId) + ').'
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)

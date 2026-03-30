@@ -50,7 +50,17 @@
 				</ClaimSet>
 				<ClaimSet name="Bootstrap Descriptors and EdOrgs">
 					<Actions>
+						<Action name="Read">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
 						<Action name="Create">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+						<Action name="Update">
 							<AuthorizationStrategyOverrides>
 								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
 							</AuthorizationStrategyOverrides>
