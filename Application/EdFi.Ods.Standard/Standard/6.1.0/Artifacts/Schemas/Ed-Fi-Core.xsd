@@ -26156,7 +26156,7 @@
           <xs:documentation>The name of the indicator or metric.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="BeginDate" type="xs:date">
+      <xs:element name="IndicatorBeginDate" type="xs:date">
         <xs:annotation>
           <xs:documentation>The month, day, and year when the indicator value is valid. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.</xs:documentation>
         </xs:annotation>
@@ -26593,7 +26593,7 @@
           <xs:documentation>The minor area for a degree or area of specialization for a certificate.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="BeginDate" type="xs:date">
+      <xs:element name="SpecializationBeginDate" type="xs:date">
         <xs:annotation>
           <xs:documentation>The month, day, and year on which the teacher candidate first declared specialization. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.</xs:documentation>
         </xs:annotation>
@@ -31655,18 +31655,6 @@
     <xs:restriction base="xs:decimal">
       <xs:totalDigits value="5" />
       <xs:fractionDigits value="2" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="Learning">
-    <xs:annotation>
-      <xs:documentation>Student's learning method preference (ex. auditory, visual, and "kinesthetic or tactile") expressed as a normalized percentage.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Simple</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="xs:decimal">
-      <xs:totalDigits value="5" />
-      <xs:fractionDigits value="4" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="LocalFiscalYear">

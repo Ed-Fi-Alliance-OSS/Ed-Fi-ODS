@@ -812,6 +812,7 @@ COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationCandidateI_
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationCandidateI_0d7c2b.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationCandidateI_0d7c2b.ProgramName IS 'The name of the educator preparation program.';
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationCandidateI_0d7c2b.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationCandidateI_0d7c2b.IndicatorBeginDate IS 'The month, day, and year when the indicator value is valid. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationCandidateI_0d7c2b.IndicatorName IS 'The name of the indicator or metric.';
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationCandidateI_0d7c2b.DesignatedBy IS 'The person, organization, or department that designated the program association.';
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationCandidateI_0d7c2b.EndDate IS 'The month, day, and year when the indicator value is no longer valid. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
@@ -837,6 +838,7 @@ COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationDegreeSpec_
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.ProgramName IS 'The name of the educator preparation program.';
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.MajorSpecialization IS 'The major area for a degree or area of specialization for a certificate.';
+COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.SpecializationBeginDate IS 'The month, day, and year on which the teacher candidate first declared specialization. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.EndDate IS 'The month, day, and year on which the teacher candidate exited the declared specialization. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.MinorSpecialization IS 'The minor area for a degree or area of specialization for a certificate.';
 
@@ -881,7 +883,7 @@ COMMENT ON COLUMN edfi.CandidateIdentificationSystemDescriptor.CandidateIdentifi
 -- Extended Properties [edfi].[CandidateIndicator] --
 COMMENT ON TABLE edfi.CandidateIndicator IS 'Indicator(s) or metric(s) computed for the candidate.';
 COMMENT ON COLUMN edfi.CandidateIndicator.CandidateIdentifier IS 'A unique alphanumeric code assigned to a candidate.';
-COMMENT ON COLUMN edfi.CandidateIndicator.BeginDate IS 'The month, day, and year when the indicator value is valid. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.CandidateIndicator.IndicatorBeginDate IS 'The month, day, and year when the indicator value is valid. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.CandidateIndicator.IndicatorName IS 'The name of the indicator or metric.';
 COMMENT ON COLUMN edfi.CandidateIndicator.DesignatedBy IS 'The person, organization, or department that designated the program association.';
 COMMENT ON COLUMN edfi.CandidateIndicator.EndDate IS 'The month, day, and year when the indicator value is no longer valid. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';

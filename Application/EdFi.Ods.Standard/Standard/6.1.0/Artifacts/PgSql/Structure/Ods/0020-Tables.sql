@@ -1243,13 +1243,14 @@ CREATE TABLE edfi.CandidateEducatorPreparationProgramAssociationCandidateI_0d7c2
     EducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(255) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
+    IndicatorBeginDate DATE NOT NULL,
     IndicatorName VARCHAR(200) NOT NULL,
     DesignatedBy VARCHAR(60) NULL,
     EndDate DATE NULL,
     Indicator VARCHAR(60) NOT NULL,
     IndicatorGroup VARCHAR(200) NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CandidateEducatorPreparationProgramAssociationCand_0d7c2b_PK PRIMARY KEY (BeginDate, CandidateIdentifier, EducationOrganizationId, ProgramName, ProgramTypeDescriptorId, IndicatorName)
+    CONSTRAINT CandidateEducatorPreparationProgramAssociationCand_0d7c2b_PK PRIMARY KEY (BeginDate, CandidateIdentifier, EducationOrganizationId, ProgramName, ProgramTypeDescriptorId, IndicatorBeginDate, IndicatorName)
 );
 ALTER TABLE edfi.CandidateEducatorPreparationProgramAssociationCandidateI_0d7c2b ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
@@ -1276,10 +1277,11 @@ CREATE TABLE edfi.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c
     ProgramName VARCHAR(255) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     MajorSpecialization VARCHAR(255) NOT NULL,
+    SpecializationBeginDate DATE NOT NULL,
     EndDate DATE NULL,
     MinorSpecialization VARCHAR(255) NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CandidateEducatorPreparationProgramAssociationDegr_2501c4_PK PRIMARY KEY (BeginDate, CandidateIdentifier, EducationOrganizationId, ProgramName, ProgramTypeDescriptorId, MajorSpecialization)
+    CONSTRAINT CandidateEducatorPreparationProgramAssociationDegr_2501c4_PK PRIMARY KEY (BeginDate, CandidateIdentifier, EducationOrganizationId, ProgramName, ProgramTypeDescriptorId, MajorSpecialization, SpecializationBeginDate)
 );
 ALTER TABLE edfi.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4 ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
@@ -1347,14 +1349,14 @@ CREATE TABLE edfi.CandidateIdentificationSystemDescriptor (
 -- Table edfi.CandidateIndicator --
 CREATE TABLE edfi.CandidateIndicator (
     CandidateIdentifier VARCHAR(32) NOT NULL,
-    BeginDate DATE NOT NULL,
+    IndicatorBeginDate DATE NOT NULL,
     IndicatorName VARCHAR(200) NOT NULL,
     DesignatedBy VARCHAR(60) NULL,
     EndDate DATE NULL,
     Indicator VARCHAR(60) NOT NULL,
     IndicatorGroup VARCHAR(200) NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CandidateIndicator_PK PRIMARY KEY (CandidateIdentifier, BeginDate, IndicatorName)
+    CONSTRAINT CandidateIndicator_PK PRIMARY KEY (CandidateIdentifier, IndicatorBeginDate, IndicatorName)
 );
 ALTER TABLE edfi.CandidateIndicator ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 

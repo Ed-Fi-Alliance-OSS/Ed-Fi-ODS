@@ -1406,6 +1406,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of th
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateEducatorPreparationProgramAssociationCandidateIndicator', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year when the indicator value is valid. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateEducatorPreparationProgramAssociationCandidateIndicator', @level2type=N'COLUMN', @level2name=N'IndicatorBeginDate'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the indicator or metric.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateEducatorPreparationProgramAssociationCandidateIndicator', @level2type=N'COLUMN', @level2name=N'IndicatorName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The person, organization, or department that designated the program association.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateEducatorPreparationProgramAssociationCandidateIndicator', @level2type=N'COLUMN', @level2name=N'DesignatedBy'
@@ -1451,6 +1453,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateEducatorPreparationProgramAssociationDegreeSpecialization', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The major area for a degree or area of specialization for a certificate.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateEducatorPreparationProgramAssociationDegreeSpecialization', @level2type=N'COLUMN', @level2name=N'MajorSpecialization'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate first declared specialization. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateEducatorPreparationProgramAssociationDegreeSpecialization', @level2type=N'COLUMN', @level2name=N'SpecializationBeginDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate exited the declared specialization. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateEducatorPreparationProgramAssociationDegreeSpecialization', @level2type=N'COLUMN', @level2name=N'EndDate'
 GO
@@ -1528,7 +1532,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator(s) o
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a candidate.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateIndicator', @level2type=N'COLUMN', @level2name=N'CandidateIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year when the indicator value is valid. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateIndicator', @level2type=N'COLUMN', @level2name=N'BeginDate'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year when the indicator value is valid. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateIndicator', @level2type=N'COLUMN', @level2name=N'IndicatorBeginDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the indicator or metric.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CandidateIndicator', @level2type=N'COLUMN', @level2name=N'IndicatorName'
 GO

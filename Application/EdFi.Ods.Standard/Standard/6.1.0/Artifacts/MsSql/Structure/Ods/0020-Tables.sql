@@ -1837,6 +1837,7 @@ CREATE TABLE [edfi].[CandidateEducatorPreparationProgramAssociationCandidateIndi
     [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](255) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
+    [IndicatorBeginDate] [DATE] NOT NULL,
     [IndicatorName] [NVARCHAR](200) NOT NULL,
     [DesignatedBy] [NVARCHAR](60) NULL,
     [EndDate] [DATE] NULL,
@@ -1849,6 +1850,7 @@ CREATE TABLE [edfi].[CandidateEducatorPreparationProgramAssociationCandidateIndi
         [EducationOrganizationId] ASC,
         [ProgramName] ASC,
         [ProgramTypeDescriptorId] ASC,
+        [IndicatorBeginDate] ASC,
         [IndicatorName] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -1889,6 +1891,7 @@ CREATE TABLE [edfi].[CandidateEducatorPreparationProgramAssociationDegreeSpecial
     [ProgramName] [NVARCHAR](255) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [MajorSpecialization] [NVARCHAR](255) NOT NULL,
+    [SpecializationBeginDate] [DATE] NOT NULL,
     [EndDate] [DATE] NULL,
     [MinorSpecialization] [NVARCHAR](255) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -1898,7 +1901,8 @@ CREATE TABLE [edfi].[CandidateEducatorPreparationProgramAssociationDegreeSpecial
         [EducationOrganizationId] ASC,
         [ProgramName] ASC,
         [ProgramTypeDescriptorId] ASC,
-        [MajorSpecialization] ASC
+        [MajorSpecialization] ASC,
+        [SpecializationBeginDate] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1999,7 +2003,7 @@ GO
 -- Table [edfi].[CandidateIndicator] --
 CREATE TABLE [edfi].[CandidateIndicator] (
     [CandidateIdentifier] [NVARCHAR](32) NOT NULL,
-    [BeginDate] [DATE] NOT NULL,
+    [IndicatorBeginDate] [DATE] NOT NULL,
     [IndicatorName] [NVARCHAR](200) NOT NULL,
     [DesignatedBy] [NVARCHAR](60) NULL,
     [EndDate] [DATE] NULL,
@@ -2008,7 +2012,7 @@ CREATE TABLE [edfi].[CandidateIndicator] (
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [CandidateIndicator_PK] PRIMARY KEY CLUSTERED (
         [CandidateIdentifier] ASC,
-        [BeginDate] ASC,
+        [IndicatorBeginDate] ASC,
         [IndicatorName] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
