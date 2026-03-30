@@ -9264,6 +9264,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
         
+        DateTime IndicatorBeginDate { get; set; }
+        
         string IndicatorName { get; set; }
 
         // Non-PK properties
@@ -9318,6 +9320,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "IndicatorGroup":
                     return IsIndicatorGroupSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "IndicatorBeginDate":
+                    return true;
                 case "IndicatorName":
                     return true;
                 default:
@@ -9415,6 +9419,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
         
         string MajorSpecialization { get; set; }
+        
+        DateTime SpecializationBeginDate { get; set; }
 
         // Non-PK properties
         DateTime? EndDate { get; set; }
@@ -9457,6 +9463,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMinorSpecializationSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MajorSpecialization":
+                    return true;
+                case "SpecializationBeginDate":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9868,7 +9876,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         ICandidate Candidate { get; set; }
         
-        DateTime BeginDate { get; set; }
+        DateTime IndicatorBeginDate { get; set; }
         
         string IndicatorName { get; set; }
 
@@ -9924,7 +9932,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "IndicatorGroup":
                     return IsIndicatorGroupSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "BeginDate":
+                case "IndicatorBeginDate":
                     return true;
                 case "IndicatorName":
                     return true;

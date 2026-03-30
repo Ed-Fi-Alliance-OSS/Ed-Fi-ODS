@@ -5304,7 +5304,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateQ Candidate { get; set; }
         [DomainSignature]
-        public virtual DateTime BeginDate { get; set; }
+        public virtual DateTime IndicatorBeginDate { get; set; }
         [DomainSignature]
         public virtual string IndicatorName { get; set; }
         // -------------------------------------------------------------
@@ -5832,6 +5832,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateEducatorPreparationP
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.CandidateEducatorPreparationProgramAssociationAggregate.EdFi.CandidateEducatorPreparationProgramAssociationQ CandidateEducatorPreparationProgramAssociation { get; set; }
         [DomainSignature]
+        public virtual DateTime IndicatorBeginDate { get; set; }
+        [DomainSignature]
         public virtual string IndicatorName { get; set; }
         // -------------------------------------------------------------
 
@@ -5925,6 +5927,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CandidateEducatorPreparationP
         public virtual NHibernate.QueryModels.CandidateEducatorPreparationProgramAssociationAggregate.EdFi.CandidateEducatorPreparationProgramAssociationQ CandidateEducatorPreparationProgramAssociation { get; set; }
         [DomainSignature]
         public virtual string MajorSpecialization { get; set; }
+        [DomainSignature]
+        public virtual DateTime SpecializationBeginDate { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================

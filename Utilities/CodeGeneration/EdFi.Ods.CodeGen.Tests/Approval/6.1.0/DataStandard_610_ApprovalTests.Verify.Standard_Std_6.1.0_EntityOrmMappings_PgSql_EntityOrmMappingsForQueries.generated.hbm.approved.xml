@@ -3311,7 +3311,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateAggregate.EdFi.CandidateIndicatorQ" table="CandidateIndicator" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="BeginDate" column="BeginDate" type="date" />
+      <key-property name="IndicatorBeginDate" column="IndicatorBeginDate" type="date" />
       <key-property name="IndicatorName" column="IndicatorName" type="string" length="200" />
       <key-many-to-one name="Candidate">
         <column name="CandidateIdentifier" />
@@ -3692,6 +3692,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CandidateEducatorPreparationProgramAssociationAggregate.EdFi.CandidateEducatorPreparationProgramAssociationCandidateIndicatorQ" table="CandidateEducatorPreparationProgramAssociationCandidateI_0d7c2b" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
+      <key-property name="IndicatorBeginDate" column="IndicatorBeginDate" type="date" />
       <key-property name="IndicatorName" column="IndicatorName" type="string" length="200" />
       <key-many-to-one name="CandidateEducatorPreparationProgramAssociation">
         <column name="BeginDate" />
@@ -3764,6 +3765,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="MajorSpecialization" column="MajorSpecialization" type="string" length="255" />
+      <key-property name="SpecializationBeginDate" column="SpecializationBeginDate" type="date" />
       <key-many-to-one name="CandidateEducatorPreparationProgramAssociation">
         <column name="BeginDate" />
         <column name="CandidateIdentifier" />
