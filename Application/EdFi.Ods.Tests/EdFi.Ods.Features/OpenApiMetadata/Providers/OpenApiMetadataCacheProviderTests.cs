@@ -5,7 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
@@ -24,7 +26,6 @@ using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Composites.Test;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Extensions;
-using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies;
@@ -35,8 +36,6 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Readers;
 using NUnit.Framework;
 using Test.Common;
 
@@ -84,8 +83,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             protected override void Arrange()
             {
                 A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
-                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
-                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0));
+                    .ReturnsLazily(x =>
+                    {
+                        var json = x.Arguments.Get<string>(0);
+                        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+                        var (doc, _) = OpenApiDocument.LoadAsync(stream).GetAwaiter().GetResult();
+                        return doc.SerializeAsJsonAsync(OpenApiSpecVersion.OpenApi3_0).GetAwaiter().GetResult();
+                    });
 
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
 
@@ -364,10 +368,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             [Test]
             public void Should_be_a_valid_v3_swagger_document_for_each_entry()
             {
-                AssertHelper.All(
-                    _actualMetadata.Select(m => new OpenApiStringReader().Read(m.Metadata(OpenApiSpecVersion.OpenApi3_0), out _))
-                        .Select(
-                            swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
+                AssertHelper.All(_actualMetadata.Select(m =>
+                        {
+                            var json = m.Metadata(OpenApiSpecVersion.OpenApi3_0);
+                            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+                            var (doc, _) = OpenApiDocument.LoadAsync(stream).GetAwaiter().GetResult();
+                            return doc;
+                        })
+                        .Select(swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
                         .ToArray());
             }
         }
@@ -387,8 +395,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 _compositesMetadataProvider = Stub<ICompositesMetadataProvider>();
 
                 A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
-                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
-                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0));
+                    .ReturnsLazily(x =>
+                    {
+                        var json = x.Arguments.Get<string>(0);
+                        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+                        var (doc, _) = OpenApiDocument.LoadAsync(stream).GetAwaiter().GetResult();
+                        return doc.SerializeAsJsonAsync(OpenApiSpecVersion.OpenApi3_0).GetAwaiter().GetResult();
+                    });
 
                 A.CallTo(() => _compositesMetadataProvider.GetAllCategories())
                     .Returns(new List<CompositeCategory>());
@@ -507,8 +520,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                     { new AppDomainEmbeddedResourcesCompositesMetadataStreamsProvider() };
 
                 A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
-                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
-                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0));
+                    .ReturnsLazily(x => 
+                    {
+                        var json = x.Arguments.Get<string>(0);
+                        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+                        var (doc, _) = OpenApiDocument.LoadAsync(stream).GetAwaiter().GetResult();
+                        return doc.SerializeAsJsonAsync(OpenApiSpecVersion.OpenApi3_0).GetAwaiter().GetResult();
+                    });
 
                 _compositesMetadataProvider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
@@ -627,10 +645,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                     Assert.Ignore($"Skipped: Test not applicable for ODS version {standardVersion}");
                 }
 
-                AssertHelper.All(
-                    _actualMetadata.Select(m => new OpenApiStringReader().Read(m.Metadata(OpenApiSpecVersion.OpenApi3_0), out _))
-                        .Select(
-                            swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
+                AssertHelper.All(_actualMetadata.Select(m =>
+                        {
+                            var json = m.Metadata(OpenApiSpecVersion.OpenApi3_0);
+                            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+                            var (doc, _) = OpenApiDocument.LoadAsync(stream).GetAwaiter().GetResult();
+                            return doc;
+                        })
+                        .Select(swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
                         .ToArray());
             }
 
@@ -665,8 +687,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                             .Schemas);
 
                 A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
-                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
-                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0));
+                    .ReturnsLazily(x =>
+                    {
+                        var json = x.Arguments.Get<string>(0);
+                        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+                        var (doc, _) = OpenApiDocument.LoadAsync(stream).GetAwaiter().GetResult();
+                        return doc.SerializeAsJsonAsync(OpenApiSpecVersion.OpenApi3_0).GetAwaiter().GetResult();
+                    });
 
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
 
@@ -771,9 +798,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var _resourceIdentificationCodeProperties = Stub<IResourceIdentificationCodePropertiesProvider>();
                 var _openApiContentProviders = Stub<IList<IOpenApiContentProvider>>();
 
+
                 A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
-                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
-                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0));
+                    .ReturnsLazily(x =>
+                    {
+                        var json = x.Arguments.Get<string>(0);
+                        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+                        var (doc, _) = OpenApiDocument.LoadAsync(stream).GetAwaiter().GetResult();
+                        return doc.SerializeAsJsonAsync(OpenApiSpecVersion.OpenApi3_0).GetAwaiter().GetResult();
+                    });
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 

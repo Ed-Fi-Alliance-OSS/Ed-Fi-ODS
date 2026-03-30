@@ -2126,7 +2126,7 @@ https://github.com/microsoft/vstest
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-## Microsoft.OpenApi & Microsoft.OpenApi.Readers
+## Microsoft.OpenApi & Microsoft.OpenApi.YamlReader
 https://github.com/Microsoft/OpenAPI.NET
 
     Copyright (c) Microsoft Corporation. All rights reserved.

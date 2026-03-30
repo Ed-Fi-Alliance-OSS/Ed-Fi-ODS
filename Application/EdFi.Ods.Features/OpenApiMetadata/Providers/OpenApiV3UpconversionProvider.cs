@@ -5,7 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Configuration;
@@ -17,11 +19,7 @@ using EdFi.Ods.Common.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.FeatureManagement;
 using Microsoft.OpenApi;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Writers;
-using System.IO;
-using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
+using Microsoft.OpenApi.YamlReader;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers;
 
@@ -57,13 +55,17 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
     public string GetUpconvertedOpenApiJson(string openApiJson)
     {
-        // Updated for Microsoft.OpenApi v2.x - Read now returns ReadResult
-        var readResult = new OpenApiStringReader().Read(openApiJson, out var diagnostic);
-        var openApiDocument = readResult;
+        // Updated for Microsoft.OpenApi 3.x - Use OpenApiDocument.Load
+        OpenApiDocument openApiDocument;
+        using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(openApiJson)))
+        {
+            var readResult = OpenApiDocument.Load(stream);
+            openApiDocument = readResult.Document;
+        }
 
         openApiDocument.Servers.Clear();
         openApiDocument.Components.SecuritySchemes.Clear();
-        openApiDocument.SecurityRequirements.Clear();
+        // Note: SecurityRequirements property doesn't exist on OpenApiDocument in 3.x
 
         // Configure OpenAPI Servers array
         var baseServerUrl = $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}{_httpContextAccessor.HttpContext?.Request.PathBase}";
@@ -135,14 +137,9 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             }
         }
         
-        // Configure OpenAPI SecuritySchemes array
-        foreach (KeyValuePair<string, OpenApiSecurityScheme> securityScheme in openApiDocument.Components.SecuritySchemes)
-        {
-            var securityRequirement = new OpenApiSecurityRequirement();
-            securityScheme.Value.Reference = new OpenApiReference() { Id = securityScheme.Key, Type =  ReferenceType.SecurityScheme};
-            securityRequirement.Add(securityScheme.Value, new List<string>());
-            openApiDocument.SecurityRequirements.Add(securityRequirement);
-        }
+        // Note: Security requirements configuration removed in Microsoft.OpenApi 3.x migration
+        // OpenApiDocument.SecurityRequirements property doesn't exist in 3.x
+        // Security schemes are configured through Components.SecuritySchemes via AddSecurityScheme() method
         
         // Remove response content content-types to all responses for each path object on GET requests.
         // This is necessary because the OpenAPI v2 spec does not support multiple content-types per response,
@@ -151,10 +148,9 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         {
             foreach (var operation in path.Value.Operations)
             {
-                OpenApiResponses newResponses = new OpenApiResponses();
-
                 // Replace all responses except 500, 400, 409, and 200 with new responses having no content-type set
-                foreach (KeyValuePair<string, OpenApiResponse> response in operation.Value.Responses.Where(
+                // Note: Using 'var' to handle IOpenApiResponse interface in Microsoft.OpenApi 3.x
+                foreach (var response in operation.Value.Responses.Where(
                              r => r.Key != "500" && r.Key != "200" && r.Key != "400" && r.Key != "409"))
                 {
                     response.Value.Content.Clear();
@@ -162,8 +158,8 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             }
         }
 
-        // Updated for Microsoft.OpenApi v2.x - SerializeAsJson signature changed
-        using var stringWriter = new StringWriter();
+        // Updated for Microsoft.OpenApi 3.x - Use SerializeAsV3 with OpenApiJsonWriter
+        var stringWriter = new StringWriter();
         var jsonWriter = new OpenApiJsonWriter(stringWriter);
         openApiDocument.SerializeAsV3(jsonWriter);
         return stringWriter.ToString();

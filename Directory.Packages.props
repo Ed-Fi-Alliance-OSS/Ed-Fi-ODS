@@ -97,8 +97,8 @@
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.22" />    
 
     <!-- OpenAPI -->
-    <PackageVersion Include="Microsoft.OpenApi" Version="2.3.4" />
-    <PackageVersion Include="Microsoft.OpenApi.Readers" Version="1.6.28" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="3.0.2" />
+    <PackageVersion Include="Microsoft.OpenApi.YamlReader" Version="3.0.2" />
 
     <!-- Standard Libraries -->
     <PackageVersion Include="NETStandard.Library" Version="2.0.3" />

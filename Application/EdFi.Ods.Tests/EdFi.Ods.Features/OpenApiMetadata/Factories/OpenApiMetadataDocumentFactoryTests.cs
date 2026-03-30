@@ -3,8 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Models;
@@ -19,8 +20,6 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Readers;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Test.Common;
@@ -62,8 +61,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 _openApiMetadataDocumentContext = DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext;
 
                 A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
-                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
-                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0));
+                    .ReturnsLazily(x => 
+                    {
+                        var json = x.Arguments.Get<string>(0);
+                        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+                        var (doc, _) = OpenApiDocument.LoadAsync(stream).GetAwaiter().GetResult();
+                        return doc.SerializeAsJsonAsync(OpenApiSpecVersion.OpenApi3_0).GetAwaiter().GetResult();
+                    });
 
                 var openApiMetadataResources = _openApiMetadataDocumentContext.ResourceModel.GetAllResources()
                     .Select(r => new OpenApiMetadataResource(r))

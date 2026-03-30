@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi;
-using Microsoft.OpenApi.Readers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -94,9 +93,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(Swagger)))
             {
-                // In Microsoft.OpenApi v2.x, use OpenApiDocument.LoadAsync
-                var (document, diagnostic) = await OpenApiDocument.LoadAsync(ms);
-                _doc = document;
+                // Updated for Microsoft.OpenApi 3.x - Use synchronous Load method
+                var readResult = OpenApiDocument.Load(ms);
+                _doc = readResult.Document;
             }
 
             var config = new ConfigurationBuilder()
