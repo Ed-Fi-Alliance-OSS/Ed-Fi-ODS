@@ -16,7 +16,6 @@
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="SpecFlow" Version="3.9.74" />
     <PackageVersion Include="SpecFlow.NUnit" Version="3.9.74" />
-    <PackageVersion Include="TeamCity.VSTest.TestAdapter" Version="1.0.41" />
 
     <!-- ASP.NET Core and Web -->
     <PackageVersion Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
