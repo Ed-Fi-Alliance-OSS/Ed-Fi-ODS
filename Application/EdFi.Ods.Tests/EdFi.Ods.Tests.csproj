@@ -41,7 +41,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NUnit.ConsoleRunner" />
-    <PackageReference Include="TeamCity.VSTest.TestAdapter" />
     <PackageReference Include="Shouldly" />
   </ItemGroup>
   <ItemGroup>
