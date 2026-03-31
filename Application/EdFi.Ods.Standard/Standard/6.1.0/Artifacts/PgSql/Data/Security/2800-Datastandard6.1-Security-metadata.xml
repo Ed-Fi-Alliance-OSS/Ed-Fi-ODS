@@ -127,5 +127,77 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/addressCharacteristicDescriptor" />
 			</Claims>
 		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/specialEducation">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="ReadChanges">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Reader">
+					<Actions>
+						<Action name="Read" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi API Publisher - Writer">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/iDEAEvent" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/StudentIEP" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/StudentIEPGoal" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/StudentIEPServiceDelivery" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/StudentIEPServicePrescription" />
+			</Claims>
+		</Claim>
 	</Claims>
 </SecurityMetadata>
