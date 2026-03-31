@@ -102,6 +102,11 @@ jobs:
             !eng/xml-validator/testing/**/*.xml
             !eng/xml-validator/testing/**/*.xsd
           sparse-checkout-cone-mode: false
+    - name: Is pull request branch exists in Ed-Fi-Data-Standard
+      working-directory: ./Ed-Fi-ODS/
+      shell: pwsh
+      run: |
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Data-Standard"
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
