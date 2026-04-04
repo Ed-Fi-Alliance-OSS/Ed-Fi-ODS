@@ -1281,6 +1281,29 @@ CREATE TABLE [tracked_changes_edfi].[GraduationPlan]
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_GraduationPlan PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[IDEAEvent]'))
+CREATE TABLE [tracked_changes_edfi].[IDEAEvent]
+(
+       OldEducationOrganizationId [BIGINT] NOT NULL,
+       OldIDEAEventDescriptorId [INT] NOT NULL,
+       OldIDEAEventDescriptorNamespace [NVARCHAR](255) NOT NULL,
+       OldIDEAEventDescriptorCodeValue [NVARCHAR](50) NOT NULL,
+       OldIDEAEventIdentifier [NVARCHAR](120) NOT NULL,
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
+       NewIDEAEventDescriptorId [INT] NULL,
+       NewIDEAEventDescriptorNamespace [NVARCHAR](255) NULL,
+       NewIDEAEventDescriptorCodeValue [NVARCHAR](50) NULL,
+       NewIDEAEventIdentifier [NVARCHAR](120) NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_IDEAEvent PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[Intervention]'))
 CREATE TABLE [tracked_changes_edfi].[Intervention]
 (
@@ -2831,6 +2854,102 @@ CREATE TABLE [tracked_changes_edfi].[StudentIdentificationCode]
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_StudentIdentificationCode PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentIEP]'))
+CREATE TABLE [tracked_changes_edfi].[StudentIEP]
+(
+       OldEducationOrganizationId [BIGINT] NOT NULL,
+       OldIEPFinalizedDate [DATE] NOT NULL,
+       OldStudentIEPIdentifier [NVARCHAR](120) NOT NULL,
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
+       NewIEPFinalizedDate [DATE] NULL,
+       NewStudentIEPIdentifier [NVARCHAR](120) NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_StudentIEP PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentIEPGoal]'))
+CREATE TABLE [tracked_changes_edfi].[StudentIEPGoal]
+(
+       OldEducationOrganizationId [BIGINT] NOT NULL,
+       OldIEPFinalizedDate [DATE] NOT NULL,
+       OldIEPGoalIdentifier [NVARCHAR](120) NOT NULL,
+       OldStudentIEPIdentifier [NVARCHAR](120) NOT NULL,
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
+       NewIEPFinalizedDate [DATE] NULL,
+       NewIEPGoalIdentifier [NVARCHAR](120) NULL,
+       NewStudentIEPIdentifier [NVARCHAR](120) NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_StudentIEPGoal PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentIEPServiceDelivery]'))
+CREATE TABLE [tracked_changes_edfi].[StudentIEPServiceDelivery]
+(
+       OldEducationOrganizationId [BIGINT] NOT NULL,
+       OldIEPFinalizedDate [DATE] NOT NULL,
+       OldIEPServiceDeliveryIdentifier [NVARCHAR](120) NOT NULL,
+       OldServiceDeliveryDate [DATE] NOT NULL,
+       OldServiceDeliveryDescriptorId [INT] NOT NULL,
+       OldServiceDeliveryDescriptorNamespace [NVARCHAR](255) NOT NULL,
+       OldServiceDeliveryDescriptorCodeValue [NVARCHAR](50) NOT NULL,
+       OldStudentIEPIdentifier [NVARCHAR](120) NOT NULL,
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
+       NewIEPFinalizedDate [DATE] NULL,
+       NewIEPServiceDeliveryIdentifier [NVARCHAR](120) NULL,
+       NewServiceDeliveryDate [DATE] NULL,
+       NewServiceDeliveryDescriptorId [INT] NULL,
+       NewServiceDeliveryDescriptorNamespace [NVARCHAR](255) NULL,
+       NewServiceDeliveryDescriptorCodeValue [NVARCHAR](50) NULL,
+       NewStudentIEPIdentifier [NVARCHAR](120) NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_StudentIEPServiceDelivery PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentIEPServicePrescription]'))
+CREATE TABLE [tracked_changes_edfi].[StudentIEPServicePrescription]
+(
+       OldEducationOrganizationId [BIGINT] NOT NULL,
+       OldIEPFinalizedDate [DATE] NOT NULL,
+       OldServicePrescriptionDate [DATE] NOT NULL,
+       OldServicePrescriptionDescriptorId [INT] NOT NULL,
+       OldServicePrescriptionDescriptorNamespace [NVARCHAR](255) NOT NULL,
+       OldServicePrescriptionDescriptorCodeValue [NVARCHAR](50) NOT NULL,
+       OldStudentIEPIdentifier [NVARCHAR](120) NOT NULL,
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
+       NewIEPFinalizedDate [DATE] NULL,
+       NewServicePrescriptionDate [DATE] NULL,
+       NewServicePrescriptionDescriptorId [INT] NULL,
+       NewServicePrescriptionDescriptorNamespace [NVARCHAR](255) NULL,
+       NewServicePrescriptionDescriptorCodeValue [NVARCHAR](50) NULL,
+       NewStudentIEPIdentifier [NVARCHAR](120) NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_StudentIEPServicePrescription PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentInterventionAssociation]'))
 CREATE TABLE [tracked_changes_edfi].[StudentInterventionAssociation]

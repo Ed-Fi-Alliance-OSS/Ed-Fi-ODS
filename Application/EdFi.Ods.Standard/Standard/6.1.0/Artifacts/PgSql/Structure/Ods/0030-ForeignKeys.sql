@@ -58,6 +58,11 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.AddressCharacteristicDescriptor ADD CONSTRAINT FK_867db5_Descriptor FOREIGN KEY (AddressCharacteristicDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.AddressTypeDescriptor ADD CONSTRAINT FK_1edaa3_Descriptor FOREIGN KEY (AddressTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -136,6 +141,18 @@ REFERENCES edfi.StateAbbreviationDescriptor (StateAbbreviationDescriptorId)
 
 CREATE INDEX FK_7af948_StateAbbreviationDescriptor
 ON edfi.ApplicantProfileAddress (StateAbbreviationDescriptorId ASC);
+
+ALTER TABLE edfi.ApplicantProfileAddressCharacteristic ADD CONSTRAINT FK_59c166_AddressCharacteristicDescriptor FOREIGN KEY (AddressCharacteristicDescriptorId)
+REFERENCES edfi.AddressCharacteristicDescriptor (AddressCharacteristicDescriptorId)
+;
+
+CREATE INDEX FK_59c166_AddressCharacteristicDescriptor
+ON edfi.ApplicantProfileAddressCharacteristic (AddressCharacteristicDescriptorId ASC);
+
+ALTER TABLE edfi.ApplicantProfileAddressCharacteristic ADD CONSTRAINT FK_59c166_ApplicantProfileAddress FOREIGN KEY (ApplicantProfileIdentifier, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES edfi.ApplicantProfileAddress (ApplicantProfileIdentifier, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ON DELETE CASCADE
+;
 
 ALTER TABLE edfi.ApplicantProfileAddressPeriod ADD CONSTRAINT FK_83971f_ApplicantProfileAddress FOREIGN KEY (ApplicantProfileIdentifier, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 REFERENCES edfi.ApplicantProfileAddress (ApplicantProfileIdentifier, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
@@ -1124,6 +1141,18 @@ REFERENCES edfi.StateAbbreviationDescriptor (StateAbbreviationDescriptorId)
 CREATE INDEX FK_160329_StateAbbreviationDescriptor
 ON edfi.CandidateAddress (StateAbbreviationDescriptorId ASC);
 
+ALTER TABLE edfi.CandidateAddressCharacteristic ADD CONSTRAINT FK_168d7c_AddressCharacteristicDescriptor FOREIGN KEY (AddressCharacteristicDescriptorId)
+REFERENCES edfi.AddressCharacteristicDescriptor (AddressCharacteristicDescriptorId)
+;
+
+CREATE INDEX FK_168d7c_AddressCharacteristicDescriptor
+ON edfi.CandidateAddressCharacteristic (AddressCharacteristicDescriptorId ASC);
+
+ALTER TABLE edfi.CandidateAddressCharacteristic ADD CONSTRAINT FK_168d7c_CandidateAddress FOREIGN KEY (CandidateIdentifier, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES edfi.CandidateAddress (CandidateIdentifier, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.CandidateAddressPeriod ADD CONSTRAINT FK_17e793_CandidateAddress FOREIGN KEY (CandidateIdentifier, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 REFERENCES edfi.CandidateAddress (CandidateIdentifier, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 ON DELETE CASCADE
@@ -1936,6 +1965,18 @@ REFERENCES edfi.StateAbbreviationDescriptor (StateAbbreviationDescriptorId)
 
 CREATE INDEX FK_720058_StateAbbreviationDescriptor
 ON edfi.ContactAddress (StateAbbreviationDescriptorId ASC);
+
+ALTER TABLE edfi.ContactAddressCharacteristic ADD CONSTRAINT FK_ff4c39_AddressCharacteristicDescriptor FOREIGN KEY (AddressCharacteristicDescriptorId)
+REFERENCES edfi.AddressCharacteristicDescriptor (AddressCharacteristicDescriptorId)
+;
+
+CREATE INDEX FK_ff4c39_AddressCharacteristicDescriptor
+ON edfi.ContactAddressCharacteristic (AddressCharacteristicDescriptorId ASC);
+
+ALTER TABLE edfi.ContactAddressCharacteristic ADD CONSTRAINT FK_ff4c39_ContactAddress FOREIGN KEY (ContactUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES edfi.ContactAddress (ContactUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ON DELETE CASCADE
+;
 
 ALTER TABLE edfi.ContactAddressPeriod ADD CONSTRAINT FK_6b884f_ContactAddress FOREIGN KEY (ContactUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 REFERENCES edfi.ContactAddress (ContactUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
@@ -2820,6 +2861,11 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.DurationIntervalDescriptor ADD CONSTRAINT FK_220b3b_Descriptor FOREIGN KEY (DurationIntervalDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.EconomicDisadvantageDescriptor ADD CONSTRAINT FK_143b51_Descriptor FOREIGN KEY (EconomicDisadvantageDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -2953,6 +2999,18 @@ REFERENCES edfi.StateAbbreviationDescriptor (StateAbbreviationDescriptorId)
 
 CREATE INDEX FK_4925da_StateAbbreviationDescriptor
 ON edfi.EducationOrganizationAddress (StateAbbreviationDescriptorId ASC);
+
+ALTER TABLE edfi.EducationOrganizationAddressCharacteristic ADD CONSTRAINT FK_1b084e_AddressCharacteristicDescriptor FOREIGN KEY (AddressCharacteristicDescriptorId)
+REFERENCES edfi.AddressCharacteristicDescriptor (AddressCharacteristicDescriptorId)
+;
+
+CREATE INDEX FK_1b084e_AddressCharacteristicDescriptor
+ON edfi.EducationOrganizationAddressCharacteristic (AddressCharacteristicDescriptorId ASC);
+
+ALTER TABLE edfi.EducationOrganizationAddressCharacteristic ADD CONSTRAINT FK_1b084e_EducationOrganizationAddress FOREIGN KEY (EducationOrganizationId, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES edfi.EducationOrganizationAddress (EducationOrganizationId, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ON DELETE CASCADE
+;
 
 ALTER TABLE edfi.EducationOrganizationAddressPeriod ADD CONSTRAINT FK_d44be7_EducationOrganizationAddress FOREIGN KEY (EducationOrganizationId, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 REFERENCES edfi.EducationOrganizationAddress (EducationOrganizationId, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
@@ -3464,6 +3522,16 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.EventComplianceDescriptor ADD CONSTRAINT FK_dd7d39_Descriptor FOREIGN KEY (EventComplianceDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.EventReasonDescriptor ADD CONSTRAINT FK_ee5ffc_Descriptor FOREIGN KEY (EventReasonDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.ExitWithdrawTypeDescriptor ADD CONSTRAINT FK_0e8b13_Descriptor FOREIGN KEY (ExitWithdrawTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -3544,6 +3612,11 @@ REFERENCES edfi.Student (StudentUSI)
 ;
 
 ALTER TABLE edfi.FinancialCollectionDescriptor ADD CONSTRAINT FK_6dc716_Descriptor FOREIGN KEY (FinancialCollectionDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.FrequencyIntervalDescriptor ADD CONSTRAINT FK_afe3a5_Descriptor FOREIGN KEY (FrequencyIntervalDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -3978,12 +4051,56 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.IDEAEvent ADD CONSTRAINT FK_a16a88_EducationOrganization FOREIGN KEY (EducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+;
+
+ALTER TABLE edfi.IDEAEvent ADD CONSTRAINT FK_a16a88_EventComplianceDescriptor FOREIGN KEY (EventComplianceDescriptorId)
+REFERENCES edfi.EventComplianceDescriptor (EventComplianceDescriptorId)
+;
+
+CREATE INDEX FK_a16a88_EventComplianceDescriptor
+ON edfi.IDEAEvent (EventComplianceDescriptorId ASC);
+
+ALTER TABLE edfi.IDEAEvent ADD CONSTRAINT FK_a16a88_EventReasonDescriptor FOREIGN KEY (EventReasonDescriptorId)
+REFERENCES edfi.EventReasonDescriptor (EventReasonDescriptorId)
+;
+
+CREATE INDEX FK_a16a88_EventReasonDescriptor
+ON edfi.IDEAEvent (EventReasonDescriptorId ASC);
+
+ALTER TABLE edfi.IDEAEvent ADD CONSTRAINT FK_a16a88_IDEAEventDescriptor FOREIGN KEY (IDEAEventDescriptorId)
+REFERENCES edfi.IDEAEventDescriptor (IDEAEventDescriptorId)
+;
+
+CREATE INDEX FK_a16a88_IDEAEventDescriptor
+ON edfi.IDEAEvent (IDEAEventDescriptorId ASC);
+
+ALTER TABLE edfi.IDEAEvent ADD CONSTRAINT FK_a16a88_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+ALTER TABLE edfi.IDEAEventDescriptor ADD CONSTRAINT FK_cbac23_Descriptor FOREIGN KEY (IDEAEventDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.IDEAPartDescriptor ADD CONSTRAINT FK_8e5a99_Descriptor FOREIGN KEY (IDEAPartDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.IdentificationDocumentUseDescriptor ADD CONSTRAINT FK_c023c0_Descriptor FOREIGN KEY (IdentificationDocumentUseDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.IEPGoalTypeDescriptor ADD CONSTRAINT FK_ac3925_Descriptor FOREIGN KEY (IEPGoalTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.IEPStatusDescriptor ADD CONSTRAINT FK_275df5_Descriptor FOREIGN KEY (IEPStatusDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -6328,7 +6445,27 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.ServiceDeliveryDescriptor ADD CONSTRAINT FK_f9317e_Descriptor FOREIGN KEY (ServiceDeliveryDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.ServiceDescriptor ADD CONSTRAINT FK_aff2dc_Descriptor FOREIGN KEY (ServiceDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.ServiceLocationTypeDescriptor ADD CONSTRAINT FK_b52e9c_Descriptor FOREIGN KEY (ServiceLocationTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.ServicePrescriptionDescriptor ADD CONSTRAINT FK_e93574_Descriptor FOREIGN KEY (ServicePrescriptionDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.ServiceProviderTypeDescriptor ADD CONSTRAINT FK_29f0da_Descriptor FOREIGN KEY (ServiceProviderTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -6627,6 +6764,18 @@ REFERENCES edfi.StateAbbreviationDescriptor (StateAbbreviationDescriptorId)
 
 CREATE INDEX FK_c2d91b_StateAbbreviationDescriptor
 ON edfi.StaffDirectoryAddress (StateAbbreviationDescriptorId ASC);
+
+ALTER TABLE edfi.StaffDirectoryAddressCharacteristic ADD CONSTRAINT FK_cde421_AddressCharacteristicDescriptor FOREIGN KEY (AddressCharacteristicDescriptorId)
+REFERENCES edfi.AddressCharacteristicDescriptor (AddressCharacteristicDescriptorId)
+;
+
+CREATE INDEX FK_cde421_AddressCharacteristicDescriptor
+ON edfi.StaffDirectoryAddressCharacteristic (AddressCharacteristicDescriptorId ASC);
+
+ALTER TABLE edfi.StaffDirectoryAddressCharacteristic ADD CONSTRAINT FK_cde421_StaffDirectoryAddress FOREIGN KEY (EducationOrganizationId, StaffUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES edfi.StaffDirectoryAddress (EducationOrganizationId, StaffUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ON DELETE CASCADE
+;
 
 ALTER TABLE edfi.StaffDirectoryAddressPeriod ADD CONSTRAINT FK_88a9c2_StaffDirectoryAddress FOREIGN KEY (EducationOrganizationId, StaffUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 REFERENCES edfi.StaffDirectoryAddress (EducationOrganizationId, StaffUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
@@ -7097,33 +7246,33 @@ REFERENCES edfi.StateAbbreviationDescriptor (StateAbbreviationDescriptorId)
 CREATE INDEX FK_2a164d_StateAbbreviationDescriptor
 ON edfi.Student (BirthStateAbbreviationDescriptorId ASC);
 
-ALTER TABLE edfi.StudentAcademicRecord ADD CONSTRAINT FK_0ff8d6_CreditTypeDescriptor FOREIGN KEY (CumulativeEarnedCreditTypeDescriptorId)
+ALTER TABLE edfi.StudentAcademicRecord ADD CONSTRAINT FK_0ff8d6_CreditTypeDescriptor FOREIGN KEY (CumulativeAttemptedCreditTypeDescriptorId)
 REFERENCES edfi.CreditTypeDescriptor (CreditTypeDescriptorId)
 ;
 
 CREATE INDEX FK_0ff8d6_CreditTypeDescriptor
-ON edfi.StudentAcademicRecord (CumulativeEarnedCreditTypeDescriptorId ASC);
+ON edfi.StudentAcademicRecord (CumulativeAttemptedCreditTypeDescriptorId ASC);
 
-ALTER TABLE edfi.StudentAcademicRecord ADD CONSTRAINT FK_0ff8d6_CreditTypeDescriptor1 FOREIGN KEY (CumulativeAttemptedCreditTypeDescriptorId)
+ALTER TABLE edfi.StudentAcademicRecord ADD CONSTRAINT FK_0ff8d6_CreditTypeDescriptor1 FOREIGN KEY (CumulativeEarnedCreditTypeDescriptorId)
 REFERENCES edfi.CreditTypeDescriptor (CreditTypeDescriptorId)
 ;
 
 CREATE INDEX FK_0ff8d6_CreditTypeDescriptor1
-ON edfi.StudentAcademicRecord (CumulativeAttemptedCreditTypeDescriptorId ASC);
+ON edfi.StudentAcademicRecord (CumulativeEarnedCreditTypeDescriptorId ASC);
 
-ALTER TABLE edfi.StudentAcademicRecord ADD CONSTRAINT FK_0ff8d6_CreditTypeDescriptor2 FOREIGN KEY (SessionEarnedCreditTypeDescriptorId)
+ALTER TABLE edfi.StudentAcademicRecord ADD CONSTRAINT FK_0ff8d6_CreditTypeDescriptor2 FOREIGN KEY (SessionAttemptedCreditTypeDescriptorId)
 REFERENCES edfi.CreditTypeDescriptor (CreditTypeDescriptorId)
 ;
 
 CREATE INDEX FK_0ff8d6_CreditTypeDescriptor2
-ON edfi.StudentAcademicRecord (SessionEarnedCreditTypeDescriptorId ASC);
+ON edfi.StudentAcademicRecord (SessionAttemptedCreditTypeDescriptorId ASC);
 
-ALTER TABLE edfi.StudentAcademicRecord ADD CONSTRAINT FK_0ff8d6_CreditTypeDescriptor3 FOREIGN KEY (SessionAttemptedCreditTypeDescriptorId)
+ALTER TABLE edfi.StudentAcademicRecord ADD CONSTRAINT FK_0ff8d6_CreditTypeDescriptor3 FOREIGN KEY (SessionEarnedCreditTypeDescriptorId)
 REFERENCES edfi.CreditTypeDescriptor (CreditTypeDescriptorId)
 ;
 
 CREATE INDEX FK_0ff8d6_CreditTypeDescriptor3
-ON edfi.StudentAcademicRecord (SessionAttemptedCreditTypeDescriptorId ASC);
+ON edfi.StudentAcademicRecord (SessionEarnedCreditTypeDescriptorId ASC);
 
 ALTER TABLE edfi.StudentAcademicRecord ADD CONSTRAINT FK_0ff8d6_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
@@ -7936,6 +8085,18 @@ REFERENCES edfi.StudentDirectory (EducationOrganizationId, StudentUSI)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.StudentDirectoryAddressCharacteristic ADD CONSTRAINT FK_179f2f_AddressCharacteristicDescriptor FOREIGN KEY (AddressCharacteristicDescriptorId)
+REFERENCES edfi.AddressCharacteristicDescriptor (AddressCharacteristicDescriptorId)
+;
+
+CREATE INDEX FK_179f2f_AddressCharacteristicDescriptor
+ON edfi.StudentDirectoryAddressCharacteristic (AddressCharacteristicDescriptorId ASC);
+
+ALTER TABLE edfi.StudentDirectoryAddressCharacteristic ADD CONSTRAINT FK_179f2f_StudentDirectoryAddress FOREIGN KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES edfi.StudentDirectoryAddress (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.StudentDirectoryAddressPeriod ADD CONSTRAINT FK_44ca1e_StudentDirectoryAddress FOREIGN KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 REFERENCES edfi.StudentDirectoryAddress (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 ON DELETE CASCADE
@@ -8178,6 +8339,13 @@ ALTER TABLE edfi.StudentEducationOrganizationResponsibilityAssociation ADD CONST
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 ;
 
+ALTER TABLE edfi.StudentEducationOrganizationResponsibilityAssociation ADD CONSTRAINT FK_42aa64_EducationOrganization1 FOREIGN KEY (ResponsibleEducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+;
+
+CREATE INDEX FK_42aa64_EducationOrganization1
+ON edfi.StudentEducationOrganizationResponsibilityAssociation (ResponsibleEducationOrganizationId ASC);
+
 ALTER TABLE edfi.StudentEducationOrganizationResponsibilityAssociation ADD CONSTRAINT FK_42aa64_ResponsibilityDescriptor FOREIGN KEY (ResponsibilityDescriptorId)
 REFERENCES edfi.ResponsibilityDescriptor (ResponsibilityDescriptorId)
 ;
@@ -8305,6 +8473,232 @@ ON edfi.StudentIdentificationCode (StudentIdentificationSystemDescriptorId ASC);
 
 ALTER TABLE edfi.StudentIdentificationSystemDescriptor ADD CONSTRAINT FK_a28cb4_Descriptor FOREIGN KEY (StudentIdentificationSystemDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentIEP ADD CONSTRAINT FK_d153ae_EducationOrganization FOREIGN KEY (EducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+;
+
+ALTER TABLE edfi.StudentIEP ADD CONSTRAINT FK_d153ae_IEPStatusDescriptor FOREIGN KEY (IEPStatusDescriptorId)
+REFERENCES edfi.IEPStatusDescriptor (IEPStatusDescriptorId)
+;
+
+CREATE INDEX FK_d153ae_IEPStatusDescriptor
+ON edfi.StudentIEP (IEPStatusDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEP ADD CONSTRAINT FK_d153ae_ReasonExitedDescriptor FOREIGN KEY (ReasonExitedDescriptorId)
+REFERENCES edfi.ReasonExitedDescriptor (ReasonExitedDescriptorId)
+;
+
+CREATE INDEX FK_d153ae_ReasonExitedDescriptor
+ON edfi.StudentIEP (ReasonExitedDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEP ADD CONSTRAINT FK_d153ae_SpecialEducationSettingDescriptor FOREIGN KEY (SpecialEducationSettingDescriptorId)
+REFERENCES edfi.SpecialEducationSettingDescriptor (SpecialEducationSettingDescriptorId)
+;
+
+CREATE INDEX FK_d153ae_SpecialEducationSettingDescriptor
+ON edfi.StudentIEP (SpecialEducationSettingDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEP ADD CONSTRAINT FK_d153ae_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+ALTER TABLE edfi.StudentIEPAccommodation ADD CONSTRAINT FK_9be3b5_AccommodationDescriptor FOREIGN KEY (AccommodationDescriptorId)
+REFERENCES edfi.AccommodationDescriptor (AccommodationDescriptorId)
+;
+
+CREATE INDEX FK_9be3b5_AccommodationDescriptor
+ON edfi.StudentIEPAccommodation (AccommodationDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPAccommodation ADD CONSTRAINT FK_9be3b5_StudentIEP FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEP (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentIEPDisability ADD CONSTRAINT FK_9fbb10_DisabilityDescriptor FOREIGN KEY (DisabilityDescriptorId)
+REFERENCES edfi.DisabilityDescriptor (DisabilityDescriptorId)
+;
+
+CREATE INDEX FK_9fbb10_DisabilityDescriptor
+ON edfi.StudentIEPDisability (DisabilityDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPDisability ADD CONSTRAINT FK_9fbb10_DisabilityDeterminationSourceTypeDescriptor FOREIGN KEY (DisabilityDeterminationSourceTypeDescriptorId)
+REFERENCES edfi.DisabilityDeterminationSourceTypeDescriptor (DisabilityDeterminationSourceTypeDescriptorId)
+;
+
+CREATE INDEX FK_9fbb10_DisabilityDeterminationSourceTypeDescriptor
+ON edfi.StudentIEPDisability (DisabilityDeterminationSourceTypeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPDisability ADD CONSTRAINT FK_9fbb10_StudentIEP FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEP (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentIEPDisabilityDesignation ADD CONSTRAINT FK_7f0b66_DisabilityDesignationDescriptor FOREIGN KEY (DisabilityDesignationDescriptorId)
+REFERENCES edfi.DisabilityDesignationDescriptor (DisabilityDesignationDescriptorId)
+;
+
+CREATE INDEX FK_7f0b66_DisabilityDesignationDescriptor
+ON edfi.StudentIEPDisabilityDesignation (DisabilityDesignationDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPDisabilityDesignation ADD CONSTRAINT FK_7f0b66_StudentIEPDisability FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI, DisabilityDescriptorId)
+REFERENCES edfi.StudentIEPDisability (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI, DisabilityDescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentIEPGoal ADD CONSTRAINT FK_5453a5_IEPGoalTypeDescriptor FOREIGN KEY (IEPGoalTypeDescriptorId)
+REFERENCES edfi.IEPGoalTypeDescriptor (IEPGoalTypeDescriptorId)
+;
+
+CREATE INDEX FK_5453a5_IEPGoalTypeDescriptor
+ON edfi.StudentIEPGoal (IEPGoalTypeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPGoal ADD CONSTRAINT FK_5453a5_StudentIEP FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEP (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+;
+
+CREATE INDEX FK_5453a5_StudentIEP
+ON edfi.StudentIEPGoal (EducationOrganizationId ASC, IEPFinalizedDate ASC, StudentIEPIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentIEPGoalAchievementPeriod ADD CONSTRAINT FK_cd6880_StudentIEPGoal FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, IEPGoalIdentifier, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEPGoal (EducationOrganizationId, IEPFinalizedDate, IEPGoalIdentifier, StudentIEPIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentIEPGoalIDEAEvent ADD CONSTRAINT FK_77bb8b_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+;
+
+CREATE INDEX FK_77bb8b_IDEAEvent
+ON edfi.StudentIEPGoalIDEAEvent (EducationOrganizationId ASC, IDEAEventDescriptorId ASC, IDEAEventIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentIEPGoalIDEAEvent ADD CONSTRAINT FK_77bb8b_StudentIEPGoal FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, IEPGoalIdentifier, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEPGoal (EducationOrganizationId, IEPFinalizedDate, IEPGoalIdentifier, StudentIEPIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentIEPIDEAEvent ADD CONSTRAINT FK_879a3f_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+;
+
+CREATE INDEX FK_879a3f_IDEAEvent
+ON edfi.StudentIEPIDEAEvent (EducationOrganizationId ASC, IDEAEventDescriptorId ASC, IDEAEventIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentIEPIDEAEvent ADD CONSTRAINT FK_879a3f_StudentIEP FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEP (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentIEPServiceDelivery ADD CONSTRAINT FK_524fcd_ServiceDeliveryDescriptor FOREIGN KEY (ServiceDeliveryDescriptorId)
+REFERENCES edfi.ServiceDeliveryDescriptor (ServiceDeliveryDescriptorId)
+;
+
+CREATE INDEX FK_524fcd_ServiceDeliveryDescriptor
+ON edfi.StudentIEPServiceDelivery (ServiceDeliveryDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPServiceDelivery ADD CONSTRAINT FK_524fcd_StudentIEP FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEP (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+;
+
+CREATE INDEX FK_524fcd_StudentIEP
+ON edfi.StudentIEPServiceDelivery (EducationOrganizationId ASC, IEPFinalizedDate ASC, StudentIEPIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentIEPServiceDelivery ADD CONSTRAINT FK_524fcd_StudentIEPServicePrescription FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, ServicePrescriptionDate, ServicePrescriptionDescriptorId, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEPServicePrescription (EducationOrganizationId, IEPFinalizedDate, ServicePrescriptionDate, ServicePrescriptionDescriptorId, StudentIEPIdentifier, StudentUSI)
+;
+
+CREATE INDEX FK_524fcd_StudentIEPServicePrescription
+ON edfi.StudentIEPServiceDelivery (EducationOrganizationId ASC, IEPFinalizedDate ASC, ServicePrescriptionDate ASC, ServicePrescriptionDescriptorId ASC, StudentIEPIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentIEPServiceDeliveryIDEAEvent ADD CONSTRAINT FK_a62d81_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+;
+
+CREATE INDEX FK_a62d81_IDEAEvent
+ON edfi.StudentIEPServiceDeliveryIDEAEvent (EducationOrganizationId ASC, IDEAEventDescriptorId ASC, IDEAEventIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentIEPServiceDeliveryIDEAEvent ADD CONSTRAINT FK_a62d81_StudentIEPServiceDelivery FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, IEPServiceDeliveryIdentifier, ServiceDeliveryDate, ServiceDeliveryDescriptorId, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEPServiceDelivery (EducationOrganizationId, IEPFinalizedDate, IEPServiceDeliveryIdentifier, ServiceDeliveryDate, ServiceDeliveryDescriptorId, StudentIEPIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentIEPServiceDeliveryProvider ADD CONSTRAINT FK_f835b7_ServiceProviderTypeDescriptor FOREIGN KEY (ServiceProviderTypeDescriptorId)
+REFERENCES edfi.ServiceProviderTypeDescriptor (ServiceProviderTypeDescriptorId)
+;
+
+CREATE INDEX FK_f835b7_ServiceProviderTypeDescriptor
+ON edfi.StudentIEPServiceDeliveryProvider (ServiceProviderTypeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPServiceDeliveryProvider ADD CONSTRAINT FK_f835b7_Staff FOREIGN KEY (StaffUSI)
+REFERENCES edfi.Staff (StaffUSI)
+;
+
+CREATE INDEX FK_f835b7_Staff
+ON edfi.StudentIEPServiceDeliveryProvider (StaffUSI ASC);
+
+ALTER TABLE edfi.StudentIEPServiceDeliveryProvider ADD CONSTRAINT FK_f835b7_StudentIEPServiceDelivery FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, IEPServiceDeliveryIdentifier, ServiceDeliveryDate, ServiceDeliveryDescriptorId, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEPServiceDelivery (EducationOrganizationId, IEPFinalizedDate, IEPServiceDeliveryIdentifier, ServiceDeliveryDate, ServiceDeliveryDescriptorId, StudentIEPIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentIEPServicePrescription ADD CONSTRAINT FK_d0ad1a_DurationIntervalDescriptor FOREIGN KEY (DurationIntervalDescriptorId)
+REFERENCES edfi.DurationIntervalDescriptor (DurationIntervalDescriptorId)
+;
+
+CREATE INDEX FK_d0ad1a_DurationIntervalDescriptor
+ON edfi.StudentIEPServicePrescription (DurationIntervalDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPServicePrescription ADD CONSTRAINT FK_d0ad1a_FrequencyIntervalDescriptor FOREIGN KEY (FrequencyIntervalDescriptorId)
+REFERENCES edfi.FrequencyIntervalDescriptor (FrequencyIntervalDescriptorId)
+;
+
+CREATE INDEX FK_d0ad1a_FrequencyIntervalDescriptor
+ON edfi.StudentIEPServicePrescription (FrequencyIntervalDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPServicePrescription ADD CONSTRAINT FK_d0ad1a_ServiceLocationTypeDescriptor FOREIGN KEY (ServiceLocationTypeDescriptorId)
+REFERENCES edfi.ServiceLocationTypeDescriptor (ServiceLocationTypeDescriptorId)
+;
+
+CREATE INDEX FK_d0ad1a_ServiceLocationTypeDescriptor
+ON edfi.StudentIEPServicePrescription (ServiceLocationTypeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPServicePrescription ADD CONSTRAINT FK_d0ad1a_ServicePrescriptionDescriptor FOREIGN KEY (ServicePrescriptionDescriptorId)
+REFERENCES edfi.ServicePrescriptionDescriptor (ServicePrescriptionDescriptorId)
+;
+
+CREATE INDEX FK_d0ad1a_ServicePrescriptionDescriptor
+ON edfi.StudentIEPServicePrescription (ServicePrescriptionDescriptorId ASC);
+
+ALTER TABLE edfi.StudentIEPServicePrescription ADD CONSTRAINT FK_d0ad1a_StudentIEP FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEP (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
+;
+
+CREATE INDEX FK_d0ad1a_StudentIEP
+ON edfi.StudentIEPServicePrescription (EducationOrganizationId ASC, IEPFinalizedDate ASC, StudentIEPIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentIEPServicePrescriptionIDEAEvent ADD CONSTRAINT FK_cf3b90_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+;
+
+CREATE INDEX FK_cf3b90_IDEAEvent
+ON edfi.StudentIEPServicePrescriptionIDEAEvent (EducationOrganizationId ASC, IDEAEventDescriptorId ASC, IDEAEventIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentIEPServicePrescriptionIDEAEvent ADD CONSTRAINT FK_cf3b90_StudentIEPServicePrescription FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, ServicePrescriptionDate, ServicePrescriptionDescriptorId, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEPServicePrescription (EducationOrganizationId, IEPFinalizedDate, ServicePrescriptionDate, ServicePrescriptionDescriptorId, StudentIEPIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentIEPServicePrescriptionStaff ADD CONSTRAINT FK_e04f06_Staff FOREIGN KEY (StaffUSI)
+REFERENCES edfi.Staff (StaffUSI)
+;
+
+CREATE INDEX FK_e04f06_Staff
+ON edfi.StudentIEPServicePrescriptionStaff (StaffUSI ASC);
+
+ALTER TABLE edfi.StudentIEPServicePrescriptionStaff ADD CONSTRAINT FK_e04f06_StudentIEPServicePrescription FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, ServicePrescriptionDate, ServicePrescriptionDescriptorId, StudentIEPIdentifier, StudentUSI)
+REFERENCES edfi.StudentIEPServicePrescription (EducationOrganizationId, IEPFinalizedDate, ServicePrescriptionDate, ServicePrescriptionDescriptorId, StudentIEPIdentifier, StudentUSI)
 ON DELETE CASCADE
 ;
 

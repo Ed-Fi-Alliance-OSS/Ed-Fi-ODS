@@ -90,6 +90,7 @@
       ],
       "isAbstract": false,
       "description": "The type of control for an institution (e.g., public or private).",
+      "domains": [],
       "tableNames": {
         "sqlServer": "InstitutionControlDescriptor",
         "postgreSql": "InstitutionControlDescriptor"
@@ -115,6 +116,7 @@
       ],
       "isAbstract": false,
       "description": "The typical level of postsecondary degree offered by the institute.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "InstitutionLevelDescriptor",
         "postgreSql": "InstitutionLevelDescriptor"
@@ -240,6 +242,7 @@
       ],
       "isAbstract": false,
       "description": "PostSecondaryOrganization",
+      "domains": [],
       "tableNames": {
         "sqlServer": "PostSecondaryOrganization",
         "postgreSql": "PostSecondaryOrganization"
@@ -265,6 +268,7 @@
       ],
       "isAbstract": false,
       "description": "The graduation status for special education.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SpecialEducationGraduationStatusDescriptor",
         "postgreSql": "SpecialEducationGraduationStatusDescriptor"
@@ -311,6 +315,7 @@
       ],
       "isAbstract": false,
       "description": "Class Ranking Extension",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentAcademicRecordClassRankingExtension",
         "postgreSql": "StudentAcademicRecordClassRankingExtension"
@@ -357,6 +362,7 @@
       ],
       "isAbstract": false,
       "description": "",
+      "domains": [],
       "tableNames": {
         "sqlServer": "StudentAcademicRecordExtension",
         "postgreSql": "StudentAcademicRecordExtension"
@@ -382,6 +388,7 @@
       ],
       "isAbstract": false,
       "description": "The type of submission certification.",
+      "domains": [],
       "tableNames": {
         "sqlServer": "SubmissionCertificationDescriptor",
         "postgreSql": "SubmissionCertificationDescriptor"
