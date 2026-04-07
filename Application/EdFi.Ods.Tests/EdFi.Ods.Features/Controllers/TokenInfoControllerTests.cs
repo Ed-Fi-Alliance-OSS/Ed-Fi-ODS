@@ -270,8 +270,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             }
 
             [Test]
-            public void Should_return_404_NotFound()
-                => _result.ShouldBeOfType<NotFoundResult>();
+            public void Should_return_401_Unauthorized()
+                => _result.ShouldBeOfType<UnauthorizedResult>();
         }
 
         public class When_guid_token_belongs_to_a_different_api_client : TestFixtureAsyncBase
@@ -303,8 +303,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             }
 
             [Test]
-            public void Should_return_404_NotFound_not_401()
-                => _result.ShouldBeOfType<NotFoundResult>();
+            public void Should_return_401_Unauthorized()
+                => _result.ShouldBeOfType<UnauthorizedResult>();
         }
 
         // ===========================================================================
@@ -505,8 +505,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             }
 
             [Test]
-            public void Should_return_404_NotFound()
-                => _result.ShouldBeOfType<NotFoundResult>();
+            public void Should_return_401_Unauthorized()
+                => _result.ShouldBeOfType<UnauthorizedResult>();
         }
 
         public class When_jwt_token_belongs_to_a_different_api_client : TestFixtureAsyncBase
@@ -541,8 +541,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             }
 
             [Test]
-            public void Should_return_404_NotFound_not_401()
-                => _result.ShouldBeOfType<NotFoundResult>();
+            public void Should_return_401_Unauthorized()
+                => _result.ShouldBeOfType<UnauthorizedResult>();
         }
 
         // ===========================================================================

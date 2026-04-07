@@ -99,18 +99,10 @@ namespace EdFi.Ods.Features.Controllers
                     ? authHeader["Bearer ".Length..].Trim()
                     : null;
 
-                if (bearerToken == null || !string.Equals(tokenInfoRequest.Token, bearerToken, StringComparison.Ordinal))
-                {
-                    return BadRequest(
-                        new BadRequestException(
-                            "An invalid token was provided",
-                            new[] { "The token was not present, or was not processable." })
-                        {
-                            CorrelationId = _logContextAccessor.GetCorrelationId()
-                        }.AsSerializableModel());
-                }
-
-                if (!Guid.TryParse(_httpContextAccessor.HttpContext?.User.FindFirst(JwtRegisteredClaimNames.Jti)?.Value, out guidAccessToken))
+                if (bearerToken == null || 
+                    !string.Equals(tokenInfoRequest.Token, bearerToken, StringComparison.Ordinal) ||
+                    !Guid.TryParse(_httpContextAccessor.HttpContext?.User.FindFirst(JwtRegisteredClaimNames.Jti)?.Value, out guidAccessToken)
+                )
                 {
                     return BadRequest(
                         new BadRequestException(
@@ -126,11 +118,11 @@ namespace EdFi.Ods.Features.Controllers
 
             ApiClientContext apiContext = _apiClientContextProvider.GetApiClientContext();
 
-            // Return 404 for both missing tokens and tokens owned by another client to
+            // Return 401 for both missing tokens and tokens owned by another client to
             // prevent enumeration: callers must not learn whether a foreign token exists.
             if (oAuthTokenClientDetails == null || oAuthTokenClientDetails.ApiKey != apiContext.ApiKey)
             {
-                return NotFound();
+                return Unauthorized();
             }
 
             var tokenInfo = await _tokenInfoProvider.GetTokenInfoAsync(apiContext);
