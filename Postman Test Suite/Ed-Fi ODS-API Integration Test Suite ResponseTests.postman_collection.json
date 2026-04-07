@@ -6880,14 +6880,14 @@
 							"name": "when_retrieving_token_info_using_an_invalid_token",
 							"item": [
 								{
-									"name": "api_should_fail_with_a_400_bad_request",
+									"name": "api_should_fail_with_a_401_unauthorized",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"pm.test(\"Status code is 401\", () => {",
+													"    pm.expect(pm.response.code).to.equal(401);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating that the token is invalid.\", () => {",
@@ -6897,7 +6897,7 @@
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request\");",
 													"  pm.expect(problemDetails.detail).to.equal(\"An invalid token was provided\");",
 													"  pm.expect(problemDetails.title).to.equal(\"Bad Request\");",
-													"  pm.expect(problemDetails.errors).contains(\"The token was not present, or was not processable as a GUID value.\")",
+													"  pm.expect(problemDetails.errors).contains(\"The token was not present, or was not processable.\")",
 													"});"
 												],
 												"type": "text/javascript",
