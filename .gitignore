@@ -102,3 +102,6 @@ appsettings.Development.json
 *.log
 
 NugetPackages/
+
+# Agent local files
+**/settings.local.json
