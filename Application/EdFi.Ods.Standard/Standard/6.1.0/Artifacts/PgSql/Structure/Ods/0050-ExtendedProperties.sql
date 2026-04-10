@@ -2738,8 +2738,8 @@ COMMENT ON COLUMN edfi.HomelessProgramServiceDescriptor.HomelessProgramServiceDe
 -- Extended Properties [edfi].[IDEAEvent] --
 COMMENT ON TABLE edfi.IDEAEvent IS 'EARLY ACCESS: An IDEA related student event describing status, dates and narrative.';
 COMMENT ON COLUMN edfi.IDEAEvent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.IDEAEvent.IDEAEventDescriptorId IS 'The IDEA event recorded for the student.';
 COMMENT ON COLUMN edfi.IDEAEvent.IDEAEventIdentifier IS '	A unique identifier for the event record as assigned by the provider of IEP services.';
+COMMENT ON COLUMN edfi.IDEAEvent.IDEAEventTypeDescriptorId IS 'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.';
 COMMENT ON COLUMN edfi.IDEAEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.IDEAEvent.BeginDate IS 'The date when the IDEA related event started. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.IDEAEvent.EndDate IS 'The date when the IDEA related event concluded. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
@@ -2747,9 +2747,9 @@ COMMENT ON COLUMN edfi.IDEAEvent.EventComplianceDescriptorId IS 'The type of com
 COMMENT ON COLUMN edfi.IDEAEvent.EventNarrative IS 'Detailed and summary notes recorded during the event.';
 COMMENT ON COLUMN edfi.IDEAEvent.EventReasonDescriptorId IS 'The reason why the IDEA event occurred.';
 
--- Extended Properties [edfi].[IDEAEventDescriptor] --
-COMMENT ON TABLE edfi.IDEAEventDescriptor IS 'The IDEA event recorded for the student.';
-COMMENT ON COLUMN edfi.IDEAEventDescriptor.IDEAEventDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+-- Extended Properties [edfi].[IDEAEventTypeDescriptor] --
+COMMENT ON TABLE edfi.IDEAEventTypeDescriptor IS 'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.';
+COMMENT ON COLUMN edfi.IDEAEventTypeDescriptor.IDEAEventTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[IDEAPartDescriptor] --
 COMMENT ON TABLE edfi.IDEAPartDescriptor IS 'Indicates if the evaluation is done under Part B IDEA or Part C IDEA.';
@@ -5727,8 +5727,8 @@ COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.IEPFinalizedDate IS 'The date the
 COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.IEPGoalIdentifier IS 'A unique identifier assigned by the provider of IEP services.';
 COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
 COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.IDEAEventDescriptorId IS 'The IDEA event recorded for the student.';
 COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.IDEAEventIdentifier IS '	A unique identifier for the event record as assigned by the provider of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPGoalIDEAEvent.IDEAEventTypeDescriptorId IS 'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.';
 
 -- Extended Properties [edfi].[StudentIEPIDEAEvent] --
 COMMENT ON TABLE edfi.StudentIEPIDEAEvent IS 'A reference to the IDEA events associated with the student''s IEP.';
@@ -5736,8 +5736,8 @@ COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.EducationOrganizationId IS 'The ident
 COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.IEPFinalizedDate IS 'The date the IEP was finalized. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
 COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.IDEAEventDescriptorId IS 'The IDEA event recorded for the student.';
 COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.IDEAEventIdentifier IS '	A unique identifier for the event record as assigned by the provider of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPIDEAEvent.IDEAEventTypeDescriptorId IS 'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.';
 
 -- Extended Properties [edfi].[StudentIEPServiceDelivery] --
 COMMENT ON TABLE edfi.StudentIEPServiceDelivery IS 'EARLY ACCESS: Services delivered to a student as prescribed by their Individual Education Program (IEP).';
@@ -5760,8 +5760,8 @@ COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.ServiceDeliveryDate IS
 COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.ServiceDeliveryDescriptorId IS 'The type of services delivered to the student.';
 COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
 COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.IDEAEventDescriptorId IS 'The IDEA event recorded for the student.';
 COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.IDEAEventIdentifier IS '	A unique identifier for the event record as assigned by the provider of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPServiceDeliveryIDEAEvent.IDEAEventTypeDescriptorId IS 'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.';
 
 -- Extended Properties [edfi].[StudentIEPServiceDeliveryProvider] --
 COMMENT ON TABLE edfi.StudentIEPServiceDeliveryProvider IS 'The service provider that delivered the prescribed service to the student.';
@@ -5804,8 +5804,8 @@ COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.ServicePrescriptio
 COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.ServicePrescriptionDescriptorId IS 'The type of service prescribed. Examples include: Auditory Specialist, Vocational Therapy.';
 COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.StudentIEPIdentifier IS 'A unique identifier assigned by the provider or source system of IEP services.';
 COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.IDEAEventDescriptorId IS 'The IDEA event recorded for the student.';
 COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.IDEAEventIdentifier IS '	A unique identifier for the event record as assigned by the provider of IEP services.';
+COMMENT ON COLUMN edfi.StudentIEPServicePrescriptionIDEAEvent.IDEAEventTypeDescriptorId IS 'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.';
 
 -- Extended Properties [edfi].[StudentIEPServicePrescriptionStaff] --
 COMMENT ON TABLE edfi.StudentIEPServicePrescriptionStaff IS 'A reference to the staff member(s) assigned to provide the prescribed service.';
@@ -6128,7 +6128,7 @@ COMMENT ON COLUMN edfi.StudentProgramEvaluationStudentEvaluationObjective.Evalua
 COMMENT ON COLUMN edfi.StudentProgramEvaluationStudentEvaluationObjective.EvaluationObjectiveRatingLevelDescriptorId IS 'The rating level achieved based upon the rating or score for the evaluation objective.';
 
 -- Extended Properties [edfi].[StudentSchoolAssociation] --
-COMMENT ON TABLE edfi.StudentSchoolAssociation IS 'This association represents the school in which a student is enrolled. The semantics of enrollment may differ slightly by state. Non-enrollment relationships between a student and an education organization may be described using the StudentEducationOrganizationAssociation.';
+COMMENT ON TABLE edfi.StudentSchoolAssociation IS 'This association represents the school in which a student is enrolled. The semantics of enrollment may differ slightly by state. Non-enrollment relationships between a student and an education organization may be described using the StudentEducationOrganizationAssociation, StudentDemographic and StudentDirectory.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.EntryDate IS 'The month, day, and year on which an individual enters and begins to receive instructional services in a school for each school year. The EntryDate value should be the date the student enrolled, or when the student''s enrollment materially changed, such as with a grade promotion.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
@@ -6154,7 +6154,7 @@ COMMENT ON COLUMN edfi.StudentSchoolAssociation.SchoolChoice IS 'An indication o
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.SchoolChoiceBasisDescriptorId IS 'The legal basis for the school choice enrollment according to local, state or federal policy or regulation. (The descriptor provides the list of available bases specific to the state';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.SchoolChoiceTransfer IS 'An indication of whether students transferred in or out of the school did so during the school year under the provisions for public school choice in accordance with Title I, Part A, Section 1116.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.SchoolYear IS 'The school year associated with the student''s enrollment.';
-COMMENT ON COLUMN edfi.StudentSchoolAssociation.TermCompletionIndicator IS 'Idicates whether or not a student completed the most recent school term.';
+COMMENT ON COLUMN edfi.StudentSchoolAssociation.TermCompletionIndicator IS 'Indicates whether or not a student completed the most recent school term.';
 
 -- Extended Properties [edfi].[StudentSchoolAssociationAlternativeGraduationPlan] --
 COMMENT ON TABLE edfi.StudentSchoolAssociationAlternativeGraduationPlan IS 'The secondary graduation plan or plans associated with the student enrolled in the school.';

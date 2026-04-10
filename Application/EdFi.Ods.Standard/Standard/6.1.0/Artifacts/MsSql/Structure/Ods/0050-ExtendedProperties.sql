@@ -4770,9 +4770,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'EARLY ACCESS: 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IDEAEvent', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The IDEA event recorded for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventDescriptorId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'	A unique identifier for the event record as assigned by the provider of IEP services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IDEAEvent', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
@@ -4787,10 +4787,10 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The reason why the IDEA event occurred.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IDEAEvent', @level2type=N'COLUMN', @level2name=N'EventReasonDescriptorId'
 GO
 
--- Extended Properties [edfi].[IDEAEventDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The IDEA event recorded for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IDEAEventDescriptor'
+-- Extended Properties [edfi].[IDEAEventTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IDEAEventTypeDescriptor'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IDEAEventDescriptor', @level2type=N'COLUMN', @level2name=N'IDEAEventDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IDEAEventTypeDescriptor', @level2type=N'COLUMN', @level2name=N'IDEAEventTypeDescriptorId'
 GO
 
 -- Extended Properties [edfi].[IDEAPartDescriptor] --
@@ -9986,9 +9986,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique ident
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPGoalIDEAEvent', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The IDEA event recorded for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPGoalIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventDescriptorId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'	A unique identifier for the event record as assigned by the provider of IEP services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPGoalIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPGoalIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventTypeDescriptorId'
 GO
 
 -- Extended Properties [edfi].[StudentIEPIDEAEvent] --
@@ -10002,9 +10002,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique ident
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPIDEAEvent', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The IDEA event recorded for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventDescriptorId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'	A unique identifier for the event record as assigned by the provider of IEP services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventTypeDescriptorId'
 GO
 
 -- Extended Properties [edfi].[StudentIEPServiceDelivery] --
@@ -10046,9 +10046,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique ident
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPServiceDeliveryIDEAEvent', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The IDEA event recorded for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPServiceDeliveryIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventDescriptorId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'	A unique identifier for the event record as assigned by the provider of IEP services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPServiceDeliveryIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPServiceDeliveryIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventTypeDescriptorId'
 GO
 
 -- Extended Properties [edfi].[StudentIEPServiceDeliveryProvider] --
@@ -10128,9 +10128,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique ident
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPServicePrescriptionIDEAEvent', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The IDEA event recorded for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPServicePrescriptionIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventDescriptorId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'	A unique identifier for the event record as assigned by the provider of IEP services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPServicePrescriptionIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The specific legal step, procedure, or standard event milestone captured as part of IDEA compliance requirements.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentIEPServicePrescriptionIDEAEvent', @level2type=N'COLUMN', @level2name=N'IDEAEventTypeDescriptorId'
 GO
 
 -- Extended Properties [edfi].[StudentIEPServicePrescriptionStaff] --
@@ -10712,7 +10712,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The rating lev
 GO
 
 -- Extended Properties [edfi].[StudentSchoolAssociation] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association represents the school in which a student is enrolled. The semantics of enrollment may differ slightly by state. Non-enrollment relationships between a student and an education organization may be described using the StudentEducationOrganizationAssociation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSchoolAssociation'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association represents the school in which a student is enrolled. The semantics of enrollment may differ slightly by state. Non-enrollment relationships between a student and an education organization may be described using the StudentEducationOrganizationAssociation, StudentDemographic and StudentDirectory.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSchoolAssociation'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which an individual enters and begins to receive instructional services in a school for each school year. The EntryDate value should be the date the student enrolled, or when the student''s enrollment materially changed, such as with a grade promotion.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSchoolAssociation', @level2type=N'COLUMN', @level2name=N'EntryDate'
 GO
@@ -10764,7 +10764,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year associated with the student''s enrollment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSchoolAssociation', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Idicates whether or not a student completed the most recent school term.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSchoolAssociation', @level2type=N'COLUMN', @level2name=N'TermCompletionIndicator'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates whether or not a student completed the most recent school term.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSchoolAssociation', @level2type=N'COLUMN', @level2name=N'TermCompletionIndicator'
 GO
 
 -- Extended Properties [edfi].[StudentSchoolAssociationAlternativeGraduationPlan] --

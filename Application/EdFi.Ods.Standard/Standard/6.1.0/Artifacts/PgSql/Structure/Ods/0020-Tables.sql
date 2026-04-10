@@ -4189,8 +4189,8 @@ CREATE TABLE edfi.HomelessProgramServiceDescriptor (
 -- Table edfi.IDEAEvent --
 CREATE TABLE edfi.IDEAEvent (
     EducationOrganizationId BIGINT NOT NULL,
-    IDEAEventDescriptorId INT NOT NULL,
     IDEAEventIdentifier VARCHAR(120) NOT NULL,
+    IDEAEventTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     BeginDate DATE NOT NULL,
     EndDate DATE NULL,
@@ -4201,16 +4201,16 @@ CREATE TABLE edfi.IDEAEvent (
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT IDEAEvent_PK PRIMARY KEY (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+    CONSTRAINT IDEAEvent_PK PRIMARY KEY (EducationOrganizationId, IDEAEventIdentifier, IDEAEventTypeDescriptorId, StudentUSI)
 );
 ALTER TABLE edfi.IDEAEvent ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE edfi.IDEAEvent ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.IDEAEvent ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
--- Table edfi.IDEAEventDescriptor --
-CREATE TABLE edfi.IDEAEventDescriptor (
-    IDEAEventDescriptorId INT NOT NULL,
-    CONSTRAINT IDEAEventDescriptor_PK PRIMARY KEY (IDEAEventDescriptorId)
+-- Table edfi.IDEAEventTypeDescriptor --
+CREATE TABLE edfi.IDEAEventTypeDescriptor (
+    IDEAEventTypeDescriptorId INT NOT NULL,
+    CONSTRAINT IDEAEventTypeDescriptor_PK PRIMARY KEY (IDEAEventTypeDescriptorId)
 );
 
 -- Table edfi.IDEAPartDescriptor --
@@ -8831,10 +8831,10 @@ CREATE TABLE edfi.StudentIEPGoalIDEAEvent (
     IEPGoalIdentifier VARCHAR(120) NOT NULL,
     StudentIEPIdentifier VARCHAR(120) NOT NULL,
     StudentUSI INT NOT NULL,
-    IDEAEventDescriptorId INT NOT NULL,
     IDEAEventIdentifier VARCHAR(120) NOT NULL,
+    IDEAEventTypeDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentIEPGoalIDEAEvent_PK PRIMARY KEY (EducationOrganizationId, IEPFinalizedDate, IEPGoalIdentifier, StudentIEPIdentifier, StudentUSI, IDEAEventDescriptorId, IDEAEventIdentifier)
+    CONSTRAINT StudentIEPGoalIDEAEvent_PK PRIMARY KEY (EducationOrganizationId, IEPFinalizedDate, IEPGoalIdentifier, StudentIEPIdentifier, StudentUSI, IDEAEventIdentifier, IDEAEventTypeDescriptorId)
 );
 ALTER TABLE edfi.StudentIEPGoalIDEAEvent ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
@@ -8844,10 +8844,10 @@ CREATE TABLE edfi.StudentIEPIDEAEvent (
     IEPFinalizedDate DATE NOT NULL,
     StudentIEPIdentifier VARCHAR(120) NOT NULL,
     StudentUSI INT NOT NULL,
-    IDEAEventDescriptorId INT NOT NULL,
     IDEAEventIdentifier VARCHAR(120) NOT NULL,
+    IDEAEventTypeDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentIEPIDEAEvent_PK PRIMARY KEY (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI, IDEAEventDescriptorId, IDEAEventIdentifier)
+    CONSTRAINT StudentIEPIDEAEvent_PK PRIMARY KEY (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI, IDEAEventIdentifier, IDEAEventTypeDescriptorId)
 );
 ALTER TABLE edfi.StudentIEPIDEAEvent ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
@@ -8881,10 +8881,10 @@ CREATE TABLE edfi.StudentIEPServiceDeliveryIDEAEvent (
     ServiceDeliveryDescriptorId INT NOT NULL,
     StudentIEPIdentifier VARCHAR(120) NOT NULL,
     StudentUSI INT NOT NULL,
-    IDEAEventDescriptorId INT NOT NULL,
     IDEAEventIdentifier VARCHAR(120) NOT NULL,
+    IDEAEventTypeDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentIEPServiceDeliveryIDEAEvent_PK PRIMARY KEY (EducationOrganizationId, IEPFinalizedDate, IEPServiceDeliveryIdentifier, ServiceDeliveryDate, ServiceDeliveryDescriptorId, StudentIEPIdentifier, StudentUSI, IDEAEventDescriptorId, IDEAEventIdentifier)
+    CONSTRAINT StudentIEPServiceDeliveryIDEAEvent_PK PRIMARY KEY (EducationOrganizationId, IEPFinalizedDate, IEPServiceDeliveryIdentifier, ServiceDeliveryDate, ServiceDeliveryDescriptorId, StudentIEPIdentifier, StudentUSI, IDEAEventIdentifier, IDEAEventTypeDescriptorId)
 );
 ALTER TABLE edfi.StudentIEPServiceDeliveryIDEAEvent ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
@@ -8942,10 +8942,10 @@ CREATE TABLE edfi.StudentIEPServicePrescriptionIDEAEvent (
     ServicePrescriptionDescriptorId INT NOT NULL,
     StudentIEPIdentifier VARCHAR(120) NOT NULL,
     StudentUSI INT NOT NULL,
-    IDEAEventDescriptorId INT NOT NULL,
     IDEAEventIdentifier VARCHAR(120) NOT NULL,
+    IDEAEventTypeDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentIEPServicePrescriptionIDEAEvent_PK PRIMARY KEY (EducationOrganizationId, IEPFinalizedDate, ServicePrescriptionDate, ServicePrescriptionDescriptorId, StudentIEPIdentifier, StudentUSI, IDEAEventDescriptorId, IDEAEventIdentifier)
+    CONSTRAINT StudentIEPServicePrescriptionIDEAEvent_PK PRIMARY KEY (EducationOrganizationId, IEPFinalizedDate, ServicePrescriptionDate, ServicePrescriptionDescriptorId, StudentIEPIdentifier, StudentUSI, IDEAEventIdentifier, IDEAEventTypeDescriptorId)
 );
 ALTER TABLE edfi.StudentIEPServicePrescriptionIDEAEvent ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 

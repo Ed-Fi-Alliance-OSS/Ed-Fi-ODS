@@ -6270,8 +6270,8 @@ GO
 -- Table [edfi].[IDEAEvent] --
 CREATE TABLE [edfi].[IDEAEvent] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
-    [IDEAEventDescriptorId] [INT] NOT NULL,
     [IDEAEventIdentifier] [NVARCHAR](120) NOT NULL,
+    [IDEAEventTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [BeginDate] [DATE] NOT NULL,
     [EndDate] [DATE] NULL,
@@ -6284,8 +6284,8 @@ CREATE TABLE [edfi].[IDEAEvent] (
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [IDEAEvent_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
-        [IDEAEventDescriptorId] ASC,
         [IDEAEventIdentifier] ASC,
+        [IDEAEventTypeDescriptorId] ASC,
         [StudentUSI] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -6297,11 +6297,11 @@ GO
 ALTER TABLE [edfi].[IDEAEvent] ADD CONSTRAINT [IDEAEvent_DF_LastModifiedDate] DEFAULT (getutcdate()) FOR [LastModifiedDate]
 GO
 
--- Table [edfi].[IDEAEventDescriptor] --
-CREATE TABLE [edfi].[IDEAEventDescriptor] (
-    [IDEAEventDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [IDEAEventDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [IDEAEventDescriptorId] ASC
+-- Table [edfi].[IDEAEventTypeDescriptor] --
+CREATE TABLE [edfi].[IDEAEventTypeDescriptor] (
+    [IDEAEventTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [IDEAEventTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [IDEAEventTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -13291,8 +13291,8 @@ CREATE TABLE [edfi].[StudentIEPGoalIDEAEvent] (
     [IEPGoalIdentifier] [NVARCHAR](120) NOT NULL,
     [StudentIEPIdentifier] [NVARCHAR](120) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [IDEAEventDescriptorId] [INT] NOT NULL,
     [IDEAEventIdentifier] [NVARCHAR](120) NOT NULL,
+    [IDEAEventTypeDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentIEPGoalIDEAEvent_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
@@ -13300,8 +13300,8 @@ CREATE TABLE [edfi].[StudentIEPGoalIDEAEvent] (
         [IEPGoalIdentifier] ASC,
         [StudentIEPIdentifier] ASC,
         [StudentUSI] ASC,
-        [IDEAEventDescriptorId] ASC,
-        [IDEAEventIdentifier] ASC
+        [IDEAEventIdentifier] ASC,
+        [IDEAEventTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -13314,16 +13314,16 @@ CREATE TABLE [edfi].[StudentIEPIDEAEvent] (
     [IEPFinalizedDate] [DATE] NOT NULL,
     [StudentIEPIdentifier] [NVARCHAR](120) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [IDEAEventDescriptorId] [INT] NOT NULL,
     [IDEAEventIdentifier] [NVARCHAR](120) NOT NULL,
+    [IDEAEventTypeDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentIEPIDEAEvent_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
         [IEPFinalizedDate] ASC,
         [StudentIEPIdentifier] ASC,
         [StudentUSI] ASC,
-        [IDEAEventDescriptorId] ASC,
-        [IDEAEventIdentifier] ASC
+        [IDEAEventIdentifier] ASC,
+        [IDEAEventTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -13372,8 +13372,8 @@ CREATE TABLE [edfi].[StudentIEPServiceDeliveryIDEAEvent] (
     [ServiceDeliveryDescriptorId] [INT] NOT NULL,
     [StudentIEPIdentifier] [NVARCHAR](120) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [IDEAEventDescriptorId] [INT] NOT NULL,
     [IDEAEventIdentifier] [NVARCHAR](120) NOT NULL,
+    [IDEAEventTypeDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentIEPServiceDeliveryIDEAEvent_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
@@ -13383,8 +13383,8 @@ CREATE TABLE [edfi].[StudentIEPServiceDeliveryIDEAEvent] (
         [ServiceDeliveryDescriptorId] ASC,
         [StudentIEPIdentifier] ASC,
         [StudentUSI] ASC,
-        [IDEAEventDescriptorId] ASC,
-        [IDEAEventIdentifier] ASC
+        [IDEAEventIdentifier] ASC,
+        [IDEAEventTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -13468,8 +13468,8 @@ CREATE TABLE [edfi].[StudentIEPServicePrescriptionIDEAEvent] (
     [ServicePrescriptionDescriptorId] [INT] NOT NULL,
     [StudentIEPIdentifier] [NVARCHAR](120) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [IDEAEventDescriptorId] [INT] NOT NULL,
     [IDEAEventIdentifier] [NVARCHAR](120) NOT NULL,
+    [IDEAEventTypeDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentIEPServicePrescriptionIDEAEvent_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
@@ -13478,8 +13478,8 @@ CREATE TABLE [edfi].[StudentIEPServicePrescriptionIDEAEvent] (
         [ServicePrescriptionDescriptorId] ASC,
         [StudentIEPIdentifier] ASC,
         [StudentUSI] ASC,
-        [IDEAEventDescriptorId] ASC,
-        [IDEAEventIdentifier] ASC
+        [IDEAEventIdentifier] ASC,
+        [IDEAEventTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
