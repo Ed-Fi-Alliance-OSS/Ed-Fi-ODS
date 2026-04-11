@@ -10635,8 +10635,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.IDEAEvents.EdFi
         public string EventNarrative { get; set; }
         public string EventReasonDescriptor { get; set; }
         public Guid Id { get; set; }
-        public string IDEAEventDescriptor { get; set; }
         public string IDEAEventIdentifier { get; set; }
+        public string IDEAEventTypeDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
@@ -10677,28 +10677,28 @@ namespace EdFi.Ods.Api.Common.Models.Requests.IDEAEvents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.IDEAEventDescriptors.EdFi
+namespace EdFi.Ods.Api.Common.Models.Requests.IDEAEventTypeDescriptors.EdFi
 {
 
     [ExcludeFromCodeCoverage]
-    public class IDEAEventDescriptorGetByExample
+    public class IDEAEventTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
         public string Description { get; set; }
         public DateTime EffectiveBeginDate { get; set; }
         public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
-        public int IDEAEventDescriptorId { get; set; }
+        public int IDEAEventTypeDescriptorId { get; set; }
         public string Namespace { get; set; }
         public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class IDEAEventDescriptorGetByIds : IHasIdentifiers<Guid>
+    public class IDEAEventTypeDescriptorGetByIds : IHasIdentifiers<Guid>
     {
-        public IDEAEventDescriptorGetByIds() { }
+        public IDEAEventTypeDescriptorGetByIds() { }
 
-        public IDEAEventDescriptorGetByIds(params Guid[] ids)
+        public IDEAEventTypeDescriptorGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -10707,21 +10707,21 @@ namespace EdFi.Ods.Api.Common.Models.Requests.IDEAEventDescriptors.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class IDEAEventDescriptorPost : Resources.IDEAEventDescriptor.EdFi.IDEAEventDescriptor
+    public class IDEAEventTypeDescriptorPost : Resources.IDEAEventTypeDescriptor.EdFi.IDEAEventTypeDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class IDEAEventDescriptorPut : Resources.IDEAEventDescriptor.EdFi.IDEAEventDescriptor
+    public class IDEAEventTypeDescriptorPut : Resources.IDEAEventTypeDescriptor.EdFi.IDEAEventTypeDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class IDEAEventDescriptorDelete : IHasIdentifier
+    public class IDEAEventTypeDescriptorDelete : IHasIdentifier
     {
-        public IDEAEventDescriptorDelete() { }
+        public IDEAEventTypeDescriptorDelete() { }
 
-        public IDEAEventDescriptorDelete(Guid id)
+        public IDEAEventTypeDescriptorDelete(Guid id)
         {
             Id = id;
         }

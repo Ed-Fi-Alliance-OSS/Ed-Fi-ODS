@@ -8080,14 +8080,14 @@
           <!-- Collections -->
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.IDEAEventDescriptorAggregate.EdFi.IDEAEventDescriptor" lazy="false" discriminator-value="edfi.IDEAEventDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
-      <join table="IDEAEventDescriptor" >
+    <subclass name="EdFi.Ods.Entities.NHibernate.IDEAEventTypeDescriptorAggregate.EdFi.IDEAEventTypeDescriptor" lazy="false" discriminator-value="edfi.IDEAEventTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="IDEAEventTypeDescriptor" >
           <key>
-            <column name="IDEAEventDescriptorId" />
+            <column name="IDEAEventTypeDescriptorId" />
           </key>
 
           <!-- PK properties -->
-          <property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="IDEAEventTypeDescriptorId" column="IDEAEventTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -14839,8 +14839,8 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
-            <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int"  />
             <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string"  length="120"  />
+            <key-property name="IDEAEventTypeDescriptorId" column="IDEAEventTypeDescriptorId" type="int"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
 
@@ -14855,8 +14855,8 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
-      <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" />
       <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string" length="120" />
+      <key-property name="IDEAEventTypeDescriptorId" column="IDEAEventTypeDescriptorId" type="int" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
 
@@ -25870,8 +25870,8 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentIEPAggregate.EdFi.StudentIEPIDEAEvent" table="StudentIEPIDEAEvent" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" />
       <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string" length="120" />
+      <key-property name="IDEAEventTypeDescriptorId" column="IDEAEventTypeDescriptorId" type="int" />
       <key-many-to-one name="StudentIEP">
         <column name="EducationOrganizationId" />
         <column name="IEPFinalizedDate" />
@@ -25888,8 +25888,8 @@
     <!-- Aggregate references -->
     <many-to-one name="IDEAEventReferenceData" class="EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEventReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
-      <column name="IDEAEventDescriptorId" />
       <column name="IDEAEventIdentifier" />
+      <column name="IDEAEventTypeDescriptorId" />
       <column name="StudentUSI" />
     </many-to-one>
 
@@ -26015,8 +26015,8 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentIEPGoalAggregate.EdFi.StudentIEPGoalIDEAEvent" table="StudentIEPGoalIDEAEvent" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" />
       <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string" length="120" />
+      <key-property name="IDEAEventTypeDescriptorId" column="IDEAEventTypeDescriptorId" type="int" />
       <key-many-to-one name="StudentIEPGoal">
         <column name="EducationOrganizationId" />
         <column name="IEPFinalizedDate" />
@@ -26034,8 +26034,8 @@
     <!-- Aggregate references -->
     <many-to-one name="IDEAEventReferenceData" class="EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEventReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
-      <column name="IDEAEventDescriptorId" />
       <column name="IDEAEventIdentifier" />
+      <column name="IDEAEventTypeDescriptorId" />
       <column name="StudentUSI" />
     </many-to-one>
 
@@ -26147,8 +26147,8 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentIEPServiceDeliveryAggregate.EdFi.StudentIEPServiceDeliveryIDEAEvent" table="StudentIEPServiceDeliveryIDEAEvent" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" />
       <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string" length="120" />
+      <key-property name="IDEAEventTypeDescriptorId" column="IDEAEventTypeDescriptorId" type="int" />
       <key-many-to-one name="StudentIEPServiceDelivery">
         <column name="EducationOrganizationId" />
         <column name="IEPFinalizedDate" />
@@ -26168,8 +26168,8 @@
     <!-- Aggregate references -->
     <many-to-one name="IDEAEventReferenceData" class="EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEventReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
-      <column name="IDEAEventDescriptorId" />
       <column name="IDEAEventIdentifier" />
+      <column name="IDEAEventTypeDescriptorId" />
       <column name="StudentUSI" />
     </many-to-one>
 
@@ -26313,8 +26313,8 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescriptionIDEAEvent" table="StudentIEPServicePrescriptionIDEAEvent" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="IDEAEventDescriptorId" column="IDEAEventDescriptorId" type="int" />
       <key-property name="IDEAEventIdentifier" column="IDEAEventIdentifier" type="string" length="120" />
+      <key-property name="IDEAEventTypeDescriptorId" column="IDEAEventTypeDescriptorId" type="int" />
       <key-many-to-one name="StudentIEPServicePrescription">
         <column name="EducationOrganizationId" />
         <column name="IEPFinalizedDate" />
@@ -26333,8 +26333,8 @@
     <!-- Aggregate references -->
     <many-to-one name="IDEAEventReferenceData" class="EdFi.Ods.Entities.NHibernate.IDEAEventAggregate.EdFi.IDEAEventReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
-      <column name="IDEAEventDescriptorId" />
       <column name="IDEAEventIdentifier" />
+      <column name="IDEAEventTypeDescriptorId" />
       <column name="StudentUSI" />
     </many-to-one>
 

@@ -30477,9 +30477,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         
         long EducationOrganizationId { get; set; }
         
-        string IDEAEventDescriptor { get; set; }
-        
         string IDEAEventIdentifier { get; set; }
+        
+        string IDEAEventTypeDescriptor { get; set; }
         
         string StudentUniqueId { get; set; }
 
@@ -30557,9 +30557,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
                     return true;
-                case "IDEAEventDescriptor":
-                    return true;
                 case "IDEAEventIdentifier":
+                    return true;
+                case "IDEAEventTypeDescriptor":
                     return true;
                 case "StudentUniqueId":
                     return true;
@@ -30579,13 +30579,13 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the IDEAEventDescriptor model.
+    /// Defines available properties and methods for the abstraction of the IDEAEventTypeDescriptor model.
     /// </summary>
-    public interface IIDEAEventDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    public interface IIDEAEventTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
     {
         // Primary Key properties
         [AutoIncrement]
-        int IDEAEventDescriptorId { get; set; }
+        int IDEAEventTypeDescriptorId { get; set; }
 
         // Non-PK properties
 
@@ -30600,9 +30600,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
     /// between entities/resources during API request processing.
     /// </summary>
-    public class IDEAEventDescriptorMappingContract : IMappingContract
+    public class IDEAEventTypeDescriptorMappingContract : IMappingContract
     {
-        public IDEAEventDescriptorMappingContract(
+        public IDEAEventTypeDescriptorMappingContract(
             bool isCodeValueSupported,
             bool isDescriptionSupported,
             bool isEffectiveBeginDateSupported,
@@ -30643,7 +30643,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "IDEAEventDescriptorId":
+                case "IDEAEventTypeDescriptorId":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -63573,9 +63573,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         IStudentIEPGoal StudentIEPGoal { get; set; }
         
-        string IDEAEventDescriptor { get; set; }
-        
         string IDEAEventIdentifier { get; set; }
+        
+        string IDEAEventTypeDescriptor { get; set; }
 
         // Non-PK properties
 
@@ -63612,9 +63612,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "IDEAEventReference":
                     return IsIDEAEventReferenceSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "IDEAEventDescriptor":
-                    return true;
                 case "IDEAEventIdentifier":
+                    return true;
+                case "IDEAEventTypeDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -63639,9 +63639,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         IStudentIEP StudentIEP { get; set; }
         
-        string IDEAEventDescriptor { get; set; }
-        
         string IDEAEventIdentifier { get; set; }
+        
+        string IDEAEventTypeDescriptor { get; set; }
 
         // Non-PK properties
 
@@ -63678,9 +63678,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "IDEAEventReference":
                     return IsIDEAEventReferenceSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "IDEAEventDescriptor":
-                    return true;
                 case "IDEAEventIdentifier":
+                    return true;
+                case "IDEAEventTypeDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -63844,9 +63844,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         IStudentIEPServiceDelivery StudentIEPServiceDelivery { get; set; }
         
-        string IDEAEventDescriptor { get; set; }
-        
         string IDEAEventIdentifier { get; set; }
+        
+        string IDEAEventTypeDescriptor { get; set; }
 
         // Non-PK properties
 
@@ -63883,9 +63883,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "IDEAEventReference":
                     return IsIDEAEventReferenceSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "IDEAEventDescriptor":
-                    return true;
                 case "IDEAEventIdentifier":
+                    return true;
+                case "IDEAEventTypeDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -64164,9 +64164,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         IStudentIEPServicePrescription StudentIEPServicePrescription { get; set; }
         
-        string IDEAEventDescriptor { get; set; }
-        
         string IDEAEventIdentifier { get; set; }
+        
+        string IDEAEventTypeDescriptor { get; set; }
 
         // Non-PK properties
 
@@ -64203,9 +64203,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "IDEAEventReference":
                     return IsIDEAEventReferenceSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "IDEAEventDescriptor":
-                    return true;
                 case "IDEAEventIdentifier":
+                    return true;
+                case "IDEAEventTypeDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");

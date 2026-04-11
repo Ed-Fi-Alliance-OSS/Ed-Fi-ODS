@@ -1193,9 +1193,9 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class IDEAEventDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IDEAEventDescriptor.EdFi.IDEAEventDescriptor, Entities.NHibernate.IDEAEventDescriptorAggregate.EdFi.IDEAEventDescriptor>
+    public class IDEAEventTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IDEAEventTypeDescriptor.EdFi.IDEAEventTypeDescriptor, Entities.NHibernate.IDEAEventTypeDescriptorAggregate.EdFi.IDEAEventTypeDescriptor>
     {
-        public IDEAEventDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public IDEAEventTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
