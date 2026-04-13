@@ -184,9 +184,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             var badRequestResult = result.ShouldBeOfType<BadRequestObjectResult>();
             var problemDetails = badRequestResult.Value.ShouldBeAssignableTo<IEdFiProblemDetails>();
-            problemDetails.Detail.ShouldContain("authentication token");
+            problemDetails.Detail.ShouldBe("The authentication token and the token to inspect must match.");
             problemDetails.Errors.ShouldNotBeEmpty();
-            problemDetails.Errors[0].ShouldContain("authentication token");
+            problemDetails.Errors[0].ShouldBe("The authentication token (header) and the token to inspect in the body must match.");
         }
     }
 }
