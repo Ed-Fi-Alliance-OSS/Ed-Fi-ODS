@@ -117,28 +117,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
         }
 
         [Test]
-        public async Task GetTokenInformation_WhenTokenIsNotFound_ReturnsNotFound()
+        public async Task GetTokenInformation_WhenTokenIsNotFound_ReturnsUnauthorized()
         {
             A.CallTo(() => _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(A<string>._))
                 .Returns(Task.FromResult<ApiClientDetails>(null));
-
-            var controller = CreateController();
-
-            var result = await controller.PostAsync(new TokenInfoRequest { Token = TestTokenGuid });
-
-            result.ShouldBeOfType<NotFoundResult>();
-        }
-
-        [Test]
-        public async Task GetTokenInformation_WhenTokenBelongsToDifferentApiKey_ReturnsUnauthorized()
-        {
-            var clientDetails = new ApiClientDetails { ApiKey = "differentApiKey" };
-
-            A.CallTo(() => _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(A<string>._))
-                .Returns(Task.FromResult(clientDetails));
-
-            A.CallTo(() => _apiClientContextProvider.GetApiClientContext())
-                .Returns(CreateApiClientContext(TestApiKey));
 
             var controller = CreateController();
 

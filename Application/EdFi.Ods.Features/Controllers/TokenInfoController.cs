@@ -128,16 +128,10 @@ namespace EdFi.Ods.Features.Controllers
 
             if (oAuthTokenClientDetails == null)
             {
-                return NotFound();
+                return Unauthorized();
             }
 
             ApiClientContext apiContext = _apiClientContextProvider.GetApiClientContext();
-
-            // must be able to see my specific items ie vendor a cannot look at vendor b
-            if (oAuthTokenClientDetails.ApiKey != apiContext.ApiKey)
-            {
-                return Unauthorized();
-            }
 
             var tokenInfo = await _tokenInfoProvider.GetTokenInfoAsync(apiContext);
 
