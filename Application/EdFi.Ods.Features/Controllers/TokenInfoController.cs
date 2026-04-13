@@ -90,7 +90,9 @@ namespace EdFi.Ods.Features.Controllers
                     }.AsSerializableModel());
             }
 
-            // Verify the token in the request body matches the Bearer token in the Authorization header
+            // Verify the token in the request body matches the Bearer token in the Authorization header.
+            // NOTE: The [Authorize] attribute ensures the request is authenticated with a valid Bearer token
+            // before reaching this code, so bearerToken will be non-null in production scenarios.
             var authorizationHeader = Request.Headers.Authorization.ToString();
             string bearerToken = null;
 
@@ -99,7 +101,7 @@ namespace EdFi.Ods.Features.Controllers
                 bearerToken = authorizationHeader["Bearer ".Length..].Trim();
             }
 
-            if (!string.Equals(tokenInfoRequest.Token, bearerToken, StringComparison.OrdinalIgnoreCase))
+            if (bearerToken == null || !string.Equals(tokenInfoRequest.Token, bearerToken, StringComparison.OrdinalIgnoreCase))
             {
                 return BadRequest(
                     new BadRequestException(

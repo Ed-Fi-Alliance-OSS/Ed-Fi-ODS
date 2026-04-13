@@ -184,6 +184,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             var badRequestResult = result.ShouldBeOfType<BadRequestObjectResult>();
             var problemDetails = badRequestResult.Value.ShouldBeAssignableTo<IEdFiProblemDetails>();
+            problemDetails.Detail.ShouldContain("authentication token");
             problemDetails.Errors.ShouldNotBeEmpty();
             problemDetails.Errors[0].ShouldContain("authentication token");
         }
