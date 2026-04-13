@@ -90,6 +90,26 @@ namespace EdFi.Ods.Features.Controllers
                     }.AsSerializableModel());
             }
 
+            // Verify the token in the request body matches the Bearer token in the Authorization header
+            var authorizationHeader = Request.Headers.Authorization.ToString();
+            string bearerToken = null;
+
+            if (authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                bearerToken = authorizationHeader["Bearer ".Length..].Trim();
+            }
+
+            if (!string.Equals(tokenInfoRequest.Token, bearerToken, StringComparison.OrdinalIgnoreCase))
+            {
+                return BadRequest(
+                    new BadRequestException(
+                        "The authentication token and the token to inspect must match.",
+                        new[] { "The authentication token (header) and the token to inspect in the body must match." })
+                    {
+                        CorrelationId = _logContextAccessor.GetCorrelationId()
+                    }.AsSerializableModel());
+            }
+
             if (_securitySettings.Value.AccessTokenType == SecuritySettings.AccessTokenTypeJwt 
                 && !Guid.TryParse(_httpContextAccessor.HttpContext?.User.FindFirst(JwtRegisteredClaimNames.Jti)?.Value, out guidAccessToken))
             {
