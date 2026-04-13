@@ -7017,7 +7017,7 @@
 							]
 						},
 						{
-							"name": "when_retrieving_token_info_using_an_invalid_token Copy",
+							"name": "when_retrieving_token_info_using_a_mismatched_token",
 							"item": [
 								{
 									"name": "api_should_fail_with_a_401_unauthorized",
