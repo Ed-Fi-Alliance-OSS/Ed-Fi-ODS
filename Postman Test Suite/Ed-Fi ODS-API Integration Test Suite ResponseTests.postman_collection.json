@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "5e983aaa-3e8f-45dd-af38-2aa59f79ceda",
+		"_postman_id": "78c725b1-f7a7-4a91-a472-ff485a4869b4",
 		"name": "Ed-Fi ODS/API Integration Test Suite ResponseTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1213570"
+		"_exporter_id": "29458798"
 	},
 	"item": [
 		{
@@ -6877,10 +6877,10 @@
 							]
 						},
 						{
-							"name": "when_retrieving_token_info_using_an_invalid_token",
+							"name": "when_retrieving_token_info_without_providing_a_token",
 							"item": [
 								{
-									"name": "api_should_fail_with_a_400_bad_request",
+									"name": "api_should_fail_with_a_400_badrequest",
 									"event": [
 										{
 											"listen": "test",
@@ -6901,7 +6901,8 @@
 													"});"
 												],
 												"type": "text/javascript",
-												"packages": {}
+												"packages": {},
+												"requests": {}
 											}
 										},
 										{
@@ -6911,7 +6912,8 @@
 													""
 												],
 												"type": "text/javascript",
-												"packages": {}
+												"packages": {},
+												"requests": {}
 											}
 										}
 									],
@@ -6921,6 +6923,146 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/oauth/token_info",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"oauth",
+												"token_info"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "when_retrieving_token_info_using_an_invalid_token",
+							"item": [
+								{
+									"name": "api_should_fail_with_a_401_unauthorized",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", () => {",
+													"    pm.expect(pm.response.code).to.equal(401);",
+													"});",
+													"",
+													"pm.test(\"Should not return a message\", () => {",
+													"  pm.expect(pm.response.body).to.be.undefined;",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "0301D299-E1A0-4219-A396-22253B134727",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"token\": \"0301D299-E1A0-4219-A396-22253B134727\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/oauth/token_info",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"oauth",
+												"token_info"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "when_retrieving_token_info_using_an_invalid_token Copy",
+							"item": [
+								{
+									"name": "api_should_fail_with_a_401_unauthorized",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"    pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"pm.test(\"Should return a message indicating that the tokens do not match.\", () => {",
+													"  const problemDetails = pm.response.json();",
+													"",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The authentication token and the token to inspect must match.\");",
+													"  pm.expect(problemDetails.title).to.equal(\"Bad Request\");",
+													"  pm.expect(problemDetails.errors).contains(\"The authentication token (header) and the token to inspect in the body must match.\")",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"token\": \"0301D299-E1A0-4219-A396-22253B134727\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -10496,6 +10638,7 @@
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
+				"requests": {},
 				"exec": [
 					"// NOTE: Do not add the correlationId here -- it impacts the correlationId tests.",
 					"// Add a correlation id to the query string of every request and save it to the environment as well",
@@ -10556,7 +10699,13 @@
 					"      let jsonResponse = response.json();",
 					"      let newAccessToken = jsonResponse.access_token;",
 					"",
-					"      // console.log({ err, jsonResponse, newAccessToken })",
+					"      if (err || jsonResponse?.error || !jsonResponse?.access_token) {",
+					"        pm.execution.setNextRequest(null);",
+					"        let detail = err || jsonResponse?.error || \"no error message available\";",
+					"        let message = `Pre-request auth failed — invalid credentials or unreachable auth server. Detail: ${detail}`;",
+					"        console.error(message);",
+					"        return;",
+					"      }",
 					"      pm.environment.set(accessTokenName, newAccessToken);",
 					"",
 					"      let expiryDate = new Date();",
@@ -10573,6 +10722,7 @@
 			"listen": "test",
 			"script": {
 				"type": "text/javascript",
+				"requests": {},
 				"exec": [
 					""
 				]
