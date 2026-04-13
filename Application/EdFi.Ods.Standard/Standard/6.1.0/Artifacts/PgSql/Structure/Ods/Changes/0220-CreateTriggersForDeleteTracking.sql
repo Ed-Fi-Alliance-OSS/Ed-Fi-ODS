@@ -3706,15 +3706,15 @@ DECLARE
     dj0 edfi.descriptor%ROWTYPE;
     dj1 edfi.student%ROWTYPE;
 BEGIN
-    SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.ideaeventdescriptorid;
+    SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.ideaeventtypedescriptorid;
 
     SELECT INTO dj1 * FROM edfi.student j1 WHERE studentusi = old.studentusi;
 
     INSERT INTO tracked_changes_edfi.ideaevent(
-        oldeducationorganizationid, oldideaeventdescriptorid, oldideaeventdescriptornamespace, oldideaeventdescriptorcodevalue, oldideaeventidentifier, oldstudentusi, oldstudentuniqueid,
+        oldeducationorganizationid, oldideaeventidentifier, oldideaeventtypedescriptorid, oldideaeventtypedescriptornamespace, oldideaeventtypedescriptorcodevalue, oldstudentusi, oldstudentuniqueid,
         id, discriminator, changeversion)
     VALUES (
-        OLD.educationorganizationid, OLD.ideaeventdescriptorid, dj0.namespace, dj0.codevalue, OLD.ideaeventidentifier, OLD.studentusi, dj1.studentuniqueid, 
+        OLD.educationorganizationid, OLD.ideaeventidentifier, OLD.ideaeventtypedescriptorid, dj0.namespace, dj0.codevalue, OLD.studentusi, dj1.studentuniqueid, 
         OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;
@@ -3726,21 +3726,21 @@ CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.ideaevent
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.ideaevent_deleted();
 END IF;
 
-CREATE OR REPLACE FUNCTION tracked_changes_edfi.ideaeventdescriptor_deleted()
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.ideaeventtypedescriptor_deleted()
     RETURNS trigger AS
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.IDEAEventDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.IDEAEventDescriptor', nextval('changes.ChangeVersionSequence')
-    FROM edfi.descriptor b WHERE old.IDEAEventDescriptorId = b.descriptorid ;
+    SELECT OLD.IDEAEventTypeDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.IDEAEventTypeDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.IDEAEventTypeDescriptorId = b.descriptorid ;
 
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'ideaeventdescriptor') THEN
-CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.ideaeventdescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.ideaeventdescriptor_deleted();
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'ideaeventtypedescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.ideaeventtypedescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.ideaeventtypedescriptor_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.ideapartdescriptor_deleted()

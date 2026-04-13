@@ -4150,11 +4150,11 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_edfi].[IDEAEvent](OldEducationOrganizationId, OldIDEAEventDescriptorId, OldIDEAEventDescriptorNamespace, OldIDEAEventDescriptorCodeValue, OldIDEAEventIdentifier, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.EducationOrganizationId, d.IDEAEventDescriptorId, j0.Namespace, j0.CodeValue, d.IDEAEventIdentifier, d.StudentUSI, j1.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_changes_edfi].[IDEAEvent](OldEducationOrganizationId, OldIDEAEventIdentifier, OldIDEAEventTypeDescriptorId, OldIDEAEventTypeDescriptorNamespace, OldIDEAEventTypeDescriptorCodeValue, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.IDEAEventIdentifier, d.IDEAEventTypeDescriptorId, j0.Namespace, j0.CodeValue, d.StudentUSI, j1.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
         INNER JOIN edfi.Descriptor j0
-            ON d.IDEAEventDescriptorId = j0.DescriptorId
+            ON d.IDEAEventTypeDescriptorId = j0.DescriptorId
         INNER JOIN edfi.Student j1
             ON d.StudentUSI = j1.StudentUSI
 END
@@ -4164,10 +4164,10 @@ ALTER TABLE [edfi].[IDEAEvent] ENABLE TRIGGER [edfi_IDEAEvent_TR_DeleteTracking]
 GO
 
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_IDEAEventDescriptor_TR_DeleteTracking]
+DROP TRIGGER IF EXISTS [edfi].[edfi_IDEAEventTypeDescriptor_TR_DeleteTracking]
 GO
 
-CREATE TRIGGER [edfi].[edfi_IDEAEventDescriptor_TR_DeleteTracking] ON [edfi].[IDEAEventDescriptor] AFTER DELETE AS
+CREATE TRIGGER [edfi].[edfi_IDEAEventTypeDescriptor_TR_DeleteTracking] ON [edfi].[IDEAEventTypeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
@@ -4175,13 +4175,13 @@ BEGIN
     SET NOCOUNT ON
 
     INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
-    SELECT  d.IDEAEventDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.IDEAEventDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SELECT  d.IDEAEventTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.IDEAEventTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.IDEAEventDescriptorId = b.DescriptorId
+            INNER JOIN edfi.Descriptor b ON d.IDEAEventTypeDescriptorId = b.DescriptorId
 END
 GO
 
-ALTER TABLE [edfi].[IDEAEventDescriptor] ENABLE TRIGGER [edfi_IDEAEventDescriptor_TR_DeleteTracking]
+ALTER TABLE [edfi].[IDEAEventTypeDescriptor] ENABLE TRIGGER [edfi_IDEAEventTypeDescriptor_TR_DeleteTracking]
 GO
 
 

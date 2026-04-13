@@ -4069,18 +4069,18 @@ REFERENCES edfi.EventReasonDescriptor (EventReasonDescriptorId)
 CREATE INDEX FK_a16a88_EventReasonDescriptor
 ON edfi.IDEAEvent (EventReasonDescriptorId ASC);
 
-ALTER TABLE edfi.IDEAEvent ADD CONSTRAINT FK_a16a88_IDEAEventDescriptor FOREIGN KEY (IDEAEventDescriptorId)
-REFERENCES edfi.IDEAEventDescriptor (IDEAEventDescriptorId)
+ALTER TABLE edfi.IDEAEvent ADD CONSTRAINT FK_a16a88_IDEAEventTypeDescriptor FOREIGN KEY (IDEAEventTypeDescriptorId)
+REFERENCES edfi.IDEAEventTypeDescriptor (IDEAEventTypeDescriptorId)
 ;
 
-CREATE INDEX FK_a16a88_IDEAEventDescriptor
-ON edfi.IDEAEvent (IDEAEventDescriptorId ASC);
+CREATE INDEX FK_a16a88_IDEAEventTypeDescriptor
+ON edfi.IDEAEvent (IDEAEventTypeDescriptorId ASC);
 
 ALTER TABLE edfi.IDEAEvent ADD CONSTRAINT FK_a16a88_Student FOREIGN KEY (StudentUSI)
 REFERENCES edfi.Student (StudentUSI)
 ;
 
-ALTER TABLE edfi.IDEAEventDescriptor ADD CONSTRAINT FK_cbac23_Descriptor FOREIGN KEY (IDEAEventDescriptorId)
+ALTER TABLE edfi.IDEAEventTypeDescriptor ADD CONSTRAINT FK_914934_Descriptor FOREIGN KEY (IDEAEventTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -8567,24 +8567,24 @@ REFERENCES edfi.StudentIEPGoal (EducationOrganizationId, IEPFinalizedDate, IEPGo
 ON DELETE CASCADE
 ;
 
-ALTER TABLE edfi.StudentIEPGoalIDEAEvent ADD CONSTRAINT FK_77bb8b_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
-REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+ALTER TABLE edfi.StudentIEPGoalIDEAEvent ADD CONSTRAINT FK_77bb8b_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventIdentifier, IDEAEventTypeDescriptorId, StudentUSI)
+REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventIdentifier, IDEAEventTypeDescriptorId, StudentUSI)
 ;
 
 CREATE INDEX FK_77bb8b_IDEAEvent
-ON edfi.StudentIEPGoalIDEAEvent (EducationOrganizationId ASC, IDEAEventDescriptorId ASC, IDEAEventIdentifier ASC, StudentUSI ASC);
+ON edfi.StudentIEPGoalIDEAEvent (EducationOrganizationId ASC, IDEAEventIdentifier ASC, IDEAEventTypeDescriptorId ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.StudentIEPGoalIDEAEvent ADD CONSTRAINT FK_77bb8b_StudentIEPGoal FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, IEPGoalIdentifier, StudentIEPIdentifier, StudentUSI)
 REFERENCES edfi.StudentIEPGoal (EducationOrganizationId, IEPFinalizedDate, IEPGoalIdentifier, StudentIEPIdentifier, StudentUSI)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE edfi.StudentIEPIDEAEvent ADD CONSTRAINT FK_879a3f_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
-REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+ALTER TABLE edfi.StudentIEPIDEAEvent ADD CONSTRAINT FK_879a3f_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventIdentifier, IDEAEventTypeDescriptorId, StudentUSI)
+REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventIdentifier, IDEAEventTypeDescriptorId, StudentUSI)
 ;
 
 CREATE INDEX FK_879a3f_IDEAEvent
-ON edfi.StudentIEPIDEAEvent (EducationOrganizationId ASC, IDEAEventDescriptorId ASC, IDEAEventIdentifier ASC, StudentUSI ASC);
+ON edfi.StudentIEPIDEAEvent (EducationOrganizationId ASC, IDEAEventIdentifier ASC, IDEAEventTypeDescriptorId ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.StudentIEPIDEAEvent ADD CONSTRAINT FK_879a3f_StudentIEP FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
 REFERENCES edfi.StudentIEP (EducationOrganizationId, IEPFinalizedDate, StudentIEPIdentifier, StudentUSI)
@@ -8612,12 +8612,12 @@ REFERENCES edfi.StudentIEPServicePrescription (EducationOrganizationId, IEPFinal
 CREATE INDEX FK_524fcd_StudentIEPServicePrescription
 ON edfi.StudentIEPServiceDelivery (EducationOrganizationId ASC, IEPFinalizedDate ASC, ServicePrescriptionDate ASC, ServicePrescriptionDescriptorId ASC, StudentIEPIdentifier ASC, StudentUSI ASC);
 
-ALTER TABLE edfi.StudentIEPServiceDeliveryIDEAEvent ADD CONSTRAINT FK_a62d81_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
-REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+ALTER TABLE edfi.StudentIEPServiceDeliveryIDEAEvent ADD CONSTRAINT FK_a62d81_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventIdentifier, IDEAEventTypeDescriptorId, StudentUSI)
+REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventIdentifier, IDEAEventTypeDescriptorId, StudentUSI)
 ;
 
 CREATE INDEX FK_a62d81_IDEAEvent
-ON edfi.StudentIEPServiceDeliveryIDEAEvent (EducationOrganizationId ASC, IDEAEventDescriptorId ASC, IDEAEventIdentifier ASC, StudentUSI ASC);
+ON edfi.StudentIEPServiceDeliveryIDEAEvent (EducationOrganizationId ASC, IDEAEventIdentifier ASC, IDEAEventTypeDescriptorId ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.StudentIEPServiceDeliveryIDEAEvent ADD CONSTRAINT FK_a62d81_StudentIEPServiceDelivery FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, IEPServiceDeliveryIdentifier, ServiceDeliveryDate, ServiceDeliveryDescriptorId, StudentIEPIdentifier, StudentUSI)
 REFERENCES edfi.StudentIEPServiceDelivery (EducationOrganizationId, IEPFinalizedDate, IEPServiceDeliveryIdentifier, ServiceDeliveryDate, ServiceDeliveryDescriptorId, StudentIEPIdentifier, StudentUSI)
@@ -8678,12 +8678,12 @@ REFERENCES edfi.StudentIEP (EducationOrganizationId, IEPFinalizedDate, StudentIE
 CREATE INDEX FK_d0ad1a_StudentIEP
 ON edfi.StudentIEPServicePrescription (EducationOrganizationId ASC, IEPFinalizedDate ASC, StudentIEPIdentifier ASC, StudentUSI ASC);
 
-ALTER TABLE edfi.StudentIEPServicePrescriptionIDEAEvent ADD CONSTRAINT FK_cf3b90_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
-REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventDescriptorId, IDEAEventIdentifier, StudentUSI)
+ALTER TABLE edfi.StudentIEPServicePrescriptionIDEAEvent ADD CONSTRAINT FK_cf3b90_IDEAEvent FOREIGN KEY (EducationOrganizationId, IDEAEventIdentifier, IDEAEventTypeDescriptorId, StudentUSI)
+REFERENCES edfi.IDEAEvent (EducationOrganizationId, IDEAEventIdentifier, IDEAEventTypeDescriptorId, StudentUSI)
 ;
 
 CREATE INDEX FK_cf3b90_IDEAEvent
-ON edfi.StudentIEPServicePrescriptionIDEAEvent (EducationOrganizationId ASC, IDEAEventDescriptorId ASC, IDEAEventIdentifier ASC, StudentUSI ASC);
+ON edfi.StudentIEPServicePrescriptionIDEAEvent (EducationOrganizationId ASC, IDEAEventIdentifier ASC, IDEAEventTypeDescriptorId ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.StudentIEPServicePrescriptionIDEAEvent ADD CONSTRAINT FK_cf3b90_StudentIEPServicePrescription FOREIGN KEY (EducationOrganizationId, IEPFinalizedDate, ServicePrescriptionDate, ServicePrescriptionDescriptorId, StudentIEPIdentifier, StudentUSI)
 REFERENCES edfi.StudentIEPServicePrescription (EducationOrganizationId, IEPFinalizedDate, ServicePrescriptionDate, ServicePrescriptionDescriptorId, StudentIEPIdentifier, StudentUSI)

@@ -978,9 +978,9 @@ BEGIN
         END
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/iDEAEventDescriptor'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/IDEAEventTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/iDEAEventDescriptor'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/IDEAEventTypeDescriptor'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -996,7 +996,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('iDEAEventDescriptor', 'http://ed-fi.org/ods/identity/claims/ed-fi/iDEAEventDescriptor', @parentResourceClaimId)
+            VALUES ('IDEAEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/ed-fi/IDEAEventTypeDescriptor', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -1050,9 +1050,9 @@ BEGIN
         END
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/iEPStatusDescriptor'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/IEPStatusDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/iEPStatusDescriptor'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/IEPStatusDescriptor'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -1068,7 +1068,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('iEPStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/ed-fi/iEPStatusDescriptor', @parentResourceClaimId)
+            VALUES ('IEPStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/ed-fi/IEPStatusDescriptor', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -1122,9 +1122,9 @@ BEGIN
         END
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/iEPGoalTypeDescriptor'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/IEPGoalTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/iEPGoalTypeDescriptor'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/IEPGoalTypeDescriptor'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -1140,7 +1140,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('iEPGoalTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/ed-fi/iEPGoalTypeDescriptor', @parentResourceClaimId)
+            VALUES ('IEPGoalTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/ed-fi/IEPGoalTypeDescriptor', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -1541,11 +1541,44 @@ BEGIN
     WHERE ClaimSetId = @claimSetId AND ResourceClaimId = @claimId
     
 
+    -- Claim set-specific Create authorization
+    PRINT 'Creating ''Create'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @CreateActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @CreateActionId) -- Create
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+
     -- Claim set-specific Read authorization
     PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
 
     INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
     VALUES (@claimId, @claimSetId, @ReadActionId) -- Read
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+
+    -- Claim set-specific Update authorization
+    PRINT 'Creating ''Update'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @UpdateActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @UpdateActionId) -- Update
+
+    SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
+
+    
+    
+
+    -- Claim set-specific Delete authorization
+    PRINT 'Creating ''Delete'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @DeleteActionId) + ').'
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (@claimId, @claimSetId, @DeleteActionId) -- Delete
 
     SET @claimSetResourceClaimActionId = SCOPE_IDENTITY()
 
@@ -1811,9 +1844,9 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/ed-fi/specialEducation
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/iDEAEvent'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/IDEAEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/iDEAEvent'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/IDEAEvent'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -1829,7 +1862,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('iDEAEvent', 'http://ed-fi.org/ods/identity/claims/ed-fi/iDEAEvent', @parentResourceClaimId)
+            VALUES ('IDEAEvent', 'http://ed-fi.org/ods/identity/claims/ed-fi/IDEAEvent', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END

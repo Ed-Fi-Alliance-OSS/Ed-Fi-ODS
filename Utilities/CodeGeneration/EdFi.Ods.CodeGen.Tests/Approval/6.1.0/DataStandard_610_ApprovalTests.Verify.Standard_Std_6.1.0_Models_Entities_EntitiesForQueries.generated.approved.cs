@@ -17611,9 +17611,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IDEAEventAggregate.EdFi
         [DomainSignature]
         public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public virtual int IDEAEventDescriptorId { get; set; }
-        [DomainSignature]
         public virtual string IDEAEventIdentifier { get; set; }
+        [DomainSignature]
+        public virtual int IDEAEventTypeDescriptorId { get; set; }
         [DomainSignature]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
@@ -17662,29 +17662,29 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IDEAEventAggregate.EdFi
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.EventComplianceDescriptorAggregate.EdFi.EventComplianceDescriptorQ EventComplianceDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EventReasonDescriptorAggregate.EdFi.EventReasonDescriptorQ EventReasonDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.IDEAEventDescriptorAggregate.EdFi.IDEAEventDescriptorQ IDEAEventDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.IDEAEventTypeDescriptorAggregate.EdFi.IDEAEventTypeDescriptorQ IDEAEventTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
     }
 }
-// Aggregate: IDEAEventDescriptor
+// Aggregate: IDEAEventTypeDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.IDEAEventDescriptorAggregate.EdFi
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.IDEAEventTypeDescriptorAggregate.EdFi
 {
 
     /// <summary>
-    /// A class which represents the edfi.IDEAEventDescriptor table of the IDEAEventDescriptor aggregate in the ODS database.
+    /// A class which represents the edfi.IDEAEventTypeDescriptor table of the IDEAEventTypeDescriptor aggregate in the ODS database.
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class IDEAEventDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    public class IDEAEventTypeDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
     {
 
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int IDEAEventDescriptorId { get; set; }
+        public virtual int IDEAEventTypeDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -36702,9 +36702,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIEPAggregate.EdFi
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.StudentIEPAggregate.EdFi.StudentIEPQ StudentIEP { get; set; }
         [DomainSignature]
-        public virtual int IDEAEventDescriptorId { get; set; }
-        [DomainSignature]
         public virtual string IDEAEventIdentifier { get; set; }
+        [DomainSignature]
+        public virtual int IDEAEventTypeDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -36851,9 +36851,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIEPGoalAggregate.EdFi
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.StudentIEPGoalAggregate.EdFi.StudentIEPGoalQ StudentIEPGoal { get; set; }
         [DomainSignature]
-        public virtual int IDEAEventDescriptorId { get; set; }
-        [DomainSignature]
         public virtual string IDEAEventIdentifier { get; set; }
+        [DomainSignature]
+        public virtual int IDEAEventTypeDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -36960,9 +36960,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIEPServiceDeliveryAggr
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.StudentIEPServiceDeliveryAggregate.EdFi.StudentIEPServiceDeliveryQ StudentIEPServiceDelivery { get; set; }
         [DomainSignature]
-        public virtual int IDEAEventDescriptorId { get; set; }
-        [DomainSignature]
         public virtual string IDEAEventIdentifier { get; set; }
+        [DomainSignature]
+        public virtual int IDEAEventTypeDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -37130,9 +37130,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIEPServicePrescription
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.StudentIEPServicePrescriptionAggregate.EdFi.StudentIEPServicePrescriptionQ StudentIEPServicePrescription { get; set; }
         [DomainSignature]
-        public virtual int IDEAEventDescriptorId { get; set; }
-        [DomainSignature]
         public virtual string IDEAEventIdentifier { get; set; }
+        [DomainSignature]
+        public virtual int IDEAEventTypeDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================

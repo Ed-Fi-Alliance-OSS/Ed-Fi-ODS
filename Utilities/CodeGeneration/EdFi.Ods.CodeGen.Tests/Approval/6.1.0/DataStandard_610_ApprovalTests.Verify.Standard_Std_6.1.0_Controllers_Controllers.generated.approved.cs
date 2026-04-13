@@ -7518,35 +7518,35 @@ namespace EdFi.Ods.Api.Services.Controllers.IDEAEvents.EdFi
             specification.EventNarrative = request.EventNarrative;
             specification.EventReasonDescriptor = request.EventReasonDescriptor;
             specification.Id = request.Id;
-            specification.IDEAEventDescriptor = request.IDEAEventDescriptor;
             specification.IDEAEventIdentifier = request.IDEAEventIdentifier;
+            specification.IDEAEventTypeDescriptor = request.IDEAEventTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.IDEAEventDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.IDEAEventTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/ideaEventDescriptors")]
-    public partial class IDEAEventDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.IDEAEventDescriptor.EdFi.IDEAEventDescriptor,
-        Entities.Common.EdFi.IIDEAEventDescriptor,
-        Entities.NHibernate.IDEAEventDescriptorAggregate.EdFi.IDEAEventDescriptor,
-        Api.Common.Models.Requests.IDEAEventDescriptors.EdFi.IDEAEventDescriptorPut,
-        Api.Common.Models.Requests.IDEAEventDescriptors.EdFi.IDEAEventDescriptorPost,
-        Api.Common.Models.Requests.IDEAEventDescriptors.EdFi.IDEAEventDescriptorDelete,
-        Api.Common.Models.Requests.IDEAEventDescriptors.EdFi.IDEAEventDescriptorGetByExample>
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/ideaEventTypeDescriptors")]
+    public partial class IDEAEventTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.IDEAEventTypeDescriptor.EdFi.IDEAEventTypeDescriptor,
+        Entities.Common.EdFi.IIDEAEventTypeDescriptor,
+        Entities.NHibernate.IDEAEventTypeDescriptorAggregate.EdFi.IDEAEventTypeDescriptor,
+        Api.Common.Models.Requests.IDEAEventTypeDescriptors.EdFi.IDEAEventTypeDescriptorPut,
+        Api.Common.Models.Requests.IDEAEventTypeDescriptors.EdFi.IDEAEventTypeDescriptorPost,
+        Api.Common.Models.Requests.IDEAEventTypeDescriptors.EdFi.IDEAEventTypeDescriptorDelete,
+        Api.Common.Models.Requests.IDEAEventTypeDescriptors.EdFi.IDEAEventTypeDescriptorGetByExample>
     {
-        public IDEAEventDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+        public IDEAEventTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
             : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.IDEAEventDescriptors.EdFi.IDEAEventDescriptorGetByExample request, Entities.Common.EdFi.IIDEAEventDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.IDEAEventTypeDescriptors.EdFi.IDEAEventTypeDescriptorGetByExample request, Entities.Common.EdFi.IIDEAEventTypeDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7555,7 +7555,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IDEAEventDescriptors.EdFi
             specification.EffectiveBeginDate = request.EffectiveBeginDate;
             specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
-            specification.IDEAEventDescriptorId = request.IDEAEventDescriptorId;
+            specification.IDEAEventTypeDescriptorId = request.IDEAEventTypeDescriptorId;
             specification.Namespace = request.Namespace;
             specification.ShortDescription = request.ShortDescription;
         }
