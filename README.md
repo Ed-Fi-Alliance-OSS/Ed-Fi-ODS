@@ -2,13 +2,12 @@
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS)
 
-This repository hosts the core code for the Ed-Fi Operational Data Store (ODS) and Ed-Fi ODS API.
+This repository hosts the core code for the Ed-Fi ODS/API version 7.x. **Ed-Fi API Versions 8.0** and later are available in the [Data-Management-Service repository](https://github.com/Ed-Fi-Alliance-OSS/Data-Management-Service). _Watch for version 8.0 in summer 2026 👀_.
 
 For more information, see:
 
 * [Ed-Fi Docs](https://docs.ed-fi.org/) for instructions on getting started, a summary of our code repositories and additional technical information.
 * Also see repository [Ed-Fi-ODS-Implementation](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation).
-
 
 ## Contributing
 
