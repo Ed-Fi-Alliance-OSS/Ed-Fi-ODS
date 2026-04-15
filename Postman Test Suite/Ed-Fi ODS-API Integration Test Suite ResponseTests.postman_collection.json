@@ -7020,7 +7020,7 @@
 							"name": "when_retrieving_token_info_using_a_mismatched_token",
 							"item": [
 								{
-									"name": "api_should_fail_with_a_401_unauthorized",
+									"name": "api_should_fail_with_a_400_bad_request",
 									"event": [
 										{
 											"listen": "test",
