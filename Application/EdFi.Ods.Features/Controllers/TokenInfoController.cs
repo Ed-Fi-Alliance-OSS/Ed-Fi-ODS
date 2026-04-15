@@ -90,9 +90,9 @@ namespace EdFi.Ods.Features.Controllers
                     }.AsSerializableModel());
             }
 
-            // Verify the token in the request body matches the Bearer token in the Authorization header.
-            // NOTE: The [Authorize] attribute ensures the request is authenticated with a valid Bearer token
-            // before reaching this code, so bearerToken will be non-null in production scenarios.
+            // This is a self-introspection endpoint: callers may only inspect their own active token.
+            // The body token must exactly match the bearer token in the Authorization header.
+            // (The [Authorize] attribute guarantees a valid bearer token is present before this runs.)
             var authorizationHeader = Request.Headers.Authorization.ToString();
             string bearerToken = null;
 
@@ -112,6 +112,9 @@ namespace EdFi.Ods.Features.Controllers
                     }.AsSerializableModel());
             }
 
+            // For JWT tokens: the middleware has already parsed and validated the Authorization header JWT,
+            // so we read the jti claim from the authenticated principal rather than re-parsing the body token.
+            // The equality check above guarantees the body token is the same JWT.
             if (_securitySettings.Value.AccessTokenType == SecuritySettings.AccessTokenTypeJwt 
                 && !Guid.TryParse(_httpContextAccessor.HttpContext?.User.FindFirst(JwtRegisteredClaimNames.Jti)?.Value, out guidAccessToken))
             {
