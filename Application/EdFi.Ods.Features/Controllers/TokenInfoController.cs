@@ -90,6 +90,31 @@ namespace EdFi.Ods.Features.Controllers
                     }.AsSerializableModel());
             }
 
+            // This is a self-introspection endpoint: callers may only inspect their own active token.
+            // The body token must exactly match the bearer token in the Authorization header.
+            // (The [Authorize] attribute guarantees a valid bearer token is present before this runs.)
+            var authorizationHeader = Request.Headers.Authorization.ToString();
+            string bearerToken = null;
+
+            if (authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                bearerToken = authorizationHeader["Bearer ".Length..].Trim();
+            }
+
+            if (bearerToken == null || !string.Equals(tokenInfoRequest.Token, bearerToken, StringComparison.OrdinalIgnoreCase))
+            {
+                return BadRequest(
+                    new BadRequestException(
+                        "The authentication token and the token to inspect must match.",
+                        new[] { "The authentication token (header) and the token to inspect in the body must match." })
+                    {
+                        CorrelationId = _logContextAccessor.GetCorrelationId()
+                    }.AsSerializableModel());
+            }
+
+            // For JWT tokens: the middleware has already parsed and validated the Authorization header JWT,
+            // so we read the jti claim from the authenticated principal rather than re-parsing the body token.
+            // The equality check above guarantees the body token is the same JWT.
             if (_securitySettings.Value.AccessTokenType == SecuritySettings.AccessTokenTypeJwt 
                 && !Guid.TryParse(_httpContextAccessor.HttpContext?.User.FindFirst(JwtRegisteredClaimNames.Jti)?.Value, out guidAccessToken))
             {
@@ -106,20 +131,18 @@ namespace EdFi.Ods.Features.Controllers
 
             if (oAuthTokenClientDetails == null)
             {
-                return NotFound();
+                return Unauthorized();
             }
 
             ApiClientContext apiContext = _apiClientContextProvider.GetApiClientContext();
 
-            // must be able to see my specific items ie vendor a cannot look at vendor b
-            if (oAuthTokenClientDetails.ApiKey != apiContext.ApiKey)
-            {
-                return Unauthorized();
-            }
-
             var tokenInfo = await _tokenInfoProvider.GetTokenInfoAsync(apiContext);
 
-            Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue { NoCache = true };
+            var typedHeaders = _httpContextAccessor.HttpContext?.Response?.GetTypedHeaders();
+            if (typedHeaders != null)
+            {
+                typedHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true };
+            }
             return Ok(tokenInfo);
         }
     }
