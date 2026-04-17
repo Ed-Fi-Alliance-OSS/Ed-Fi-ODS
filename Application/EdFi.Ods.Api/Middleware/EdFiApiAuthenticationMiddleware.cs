@@ -95,6 +95,13 @@ namespace EdFi.Ods.Api.Middleware
                             // Authenticate using the unwrapped token
                             var edfiAuthenticateResult = await _oauthTokenAuthenticator.AuthenticateAsync(guidToken, "Bearer");
                             apiClientContext = (ApiClientContext) edfiAuthenticateResult.Ticket?.Properties.Parameters[nameof(ApiClientContext)];
+
+                            // Merge service claims from the GUID auth (loaded from the security DB) into the JWT principal
+                            // so that claim-based policies (e.g. IdentityManagement) work the same way as the GUID flow.
+                            if (edfiAuthenticateResult.Principal?.Identity is System.Security.Claims.ClaimsIdentity serviceClaimsIdentity)
+                            {
+                                context.User.AddIdentity(serviceClaimsIdentity);
+                            }
                         }
                     }
                     else // "OAuth" is used as the scheme for GUID-based token
