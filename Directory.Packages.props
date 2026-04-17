@@ -77,8 +77,6 @@
     <PackageVersion Include="FluentValidation" Version="12.1.1" />
 
     <!-- HTTP Clients -->
-    <PackageVersion Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
-    <PackageVersion Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
     <PackageVersion Include="RestSharp" Version="112.1.0" />
 
     <!-- Serialization -->

@@ -23,7 +23,6 @@
   <ItemGroup>
     <PackageReference Include="Autofac" />
     <PackageReference Include="EdFi.Suite3.Common" />
-    <PackageReference Include="FubarCoder.RestSharp.Portable.Core" />
     <PackageReference Include="log4net" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
     <PackageReference Include="Microsoft.OpenApi" />

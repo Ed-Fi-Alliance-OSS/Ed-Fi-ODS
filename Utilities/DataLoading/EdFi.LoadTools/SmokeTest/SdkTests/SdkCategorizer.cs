@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using EdFi.LoadTools.Engine;
 using Newtonsoft.Json;
-using RestSharp.Portable;
 
 namespace EdFi.LoadTools.SmokeTest.SdkTests
 {
