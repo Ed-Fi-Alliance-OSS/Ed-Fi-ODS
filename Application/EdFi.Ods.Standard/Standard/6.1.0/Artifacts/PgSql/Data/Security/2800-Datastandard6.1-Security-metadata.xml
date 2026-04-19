@@ -110,19 +110,15 @@
 			</ClaimSets>
 			<Claims>
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/serviceDeliveryDescriptor" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/postSecondaryEventCategoryDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/durationIntervalDescriptor" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/attemptStatusDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/serviceLocationTypeDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/eventComplianceDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/IDEAEventTypeDescriptor" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/durationIntervalDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/IEPStatusDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/servicePrescriptionDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/IEPGoalTypeDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/serviceProviderTypeDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/eventReasonDescriptor" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/languageDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/frequencyIntervalDescriptor" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/addressCharacteristicDescriptor" />
 			</Claims>
