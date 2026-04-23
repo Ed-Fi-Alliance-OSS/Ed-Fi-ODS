@@ -25,31 +25,14 @@ public class DescriptorResolver : IDescriptorResolver
             return default;
         }
         
-        var descriptorMaps = _descriptorMapsProvider.GetMaps();
+        var descriptorDetails = _descriptorDetailsProvider.GetDescriptorDetails(descriptorName, uri);
 
-        if (!descriptorMaps.DescriptorIdByUri.TryGetValue(uri, out var descriptorBrief))
+        if (descriptorDetails != null)
         {
-            var descriptorDetails = _descriptorDetailsProvider.GetDescriptorDetails(descriptorName, uri);
-
-            if (descriptorDetails != null)
-            {
-                // Add the details to the existing descriptor maps
-                descriptorMaps.DescriptorIdByUri.TryAdd(descriptorDetails.Uri, (descriptorName, descriptorDetails.DescriptorId));
-                descriptorMaps.UriByDescriptorId.TryAdd(descriptorDetails.DescriptorId, (descriptorName, descriptorDetails.Uri));
-
-                return descriptorDetails.DescriptorId;
-            }
-
-            return default;
+            return descriptorDetails.DescriptorId;
         }
 
-        if (descriptorBrief.descriptorName != descriptorName)
-        {
-            // This is a descriptor uri for a different descriptor type
-            return default;
-        }
-
-        return descriptorBrief.descriptorId;
+        return default;
     }
 
     public string GetUri(string descriptorName, int descriptorId)
