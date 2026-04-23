@@ -42,30 +42,13 @@ public class DescriptorResolver : IDescriptorResolver
             return default;
         }
         
-        var descriptorMaps = _descriptorMapsProvider.GetMaps();
+        var descriptorDetails = _descriptorDetailsProvider.GetDescriptorDetails(descriptorName, descriptorId);
 
-        if (!descriptorMaps.UriByDescriptorId.TryGetValue(descriptorId, out var descriptorBrief))
+        if (descriptorDetails != null)
         {
-            var descriptorDetails = _descriptorDetailsProvider.GetDescriptorDetails(descriptorName, descriptorId);
-
-            if (descriptorDetails != null)
-            {
-                // Add the details to the existing descriptor maps
-                descriptorMaps.DescriptorIdByUri.TryAdd(descriptorDetails.Uri, (descriptorName, descriptorDetails.DescriptorId));
-                descriptorMaps.UriByDescriptorId.TryAdd(descriptorDetails.DescriptorId, (descriptorName, descriptorDetails.Uri));
-
-                return descriptorDetails.Uri;
-            }
-
-            return default;
+            return descriptorDetails.Uri;
         }
 
-        if (descriptorBrief.descriptorName != descriptorName)
-        {
-            // This is a descriptor id for a different descriptor type
-            return default;
-        }
-
-        return descriptorBrief.uri;
+        return default;
     }
 }
