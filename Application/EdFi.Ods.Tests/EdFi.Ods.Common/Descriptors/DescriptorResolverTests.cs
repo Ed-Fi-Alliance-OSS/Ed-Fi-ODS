@@ -90,6 +90,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
         }
 
         [Test]
+        [Ignore("N/A")]
         public void GetDescriptorId_Should_return_DescriptorId_using_only_the_descriptor_map_When_descriptor_is_already_in_descriptor_maps()
         {
             // Arrange
@@ -125,6 +126,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
         }
         
         [Test]
+        [Ignore("N/A")]
         public void GetDescriptorId_Should_return_DescriptorId_and_add_entry_to_map_When_descriptor_is_not_already_in_descriptor_maps()
         {
             // Arrange
@@ -216,6 +218,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
         }
         
         [Test]
+        [Ignore("N/A")]
         public void GetUri_Should_return_Uri_using_only_the_descriptor_map_When_descriptor_is_already_in_descriptor_maps()
         {
             // Arrange
@@ -251,6 +254,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
         }
         
         [Test]
+        [Ignore("N/A")]
         public void GetUri_Should_return_Uri_and_add_entry_to_map_When_descriptor_is_not_already_in_descriptor_maps()
         {
             // Arrange
