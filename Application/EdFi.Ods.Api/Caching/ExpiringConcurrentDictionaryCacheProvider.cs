@@ -51,7 +51,6 @@ namespace EdFi.Ods.Api.Caching
         public ExpiringConcurrentDictionaryCacheProvider(string description, TimeSpan expirationPeriod, Action expirationCallback)
         {
             _description = description;
-            _expirationPeriod = expirationPeriod;
 
             // If expiration period is less than 0 disable caching behavior.
             if (expirationPeriod.TotalSeconds < 0)
@@ -59,12 +58,13 @@ namespace EdFi.Ods.Api.Caching
                 _logger.Debug($"Cache '{description}' is disabled...");
                 _cacheEnabled = false;
             }
-            // Set expiration period only if expiration period is not the default (0)
-            else if (expirationPeriod.TotalSeconds > 0)
-            {
-                _timer = new Timer(CacheExpired, null, expirationPeriod, expirationPeriod);
-                _expirationCallback = expirationCallback;
-            }
+
+            _expirationPeriod = expirationPeriod.TotalSeconds <= 0
+                ? Timeout.InfiniteTimeSpan
+                : expirationPeriod;
+
+            _expirationCallback = expirationCallback;
+            _timer = new Timer(CacheExpired, null, _expirationPeriod, _expirationPeriod);
         }
 
         public bool TryGetCachedObject(TKey key, out object value)
