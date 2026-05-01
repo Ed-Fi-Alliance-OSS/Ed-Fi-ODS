@@ -5,6 +5,10 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Common.Descriptors;
@@ -15,14 +19,55 @@ namespace EdFi.Ods.Common.Descriptors;
 public class DescriptorMapsProvider : IDescriptorMapsProvider
 {
     private readonly IDescriptorDetailsProvider _descriptorDetailsProvider;
+    private readonly IContextProvider<OdsInstanceConfiguration> _contextProvider;
 
-    public DescriptorMapsProvider(IDescriptorDetailsProvider descriptorDetailsProvider)
+    // Cache stampede protection keyed by OdsInstance. The Interceptor still provides the
+    // long-lived caching; this dictionary holds the Lazy only for the duration of a single
+    // in-flight load.
+    private readonly ConcurrentDictionary<ulong, Lazy<DescriptorMaps>> _flights = new();
+
+    public DescriptorMapsProvider(
+        IDescriptorDetailsProvider descriptorDetailsProvider,
+        IContextProvider<OdsInstanceConfiguration> contextProvider)
     {
         _descriptorDetailsProvider = descriptorDetailsProvider;
+        _contextProvider = contextProvider;
     }
 
     /// <inheritdoc cref="IDescriptorMapsProvider.GetMaps" />
     public DescriptorMaps GetMaps()
+    {
+        ulong key = ComputeFlightKey();
+
+        var flight = _flights.GetOrAdd(
+            key,
+            _ => new Lazy<DescriptorMaps>(LoadMaps, LazyThreadSafetyMode.ExecutionAndPublication));
+
+        try
+        {
+            return flight.Value;
+        }
+        finally
+        {
+            _flights.TryRemove(new KeyValuePair<ulong, Lazy<DescriptorMaps>>(key, flight));
+        }
+    }
+
+    private ulong ComputeFlightKey()
+    {
+        var context = _contextProvider.Get();
+
+        // Without context, we cannot generate a key
+        if (context == null)
+        {
+            throw new InvalidOperationException(
+                $"No context has been set for value of type '{nameof(OdsInstanceConfiguration)}'.");
+        }
+
+        return context.OdsInstanceHashId;
+    }
+
+    private DescriptorMaps LoadMaps()
     {
         var allDescriptors = _descriptorDetailsProvider.GetAllDescriptorDetails();
 

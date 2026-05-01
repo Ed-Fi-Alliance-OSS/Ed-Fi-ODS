@@ -141,5 +141,58 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
             result.ShouldBeFalse();
             value.ShouldBeNull();
         }
+
+        [Test]
+        public void Clear_ShouldNotThrow_WhenCacheDisabled()
+        {
+            // Arrange
+            var provider = new ExpiringConcurrentDictionaryCacheProvider<string>("TestCache", TimeSpan.FromSeconds(-1));
+
+            // Act + Assert
+            Should.NotThrow(() => provider.Clear());
+
+            // Cache remains disabled after Clear
+            provider.SetCachedObject("TestKey", "TestValue");
+            provider.TryGetCachedObject("TestKey", out var value).ShouldBeFalse();
+            value.ShouldBeNull();
+        }
+
+        [Test]
+        public void Clear_ShouldClearDictionary_WhenExpirationIsZero()
+        {
+            // Arrange
+            var expirationCallback = A.Fake<Action>();
+            var provider = new ExpiringConcurrentDictionaryCacheProvider<string>("TestCache", TimeSpan.Zero, expirationCallback);
+            provider.SetCachedObject("TestKey1", "TestValue1");
+            provider.SetCachedObject("TestKey2", "TestValue2");
+
+            // Act
+            provider.Clear();
+
+            // Assert: prior entries gone, callback not fired, cache still usable.
+            provider.TryGetCachedObject("TestKey1", out _).ShouldBeFalse();
+            provider.TryGetCachedObject("TestKey2", out _).ShouldBeFalse();
+            A.CallTo(() => expirationCallback.Invoke()).MustNotHaveHappened();
+
+            provider.SetCachedObject("AfterClear", "Value");
+            provider.TryGetCachedObject("AfterClear", out var value).ShouldBeTrue();
+            value.ShouldBe("Value");
+        }
+
+        [Test]
+        public void Clear_ShouldClearDictionary_WhenExpirationIsPositive()
+        {
+            // Arrange. Use a long expiration so the timer cannot fire during the test.
+            var provider = new ExpiringConcurrentDictionaryCacheProvider<string>("TestCache", TimeSpan.FromMinutes(10));
+            provider.SetCachedObject("TestKey1", "TestValue1");
+            provider.SetCachedObject("TestKey2", "TestValue2");
+
+            // Act
+            provider.Clear();
+
+            // Assert
+            provider.TryGetCachedObject("TestKey1", out _).ShouldBeFalse();
+            provider.TryGetCachedObject("TestKey2", out _).ShouldBeFalse();
+        }
     }
 }
