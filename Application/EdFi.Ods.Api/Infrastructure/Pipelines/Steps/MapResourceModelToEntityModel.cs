@@ -13,7 +13,9 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
+using log4net;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
 {
@@ -23,6 +25,14 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
         where TResourceModel : class, IMappable, IHasETag
         where TEntityModel : class, new()
     {
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(MapResourceModelToEntityModel<TContext, TResult, TResourceModel, TEntityModel>));
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+
+        public MapResourceModelToEntityModel(IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+        {
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        }
+
         public Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
         {
             // NOTE this step will always run synchronously so we are not moving the logic to the async method.
@@ -31,6 +41,13 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
                 if (context.Resource == default(TResourceModel))
                 {
                     return Task.CompletedTask;
+                }
+
+                if (_dataManagementResourceContextProvider.Get()?.HttpMethod == HttpMethods.Post
+                    && context.Resource.GetType().FullName?.Contains(".StudentAssessments.") == true)
+                {
+                    string bodyBeforeMapping = JsonConvert.SerializeObject(context.Resource);
+                    _logger.Warn($"Resource before mapping='{bodyBeforeMapping}'");
                 }
 
                 var entity = new TEntityModel();

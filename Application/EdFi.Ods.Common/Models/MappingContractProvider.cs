@@ -268,6 +268,36 @@ public class MappingContractProvider : IMappingContractProvider
                         })
                     .ToArray();
 
+                if (key.ResourceClassName.Name == "StudentAssessmentStudentObjectiveAssessmentScoreResult")
+                {
+                    var constructorParameters = constructorInfo.GetParameters();
+
+                    var argumentDetails = string.Join(
+                        ", ",
+                        constructorParameters.Select(
+                            (parameter, index) => $"{parameter.Name}='{FormatMappingContractArgument(arguments[index])}'"));
+
+                    @this._logger.Warn(
+                        $"Mapping contract created: profile='{key.ProfileName}', usage='{key.ContentTypeUsage}', "
+                        + $"profileResource='{key.ProfileResourceName}', resourceClass='{key.ResourceClassName}', arguments='{argumentDetails}'.");
+
+
+                    string FormatMappingContractArgument(object argument)
+                    {
+                        if (argument == null)
+                        {
+                            return "null";
+                        }
+
+                        if (argument is Array values)
+                        {
+                            return $"[{string.Join(",", values.Cast<object>())}]";
+                        }
+
+                        return argument.ToString();
+                    }
+                }
+
                 // Create the synchronization context
                 return (IMappingContract)constructorInfo.Invoke(arguments);
             }, 

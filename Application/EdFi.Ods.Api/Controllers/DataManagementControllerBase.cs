@@ -25,6 +25,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Common.Logging;
+using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.ProblemDetails;
@@ -36,6 +37,7 @@ using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Controllers
 {
@@ -356,6 +358,43 @@ namespace EdFi.Ods.Api.Controllers
             }
 
             var validationState = new ValidationState();
+
+            if (typeof(TPostRequest).FullName?.Contains(".StudentAssessments.") == true)
+            {
+                var profileContentTypeContext = _profileContentTypeContextProvider.Get();
+
+                string requestBody = JsonConvert.SerializeObject(request);
+
+                Logger.Warn(
+                    $"POST request context for '{typeof(TPostRequest).FullName}': ContentType='{Request.ContentType}', Accept='{Request.Headers.Accept}', "
+                    + $"Profile='{profileContentTypeContext?.ProfileName}', ProfileUsage='{profileContentTypeContext?.ContentTypeUsage}', "
+                    + $"ProfileDefinition='{GetProfileDefinition(profileContentTypeContext)}',"
+                    + $"RequestBody='{requestBody}'.");
+
+                string GetProfileDefinition(ProfileContentTypeContext profileContentTypeContext)
+                {
+                    if (string.IsNullOrWhiteSpace(profileContentTypeContext?.ProfileName))
+                    {
+                        return null;
+                    }
+
+                    var profileMetadataProvider = HttpContext?.RequestServices?.GetService(typeof(IProfileMetadataProvider))
+                        as IProfileMetadataProvider;
+
+                    var profileDefinitionsByName = profileMetadataProvider?.GetProfileDefinitionsByName();
+
+                    if (profileDefinitionsByName == null)
+                    {
+                        return null;
+                    }
+
+                    return profileDefinitionsByName.TryGetValue(
+                            profileContentTypeContext.ProfileName,
+                            out var profileDefinition)
+                        ? profileDefinition.ToString()
+                        : null;
+                }
+            }
 
             // Make sure Id is not already set (no client-assigned Ids)
             if (request.Id != default)

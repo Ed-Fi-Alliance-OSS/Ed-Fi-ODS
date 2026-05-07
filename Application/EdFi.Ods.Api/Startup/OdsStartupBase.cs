@@ -434,6 +434,7 @@ namespace EdFi.Ods.Api.Startup
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IAuthorizationContextProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IETagProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IMappingContractProvider>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<DataManagementResourceContext>>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<ProfileContentTypeContext>>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<UniqueIdLookupsByUsiContext>>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<UsiLookupsByUniqueIdContext>>());
