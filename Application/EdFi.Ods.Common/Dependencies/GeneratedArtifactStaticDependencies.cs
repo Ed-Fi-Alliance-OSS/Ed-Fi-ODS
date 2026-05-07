@@ -26,6 +26,7 @@ namespace EdFi.Ods.Common.Dependencies
         private static Lazy<IDomainModelProvider> _domainModelProvider;
         private static Lazy<IETagProvider> _etagProvider;
         private static Lazy<IMappingContractProvider> _mappingContractProvider;
+        private static Lazy<IContextProvider<DataManagementResourceContext>> _dataManagementResourceContextProvider;
         private static Lazy<IContextProvider<ProfileContentTypeContext>> _profileContentTypeContextProvider;
         private static Lazy<IContextProvider<UniqueIdLookupsByUsiContext>> _uniqueIdLookupsContextProvider;
         private static Lazy<IContextProvider<UsiLookupsByUniqueIdContext>> _usiLookupsContextProvider;
@@ -38,6 +39,7 @@ namespace EdFi.Ods.Common.Dependencies
         public static IDomainModelProvider DomainModelProvider => _domainModelProvider?.Value;
         public static IETagProvider ETagProvider => _etagProvider?.Value;
         public static IMappingContractProvider MappingContractProvider => _mappingContractProvider?.Value;
+        public static IContextProvider<DataManagementResourceContext> DataManagementResourceContextProvider => _dataManagementResourceContextProvider?.Value;
         public static IContextProvider<ProfileContentTypeContext> ProfileContentTypeContextProvider => _profileContentTypeContextProvider?.Value;
         public static IContextProvider<UniqueIdLookupsByUsiContext> UniqueIdLookupsByUsiContextProvider => _uniqueIdLookupsContextProvider?.Value;
         public static IContextProvider<UsiLookupsByUniqueIdContext> UsiLookupsByUniqueIdContextProvider => _usiLookupsContextProvider?.Value;
@@ -78,6 +80,11 @@ namespace EdFi.Ods.Common.Dependencies
             public static void Set(Func<IMappingContractProvider> resolver)
             {
                 _mappingContractProvider = new Lazy<IMappingContractProvider>(resolver);
+            }
+
+            public static void Set(Func<IContextProvider<DataManagementResourceContext>> resolver)
+            {
+                _dataManagementResourceContextProvider = new Lazy<IContextProvider<DataManagementResourceContext>>(resolver);
             }
 
             public static void Set(Func<IContextProvider<ProfileContentTypeContext>> resolver)
