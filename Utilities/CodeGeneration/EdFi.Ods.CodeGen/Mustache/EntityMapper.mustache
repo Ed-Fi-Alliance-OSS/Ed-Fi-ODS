@@ -11,6 +11,8 @@ using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using log4net;
+using Microsoft.AspNetCore.Http;
 {{#HasDerivedResources}}
 using EdFi.Ods.Entities.Common.EdFi;
 {{/HasDerivedResources}}
@@ -24,6 +26,10 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
     public static class {{ModelName}}Mapper
     {
         private static readonly FullName _fullName_{{ModelSchema}}_{{ModelName}} = new FullName("{{ModelSchema}}", "{{ModelName}}");
+        {{#HasPostMappingDiagnostics}}
+        private static readonly ILog _logger = LogManager.GetLogger(typeof({{ModelName}}Mapper));
+
+        {{/HasPostMappingDiagnostics}}
     
         public static bool SynchronizeTo(this I{{ModelName}} source, I{{ModelName}} target)
         {
@@ -98,8 +104,26 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             // Copy non-PK properties
             {{#NonPrimaryKeyList}}
 
+            {{#LogPostMappingDecision}}
+            var sourceValue = source.{{CSharpSafePropertyName}};
+            var targetValue = target.{{CSharpSafePropertyName}};
+            var shouldSynchronize = (mappingContract?.Is{{PropertyName}}Supported != false)
+                && targetValue != sourceValue;
+
+            if (GeneratedArtifactStaticDependencies.DataManagementResourceContextProvider?.Get()?.HttpMethod == HttpMethods.Post)
+            {
+                _logger.Warn(
+                    "{{ModelName}}.{{PropertyName}} SynchronizeTo decision: "
+                    + $"shouldSynchronize='{shouldSynchronize}', supported='{mappingContract?.Is{{PropertyName}}Supported}', "
+                    + $"source='{sourceValue}', target='{targetValue}'.");
+            }
+
+            if (shouldSynchronize)
+            {{/LogPostMappingDecision}}
+            {{^LogPostMappingDecision}}
             if ((mappingContract?.Is{{PropertyName}}Supported != false)
                 && target.{{CSharpSafePropertyName}} != source.{{CSharpSafePropertyName}})
+            {{/LogPostMappingDecision}}
             {
                 target.{{CSharpSafePropertyName}} = source.{{CSharpSafePropertyName}};
                 isModified = true;
@@ -234,7 +258,23 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             // Copy non-PK properties
             {{#NonPrimaryKeyList}}
 
+            {{#LogPostMappingDecision}}
+            var sourceValue = source.{{CSharpSafePropertyName}};
+            var shouldMap = mappingContract?.Is{{PropertyName}}Supported != false;
+
+            if (GeneratedArtifactStaticDependencies.DataManagementResourceContextProvider?.Get()?.HttpMethod == HttpMethods.Post)
+            {
+                _logger.Warn(
+                    "{{ModelName}}.{{PropertyName}} MapTo decision: "
+                    + $"shouldMap='{shouldMap}', supported='{mappingContract?.Is{{PropertyName}}Supported}', "
+                    + $"source='{sourceValue}'.");
+            }
+
+            if (shouldMap)
+            {{/LogPostMappingDecision}}
+            {{^LogPostMappingDecision}}
             if (mappingContract?.Is{{PropertyName}}Supported != false)
+            {{/LogPostMappingDecision}}
                 target.{{CSharpSafePropertyName}} = source.{{CSharpSafePropertyName}};
             {{/NonPrimaryKeyList}}
 

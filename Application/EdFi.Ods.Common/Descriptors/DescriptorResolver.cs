@@ -3,12 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using log4net;
+
 namespace EdFi.Ods.Common.Descriptors;
 
 public class DescriptorResolver : IDescriptorResolver
 {
     private readonly IDescriptorDetailsProvider _descriptorDetailsProvider;
     private readonly IDescriptorMapsProvider _descriptorMapsProvider;
+
+    private readonly ILog _logger = LogManager.GetLogger(typeof(DescriptorResolver));
 
     public DescriptorResolver(
         IDescriptorMapsProvider descriptorMapsProvider,
@@ -22,6 +26,9 @@ public class DescriptorResolver : IDescriptorResolver
     {
         if (uri == null)
         {
+            _logger.Warn(
+                $"GetDescriptorId returning default for descriptor '{descriptorName}': supplied uri is null.");
+
             return default;
         }
         
@@ -37,9 +44,15 @@ public class DescriptorResolver : IDescriptorResolver
                 descriptorMaps.DescriptorIdByUri.TryAdd(descriptorDetails.Uri, descriptorDetails.DescriptorId);
                 descriptorMaps.UriByDescriptorId.TryAdd(descriptorDetails.DescriptorId, descriptorDetails.Uri);
 
+                if (descriptorDetails.DescriptorId == default)
+                {
+                    _logger.Warn($"GetDescriptorId resolved descriptor '{descriptorName}' uri '{uri}' to a default DescriptorId (0) via database lookup. DescriptorMaps count: {descriptorMaps.DescriptorIdByUri.Count}.");
+                }
+
                 return descriptorDetails.DescriptorId;
             }
 
+            _logger.Warn($"GetDescriptorId returning default for descriptor '{descriptorName}': uri '{uri}' was not found in the DescriptorMaps or the database. DescriptorMaps count: {descriptorMaps.DescriptorIdByUri.Count}.");
             return default;
         }
 
