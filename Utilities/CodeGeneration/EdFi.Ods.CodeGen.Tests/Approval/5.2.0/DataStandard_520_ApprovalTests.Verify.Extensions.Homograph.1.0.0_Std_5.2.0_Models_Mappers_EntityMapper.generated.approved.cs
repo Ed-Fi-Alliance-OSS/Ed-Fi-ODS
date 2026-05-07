@@ -11,6 +11,8 @@ using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using log4net;
+using Microsoft.AspNetCore.Http;
 using EdFi.Ods.Entities.Common.EdFi;
 // Aggregate: Contact
 
