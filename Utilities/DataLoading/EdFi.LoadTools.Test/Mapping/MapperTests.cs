@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.LoadTools.Mapping;
@@ -97,7 +98,8 @@ namespace EdFi.LoadTools.Test.Mapping
 
             config.AssertConfigurationIsValid();
             var mapper = config.CreateMapper();
-            var source = JsonConvert.DeserializeObject<EdFiStaff>(StaffJson);
+            var settings = new JsonSerializerSettings { Converters = { new OptionJsonConverter() } };
+            var source = JsonConvert.DeserializeObject<EdFiStaff>(StaffJson, settings);
             var result = mapper.Map<EdFiStaff, EdFiStaffReference>(source);
         }
 
@@ -141,6 +143,23 @@ namespace EdFi.LoadTools.Test.Mapping
         public class TargetB
         {
             public string PropertyD { get; set; }
+        }
+
+        private class OptionJsonConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType) =>
+                objectType.IsGenericType &&
+                objectType.GetGenericTypeDefinition().Name == "Option`1";
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                var innerType = objectType.GetGenericArguments()[0];
+                var value = serializer.Deserialize(reader, innerType);
+                return Activator.CreateInstance(objectType, value);
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+                => throw new NotImplementedException();
         }
     }
 }
