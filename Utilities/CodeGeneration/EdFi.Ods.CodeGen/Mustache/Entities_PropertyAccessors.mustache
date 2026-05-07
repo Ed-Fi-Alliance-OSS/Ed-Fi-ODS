@@ -57,8 +57,24 @@
             } 
             set
             {
+                {{#LogPostDescriptorAccessorDiagnostics}}
+                var isPostRequest = GeneratedArtifactStaticDependencies.DataManagementResourceContextProvider?.Get()?.HttpMethod == HttpMethods.Post;
+                var oldDescriptorId = {{IdFieldName}};
+                var oldDescriptorUri = {{ValueFieldName}};
+
+                {{/LogPostDescriptorAccessorDiagnostics}}
                 {{IdFieldName}} = value;
                 {{ValueFieldName}} = null;
+                {{#LogPostDescriptorAccessorDiagnostics}}
+
+                if (isPostRequest)
+                {
+                    _logger.Warn(
+                        "{{LookupValuePropertyName}}Id setter: "
+                        + $"oldId='{oldDescriptorId}', newId='{value}', oldUri='{oldDescriptorUri}', "
+                        + $"stackTrace='{Environment.StackTrace}'.");
+                }
+                {{/LogPostDescriptorAccessorDiagnostics}}
         {{#HasSerializedReferenceDataMappings}}
         
                 if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
@@ -80,15 +96,48 @@
         {
             get
             {
+                {{#LogPostDescriptorAccessorDiagnostics}}
+                var descriptorUriWasNull = {{ValueFieldName}} == null;
+                var descriptorId = {{IdFieldName}};
+
+                {{/LogPostDescriptorAccessorDiagnostics}}
                 if ({{ValueFieldName}} == null)
                     {{ValueFieldName}} = {{#IsNullable}}{{IdFieldName}} == null ? null : {{/IsNullable}}GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("{{LookupEntityName}}", {{IdFieldname}}{{#IsNullable}}.Value{{/IsNullable}});
+                {{#LogPostDescriptorAccessorDiagnostics}}
+
+                if (descriptorUriWasNull && GeneratedArtifactStaticDependencies.DataManagementResourceContextProvider?.Get()?.HttpMethod == HttpMethods.Post)
+                {
+                    _logger.Warn(
+                        "{{LookupValuePropertyName}} getter: "
+                        + $"descriptorId='{descriptorId}', returnedUri='"
+                        + {{ValueFieldName}}
+                        + $"', "
+                        + $"stackTrace='{Environment.StackTrace}'.");
+                }
+                {{/LogPostDescriptorAccessorDiagnostics}}
                     
                 return {{ValueFieldName}};
             }
             set
             {
+                {{#LogPostDescriptorAccessorDiagnostics}}
+                var isPostRequest = GeneratedArtifactStaticDependencies.DataManagementResourceContextProvider?.Get()?.HttpMethod == HttpMethods.Post;
+                var oldDescriptorUri = {{ValueFieldName}};
+                var oldDescriptorId = {{IdFieldName}};
+
+                {{/LogPostDescriptorAccessorDiagnostics}}
                 {{ValueFieldName}} = value;
                 {{IdFieldName}} = default({{CSharpDeclaredType}});
+                {{#LogPostDescriptorAccessorDiagnostics}}
+
+                if (isPostRequest)
+                {
+                    _logger.Warn(
+                        "{{LookupValuePropertyName}} setter: "
+                        + $"oldUri='{oldDescriptorUri}', newUri='{value}', oldId='{oldDescriptorId}', "
+                        + $"stackTrace='{Environment.StackTrace}'.");
+                }
+                {{/LogPostDescriptorAccessorDiagnostics}}
         {{#HasSerializedReferenceDataMappings}}
 
                 if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)

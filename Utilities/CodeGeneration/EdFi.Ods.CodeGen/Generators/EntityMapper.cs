@@ -21,6 +21,8 @@ namespace EdFi.Ods.CodeGen.Generators
     public class EntityMapper : GeneratorBase
     {
         private IPersonEntitySpecification _personEntitySpecification;
+        private const string PostMappingDiagnosticResourceClassName = "StudentAssessmentStudentObjectiveAssessmentScoreResult";
+        private const string PostMappingDiagnosticPropertyName = "ResultDatatypeTypeDescriptor";
 
         protected override object Build()
         {
@@ -80,6 +82,22 @@ namespace EdFi.Ods.CodeGen.Generators
 
         private object BuildMapper(ResourceClassBase resourceClass)
         {
+            var nonPrimaryKeyList = resourceClass.NonIdentifyingProperties
+                .Where(p => !p.IsInherited && p.IsSynchronizedProperty())
+
+                // Add mappings for UniqueId values defined on Person resources
+                .Concat(resourceClass.IdentifyingProperties.Where(p => _personEntitySpecification.IsDefiningUniqueId(resourceClass, p)))
+                .OrderBy(p => p.PropertyName)
+                .Select(
+                    p => new
+                    {
+                        PropertyName = p.PropertyName,
+                        CSharpSafePropertyName =
+                            p.PropertyName.MakeSafeForCSharpClass(resourceClass.Name),
+                        LogPostMappingDecision = IsPostMappingDiagnosticTarget(resourceClass, p.PropertyName)
+                    })
+                .ToList();
+
             return new
             {
                 ModelName = resourceClass.Name,
@@ -111,19 +129,8 @@ namespace EdFi.Ods.CodeGen.Generators
                     .Where(p => p.IsInherited && p.IsSynchronizedProperty())
                     .OrderBy(p => p.PropertyName)
                     .Select(p => new {BasePropertyName = p.PropertyName}),
-                NonPrimaryKeyList = resourceClass.NonIdentifyingProperties
-                    .Where(p => !p.IsInherited && p.IsSynchronizedProperty())
-
-                    // Add mappings for UniqueId values defined on Person resources
-                    .Concat(resourceClass.IdentifyingProperties.Where(p => _personEntitySpecification.IsDefiningUniqueId(resourceClass, p)))
-                    .OrderBy(p => p.PropertyName)
-                    .Select(
-                        p => new
-                        {
-                            PropertyName = p.PropertyName,
-                            CSharpSafePropertyName =
-                                p.PropertyName.MakeSafeForCSharpClass(resourceClass.Name)
-                        }),
+                NonPrimaryKeyList = nonPrimaryKeyList,
+                HasPostMappingDiagnostics = nonPrimaryKeyList.Any(p => p.LogPostMappingDecision),
                 HasOneToOneRelationships = resourceClass.EmbeddedObjects.Any(),
                 OneToOneClassList = resourceClass.EmbeddedObjects
                     .Select(
@@ -179,6 +186,12 @@ namespace EdFi.Ods.CodeGen.Generators
                                 MappedReferenceDataHasDiscriminator = a.OtherEntity.HasDiscriminator()
                             })
             };
+        }
+        
+        private static bool IsPostMappingDiagnosticTarget(ResourceClassBase resourceClass, string propertyName)
+        {
+            return resourceClass.Name.Equals(PostMappingDiagnosticResourceClassName, StringComparison.Ordinal)
+                   && propertyName.Equals(PostMappingDiagnosticPropertyName, StringComparison.Ordinal);
         }
 
         private bool IsBaseClassConcrete(ResourceClassBase resourceClass)

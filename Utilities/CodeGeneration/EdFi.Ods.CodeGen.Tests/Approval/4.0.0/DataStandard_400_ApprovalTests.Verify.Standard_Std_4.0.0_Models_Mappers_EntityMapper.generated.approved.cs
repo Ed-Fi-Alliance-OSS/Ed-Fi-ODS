@@ -11,6 +11,8 @@ using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using log4net;
+using Microsoft.AspNetCore.Http;
 using EdFi.Ods.Entities.Common.EdFi;
 // Aggregate: AbsenceEventCategoryDescriptor
 
@@ -63921,6 +63923,8 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
     public static class StudentAssessmentStudentObjectiveAssessmentScoreResultMapper
     {
         private static readonly FullName _fullName_edfi_StudentAssessmentStudentObjectiveAssessmentScoreResult = new FullName("edfi", "StudentAssessmentStudentObjectiveAssessmentScoreResult");
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(StudentAssessmentStudentObjectiveAssessmentScoreResultMapper));
+
     
         public static bool SynchronizeTo(this IStudentAssessmentStudentObjectiveAssessmentScoreResult source, IStudentAssessmentStudentObjectiveAssessmentScoreResult target)
         {
@@ -63941,8 +63945,20 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
                 isModified = true;
             }
 
-            if ((mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
-                && target.ResultDatatypeTypeDescriptor != source.ResultDatatypeTypeDescriptor)
+            var sourceValue = source.ResultDatatypeTypeDescriptor;
+            var targetValue = target.ResultDatatypeTypeDescriptor;
+            var shouldSynchronize = (mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
+                && targetValue != sourceValue;
+
+            if (GeneratedArtifactStaticDependencies.DataManagementResourceContextProvider?.Get()?.HttpMethod == HttpMethods.Post)
+            {
+                _logger.Warn(
+                    "StudentAssessmentStudentObjectiveAssessmentScoreResult.ResultDatatypeTypeDescriptor SynchronizeTo decision: "
+                    + $"shouldSynchronize='{shouldSynchronize}', supported='{mappingContract?.IsResultDatatypeTypeDescriptorSupported}', "
+                    + $"source='{sourceValue}', target='{targetValue}'.");
+            }
+
+            if (shouldSynchronize)
             {
                 target.ResultDatatypeTypeDescriptor = source.ResultDatatypeTypeDescriptor;
                 isModified = true;
@@ -63972,7 +63988,18 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             if (mappingContract?.IsResultSupported != false)
                 target.Result = source.Result;
 
-            if (mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
+            var sourceValue = source.ResultDatatypeTypeDescriptor;
+            var shouldMap = mappingContract?.IsResultDatatypeTypeDescriptorSupported != false;
+
+            if (GeneratedArtifactStaticDependencies.DataManagementResourceContextProvider?.Get()?.HttpMethod == HttpMethods.Post)
+            {
+                _logger.Warn(
+                    "StudentAssessmentStudentObjectiveAssessmentScoreResult.ResultDatatypeTypeDescriptor MapTo decision: "
+                    + $"shouldMap='{shouldMap}', supported='{mappingContract?.IsResultDatatypeTypeDescriptorSupported}', "
+                    + $"source='{sourceValue}'.");
+            }
+
+            if (shouldMap)
                 target.ResultDatatypeTypeDescriptor = source.ResultDatatypeTypeDescriptor;
 
             // Copy Aggregate Reference Data

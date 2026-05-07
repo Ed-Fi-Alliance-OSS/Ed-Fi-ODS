@@ -28,6 +28,12 @@ namespace EdFi.Ods.CodeGen.Generators
         
         private static readonly object _notRendered = null;
 
+        private const string PostDescriptorAccessorDiagnosticEntityName =
+            "StudentAssessmentStudentObjectiveAssessmentScoreResult";
+
+        private const string PostDescriptorAccessorDiagnosticLookupValuePropertyName =
+            "ResultDatatypeTypeDescriptor";
+
         private Func<Entity, bool> _shouldRenderEntityForSchema;
 
         private IPersonEntitySpecification _personEntitySpecification;
@@ -79,7 +85,11 @@ namespace EdFi.Ods.CodeGen.Generators
                     }).ToList(),
                 TemplateContext.SchemaProperCaseName,
                 HasExtensionDerivedFromEdFiBaseEntity = orderedAggregates.SelectMany(a => a.Members)
-                    .Any(m => !m.IsEdFiStandardEntity && m.IsDerived && m.BaseEntity.IsEdFiStandardEntity)
+                    .Any(m => !m.IsEdFiStandardEntity && m.IsDerived && m.BaseEntity.IsEdFiStandardEntity),
+                HasPostDescriptorAccessorDiagnostics =
+                    orderedAggregates
+                       .SelectMany(a => a.Members)
+                       .Any(HasPostDescriptorAccessorDiagnosticTarget)
             };
         }
 
@@ -170,6 +180,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     AggregateName = aggregate.Name,
                     ClassName = entity.Name,
                     ReferenceDataClassName = entity.Name + "ReferenceData",
+                    HasPostDescriptorAccessorDiagnostics = HasPostDescriptorAccessorDiagnosticTarget(entity),
                     HasReferenceDataClass = entity.IsReferenceable() && entity.TypeHierarchyRootEntity == entity,
                     ReferenceDataMessagePackIndexer = new MessagePackIndexer(),
                     TableName = entity.Name,
@@ -582,6 +593,22 @@ namespace EdFi.Ods.CodeGen.Generators
                    && property.PropertyName != "LastModifiedDate";
         }
 
+        private static bool HasPostDescriptorAccessorDiagnosticTarget(Entity entity)
+        {
+            return entity.Name.Equals(PostDescriptorAccessorDiagnosticEntityName, StringComparison.Ordinal)
+                   && entity.Identifier.Properties
+                            .Concat(entity.NonIdentifyingProperties)
+                            .Any(p => IsPostDescriptorAccessorDiagnosticTarget(entity, p));
+        }
+
+        private static bool IsPostDescriptorAccessorDiagnosticTarget(Entity entity, EntityProperty property)
+        {
+            return entity.Name.Equals(PostDescriptorAccessorDiagnosticEntityName, StringComparison.Ordinal)
+                   && property.IsDescriptorUsage
+                   && property.GetLookupValuePropertyName()
+                              .Equals(PostDescriptorAccessorDiagnosticLookupValuePropertyName, StringComparison.Ordinal);
+        }
+
         private static string GetEntityParentClassName(Entity entity)
         {
             if (entity.IsAggregateRoot)
@@ -650,7 +677,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                      "_" + p.GetLookupValuePropertyName()
                                             .ToCamelCase(),
                                  CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
-                                 NeedsOverride = entity.IsDerived && p.IsIdentifying && !p.IsInheritedIdentifyingRenamed
+                                 NeedsOverride = entity.IsDerived && p.IsIdentifying && !p.IsInheritedIdentifyingRenamed,
+                                 LogPostDescriptorAccessorDiagnostics = IsPostDescriptorAccessorDiagnosticTarget(entity, p)
                              }
                            : _notRendered,
                        UsiProperty = UniqueIdConventions.IsUSI(p.PropertyName)
