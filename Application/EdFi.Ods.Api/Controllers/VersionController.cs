@@ -66,7 +66,8 @@ namespace EdFi.Ods.Api.Controllers
             {
                 var urlsByName = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-                var rootUrl = Request.RootUrl(_apiSettings.GetReverseProxySettings());
+                var reverseProxySettings = _apiSettings.GetReverseProxySettings();
+                var rootUrl = Request.RootUrl(reverseProxySettings);
 
                 if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
                 {
@@ -135,9 +136,9 @@ namespace EdFi.Ods.Api.Controllers
                 }
 
                 if (_featureManager.IsFeatureEnabled(ApiFeature.OneRoster)
-                    && !string.IsNullOrEmpty(_apiSettings.OneRosterVersionUrl))
+                    && !string.IsNullOrWhiteSpace(_apiSettings.OneRosterVersionUrl))
                 {
-                  urlsByName["oneRoster"] = _apiSettings.OneRosterVersionUrl;
+                    urlsByName["oneRoster"] = Request.ToAbsoluteUrl(reverseProxySettings, _apiSettings.OneRosterVersionUrl);
                 }
 
                 return urlsByName;
