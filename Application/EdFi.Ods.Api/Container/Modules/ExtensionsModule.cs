@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
+using EdFi.Ods.Common.Metadata.Custom;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Common.Dependencies;
@@ -73,6 +74,13 @@ namespace EdFi.Ods.Api.Container.Modules
                     builder.RegisterType<DomainModelDefinitionsJsonEmbeddedResourceProvider>()
                         .WithParameter("sourceAssembly", assembly)
                         .As<IDomainModelDefinitionsProvider>()
+                        .SingleInstance();
+
+                    // Custom metadata support (e.g. DateRange validations) for this extension assembly.
+                    // No-op unless an ApiModel-EXTENSION-CustomMetadata.json resource is embedded in the assembly.
+                    builder.RegisterType<EmbeddedResourceDomainModelCustomMetadataProvider>()
+                        .WithParameter("sourceAssembly", assembly)
+                        .As<IDomainModelCustomMetadataProvider>()
                         .SingleInstance();
 
                     builder.RegisterType<ExtensionNHibernateConfigurationProvider>()

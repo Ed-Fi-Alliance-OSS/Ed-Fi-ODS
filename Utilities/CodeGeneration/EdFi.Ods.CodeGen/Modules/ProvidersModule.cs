@@ -57,6 +57,9 @@ namespace EdFi.Ods.CodeGen.Modules
             builder.RegisterType<DomainModelDefinitionProvidersProvider>()
                 .As<IDomainModelDefinitionsProviderProvider>();
 
+            builder.RegisterType<DomainModelCustomMetadataProviderFactory>()
+                .As<IDomainModelCustomMetadataProviderFactory>();
+
             builder.RegisterType<SchemaFileProvider>()
                 .As<ISchemaFileProvider>();
 

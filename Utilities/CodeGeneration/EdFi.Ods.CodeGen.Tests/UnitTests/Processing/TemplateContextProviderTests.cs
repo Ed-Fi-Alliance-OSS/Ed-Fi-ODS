@@ -28,6 +28,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
             private TemplateContextProvider _templateContextProvider;
             private AssemblyData _assemblyData;
             private IEnumerable<IDomainModelDefinitionsProvider> _domainModelDefinitionsProviders;
+            private IDomainModelCustomMetadataProviderFactory _domainModelCustomMetadataProviderFactory;
 
             protected override void Arrange()
             {
@@ -50,11 +51,12 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
                 _domainModelDefinitionsProviders = new[] {domainModelDefinitionsProvider};
 
                 _domainModelDefinitionsProviderProvider = Stub<IDomainModelDefinitionsProviderProvider>();
+                _domainModelCustomMetadataProviderFactory = Stub<IDomainModelCustomMetadataProviderFactory>();
 
                 A.CallTo(() => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders())
                     .Returns(_domainModelDefinitionsProviders);
 
-                _templateContextProvider = new TemplateContextProvider(_domainModelDefinitionsProviderProvider);
+                _templateContextProvider = new TemplateContextProvider(_domainModelDefinitionsProviderProvider, _domainModelCustomMetadataProviderFactory);
             }
 
             protected override void Act()

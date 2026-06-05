@@ -8,12 +8,13 @@ using System.Collections.Generic;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Dynamic;
 using EdFi.Ods.Common.Serialization;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Common.Models.Definitions
 {
-    public class EntityPropertyDefinition
+    public class EntityPropertyDefinition : DynamicModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityPropertyDefinition" /> class.

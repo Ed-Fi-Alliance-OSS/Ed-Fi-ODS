@@ -41,6 +41,7 @@ using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.IO;
 using EdFi.Ods.Common.Logging;
+using EdFi.Ods.Common.Metadata.Custom;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions.Transformers;
 using EdFi.Ods.Common.Models.Domain;
@@ -165,6 +166,21 @@ namespace EdFi.Ods.Api.Container.Modules
                         (p, c) => p.ParameterType == typeof(Assembly),
                         (p, c) => c.Resolve<IAssembliesProvider>().GetAssemblies().SingleOrDefault(x => x.IsStandardAssembly())))
                 .As<IDomainModelDefinitionsProvider>()
+                .SingleInstance();
+
+            // Custom metadata support (e.g. DateRange validations) for the runtime domain model.
+            // Enforcement is carried by the generated [DateRange] attribute; this registration is a no-op
+            // unless an ApiModel(-EXTENSION)-CustomMetadata.json resource is embedded in the assembly.
+            builder.RegisterType<EmbeddedResourceDomainModelCustomMetadataProvider>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.ParameterType == typeof(Assembly),
+                        (p, c) => c.Resolve<IAssembliesProvider>().GetAssemblies().SingleOrDefault(x => x.IsStandardAssembly())))
+                .As<IDomainModelCustomMetadataProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<CustomMetadataDomainModelDefinitionsTransformer>()
+                .As<IDomainModelDefinitionsTransformer>()
                 .SingleInstance();
 
             builder.RegisterType<AssembliesProvider>()

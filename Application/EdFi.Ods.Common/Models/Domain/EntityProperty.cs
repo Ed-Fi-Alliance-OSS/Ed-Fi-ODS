@@ -9,6 +9,7 @@ using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Definitions;
+using EdFi.Ods.Common.Models.Dynamic;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
 
@@ -46,20 +47,29 @@ namespace EdFi.Ods.Common.Models.Domain
         /// </summary>
         /// <param name="associationProperty">The association property on which to base the entity property.</param>
         protected internal EntityProperty(AssociationProperty associationProperty)
-            : base(new EntityPropertyDefinition
-                   {
-                       PropertyName = associationProperty.PropertyName,
-                       PropertyType = associationProperty.PropertyType,
-                       Description = associationProperty.Description,
-                       IsIdentifying = associationProperty.IsIdentifying,
-                       IsServerAssigned = associationProperty.IsServerAssigned,
-                       ColumnNames = associationProperty.ColumnNameByDatabaseEngine,
-                   })
+            : base(CreateEntityPropertyDefinition(associationProperty))
         {
             // Property is NOT locally defined when built from an association property
             IsLocallyDefined = false;
 
             InitializeLazyMembers();
+        }
+
+        private static EntityPropertyDefinition CreateEntityPropertyDefinition(AssociationProperty associationProperty)
+        {
+            var entityDefinition = new EntityPropertyDefinition
+            {
+                PropertyName = associationProperty.PropertyName,
+                PropertyType = associationProperty.PropertyType,
+                Description = associationProperty.Description,
+                IsIdentifying = associationProperty.IsIdentifying,
+                IsServerAssigned = associationProperty.IsServerAssigned,
+                ColumnNames = associationProperty.ColumnNameByDatabaseEngine,
+            };
+
+            entityDefinition.CopyDynamicPropertiesFrom(associationProperty);
+
+            return entityDefinition;
         }
 
         private void InitializeLazyMembers()

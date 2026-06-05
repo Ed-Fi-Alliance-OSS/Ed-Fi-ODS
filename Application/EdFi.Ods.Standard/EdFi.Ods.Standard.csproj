@@ -36,7 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Standard\$(StandardVersion)\**\*.cs" />
-    <EmbeddedResource Include="Standard\$(StandardVersion)\Artifacts\Metadata\ApiModel.json">
+    <EmbeddedResource Include="Standard\$(StandardVersion)\Artifacts\Metadata\ApiModel*.json">
       <LogicalName>$(RootNamespace).Artifacts.Metadata.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="Standard\$(StandardVersion)\**\*.generated.hbm.xml">

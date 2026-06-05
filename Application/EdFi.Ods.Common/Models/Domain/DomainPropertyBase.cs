@@ -11,13 +11,14 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Dynamic;
 
 namespace EdFi.Ods.Common.Models.Domain
 {
     /// <summary>
     /// Provides an abstraction over association and entity properties.
     /// </summary>
-    public abstract class DomainPropertyBase : IHasNameContext
+    public abstract class DomainPropertyBase : DynamicModel, IHasNameContext
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainPropertyBase" /> class using the specified property definition.
@@ -25,6 +26,8 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <param name="entityPropertyDefinition"></param>
         protected DomainPropertyBase(EntityPropertyDefinition entityPropertyDefinition)
         {
+            this.CopyDynamicPropertiesFrom(entityPropertyDefinition);
+
             PropertyName = entityPropertyDefinition.PropertyName;
             PropertyType = entityPropertyDefinition.PropertyType;
             Description = entityPropertyDefinition.Description?.Trim();

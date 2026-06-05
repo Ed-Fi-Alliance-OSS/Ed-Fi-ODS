@@ -13,6 +13,7 @@ using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Metadata.Custom;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions.Transformers;
 using EdFi.Ods.Common.Models.Domain;
@@ -21,10 +22,14 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
 {
     public class TemplateContextProvider : ITemplateContextProvider
     {
+        private readonly Lazy<List<IDomainModelCustomMetadataProvider>> _domainModelCustomMetadataProviders;
+
         private readonly Lazy<List<IDomainModelDefinitionsProvider>> _domainModelDefinitionProviders;
         private readonly ConcurrentDictionary<string, TemplateContext> _templateContextByAssemblyName = new();
 
-        public TemplateContextProvider(IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider)
+        public TemplateContextProvider(
+            IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider,
+            IDomainModelCustomMetadataProviderFactory domainModelCustomMetadataProviderFactory)
         {
             IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider1 = Preconditions.ThrowIfNull(
                 domainModelDefinitionsProviderProvider,
@@ -34,6 +39,10 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
                 new Lazy<List<IDomainModelDefinitionsProvider>>(
                     () => domainModelDefinitionsProviderProvider1.DomainModelDefinitionProviders()
                         .ToList());
+
+            _domainModelCustomMetadataProviders =
+                new Lazy<List<IDomainModelCustomMetadataProvider>>(
+                    () => domainModelCustomMetadataProviderFactory.CreateProviders().ToList());
         }
 
         public TemplateContext Create(AssemblyData assemblyData)
@@ -66,14 +75,21 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
         private IDomainModelProvider CreateDomainModelProvider(AssemblyData assemblyData)
         {
             // Always include EdFi, and only include the extension definition provider if we are generating in an extension schema context
-            var domainModelDefinitionsTransformers = new IDomainModelDefinitionsTransformer[]
+            var domainModelDefinitionsTransformers = new List<IDomainModelDefinitionsTransformer>
             {
                 new PriorDescriptorIdRemover()
             };
 
+            // Add custom metadata transformer if any providers found
+            if (_domainModelCustomMetadataProviders.Value.Any())
+            {
+                domainModelDefinitionsTransformers.Add(
+                    new CustomMetadataDomainModelDefinitionsTransformer(_domainModelCustomMetadataProviders.Value.ToArray()));
+            }
+
             var domainModelProvider = new DomainModelProvider(
                 GetDomainModelDefinitionProviders(assemblyData.SchemaName),
-                domainModelDefinitionsTransformers);
+                domainModelDefinitionsTransformers.ToArray());
             
             GeneratedArtifactStaticDependencies.Resolvers.Set(() => domainModelProvider);
 
