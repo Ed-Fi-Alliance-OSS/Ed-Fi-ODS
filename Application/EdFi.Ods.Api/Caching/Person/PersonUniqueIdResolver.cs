@@ -22,16 +22,18 @@ public class PersonUniqueIdResolver : PersonIdentifierResolverBase<int, string>,
 
     public PersonUniqueIdResolver(
         IPersonMapCacheInitializer personMapCacheInitializer,
+        IDistributedLockProvider distributedLockProvider,
         IPersonIdentifiersProvider personIdentifiersProvider,
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> mapCache,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> reverseMapCache,
-        ICacheInitializationMarkerKeyProvider<int> cacheInitializationMarkerKeyForLookupProvider, 
-        ICacheInitializationMarkerKeyProvider<string> cacheInitializationMarkerKeyForResolvedProvider, 
+        ICacheInitializationMarkerKeyProvider<int> cacheInitializationMarkerKeyForLookupProvider,
+        ICacheInitializationMarkerKeyProvider<string> cacheInitializationMarkerKeyForResolvedProvider,
         Dictionary<string, bool> cacheSuppressionByPersonType,
         bool useProgressiveLoading)
         : base(
             personMapCacheInitializer,
+            distributedLockProvider,
             odsInstanceConfigurationContextProvider,
             mapCache,
             reverseMapCache,
@@ -56,10 +58,7 @@ public class PersonUniqueIdResolver : PersonIdentifierResolverBase<int, string>,
         return await _personIdentifiersProvider.GetPersonUniqueIdsAsync(personType, identifiersToLoad.ToArray());
     }
 
-    protected override PersonMapType MapType
-    {
-        get => PersonMapType.UniqueIdByUsi;
-    }
+    protected override PersonMapType MapType => PersonMapType.UniqueIdByUsi;
 
     protected override (int key, string value) ExtractKeyValueTuple(PersonIdentifiersValueMap personIdentifiers)
     {

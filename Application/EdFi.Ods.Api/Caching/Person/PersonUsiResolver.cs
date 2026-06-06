@@ -22,6 +22,7 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
 
     public PersonUsiResolver(
         IPersonMapCacheInitializer personMapCacheInitializer,
+        IDistributedLockProvider distributedLockProvider,
         IPersonIdentifiersProvider personIdentifiersProvider,
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> mapCache,
@@ -32,6 +33,7 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
         bool useProgressiveLoading)
         : base(
             personMapCacheInitializer,
+            distributedLockProvider,
             odsInstanceConfigurationContextProvider,
             mapCache,
             reverseMapCache,
@@ -43,10 +45,7 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
         _personIdentifiersProvider = personIdentifiersProvider;
     }
 
-    protected override PersonMapType MapType
-    {
-        get => PersonMapType.UsiByUniqueId;
-    }
+    protected override PersonMapType MapType => PersonMapType.UsiByUniqueId;
 
     /// <inheritdoc cref="IPersonUsiResolver.ResolveUsisAsync" />
     public async Task ResolveUsisAsync(string personType, IDictionary<string, int> lookups)
