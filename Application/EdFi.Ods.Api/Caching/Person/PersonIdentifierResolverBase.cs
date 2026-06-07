@@ -41,7 +41,6 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), TLookup, TResolved> mapCache,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), TResolved, TLookup> reverseMapCache,
         ICacheInitializationMarkerKeyProvider<TLookup> cacheInitializationMarkerKeyForLookupProvider,
-        ICacheInitializationMarkerKeyProvider<TResolved> cacheInitializationMarkerKeyForResolvedProvider,
         Dictionary<string, bool> cacheSuppressionByPersonType,
         bool useProgressiveLoading)
     {
@@ -53,7 +52,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
         _reverseMapCache = reverseMapCache;
         _cacheSuppressionByPersonType = cacheSuppressionByPersonType;
         _performBackgroundInitialization = !useProgressiveLoading;
-        _cacheInitializationMarkerKeyForLookup = new[] { cacheInitializationMarkerKeyForLookupProvider.CacheKey };
+        _cacheInitializationMarkerKeyForLookup = [cacheInitializationMarkerKeyForLookupProvider.CacheKey];
     }
 
     protected abstract PersonMapType MapType { get; }
@@ -92,7 +91,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
                 loadedIdentifierMappings),
             _reverseMapCache.SetMapEntriesAsync(
                 (odsInstanceHashId, personType, MapType.Inverse()),
-                loadedIdentifierMappings.Select(x => (x.value, x.key)).ToArray()));
+                [.. loadedIdentifierMappings.Select(x => (x.value, x.key))]));
         // Note: While we may want to validate that all values have been resolved, the behavior of the API when the resolution
         // fails (primarily for UniqueId values passed in PUT/POST requests) is appropriate without this extra validation. 
 
@@ -100,8 +99,8 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
         {
             ulong odsInstanceHashId = _odsInstanceConfigurationContextProvider.Get().OdsInstanceHashId;
             TLookup[] cacheLookupIdentifiers = _performBackgroundInitialization
-                ? suppliedLookupIdentifiers.Concat(_cacheInitializationMarkerKeyForLookup).ToArray()
-                : suppliedLookupIdentifiers.ToArray();
+                ? [.. suppliedLookupIdentifiers, .. _cacheInitializationMarkerKeyForLookup]
+                : [.. suppliedLookupIdentifiers];
 
             // Resolve uniqueIds from the map cache
             TResolved[] resolvedIdentifiers = await _mapCache.GetMapEntriesAsync((odsInstanceHashId, personType, MapType), cacheLookupIdentifiers);

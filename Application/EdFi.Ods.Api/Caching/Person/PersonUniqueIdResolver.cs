@@ -28,7 +28,6 @@ public class PersonUniqueIdResolver : PersonIdentifierResolverBase<int, string>,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> mapCache,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> reverseMapCache,
         ICacheInitializationMarkerKeyProvider<int> cacheInitializationMarkerKeyForLookupProvider,
-        ICacheInitializationMarkerKeyProvider<string> cacheInitializationMarkerKeyForResolvedProvider,
         Dictionary<string, bool> cacheSuppressionByPersonType,
         bool useProgressiveLoading)
         : base(
@@ -38,7 +37,6 @@ public class PersonUniqueIdResolver : PersonIdentifierResolverBase<int, string>,
             mapCache,
             reverseMapCache,
             cacheInitializationMarkerKeyForLookupProvider,
-            cacheInitializationMarkerKeyForResolvedProvider,
             cacheSuppressionByPersonType,
             useProgressiveLoading)
     {
