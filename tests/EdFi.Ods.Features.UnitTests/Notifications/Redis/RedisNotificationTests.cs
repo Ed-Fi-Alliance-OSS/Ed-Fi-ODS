@@ -6,7 +6,6 @@
 using Autofac.Features.Indexed;
 using Castle.DynamicProxy;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Utils;
 using EdFi.Ods.Features.Notifications;
 using EdFi.Ods.Features.Notifications.Redis;
 using EdFi.Ods.Features.Services.Redis;
@@ -22,9 +21,11 @@ namespace EdFi.Ods.Features.UnitTests.Notifications.Redis;
 [TestFixture]
 public class RedisNotificationTests
 {
-    private const string RedisConfiguration = "localhost:6379";
+    private const string RedisConfigurationString = "localhost:6379";
 
-    private static readonly IRedisConnectionProvider _redisConnectionProvider = new RedisConnectionProvider(RedisConfiguration);
+    private static readonly IRedisConnectionProvider _redisConnectionProvider = new RedisConnectionProvider(
+        new RedisConfiguration { Configuration = RedisConfigurationString }
+    );
     private static readonly RedisNotificationSettings _redisNotificationSettings = new() { Channel = "test-notifications" };
 
     private readonly Dictionary<string, TimeSpan> _intervalsByNotificationType = new();
@@ -51,7 +52,7 @@ public class RedisNotificationTests
 
         var fakeInterceptorIndex = A.Fake<IIndex<string, IInterceptor>>();
         IInterceptor interceptorOutPlaceholder;
-        
+
         A.CallTo(() => fakeInterceptorIndex.TryGetValue("cache-security", out interceptorOutPlaceholder))
             .Returns(true)
             .AssignsOutAndRefParameters(interceptor);

@@ -87,7 +87,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeMapCache,
                 _fakeReverseMapCache,
                 new UsiCacheInitializationMarkerKeyProvider(),
-                new UniqueIdCacheInitializationMarkerKeyProvider(),
                 _fakeCacheSuppressionByPersonType,
                 useProgressiveLoading: false);
 
@@ -178,7 +177,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeMapCache,
                 _fakeReverseMapCache,
                 new UsiCacheInitializationMarkerKeyProvider(),
-                new UniqueIdCacheInitializationMarkerKeyProvider(),
                 _fakeCacheSuppressionByPersonType,
                 useProgressiveLoading);
 
@@ -292,7 +290,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeMapCache,
                 _fakeReverseMapCache,
                 new UsiCacheInitializationMarkerKeyProvider(),
-                new UniqueIdCacheInitializationMarkerKeyProvider(),
                 _fakeCacheSuppressionByPersonType,
                 useProgressiveLoading: false);
 
@@ -333,7 +330,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                     // Resolver should append the marker key for checking cache initialization state
                     && x[2] == CacheInitializationConstants.InitializationMarkerKeyForUsi)))
                 // Simulate that cache initialization has already been initiated
-                .Returns(new[] { null, null, CacheInitializationConstants.InitializationMarkerKeyForUniqueId });
+                .Returns([null, null, CacheInitializationConstants.InitializationMarkerKeyForUniqueId]);
 
             var resolver = new PersonUniqueIdResolver(
                 _fakePersonMapCacheInitializer,
@@ -343,7 +340,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeMapCache,
                 _fakeReverseMapCache,
                 new UsiCacheInitializationMarkerKeyProvider(),
-                new UniqueIdCacheInitializationMarkerKeyProvider(),
                 _fakeCacheSuppressionByPersonType,
                 useProgressiveLoading: false);
 
@@ -389,7 +385,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeMapCache,
                 _fakeReverseMapCache,
                 new UsiCacheInitializationMarkerKeyProvider(),
-                new UniqueIdCacheInitializationMarkerKeyProvider(),
                 _fakeCacheSuppressionByPersonType,
                 useProgressiveLoading: false);
 
@@ -452,7 +447,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeMapCache,
                 _fakeReverseMapCache,
                 new UsiCacheInitializationMarkerKeyProvider(),
-                new UniqueIdCacheInitializationMarkerKeyProvider(),
                 _fakeCacheSuppressionByPersonType,
                 useProgressiveLoading: false);
 
@@ -517,7 +511,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeMapCache,
                 _fakeReverseMapCache,
                 new UsiCacheInitializationMarkerKeyProvider(),
-                new UniqueIdCacheInitializationMarkerKeyProvider(),
                 _fakeCacheSuppressionByPersonType,
                 useProgressiveLoading: false);
 
@@ -574,7 +567,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeMapCache,
                 _fakeReverseMapCache,
                 new UsiCacheInitializationMarkerKeyProvider(),
-                new UniqueIdCacheInitializationMarkerKeyProvider(),
                 _fakeCacheSuppressionByPersonType,
                 useProgressiveLoading: false);
 
@@ -624,7 +616,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeMapCache,
                 _fakeReverseMapCache,
                 new UsiCacheInitializationMarkerKeyProvider(),
-                new UniqueIdCacheInitializationMarkerKeyProvider(),
                 _fakeCacheSuppressionByPersonType,
                 useProgressiveLoading: false);
 
