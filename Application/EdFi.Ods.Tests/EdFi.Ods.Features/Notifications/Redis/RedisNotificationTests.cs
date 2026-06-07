@@ -3,8 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Autofac.Features.Indexed;
 using Castle.DynamicProxy;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.Notifications;
 using EdFi.Ods.Features.Notifications.Redis;
@@ -16,7 +21,7 @@ using NUnit.Framework;
 using Shouldly;
 using StackExchange.Redis;
 
-namespace EdFi.Ods.Features.UnitTests.Notifications.Redis;
+namespace EdFi.Ods.Tests.EdFi.Ods.Features.Notifications.Redis;
 
 [TestFixture]
 public class RedisNotificationTests
@@ -83,6 +88,8 @@ public class RedisNotificationTests
         interceptor.ClearCalled.ShouldBeTrue();
     }
 }
+
+public interface IClearableInterceptor : IInterceptor, IClearable {}
 
 public class SignalingClearableInterceptor : IClearableInterceptor
 {
