@@ -12,23 +12,62 @@ internal static class CachingInterceptorKeyGenerator
 {
     public static ulong GenerateCacheKey(MethodInfo method, object[] arguments)
     {
-        switch (arguments.Length)
+        return arguments.Length switch
         {
-            case 0:
-                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name);
+            0 => XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name),
+            1 => XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name, arguments[0]),
+            2 => XxHash3Code.Combine(
+                method.DeclaringType!.FullName,
+                method.Name,
+                arguments[0],
+                arguments[1]
+            ),
+            3 => XxHash3Code.Combine(
+                method.DeclaringType!.FullName,
+                method.Name,
+                arguments[0],
+                arguments[1],
+                arguments[2]
+            ),
+            _ => throw new NotImplementedException(
+                "Support for generating cache keys for more than 3 arguments has not been implemented."
+            ),
+        };
+    }
 
-            case 1:
-                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name, arguments[0]);
-
-            case 2:
-                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name, arguments[0], arguments[1]);
-
-            case 3:
-                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name, arguments[0], arguments[1], arguments[2]);
-
-            default:
-                throw new NotImplementedException(
-                    "Support for generating cache keys for more than 3 arguments has not been implemented.");
-        }
+    public static ulong GenerateContextualCacheKey(
+        byte[] contextHashBytes,
+        MethodInfo method,
+        object[] arguments
+    )
+    {
+        return arguments.Length switch
+        {
+            0 => XxHash3Code.Combine(contextHashBytes, method.DeclaringType!.FullName, method.Name),
+            1 => XxHash3Code.Combine(
+                contextHashBytes,
+                method.DeclaringType!.FullName,
+                method.Name,
+                arguments[0]
+            ),
+            2 => XxHash3Code.Combine(
+                contextHashBytes,
+                method.DeclaringType!.FullName,
+                method.Name,
+                arguments[0],
+                arguments[1]
+            ),
+            3 => XxHash3Code.Combine(
+                contextHashBytes,
+                method.DeclaringType!.FullName,
+                method.Name,
+                arguments[0],
+                arguments[1],
+                arguments[2]
+            ),
+            _ => throw new NotImplementedException(
+                "Support for generating contextual cache keys with more than 3 arguments has not been implemented."
+            ),
+        };
     }
 }

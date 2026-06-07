@@ -9,45 +9,27 @@ using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Common.Caching;
 
-public class ContextualCachingInterceptor<TContext> : CachingInterceptor
+public class ContextualCachingInterceptor<TContext>(
+    ICacheProvider<ulong> cacheProvider,
+    IContextProvider<TContext> contextProvider
+) : CachingInterceptor(cacheProvider)
     where TContext : IContextHashBytesSource
 {
-    private readonly IContextProvider<TContext> _contextProvider;
-
-    public ContextualCachingInterceptor(ICacheProvider<ulong> cacheProvider, IContextProvider<TContext> contextProvider)
-        : base(cacheProvider)
-    {
-        _contextProvider = contextProvider;
-    }
+    private readonly IContextProvider<TContext> _contextProvider = contextProvider;
 
     protected override ulong GenerateCacheKey(MethodInfo method, object[] arguments)
     {
-        var context = _contextProvider.Get();
-
         // Without context, we cannot generate a key here
-        if (context == null)
-        {
-            throw new InvalidOperationException(
-                $"No context has been set for value of type '{typeof(TContext).Name}'.");
-        }
-        
-        switch (arguments.Length)
-        {
-            case 0:
-                return XxHash3Code.Combine(context.HashBytes, method.DeclaringType!.FullName, method.Name);
+        var context =
+            _contextProvider.Get()
+            ?? throw new InvalidOperationException(
+                $"No context has been set for value of type '{typeof(TContext).Name}'."
+            );
 
-            case 1:
-                return XxHash3Code.Combine(context.HashBytes, method.DeclaringType!.FullName, method.Name, arguments[0]);
-
-            case 2:
-                return XxHash3Code.Combine(context.HashBytes, method.DeclaringType!.FullName, method.Name, arguments[0], arguments[1]);
-
-            case 3:
-                return XxHash3Code.Combine(context.HashBytes, method.DeclaringType!.FullName, method.Name, arguments[0], arguments[1], arguments[2]);
-            
-            default:
-                throw new NotImplementedException(
-                    "Support for generating contextual cache keys with more than 3 arguments has not been implemented.");
-        }
+        return CachingInterceptorKeyGenerator.GenerateContextualCacheKey(
+            context.HashBytes,
+            method,
+            arguments
+        );
     }
 }
