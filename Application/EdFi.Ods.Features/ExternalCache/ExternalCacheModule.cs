@@ -85,7 +85,7 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
 
     public abstract void RegisterDistributedCache(ContainerBuilder builder);
 
-    public void OverrideApiClientDetailsCache(ContainerBuilder builder)
+    private void OverrideApiClientDetailsCache(ContainerBuilder builder)
     {
         builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
             .As<IApiClientDetailsCacheKeyProvider>()
@@ -118,7 +118,7 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
             componentContext.Resolve<IApiClientDetailsCacheKeyProvider>());
     }
 
-    public void OverrideDescriptorsCache(ContainerBuilder builder)
+    private void OverrideDescriptorsCache(ContainerBuilder builder)
     {
         builder.Register(
                 ctx =>
@@ -143,7 +143,9 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
             .SingleInstance();
     }
 
-    public void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder)
+    // TODO: does the person unique ID cache need to have the TieredCacheProvider for L1/L2 fallback?
+
+    private void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder)
     {
         if (IsProviderSelected())
         {
