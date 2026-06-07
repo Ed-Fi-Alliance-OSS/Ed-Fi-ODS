@@ -41,6 +41,8 @@ namespace EdFi.Ods.Common.Configuration
             public bool UseProgressiveLoading { get; set; } = false;
 
             public Dictionary<string, bool> CacheSuppression { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
+            public int BatchSize { get; set; } = 5000;
         }
 
         public class ApiClientDetailsConfiguration

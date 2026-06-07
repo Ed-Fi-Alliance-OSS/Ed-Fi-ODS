@@ -22,7 +22,7 @@ public static class MapCacheTestHelper
         new RedisConnectionProvider(new RedisConfiguration { Configuration = RedisConfiguration });
 
     public static IEnumerable<IMapCache<(ulong, string, PersonMapType), string, int>> GetUsiByUniqueIdMapCaches(
-        int absoluteExpirationMs, 
+        int absoluteExpirationMs,
         int slidingExpirationMs)
     {
         yield return new InMemoryMapCache<(ulong, string, PersonMapType), string, int>(
@@ -36,12 +36,13 @@ public static class MapCacheTestHelper
                 RedisConnectionProvider,
                 Resilience,
                 absoluteExpirationPeriod: TimeSpan.FromMilliseconds(absoluteExpirationMs),
-                slidingExpirationPeriod: TimeSpan.FromMilliseconds(slidingExpirationMs));
+                slidingExpirationPeriod: TimeSpan.FromMilliseconds(slidingExpirationMs),
+                batchSize: 210);
         }
     }
 
     public static IEnumerable<IMapCache<(ulong, string, PersonMapType), int, string>> GetUniqueIdByUsiMapCaches(
-        int absoluteExpirationMs, 
+        int absoluteExpirationMs,
         int slidingExpirationMs)
     {
         yield return new InMemoryMapCache<(ulong, string, PersonMapType), int, string>(
@@ -55,7 +56,8 @@ public static class MapCacheTestHelper
                 RedisConnectionProvider,
                 Resilience,
                 absoluteExpirationPeriod: TimeSpan.FromMilliseconds(absoluteExpirationMs),
-                slidingExpirationPeriod: TimeSpan.FromMilliseconds(slidingExpirationMs));
+                slidingExpirationPeriod: TimeSpan.FromMilliseconds(slidingExpirationMs),
+                batchSize: 310);
         }
     }
 

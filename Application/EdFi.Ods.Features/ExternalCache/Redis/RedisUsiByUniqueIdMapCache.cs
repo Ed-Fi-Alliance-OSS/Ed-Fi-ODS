@@ -15,8 +15,9 @@ public class RedisUsiByUniqueIdMapCache : RedisPersonIdentifierMapCache<string, 
         IRedisConnectionProvider redisConnectionProvider,
         RedisCacheResilience resilience,
         TimeSpan? absoluteExpirationPeriod,
-        TimeSpan? slidingExpirationPeriod)
-        : base(redisConnectionProvider, resilience, absoluteExpirationPeriod, slidingExpirationPeriod) { }
+        TimeSpan? slidingExpirationPeriod,
+        int batchSize)
+        : base(redisConnectionProvider, resilience, absoluteExpirationPeriod, slidingExpirationPeriod, batchSize) { }
 
     protected override RedisValue ConvertMapKeyToRedisValue(string mapKey) => mapKey;
 

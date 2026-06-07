@@ -170,6 +170,9 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
                         (_, c) => c.Resolve<RedisCacheResilience>()))
                 .WithParameter(CreateExpirationParameter("slidingExpirationPeriod", c => c.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds))
                 .WithParameter(CreateExpirationParameter("absoluteExpirationPeriod", c => c.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds))
+                .WithParameter(new ResolvedParameter(
+                    (p, _) => p.Name.EqualsIgnoreCase("batchSize"),
+                    (_, c) => c.Resolve<ApiSettings>().Caching.PersonUniqueIdToUsi.BatchSize))
                 .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
                 .SingleInstance();
 
@@ -180,6 +183,9 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
                         (_, c) => c.Resolve<RedisCacheResilience>()))
                 .WithParameter(CreateExpirationParameter("slidingExpirationPeriod", c => c.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds))
                 .WithParameter(CreateExpirationParameter("absoluteExpirationPeriod", c => c.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds))
+                .WithParameter(new ResolvedParameter(
+                    (p, _) => p.Name.EqualsIgnoreCase("batchSize"),
+                    (_, c) => c.Resolve<ApiSettings>().Caching.PersonUniqueIdToUsi.BatchSize))
                 .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
                 .SingleInstance();
         }

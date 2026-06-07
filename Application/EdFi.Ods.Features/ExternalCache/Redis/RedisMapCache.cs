@@ -28,17 +28,23 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
     private readonly IRedisConnectionProvider _redisConnectionProvider;
     private readonly RedisCacheResilience _resilience;
     private readonly ILog _logger = LogManager.GetLogger(typeof(RedisMapCache<,,>).Name);
+    private readonly int _batchSize;
 
     protected RedisMapCache(
         IRedisConnectionProvider redisConnectionProvider,
         RedisCacheResilience resilience,
         TimeSpan? absoluteExpirationPeriod,
-        TimeSpan? slidingExpirationPeriod)
+        TimeSpan? slidingExpirationPeriod,
+        int batchSize
+    )
     {
-        _redisConnectionProvider = redisConnectionProvider ?? throw new ArgumentNullException(nameof(redisConnectionProvider));
+        _redisConnectionProvider =
+            redisConnectionProvider
+            ?? throw new ArgumentNullException(nameof(redisConnectionProvider));
         _resilience = resilience ?? throw new ArgumentNullException(nameof(resilience));
         _absoluteExpirationPeriod = absoluteExpirationPeriod;
         _slidingExpirationPeriod = slidingExpirationPeriod;
+        _batchSize = batchSize;
     }
 
     /// <summary>
@@ -48,8 +54,6 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
     /// <param name="mapEntries">The map entries to store.</param>
     public async Task SetMapEntriesAsync(TKey key, (TMapKey key, TMapValue value)[] mapEntries)
     {
-        const int BatchSize = 5000;
-
         ValidateKey(key);
 
         if (mapEntries is null || mapEntries.Length == 0)
@@ -63,38 +67,44 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         {
             hashEntries[i] = new HashEntry(
                 ConvertMapKeyToRedisValue(mapEntries[i].key),
-                ConvertMapValueToRedisValue(mapEntries[i].value));
+                ConvertMapValueToRedisValue(mapEntries[i].value)
+            );
         }
 
         string cacheKey = GetCacheKey(key);
 
         try
         {
-            await _resilience.Pipeline.ExecuteAsync(
+            await _resilience
+                .Pipeline.ExecuteAsync(
                     async _ =>
                     {
                         var cache = _redisConnectionProvider.Get();
 
-                        for (int i = 0; i < hashEntries.Length; i += BatchSize)
+                        for (int i = 0; i < hashEntries.Length; i += _batchSize)
                         {
                             int remaining = hashEntries.Length - i;
-                            int currentBatchSize = Math.Min(BatchSize, remaining);
+                            int currentBatchSize = Math.Min(_batchSize, remaining);
                             var batchEntries = new HashEntry[currentBatchSize];
                             Array.Copy(hashEntries, i, batchEntries, 0, currentBatchSize);
                             bool isLastBatch = i + currentBatchSize >= hashEntries.Length;
                             var batch = cache.CreateBatch();
                             var setTask = batch.HashSetAsync(cacheKey, batchEntries);
-                            Task<bool> expireTask = isLastBatch ? ApplyInitialExpirationBatched(batch, cacheKey) : null;
+                            Task<bool> expireTask = isLastBatch
+                                ? ApplyInitialExpirationBatched(batch, cacheKey)
+                                : null;
                             batch.Execute();
                             await setTask.ConfigureAwait(false);
 
                             if (expireTask is not null)
                             {
-                                await LogExpirationFailureAsync(expireTask, cacheKey).ConfigureAwait(false);
+                                await LogExpirationFailureAsync(expireTask, cacheKey)
+                                    .ConfigureAwait(false);
                             }
                         }
                     },
-                    CancellationToken.None)
+                    CancellationToken.None
+                )
                 .ConfigureAwait(false);
         }
         catch (BrokenCircuitException ex)
@@ -103,7 +113,10 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         }
         catch (Exception ex) when (IsRedisUnavailable(ex))
         {
-            _logger.Warn($"Redis cache set failed for key '{cacheKey}'. Falling back to uncached behavior.", ex);
+            _logger.Warn(
+                $"Redis cache set failed for key '{cacheKey}'. Falling back to uncached behavior.",
+                ex
+            );
         }
     }
 
@@ -135,7 +148,8 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         {
             TMapValue[] mapValues = null;
 
-            await _resilience.Pipeline.ExecuteAsync(
+            await _resilience
+                .Pipeline.ExecuteAsync(
                     async _ =>
                     {
                         var cache = _redisConnectionProvider.Get();
@@ -145,7 +159,10 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
                         if (_slidingExpirationPeriod is { TotalMilliseconds: > 0 })
                         {
-                            expireTask = batch.KeyExpireAsync(cacheKey, _slidingExpirationPeriod.Value);
+                            expireTask = batch.KeyExpireAsync(
+                                cacheKey,
+                                _slidingExpirationPeriod.Value
+                            );
                         }
 
                         batch.Execute();
@@ -154,7 +171,8 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
                         if (expireTask is not null)
                         {
-                            await LogExpirationFailureAsync(expireTask, cacheKey).ConfigureAwait(false);
+                            await LogExpirationFailureAsync(expireTask, cacheKey)
+                                .ConfigureAwait(false);
                         }
 
                         mapValues = new TMapValue[hashValues.Length];
@@ -164,7 +182,8 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
                             mapValues[i] = ConvertRedisValue(hashValues[i]);
                         }
                     },
-                    CancellationToken.None)
+                    CancellationToken.None
+                )
                 .ConfigureAwait(false);
 
             return mapValues ?? new TMapValue[mapKeys.Length];
@@ -176,7 +195,10 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         }
         catch (Exception ex) when (IsRedisUnavailable(ex))
         {
-            _logger.Warn($"Redis cache get failed for key '{cacheKey}'. Falling back to uncached behavior.", ex);
+            _logger.Warn(
+                $"Redis cache get failed for key '{cacheKey}'. Falling back to uncached behavior.",
+                ex
+            );
             return new TMapValue[mapKeys.Length];
         }
     }
@@ -200,7 +222,8 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         {
             bool deleteResult = false;
 
-            await _resilience.Pipeline.ExecuteAsync(
+            await _resilience
+                .Pipeline.ExecuteAsync(
                     async _ =>
                     {
                         var cache = _redisConnectionProvider.Get();
@@ -210,7 +233,10 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
                         if (_slidingExpirationPeriod is { TotalMilliseconds: > 0 })
                         {
-                            expireTask = batch.KeyExpireAsync(cacheKey, _slidingExpirationPeriod.Value);
+                            expireTask = batch.KeyExpireAsync(
+                                cacheKey,
+                                _slidingExpirationPeriod.Value
+                            );
                         }
 
                         batch.Execute();
@@ -219,10 +245,12 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
                         if (expireTask is not null)
                         {
-                            await LogExpirationFailureAsync(expireTask, cacheKey).ConfigureAwait(false);
+                            await LogExpirationFailureAsync(expireTask, cacheKey)
+                                .ConfigureAwait(false);
                         }
                     },
-                    CancellationToken.None)
+                    CancellationToken.None
+                )
                 .ConfigureAwait(false);
 
             return deleteResult;
@@ -234,7 +262,10 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         }
         catch (Exception ex) when (IsRedisUnavailable(ex))
         {
-            _logger.Warn($"Redis cache delete failed for key '{cacheKey}'. Falling back to uncached behavior.", ex);
+            _logger.Warn(
+                $"Redis cache delete failed for key '{cacheKey}'. Falling back to uncached behavior.",
+                ex
+            );
             return false;
         }
     }
@@ -248,7 +279,11 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
         if (_absoluteExpirationPeriod is { TotalMilliseconds: > 0 })
         {
-            return batch.KeyExpireAsync(cacheKey, _absoluteExpirationPeriod.Value, ExpireWhen.HasNoExpiry);
+            return batch.KeyExpireAsync(
+                cacheKey,
+                _absoluteExpirationPeriod.Value,
+                ExpireWhen.HasNoExpiry
+            );
         }
 
         return null;
@@ -262,7 +297,7 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
             if (!result && _logger.IsDebugEnabled)
             {
-                _logger.Debug($"PEXPIRE returned false for key '{cacheKey}' — key may not exist.");
+                _logger.Debug($"PEXPIRE returned false for key '{cacheKey}' â€” key may not exist.");
             }
         }
         catch (Exception ex)
@@ -275,7 +310,10 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
     {
         if (_logger.IsDebugEnabled)
         {
-            _logger.Debug($"Skipping Redis cache operation '{operationName}' for key '{cacheKey}' because the circuit is open.", ex);
+            _logger.Debug(
+                $"Skipping Redis cache operation '{operationName}' for key '{cacheKey}' because the circuit is open.",
+                ex
+            );
         }
     }
 
@@ -299,14 +337,16 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
     protected virtual TMapValue ConvertRedisValue(RedisValue hashValue)
     {
-        return (TMapValue) Convert.ChangeType(hashValue, typeof(TMapValue));
+        return (TMapValue)Convert.ChangeType(hashValue, typeof(TMapValue));
     }
 
     protected virtual RedisValue ConvertMapKeyToRedisValue(TMapKey mapKey)
     {
         if (!TryParse(mapKey, out RedisValue value))
         {
-            throw new ArgumentException($"Unable to convert map key of type '{typeof(TMapKey).Name}' to a '{nameof(RedisValue)}'.");
+            throw new ArgumentException(
+                $"Unable to convert map key of type '{typeof(TMapKey).Name}' to a '{nameof(RedisValue)}'."
+            );
         }
 
         return value;
@@ -316,7 +356,9 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
     {
         if (!TryParse(mapValue, out RedisValue value))
         {
-            throw new ArgumentException($"Unable to convert map value of type '{typeof(TMapValue).Name}' to a '{nameof(RedisValue)}'.");
+            throw new ArgumentException(
+                $"Unable to convert map value of type '{typeof(TMapValue).Name}' to a '{nameof(RedisValue)}'."
+            );
         }
 
         return value;

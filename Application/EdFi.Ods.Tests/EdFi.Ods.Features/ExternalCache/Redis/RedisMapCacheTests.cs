@@ -21,6 +21,7 @@ public class RedisMapCacheTests
     private IRedisConnectionProvider _redisConnectionProvider;
     private IDatabase _cache;
     private RedisMapCache<string, string, string> _mapCache;
+    private const int BatchSize = 200;
 
     [SetUp]
     public void SetUp()
@@ -125,7 +126,7 @@ public class RedisMapCacheTests
         A.CallTo(() => _cache.CreateBatch(A<object>._)).Returns(batch);
 
         var mapCache = A.Fake<RedisMapCache<string, short, string>>(opts =>
-            opts.WithArgumentsForConstructor(new object[] { _redisConnectionProvider, new RedisCacheResilience(), TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(5) })
+            opts.WithArgumentsForConstructor([_redisConnectionProvider, new RedisCacheResilience(), TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(5)])
                 .CallsBaseMethods());
 
         // Act
@@ -192,6 +193,7 @@ public class RedisMapCacheExpirationTests
     private IRedisConnectionProvider _redisConnectionProvider;
     private IDatabase _cache;
     private RedisMapCache<string, string, string> _mapCache;
+    private const int BatchSize = 200;
 
     public RedisMapCacheExpirationTests(int? slidingExpirationMinutes, int? absoluteExpirationMinutes)
     {
@@ -220,7 +222,7 @@ public class RedisMapCacheExpirationTests
             .Returns(Task.CompletedTask);
 
         _mapCache = A.Fake<RedisMapCache<string, string, string>>(opts =>
-            opts.WithArgumentsForConstructor([_redisConnectionProvider, new RedisCacheResilience(), _absoluteExpirationPeriod, _slidingExpirationPeriod])
+            opts.WithArgumentsForConstructor([_redisConnectionProvider, new RedisCacheResilience(), _absoluteExpirationPeriod, _slidingExpirationPeriod, BatchSize])
                 .CallsBaseMethods());
     }
 

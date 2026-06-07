@@ -26,8 +26,9 @@ public abstract class RedisPersonIdentifierMapCache<TMapKey, TMapValue>
         IRedisConnectionProvider redisConnectionProvider,
         RedisCacheResilience resilience,
         TimeSpan? absoluteExpirationPeriod,
-        TimeSpan? slidingExpirationPeriod)
-        : base(redisConnectionProvider, resilience, absoluteExpirationPeriod, slidingExpirationPeriod) { }
+        TimeSpan? slidingExpirationPeriod,
+        int batchSize)
+        : base(redisConnectionProvider, resilience, absoluteExpirationPeriod, slidingExpirationPeriod, batchSize) { }
 
     protected override void ValidateKey((ulong odsInstanceHashId, string personType, PersonMapType personMapType) key)
     {
