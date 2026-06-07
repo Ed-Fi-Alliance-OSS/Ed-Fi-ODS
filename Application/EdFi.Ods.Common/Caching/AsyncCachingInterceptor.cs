@@ -61,7 +61,9 @@ public class AsyncCachingInterceptor(IAsyncCacheProvider<ulong> asyncCacheProvid
             return;
         }
 
-        if (_localCacheProvider.TryGetCachedObject(cacheKey, out var cachedValue))
+        // Reference equality check avoids making synchronous Redis call if Redis is setup as both L1 and L2 cache
+        if (!ReferenceEquals(_localCacheProvider, _asyncCacheProvider)
+             && _localCacheProvider.TryGetCachedObject(cacheKey, out var cachedValue))
         {
             invocation.ReturnValue = cachedValue;
             return;
