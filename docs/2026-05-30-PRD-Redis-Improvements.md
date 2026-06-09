@@ -4,7 +4,7 @@
 - **Tracking Issue**:
   [#1343](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/issues/1343)
 - **Target Release**: ODS/API v7.3.3
-- **Last Updated**: 2026-06-07
+- **Last Updated**: 2026-06-08
 
 ## 1. Product Overview
 
@@ -75,25 +75,25 @@ The following defects were identified through code analysis (source: issue #343)
 
 ## 6. Functional Requirements
 
-### FR-PERF: Descriptor Cache Performance
+### FR-CACHE: Layered Cache Support
 
-| ID        | Requirement                                                                                                                                    | Priority |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| FR-PERF-1 | The system SHALL provide an in-process (L1) cache tier in front of Redis for descriptor lookups with a configurable TTL (default: 10 seconds). | SHALL    |
-| FR-PERF-2 | L1 cache lookups SHALL be synchronous in-memory operations with no network I/O.                                                                | SHALL    |
-| FR-PERF-3 | On L1 cache miss, the system SHALL access Redis asynchronously (non-blocking).                                                                 | SHALL    |
-| FR-PERF-4 | On L2 (Redis) hit, the system SHALL populate L1 before returning the result.                                                                   | SHALL    |
-| FR-PERF-5 | The L1 cache TTL SHOULD be independently configurable per cache type (descriptors, API client details).                                        | SHOULD   |
+- **FR-CACHE-1**: The system SHALL provide three caching modes: in-memory, external, and hybrid.
+- **FR-CACHE-2**: The system SHALL provide these caching modes for three types of cache: Descriptors, Person Unique ID, and API Client information.
+- **FR-CACHE-3**: In hybrid mode, the system SHALL use in-memory as an L1 cache tier in front of the external L2 cache.
+- **FR-CACHE-4**: The system SHALL provide  separate TTL configurations for each layer.
+- **FR-CACHE-5**: In hybrid mode, on L1 cache miss, the system SHALL access external cache asynchronously.
+- **FR-CACHE-6**: In hybrid mode, on L2 external cache hit, the system SHALL populate L1 before returning the result.
+- **FR-CACHE-6**: The in-memory and external cache settings SHALL be independently configurable for each cache type (descriptors, person unique id, API client details).
+- **FR-CACHE-8**: In-memory cache looks ups ALL by synchronous with no network I/O.
+- **FR-CACHE-9**: The system SHALL support Redis as the (optional) external cache provider.
 
 ### FR-CONN: Connection Configuration
 
-| ID        | Requirement                                                                                                                                                                                           | Priority |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| FR-CONN-1 | The system SHALL expose configurable Redis connection parameters: `SyncTimeoutMs`, `AsyncTimeoutMs`, `ConnectTimeoutMs`, `ConnectRetry`, `AbortOnConnectFail`, `KeepAliveSeconds`, `Ssl`, `Password`. | SHALL    |
-| FR-CONN-2 | Default values SHALL be production-friendly: syncTimeout=10000ms, asyncTimeout=10000ms, connectTimeout=10000ms, connectRetry=5, abortOnConnectFail=false, keepAlive=30s.                              | SHALL    |
-| FR-CONN-3 | Connection options SHALL be applied consistently to both the `IRedisConnectionProvider` and the `IDistributedCache` Redis registrations.                                                              | SHALL    |
+- **FR-CONN-1**: The system SHALL expose configurable Redis connection parameters: `SyncTimeoutMs`, `AsyncTimeoutMs`, `ConnectTimeoutMs`, `ConnectRetry`, `AbortOnConnectFail`, `KeepAliveSeconds`, `Ssl`, `Password`.
+- **FR-CONN-2**: Default values SHALL be production-friendly: syncTimeout=10000ms, asyncTimeout=10000ms, connectTimeout=10000ms, connectRetry=5, abortOnConnectFail=false, keepAlive=30s.
+- **FR-CONN-3**: Connection options SHALL be applied consistently to both the `IRedisConnectionProvider` and the `IDistributedCache` Redis registrations.
 
-### Redis Configuration Reference
+#### Redis Configuration Reference
 
 `ApiSettings:Services:Redis` supports the following settings:
 
@@ -113,80 +113,91 @@ The following defects were identified through code analysis (source: issue #343)
 
 ### FR-RESIL: Connection Resilience
 
-| ID         | Requirement                                                                                                                                     | Priority |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| FR-RESIL-1 | The system SHALL implement a circuit breaker around Redis operations that opens after a configurable failure threshold.                         | SHALL    |
-| FR-RESIL-2 | When the circuit breaker is open, Redis operations SHALL fail fast and the API SHALL degrade gracefully to uncached (database-direct) behavior. | SHALL    |
-| FR-RESIL-3 | The system SHALL NOT require application restart to recover from transient Redis unavailability.                                                | SHALL    |
-| FR-RESIL-4 | The system SHALL log connection state transitions (connected, failed, restored) at appropriate severity levels.                                 | SHALL    |
-| FR-RESIL-5 | The system SHOULD log circuit breaker state transitions (closed → open → half-open → closed).                                                   | SHOULD   |
+- **FR-RESIL-1**: The system SHALL implement a circuit breaker around Redis
+  operations that opens after a configurable failure threshold.
+- **FR-RESIL-2**: When the circuit breaker is open, Redis operations SHALL fail
+  fast and the API SHALL degrade gracefully to uncached (database-direct)
+  behavior.
+- **FR-RESIL-3**: The system SHALL NOT require application restart to recover
+  from transient Redis unavailability.
+- **FR-RESIL-4**: The system SHALL log connection state transitions (connected,
+  failed, restored) at appropriate severity levels.
+- **FR-RESIL-5**: The system SHOULD log circuit breaker state transitions
+  (closed → open → half-open → closed).
 
 ### FR-EXPIRE: Expiration Reliability
 
-| ID          | Requirement                                                                                                                      | Priority |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| FR-EXPIRE-1 | Cache expiration commands SHALL be pipelined with the associated data operation (not sent as separate fire-and-forget commands). | SHALL    |
-| FR-EXPIRE-2 | Failed expiration commands SHALL be logged at Warning level for operator visibility.                                             | SHALL    |
-| FR-EXPIRE-3 | The system SHALL NOT use `CommandFlags.FireAndForget` for expiration operations.                                                 | SHALL    |
+- **FR-EXPIRE-1**: Cache expiration commands SHALL be pipelined with the
+  associated data operation (not sent as separate fire-and-forget commands).
+- **FR-EXPIRE-2**: Failed expiration commands SHALL be logged at Warning level
+  for operator visibility.
+- **FR-EXPIRE-3**: The system SHALL NOT use `CommandFlags.FireAndForget` for
+  expiration operations.
 
 ### FR-INIT: Cache Initialization
 
-| ID        | Requirement                                                                                                                                                         | Priority |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| FR-INIT-1 | Background cache initialization SHALL be protected by a distributed lock so that only one instance initializes a given (ODS instance, person type) cache at a time. | SHALL    |
-| FR-INIT-2 | The initialization marker check-and-set SHALL be atomic (Redis SET NX).                                                                                             | SHALL    |
-| FR-INIT-3 | Bulk cache writes during initialization SHALL use batches no larger than 10,000 entries to avoid blocking the Redis event loop.                                     | SHALL    |
-| FR-INIT-4 | Background initialization SHALL support cancellation (application shutdown) and a maximum timeout (default: 60 seconds).                                            | SHALL    |
-| FR-INIT-5 | Bulk cache write size SHALL be configurable | SHALL |
+- **FR-INIT-1**: Background cache initialization SHALL be protected by a
+  distributed lock so that only one instance initializes a given (ODS instance,
+  person type) cache at a time.
+- **FR-INIT-2**: The initialization marker check-and-set SHALL be atomic (Redis
+  SET NX).
+- **FR-INIT-3**: Bulk cache writes during initialization SHALL use batches no
+  larger than 10,000 entries to avoid blocking the Redis event loop.
+- **FR-INIT-4**: Background initialization SHALL support cancellation
+  (application shutdown) and a maximum timeout (default: 60 seconds).
+- **FR-INIT-5**: Bulk cache write size SHALL be configurable.
 
 ### FR-ALLOC: Hot-Path Efficiency
 
-| ID         | Requirement                                                                                                          | Priority |
-| ---------- | -------------------------------------------------------------------------------------------------------------------- | -------- |
-| FR-ALLOC-1 | Cache read and write operations SHALL NOT allocate intermediate LINQ iterators or delegate closures in the hot path. | SHALL    |
-| FR-ALLOC-2 | Type conversion from/to `RedisValue` SHOULD use direct typed overrides rather than runtime type-switching.           | SHOULD   |
-| FR-ALLOC-3 | Batch slicing SHALL NOT use LINQ `Skip`/`Take`; fixed-size array copy or span slicing SHALL be used instead.         | SHALL    |
+- **FR-ALLOC-1**: Cache read and write operations SHALL NOT allocate
+  intermediate LINQ iterators or delegate closures in the hot path.
+- **FR-ALLOC-2**: Type conversion from/to `RedisValue` SHOULD use direct typed
+  overrides rather than runtime type-switching.
+- **FR-ALLOC-3**: Batch slicing SHALL NOT use LINQ `Skip`/`Take`; fixed-size
+  array copy or span slicing SHALL be used instead.
 
 ## 7. Non-Functional Requirements
 
 ### NFR-PERF: Performance
 
-| ID         | Requirement                                                                                                                                                                                    |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| NFR-PERF-1 | A paged GET request for 500 studentSchoolAssociations with Redis caching enabled SHALL NOT add more than 50ms of cache-related latency (excluding cold start) under normal Redis connectivity. |
-| NFR-PERF-2 | L1 cache hit ratio for descriptors SHOULD exceed 99% under steady-state operation.                                                                                                             |
-| NFR-PERF-3 | P99 response time with Redis enabled SHALL be within 2× of the in-memory-only cache P99 under equivalent load.                                                                                 |
+- **NFR-PERF-1**: A paged GET request for 500 studentSchoolAssociations with
+  Redis caching enabled SHALL NOT add more than 50ms of cache-related latency
+  (excluding cold start) under normal Redis connectivity.
+- **NFR-PERF-2**: L1 cache hit ratio for descriptors SHOULD exceed 99% under
+  steady-state operation.
+- **NFR-PERF-3**: P99 response time with Redis enabled SHALL be within 2× of the
+  in-memory-only cache P99 under equivalent load.
 
 ### NFR-RELI: Reliability
 
-| ID         | Requirement                                                                                                            |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------- |
-| NFR-RELI-1 | The API SHALL remain available (HTTP 200 responses) during Redis outages lasting up to 5 minutes.                      |
-| NFR-RELI-2 | After Redis recovery, the system SHALL resume caching within 60 seconds without operator intervention.                 |
-| NFR-RELI-3 | Cache key expiration SHALL be reliable — keys SHALL NOT persist beyond 2× their configured TTL under normal operation. |
+- **NFR-RELI-1**: The API SHALL remain available (HTTP 200 responses) during
+  Redis outages lasting up to 5 minutes.
+- **NFR-RELI-2**: After Redis recovery, the system SHALL resume caching within
+  60 seconds without operator intervention.
+- **NFR-RELI-3**: Cache key expiration SHALL be reliable — keys SHALL NOT
+  persist beyond 2× their configured TTL under normal operation.
 
 ### NFR-OBS: Observability
 
-| ID        | Requirement                                                                                |
-| --------- | ------------------------------------------------------------------------------------------ |
-| NFR-OBS-1 | Redis connection state changes SHALL be logged (Error for failures, Info for restoration). |
-| NFR-OBS-2 | Circuit breaker transitions SHALL be logged (Error for open, Info for close).              |
-| NFR-OBS-3 | Expiration failures SHALL be logged at Warning level with the affected cache key.          |
+- **NFR-OBS-1**: Redis connection state changes SHALL be logged (Error for
+  failures, Info for restoration).
+- **NFR-OBS-2**: Circuit breaker transitions SHALL be logged (Error for open,
+  Info for close).
+- **NFR-OBS-3**: Expiration failures SHALL be logged at Warning level with the
+  affected cache key.
 
 ### NFR-COMPAT: Compatibility
 
-| ID           | Requirement                                                                                                              |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| NFR-COMPAT-1 | All changes SHALL be backward compatible — deployments with external cache disabled SHALL experience no behavior change. |
-| NFR-COMPAT-2 | Existing `appsettings.json` configurations without new Redis fields SHALL work with production-friendly defaults.        |
-| NFR-COMPAT-3 | The solution SHALL support Redis 6.x and 7.x.                                                                            |
+- **NFR-COMPAT-1**: All changes SHALL be backward compatible — deployments with
+  external cache disabled SHALL experience no behavior change.
+- **NFR-COMPAT-2**: Existing `appsettings.json` configurations without new Redis
+  fields SHALL work with production-friendly defaults.
+- **NFR-COMPAT-3**: The solution SHALL support Redis 6.x and 7.x.
 
 ### NFR-SEC: Security
 
-| ID        | Requirement                                                        |
-| --------- | ------------------------------------------------------------------ |
-| NFR-SEC-1 | Redis password SHALL NOT be logged in plain text at any log level. |
-| NFR-SEC-2 | SSL/TLS connections to Redis SHALL be configurable.                |
+- **NFR-SEC-1**: Redis password SHALL NOT be logged in plain text at any log level.
+- **NFR-SEC-2**: SSL/TLS connections to Redis SHALL be configurable.
 
 ## 8. System Architecture
 
@@ -201,13 +212,13 @@ The following defects were identified through code analysis (source: issue #343)
 | `RedisConnectionProvider`    | Managed ConnectionMultiplexer with event handling     | In-process → Redis |
 | `RedisMapCache`              | Person cache HASH operations with IBatch pipelining   | In-process → Redis |
 
-### Data Flow (Cache Hit)
+### Hybrid Data Flow (Cache Hit)
 
-```
+```none
 Request → CachingInterceptor
-  → L1 MemoryCache check (sync, ~0.001ms)
+  → L1 MemoryCache check (sync)
     → HIT: return immediately
-    → MISS: AsyncExternalCacheProvider.GetStringAsync (Redis, ~0.5ms)
+    → MISS: External cache (async)
       → Circuit open? → return default (degrade to DB)
       → HIT: populate L1, return
       → MISS: invoke underlying provider, cache in L1+L2, return
@@ -218,7 +229,7 @@ Request → CachingInterceptor
 | Dependency                          | Version    | Purpose                    |
 | ----------------------------------- | ---------- | -------------------------- |
 | StackExchange.Redis                 | (existing) | Redis client               |
-| Polly                               | 8.5.x      | Circuit breaker resilience |
+| Polly                               | (existing) | Circuit breaker resilience |
 | Microsoft.Extensions.Caching.Memory | (existing) | L1 in-process cache        |
 | Castle.Core                         | (existing) | DynamicProxy interception  |
 
