@@ -1,0 +1,18 @@
+{
+  "dateRangeValidations": [
+    {
+      "schema": "edfi",
+      "entityName": "BalanceSheetDimension",
+      "propertyName": "FiscalYear",
+      "minValue": "2023-01-01",
+      "maxValue": "2026-12-31"
+    },
+    {
+      "schema": "edfi",
+      "entityName": "Credential",
+      "propertyName": "ExpirationDate",
+      "minValue": "2023-01-01",
+      "maxValue": "2026-12-31"
+    }
+  ]
+}
