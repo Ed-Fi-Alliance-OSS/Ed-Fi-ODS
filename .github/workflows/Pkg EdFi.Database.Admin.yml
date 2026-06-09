@@ -88,7 +88,8 @@ jobs:
           $confPath = "C:\Program Files\PostgreSQL\16\data\pg_hba.conf"
           (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
           Restart-Service postgresql-x64-16
-    - name: Create Admin Database 
+    - name: Create Admin Database
+      working-directory: ./Ed-Fi-ODS/
       shell: powershell
       run: |
           $ErrorActionPreference = 'Stop'
@@ -106,9 +107,9 @@ jobs:
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
         $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/NugetPackages"
-        $AdminNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.Standard.${{ matrix.StandardVersion }}.nuspec"
-        $AdminBACPACNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.BACPAC.Standard.${{ matrix.StandardVersion }}.nuspec"
-        $AdminPostgreSQLNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.PostgreSQL.Standard.${{ matrix.StandardVersion }}.nuspec"
+        $AdminNuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/NugetPackages/EdFi.Database.Admin.Standard.${{ matrix.StandardVersion }}.nuspec"
+        $AdminBACPACNuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/NugetPackages/EdFi.Database.Admin.BACPAC.Standard.${{ matrix.StandardVersion }}.nuspec"
+        $AdminPostgreSQLNuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/NugetPackages/EdFi.Database.Admin.PostgreSQL.Standard.${{ matrix.StandardVersion }}.nuspec"
         nuget pack $AdminNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -NoPackageAnalysis -NoDefaultExcludes
         nuget pack $AdminBACPACNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -NoPackageAnalysis -NoDefaultExcludes
         nuget pack $AdminPostgreSQLNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -NoPackageAnalysis -NoDefaultExcludes

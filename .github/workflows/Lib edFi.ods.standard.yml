@@ -83,6 +83,7 @@ jobs:
         .\build.githubactions.ps1 restore -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
       shell: pwsh        
     - name: CodeGen
+      working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
