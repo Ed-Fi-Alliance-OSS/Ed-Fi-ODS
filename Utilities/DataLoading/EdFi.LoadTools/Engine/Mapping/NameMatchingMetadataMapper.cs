@@ -22,6 +22,17 @@ namespace EdFi.LoadTools.Engine.Mapping
         {
             _logger.Debug($"mapping {mapping.RootName} from {mapping.SourceName} to {mapping.TargetName}");
 
+            var sourceArrayPathPrefixes = sourceModels.GetArrayPathPrefixes();
+            var targetArrayPathPrefixes = targetModels.GetArrayPathPrefixes();
+
+            // A target property nested under an array may only be mapped from a source property that is itself
+            // an array or nested under an array. Scalar mappings emit no json:Array marker, so the resulting
+            // JSON would contain an object where the API expects an array.
+            bool IsCompatibleArrayContext(ModelMetadata source, ModelMetadata target)
+                => !target.PropertyPath.IsNestedUnderArray(targetArrayPathPrefixes)
+                   || source.IsArray
+                   || source.PropertyPath.IsNestedUnderArray(sourceArrayPathPrefixes);
+
             var maps = sourceModels.SelectMany(
                 x => targetModels.Select(
                     j => new
@@ -30,7 +41,8 @@ namespace EdFi.LoadTools.Engine.Mapping
                         j,
                         m = x.IsSimpleType && j.IsSimpleType &&
                             (ExtensionMethods.AreMatchingSimpleTypes(j.Type, x.Type) ||
-                             ExtensionMethods.AreMatchingDateTypes(j.Format, x.Type))
+                             ExtensionMethods.AreMatchingDateTypes(j.Format, x.Type)) &&
+                            IsCompatibleArrayContext(x, j)
                             ? ExtensionMethods.PropertyPathPercentMatchTo(x.PropertyPath, j.PropertyPath)
                             : 0
                     })).Where(o => o.m > 0.001).OrderByDescending(o => o.m).ToList();
