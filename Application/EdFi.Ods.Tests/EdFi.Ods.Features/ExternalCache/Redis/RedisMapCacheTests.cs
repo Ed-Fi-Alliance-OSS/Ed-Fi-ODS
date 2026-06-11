@@ -20,9 +20,26 @@ public class RedisMapCacheTests
 {
     private IRedisConnectionProvider _redisConnectionProvider;
     private IDatabase _cache;
-    private RedisMapCache<string, string, string> _mapCache;
+    private RedisMapCache<string, int, string> _mapCache;
     private const int BatchSize = 200;
 
+    public class TestDouble(IRedisConnectionProvider redisConnectionProvider, RedisCacheResilience cacheResilience, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod) : RedisMapCache<string, int, string>(redisConnectionProvider, cacheResilience, absoluteExpirationPeriod, slidingExpirationPeriod, BatchSize)
+    {
+        protected override RedisValue ConvertMapKeyToRedisValue(int mapKey)
+        {
+            // For testing purposes, we can just return the map key as a RedisValue
+            return mapKey;
+        }
+    }
+
+    public class TestDoubleWithShort(IRedisConnectionProvider redisConnectionProvider, RedisCacheResilience cacheResilience, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod) : RedisMapCache<string, short, string>(redisConnectionProvider, cacheResilience, absoluteExpirationPeriod, slidingExpirationPeriod, BatchSize)
+    {
+        protected override RedisValue ConvertMapKeyToRedisValue(short mapKey)
+        {
+            // For testing purposes, we can just return the map key as a RedisValue
+            return mapKey;
+        }
+    }
     [SetUp]
     public void SetUp()
     {
@@ -42,9 +59,7 @@ public class RedisMapCacheTests
         A.CallTo(() => batch.HashDeleteAsync(A<RedisKey>.Ignored, A<RedisValue>.Ignored, CommandFlags.None))
             .Returns(Task.FromResult(true));
 
-        _mapCache = A.Fake<RedisMapCache<string, string, string>>(opts =>
-            opts.WithArgumentsForConstructor(new object[] { _redisConnectionProvider, new RedisCacheResilience(), TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(5) })
-                .CallsBaseMethods());
+        _mapCache = new TestDouble(_redisConnectionProvider, new RedisCacheResilience(), TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(5));
     }
 
     [Test]
@@ -53,7 +68,7 @@ public class RedisMapCacheTests
         // Arrange
         string key = "test-key";
         var mapEntries = Enumerable.Range(0, 600000)
-            .Select(i => ($"key{i}", $"value{i}"))
+            .Select(i => (i, $"value{i}"))
             .ToArray();
         var redisKey = (RedisKey)key;
 
@@ -69,7 +84,7 @@ public class RedisMapCacheTests
     {
         // Arrange
         string key = "test-key";
-        string[] mapKeys = ["key1", "key2"];
+        int[] mapKeys = [456, 457];
 
         // Act
         var result = await _mapCache.GetMapEntriesAsync(key, mapKeys);
@@ -87,7 +102,7 @@ public class RedisMapCacheTests
 
         // Act
         var resultWhenNull = await _mapCache.GetMapEntriesAsync(key, null);
-        var resultWhenEmpty = await _mapCache.GetMapEntriesAsync(key, Array.Empty<string>());
+        var resultWhenEmpty = await _mapCache.GetMapEntriesAsync(key, Array.Empty<int>());
 
         // Assert
         resultWhenNull.ShouldBeEmpty();
@@ -106,7 +121,7 @@ public class RedisMapCacheTests
     {
         // Arrange
         string key = "test-key";
-        string mapKey = "map-key";
+        var mapKey = 456;
 
         // Act
         var result = await _mapCache.DeleteMapEntryAsync(key, mapKey);
@@ -120,14 +135,12 @@ public class RedisMapCacheTests
     public async Task DeleteMapEntryAsync_ShouldThrowArgumentExceptionWhenTryParseFails()
     {
         // Arrange
-        string key = "test-key"; // Using string for TKey
-        short mapKey = 456; // Using short for TMapKey
+        string key = "test-key";
+        short mapKey = 456; // Int16 is not supported by TryParse, so this will fail
         var batch = A.Fake<IBatch>();
         A.CallTo(() => _cache.CreateBatch(A<object>._)).Returns(batch);
 
-        var mapCache = A.Fake<RedisMapCache<string, short, string>>(opts =>
-            opts.WithArgumentsForConstructor([_redisConnectionProvider, new RedisCacheResilience(), TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(5)])
-                .CallsBaseMethods());
+        var mapCache = new TestDoubleWithShort(_redisConnectionProvider, new RedisCacheResilience(), TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(5));
 
         // Act
         var exception = await Should.ThrowAsync<ArgumentException>(async () => await mapCache.DeleteMapEntryAsync(key, mapKey));
@@ -140,7 +153,7 @@ public class RedisMapCacheTests
     public void SetMapEntriesAsync_ShouldThrowForNullKey()
     {
         // Act & Assert
-        var exception = Should.Throw<ArgumentNullException>(async () => await _mapCache.SetMapEntriesAsync(null, new[] { ("key", "value") }));
+        var exception = Should.Throw<ArgumentNullException>(async () => await _mapCache.SetMapEntriesAsync(null, [(1, "value")]));
         exception.ParamName.ShouldBe("key");
     }
 
@@ -153,7 +166,7 @@ public class RedisMapCacheTests
 
         // Act
         await _mapCache.SetMapEntriesAsync(key, null);
-        await _mapCache.SetMapEntriesAsync(key, Array.Empty<(string, string)>());
+        await _mapCache.SetMapEntriesAsync(key, Array.Empty<(int, string)>());
 
         // Assert
         // Verify that HashSetAsync was never called
@@ -168,7 +181,7 @@ public class RedisMapCacheTests
     public void GetMapEntriesAsync_ShouldThrowForNullKey()
     {
         // Act & Assert
-        var exception = Should.Throw<ArgumentNullException>(() => _mapCache.GetMapEntriesAsync(null, new[] { "key1" }));
+        var exception = Should.Throw<ArgumentNullException>(() => _mapCache.GetMapEntriesAsync(null, [1]));
         exception.ParamName.ShouldBe("key");
     }
 
@@ -176,7 +189,7 @@ public class RedisMapCacheTests
     public void DeleteMapEntryAsync_ShouldThrowForNullKey()
     {
         // Act & Assert
-        var exception = Should.Throw<ArgumentNullException>(() => _mapCache.DeleteMapEntryAsync(null, "map-key"));
+        var exception = Should.Throw<ArgumentNullException>(() => _mapCache.DeleteMapEntryAsync(null, 1));
         exception.ParamName.ShouldBe("key");
     }
 }

@@ -198,12 +198,12 @@ public class AsyncCachingInterceptorTests
     [Test]
     public void Clear_ShouldNotDoubleClear_WhenProvidersAreSameInstance()
     {
-        var sharedCacheProvider = A.Fake<ITieredCacheProvider>();
-        var interceptor = new AsyncCachingInterceptor(sharedCacheProvider, sharedCacheProvider);
+        var localCacheProvider = A.Fake<IAsyncCacheProvider<ulong>>(options => options.Implements(typeof(IClearable)));
+        var interceptor = new AsyncCachingInterceptor(localCacheProvider, localCacheProvider as ICacheProvider<ulong>);
 
         interceptor.Clear();
 
-        A.CallTo(() => ((IClearable) sharedCacheProvider).Clear()).MustHaveHappenedOnceExactly();
+        A.CallTo(() => ((IClearable)localCacheProvider).Clear()).MustHaveHappenedOnceExactly();
     }
 
     [Test]
