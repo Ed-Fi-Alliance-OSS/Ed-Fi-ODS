@@ -23,23 +23,16 @@ public class RedisMapCacheTests
     private RedisMapCache<string, int, string> _mapCache;
     private const int BatchSize = 200;
 
+    // Simple test double allowing us to test a class with protected constructor
     public class TestDouble(IRedisConnectionProvider redisConnectionProvider, RedisCacheResilience cacheResilience, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod) : RedisMapCache<string, int, string>(redisConnectionProvider, cacheResilience, absoluteExpirationPeriod, slidingExpirationPeriod, BatchSize)
     {
-        protected override RedisValue ConvertMapKeyToRedisValue(int mapKey)
-        {
-            // For testing purposes, we can just return the map key as a RedisValue
-            return mapKey;
-        }
     }
 
+    // This version uses <short> as the map key, which is invalid with Redis and will cause an exception to be thrown
     public class TestDoubleWithShort(IRedisConnectionProvider redisConnectionProvider, RedisCacheResilience cacheResilience, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod) : RedisMapCache<string, short, string>(redisConnectionProvider, cacheResilience, absoluteExpirationPeriod, slidingExpirationPeriod, BatchSize)
     {
-        protected override RedisValue ConvertMapKeyToRedisValue(short mapKey)
-        {
-            // For testing purposes, we can just return the map key as a RedisValue
-            return mapKey;
-        }
     }
+
     [SetUp]
     public void SetUp()
     {
