@@ -28,23 +28,32 @@ public class RedisNotificationTests
 {
     private const string RedisConfigurationString = "localhost:6379";
 
-    private static readonly IRedisConnectionProvider _redisConnectionProvider = new RedisConnectionProvider(
-        new RedisConfiguration { Configuration = RedisConfigurationString }
-    );
-    private static readonly RedisNotificationSettings _redisNotificationSettings = new() { Channel = "test-notifications" };
+    private static readonly RedisNotificationSettings _redisNotificationSettings = new()
+    {
+        Channel = "test-notifications",
+    };
 
     private readonly Dictionary<string, TimeSpan> _intervalsByNotificationType = new();
 
+    // This is explicitly an integration test, requiring a running Redis instance. The second test in this class is a unit test that mocks the Redis infrastructure and should be used for regular automated testing.
     [Test]
-    public async Task Should_subscribe_to_and_receive_Redis_pub_sub_notification_and_invoke_appropriate_Mediatr_handler()
+    [Explicit("Requires active Redis server")]
+    public async Task Integration_Should_subscribe_to_and_receive_Redis_pub_sub_notification_and_invoke_appropriate_Mediatr_handler()
     {
+        var connectionProvider = new RedisConnectionProvider(
+            new RedisConfiguration { Configuration = RedisConfigurationString }
+        );
+
         try
         {
-            bool connected = _redisConnectionProvider.Get().Multiplexer.IsConnected;
+            bool connected = connectionProvider.Get().Multiplexer.IsConnected;
         }
         catch (RedisConnectionException ex)
         {
-            throw new InconclusiveException("The test is inconclusive since Redis is not available.", ex);
+            throw new InconclusiveException(
+                "The test is inconclusive since Redis is not available.",
+                ex
+            );
         }
 
         //--------------------------------
@@ -58,19 +67,28 @@ public class RedisNotificationTests
         var fakeInterceptorIndex = A.Fake<IIndex<string, IInterceptor>>();
         IInterceptor interceptorOutPlaceholder;
 
-        A.CallTo(() => fakeInterceptorIndex.TryGetValue("cache-security", out interceptorOutPlaceholder))
+        A.CallTo(() =>
+                fakeInterceptorIndex.TryGetValue("cache-security", out interceptorOutPlaceholder)
+            )
             .Returns(true)
             .AssignsOutAndRefParameters(interceptor);
 
-        A.CallTo(() => serviceProvider.GetService(typeof(IEnumerable<INotificationHandler<ExpireCache>>)))
+        A.CallTo(() =>
+                serviceProvider.GetService(typeof(IEnumerable<INotificationHandler<ExpireCache>>))
+            )
             .Returns(new[] { new ExpireCacheHandler(fakeInterceptorIndex) });
 
         var mediator = new Mediator(serviceProvider);
 
         var activity = new InitializeRedisNotifications(
-            _redisConnectionProvider,
+            connectionProvider,
             _redisNotificationSettings,
-            new NotificationsMessageSink(mediator, _intervalsByNotificationType, TimeProvider.System));
+            new NotificationsMessageSink(
+                mediator,
+                _intervalsByNotificationType,
+                TimeProvider.System
+            )
+        );
 
         await activity.ExecuteAsync();
 
@@ -78,8 +96,109 @@ public class RedisNotificationTests
         // Act
         //--------------------------------
         // Publish a message to redis
-        _redisConnectionProvider.Get()
-            .Publish(new RedisChannel(_redisNotificationSettings.Channel, RedisChannel.PatternMode.Auto), JsonConvert.SerializeObject(new { Type = "expire-cache", Data = new { CacheType = "security" } }));
+        connectionProvider
+            .Get()
+            .Publish(
+                new RedisChannel(_redisNotificationSettings.Channel, RedisChannel.PatternMode.Auto),
+                JsonConvert.SerializeObject(
+                    new { Type = "expire-cache", Data = new { CacheType = "security" } }
+                )
+            );
+
+        //--------------------------------
+        // Assert
+        //--------------------------------
+        signal.WaitOne(200);
+        interceptor.ClearCalled.ShouldBeTrue();
+    }
+
+    [Test]
+    public async Task Should_subscribe_to_and_receive_Redis_pub_sub_notification_and_invoke_appropriate_Mediatr_handler()
+    {
+        //--------------------------------
+        // Arrange
+        //--------------------------------
+        var signal = new AutoResetEvent(false);
+
+        // Set up the mocked Redis infrastructure
+        Action<RedisChannel, RedisValue> capturedHandler = null;
+
+        var fakeSubscriber = A.Fake<ISubscriber>();
+
+        A.CallTo(() =>
+                fakeSubscriber.SubscribeAsync(
+                    A<RedisChannel>.Ignored,
+                    A<Action<RedisChannel, RedisValue>>.Ignored,
+                    A<CommandFlags>.Ignored
+                )
+            )
+            .Invokes(
+                (
+                    RedisChannel channel,
+                    Action<RedisChannel, RedisValue> handler,
+                    CommandFlags flags
+                ) =>
+                {
+                    capturedHandler = handler;
+                }
+            )
+            .Returns(Task.CompletedTask);
+
+        var fakeMultiplexer = A.Fake<IConnectionMultiplexer>();
+        A.CallTo(() => fakeMultiplexer.GetSubscriber(A<object>.Ignored)).Returns(fakeSubscriber);
+
+        var fakeDatabase = A.Fake<IDatabase>();
+        A.CallTo(() => fakeDatabase.Multiplexer).Returns(fakeMultiplexer);
+
+        var fakeRedisConnectionProvider = A.Fake<IRedisConnectionProvider>();
+        A.CallTo(() => fakeRedisConnectionProvider.Get()).Returns(fakeDatabase);
+
+        // Set up the MediatR handler
+        var interceptor = new SignalingClearableInterceptor(signal);
+        IServiceProvider serviceProvider = A.Fake<IServiceProvider>();
+
+        var fakeInterceptorIndex = A.Fake<IIndex<string, IInterceptor>>();
+        IInterceptor interceptorOutPlaceholder;
+
+        A.CallTo(() =>
+                fakeInterceptorIndex.TryGetValue("cache-security", out interceptorOutPlaceholder)
+            )
+            .Returns(true)
+            .AssignsOutAndRefParameters(interceptor);
+
+        A.CallTo(() =>
+                serviceProvider.GetService(typeof(IEnumerable<INotificationHandler<ExpireCache>>))
+            )
+            .Returns(new[] { new ExpireCacheHandler(fakeInterceptorIndex) });
+
+        var mediator = new Mediator(serviceProvider);
+
+        var activity = new InitializeRedisNotifications(
+            fakeRedisConnectionProvider,
+            _redisNotificationSettings,
+            new NotificationsMessageSink(
+                mediator,
+                _intervalsByNotificationType,
+                TimeProvider.System
+            )
+        );
+
+        await activity.ExecuteAsync();
+
+        //--------------------------------
+        // Act
+        //--------------------------------
+        // Simulate receiving a message via the captured subscription handler
+        var message = JsonConvert.SerializeObject(
+            new { Type = "expire-cache", Data = new { CacheType = "security" } }
+        );
+        capturedHandler.ShouldNotBeNull(
+            "The subscription handler was not captured during ExecuteAsync."
+        );
+        capturedHandler.Invoke(
+            new RedisChannel(_redisNotificationSettings.Channel, RedisChannel.PatternMode.Auto),
+            message
+        );
 
         //--------------------------------
         // Assert
@@ -89,7 +208,7 @@ public class RedisNotificationTests
     }
 }
 
-public interface IClearableInterceptor : IInterceptor, IClearable {}
+public interface IClearableInterceptor : IInterceptor, IClearable { }
 
 public class SignalingClearableInterceptor : IClearableInterceptor
 {
