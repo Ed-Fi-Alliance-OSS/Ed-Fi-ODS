@@ -72,32 +72,25 @@ public class RedisConnectionProviderTests
         provider.IsConnected.ShouldBeFalse();
     }
 
+    // Previously, the constructor defaulted to "localhost" for Redis. However, this is insecure if triggered accidentally in production.
     [Test]
-    public void Constructor_WithEmptyConfiguration_InitializesSuccessfully()
+    public void Constructor_WithEmptyConfiguration_ThrowsException()
     {
         // Arrange
         var redisConfiguration = new RedisConfiguration { Configuration = string.Empty };
 
-        // Act
-        var provider = new RedisConnectionProvider(redisConfiguration);
-
-        // Assert
-        provider.ShouldNotBeNull();
-        provider.IsConnected.ShouldBeFalse();
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => new RedisConnectionProvider(redisConfiguration));
     }
 
     [Test]
-    public void Constructor_WithNullConfiguration_InitializesSuccessfully()
+    public void Constructor_WithNullConfiguration_ThrowsException()
     {
         // Arrange
         var redisConfiguration = new RedisConfiguration { Configuration = null };
 
-        // Act
-        var provider = new RedisConnectionProvider(redisConfiguration);
-
-        // Assert
-        provider.ShouldNotBeNull();
-        provider.IsConnected.ShouldBeFalse();
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => new RedisConnectionProvider(redisConfiguration));
     }
 
     [Test]
