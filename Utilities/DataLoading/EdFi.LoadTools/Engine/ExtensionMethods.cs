@@ -8,11 +8,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using EdFi.LoadTools.ApiClient;
 
 namespace EdFi.LoadTools.Engine
 {
     public static class ExtensionMethods
     {
+        /// <summary>
+        ///     Gets the property paths of all array properties, with a trailing path separator, for use with
+        ///     <see cref="IsNestedUnderArray" />.
+        /// </summary>
+        public static List<string> GetArrayPathPrefixes(this IEnumerable<ModelMetadata> models)
+        {
+            return models.Where(m => m.IsArray)
+                         .Select(m => $"{m.PropertyPath}/")
+                         .ToList();
+        }
+
+        /// <summary>
+        ///     Indicates whether the property at the given path is nested under an array property.
+        /// </summary>
+        public static bool IsNestedUnderArray(this string propertyPath, IReadOnlyCollection<string> arrayPathPrefixes)
+        {
+            return arrayPathPrefixes.Any(prefix => propertyPath.StartsWith(prefix, StringComparison.Ordinal));
+        }
+
         public static string InitialUpperCase(this string text)
         {
             return text.Substring(0, 1).ToUpperInvariant() + text.Substring(1);
