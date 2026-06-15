@@ -6,8 +6,9 @@
 using System;
 using System.Linq;
 using EdFi.LoadTools.Engine;
+using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.SdkTests;
-using EdFi.OdsApi.Sdk.Apis.All;
+using EdFi.LoadTools.Test.SmokeTests.SdkStubs.Apis.All;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
@@ -17,7 +18,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
     /// <summary>
     ///     Verifies that <see cref="SdkCategorizer" /> emits one resource per RESOURCE (model type),
     ///     not one per generated API type. The Homograph extension's homonym resources share the core
-    ///     resource's OpenAPI tag, so e.g. ContactsApi carries both Contact and HomographContact.
+    ///     resource's OpenAPI tag, so e.g. one ContactsApi carries both Contact and HomographContact.
+    ///     These tests use stub SDK shapes (see SdkCategorizerTestStubs) so they are independent of the
+    ///     specific TestSdk version the project is compiled against.
     /// </summary>
     [TestFixture]
     public class SdkCategorizerTests
@@ -25,48 +28,46 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private static SdkCategorizer CreateCategorizer()
         {
             var factory = A.Fake<ISdkLibraryFactory>();
-            A.CallTo(() => factory.SdkLibrary).Returns(typeof(ContactsApi).Assembly);
+            A.CallTo(() => factory.SdkLibrary).Returns(typeof(StubContactsApi).Assembly);
             return new SdkCategorizer(factory);
         }
 
         [Test]
-        public void ContactsApi_with_homonym_yields_one_resource_per_model_type()
+        public void Homonym_api_with_index_suffix_yields_one_resource_per_model_type()
         {
-            var categorizer = CreateCategorizer();
-
-            var contactResources = categorizer.ResourceApis
-                .Where(api => api.ApiType == typeof(ContactsApi))
+            var resources = CreateCategorizer().ResourceApis
+                .Where(api => api.ApiType == typeof(StubContactsApi))
                 .ToList();
 
-            contactResources.Count.ShouldBe(2);
-            contactResources.Select(api => api.ModelType.Name)
+            resources.Count.ShouldBe(2);
+            resources.Select(api => api.ModelType.Name)
                 .ShouldBe(new[] { "EdFiContact", "HomographContact" }, ignoreOrder: true);
         }
 
         [Test]
-        public void Each_homonym_resource_resolves_exactly_one_method_per_verb()
+        public void Homonym_api_with_distinct_stems_yields_one_resource_per_model_type()
         {
-            var categorizer = CreateCategorizer();
-
-            var contactResources = categorizer.ResourceApis
-                .Where(api => api.ApiType == typeof(ContactsApi))
+            var resources = CreateCategorizer().ResourceApis
+                .Where(api => api.ApiType == typeof(StubSchoolsApi))
                 .ToList();
 
-            contactResources.Count.ShouldBe(2);
+            resources.Count.ShouldBe(2);
+            resources.Select(api => api.ModelType.Name)
+                .ShouldBe(new[] { "EdFiSchool", "HomographSchool" }, ignoreOrder: true);
+        }
 
-            foreach (var api in contactResources)
+        [Test]
+        public void Index_suffix_homonym_resources_each_resolve_one_method_per_verb()
+        {
+            var resources = CreateCategorizer().ResourceApis
+                .Where(api => api.ApiType == typeof(StubContactsApi))
+                .ToList();
+
+            resources.Count.ShouldBe(2);
+
+            foreach (var api in resources)
             {
-                // Previously PostMethod threw when an API type exposed more than one POST.
-                Should.NotThrow(() => api.PostMethod);
-
-                api.PostMethod.ShouldNotBeNull();
-                api.PutMethod.ShouldNotBeNull();
-                api.GetAllMethod.ShouldNotBeNull();
-                api.GetByIdMethod.ShouldNotBeNull();
-                api.DeleteMethod.ShouldNotBeNull();
-
-                // The POST parameter type is the resource's model type.
-                api.PostMethod.GetParameters().First().ParameterType.ShouldBe(api.ModelType);
+                AssertEachVerbResolvesToOneMethod(api);
 
                 // The homonym resource's methods carry the generator's "_0" suffix; the core
                 // resource's methods do not. This confirms each verb landed in the right group.
@@ -80,18 +81,38 @@ namespace EdFi.LoadTools.Test.SmokeTests
         }
 
         [Test]
-        public void Single_resource_api_type_yields_exactly_one_resource()
+        public void Distinct_stem_homonym_resources_each_resolve_one_method_per_verb()
         {
-            var categorizer = CreateCategorizer();
-
-            var academicWeekResources = categorizer.ResourceApis
-                .Where(api => api.ApiType == typeof(AcademicWeeksApi))
+            var resources = CreateCategorizer().ResourceApis
+                .Where(api => api.ApiType == typeof(StubSchoolsApi))
                 .ToList();
 
-            academicWeekResources.Count.ShouldBe(1);
-            academicWeekResources[0].PostMethod.ShouldNotBeNull();
-            academicWeekResources[0].GetAllMethod.ShouldNotBeNull();
-            academicWeekResources[0].GetByIdMethod.ShouldNotBeNull();
+            resources.Count.ShouldBe(2);
+
+            foreach (var api in resources)
+            {
+                AssertEachVerbResolvesToOneMethod(api);
+
+                // The homonym resource's methods carry the "Homograph" stem; the core resource's do not.
+                var isHomonym = api.ModelType.Name == "HomographSchool";
+                api.PostMethod.Name.Contains("Homograph").ShouldBe(isHomonym);
+                api.PutMethod.Name.Contains("Homograph").ShouldBe(isHomonym);
+                api.GetAllMethod.Name.Contains("Homograph").ShouldBe(isHomonym);
+                api.GetByIdMethod.Name.Contains("Homograph").ShouldBe(isHomonym);
+                api.DeleteMethod.Name.Contains("Homograph").ShouldBe(isHomonym);
+            }
+        }
+
+        [Test]
+        public void Single_resource_api_type_yields_exactly_one_resource()
+        {
+            var resources = CreateCategorizer().ResourceApis
+                .Where(api => api.ApiType == typeof(StubStudentsApi))
+                .ToList();
+
+            resources.Count.ShouldBe(1);
+            resources[0].ModelType.Name.ShouldBe("EdFiStudent");
+            AssertEachVerbResolvesToOneMethod(resources[0]);
         }
 
         [Test]
@@ -104,6 +125,21 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             Should.NotThrow(() => categorizer.ResourceApis
                 .ToDictionary(api => api.ModelType.Name, StringComparer.OrdinalIgnoreCase));
+        }
+
+        private static void AssertEachVerbResolvesToOneMethod(IResourceApi api)
+        {
+            // Previously PostMethod threw when an API type exposed more than one POST.
+            Should.NotThrow(() => api.PostMethod);
+
+            api.PostMethod.ShouldNotBeNull();
+            api.PutMethod.ShouldNotBeNull();
+            api.GetAllMethod.ShouldNotBeNull();
+            api.GetByIdMethod.ShouldNotBeNull();
+            api.DeleteMethod.ShouldNotBeNull();
+
+            // The POST parameter type is the resource's model type.
+            api.PostMethod.GetParameters().First().ParameterType.ShouldBe(api.ModelType);
         }
     }
 }

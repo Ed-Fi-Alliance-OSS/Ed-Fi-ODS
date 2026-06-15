@@ -89,9 +89,10 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             var resources = candidates
                 .Where(m => m.Name.StartsWith("Post"))
                 .Select(post => (
-                    Model: post.GetParameters().First().ParameterType,
+                    Model: post.GetParameters().FirstOrDefault()?.ParameterType,
                     Stem: StemOf(post.Name),
                     Token: TokenOf(post.Name)))
+                .Where(resource => resource.Model != null)
                 .ToList();
 
             if (resources.Count == 0)
