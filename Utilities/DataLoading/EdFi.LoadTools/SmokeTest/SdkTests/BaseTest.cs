@@ -138,6 +138,16 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
         {
             var serviceProvider = SdkConfigurationFactory.SdkConfiguration as IServiceProvider;
 
+            if (serviceProvider == null)
+            {
+                // Old-generator (Client.Configuration) mode: SdkConfiguration is a Configuration
+                // object, not an IServiceProvider. Construct the API directly with the old-generator
+                // constructor: new XxxApi(configuration). Going through the DI/manual-construction
+                // paths below would pick the parameterless constructor and yield a broken instance
+                // (no base path, no bearer token).
+                return Activator.CreateInstance(ResourceApi.ApiType, SdkConfigurationFactory.SdkConfiguration);
+            }
+
             if (serviceProvider != null)
             {
                 // The SDK registers APIs by their interface (IXxxxApi), not concrete type

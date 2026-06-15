@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Reflection;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
@@ -23,6 +22,7 @@ namespace EdFi.SmokeTest.Console.Application
         private readonly Type _configType;
         private readonly IOAuthTokenHandler _tokenHandler;
         private readonly IServiceProvider _serviceProvider;
+        private readonly bool _isHostConfiguration;
         public object SdkConfig;
 
         public SdkConfigurationFactory(IApiConfiguration apiConfiguration,
@@ -33,10 +33,67 @@ namespace EdFi.SmokeTest.Console.Application
             var sdkGenerationBasePath = sdkLibraryConfiguration.Path;
             var owinServerUrl = apiConfiguration.Url;
 
-            // Get HostConfiguration type from the SDK
-            var sdkConfigurationNamespace = $"{sdkLibraryConfiguration.SdkNamespacePrefix}.{EdFiConstants.SdkConfigurationClassName}";
-            _configType = GetTypeFromAssembly(sdkGenerationBasePath, sdkConfigurationNamespace);
+            // New-generator SDKs ship Client.HostConfiguration (DI-based); old-generator SDKs ship
+            // only Client.Configuration. Probe for the new type first and select the mode by which
+            // type is present - do NOT rely on catching exceptions for control flow.
+            var hostConfigurationName =
+                $"{sdkLibraryConfiguration.SdkNamespacePrefix}.{EdFiConstants.SdkConfigurationClassName}";
+            var hostConfigType = TryGetTypeFromAssembly(sdkGenerationBasePath, hostConfigurationName);
 
+            if (hostConfigType != null)
+            {
+                _isHostConfiguration = true;
+                _configType = hostConfigType;
+                _serviceProvider = ConfigureHostConfiguration(sdkGenerationBasePath, owinServerUrl);
+            }
+            else
+            {
+                // Pre-net10 (old-generator) fallback: construct Client.Configuration directly.
+                _isHostConfiguration = false;
+
+                var legacyConfigurationName =
+                    $"{sdkLibraryConfiguration.SdkNamespacePrefix}.{EdFiConstants.SdkConfigurationClassNameLegacy}";
+                _configType = GetTypeFromAssembly(sdkGenerationBasePath, legacyConfigurationName);
+
+                var defaultHeader = new Dictionary<string, string>
+                {
+                    { "Content-Type", "application/json" }
+                };
+
+                // 4-arg ctor: (defaultHeaders, apiKey, apiKeyPrefix, basePath). The old-generator SDK
+                // bakes the full request path (including /data/v3) into each operation, so the base
+                // path is the configured server URL as-is.
+                object[] args =
+                {
+                    defaultHeader, new Dictionary<string, string>(), new Dictionary<string, string>(), owinServerUrl
+                };
+
+                SdkConfig = Activator.CreateInstance(_configType, args);
+            }
+        }
+
+        public object SdkConfiguration
+        {
+            get
+            {
+                if (_isHostConfiguration)
+                {
+                    // Return the service provider for API instantiation (DI path).
+                    return _serviceProvider;
+                }
+
+                // Old-generator path: set the bearer token on the Configuration and return it.
+                var accessTokenProperty = _configType.GetProperty(EdFiConstants.AccessToken);
+                var token = _tokenHandler.GetBearerToken();
+
+                accessTokenProperty?.SetValue(SdkConfig, token);
+
+                return SdkConfig;
+            }
+        }
+
+        private IServiceProvider ConfigureHostConfiguration(string sdkGenerationBasePath, string owinServerUrl)
+        {
             // Configure service collection for DI
             var services = new ServiceCollection();
 
@@ -106,17 +163,18 @@ namespace EdFi.SmokeTest.Console.Application
             }
 
             // Build the service provider AFTER calling AddApiHttpClients
-            _serviceProvider = services.BuildServiceProvider();
+            var serviceProvider = services.BuildServiceProvider();
             SdkConfig = hostConfiguration;
+
+            return serviceProvider;
         }
 
-        public object SdkConfiguration
+        private static Type TryGetTypeFromAssembly(string sdkAssemblyPath, string typeToRetrieve)
         {
-            get
-            {
-                // Return the service provider for API instantiation
-                return _serviceProvider;
-            }
+            var assembly = Assembly.LoadFrom(sdkAssemblyPath);
+
+            return assembly.GetExportedTypes()
+                .FirstOrDefault(type => type.FullName != null && type.FullName.Contains(typeToRetrieve));
         }
 
         private static Type GetTypeFromAssembly(string sdkAssemblyPath, string typeToRetrieve)
@@ -129,7 +187,7 @@ namespace EdFi.SmokeTest.Console.Application
 
             if (configType == null)
             {
-                var availableTypes = string.Join(Environment.NewLine, 
+                var availableTypes = string.Join(Environment.NewLine,
                     reflectedAssemblyTypes
                         .Where(t => t.FullName != null && t.Namespace != null && t.Namespace.Contains("Client"))
                         .Select(t => $"  - {t.FullName}")
