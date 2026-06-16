@@ -12,3 +12,23 @@ To disable authorization you can run this query on the EdFi_Security database
   update [EdFi_Security].[dbo].[ResourceClaimAuthorizationMetadatas] set AuthorizationStrategy_AuthorizationStrategyId = 1
 
 Deleting the EdFi_Security database will cause it to be rebuilt with the default claims
+
+## destructive SDK numeric fallback
+
+When OpenAPI omits `minimum` and `maximum` for a required numeric property, destructive SDK tests generate integer values from `1` through `OdsApi:DefaultNumericFallbackMax`, then repeat from `1`. The default is `999`, which keeps generated values inside common decimal precision caps such as `999.99` for fields like `hoursPerWeek`.
+
+Override the maximum in `appsettings.json`:
+
+```json
+{
+  "OdsApi": {
+    "DefaultNumericFallbackMax": 999
+  }
+}
+```
+
+Override the maximum from the command line:
+
+```powershell
+dotnet run --project EdFi.SmokeTest.Console.csproj -- --defaultNumericFallbackMax 999
+```

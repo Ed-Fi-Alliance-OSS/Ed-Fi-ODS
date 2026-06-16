@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.PropertyBuilders;
@@ -417,6 +418,41 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var builder = new SimplePropertyBuilder(lookup, A.Fake<IDestructiveTestConfiguration>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.AreNotEqual(default(int), obj.nullableProperty1);
+        }
+
+        [Test]
+        public void SimplePropertyBuilder_should_keep_no_bounds_numeric_fallback_within_configured_max()
+        {
+            var propInfo = typeof(Class1).GetProperty("nullableProperty1");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema()
+                });
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.DefaultNumericFallbackMax).Returns(5);
+            A.CallTo(() => configuration.UnifiedProperties).Returns(Array.Empty<string>());
+
+            var builder = new SimplePropertyBuilder(lookup, configuration);
+
+            var values = Enumerable.Range(0, 7)
+                .Select(
+                    _ =>
+                    {
+                        var obj = new Class1();
+
+                        Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+
+                        return obj.nullableProperty1.Value;
+                    })
+                .ToArray();
+
+            Assert.AreEqual(new[] { 1, 2, 3, 4, 5, 1, 2 }, values);
+            Assert.IsTrue(values.All(v => v <= 5));
         }
         #endregion
     }

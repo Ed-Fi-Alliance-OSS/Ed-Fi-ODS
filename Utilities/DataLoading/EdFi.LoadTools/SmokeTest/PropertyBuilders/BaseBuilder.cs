@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using EdFi.LoadTools.Engine;
 using log4net;
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
@@ -15,15 +16,22 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
     public abstract class BaseBuilder : IPropertyBuilder
     {
         protected static readonly Random Random = new Random(1);
-        private int _counter = 1000; // Start at 1000 to avoid colliding with existing EdOrgIds if running on the populated template
+        private const int DefaultNumericFallbackStart = 1;
+        private int _defaultNumericFallbackValue = DefaultNumericFallbackStart;
+        private readonly int _defaultNumericFallbackMax;
         private readonly int _defaultStringLength = 7;
         private readonly IPropertyInfoMetadataLookup _metadataLookup;
 
         protected virtual ILog Log => LogManager.GetLogger(GetType().Name);
 
-        protected BaseBuilder(IPropertyInfoMetadataLookup metadataLookup)
+        protected BaseBuilder(
+            IPropertyInfoMetadataLookup metadataLookup,
+            int defaultNumericFallbackMax = DestructiveTestConfigurationDefaults.DefaultNumericFallbackMax)
         {
             _metadataLookup = metadataLookup;
+            _defaultNumericFallbackMax = defaultNumericFallbackMax > 0
+                ? defaultNumericFallbackMax
+                : DestructiveTestConfigurationDefaults.DefaultNumericFallbackMax;
         }
 
         bool IPropertyBuilder.BuildProperty(object obj, PropertyInfo propertyInfo)
@@ -109,7 +117,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             }
             else if (hasMinimum)
             {
-                var min = decimal.Max(minValue, _counter++);
+                var min = decimal.Max(minValue, NextDefaultNumericFallback());
 
                 return (int)min;
             }
@@ -119,8 +127,19 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             }
             else
             {
-                return _counter++;
+                return NextDefaultNumericFallback();
             }
+        }
+
+        private int NextDefaultNumericFallback()
+        {
+            var value = _defaultNumericFallbackValue;
+
+            _defaultNumericFallbackValue = _defaultNumericFallbackValue >= _defaultNumericFallbackMax
+                ? DefaultNumericFallbackStart
+                : _defaultNumericFallbackValue + 1;
+
+            return value;
         }
     }
 }

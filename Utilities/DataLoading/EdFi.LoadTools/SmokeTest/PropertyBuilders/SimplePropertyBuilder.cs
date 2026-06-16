@@ -20,7 +20,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         private readonly Dictionary<string, object> _unifiedKeyValue;
 
         public SimplePropertyBuilder(IPropertyInfoMetadataLookup metadataLookup, IDestructiveTestConfiguration configuration)
-            : base(metadataLookup)
+            : base(metadataLookup, configuration.DefaultNumericFallbackMax)
         {
             _unifiedKeyValue = new(
                 configuration.UnifiedProperties.Distinct(StringComparer.OrdinalIgnoreCase)
