@@ -60,9 +60,13 @@ namespace EdFi.SmokeTest.Console.Application
                     { "Content-Type", "application/json" }
                 };
 
-                // 4-arg ctor: (defaultHeaders, apiKey, apiKeyPrefix, basePath). The old-generator SDK
-                // bakes the full request path (including /data/v3) into each operation, so the base
-                // path is the configured server URL as-is.
+                // 4-arg ctor: (defaultHeaders, apiKey, apiKeyPrefix, basePath). The old-generator SDK's
+                // operation paths OMIT the /data/v3 segment - they look like "/ed-fi/schools", not
+                // "/data/v3/ed-fi/schools" - so the base path must already be the data-management API
+                // URL (e.g. http://localhost:8765/data/v3), not the server root. Program resolves
+                // OdsApi:ApiUrl from the version endpoint's "dataManagementApi" to exactly that URL and
+                // surfaces it here as apiConfiguration.Url, so it is passed through as-is. Do NOT
+                // normalize it back to the server root.
                 object[] args =
                 {
                     defaultHeader, new Dictionary<string, string>(), new Dictionary<string, string>(), owinServerUrl
@@ -179,16 +183,15 @@ namespace EdFi.SmokeTest.Console.Application
 
         private static Type GetTypeFromAssembly(string sdkAssemblyPath, string typeToRetrieve)
         {
-            var assembly = Assembly.LoadFrom(sdkAssemblyPath);
-            var reflectedAssemblyTypes = assembly.GetExportedTypes();
-
-            var configType = reflectedAssemblyTypes.FirstOrDefault(
-                type => type.FullName != null && type.FullName.Contains(typeToRetrieve));
+            var configType = TryGetTypeFromAssembly(sdkAssemblyPath, typeToRetrieve);
 
             if (configType == null)
             {
+                // LoadFrom returns the already-loaded assembly, so this is cheap on the failure path.
+                var assembly = Assembly.LoadFrom(sdkAssemblyPath);
+
                 var availableTypes = string.Join(Environment.NewLine,
-                    reflectedAssemblyTypes
+                    assembly.GetExportedTypes()
                         .Where(t => t.FullName != null && t.Namespace != null && t.Namespace.Contains("Client"))
                         .Select(t => $"  - {t.FullName}")
                         .OrderBy(s => s));
