@@ -19,6 +19,8 @@ namespace EdFi.LoadTools.Test.SmokeTests.SdkStubs.Models.All
     public class HomographSchool { }
 
     public class EdFiStudent { }
+
+    public class EdFiPerson { }
 }
 
 namespace EdFi.LoadTools.Test.SmokeTests.SdkStubs.Apis.All
@@ -98,5 +100,21 @@ namespace EdFi.LoadTools.Test.SmokeTests.SdkStubs.Apis.All
         public Task PutStudentAsync(string id, EdFiStudent student) => Task.CompletedTask;
 
         public Task DeleteStudentByIdAsync(string id) => Task.CompletedTask;
+    }
+
+    // A single-resource API whose resource pluralizes irregularly (Person -> People). Because there is
+    // exactly one resource, the categorizer's fast path assigns every method to it without name-stem
+    // matching, so the irregular plural is fully supported. (Mirrors the cached ODS PeopleApi.)
+    public class StubPeopleApi
+    {
+        public Task PostPersonAsync(EdFiPerson person) => Task.CompletedTask;
+
+        public Task GetPeopleAsync() => Task.CompletedTask;
+
+        public Task GetPeopleByIdAsync(string id) => Task.CompletedTask;
+
+        public Task PutPersonAsync(string id, EdFiPerson person) => Task.CompletedTask;
+
+        public Task DeletePersonByIdAsync(string id) => Task.CompletedTask;
     }
 }

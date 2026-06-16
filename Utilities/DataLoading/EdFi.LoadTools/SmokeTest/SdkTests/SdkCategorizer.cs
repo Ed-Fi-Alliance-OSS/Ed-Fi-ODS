@@ -72,7 +72,10 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             .Where(api => !string.IsNullOrEmpty(api.Name)) // Filter out APIs without names
             .ToList();
 
-        private static IEnumerable<ResourceApi> BuildResourceApis(Type apiType)
+        // internal (not private) so the grouping/validation can be exercised directly in unit tests
+        // with hand-built API shapes, without those shapes having to live in a scanned "Apis.All"
+        // namespace (which would make every other categorizer test fail-fast on them).
+        internal static IEnumerable<ResourceApi> BuildResourceApis(Type apiType)
         {
             var candidates = apiType.GetMethods()
                 .Where(m =>
@@ -101,7 +104,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             }
 
             // Common case: a single resource per API type. Assign every method to it, preserving the
-            // original behavior (no name-stem matching needed, so no risk with irregular pluralization).
+            // original behavior. No name-stem matching is needed, so irregular pluralization is fully
+            // supported here: e.g. a single-resource PeopleApi with PostPersonAsync / GetPeopleAsync
+            // (Person -> People) categorizes correctly because every method goes to the one resource.
             if (resources.Count == 1)
             {
                 yield return new ResourceApi(apiType, resources[0].Model, candidates);
@@ -113,7 +118,15 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             // the openapi-generator's "_N" homonym suffix (token) plus the resource name-stem. POST and
             // DELETE are singular while GET is plural, so we match on stem PREFIX (longest stem wins) to
             // bridge the singular/plural difference and disambiguate stems that are prefixes of others.
+            //
+            // Prefix-matching handles regular pluralization (School/Schools) but NOT irregular plurals
+            // (Person/People). If a multi-resource API ever pairs an irregular plural with a homonym, a
+            // GET/DELETE stem will not start with its POST stem and will match no resource. Rather than
+            // silently drop that method (leaving GetAllMethod/DeleteMethod null and producing a later
+            // NRE), we collect every unassigned candidate and fail fast below with diagnostics. (Cached
+            // ODS PeopleApi is single-resource and uses the fast path above, so it is unaffected.)
             var groups = resources.Select(_ => new List<MethodInfo>()).ToList();
+            var unmatched = new List<MethodInfo>();
 
             foreach (var method in candidates)
             {
@@ -140,12 +153,44 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 {
                     groups[bestIndex].Add(method);
                 }
+                else
+                {
+                    unmatched.Add(method);
+                }
+            }
+
+            if (unmatched.Count > 0)
+            {
+                throw new InvalidOperationException(DescribeUnmatchedCandidates(apiType, resources, unmatched));
             }
 
             for (var i = 0; i < resources.Count; i++)
             {
                 yield return new ResourceApi(apiType, resources[i].Model, groups[i]);
             }
+        }
+
+        // Builds a diagnostic message naming the API type, every unassigned method (with its derived
+        // stem/token) and the resource groups they failed to match, so a categorization failure points
+        // straight at the offending generated shape instead of surfacing as a downstream NRE.
+        private static string DescribeUnmatchedCandidates(
+            Type apiType,
+            IReadOnlyList<(Type Model, string Stem, string Token)> resources,
+            IReadOnlyList<MethodInfo> unmatched)
+        {
+            var unmatchedList = string.Join(
+                "; ", unmatched.Select(m => $"{m.Name} (stem '{StemOf(m.Name)}', token '{TokenOf(m.Name)}')"));
+
+            var resourceList = string.Join(
+                "; ", resources.Select(r => $"{r.Model?.Name} (stem '{r.Stem}', token '{r.Token}')"));
+
+            return
+                $"SdkCategorizer could not assign {unmatched.Count} CRUD method(s) to any resource group on "
+                + $"multi-resource API type '{apiType.FullName}'. Leaving them unassigned would silently drop "
+                + $"resource methods and produce later null-reference failures. Unassigned methods: {unmatchedList}. "
+                + $"Known resource groups: {resourceList}. The name-stem matching expects each GET/DELETE stem to "
+                + "start with its resource's POST stem; an irregular plural (e.g. Person/People) or an unexpected "
+                + "generated method name will trip this.";
         }
 
         private static bool IsCrudVerb(string name) =>
@@ -203,37 +248,88 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
     public class ResourceApi : IResourceApi
     {
-        private readonly List<MethodInfo> _methods;
-
+        // The model type is the per-resource discriminator (e.g. EdFiContact vs HomographContact),
+        // supplied by the categorizer. Each verb is resolved WITHIN this resource's method group at
+        // construction time and validated, so every method property returns exactly one method (and a
+        // mis-categorized group fails fast here, when ResourceApis is enumerated, with a clear message
+        // rather than later as a SingleOrDefault throw or a null-reference inside BaseTest).
         public ResourceApi(Type apiType, Type modelType, IEnumerable<MethodInfo> resourceMethods)
         {
             ApiType = apiType;
             ModelType = modelType;
-            _methods = resourceMethods as List<MethodInfo> ?? resourceMethods.ToList();
+
+            var methods = resourceMethods as IReadOnlyList<MethodInfo> ?? resourceMethods.ToList();
+
+            if (methods.Count == 0)
+            {
+                throw new InvalidOperationException(
+                    $"SdkCategorizer produced an empty method group for resource "
+                    + $"'{Describe(modelType)}' on API type '{Describe(apiType)}'. "
+                    + "Every resource must expose at least a POST method.");
+            }
+
+            PostMethod = SingleVerb(methods, apiType, modelType, "POST", m => m.Name.StartsWith("Post"));
+
+            if (PostMethod == null)
+            {
+                throw new InvalidOperationException(
+                    $"SdkCategorizer produced a resource group without a POST method for resource "
+                    + $"'{Describe(modelType)}' on API type '{Describe(apiType)}'. "
+                    + $"Methods in group: {string.Join(", ", methods.Select(m => m.Name))}.");
+            }
+
+            GetAllMethod = SingleVerb(
+                methods, apiType, modelType, "GET-all",
+                m => m.Name.StartsWith("Get")
+                     && !m.Name.Contains("ById", StringComparison.CurrentCultureIgnoreCase)
+                     && !m.Name.Contains("Partitions", StringComparison.CurrentCultureIgnoreCase));
+
+            GetByIdMethod = SingleVerb(
+                methods, apiType, modelType, "GET-by-id",
+                m => m.Name.StartsWith("Get") && m.Name.Contains("ById", StringComparison.CurrentCultureIgnoreCase));
+
+            PutMethod = SingleVerb(methods, apiType, modelType, "PUT", m => m.Name.StartsWith("Put"));
+
+            DeleteMethod = SingleVerb(
+                methods, apiType, modelType, "DELETE",
+                m => m.Name.StartsWith("Delete") && !m.Name.StartsWith("Deletes"));
         }
 
         public Type ApiType { get; }
 
-        // The model type is the per-resource discriminator (e.g. EdFiContact vs HomographContact),
-        // supplied by the categorizer. Each method property resolves WITHIN this resource's method
-        // group, so every verb returns exactly one method.
         public Type ModelType { get; }
 
-        public MethodInfo GetAllMethod => _methods.SingleOrDefault(
-            m => m.Name.StartsWith("Get")
-                 && !m.Name.Contains("ById", StringComparison.CurrentCultureIgnoreCase)
-                 && !m.Name.Contains("Partitions", StringComparison.CurrentCultureIgnoreCase));
+        public MethodInfo GetAllMethod { get; }
 
-        public MethodInfo GetByIdMethod => _methods.SingleOrDefault(
-            m => m.Name.StartsWith("Get") && m.Name.Contains("ById", StringComparison.CurrentCultureIgnoreCase));
+        public MethodInfo GetByIdMethod { get; }
 
-        public MethodInfo PostMethod => _methods.SingleOrDefault(m => m.Name.StartsWith("Post"));
+        public MethodInfo PostMethod { get; }
 
-        public MethodInfo PutMethod => _methods.SingleOrDefault(m => m.Name.StartsWith("Put"));
+        public MethodInfo PutMethod { get; }
 
-        public MethodInfo DeleteMethod => _methods.SingleOrDefault(
-            m => m.Name.StartsWith("Delete") && !m.Name.StartsWith("Deletes"));
+        public MethodInfo DeleteMethod { get; }
 
         public string Name => ModelType?.Name;
+
+        // Resolves the single method matching a verb within the group. A read-only verb may be absent
+        // (returns null, as before), but a duplicate signals a mis-categorized group and throws with a
+        // diagnostic instead of deferring to an opaque SingleOrDefault failure at the call site.
+        private static MethodInfo SingleVerb(
+            IReadOnlyList<MethodInfo> methods, Type apiType, Type modelType, string verb, Func<MethodInfo, bool> predicate)
+        {
+            var matches = methods.Where(predicate).ToList();
+
+            if (matches.Count > 1)
+            {
+                throw new InvalidOperationException(
+                    $"SdkCategorizer mapped {matches.Count} {verb} methods to resource "
+                    + $"'{Describe(modelType)}' on API type '{Describe(apiType)}': "
+                    + $"{string.Join(", ", matches.Select(m => m.Name))}. Exactly one was expected.");
+            }
+
+            return matches.Count == 1 ? matches[0] : null;
+        }
+
+        private static string Describe(Type type) => type?.FullName ?? "(unknown)";
     }
 }

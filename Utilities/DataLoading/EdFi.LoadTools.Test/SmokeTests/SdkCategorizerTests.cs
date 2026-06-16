@@ -5,10 +5,13 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.SdkTests;
 using EdFi.LoadTools.Test.SmokeTests.SdkStubs.Apis.All;
+using EdFi.LoadTools.Test.SmokeTests.SdkStubs.Models.All;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
@@ -116,6 +119,84 @@ namespace EdFi.LoadTools.Test.SmokeTests
         }
 
         [Test]
+        public void Single_resource_api_with_irregular_plural_resolves_every_verb()
+        {
+            // Person -> People is an irregular plural. As a single-resource API it uses the fast path
+            // (every method assigned to the one resource, no name-stem matching), so it is fully
+            // supported. This documents that single-resource Person/People remains supported.
+            var resources = CreateCategorizer().ResourceApis
+                .Where(api => api.ApiType == typeof(StubPeopleApi))
+                .ToList();
+
+            resources.Count.ShouldBe(1);
+            resources[0].ModelType.Name.ShouldBe("EdFiPerson");
+            AssertEachVerbResolvesToOneMethod(resources[0]);
+            resources[0].GetAllMethod.Name.ShouldBe("GetPeopleAsync");
+        }
+
+        [Test]
+        public void Multi_resource_api_with_an_unmatched_candidate_fails_fast_with_diagnostics()
+        {
+            // A multi-resource (homonym) API whose GET-all pluralizes irregularly: the "People" stem
+            // does not start with the "Person" POST stem, so the GET matches no resource group. The
+            // categorizer must throw (naming the API type and method) rather than silently dropping it
+            // and leaving GetAllMethod null. This is the multi-resource counterpart that "fails fast
+            // with diagnostics" instead of silently dropping methods.
+            var ex = Should.Throw<InvalidOperationException>(
+                () => SdkCategorizer.BuildResourceApis(typeof(IrregularPluralMultiResourceStub)).ToList());
+
+            ex.Message.ShouldContain("could not assign");
+            ex.Message.ShouldContain(nameof(IrregularPluralMultiResourceStub));
+            ex.Message.ShouldContain("GetPeopleAsync");
+        }
+
+        [Test]
+        public void Resource_group_with_a_duplicate_verb_fails_fast_with_diagnostics()
+        {
+            // Two GET-all methods (plus a single POST so the no-POST guard passes) must fail fast at
+            // construction with a diagnostic rather than deferring to an opaque SingleOrDefault throw.
+            var methods = new[]
+            {
+                typeof(StubContactsApi).GetMethod(nameof(StubContactsApi.PostContactAsync)),
+                typeof(StubContactsApi).GetMethod(nameof(StubContactsApi.GetContactsAsync)),
+                typeof(StubContactsApi).GetMethod(nameof(StubContactsApi.GetContacts_0Async)),
+            };
+
+            var ex = Should.Throw<InvalidOperationException>(
+                () => new ResourceApi(typeof(StubContactsApi), typeof(EdFiContact), methods));
+
+            ex.Message.ShouldContain("GET-all");
+            ex.Message.ShouldContain("GetContactsAsync");
+            ex.Message.ShouldContain("GetContacts_0Async");
+        }
+
+        [Test]
+        public void Resource_group_without_a_post_fails_fast_with_diagnostics()
+        {
+            var methods = new[]
+            {
+                typeof(StubContactsApi).GetMethod(nameof(StubContactsApi.GetContactsAsync)),
+                typeof(StubContactsApi).GetMethod(nameof(StubContactsApi.GetContactsByIdAsync)),
+            };
+
+            var ex = Should.Throw<InvalidOperationException>(
+                () => new ResourceApi(typeof(StubContactsApi), typeof(EdFiContact), methods));
+
+            ex.Message.ShouldContain("without a POST");
+            ex.Message.ShouldContain(nameof(EdFiContact));
+        }
+
+        [Test]
+        public void Empty_resource_group_fails_fast_with_diagnostics()
+        {
+            var ex = Should.Throw<InvalidOperationException>(
+                () => new ResourceApi(typeof(StubContactsApi), typeof(EdFiContact), Array.Empty<MethodInfo>()));
+
+            ex.Message.ShouldContain("empty method group");
+            ex.Message.ShouldContain(nameof(EdFiContact));
+        }
+
+        [Test]
         public void ResourceApis_can_be_keyed_by_model_type_name_without_duplicate_keys()
         {
             // Regression for DestructiveMethodsGenerator and ModelDependencySort, which key by
@@ -141,5 +222,24 @@ namespace EdFi.LoadTools.Test.SmokeTests
             // The POST parameter type is the resource's model type.
             api.PostMethod.GetParameters().First().ParameterType.ShouldBe(api.ModelType);
         }
+    }
+
+    // Local stub shapes for the fail-fast tests. They deliberately live in this namespace - which has
+    // no "Apis.All"/"Models.All" segment - so the whole-assembly categorizer scan never picks them up
+    // (which would make the other categorizer tests fail fast on them). They are fed to
+    // SdkCategorizer.BuildResourceApis directly instead.
+    public class IrregularPersonModel { }
+
+    public class IrregularStaffModel { }
+
+    // Multi-resource (Person + Staff) API whose Person GET-all pluralizes irregularly (GetPeopleAsync).
+    // "People" does not start with the "Person" POST stem, so it matches no resource group.
+    public class IrregularPluralMultiResourceStub
+    {
+        public Task PostPersonAsync(IrregularPersonModel person) => Task.CompletedTask;
+
+        public Task PostStaffAsync(IrregularStaffModel staff) => Task.CompletedTask;
+
+        public Task GetPeopleAsync() => Task.CompletedTask;
     }
 }
