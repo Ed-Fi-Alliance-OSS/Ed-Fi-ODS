@@ -136,48 +136,59 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         private object GetApiInstance()
         {
-            var serviceProvider = SdkConfigurationFactory.SdkConfiguration as IServiceProvider;
+            // Capture once: in old-generator (legacy) mode this getter is side-effecting - it sets the
+            // bearer token on the Configuration each call - so it must not be invoked twice.
+            var sdkConfiguration = SdkConfigurationFactory.SdkConfiguration;
+            var serviceProvider = sdkConfiguration as IServiceProvider;
 
-            if (serviceProvider != null)
+            if (serviceProvider == null)
             {
-                // The SDK registers APIs by their interface (IXxxxApi), not concrete type
-                // Find the interface that the concrete type implements
-                var apiInterface = ResourceApi.ApiType.GetInterfaces()
-                    .FirstOrDefault(i => i.Namespace != null && i.Namespace.Contains("Apis.All") && i.Name.StartsWith("I"));
+                // Old-generator (Client.Configuration) mode: SdkConfiguration is a Configuration
+                // object, not an IServiceProvider. Construct the API directly with the old-generator
+                // constructor: new XxxApi(configuration). Going through the DI/manual-construction
+                // paths below would pick the parameterless constructor and yield a broken instance
+                // (no base path, no bearer token).
+                return Activator.CreateInstance(ResourceApi.ApiType, sdkConfiguration);
+            }
 
-                if (apiInterface != null)
-                {
-                    try
-                    {
-                        var apiInstance = serviceProvider.GetService(apiInterface);
-                        if (apiInstance != null)
-                        {
-                            return apiInstance;
-                        }
+            // DI (new-generator) mode: serviceProvider is non-null from here on.
+            // The SDK registers APIs by their interface (IXxxxApi), not concrete type
+            // Find the interface that the concrete type implements
+            var apiInterface = ResourceApi.ApiType.GetInterfaces()
+                .FirstOrDefault(i => i.Namespace != null && i.Namespace.Contains("Apis.All") && i.Name.StartsWith("I"));
 
-                        Log.Warn($"Service provider returned null for interface {apiInterface.FullName}");
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Warn($"DI resolution failed for interface {apiInterface.FullName}: {ex.Message}");
-                    }
-                }
-
-                // Try to resolve by concrete type as fallback
+            if (apiInterface != null)
+            {
                 try
                 {
-                    var apiInstance = serviceProvider.GetService(ResourceApi.ApiType);
+                    var apiInstance = serviceProvider.GetService(apiInterface);
                     if (apiInstance != null)
                     {
                         return apiInstance;
                     }
 
-                    Log.Warn($"Service provider returned null for type {ResourceApi.ApiType.FullName}");
+                    Log.Warn($"Service provider returned null for interface {apiInterface.FullName}");
                 }
                 catch (Exception ex)
                 {
-                    Log.Warn($"DI resolution failed for {ResourceApi.ApiType.FullName}: {ex.Message}");
+                    Log.Warn($"DI resolution failed for interface {apiInterface.FullName}: {ex.Message}");
                 }
+            }
+
+            // Try to resolve by concrete type as fallback
+            try
+            {
+                var apiInstance = serviceProvider.GetService(ResourceApi.ApiType);
+                if (apiInstance != null)
+                {
+                    return apiInstance;
+                }
+
+                Log.Warn($"Service provider returned null for type {ResourceApi.ApiType.FullName}");
+            }
+            catch (Exception ex)
+            {
+                Log.Warn($"DI resolution failed for {ResourceApi.ApiType.FullName}: {ex.Message}");
             }
 
             // Manual construction: create API with required dependencies
@@ -192,23 +203,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
                     foreach (var param in parameters)
                     {
-                        if (serviceProvider != null)
-                        {
-                            var service = serviceProvider.GetService(param.ParameterType);
-                            if (service != null)
-                            {
-                                args.Add(service);
-                            }
-                            else
-                            {
-                                // Add null for optional parameters
-                                args.Add(null);
-                            }
-                        }
-                        else
-                        {
-                            args.Add(null);
-                        }
+                        // GetService returns null when the dependency is not registered, which is the
+                        // same value we would supply for an optional/unresolved parameter.
+                        args.Add(serviceProvider.GetService(param.ParameterType));
                     }
 
                     return constructor.Invoke(args.ToArray());
@@ -221,7 +218,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
             // Last resort fallback
             Log.Debug($"Falling back to Activator.CreateInstance for {ResourceApi.ApiType.FullName}");
-            return Activator.CreateInstance(ResourceApi.ApiType, SdkConfigurationFactory.SdkConfiguration);
+            return Activator.CreateInstance(ResourceApi.ApiType, sdkConfiguration);
         }
 
         protected async Task<object> GetResourceFromUri(Uri resourceUri)

@@ -20,6 +20,8 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
+        <!-- Referenced so the legacy branch of SdkConfigurationFactory can be tested directly. -->
+        <ProjectReference Include="..\EdFi.SmokeTest.Console\EdFi.SmokeTest.Console.csproj" />
     </ItemGroup>
   <ItemGroup Condition=" '$(StandardVersion)' == '6.1.0' ">
 		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.6.1.0" />

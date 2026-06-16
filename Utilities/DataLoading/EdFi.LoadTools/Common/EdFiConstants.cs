@@ -14,6 +14,11 @@ namespace EdFi.LoadTools.Common
         public const string Descriptor = "Descriptor";
         public const int TestEdOrgId = 255901;
         public const string SdkConfigurationClassName = "Client.HostConfiguration";
+
+        // Old-generator SDKs (e.g. the DMS TestSdk and the published EdFi.OdsApi.Sdk) ship only
+        // Client.Configuration and do not have Client.HostConfiguration. SdkConfigurationFactory
+        // probes for HostConfiguration first and falls back to this legacy type when it is absent.
+        public const string SdkConfigurationClassNameLegacy = "Client.Configuration";
         public const string AccessToken = "AccessToken";
         public const string Authorization = "Authorization";
         public const string EdOrgReference = "EdFiEducationOrganizationReference";

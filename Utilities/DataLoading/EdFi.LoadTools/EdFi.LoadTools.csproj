@@ -21,6 +21,10 @@
     <None Include="../../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
+    <!-- Lets the test project drive SdkCategorizer's internal grouping/validation directly. -->
+    <InternalsVisibleTo Include="EdFi.LoadTools.Test" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Autofac" />
     <PackageReference Include="EdFi.Suite3.Common" />
     <PackageReference Include="log4net" />
