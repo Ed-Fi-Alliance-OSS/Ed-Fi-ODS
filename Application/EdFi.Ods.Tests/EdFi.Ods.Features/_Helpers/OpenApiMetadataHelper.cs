@@ -4,12 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.IO;
+using System.Text;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using Microsoft.OpenApi;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Readers;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
@@ -95,12 +95,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
                     }";
 
             return new OpenApiContent(
-                "Other", "identity", new Lazy<string>(() => identityJson),
-                new Lazy<string>(
-                    () =>
-                        new OpenApiStringReader()
-                            .Read(identityJson, out _)
-                            .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0)), IdentityManagementConstants.IdentityRoutePrefix);
+               "Other", "identity", new Lazy<string>(() => identityJson),
+               new Lazy<string>(
+                  () =>
+                  {
+                     using var stream = new MemoryStream(Encoding.UTF8.GetBytes(identityJson));
+                     var (doc, _) = OpenApiDocument.LoadAsync(stream).GetAwaiter().GetResult();
+                     return doc.SerializeAsJsonAsync(OpenApiSpecVersion.OpenApi3_0).GetAwaiter().GetResult();
+                  }), IdentityManagementConstants.IdentityRoutePrefix);
         }
     }
 }
