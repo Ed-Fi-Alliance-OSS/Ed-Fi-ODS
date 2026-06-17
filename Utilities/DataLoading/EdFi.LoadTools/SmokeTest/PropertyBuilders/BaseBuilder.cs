@@ -98,12 +98,41 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             return parameter.Required;
         }
 
-        protected bool HasPublishedNumericBounds(PropertyInfo propertyInfo)
+        /// <summary>
+        ///     Returns true only when OpenAPI publishes a <c>Maximum</c> that actually parses. This mirrors what
+        ///     <see cref="BuildRandomNumber" /> can honor: a parseable maximum produces a bounded or max-only value,
+        ///     whereas a min-only, empty, or unparseable bound falls back to the generic numeric range. Callers that
+        ///     need to know whether deferring to the generic numeric builder will respect a real ceiling should use
+        ///     this rather than treating any non-empty bound string as published bounds.
+        /// </summary>
+        protected bool HasParseableMaximum(PropertyInfo propertyInfo)
         {
             var schema = _metadataLookup.GetMetadata(propertyInfo).Schema;
 
-            return schema != null &&
-                   (!string.IsNullOrEmpty(schema.Minimum) || !string.IsNullOrEmpty(schema.Maximum));
+            return schema != null
+                   && !string.IsNullOrEmpty(schema.Maximum)
+                   && decimal.TryParse(schema.Maximum, out _);
+        }
+
+        /// <summary>
+        ///     Attempts to read a published <c>Minimum</c> that parses, clamped to the int range used by the numeric
+        ///     builders. Returns false for empty or unparseable minimums so callers can fall back to their own range.
+        /// </summary>
+        protected bool TryGetParseableMinimum(PropertyInfo propertyInfo, out int minimum)
+        {
+            minimum = 0;
+
+            var schema = _metadataLookup.GetMetadata(propertyInfo).Schema;
+
+            if (schema == null
+                || string.IsNullOrEmpty(schema.Minimum)
+                || !decimal.TryParse(schema.Minimum, out var value))
+            {
+                return false;
+            }
+
+            minimum = (int)decimal.Max(decimal.Min(value, int.MaxValue), int.MinValue);
+            return true;
         }
 
         protected int BuildRandomNumber(PropertyInfo propertyInfo)

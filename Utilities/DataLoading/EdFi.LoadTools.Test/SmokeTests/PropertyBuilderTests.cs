@@ -226,6 +226,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             public int? schoolId { get; set; }
 
+            public long? localEducationAgencyId { get; set; }
+
+            public double? educationOrganizationId { get; set; }
+
             public DateTime dateTimeProperty1 { get; set; }
 
             public string startTime { get; set; }
@@ -581,6 +585,148 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsTrue(builders.Any(b => b.BuildProperty(obj, propInfo)));
             Assert.GreaterOrEqual(
                 obj.schoolId.Value, DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart);
+        }
+
+        [Test]
+        public void EducationOrganizationIdBuilder_should_use_edorg_safe_range_when_only_minimum_is_published()
+        {
+            // A min-only bound gives SimplePropertyBuilder no maximum to honor, so it would fall back to the
+            // generic 1..max range. The EdOrg builder must keep the value in the EdOrg-safe range instead.
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("schoolId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema { Minimum = "1" }
+                });
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides).Returns(new Dictionary<string, int>());
+
+            var builder = new EducationOrganizationIdBuilder(lookup, configuration);
+
+            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+            Assert.AreEqual(DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart, obj.schoolId.Value);
+            Assert.Greater(obj.schoolId.Value, DestructiveTestConfigurationDefaults.DefaultNumericFallbackMax);
+        }
+
+        [Test]
+        public void EducationOrganizationIdBuilder_should_honor_published_minimum_above_the_edorg_safe_start()
+        {
+            // When a parseable minimum exceeds the EdOrg-safe start, the generated value must honor it while
+            // staying monotonic, i.e. max(nextEdOrgFallback, parsedMinimum).
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("schoolId");
+
+            const int publishedMinimum = DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart + 50000;
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema { Minimum = publishedMinimum.ToString() }
+                });
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides).Returns(new Dictionary<string, int>());
+
+            var builder = new EducationOrganizationIdBuilder(lookup, configuration);
+
+            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+            Assert.AreEqual(publishedMinimum, obj.schoolId.Value);
+        }
+
+        [Test]
+        public void EducationOrganizationIdBuilder_should_use_edorg_safe_range_when_bounds_are_unparseable()
+        {
+            // Unparseable bound strings are not usable by SimplePropertyBuilder, so they must not trigger deferral;
+            // the EdOrg-safe range still applies.
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("schoolId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema { Minimum = "not-a-number", Maximum = "also-not-a-number" }
+                });
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides).Returns(new Dictionary<string, int>());
+
+            var builder = new EducationOrganizationIdBuilder(lookup, configuration);
+
+            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+            Assert.AreEqual(DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart, obj.schoolId.Value);
+        }
+
+        [Test]
+        public void EducationOrganizationIdBuilder_should_defer_when_only_maximum_is_published()
+        {
+            // A parseable maximum is a real ceiling SimplePropertyBuilder honors, so the EdOrg builder defers.
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("schoolId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema { Maximum = "10" }
+                });
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides).Returns(new Dictionary<string, int>());
+
+            var builder = new EducationOrganizationIdBuilder(lookup, configuration);
+
+            Assert.IsFalse(builder.BuildProperty(obj, propInfo));
+            Assert.IsFalse(obj.schoolId.HasValue);
+        }
+
+        [Test]
+        public void EducationOrganizationIdBuilder_should_apply_override_to_nullable_long_property()
+        {
+            // The configured override is an int; a nullable long EdOrg id must accept it via type conversion
+            // rather than throwing on the boxed int.
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("localEducationAgencyId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides)
+                .Returns(new Dictionary<string, int> { ["localEducationAgencyId"] = 255901 });
+
+            var builder = new EducationOrganizationIdBuilder(lookup, configuration);
+
+            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+            Assert.AreEqual(255901L, obj.localEducationAgencyId.Value);
+        }
+
+        [Test]
+        public void EducationOrganizationIdBuilder_should_apply_override_to_nullable_double_property()
+        {
+            // The configured override is an int; a nullable double EdOrg id must accept it via type conversion
+            // rather than throwing on the boxed int.
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("educationOrganizationId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides)
+                .Returns(new Dictionary<string, int> { ["educationOrganizationId"] = 255901 });
+
+            var builder = new EducationOrganizationIdBuilder(lookup, configuration);
+
+            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+            Assert.AreEqual(255901d, obj.educationOrganizationId.Value);
         }
 
 #endregion

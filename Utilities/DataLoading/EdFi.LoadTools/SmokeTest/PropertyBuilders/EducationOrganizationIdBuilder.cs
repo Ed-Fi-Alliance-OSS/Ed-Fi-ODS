@@ -48,7 +48,13 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         {
             if (_educationOrganizationIdOverrides.ContainsKey(propertyInfo.Name))
             {
-                propertyInfo.SetValue(obj, _educationOrganizationIdOverrides[propertyInfo.Name]);
+                // Convert the configured (int) override to the property's underlying numeric type so nullable
+                // long/double EdOrg ids accept it instead of throwing on the boxed int, matching the
+                // non-overridden path below.
+                var overrideTargetType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+
+                propertyInfo.SetValue(
+                    obj, Convert.ChangeType(_educationOrganizationIdOverrides[propertyInfo.Name], overrideTargetType));
                 return true;
             }
 
@@ -56,16 +62,29 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             // colliding with EdOrg ids that already exist on a populated template. Generate them from the
             // dedicated EdOrg-safe range here rather than letting them fall through to the generic
             // 1..DefaultNumericFallbackMax fallback in SimplePropertyBuilder, which is sized for capped decimals.
-            // When OpenAPI actually publishes numeric bounds for the id, defer to SimplePropertyBuilder so the
-            // published bounds are honored.
             if (IsRequired(propertyInfo)
                 && IsEducationOrganizationId(propertyInfo.Name)
-                && !HasPublishedNumericBounds(propertyInfo)
                 && (IsTypeMatch<int>(propertyInfo) || IsTypeMatch<long>(propertyInfo) || IsTypeMatch<double>(propertyInfo)))
             {
-                var targetType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+                // Defer to SimplePropertyBuilder only when OpenAPI publishes a parseable maximum (a bounded or
+                // max-only range) it can actually honor. A min-only bound, or an unparseable Minimum/Maximum
+                // string, leaves SimplePropertyBuilder with the generic 1..DefaultNumericFallbackMax range, which
+                // would reintroduce the populated-template collision risk for EdOrg ids, so those cases stay here.
+                if (HasParseableMaximum(propertyInfo))
+                {
+                    return false;
+                }
 
-                propertyInfo.SetValue(obj, Convert.ChangeType(_educationOrganizationFallbackValue++, targetType));
+                var targetType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+                var value = _educationOrganizationFallbackValue++;
+
+                // Honor a published, parseable minimum while keeping values monotonic within the EdOrg-safe range.
+                if (TryGetParseableMinimum(propertyInfo, out var minimum))
+                {
+                    value = Math.Max(value, minimum);
+                }
+
+                propertyInfo.SetValue(obj, Convert.ChangeType(value, targetType));
                 return true;
             }
 
