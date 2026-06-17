@@ -98,6 +98,14 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             return parameter.Required;
         }
 
+        protected bool HasPublishedNumericBounds(PropertyInfo propertyInfo)
+        {
+            var schema = _metadataLookup.GetMetadata(propertyInfo).Schema;
+
+            return schema != null &&
+                   (!string.IsNullOrEmpty(schema.Minimum) || !string.IsNullOrEmpty(schema.Maximum));
+        }
+
         protected int BuildRandomNumber(PropertyInfo propertyInfo)
         {
             var parameter = _metadataLookup.GetMetadata(propertyInfo);

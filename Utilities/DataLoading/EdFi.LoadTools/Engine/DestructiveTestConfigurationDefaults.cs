@@ -8,5 +8,10 @@ namespace EdFi.LoadTools.Engine
     public static class DestructiveTestConfigurationDefaults
     {
         public const int DefaultNumericFallbackMax = 999;
+
+        // Non-overridden EducationOrganization ids are generated starting here, well above the generic
+        // 1..DefaultNumericFallbackMax fallback range, so they do not collide with EdOrg ids that already
+        // exist when the smoke tests run against a populated template.
+        public const int EducationOrganizationFallbackStart = 1000;
     }
 }

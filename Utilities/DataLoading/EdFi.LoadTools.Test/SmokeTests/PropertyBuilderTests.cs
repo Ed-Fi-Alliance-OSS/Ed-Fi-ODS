@@ -224,6 +224,8 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             public int? nullableProperty1 { get; set; }
 
+            public int? schoolId { get; set; }
+
             public DateTime dateTimeProperty1 { get; set; }
 
             public string startTime { get; set; }
@@ -455,5 +457,132 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsTrue(values.All(v => v <= 5));
         }
         #endregion
+
+#region EducationOrganizationIdBuilder tests
+
+        [Test]
+        public void EducationOrganizationIdBuilder_should_use_overridden_value_when_configured()
+        {
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("schoolId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides)
+                .Returns(new Dictionary<string, int> { ["schoolId"] = 100000 });
+
+            var builder = new EducationOrganizationIdBuilder(lookup, configuration);
+
+            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+            Assert.AreEqual(100000, obj.schoolId);
+        }
+
+        [Test]
+        public void EducationOrganizationIdBuilder_should_use_edorg_safe_range_for_non_overridden_edorg_id()
+        {
+            var propInfo = typeof(Class1).GetProperty("schoolId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema()
+                });
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides).Returns(new Dictionary<string, int>());
+
+            // A small generic max would put the generic 1..max fallback well below the EdOrg-safe range,
+            // so an EdOrg-safe value proves the EdOrg path, not the generic fallback, produced it.
+            A.CallTo(() => configuration.DefaultNumericFallbackMax).Returns(5);
+
+            var builder = new EducationOrganizationIdBuilder(lookup, configuration);
+
+            var values = Enumerable.Range(0, 3)
+                .Select(
+                    _ =>
+                    {
+                        var obj = new Class1();
+
+                        Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+
+                        return obj.schoolId.Value;
+                    })
+                .ToArray();
+
+            Assert.AreEqual(
+                new[]
+                {
+                    DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart,
+                    DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart + 1,
+                    DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart + 2
+                },
+                values);
+            Assert.IsTrue(values.All(v => v >= DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart));
+        }
+
+        [Test]
+        public void EducationOrganizationIdBuilder_should_defer_when_non_overridden_edorg_id_publishes_bounds()
+        {
+            // If OpenAPI publishes numeric bounds for an EdOrg id, the EdOrg builder defers so SimplePropertyBuilder
+            // can honor those bounds instead of overriding them with the EdOrg-safe range.
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("schoolId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema { Minimum = "1", Maximum = "10" }
+                });
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides).Returns(new Dictionary<string, int>());
+
+            var builder = new EducationOrganizationIdBuilder(lookup, configuration);
+
+            Assert.IsFalse(builder.BuildProperty(obj, propInfo));
+            Assert.IsFalse(obj.schoolId.HasValue);
+        }
+
+        [Test]
+        public void Builder_chain_should_resolve_non_overridden_edorg_id_through_education_organization_id_builder()
+        {
+            // SmokeTestsDestructiveSdkModule registers EducationOrganizationIdBuilder before SimplePropertyBuilder,
+            // and PostTest uses the first builder that handles the property (Any(...) short-circuits). The EdOrg
+            // builder must therefore claim a non-overridden EdOrg id so SimplePropertyBuilder never generates it
+            // from the generic 1..max range, which would reintroduce the populated-template collision risk.
+            var propInfo = typeof(Class1).GetProperty("schoolId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema()
+                });
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides).Returns(new Dictionary<string, int>());
+            A.CallTo(() => configuration.DefaultNumericFallbackMax).Returns(5);
+            A.CallTo(() => configuration.UnifiedProperties).Returns(Array.Empty<string>());
+
+            var builders = new IPropertyBuilder[]
+            {
+                new EducationOrganizationIdBuilder(lookup, configuration),
+                new SimplePropertyBuilder(lookup, configuration)
+            };
+
+            var obj = new Class1();
+
+            Assert.IsTrue(builders.Any(b => b.BuildProperty(obj, propInfo)));
+            Assert.GreaterOrEqual(
+                obj.schoolId.Value, DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart);
+        }
+
+#endregion
     }
 }
