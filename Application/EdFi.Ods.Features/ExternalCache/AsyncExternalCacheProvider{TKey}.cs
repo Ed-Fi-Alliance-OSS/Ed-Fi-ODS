@@ -5,11 +5,13 @@
 
 using System;
 using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common.Security;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Features.ExternalCache.Redis;
 using log4net;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
@@ -26,16 +28,19 @@ namespace EdFi.Ods.Features.ExternalCache;
 /// <param name="distributedCache">The distributed cache.</param>
 /// <param name="slidingExpiration">The sliding expiration to apply to set operations.</param>
 /// <param name="absoluteExpiration">The absolute expiration to apply to set operations.</param>
+/// <param name="resilience">The resilience pipeline for Redis operations, or <c>null</c> to call the cache directly.</param>
 public class AsyncExternalCacheProvider<TKey>(
     IDistributedCache distributedCache,
     TimeSpan slidingExpiration,
-    TimeSpan absoluteExpiration) : IAsyncCacheProvider<TKey>
+    TimeSpan absoluteExpiration,
+    RedisCacheResilience resilience = null) : IAsyncCacheProvider<TKey>
 {
     private const string DefaultExceptionMessage = "Unable to access distributed cache.";
 
     private readonly IDistributedCache _distributedCache = distributedCache;
     private readonly TimeSpan _absoluteExpiration = absoluteExpiration;
     private readonly TimeSpan _slidingExpiration = slidingExpiration;
+    private readonly RedisCacheResilience _resilience = resilience;
     private readonly ILog _logger = LogManager.GetLogger(typeof(AsyncExternalCacheProvider<TKey>));
 
     /// <inheritdoc />
@@ -44,7 +49,7 @@ public class AsyncExternalCacheProvider<TKey>(
         try
         {
             var keyAsString = GetKeyAsString(key);
-            var cachedValue = await _distributedCache.GetStringAsync(keyAsString).ConfigureAwait(false);
+            var cachedValue = await ExecuteGetAsync(keyAsString).ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(cachedValue))
             {
@@ -67,13 +72,21 @@ public class AsyncExternalCacheProvider<TKey>(
     /// <inheritdoc />
     public async Task SetCachedObjectAsync(TKey key, object obj)
     {
+        var keyAsString = GetKeyAsString(key);
+
         try
         {
-            await _distributedCache.SetStringAsync(
-                    GetKeyAsString(key),
+            await ExecuteSetAsync(
+                    keyAsString,
                     ExternalCacheSerializationHelper.Serialize(obj),
                     CreateDistributedCacheEntryOptions())
                 .ConfigureAwait(false);
+        }
+        catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
+        {
+            // A failed cache write must not fail the request — skip caching when the cache is
+            // temporarily unavailable (open circuit breaker or Redis connectivity failure).
+            _logger.Warn($"Distributed cache unavailable; skipping cache write for key '{keyAsString}'.", ex);
         }
         catch (Exception ex)
         {
@@ -85,10 +98,12 @@ public class AsyncExternalCacheProvider<TKey>(
     /// <inheritdoc />
     public async Task InsertAsync(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
     {
+        var keyAsString = GetKeyAsString(key);
+
         try
         {
-            await _distributedCache.SetStringAsync(
-                    GetKeyAsString(key),
+            await ExecuteSetAsync(
+                    keyAsString,
                     ExternalCacheSerializationHelper.Serialize(value),
                     new DistributedCacheEntryOptions
                     {
@@ -97,11 +112,44 @@ public class AsyncExternalCacheProvider<TKey>(
                     })
                 .ConfigureAwait(false);
         }
+        catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
+        {
+            _logger.Warn($"Distributed cache unavailable; skipping cache write for key '{keyAsString}'.", ex);
+        }
         catch (Exception ex)
         {
             _logger.Error(ex);
             throw new DistributedCacheException(DefaultExceptionMessage, ex);
         }
+    }
+
+    // Runs the distributed-cache read through the Redis circuit breaker when resilience is configured,
+    // so repeated failures fail fast once the circuit opens instead of blocking on the full timeout.
+    private async Task<string> ExecuteGetAsync(string keyAsString)
+    {
+        if (_resilience is null)
+        {
+            return await _distributedCache.GetStringAsync(keyAsString).ConfigureAwait(false);
+        }
+
+        return await _resilience.Pipeline.ExecuteAsync(
+                async _ => await _distributedCache.GetStringAsync(keyAsString).ConfigureAwait(false),
+                CancellationToken.None)
+            .ConfigureAwait(false);
+    }
+
+    private async Task ExecuteSetAsync(string keyAsString, string serializedValue, DistributedCacheEntryOptions options)
+    {
+        if (_resilience is null)
+        {
+            await _distributedCache.SetStringAsync(keyAsString, serializedValue, options).ConfigureAwait(false);
+            return;
+        }
+
+        await _resilience.Pipeline.ExecuteAsync(
+                async _ => await _distributedCache.SetStringAsync(keyAsString, serializedValue, options).ConfigureAwait(false),
+                CancellationToken.None)
+            .ConfigureAwait(false);
     }
 
     private static string GetKeyAsString(TKey key)

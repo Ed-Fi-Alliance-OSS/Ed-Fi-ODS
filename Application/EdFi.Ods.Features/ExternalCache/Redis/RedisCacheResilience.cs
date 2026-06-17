@@ -28,13 +28,18 @@ public class RedisCacheResilience
     /// </summary>
     /// <param name="failureThreshold">The minimum throughput required before the circuit breaker evaluates failures.</param>
     /// <param name="breakDurationSeconds">The number of seconds to keep the circuit open.</param>
-    public RedisCacheResilience(int failureThreshold = 5, int breakDurationSeconds = 30)
+    /// <param name="samplingDurationSeconds">
+    /// The window over which failures are evaluated. This must be larger than the Redis operation timeout;
+    /// otherwise failing calls age out of the window before the threshold is reached and the circuit never
+    /// opens (leaving every request to block on the full timeout).
+    /// </param>
+    public RedisCacheResilience(int failureThreshold = 5, int breakDurationSeconds = 30, int samplingDurationSeconds = 30)
     {
         Pipeline = new ResiliencePipelineBuilder()
             .AddCircuitBreaker(new CircuitBreakerStrategyOptions
             {
                 FailureRatio = 0.5,
-                SamplingDuration = TimeSpan.FromSeconds(10),
+                SamplingDuration = TimeSpan.FromSeconds(samplingDurationSeconds),
                 MinimumThroughput = failureThreshold,
                 BreakDuration = TimeSpan.FromSeconds(breakDurationSeconds),
                 OnOpened = args =>

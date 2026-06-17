@@ -74,6 +74,10 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
                 new ResolvedParameter(
                     (p, _) => p.ParameterType == typeof(TimeSpan),
                     (_, _) => GetDefaultExpiration()))
+            .WithParameter(
+                new ResolvedParameter(
+                    (p, _) => p.ParameterType == typeof(RedisCacheResilience),
+                    (_, c) => c.ResolveOptional<RedisCacheResilience>()))
             .As<IExternalCacheProvider<string>>()
             .SingleInstance();
     }
@@ -127,12 +131,13 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
                     int l1CacheDurationSeconds = _cacheSettings.Descriptors.L1CacheDurationSeconds;
                     var distributedCache = ctx.Resolve<IDistributedCache>();
                     var absoluteExpiration = TimeSpan.FromSeconds(absoluteExpirationSeconds);
+                    var resilience = ctx.ResolveOptional<RedisCacheResilience>();
 
                     return new TieredCacheProvider<ulong>(
                         ctx.Resolve<IMemoryCache>(),
-                        new ExternalCacheProvider<ulong>(distributedCache, TimeSpan.Zero, absoluteExpiration),
+                        new ExternalCacheProvider<ulong>(distributedCache, TimeSpan.Zero, absoluteExpiration, resilience),
                         TimeSpan.FromSeconds(l1CacheDurationSeconds),
-                        new AsyncExternalCacheProvider<ulong>(distributedCache, TimeSpan.Zero, absoluteExpiration));
+                        new AsyncExternalCacheProvider<ulong>(distributedCache, TimeSpan.Zero, absoluteExpiration, resilience));
                 })
             .As<ICacheProvider<ulong>>()
             .As<IAsyncCacheProvider<ulong>>()
