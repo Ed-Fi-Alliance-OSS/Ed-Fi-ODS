@@ -33,7 +33,7 @@ public class AsyncExternalCacheProvider<TKey>(
     IDistributedCache distributedCache,
     TimeSpan slidingExpiration,
     TimeSpan absoluteExpiration,
-    RedisCacheResilience resilience = null) : IAsyncCacheProvider<TKey>
+    RedisCacheResilience resilience = null) : IAsyncCacheProvider<TKey>, ICacheProvider<TKey>
 {
     private const string DefaultExceptionMessage = "Unable to access distributed cache.";
 
@@ -53,12 +53,22 @@ public class AsyncExternalCacheProvider<TKey>(
 
             if (string.IsNullOrEmpty(cachedValue))
             {
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"[External] Distributed (L2) cache miss for key '{keyAsString}'.");
+                }
+
                 return (false, null);
             }
 
             object value = keyAsString.StartsWith(ApiClientDetailsCacheKeyProvider.CacheKeyPrefix, StringComparison.Ordinal)
                 ? JsonConvert.DeserializeObject<ApiClientDetails>(cachedValue)
                 : ExternalCacheSerializationHelper.Deserialize(cachedValue, _logger);
+
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"[External] Distributed (L2) cache hit for key '{keyAsString}'.");
+            }
 
             return (true, value);
         }
@@ -150,6 +160,30 @@ public class AsyncExternalCacheProvider<TKey>(
                 async _ => await _distributedCache.SetStringAsync(keyAsString, serializedValue, options).ConfigureAwait(false),
                 CancellationToken.None)
             .ConfigureAwait(false);
+    }
+
+    // ICacheProvider<TKey> is implemented so a single instance can be registered as BOTH the synchronous
+    // and asynchronous cache provider. The AsyncCachingInterceptor uses a reference-equality check between
+    // its sync and async providers to skip the blocking synchronous path (see AsyncCachingInterceptor.cs);
+    // registering the same instance for both interfaces enables external-only (no L1) caching without a
+    // blocking Redis call on the hot path. These synchronous members are therefore not expected to be
+    // invoked on that path; they delegate to the asynchronous implementations for correctness if used.
+
+    bool ICacheProvider<TKey>.TryGetCachedObject(TKey key, out object value)
+    {
+        (bool found, object cachedValue) = TryGetCachedObjectAsync(key).GetAwaiter().GetResult();
+        value = cachedValue;
+        return found;
+    }
+
+    void ICacheProvider<TKey>.SetCachedObject(TKey key, object obj)
+    {
+        SetCachedObjectAsync(key, obj).GetAwaiter().GetResult();
+    }
+
+    void ICacheProvider<TKey>.Insert(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+    {
+        InsertAsync(key, value, absoluteExpiration, slidingExpiration).GetAwaiter().GetResult();
     }
 
     private static string GetKeyAsString(TKey key)

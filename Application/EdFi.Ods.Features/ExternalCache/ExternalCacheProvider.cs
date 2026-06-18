@@ -71,7 +71,7 @@ namespace EdFi.Ods.Features.ExternalCache
                     // handled, then just deserialize using JsonConvert.DeserializeObject method as is done at the end of the
                     // Deserialize method below.
                     //
-                    // Suggested handler implementations: 
+                    // Suggested handler implementations:
                     //   - PersonIdentityValueMapDistributeCacheDeserializationHandler
                     //   - ApiClientDetailsDistributeCacheDeserializationHandler
                     //   - GuidDistributeCacheDeserializationHandler
@@ -90,7 +90,17 @@ namespace EdFi.Ods.Features.ExternalCache
                         value = Deserialize(cachedValue);
                     }
 
+                    if (_logger.IsDebugEnabled)
+                    {
+                        _logger.Debug($"[External] Distributed (L2) cache hit for key '{keyAsString}'.");
+                    }
+
                     return true;
+                }
+
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"[External] Distributed (L2) cache miss for key '{keyAsString}'.");
                 }
 
                 value = null;

@@ -22,24 +22,19 @@ public static class DistributedCacheAvailability
     /// unavailable (the resilience circuit breaker is open, or Redis is unreachable/timing out)
     /// and the operation should be treated as a cache miss/no-op instead of a hard failure.
     /// </summary>
+    /// <remarks>
+    /// Classification is by known exception type only — deliberately not by message text. Callers
+    /// wrap serialization/deserialization in the same try block, so matching on message content
+    /// (e.g. "timeout"/"connection") risks misclassifying a genuine application bug as a transient
+    /// cache failure and silently swallowing it as a miss/no-op.
+    /// </remarks>
     /// <param name="ex">The exception thrown by a distributed-cache operation.</param>
     public static bool IsUnavailable(Exception ex)
     {
-        if (ex is BrokenCircuitException)
-        {
-            return true;
-        }
-
-        if (ex is TimeoutException or OperationCanceledException
-            or RedisConnectionException or RedisTimeoutException)
-        {
-            return true;
-        }
-
-        string message = ex.Message.ToLowerInvariant();
-
-        return message.Contains("timeout")
-            || message.Contains("connection")
-            || message.Contains("unavailable");
+        return ex is BrokenCircuitException
+            or TimeoutException
+            or OperationCanceledException
+            or RedisConnectionException
+            or RedisTimeoutException;
     }
 }

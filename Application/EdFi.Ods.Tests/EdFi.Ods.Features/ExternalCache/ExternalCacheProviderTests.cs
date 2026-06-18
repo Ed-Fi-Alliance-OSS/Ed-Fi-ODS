@@ -154,14 +154,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.ExternalCache
             {
                 AssertHelper.All(
                     () => DistributedCacheAvailability.IsUnavailable(new TimeoutException()).ShouldBeTrue(),
+                    () => DistributedCacheAvailability.IsUnavailable(new OperationCanceledException()).ShouldBeTrue(),
                     () => DistributedCacheAvailability.IsUnavailable(new RedisTimeoutException("timed out", CommandStatus.Unknown)).ShouldBeTrue(),
-                    () => DistributedCacheAvailability.IsUnavailable(new Exception("No connection is available")).ShouldBeTrue());
+                    () => DistributedCacheAvailability.IsUnavailable(new RedisConnectionException(ConnectionFailureType.UnableToConnect, "no connection")).ShouldBeTrue());
             }
 
             [Test]
             public void Should_treat_a_generic_error_as_a_genuine_failure()
             {
-                DistributedCacheAvailability.IsUnavailable(new InvalidOperationException("boom")).ShouldBeFalse();
+                // Classification is by type, not message text: a non-cache exception whose message merely
+                // contains words like "connection" must NOT be swallowed as a transient cache failure.
+                AssertHelper.All(
+                    () => DistributedCacheAvailability.IsUnavailable(new InvalidOperationException("boom")).ShouldBeFalse(),
+                    () => DistributedCacheAvailability.IsUnavailable(new InvalidOperationException("connection reset by a bug")).ShouldBeFalse());
             }
         }
     }

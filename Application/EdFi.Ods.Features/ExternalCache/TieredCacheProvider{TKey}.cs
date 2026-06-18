@@ -7,6 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Caching;
+using log4net;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
 
@@ -19,6 +20,7 @@ namespace EdFi.Ods.Features.ExternalCache;
 public class TieredCacheProvider<TKey> : ICacheProvider<TKey>, IAsyncCacheProvider<TKey>, IClearable
 {
     private static readonly object NullValue = new();
+    private static readonly ILog _logger = LogManager.GetLogger(typeof(TieredCacheProvider<TKey>));
 
     private readonly IMemoryCache _memoryCache;
     private readonly ICacheProvider<TKey> _distributedCacheProvider;
@@ -65,13 +67,29 @@ public class TieredCacheProvider<TKey> : ICacheProvider<TKey>, IAsyncCacheProvid
     {
         if (TryGetLocalCacheValue(key, out value))
         {
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"[Hybrid] L1 (in-memory) cache hit for key '{key}'.");
+            }
+
             return true;
         }
 
         if (_distributedCacheProvider.TryGetCachedObject(key, out value))
         {
             SetLocalCacheValue(key, value);
+
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"[Hybrid] L1 miss; L2 (external) cache hit for key '{key}'; populated L1.");
+            }
+
             return true;
+        }
+
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug($"[Hybrid] L1/L2 cache miss for key '{key}'.");
         }
 
         value = null;
@@ -97,6 +115,11 @@ public class TieredCacheProvider<TKey> : ICacheProvider<TKey>, IAsyncCacheProvid
     {
         if (TryGetLocalCacheValue(key, out var value))
         {
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"[Hybrid] L1 (in-memory) cache hit for key '{key}'.");
+            }
+
             return (true, value);
         }
 
@@ -107,6 +130,15 @@ public class TieredCacheProvider<TKey> : ICacheProvider<TKey>, IAsyncCacheProvid
         if (result.found)
         {
             SetLocalCacheValue(key, result.value);
+
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"[Hybrid] L1 miss; L2 (external) cache hit for key '{key}'; populated L1.");
+            }
+        }
+        else if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug($"[Hybrid] L1/L2 cache miss for key '{key}'.");
         }
 
         return result;
