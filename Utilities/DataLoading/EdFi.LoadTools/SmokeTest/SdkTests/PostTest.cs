@@ -166,16 +166,15 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             return ResourceApi.PostMethod;
         }
 
-        protected override bool CheckResult(dynamic result, object[] requestParameters)
+        private protected override bool CheckResult(SdkOperationResponse response, object[] requestParameters)
         {
-            if (result.StatusCode != HttpStatusCode.Created)
+            if (response.StatusCode != HttpStatusCode.Created)
             {
                 Log.Error("Unable to create the resource since a resource with the same key already exists. If the underlying ODS already has data, this might be a randomly-generated key collision.");
                 return false;
             }
 
-            // Get Location header using TryGetValues (new SDK approach)
-            if (result.Headers.TryGetValues("Location", out System.Collections.Generic.IEnumerable<string> locationValues))
+            if (response.TryGetHeader("Location", out var locationValues))
             {
                 var locationString = locationValues.FirstOrDefault();
                 if (!string.IsNullOrEmpty(locationString))
