@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using EdFi.LoadTools.Engine;
 using log4net;
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
@@ -15,15 +16,22 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
     public abstract class BaseBuilder : IPropertyBuilder
     {
         protected static readonly Random Random = new Random(1);
-        private int _counter = 1000; // Start at 1000 to avoid colliding with existing EdOrgIds if running on the populated template
+        private const int DefaultNumericFallbackStart = 1;
+        private int _defaultNumericFallbackValue = DefaultNumericFallbackStart;
+        private readonly int _defaultNumericFallbackMax;
         private readonly int _defaultStringLength = 7;
         private readonly IPropertyInfoMetadataLookup _metadataLookup;
 
         protected virtual ILog Log => LogManager.GetLogger(GetType().Name);
 
-        protected BaseBuilder(IPropertyInfoMetadataLookup metadataLookup)
+        protected BaseBuilder(
+            IPropertyInfoMetadataLookup metadataLookup,
+            int defaultNumericFallbackMax = DestructiveTestConfigurationDefaults.DefaultNumericFallbackMax)
         {
             _metadataLookup = metadataLookup;
+            _defaultNumericFallbackMax = defaultNumericFallbackMax > 0
+                ? defaultNumericFallbackMax
+                : DestructiveTestConfigurationDefaults.DefaultNumericFallbackMax;
         }
 
         bool IPropertyBuilder.BuildProperty(object obj, PropertyInfo propertyInfo)
@@ -90,6 +98,43 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             return parameter.Required;
         }
 
+        /// <summary>
+        ///     Returns true only when OpenAPI publishes a <c>Maximum</c> that actually parses. This mirrors what
+        ///     <see cref="BuildRandomNumber" /> can honor: a parseable maximum produces a bounded or max-only value,
+        ///     whereas a min-only, empty, or unparseable bound falls back to the generic numeric range. Callers that
+        ///     need to know whether deferring to the generic numeric builder will respect a real ceiling should use
+        ///     this rather than treating any non-empty bound string as published bounds.
+        /// </summary>
+        protected bool HasParseableMaximum(PropertyInfo propertyInfo)
+        {
+            var schema = _metadataLookup.GetMetadata(propertyInfo).Schema;
+
+            return schema != null
+                   && !string.IsNullOrEmpty(schema.Maximum)
+                   && decimal.TryParse(schema.Maximum, out _);
+        }
+
+        /// <summary>
+        ///     Attempts to read a published <c>Minimum</c> that parses, clamped to the int range used by the numeric
+        ///     builders. Returns false for empty or unparseable minimums so callers can fall back to their own range.
+        /// </summary>
+        protected bool TryGetParseableMinimum(PropertyInfo propertyInfo, out int minimum)
+        {
+            minimum = 0;
+
+            var schema = _metadataLookup.GetMetadata(propertyInfo).Schema;
+
+            if (schema == null
+                || string.IsNullOrEmpty(schema.Minimum)
+                || !decimal.TryParse(schema.Minimum, out var value))
+            {
+                return false;
+            }
+
+            minimum = (int)decimal.Max(decimal.Min(value, int.MaxValue), int.MinValue);
+            return true;
+        }
+
         protected int BuildRandomNumber(PropertyInfo propertyInfo)
         {
             var parameter = _metadataLookup.GetMetadata(propertyInfo);
@@ -109,7 +154,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             }
             else if (hasMinimum)
             {
-                var min = decimal.Max(minValue, _counter++);
+                var min = decimal.Max(minValue, NextDefaultNumericFallback());
 
                 return (int)min;
             }
@@ -119,8 +164,19 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             }
             else
             {
-                return _counter++;
+                return NextDefaultNumericFallback();
             }
+        }
+
+        private int NextDefaultNumericFallback()
+        {
+            var value = _defaultNumericFallbackValue;
+
+            _defaultNumericFallbackValue = _defaultNumericFallbackValue >= _defaultNumericFallbackMax
+                ? DefaultNumericFallbackStart
+                : _defaultNumericFallbackValue + 1;
+
+            return value;
         }
     }
 }

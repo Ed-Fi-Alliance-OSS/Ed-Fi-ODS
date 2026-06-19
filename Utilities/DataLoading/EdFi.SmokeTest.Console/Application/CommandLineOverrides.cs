@@ -48,6 +48,11 @@ namespace EdFi.SmokeTest.Console.Application
         [Option('c', "sdknamespaceprefix", Required = false, HelpText = "The Test SDK Configuration Namespace Prefix")]
         public string SdkNamespacePrefix { get; set; }
 
+        [Option(
+            "defaultNumericFallbackMax", Required = false,
+            HelpText = "Maximum value used for required numeric properties when OpenAPI does not publish minimum or maximum bounds.")]
+        public int? DefaultNumericFallbackMax { get; set; }
+
         public static IDictionary<string, string> SwitchingMapping()
             => new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
@@ -72,7 +77,8 @@ namespace EdFi.SmokeTest.Console.Application
                 {"--secret", "OdsApi:Secret"},
                 {"--testset", "TestSet"},
                 {"--baseurl", "OdsApi:Url"},
-                {"--sdkNamespacePrefix", "SdkNamespacePrefix"}
+                {"--sdkNamespacePrefix", "SdkNamespacePrefix"},
+                {"--defaultNumericFallbackMax", "OdsApi:DefaultNumericFallbackMax"}
             };
     }
 }

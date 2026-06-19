@@ -12,7 +12,7 @@
     <Authors>Ed-Fi Alliance</Authors>
     <Company>Ed-Fi Alliance</Company>
     <Product>Ed-Fi Smoke Test Console</Product>
-    <Description>Smoke Test utility for the Ed-Fi ODS/API solution.</Description>
+    <Description>Smoke Test utility for the Ed-Fi ODS/API solution. Destructive SDK tests use OdsApi:DefaultNumericFallbackMax to bound generated values for required numeric fields whose OpenAPI metadata omits numeric constraints.</Description>
     <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/</PackageProjectUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackAsTool>true</PackAsTool>

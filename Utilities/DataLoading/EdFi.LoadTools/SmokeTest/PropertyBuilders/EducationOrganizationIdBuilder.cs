@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using EdFi.LoadTools.Engine;
 
@@ -12,7 +13,27 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
     public class EducationOrganizationIdBuilder : BaseBuilder
     {
+        // EducationOrganization identifier names (and their subtype-specific variants) recognized so that
+        // non-overridden EdOrg ids are generated from an EdOrg-safe range instead of the generic numeric
+        // fallback. Matched as suffixes (case-insensitive) so prefixed forms such as ResponsibilitySchoolId
+        // are also covered.
+        private static readonly string[] EducationOrganizationIdSuffixes =
+        {
+            "EducationOrganizationId",
+            "StateEducationAgencyId",
+            "LocalEducationAgencyId",
+            "EducationServiceCenterId",
+            "SchoolId",
+            "CommunityProviderId",
+            "CommunityOrganizationId",
+            "EducationOrganizationNetworkId",
+            "PostSecondaryInstitutionId",
+            "OrganizationDepartmentId"
+        };
+
         private readonly IReadOnlyDictionary<string, int> _educationOrganizationIdOverrides;
+        private int _educationOrganizationFallbackValue =
+            DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart;
 
         public EducationOrganizationIdBuilder(
             IPropertyInfoMetadataLookup metadataLookup,
@@ -25,14 +46,57 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
         public override bool BuildProperty(object obj, PropertyInfo propertyInfo)
         {
-            if (!_educationOrganizationIdOverrides.ContainsKey(propertyInfo.Name))
+            if (_educationOrganizationIdOverrides.ContainsKey(propertyInfo.Name))
             {
-                // EdOrg ids that aren't relevant for authorization are initialized in the SimplePropertyBuilder
-                return false;
+                // Convert the configured (int) override to the property's underlying numeric type so nullable
+                // long/double EdOrg ids accept it instead of throwing on the boxed int, matching the
+                // non-overridden path below.
+                var overrideTargetType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+
+                propertyInfo.SetValue(
+                    obj, Convert.ChangeType(_educationOrganizationIdOverrides[propertyInfo.Name], overrideTargetType));
+                return true;
             }
 
-            propertyInfo.SetValue(obj, _educationOrganizationIdOverrides[propertyInfo.Name]);
-            return true;
+            // Non-overridden EdOrg ids are not relevant for authorization, but they still must avoid
+            // colliding with EdOrg ids that already exist on a populated template. Generate them from the
+            // dedicated EdOrg-safe range here rather than letting them fall through to the generic
+            // 1..DefaultNumericFallbackMax fallback in SimplePropertyBuilder, which is sized for capped decimals.
+            if (IsRequired(propertyInfo)
+                && IsEducationOrganizationId(propertyInfo.Name)
+                && (IsTypeMatch<int>(propertyInfo) || IsTypeMatch<long>(propertyInfo) || IsTypeMatch<double>(propertyInfo)))
+            {
+                // Defer to SimplePropertyBuilder only when OpenAPI publishes a parseable maximum (a bounded or
+                // max-only range) it can actually honor. A min-only bound, or an unparseable Minimum/Maximum
+                // string, leaves SimplePropertyBuilder with the generic 1..DefaultNumericFallbackMax range, which
+                // would reintroduce the populated-template collision risk for EdOrg ids, so those cases stay here.
+                if (HasParseableMaximum(propertyInfo))
+                {
+                    return false;
+                }
+
+                var targetType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+
+                // Honor a published, parseable minimum by advancing the shared counter up to it, so generated
+                // values stay both at-or-above the minimum and monotonic. Clamping each value with Math.Max would
+                // instead return the same minimum on every call until the counter caught up, colliding EdOrg ids.
+                if (TryGetParseableMinimum(propertyInfo, out var minimum)
+                    && _educationOrganizationFallbackValue < minimum)
+                {
+                    _educationOrganizationFallbackValue = minimum;
+                }
+
+                var value = _educationOrganizationFallbackValue++;
+
+                propertyInfo.SetValue(obj, Convert.ChangeType(value, targetType));
+                return true;
+            }
+
+            return false;
         }
+
+        private static bool IsEducationOrganizationId(string propertyName)
+            => EducationOrganizationIdSuffixes.Any(
+                suffix => propertyName.EndsWith(suffix, StringComparison.OrdinalIgnoreCase));
     }
 }
