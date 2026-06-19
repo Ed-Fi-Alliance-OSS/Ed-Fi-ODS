@@ -376,6 +376,8 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 var companion = apiType.GetMethods()
                     .FirstOrDefault(m =>
                         m.Name == candidateName
+                        // Defensive: the exact-name match already excludes OrDefault; kept so a future
+                        // looser name match cannot admit an OrDefault companion.
                         && !m.Name.Contains("OrDefault")
                         && typeof(Task).IsAssignableFrom(m.ReturnType)
                         && ParameterTypesMatch(m, canonicalParameterTypes));

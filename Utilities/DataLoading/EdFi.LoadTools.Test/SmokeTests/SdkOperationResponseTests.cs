@@ -142,6 +142,25 @@ namespace EdFi.LoadTools.Test.SmokeTests
             response.TryGetHeader("Location", out _).ShouldBeFalse();
         }
 
+        [Test]
+        public void New_generator_response_with_null_headers_returns_false_for_location()
+        {
+            // A response object whose Headers property is present but null must not throw and must
+            // report no Location (new-generator POST can carry null headers on non-2xx paths).
+            var raw = new NewGenResponseStub
+            {
+                StatusCode = HttpStatusCode.Created,
+                PayloadValue = new object()
+                // Headers deliberately left null.
+            };
+
+            var response = new SdkOperationResponse(raw);
+
+            response.StatusCode.ShouldBe(HttpStatusCode.Created);
+            response.TryGetHeader("Location", out var values).ShouldBeFalse();
+            values.ShouldBeEmpty();
+        }
+
         // ----- stub response shapes -----
 
         private sealed class NewGenResponseStub
