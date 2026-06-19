@@ -34,6 +34,11 @@ namespace EdFi.LoadTools.SmokeTest
         MethodInfo PutMethod { get; }
 
         MethodInfo DeleteMethod { get; }
+
+        // Returns the method to actually invoke for a canonical verb method: the old-generator
+        // *WithHttpInfoAsync (or *AsyncWithHttpInfo) companion when present on this API type,
+        // otherwise the canonical method (new-generator SDKs).
+        MethodInfo GetExecutionMethod(MethodInfo canonicalMethod);
     }
 
     public interface ISdkCategorizer

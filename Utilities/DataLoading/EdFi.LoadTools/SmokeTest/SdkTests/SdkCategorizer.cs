@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using EdFi.LoadTools.Engine;
 
 namespace EdFi.LoadTools.SmokeTest.SdkTests
@@ -293,7 +294,18 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             DeleteMethod = SingleVerb(
                 methods, apiType, modelType, "DELETE",
                 m => m.Name.StartsWith("Delete") && !m.Name.StartsWith("Deletes"));
+
+            _executionMethods = new Dictionary<MethodInfo, MethodInfo>();
+            foreach (var canonical in new[] { GetAllMethod, GetByIdMethod, PostMethod, PutMethod, DeleteMethod })
+            {
+                if (canonical != null)
+                {
+                    _executionMethods[canonical] = ResolveExecutionMethod(apiType, canonical);
+                }
+            }
         }
+
+        private readonly Dictionary<MethodInfo, MethodInfo> _executionMethods;
 
         public Type ApiType { get; }
 
@@ -328,6 +340,73 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             }
 
             return matches.Count == 1 ? matches[0] : null;
+        }
+
+        // Returns the WithHttpInfo execution companion resolved at construction, or the canonical
+        // method itself when none applies (new-generator SDKs, or an unmapped method).
+        public MethodInfo GetExecutionMethod(MethodInfo canonicalMethod)
+        {
+            if (canonicalMethod == null)
+            {
+                return null;
+            }
+
+            return _executionMethods.TryGetValue(canonicalMethod, out var executionMethod)
+                ? executionMethod
+                : canonicalMethod;
+        }
+
+        // Resolves the old-generator async WithHttpInfo companion for a canonical "<stem>Async"
+        // method, or returns the canonical method when none qualifies. Strict: same API type, exact
+        // candidate name (WithHttpInfoAsync preferred, then AsyncWithHttpInfo), async (Task-returning),
+        // non-OrDefault, and an identical positional parameter-type sequence. No broad matching and no
+        // synchronous WithHttpInfo variant.
+        private static MethodInfo ResolveExecutionMethod(Type apiType, MethodInfo canonicalMethod)
+        {
+            if (!canonicalMethod.Name.EndsWith("Async", StringComparison.Ordinal))
+            {
+                return canonicalMethod;
+            }
+
+            var stem = canonicalMethod.Name.Substring(0, canonicalMethod.Name.Length - "Async".Length);
+            var canonicalParameterTypes = canonicalMethod.GetParameters().Select(p => p.ParameterType).ToArray();
+
+            foreach (var candidateName in new[] { stem + "WithHttpInfoAsync", stem + "AsyncWithHttpInfo" })
+            {
+                var companion = apiType.GetMethods()
+                    .FirstOrDefault(m =>
+                        m.Name == candidateName
+                        && !m.Name.Contains("OrDefault")
+                        && typeof(Task).IsAssignableFrom(m.ReturnType)
+                        && ParameterTypesMatch(m, canonicalParameterTypes));
+
+                if (companion != null)
+                {
+                    return companion;
+                }
+            }
+
+            return canonicalMethod;
+        }
+
+        private static bool ParameterTypesMatch(MethodInfo candidate, IReadOnlyList<Type> canonicalParameterTypes)
+        {
+            var candidateParameters = candidate.GetParameters();
+
+            if (candidateParameters.Length != canonicalParameterTypes.Count)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < candidateParameters.Length; i++)
+            {
+                if (candidateParameters[i].ParameterType != canonicalParameterTypes[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private static string Describe(Type type) => type?.FullName ?? "(unknown)";
