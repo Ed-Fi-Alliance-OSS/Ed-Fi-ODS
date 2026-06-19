@@ -616,9 +616,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Test]
         public void EducationOrganizationIdBuilder_should_honor_published_minimum_above_the_edorg_safe_start()
         {
-            // When a parseable minimum exceeds the EdOrg-safe start, the generated value must honor it while
-            // staying monotonic, i.e. max(nextEdOrgFallback, parsedMinimum).
-            var obj = new Class1();
+            // When a parseable minimum exceeds the EdOrg-safe start, generated values must honor it while staying
+            // monotonic across calls. A single call masks the bug; multiple EdOrg ids must not collide on the
+            // minimum, so consecutive values have to advance past it rather than repeat it.
             var propInfo = typeof(Class1).GetProperty("schoolId");
 
             const int publishedMinimum = DestructiveTestConfigurationDefaults.EducationOrganizationFallbackStart + 50000;
@@ -636,8 +636,20 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var builder = new EducationOrganizationIdBuilder(lookup, configuration);
 
-            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
-            Assert.AreEqual(publishedMinimum, obj.schoolId.Value);
+            var values = Enumerable.Range(0, 3)
+                .Select(
+                    _ =>
+                    {
+                        var obj = new Class1();
+
+                        Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+
+                        return obj.schoolId.Value;
+                    })
+                .ToArray();
+
+            Assert.AreEqual(new[] { publishedMinimum, publishedMinimum + 1, publishedMinimum + 2 }, values);
+            Assert.IsTrue(values.All(v => v >= publishedMinimum));
         }
 
         [Test]
@@ -727,6 +739,72 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.AreEqual(255901d, obj.educationOrganizationId.Value);
+        }
+
+        [Test]
+        public void Builder_chain_should_set_nullable_long_edorg_id_when_deferred_with_published_maximum()
+        {
+            // A long? EdOrg id that publishes a parseable maximum defers to SimplePropertyBuilder, which must set
+            // the value as the property's underlying type rather than throwing on a boxed int.
+            var propInfo = typeof(Class1).GetProperty("localEducationAgencyId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema { Maximum = "100" }
+                });
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides).Returns(new Dictionary<string, int>());
+            A.CallTo(() => configuration.DefaultNumericFallbackMax).Returns(5);
+            A.CallTo(() => configuration.UnifiedProperties).Returns(Array.Empty<string>());
+
+            var builders = new IPropertyBuilder[]
+            {
+                new EducationOrganizationIdBuilder(lookup, configuration),
+                new SimplePropertyBuilder(lookup, configuration)
+            };
+
+            var obj = new Class1();
+
+            Assert.IsTrue(builders.Any(b => b.BuildProperty(obj, propInfo)));
+            Assert.IsTrue(obj.localEducationAgencyId.HasValue);
+            Assert.AreEqual(100L, obj.localEducationAgencyId.Value);
+        }
+
+        [Test]
+        public void Builder_chain_should_set_nullable_double_edorg_id_when_deferred_with_published_maximum()
+        {
+            // A double? EdOrg id that publishes a parseable maximum defers to SimplePropertyBuilder, which must set
+            // the value as the property's underlying type rather than throwing on a boxed int.
+            var propInfo = typeof(Class1).GetProperty("educationOrganizationId");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema { Maximum = "100" }
+                });
+
+            var configuration = A.Fake<IDestructiveTestConfiguration>();
+            A.CallTo(() => configuration.EducationOrganizationIdOverrides).Returns(new Dictionary<string, int>());
+            A.CallTo(() => configuration.DefaultNumericFallbackMax).Returns(5);
+            A.CallTo(() => configuration.UnifiedProperties).Returns(Array.Empty<string>());
+
+            var builders = new IPropertyBuilder[]
+            {
+                new EducationOrganizationIdBuilder(lookup, configuration),
+                new SimplePropertyBuilder(lookup, configuration)
+            };
+
+            var obj = new Class1();
+
+            Assert.IsTrue(builders.Any(b => b.BuildProperty(obj, propInfo)));
+            Assert.IsTrue(obj.educationOrganizationId.HasValue);
+            Assert.AreEqual(100d, obj.educationOrganizationId.Value);
         }
 
 #endregion

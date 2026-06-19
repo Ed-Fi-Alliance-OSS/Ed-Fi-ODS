@@ -76,13 +76,17 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                 }
 
                 var targetType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
-                var value = _educationOrganizationFallbackValue++;
 
-                // Honor a published, parseable minimum while keeping values monotonic within the EdOrg-safe range.
-                if (TryGetParseableMinimum(propertyInfo, out var minimum))
+                // Honor a published, parseable minimum by advancing the shared counter up to it, so generated
+                // values stay both at-or-above the minimum and monotonic. Clamping each value with Math.Max would
+                // instead return the same minimum on every call until the counter caught up, colliding EdOrg ids.
+                if (TryGetParseableMinimum(propertyInfo, out var minimum)
+                    && _educationOrganizationFallbackValue < minimum)
                 {
-                    value = Math.Max(value, minimum);
+                    _educationOrganizationFallbackValue = minimum;
                 }
+
+                var value = _educationOrganizationFallbackValue++;
 
                 propertyInfo.SetValue(obj, Convert.ChangeType(value, targetType));
                 return true;
