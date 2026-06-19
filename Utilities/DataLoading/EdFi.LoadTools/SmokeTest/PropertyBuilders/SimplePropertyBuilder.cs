@@ -20,7 +20,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         private readonly Dictionary<string, object> _unifiedKeyValue;
 
         public SimplePropertyBuilder(IPropertyInfoMetadataLookup metadataLookup, IDestructiveTestConfiguration configuration)
-            : base(metadataLookup)
+            : base(metadataLookup, configuration.DefaultNumericFallbackMax)
         {
             _unifiedKeyValue = new(
                 configuration.UnifiedProperties.Distinct(StringComparer.OrdinalIgnoreCase)
@@ -39,7 +39,12 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             {
                 if (IsRequired(propertyInfo))
                 {
-                    propertyInfo.SetValue(obj, GetOrAdd(propertyInfo.Name, BuildRandomNumber(propertyInfo)));
+                    // BuildRandomNumber yields an int; convert it to the property's underlying numeric type so
+                    // nullable long/double properties accept it instead of throwing on the boxed int.
+                    var targetType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+
+                    propertyInfo.SetValue(
+                        obj, Convert.ChangeType(GetOrAdd(propertyInfo.Name, BuildRandomNumber(propertyInfo)), targetType));
                 }
 
                 return true;

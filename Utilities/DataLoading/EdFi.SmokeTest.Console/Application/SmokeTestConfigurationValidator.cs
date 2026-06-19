@@ -68,12 +68,18 @@ namespace EdFi.SmokeTest.Console.Application
                    (_configuration.UnifiedProperties != null && _configuration.UnifiedProperties.Any());
         }
 
+        private bool ValidDefaultNumericFallbackMax
+        {
+            get => _configuration.DefaultNumericFallbackMax > 0;
+        }
+
         public string ErrorText { get; private set; }
 
         public bool IsValid()
         {
             var isValid = ValidApiUrl && ValidOAuthUrl && ValidMetadataUrl && ValidXsdMetadataUrl && ValidSdkLibraryPath &&
-                          ValidNamespacePrefix && ValidEducationOrganizationIdOverrides && ValidUnifiedProperties;
+                          ValidNamespacePrefix && ValidEducationOrganizationIdOverrides && ValidUnifiedProperties &&
+                          ValidDefaultNumericFallbackMax;
 
             if (!isValid)
             {
@@ -125,6 +131,11 @@ namespace EdFi.SmokeTest.Console.Application
             if (!ValidUnifiedProperties)
             {
                 sb.AppendLine("UnifiedProperties is required");
+            }
+
+            if (!ValidDefaultNumericFallbackMax)
+            {
+                sb.AppendLine("OdsApi:DefaultNumericFallbackMax must be greater than zero.");
             }
 
             return sb.ToString();
