@@ -96,7 +96,7 @@ public class AsyncExternalCacheProvider<TKey>(
         {
             // A failed cache write must not fail the request — skip caching when the cache is
             // temporarily unavailable (open circuit breaker or Redis connectivity failure).
-            _logger.Warn($"Distributed cache unavailable; skipping the cache write for key '{CacheKeyLogSanitizer.Redact(key)}'.", ex);
+            _logger.Warn("Distributed cache unavailable; skipping the cache write.", ex);
         }
         catch (Exception ex)
         {
@@ -124,7 +124,7 @@ public class AsyncExternalCacheProvider<TKey>(
         }
         catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
         {
-            _logger.Warn($"Distributed cache unavailable; skipping the cache write for key '{CacheKeyLogSanitizer.Redact(key)}'.", ex);
+            _logger.Warn("Distributed cache unavailable; skipping the cache write.", ex);
         }
         catch (Exception ex)
         {
