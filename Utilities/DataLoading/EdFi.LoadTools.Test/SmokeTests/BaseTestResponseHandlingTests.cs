@@ -149,6 +149,47 @@ namespace EdFi.LoadTools.Test.SmokeTests
             InvokeCheckResult(getAll, response, EmptyParams).ShouldBeFalse();
         }
 
+        [Test]
+        public async Task Put_setup_over_old_generator_api_uses_getbyid_withhttpinfo_payload()
+        {
+            var resourceApi = SdkCategorizer.BuildResourceApis(typeof(FakeOldGenApi)).Single();
+
+            // DMS-1226 changes the PUT setup path: PutTest.GetParams calls BaseTest.GetResourceFromUri,
+            // which resolves the GET-by-id EXECUTION method. For an old-generator SDK that must be the
+            // WithHttpInfoAsync companion so ApiResponse.Data (not a bare-payload binder crash) is used.
+            // A regression there still passes the canned-response CheckResult tests but breaks the
+            // destructive SDK sweep during PUT parameter construction - this test guards that path.
+            resourceApi.GetExecutionMethod(resourceApi.GetByIdMethod)
+                .Name.ShouldBe("GetFakeModelsByIdWithHttpInfoAsync");
+
+            var results = new Dictionary<string, List<object>>
+            {
+                // PUT inherits BaseTest.NoDataAvailableForTheResource (GetResult() == null); seed it so
+                // PerformTest is not skipped before the PUT setup path runs.
+                [nameof(FakeModel)] = new List<object> { new FakeModel() }
+            };
+            var created = new Dictionary<string, Uri>
+            {
+                // Seed the created URI as a successful POST would, so GetParams proceeds.
+                [nameof(FakeModel)] = new Uri("http://api/fakemodels/42")
+            };
+
+            var put = new PutTest(resourceApi, results, created, LegacyConfigurationFactory());
+
+            // GetParams -> GetResourceFromUri invokes the resolved GET-by-id execution method and
+            // returns its ApiResponse.Data as the PUT model parameter.
+            var @params = InvokeGetParams(put, resourceApi.GetExecutionMethod(resourceApi.PutMethod));
+
+            @params.ShouldNotBeNull();
+            @params.Length.ShouldBeGreaterThanOrEqualTo(2);
+            @params[0].ShouldBe("42"); // id parsed from the seeded URI
+            // The PUT model is the WithHttpInfoAsync GET-by-id payload, not the bare method's payload.
+            @params[1].ShouldBeSameAs(FakeOldGenApi.ByIdWithHttpInfoModel);
+
+            // Full end-to-end: the PUT completes with 204 NoContent via the WithHttpInfoAsync companion.
+            (await put.PerformTest()).ShouldBeTrue();
+        }
+
         // ----- helpers -----
 
         private static readonly object[] EmptyParams = Array.Empty<object>();
@@ -194,6 +235,21 @@ namespace EdFi.LoadTools.Test.SmokeTests
             }
         }
 
+        private static object[] InvokeGetParams(BaseTest test, MethodInfo methodInfo)
+        {
+            var method = test.GetType().GetMethod("GetParams", BindingFlags.Instance | BindingFlags.NonPublic);
+            method.ShouldNotBeNull();
+
+            try
+            {
+                return (object[]) method.Invoke(test, new object[] { methodInfo });
+            }
+            catch (TargetInvocationException ex) when (ex.InnerException != null)
+            {
+                throw ex.InnerException;
+            }
+        }
+
         // ----- fake SDK shapes (public so cross-assembly Activator/DI construction works) -----
 
         public sealed class FakeModel { }
@@ -225,6 +281,13 @@ namespace EdFi.LoadTools.Test.SmokeTests
         // plus WithHttpInfoAsync companions returning StubApiResponse<T>.
         public sealed class FakeOldGenApi
         {
+            // Distinct sentinel payloads for the two GET-by-id variants so a test can prove which one
+            // the changed PUT setup path resolved: the WithHttpInfoAsync companion (old-generator) must
+            // win so ApiResponse.Data - not a bare-payload binder crash - flows into the PUT model.
+            public static readonly FakeModel ByIdWithHttpInfoModel = new();
+
+            public static readonly FakeModel ByIdBareModel = new();
+
             public FakeOldGenApi(FakeOldGenConfig config)
             {
                 _ = config;
@@ -236,10 +299,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
             public Task<StubApiResponse<List<FakeModel>>> GetFakeModelsWithHttpInfoAsync() =>
                 Task.FromResult(new StubApiResponse<List<FakeModel>>(200, new List<FakeModel> { new() }));
 
-            public Task<FakeModel> GetFakeModelsByIdAsync(string id) => Task.FromResult(new FakeModel());
+            public Task<FakeModel> GetFakeModelsByIdAsync(string id) => Task.FromResult(ByIdBareModel);
 
             public Task<StubApiResponse<FakeModel>> GetFakeModelsByIdWithHttpInfoAsync(string id) =>
-                Task.FromResult(new StubApiResponse<FakeModel>(200, new FakeModel()));
+                Task.FromResult(new StubApiResponse<FakeModel>(200, ByIdWithHttpInfoModel));
 
             public Task<FakeModel> PostFakeModelAsync(FakeModel model) => Task.FromResult(model);
 
