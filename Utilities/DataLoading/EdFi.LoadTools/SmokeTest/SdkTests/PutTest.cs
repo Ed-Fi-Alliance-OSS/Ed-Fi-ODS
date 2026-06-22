@@ -51,7 +51,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             return ResourceApi.PutMethod;
         }
 
-        protected override bool CheckResult(dynamic result, object[] requestParameters)
-            => result.StatusCode == HttpStatusCode.NoContent;
+        private protected override bool CheckResult(SdkOperationResponse response, object[] requestParameters)
+            => response.StatusCode == HttpStatusCode.NoContent;
     }
 }

@@ -40,11 +40,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             using (LogicalThreadContext.Stacks["NDC"]
                 .Push(ResourceApi.Name))
             {
-                dynamic result = null;
+                var canonicalMethod = GetMethodInfo();
 
-                var methodInfo = GetMethodInfo();
-
-                if (methodInfo == null)
+                if (canonicalMethod == null)
                 {
                     Log.Error($"Unable to find method info for {ResourceApi.Name}.");
                     return false;
@@ -62,6 +60,10 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                     return true;
                 }
 
+                // Old-generator mode: invoke the *WithHttpInfoAsync companion so the result carries
+                // status/headers/data. New-generator mode: this returns the canonical method unchanged.
+                var methodInfo = ResourceApi.GetExecutionMethod(canonicalMethod);
+
                 var @params = GetParams(methodInfo);
 
                 if (@params == null)
@@ -70,6 +72,8 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                     return false;
                 }
 
+                SdkOperationResponse response;
+
                 try
                 {
                     var api = GetApiInstance();
@@ -77,25 +81,23 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
                     var taskResult = methodInfo.Invoke(api, @params);
 
-                    // The SDK methods return Task<IResponse>, so we need to await them
+                    object raw;
                     if (taskResult is Task task)
                     {
                         await task;
-                        // Get the Result property from the completed task
-                        var resultProperty = task.GetType().GetProperty("Result");
-                        if (resultProperty != null)
-                        {
-                            result = resultProperty.GetValue(task);
-                            Log.Debug($"Response status: {result.StatusCode}, Raw content length: {result.RawContent?.Length ?? 0}");
-                            if (result.StatusCode == HttpStatusCode.NotFound && !string.IsNullOrEmpty(result.RawContent))
-                            {
-                                Log.Debug($"404 Response content: {result.RawContent}");
-                            }
-                        }
+                        raw = task.GetType().GetProperty("Result")?.GetValue(task);
                     }
                     else
                     {
-                        result = taskResult;
+                        raw = taskResult;
+                    }
+
+                    response = new SdkOperationResponse(raw);
+
+                    Log.Debug($"Response status: {response.StatusCode}, Raw content length: {response.RawContent?.Length ?? 0}");
+                    if (response.StatusCode == HttpStatusCode.NotFound && !string.IsNullOrEmpty(response.RawContent))
+                    {
+                        Log.Debug($"404 Response content: {response.RawContent}");
                     }
                 }
                 catch (Exception e)
@@ -112,9 +114,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                     return false;
                 }
 
-                var responseStatusCode = (HttpStatusCode) result.StatusCode;
+                var responseStatusCode = response.StatusCode;
 
-                if (IsExpectedResponse(responseStatusCode) && CheckResult(result, @params))
+                if (IsExpectedResponse(responseStatusCode) && CheckResult(response, @params))
                 {
                     Log.Info($"{(int) responseStatusCode} {responseStatusCode}");
                     return true;
@@ -129,7 +131,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         protected abstract object[] GetParams(MethodInfo methodInfo);
 
-        protected virtual bool CheckResult(dynamic result, object[] requestParameters)
+        private protected virtual bool CheckResult(SdkOperationResponse response, object[] requestParameters)
         {
             return true;
         }
@@ -224,7 +226,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
         protected async Task<object> GetResourceFromUri(Uri resourceUri)
         {
             var api = GetApiInstance();
-            var getByIdMethod = ResourceApi.GetByIdMethod;
+            var getByIdMethod = ResourceApi.GetExecutionMethod(ResourceApi.GetByIdMethod);
             var id = Path.GetFileName(resourceUri.ToString());
 
             var @params = new object[] {id}
@@ -235,21 +237,14 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             {
                 var taskResult = getByIdMethod.Invoke(api, @params);
 
-                // The SDK methods return Task<IResponse>, so we need to await them
                 if (taskResult is Task task)
                 {
                     await task;
-                    // Get the Result property from the completed task
-                    var resultProperty = task.GetType().GetProperty("Result");
-                    if (resultProperty != null)
-                    {
-                        dynamic result = resultProperty.GetValue(task);
-                        // The new SDK uses Ok() method instead of Data property
-                        return result.Ok();
-                    }
+                    var raw = task.GetType().GetProperty("Result")?.GetValue(task);
+                    return new SdkOperationResponse(raw).Payload;
                 }
 
-                return null;
+                return new SdkOperationResponse(taskResult).Payload;
             }
             catch (Exception e)
             {

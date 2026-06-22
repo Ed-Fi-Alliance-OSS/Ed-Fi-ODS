@@ -208,6 +208,75 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .ToDictionary(api => api.ModelType.Name, StringComparer.OrdinalIgnoreCase));
         }
 
+        [Test]
+        public void Old_generator_api_resolves_the_WithHttpInfoAsync_companion_for_every_verb()
+        {
+            var api = SdkCategorizer.BuildResourceApis(typeof(OldGeneratorStyleApi)).Single();
+
+            api.GetExecutionMethod(api.GetAllMethod).Name.ShouldBe("GetOldGenModelsWithHttpInfoAsync");
+            api.GetExecutionMethod(api.GetByIdMethod).Name.ShouldBe("GetOldGenModelsByIdWithHttpInfoAsync");
+            api.GetExecutionMethod(api.PostMethod).Name.ShouldBe("PostOldGenModelWithHttpInfoAsync");
+            api.GetExecutionMethod(api.PutMethod).Name.ShouldBe("PutOldGenModelWithHttpInfoAsync");
+            api.GetExecutionMethod(api.DeleteMethod).Name.ShouldBe("DeleteOldGenModelByIdWithHttpInfoAsync");
+        }
+
+        [Test]
+        public void Old_generator_grouping_is_unchanged_by_WithHttpInfo_support()
+        {
+            // The bare CRUD methods still group into exactly one resource with one method per verb;
+            // the WithHttpInfo companions are excluded from grouping, so no duplicate-verb throw.
+            var resources = Should.NotThrow(
+                () => SdkCategorizer.BuildResourceApis(typeof(OldGeneratorStyleApi)).ToList());
+
+            resources.Count.ShouldBe(1);
+            resources[0].ModelType.Name.ShouldBe(nameof(OldGenModel));
+            resources[0].GetAllMethod.Name.ShouldBe("GetOldGenModelsAsync"); // canonical unchanged
+        }
+
+        [Test]
+        public void Legacy_AsyncWithHttpInfo_suffix_is_also_resolved()
+        {
+            var api = SdkCategorizer.BuildResourceApis(typeof(OldGeneratorLegacySuffixApi)).Single();
+
+            api.GetExecutionMethod(api.GetAllMethod).Name.ShouldBe("GetOldGenModelsAsyncWithHttpInfo");
+            api.GetExecutionMethod(api.PostMethod).Name.ShouldBe("PostOldGenModelAsyncWithHttpInfo");
+        }
+
+        [Test]
+        public void WithHttpInfoAsync_is_preferred_over_AsyncWithHttpInfo_when_both_exist()
+        {
+            var api = SdkCategorizer.BuildResourceApis(typeof(OldGeneratorBothSuffixesApi)).Single();
+
+            api.GetExecutionMethod(api.GetAllMethod).Name.ShouldBe("GetOldGenModelsWithHttpInfoAsync");
+        }
+
+        [Test]
+        public void New_generator_api_without_companions_resolves_the_canonical_method()
+        {
+            var api = CreateCategorizer().ResourceApis.First(a => a.ApiType == typeof(StubStudentsApi));
+
+            api.GetExecutionMethod(api.GetAllMethod).ShouldBeSameAs(api.GetAllMethod);
+            api.GetExecutionMethod(api.PostMethod).ShouldBeSameAs(api.PostMethod);
+        }
+
+        [Test]
+        public void Companion_with_an_incompatible_parameter_shape_falls_back_to_canonical()
+        {
+            var api = SdkCategorizer.BuildResourceApis(typeof(OldGeneratorMismatchedCompanionApi)).Single();
+
+            // The same-named companion takes an extra parameter, so it is rejected and the canonical
+            // bare method is used instead.
+            api.GetExecutionMethod(api.GetAllMethod).Name.ShouldBe("GetOldGenModelsAsync");
+        }
+
+        [Test]
+        public void GetExecutionMethod_returns_null_for_a_null_canonical_method()
+        {
+            var api = SdkCategorizer.BuildResourceApis(typeof(OldGeneratorStyleApi)).Single();
+
+            api.GetExecutionMethod(null).ShouldBeNull();
+        }
+
         private static void AssertEachVerbResolvesToOneMethod(IResourceApi api)
         {
             // Previously PostMethod threw when an API type exposed more than one POST.
@@ -241,5 +310,103 @@ namespace EdFi.LoadTools.Test.SmokeTests
         public Task PostStaffAsync(IrregularStaffModel staff) => Task.CompletedTask;
 
         public Task GetPeopleAsync() => Task.CompletedTask;
+    }
+
+    // ----- old-generator-style stubs for GetExecutionMethod (companion resolution) -----
+
+    public class OldGenModel { }
+
+    // Stand-in for openapi-generator ApiResponse<T>: carries status, data and dictionary headers.
+    public class StubApiResponse<T>
+    {
+        public StubApiResponse(int statusCode, T data)
+        {
+            StatusCode = statusCode;
+            Data = data;
+        }
+
+        public int StatusCode { get; }
+
+        public T Data { get; }
+
+        public System.Collections.Generic.IDictionary<string, System.Collections.Generic.IList<string>> Headers { get; }
+            = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IList<string>>();
+    }
+
+    // Old-generator API: bare CRUD async methods (categorized) plus WithHttpInfoAsync companions.
+    public class OldGeneratorStyleApi
+    {
+        public Task<System.Collections.Generic.List<OldGenModel>> GetOldGenModelsAsync() =>
+            Task.FromResult(new System.Collections.Generic.List<OldGenModel>());
+
+        public Task<OldGenModel> GetOldGenModelsByIdAsync(string id) => Task.FromResult(new OldGenModel());
+
+        public Task<OldGenModel> PostOldGenModelAsync(OldGenModel model) => Task.FromResult(model);
+
+        public Task<OldGenModel> PutOldGenModelAsync(string id, OldGenModel model) => Task.FromResult(model);
+
+        public Task DeleteOldGenModelByIdAsync(string id) => Task.CompletedTask;
+
+        public Task<StubApiResponse<System.Collections.Generic.List<OldGenModel>>> GetOldGenModelsWithHttpInfoAsync() =>
+            Task.FromResult(new StubApiResponse<System.Collections.Generic.List<OldGenModel>>(
+                200, new System.Collections.Generic.List<OldGenModel>()));
+
+        public Task<StubApiResponse<OldGenModel>> GetOldGenModelsByIdWithHttpInfoAsync(string id) =>
+            Task.FromResult(new StubApiResponse<OldGenModel>(200, new OldGenModel()));
+
+        public Task<StubApiResponse<OldGenModel>> PostOldGenModelWithHttpInfoAsync(OldGenModel model) =>
+            Task.FromResult(new StubApiResponse<OldGenModel>(201, model));
+
+        public Task<StubApiResponse<OldGenModel>> PutOldGenModelWithHttpInfoAsync(string id, OldGenModel model) =>
+            Task.FromResult(new StubApiResponse<OldGenModel>(204, model));
+
+        public Task<StubApiResponse<object>> DeleteOldGenModelByIdWithHttpInfoAsync(string id) =>
+            Task.FromResult(new StubApiResponse<object>(204, null));
+    }
+
+    // Old-generator API using the older AsyncWithHttpInfo suffix.
+    public class OldGeneratorLegacySuffixApi
+    {
+        public Task<System.Collections.Generic.List<OldGenModel>> GetOldGenModelsAsync() =>
+            Task.FromResult(new System.Collections.Generic.List<OldGenModel>());
+
+        public Task<OldGenModel> PostOldGenModelAsync(OldGenModel model) => Task.FromResult(model);
+
+        public Task<StubApiResponse<System.Collections.Generic.List<OldGenModel>>> GetOldGenModelsAsyncWithHttpInfo() =>
+            Task.FromResult(new StubApiResponse<System.Collections.Generic.List<OldGenModel>>(
+                200, new System.Collections.Generic.List<OldGenModel>()));
+
+        public Task<StubApiResponse<OldGenModel>> PostOldGenModelAsyncWithHttpInfo(OldGenModel model) =>
+            Task.FromResult(new StubApiResponse<OldGenModel>(201, model));
+    }
+
+    // Old-generator API exposing BOTH suffixes for GET-all (WithHttpInfoAsync must win).
+    public class OldGeneratorBothSuffixesApi
+    {
+        public Task<System.Collections.Generic.List<OldGenModel>> GetOldGenModelsAsync() =>
+            Task.FromResult(new System.Collections.Generic.List<OldGenModel>());
+
+        public Task<OldGenModel> PostOldGenModelAsync(OldGenModel model) => Task.FromResult(model);
+
+        public Task<StubApiResponse<System.Collections.Generic.List<OldGenModel>>> GetOldGenModelsWithHttpInfoAsync() =>
+            Task.FromResult(new StubApiResponse<System.Collections.Generic.List<OldGenModel>>(
+                200, new System.Collections.Generic.List<OldGenModel>()));
+
+        public Task<StubApiResponse<System.Collections.Generic.List<OldGenModel>>> GetOldGenModelsAsyncWithHttpInfo() =>
+            Task.FromResult(new StubApiResponse<System.Collections.Generic.List<OldGenModel>>(
+                200, new System.Collections.Generic.List<OldGenModel>()));
+    }
+
+    // Old-generator API whose same-named companion has an incompatible parameter shape.
+    public class OldGeneratorMismatchedCompanionApi
+    {
+        public Task<System.Collections.Generic.List<OldGenModel>> GetOldGenModelsAsync() =>
+            Task.FromResult(new System.Collections.Generic.List<OldGenModel>());
+
+        public Task<OldGenModel> PostOldGenModelAsync(OldGenModel model) => Task.FromResult(model);
+
+        public Task<StubApiResponse<System.Collections.Generic.List<OldGenModel>>> GetOldGenModelsWithHttpInfoAsync(int extra) =>
+            Task.FromResult(new StubApiResponse<System.Collections.Generic.List<OldGenModel>>(
+                200, new System.Collections.Generic.List<OldGenModel>()));
     }
 }

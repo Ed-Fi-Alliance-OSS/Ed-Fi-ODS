@@ -29,16 +29,14 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 .ToArray();
         }
 
-        protected override bool CheckResult(dynamic result, object[] requestParameters)
+        private protected override bool CheckResult(SdkOperationResponse response, object[] requestParameters)
         {
-            // The new SDK uses Ok() method instead of Data property
-            var data = result.Ok();
-
-            if (data != null)
+            if (response.Payload is System.Collections.IEnumerable data)
             {
-                ResultsDictionary[ResourceApi.ModelType.Name] = new List<object>(data);
+                var items = data.Cast<object>().ToList();
+                ResultsDictionary[ResourceApi.ModelType.Name] = items;
 
-                if (failIfNoData && data.Count == 0)
+                if (failIfNoData && items.Count == 0)
                 {
                     // Destructive SDK tests create a record for all the entities, so at least one record is expected.
                     Log.Error("The request did not return any records, but at least one was expected.");
