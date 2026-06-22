@@ -69,7 +69,7 @@ public class TieredCacheProvider<TKey> : ICacheProvider<TKey>, IAsyncCacheProvid
         {
             if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"[Hybrid] L1 (in-memory) cache hit for key '{key}'.");
+                _logger.Debug($"[Hybrid] L1 (in-memory) cache hit for key '{CacheKeyLogSanitizer.Redact(key)}'.");
             }
 
             return true;
@@ -81,7 +81,7 @@ public class TieredCacheProvider<TKey> : ICacheProvider<TKey>, IAsyncCacheProvid
 
             if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"[Hybrid] L1 miss; L2 (external) cache hit for key '{key}'; populated L1.");
+                _logger.Debug($"[Hybrid] L1 miss; L2 (external) cache hit for key '{CacheKeyLogSanitizer.Redact(key)}'; populated L1.");
             }
 
             return true;
@@ -89,7 +89,7 @@ public class TieredCacheProvider<TKey> : ICacheProvider<TKey>, IAsyncCacheProvid
 
         if (_logger.IsDebugEnabled)
         {
-            _logger.Debug($"[Hybrid] L1/L2 cache miss for key '{key}'.");
+            _logger.Debug($"[Hybrid] L1/L2 cache miss for key '{CacheKeyLogSanitizer.Redact(key)}'.");
         }
 
         value = null;
@@ -117,7 +117,7 @@ public class TieredCacheProvider<TKey> : ICacheProvider<TKey>, IAsyncCacheProvid
         {
             if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"[Hybrid] L1 (in-memory) cache hit for key '{key}'.");
+                _logger.Debug($"[Hybrid] L1 (in-memory) cache hit for key '{CacheKeyLogSanitizer.Redact(key)}'.");
             }
 
             return (true, value);
@@ -133,12 +133,12 @@ public class TieredCacheProvider<TKey> : ICacheProvider<TKey>, IAsyncCacheProvid
 
             if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"[Hybrid] L1 miss; L2 (external) cache hit for key '{key}'; populated L1.");
+                _logger.Debug($"[Hybrid] L1 miss; L2 (external) cache hit for key '{CacheKeyLogSanitizer.Redact(key)}'; populated L1.");
             }
         }
         else if (_logger.IsDebugEnabled)
         {
-            _logger.Debug($"[Hybrid] L1/L2 cache miss for key '{key}'.");
+            _logger.Debug($"[Hybrid] L1/L2 cache miss for key '{CacheKeyLogSanitizer.Redact(key)}'.");
         }
 
         return result;

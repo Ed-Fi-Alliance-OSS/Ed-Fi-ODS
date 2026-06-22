@@ -55,7 +55,7 @@ public class AsyncExternalCacheProvider<TKey>(
             {
                 if (_logger.IsDebugEnabled)
                 {
-                    _logger.Debug($"[External] Distributed (L2) cache miss for key '{keyAsString}'.");
+                    _logger.Debug($"[External] Distributed (L2) cache miss for key '{CacheKeyLogSanitizer.Redact(key)}'.");
                 }
 
                 return (false, null);
@@ -67,7 +67,7 @@ public class AsyncExternalCacheProvider<TKey>(
 
             if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"[External] Distributed (L2) cache hit for key '{keyAsString}'.");
+                _logger.Debug($"[External] Distributed (L2) cache hit for key '{CacheKeyLogSanitizer.Redact(key)}'.");
             }
 
             return (true, value);
@@ -96,7 +96,7 @@ public class AsyncExternalCacheProvider<TKey>(
         {
             // A failed cache write must not fail the request — skip caching when the cache is
             // temporarily unavailable (open circuit breaker or Redis connectivity failure).
-            _logger.Warn($"Distributed cache unavailable; skipping cache write for key '{keyAsString}'.", ex);
+            _logger.Warn($"Distributed cache unavailable; skipping the cache write for key '{CacheKeyLogSanitizer.Redact(key)}'.", ex);
         }
         catch (Exception ex)
         {
@@ -124,7 +124,7 @@ public class AsyncExternalCacheProvider<TKey>(
         }
         catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
         {
-            _logger.Warn($"Distributed cache unavailable; skipping cache write for key '{keyAsString}'.", ex);
+            _logger.Warn($"Distributed cache unavailable; skipping the cache write for key '{CacheKeyLogSanitizer.Redact(key)}'.", ex);
         }
         catch (Exception ex)
         {

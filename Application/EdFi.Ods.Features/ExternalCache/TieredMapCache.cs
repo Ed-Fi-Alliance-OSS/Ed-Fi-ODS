@@ -65,7 +65,7 @@ public class TieredMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey,
         {
             if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"[Hybrid] All {l1Values.Length} map entries served from L1 (in-memory) for key '{key}'.");
+                _logger.Debug($"[Hybrid] All {l1Values.Length} map entries served from L1 (in-memory) for key '{CacheKeyLogSanitizer.Redact(key)}'.");
             }
 
             return l1Values;
@@ -119,7 +119,7 @@ public class TieredMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey,
         {
             _logger.Debug(
                 $"[Hybrid] {l1Values.Length - missCount} of {l1Values.Length} map entries served from L1 (in-memory); "
-                + $"{foundCount} of {missCount} L1 misses served from L2 (external) and backfilled to L1 for key '{key}'.");
+                + $"{foundCount} of {missCount} L1 misses served from L2 (external) and backfilled to L1 for key '{CacheKeyLogSanitizer.Redact(key)}'.");
         }
 
         return l1Values;

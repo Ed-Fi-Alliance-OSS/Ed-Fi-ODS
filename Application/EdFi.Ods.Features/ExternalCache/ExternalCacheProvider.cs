@@ -92,7 +92,7 @@ namespace EdFi.Ods.Features.ExternalCache
 
                     if (_logger.IsDebugEnabled)
                     {
-                        _logger.Debug($"[External] Distributed (L2) cache hit for key '{keyAsString}'.");
+                        _logger.Debug($"[External] Distributed (L2) cache hit for key '{CacheKeyLogSanitizer.Redact(key)}'.");
                     }
 
                     return true;
@@ -100,7 +100,7 @@ namespace EdFi.Ods.Features.ExternalCache
 
                 if (_logger.IsDebugEnabled)
                 {
-                    _logger.Debug($"[External] Distributed (L2) cache miss for key '{keyAsString}'.");
+                    _logger.Debug($"[External] Distributed (L2) cache miss for key '{CacheKeyLogSanitizer.Redact(key)}'.");
                 }
 
                 value = null;
@@ -111,7 +111,7 @@ namespace EdFi.Ods.Features.ExternalCache
                 // Degrade gracefully: a temporarily unavailable cache (open circuit breaker or Redis
                 // connectivity failure) is treated as a miss so the caller falls back to the underlying
                 // source of truth instead of failing the request.
-                _logger.Warn($"Distributed cache unavailable; treating key '{keyAsString}' as a cache miss.", ex);
+                _logger.Warn($"Distributed cache unavailable; treating the read for key '{CacheKeyLogSanitizer.Redact(key)}' as a cache miss.", ex);
                 value = null;
                 return false;
             }
@@ -138,7 +138,7 @@ namespace EdFi.Ods.Features.ExternalCache
             {
                 // A failed cache write must not fail the request — the value is still available from
                 // the source of truth, so skip caching when the cache is temporarily unavailable.
-                _logger.Warn($"Distributed cache unavailable; skipping cache write for key '{keyAsString}'.", ex);
+                _logger.Warn($"Distributed cache unavailable; skipping the cache write for key '{CacheKeyLogSanitizer.Redact(key)}'.", ex);
             }
             catch (Exception ex)
             {
@@ -161,7 +161,7 @@ namespace EdFi.Ods.Features.ExternalCache
             }
             catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
             {
-                _logger.Warn($"Distributed cache unavailable; skipping cache write for key '{keyAsString}'.", ex);
+                _logger.Warn($"Distributed cache unavailable; skipping the cache write for key '{CacheKeyLogSanitizer.Redact(key)}'.", ex);
             }
             catch (Exception ex)
             {
