@@ -29,6 +29,7 @@ namespace EdFi.Ods.Common.Configuration
         {
             public bool UseExternalCache { get; set; }
             public int AbsoluteExpirationSeconds { get; set; } = 1800;
+            public int L1CacheDurationSeconds { get; set; } = 10;
         }
 
         public class PersonUniqueIdToUsiCacheConfiguration
@@ -40,12 +41,15 @@ namespace EdFi.Ods.Common.Configuration
             public bool UseProgressiveLoading { get; set; } = false;
 
             public Dictionary<string, bool> CacheSuppression { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
+            public int BatchSize { get; set; } = 5000;
         }
 
         public class ApiClientDetailsConfiguration
         {
             public bool UseExternalCache { get; set; }
             public int AbsoluteExpirationSeconds { get; set; } = (int)TimeSpan.FromMinutes(15).TotalSeconds;
+            public int L1CacheDurationSeconds { get; set; } = 30;
         }
 
         public class SecurityCacheConfiguration

@@ -6,50 +6,54 @@
 using Autofac;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.ExternalCache;
+using EdFi.Ods.Features.ExternalCache.Redis;
 using EdFi.Ods.Features.Services.Redis;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.FeatureManagement;
 
-namespace EdFi.Ods.Features.Redis
+namespace EdFi.Ods.Features.Redis;
+
+public class OverrideRedisExternalCacheModule : ExternalCacheModule
 {
-    public class OverrideRedisExternalCacheModule : ExternalCacheModule
+    private readonly ServiceSettings _servicesSettings;
+
+    public override string ExternalCacheProvider => ExternalCacheProviderOption.Redis.ToString();
+
+    public OverrideRedisExternalCacheModule(IFeatureManager featureManager, ApiSettings apiSettings)
+        : base(featureManager, apiSettings)
     {
-        private readonly ServiceSettings _servicesSettings;
+        _servicesSettings = apiSettings.Services;
+    }
 
-        public override string ExternalCacheProvider => ExternalCacheProviderOption.Redis.ToString();
-
-        public OverrideRedisExternalCacheModule(IFeatureManager featureManager, ApiSettings apiSettings)
-            : base(featureManager, apiSettings)
+    public override void RegisterDistributedCache(ContainerBuilder builder)
+    {
+        if (!IsProviderSelected())
         {
-            _servicesSettings = apiSettings.Services;
+            return;
         }
 
-        public override void RegisterDistributedCache(ContainerBuilder builder)
-        {
-            if (!IsProviderSelected())
-            {
-                return;
-            }
+        var redisConfiguration = _servicesSettings.Redis;
+        var configurationOptions = RedisConnectionProvider.CreateConfigurationOptions(redisConfiguration);
 
-            // Ensure the Redis connection provider is registered (it may be registered by other conditional modules as well)
-            builder.RegisterType<RedisConnectionProvider>()
-                .As<IRedisConnectionProvider>()
-                .WithParameter(new NamedParameter("configuration", _servicesSettings.Redis.Configuration))
-                .IfNotRegistered(typeof(IRedisConnectionProvider))
-                .SingleInstance();
+        builder.RegisterType<RedisCacheResilience>()
+            .AsSelf()
+            .IfNotRegistered(typeof(RedisCacheResilience))
+            .SingleInstance();
 
-            var configurationOptions = StackExchange.Redis.ConfigurationOptions.Parse(
-                _servicesSettings.Redis.Configuration);
-            
-            builder.Register<IDistributedCache>(
-                    (c, d) =>
-                    {
-                        var redisCacheOptions = new RedisCacheOptions() { ConfigurationOptions = configurationOptions };
-            
-                        return new RedisCache(redisCacheOptions);
-                    })
-                .SingleInstance();
-        }
+        // Ensure the Redis connection provider is registered (it may be registered by other conditional modules as well)
+        builder.Register(_ => new RedisConnectionProvider(redisConfiguration))
+            .As<IRedisConnectionProvider>()
+            .IfNotRegistered(typeof(IRedisConnectionProvider))
+            .SingleInstance();
+
+        builder.Register<IDistributedCache>(
+                (_, _) =>
+                {
+                    var redisCacheOptions = new RedisCacheOptions { ConfigurationOptions = configurationOptions };
+
+                    return new RedisCache(redisCacheOptions);
+                })
+            .SingleInstance();
     }
 }

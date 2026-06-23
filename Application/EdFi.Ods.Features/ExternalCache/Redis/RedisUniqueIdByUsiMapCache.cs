@@ -11,8 +11,17 @@ namespace EdFi.Ods.Features.ExternalCache.Redis;
 
 public class RedisUniqueIdByUsiMapCache : RedisPersonIdentifierMapCache<int, string>
 {
-    public RedisUniqueIdByUsiMapCache(IRedisConnectionProvider redisConnectionProvider, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod)
-        : base(redisConnectionProvider, absoluteExpirationPeriod, slidingExpirationPeriod) { }
+    public RedisUniqueIdByUsiMapCache(
+        IRedisConnectionProvider redisConnectionProvider,
+        RedisCacheResilience resilience,
+        TimeSpan? absoluteExpirationPeriod,
+        TimeSpan? slidingExpirationPeriod,
+        int batchSize)
+        : base(redisConnectionProvider, resilience, absoluteExpirationPeriod, slidingExpirationPeriod, batchSize) { }
+
+    protected override RedisValue ConvertMapKeyToRedisValue(int mapKey) => mapKey;
+
+    protected override RedisValue ConvertMapValueToRedisValue(string mapValue) => mapValue;
 
     protected override string ConvertRedisValue(RedisValue hashValue) => hashValue;
 

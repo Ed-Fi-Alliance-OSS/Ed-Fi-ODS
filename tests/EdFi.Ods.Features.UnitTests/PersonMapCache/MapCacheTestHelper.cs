@@ -5,6 +5,7 @@
 
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Caching.Person;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.ExternalCache.Redis;
 using EdFi.Ods.Features.Services.Redis;
 using Microsoft.Extensions.Caching.Memory;
@@ -15,12 +16,13 @@ namespace EdFi.Ods.Features.UnitTests.PersonMapCache;
 public static class MapCacheTestHelper
 {
     private const string RedisConfiguration = "localhost:6379";
+    private static readonly RedisCacheResilience Resilience = new();
     private static bool? _isRedisAvailable;
-    private static IRedisConnectionProvider _redisConnectionProvider =
-        new RedisConnectionProvider(RedisConfiguration);
+    private static readonly IRedisConnectionProvider RedisConnectionProvider =
+        new RedisConnectionProvider(new RedisConfiguration { Configuration = RedisConfiguration });
 
     public static IEnumerable<IMapCache<(ulong, string, PersonMapType), string, int>> GetUsiByUniqueIdMapCaches(
-        int absoluteExpirationMs, 
+        int absoluteExpirationMs,
         int slidingExpirationMs)
     {
         yield return new InMemoryMapCache<(ulong, string, PersonMapType), string, int>(
@@ -31,14 +33,16 @@ public static class MapCacheTestHelper
         if (IsRedisAvailable())
         {
             yield return new RedisUsiByUniqueIdMapCache(
-                _redisConnectionProvider,
+                RedisConnectionProvider,
+                Resilience,
                 absoluteExpirationPeriod: TimeSpan.FromMilliseconds(absoluteExpirationMs),
-                slidingExpirationPeriod: TimeSpan.FromMilliseconds(slidingExpirationMs));
+                slidingExpirationPeriod: TimeSpan.FromMilliseconds(slidingExpirationMs),
+                batchSize: 210);
         }
     }
 
     public static IEnumerable<IMapCache<(ulong, string, PersonMapType), int, string>> GetUniqueIdByUsiMapCaches(
-        int absoluteExpirationMs, 
+        int absoluteExpirationMs,
         int slidingExpirationMs)
     {
         yield return new InMemoryMapCache<(ulong, string, PersonMapType), int, string>(
@@ -49,9 +53,11 @@ public static class MapCacheTestHelper
         if (IsRedisAvailable())
         {
             yield return new RedisUniqueIdByUsiMapCache(
-                _redisConnectionProvider,
+                RedisConnectionProvider,
+                Resilience,
                 absoluteExpirationPeriod: TimeSpan.FromMilliseconds(absoluteExpirationMs),
-                slidingExpirationPeriod: TimeSpan.FromMilliseconds(slidingExpirationMs));
+                slidingExpirationPeriod: TimeSpan.FromMilliseconds(slidingExpirationMs),
+                batchSize: 310);
         }
     }
 
