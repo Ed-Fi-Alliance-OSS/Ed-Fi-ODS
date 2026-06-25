@@ -43,11 +43,11 @@ namespace EdFi.SmokeTest.Console
                 .WithParsed(overrides =>
                 {
                     // Validate SdkNamespacePrefix
-                    var validPrefixes = new[] { "EdFi.OdsApi.Sdk", "EdFi.DmsApi.TestSdk" };
+                    var validPrefixes = new[] { "EdFi.OdsApi.Sdk", "EdFi.Api.TestSdk" };
                     if (!string.IsNullOrEmpty(overrides.SdkNamespacePrefix) &&
                         !validPrefixes.Contains(overrides.SdkNamespacePrefix))
                     {
-                        System.Console.WriteLine("Invalid value for --sdknamespaceprefix. Allowed values: EdFi.OdsApi.Sdk, EdFi.DmsApi.TestSdk");
+                        System.Console.WriteLine("Invalid value for --sdknamespaceprefix. Allowed values: EdFi.OdsApi.Sdk, EdFi.Api.TestSdk");
                         Environment.ExitCode = 1;
                         Environment.Exit(Environment.ExitCode);
                     }
