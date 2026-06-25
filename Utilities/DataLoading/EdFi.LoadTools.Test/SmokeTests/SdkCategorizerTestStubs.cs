@@ -63,7 +63,7 @@ namespace EdFi.LoadTools.Test.SmokeTests.SdkStubs.Apis.All
         public Task PostContactOrDefaultAsync(EdFiContact contact) => Task.CompletedTask;
     }
 
-    // Homonym resources disambiguated by distinct name stems (the EdFi.DmsApi.TestSdk convention,
+    // Homonym resources disambiguated by distinct name stems (the EdFi.Api.TestSdk convention,
     // e.g. PostHomographSchoolAsync). POST/DELETE are singular while GET is plural.
     public class StubSchoolsApi
     {
