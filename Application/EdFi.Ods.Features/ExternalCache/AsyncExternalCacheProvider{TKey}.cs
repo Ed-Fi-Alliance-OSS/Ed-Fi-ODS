@@ -55,7 +55,7 @@ public class AsyncExternalCacheProvider<TKey>(
             {
                 if (_logger.IsDebugEnabled)
                 {
-                    _logger.Debug($"[External] Distributed (L2) cache miss for key '{CacheKeyLogSanitizer.Redact(key)}'.");
+                    _logger.Debug($"[External] Distributed (L2) cache miss for key '{CacheKeyLogSanitizer.SanitizeKeyForLogging(key)}'.");
                 }
 
                 return (false, null);
@@ -67,7 +67,7 @@ public class AsyncExternalCacheProvider<TKey>(
 
             if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"[External] Distributed (L2) cache hit for key '{CacheKeyLogSanitizer.Redact(key)}'.");
+                _logger.Debug($"[External] Distributed (L2) cache hit for key '{CacheKeyLogSanitizer.SanitizeKeyForLogging(key)}'.");
             }
 
             return (true, value);
