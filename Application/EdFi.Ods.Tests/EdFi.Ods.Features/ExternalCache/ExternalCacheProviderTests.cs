@@ -6,6 +6,7 @@
 using System;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Features.ExternalCache;
+using EdFi.Ods.Features.ExternalCache.Redis;
 using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.Extensions.Caching.Distributed;
@@ -34,7 +35,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.ExternalCache
                 A.CallTo(() => distributedCache.Set(A<string>.Ignored, A<byte[]>.Ignored, A<DistributedCacheEntryOptions>.Ignored))
                     .Throws(new Exception());
 
-                _externalCacheProvider = new ExternalCacheProvider<string>(distributedCache, A.Dummy<TimeSpan>(), A.Dummy<TimeSpan>());
+                _externalCacheProvider = new ExternalCacheProvider<string>(distributedCache, A.Dummy<TimeSpan>(), A.Dummy<TimeSpan>(), new RedisCacheResilience());
             }
 
             public class A_call_to_TryGetCachedObject : When_the_underlying_distributed_cache_fails
@@ -90,7 +91,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.ExternalCache
                 A.CallTo(() => distributedCache.Set(A<string>.Ignored, A<byte[]>.Ignored, A<DistributedCacheEntryOptions>.Ignored))
                     .Throws(new TimeoutException());
 
-                ExternalCacheProvider = new ExternalCacheProvider<string>(distributedCache, A.Dummy<TimeSpan>(), A.Dummy<TimeSpan>());
+                ExternalCacheProvider = new ExternalCacheProvider<string>(distributedCache, A.Dummy<TimeSpan>(), A.Dummy<TimeSpan>(), new RedisCacheResilience());
             }
 
             public class A_call_to_TryGetCachedObject : When_the_distributed_cache_is_unavailable

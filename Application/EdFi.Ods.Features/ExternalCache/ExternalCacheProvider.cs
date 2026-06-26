@@ -5,6 +5,7 @@
 
 using System;
 using System.Globalization;
+using EdFi.Common;
 using EdFi.Common.Security;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
@@ -44,12 +45,12 @@ namespace EdFi.Ods.Features.ExternalCache
             IDistributedCache distributedCache,
             TimeSpan slidingExpiration,
             TimeSpan absoluteExpiration,
-            RedisCacheResilience resilience = null)
+            RedisCacheResilience resilience)
         {
             _distributedCache = distributedCache;
             _slidingExpiration = slidingExpiration;
             _absoluteExpiration = absoluteExpiration;
-            _resilience = resilience;
+            _resilience = Preconditions.ThrowIfNull(resilience, nameof(resilience));
         }
 
         public bool TryGetCachedObject(TKey key, out object value)
@@ -170,24 +171,15 @@ namespace EdFi.Ods.Features.ExternalCache
             }
         }
 
-        // Runs the distributed-cache read through the Redis circuit breaker when resilience is
-        // configured, so repeated failures fail fast (instead of blocking on the full sync timeout)
-        // once the circuit opens.
+        // Runs the distributed-cache read through the Redis circuit breaker so repeated failures fail fast
+        // (instead of blocking on the full sync timeout) once the circuit opens.
         private string ExecuteGet(string keyAsString)
         {
-            return _resilience is null
-                ? _distributedCache.GetString(keyAsString)
-                : _resilience.Pipeline.Execute(() => _distributedCache.GetString(keyAsString));
+            return _resilience.Pipeline.Execute(() => _distributedCache.GetString(keyAsString));
         }
 
         private void ExecuteSet(string keyAsString, string serializedValue, DistributedCacheEntryOptions options)
         {
-            if (_resilience is null)
-            {
-                _distributedCache.SetString(keyAsString, serializedValue, options);
-                return;
-            }
-
             _resilience.Pipeline.Execute(() => _distributedCache.SetString(keyAsString, serializedValue, options));
         }
 

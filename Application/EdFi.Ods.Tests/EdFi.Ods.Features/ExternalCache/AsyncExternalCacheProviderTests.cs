@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Features.ExternalCache;
+using EdFi.Ods.Features.ExternalCache.Redis;
 using FakeItEasy;
 using Microsoft.Extensions.Caching.Distributed;
 using NUnit.Framework;
@@ -30,7 +31,8 @@ public class AsyncExternalCacheProviderTests
         var provider = new AsyncExternalCacheProvider<string>(
             distributedCache,
             TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(5));
+            TimeSpan.FromMinutes(5),
+            new RedisCacheResilience());
 
         // Act
         var (found, value) = await provider.TryGetCachedObjectAsync("test-key");
@@ -52,7 +54,8 @@ public class AsyncExternalCacheProviderTests
         var provider = new AsyncExternalCacheProvider<string>(
             distributedCache,
             TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(5));
+            TimeSpan.FromMinutes(5),
+            new RedisCacheResilience());
 
         // Act
         var (found, value) = await provider.TryGetCachedObjectAsync("test-key");

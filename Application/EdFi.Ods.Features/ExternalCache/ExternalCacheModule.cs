@@ -82,7 +82,7 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
             .WithParameter(
                 new ResolvedParameter(
                     (p, _) => p.ParameterType == typeof(RedisCacheResilience),
-                    (_, c) => c.ResolveOptional<RedisCacheResilience>()))
+                    (_, c) => c.Resolve<RedisCacheResilience>()))
             .As<IExternalCacheProvider<string>>()
             .SingleInstance();
     }
@@ -100,7 +100,8 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
             .As<IApiClientDetailsCacheKeyProvider>()
             .SingleInstance();
 
-        if (_cacheSettings.ApiClientDetails.CachingMode == CachingMode.Hybrid)
+        // None/empty falls back to this type's default (Hybrid); only an explicit External opts out of L1.
+        if (_cacheSettings.ApiClientDetails.CachingModeOption != CachingMode.External)
         {
             // Hybrid: short-lived in-process L1 cache in front of the external (L2) cache.
             builder.Register(
@@ -140,7 +141,8 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
 
     private void OverrideDescriptorsCache(ContainerBuilder builder)
     {
-        if (_cacheSettings.Descriptors.CachingMode == CachingMode.Hybrid)
+        // None/empty falls back to this type's default (Hybrid); only an explicit External opts out of L1.
+        if (_cacheSettings.Descriptors.CachingModeOption != CachingMode.External)
         {
             // Hybrid: short-lived in-process L1 cache in front of the external (L2) cache.
             builder.Register(
@@ -150,7 +152,7 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
                         int l1CacheDurationSeconds = _cacheSettings.Descriptors.L1CacheDurationSeconds;
                         var distributedCache = ctx.Resolve<IDistributedCache>();
                         var absoluteExpiration = TimeSpan.FromSeconds(absoluteExpirationSeconds);
-                        var resilience = ctx.ResolveOptional<RedisCacheResilience>();
+                        var resilience = ctx.Resolve<RedisCacheResilience>();
 
                         return new TieredCacheProvider<ulong>(
                             ctx.Resolve<IMemoryCache>(),
@@ -173,7 +175,7 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
                         int absoluteExpirationSeconds = _cacheSettings.Descriptors.AbsoluteExpirationSeconds;
                         var distributedCache = ctx.Resolve<IDistributedCache>();
                         var absoluteExpiration = TimeSpan.FromSeconds(absoluteExpirationSeconds);
-                        var resilience = ctx.ResolveOptional<RedisCacheResilience>();
+                        var resilience = ctx.Resolve<RedisCacheResilience>();
 
                         return new AsyncExternalCacheProvider<ulong>(distributedCache, TimeSpan.Zero, absoluteExpiration, resilience);
                     })
@@ -208,7 +210,7 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
             .As<IDistributedLockProvider>()
             .SingleInstance();
 
-        bool hybrid = _cacheSettings.PersonUniqueIdToUsi.CachingMode == CachingMode.Hybrid;
+        bool hybrid = _cacheSettings.PersonUniqueIdToUsi.CachingModeOption == CachingMode.Hybrid;
 
         builder.Register(ctx => BuildUsiByUniqueIdMapCache(ctx, hybrid))
             .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
@@ -285,15 +287,22 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
 
         _logger.Info(
             $"Cache mode configuration: provider='{_cacheSettings.ExternalCacheProvider}', "
-            + $"Descriptors={DescribeMode(_cacheSettings.Descriptors.UseExternalCache, _cacheSettings.Descriptors.CachingMode)}, "
-            + $"PersonUniqueIdToUsi={DescribeMode(_cacheSettings.PersonUniqueIdToUsi.UseExternalCache, _cacheSettings.PersonUniqueIdToUsi.CachingMode)}, "
-            + $"ApiClientDetails={DescribeMode(_cacheSettings.ApiClientDetails.UseExternalCache, _cacheSettings.ApiClientDetails.CachingMode)}.");
+            + $"Descriptors={DescribeMode(_cacheSettings.Descriptors.UseExternalCache, _cacheSettings.Descriptors.CachingModeOption, CachingMode.Hybrid)}, "
+            + $"PersonUniqueIdToUsi={DescribeMode(_cacheSettings.PersonUniqueIdToUsi.UseExternalCache, _cacheSettings.PersonUniqueIdToUsi.CachingModeOption, CachingMode.External)}, "
+            + $"ApiClientDetails={DescribeMode(_cacheSettings.ApiClientDetails.UseExternalCache, _cacheSettings.ApiClientDetails.CachingModeOption, CachingMode.Hybrid)}.");
     }
 
-    private static string DescribeMode(bool useExternalCache, CachingMode cachingMode)
+    // Resolves the effective mode for the startup summary: in-memory when external caching is off, otherwise
+    // the configured mode — with None/empty falling back to this type's default, mirroring the registration dispatch.
+    private static string DescribeMode(bool useExternalCache, CachingMode cachingMode, CachingMode defaultMode)
     {
-        return !useExternalCache
-            ? "InMemory"
+        if (!useExternalCache)
+        {
+            return "InMemory";
+        }
+
+        return cachingMode == CachingMode.None
+            ? defaultMode.ToString()
             : cachingMode.ToString();
     }
 }
