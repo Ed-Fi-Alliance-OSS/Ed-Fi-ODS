@@ -5,9 +5,11 @@
 
 using System;
 using System.Globalization;
+using EdFi.Common;
 using EdFi.Common.Security;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Features.ExternalCache.Redis;
 using log4net;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
@@ -29,6 +31,7 @@ namespace EdFi.Ods.Features.ExternalCache
         private readonly IDistributedCache _distributedCache;
         private readonly TimeSpan _absoluteExpiration;
         private readonly TimeSpan _slidingExpiration;
+        private readonly RedisCacheResilience _resilience;
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExternalCacheProvider<TKey>));
 
         // TypeNameHandling.None for https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2326
@@ -38,20 +41,25 @@ namespace EdFi.Ods.Features.ExternalCache
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
         };
 
-        public ExternalCacheProvider(IDistributedCache distributedCache, TimeSpan slidingExpiration, TimeSpan absoluteExpiration)
+        public ExternalCacheProvider(
+            IDistributedCache distributedCache,
+            TimeSpan slidingExpiration,
+            TimeSpan absoluteExpiration,
+            RedisCacheResilience resilience)
         {
             _distributedCache = distributedCache;
             _slidingExpiration = slidingExpiration;
             _absoluteExpiration = absoluteExpiration;
+            _resilience = Preconditions.ThrowIfNull(resilience, nameof(resilience));
         }
-        
+
         public bool TryGetCachedObject(TKey key, out object value)
         {
+            var keyAsString = key.ToString();
+
             try
             {
-                var keyAsString = key.ToString();
-                
-                var cachedValue = _distributedCache.GetString(keyAsString);
+                var cachedValue = ExecuteGet(keyAsString);
 
                 if (!string.IsNullOrEmpty(cachedValue))
                 {
@@ -64,7 +72,7 @@ namespace EdFi.Ods.Features.ExternalCache
                     // handled, then just deserialize using JsonConvert.DeserializeObject method as is done at the end of the
                     // Deserialize method below.
                     //
-                    // Suggested handler implementations: 
+                    // Suggested handler implementations:
                     //   - PersonIdentityValueMapDistributeCacheDeserializationHandler
                     //   - ApiClientDetailsDistributeCacheDeserializationHandler
                     //   - GuidDistributeCacheDeserializationHandler
@@ -83,9 +91,28 @@ namespace EdFi.Ods.Features.ExternalCache
                         value = Deserialize(cachedValue);
                     }
 
+                    if (_logger.IsDebugEnabled)
+                    {
+                        _logger.Debug($"[External] Distributed (L2) cache hit for key '{CacheKeyLogSanitizer.SanitizeKeyForLogging(key)}'.");
+                    }
+
                     return true;
                 }
 
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"[External] Distributed (L2) cache miss for key '{CacheKeyLogSanitizer.SanitizeKeyForLogging(key)}'.");
+                }
+
+                value = null;
+                return false;
+            }
+            catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
+            {
+                // Degrade gracefully: a temporarily unavailable cache (open circuit breaker or Redis
+                // connectivity failure) is treated as a miss so the caller falls back to the underlying
+                // source of truth instead of failing the request.
+                _logger.Warn("Distributed cache unavailable; treating the read as a cache miss.", ex);
                 value = null;
                 return false;
             }
@@ -98,13 +125,21 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public void SetCachedObject(TKey key, object obj)
         {
+            var keyAsString = key.ToString();
+
             try
             {
-                _distributedCache.SetString(key.ToString(), Serialize(obj), new DistributedCacheEntryOptions()
+                ExecuteSet(keyAsString, Serialize(obj), new DistributedCacheEntryOptions()
                 {
                     AbsoluteExpirationRelativeToNow = _absoluteExpiration.TotalSeconds > 0 ? _absoluteExpiration : null,
                     SlidingExpiration = _slidingExpiration.TotalSeconds > 0 ? _slidingExpiration : null
                 });
+            }
+            catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
+            {
+                // A failed cache write must not fail the request — the value is still available from
+                // the source of truth, so skip caching when the cache is temporarily unavailable.
+                _logger.Warn("Distributed cache unavailable; skipping the cache write.", ex);
             }
             catch (Exception ex)
             {
@@ -115,19 +150,37 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public void Insert(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
+            var keyAsString = key.ToString();
+
             try
             {
-                _distributedCache.SetString(key.ToString(), Serialize(value), new DistributedCacheEntryOptions()
+                ExecuteSet(keyAsString, Serialize(value), new DistributedCacheEntryOptions()
                 {
                     AbsoluteExpiration = absoluteExpiration < DateTime.MaxValue ? absoluteExpiration : null,
                     SlidingExpiration = slidingExpiration.TotalSeconds > 0 ? slidingExpiration : null
                 });
+            }
+            catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
+            {
+                _logger.Warn("Distributed cache unavailable; skipping the cache write.", ex);
             }
             catch (Exception ex)
             {
                 _logger.Error(ex);
                 throw new DistributedCacheException(DefaultExceptionMessage, ex);
             }
+        }
+
+        // Runs the distributed-cache read through the Redis circuit breaker so repeated failures fail fast
+        // (instead of blocking on the full sync timeout) once the circuit opens.
+        private string ExecuteGet(string keyAsString)
+        {
+            return _resilience.Pipeline.Execute(() => _distributedCache.GetString(keyAsString));
+        }
+
+        private void ExecuteSet(string keyAsString, string serializedValue, DistributedCacheEntryOptions options)
+        {
+            _resilience.Pipeline.Execute(() => _distributedCache.SetString(keyAsString, serializedValue, options));
         }
 
         private static string Serialize(object @object)
