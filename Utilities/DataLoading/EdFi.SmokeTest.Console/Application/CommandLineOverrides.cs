@@ -49,6 +49,11 @@ namespace EdFi.SmokeTest.Console.Application
         public string SdkNamespacePrefix { get; set; }
 
         [Option(
+            'd', "data-path", Required = false,
+            HelpText = "The data-management path segment injected into the new-generator SDK base address (default /data/v3). Use /data for DMS.")]
+        public string DataPath { get; set; }
+
+        [Option(
             "defaultNumericFallbackMax", Required = false,
             HelpText = "Maximum value used for required numeric properties when OpenAPI does not publish minimum or maximum bounds.")]
         public int? DefaultNumericFallbackMax { get; set; }
@@ -67,6 +72,7 @@ namespace EdFi.SmokeTest.Console.Application
                 {"-s", "OdsApi:Secret"},
                 {"-t", "TestSet"},
                 {"-c", "SdkNamespacePrefix"},
+                {"-d", "OdsApi:DataPath"},
                 {"--apiurl", "OdsApi:ApiUrl"},
                 {"--key", "OdsApi:Key"},
                 {"--library", "SdkLibraryPath"},
@@ -78,7 +84,8 @@ namespace EdFi.SmokeTest.Console.Application
                 {"--testset", "TestSet"},
                 {"--baseurl", "OdsApi:Url"},
                 {"--sdkNamespacePrefix", "SdkNamespacePrefix"},
-                {"--defaultNumericFallbackMax", "OdsApi:DefaultNumericFallbackMax"}
+                {"--defaultNumericFallbackMax", "OdsApi:DefaultNumericFallbackMax"},
+                {"--data-path", "OdsApi:DataPath"}
             };
     }
 }

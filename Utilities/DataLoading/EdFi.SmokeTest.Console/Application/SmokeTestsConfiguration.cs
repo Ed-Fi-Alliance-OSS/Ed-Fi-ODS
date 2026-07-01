@@ -14,8 +14,12 @@ using Microsoft.Extensions.Configuration;
 namespace EdFi.SmokeTest.Console.Application
 {
     public class SmokeTestsConfiguration : IApiConfiguration, IApiMetadataConfiguration, IOAuthTokenConfiguration,
-        IOAuthSessionToken, ISdkLibraryConfiguration, IDestructiveTestConfiguration
+        IOAuthSessionToken, ISdkLibraryConfiguration, ISdkDataPathConfiguration, IDestructiveTestConfiguration
     {
+        // Default data-management path segment injected into the new-generator SDK HttpClient.BaseAddress.
+        // Preserves historical ODS behavior when OdsApi:DataPath is not configured.
+        public const string DefaultDataPath = "/data/v3";
+
         public string ApiUrl { get; set; }
 
         public string OAuthKey { get; set; }
@@ -29,6 +33,8 @@ namespace EdFi.SmokeTest.Console.Application
         public string XsdMetadataUrl { get; set; }
 
         public string SdkLibraryPath { get; set; }
+
+        public string DataPath { get; set; }
 
         public TestSet TestSet { get; set; }
 
@@ -143,6 +149,7 @@ namespace EdFi.SmokeTest.Console.Application
                     "OdsApi:DefaultNumericFallbackMax",
                     DestructiveTestConfigurationDefaults.DefaultNumericFallbackMax),
                 SdkLibraryPath = configuration.GetValue<string>("SdkLibraryPath"),
+                DataPath = configuration.GetValue("OdsApi:DataPath", DefaultDataPath),
                 TestSet = testSet
             };
 

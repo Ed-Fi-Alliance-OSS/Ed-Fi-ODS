@@ -43,12 +43,16 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .Returns(typeof(LegacySdkStub.Client.Configuration).Assembly.Location);
             A.CallTo(() => sdkLibraryConfiguration.SdkNamespacePrefix).Returns(StubNamespacePrefix);
 
+            // Legacy branch does not inject a data path; the value is irrelevant here.
+            var sdkDataPathConfiguration = A.Fake<ISdkDataPathConfiguration>();
+
             var tokenHandler = A.Fake<IOAuthTokenHandler>();
             A.CallTo(() => tokenHandler.GetBearerToken()).Returns(bearerToken);
 
             // No throw even though Client.HostConfiguration is absent from the (stub) SDK assembly.
             var factory = Should.NotThrow(
-                () => new SdkConfigurationFactory(apiConfiguration, sdkLibraryConfiguration, tokenHandler));
+                () => new SdkConfigurationFactory(
+                    apiConfiguration, sdkLibraryConfiguration, sdkDataPathConfiguration, tokenHandler));
 
             var configuration = factory.SdkConfiguration;
 
@@ -67,6 +71,59 @@ namespace EdFi.LoadTools.Test.SmokeTests
             // unchanged - old-generator operation paths omit /data/v3, so the base path must already
             // include it.
             legacyConfiguration.BasePath.ShouldBe(dataManagementApiUrl);
+        }
+    }
+
+    /// <summary>
+    ///     Exercises <see cref="SdkConfigurationFactory.ComposeSdkBaseAddress" />, the pure URL-composition
+    ///     used by the new-generator (host-configuration) SDK path to build the HttpClient BaseAddress from
+    ///     the server URL and the configured data-path suffix. The SDK concatenates BaseAddress.AbsolutePath
+    ///     with operation paths like "/ed-fi/...", so the base address must carry the data path with no
+    ///     trailing slash.
+    /// </summary>
+    [TestFixture]
+    public class SdkConfigurationFactoryBaseAddressTests
+    {
+        [Test]
+        public void Default_data_path_is_injected_into_a_root_base_url()
+        {
+            SdkConfigurationFactory.ComposeSdkBaseAddress("http://localhost:8765/", "/data/v3")
+                .AbsoluteUri.ShouldBe("http://localhost:8765/data/v3");
+        }
+
+        [Test]
+        public void Configured_data_path_override_is_used_instead_of_data_v3()
+        {
+            SdkConfigurationFactory.ComposeSdkBaseAddress("http://localhost:8765/", "/data")
+                .AbsoluteUri.ShouldBe("http://localhost:8765/data");
+        }
+
+        [Test]
+        public void Empty_data_path_leaves_the_base_url_path_as_is_trimming_trailing_slash()
+        {
+            SdkConfigurationFactory.ComposeSdkBaseAddress("http://localhost:8765/data/", "")
+                .AbsoluteUri.ShouldBe("http://localhost:8765/data");
+        }
+
+        [Test]
+        public void Slash_data_path_leaves_the_base_url_path_as_is_trimming_trailing_slash()
+        {
+            SdkConfigurationFactory.ComposeSdkBaseAddress("http://localhost:8765/data/", "/")
+                .AbsoluteUri.ShouldBe("http://localhost:8765/data");
+        }
+
+        [Test]
+        public void Already_present_data_path_is_not_duplicated_and_trailing_slash_is_removed()
+        {
+            SdkConfigurationFactory.ComposeSdkBaseAddress("http://localhost:8765/data/v3/", "/data/v3")
+                .AbsoluteUri.ShouldBe("http://localhost:8765/data/v3");
+        }
+
+        [Test]
+        public void Data_path_is_normalized_to_leading_slash_and_no_trailing_slash()
+        {
+            SdkConfigurationFactory.ComposeSdkBaseAddress("http://localhost:8765/", "data/v3/")
+                .AbsoluteUri.ShouldBe("http://localhost:8765/data/v3");
         }
     }
 }
