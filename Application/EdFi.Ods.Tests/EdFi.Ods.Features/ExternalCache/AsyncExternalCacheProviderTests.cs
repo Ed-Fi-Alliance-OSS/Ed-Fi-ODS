@@ -43,6 +43,31 @@ public class AsyncExternalCacheProviderTests
     }
 
     [Test]
+    public async Task TryGetCachedObjectAsync_ShouldDegradeToMiss_WhenDistributedCacheIsUnavailable()
+    {
+        // Arrange
+        var distributedCache = A.Fake<IDistributedCache>();
+
+        // A Redis connectivity failure surfaces as a timeout/connection exception, which should be
+        // treated as the cache being temporarily unavailable rather than a hard failure.
+        A.CallTo(() => distributedCache.GetAsync("test-key", A<CancellationToken>._))
+            .ThrowsAsync(new TimeoutException());
+
+        var provider = new AsyncExternalCacheProvider<string>(
+            distributedCache,
+            TimeSpan.FromMinutes(1),
+            TimeSpan.FromMinutes(5),
+            new RedisCacheResilience());
+
+        // Act
+        var (found, value) = await provider.TryGetCachedObjectAsync("test-key");
+
+        // Assert
+        found.ShouldBeFalse();
+        value.ShouldBeNull();
+    }
+
+    [Test]
     public async Task TryGetCachedObjectAsync_ShouldReturnFound_WhenDistributedCacheReturnsValue()
     {
         // Arrange

@@ -43,6 +43,8 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
 
     protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
     {
+        WarnOnUnrecognizedCachingModes();
+
         LogConfiguredCacheModes();
 
         RegisterDistributedCache(builder);
@@ -274,6 +276,29 @@ public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheMod
     private static TimeSpan? ToExpirationPeriod(int seconds)
     {
         return seconds > 0 ? TimeSpan.FromSeconds(seconds) : null;
+    }
+
+    // Surfaces configuration mistakes: an unrecognized CachingMode value (e.g. a typo) parses to
+    // CachingMode.None and silently falls back to the cache type's default, so without this warning the
+    // operator gets no feedback that their configured value was ignored.
+    private void WarnOnUnrecognizedCachingModes()
+    {
+        WarnIfUnrecognizedCachingMode("ApiSettings:Caching:Descriptors:CachingMode", _cacheSettings.Descriptors.CachingMode);
+        WarnIfUnrecognizedCachingMode("ApiSettings:Caching:PersonUniqueIdToUsi:CachingMode", _cacheSettings.PersonUniqueIdToUsi.CachingMode);
+        WarnIfUnrecognizedCachingMode("ApiSettings:Caching:ApiClientDetails:CachingMode", _cacheSettings.ApiClientDetails.CachingMode);
+    }
+
+    private static void WarnIfUnrecognizedCachingMode(string settingPath, string configuredValue)
+    {
+        if (string.IsNullOrEmpty(configuredValue) || Enum.TryParse<CachingMode>(configuredValue, ignoreCase: true, out _))
+        {
+            return;
+        }
+
+        _logger.Warn(
+            $"Unrecognized value '{configuredValue}' for '{settingPath}'; allowed values are "
+            + $"'{nameof(CachingMode.External)}' and '{nameof(CachingMode.Hybrid)}'. The value has been ignored "
+            + "and the cache type's default mode will be used.");
     }
 
     // Emits a one-time, startup summary of the effective caching mode for each cache type so operators can

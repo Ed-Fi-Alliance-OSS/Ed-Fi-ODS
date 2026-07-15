@@ -35,6 +35,13 @@ public class RedisCacheResilience
     /// </param>
     public RedisCacheResilience(int failureThreshold = 5, int breakDurationSeconds = 30, int samplingDurationSeconds = 30)
     {
+        if (_logger.IsInfoEnabled)
+        {
+            _logger.Info(
+                $"Redis circuit breaker configured: failureThreshold={failureThreshold}, "
+                + $"breakDurationSeconds={breakDurationSeconds}, samplingDurationSeconds={samplingDurationSeconds}.");
+        }
+
         Pipeline = new ResiliencePipelineBuilder()
             .AddCircuitBreaker(new CircuitBreakerStrategyOptions
             {

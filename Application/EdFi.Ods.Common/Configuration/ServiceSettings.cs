@@ -59,4 +59,24 @@ public class RedisConfiguration
     /// Optional password for Redis AUTH.
     /// </summary>
     public string Password { get; set; }
+
+    /// <summary>
+    /// Minimum number of Redis operations within the circuit breaker's sampling window before the failure
+    /// ratio is evaluated. Default: 5.
+    /// </summary>
+    public int CircuitBreakerFailureThreshold { get; set; } = 5;
+
+    /// <summary>
+    /// Time (in seconds) the circuit breaker stays open after tripping, during which Redis operations fail
+    /// fast. Default: 30.
+    /// </summary>
+    public int CircuitBreakerBreakDurationSeconds { get; set; } = 30;
+
+    /// <summary>
+    /// Window (in seconds) over which Redis failures are evaluated by the circuit breaker. This must be
+    /// larger than the Redis operation timeouts (<see cref="SyncTimeoutMs"/> / <see cref="AsyncTimeoutMs"/>);
+    /// otherwise failing calls age out of the window before the threshold is reached and the circuit never
+    /// opens. Default: 30.
+    /// </summary>
+    public int CircuitBreakerSamplingDurationSeconds { get; set; } = 30;
 }

@@ -112,13 +112,13 @@ namespace EdFi.Ods.Features.ExternalCache
                 // Degrade gracefully: a temporarily unavailable cache (open circuit breaker or Redis
                 // connectivity failure) is treated as a miss so the caller falls back to the underlying
                 // source of truth instead of failing the request.
-                _logger.Warn("Distributed cache unavailable; treating the read as a cache miss.", ex);
+                _logger.Warn($"Distributed cache unavailable; treating the read as a cache miss. ({CacheKeyLogSanitizer.SanitizeExceptionMessageForLogging(ex)})");
                 value = null;
                 return false;
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
+                _logger.Error(CacheKeyLogSanitizer.SanitizeExceptionForLogging(ex));
                 throw new DistributedCacheException(DefaultExceptionMessage, ex);
             }
         }
@@ -139,11 +139,11 @@ namespace EdFi.Ods.Features.ExternalCache
             {
                 // A failed cache write must not fail the request — the value is still available from
                 // the source of truth, so skip caching when the cache is temporarily unavailable.
-                _logger.Warn("Distributed cache unavailable; skipping the cache write.", ex);
+                _logger.Warn($"Distributed cache unavailable; skipping the cache write. ({CacheKeyLogSanitizer.SanitizeExceptionMessageForLogging(ex)})");
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
+                _logger.Error(CacheKeyLogSanitizer.SanitizeExceptionForLogging(ex));
                 throw new DistributedCacheException(DefaultExceptionMessage, ex);
             }
         }
@@ -162,11 +162,11 @@ namespace EdFi.Ods.Features.ExternalCache
             }
             catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
             {
-                _logger.Warn("Distributed cache unavailable; skipping the cache write.", ex);
+                _logger.Warn($"Distributed cache unavailable; skipping the cache write. ({CacheKeyLogSanitizer.SanitizeExceptionMessageForLogging(ex)})");
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
+                _logger.Error(CacheKeyLogSanitizer.SanitizeExceptionForLogging(ex));
                 throw new DistributedCacheException(DefaultExceptionMessage, ex);
             }
         }

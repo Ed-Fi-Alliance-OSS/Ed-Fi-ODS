@@ -36,7 +36,11 @@ public class OverrideRedisExternalCacheModule : ExternalCacheModule
         var redisConfiguration = _servicesSettings.Redis;
         var configurationOptions = RedisConnectionProvider.CreateConfigurationOptions(redisConfiguration);
 
-        builder.RegisterType<RedisCacheResilience>()
+        builder.Register(
+                _ => new RedisCacheResilience(
+                    redisConfiguration.CircuitBreakerFailureThreshold,
+                    redisConfiguration.CircuitBreakerBreakDurationSeconds,
+                    redisConfiguration.CircuitBreakerSamplingDurationSeconds))
             .AsSelf()
             .IfNotRegistered(typeof(RedisCacheResilience))
             .SingleInstance();

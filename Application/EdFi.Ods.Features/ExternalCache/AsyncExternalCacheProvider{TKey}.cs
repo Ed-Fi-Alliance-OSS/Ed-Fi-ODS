@@ -73,9 +73,17 @@ public class AsyncExternalCacheProvider<TKey>(
 
             return (true, value);
         }
+        catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
+        {
+            // Degrade gracefully: a temporarily unavailable cache (open circuit breaker or Redis
+            // connectivity failure) is treated as a miss so the caller falls back to the underlying
+            // source of truth instead of failing the request.
+            _logger.Warn($"Distributed cache unavailable; treating the read as a cache miss. ({CacheKeyLogSanitizer.SanitizeExceptionMessageForLogging(ex)})");
+            return (false, null);
+        }
         catch (Exception ex)
         {
-            _logger.Error(ex);
+            _logger.Error(CacheKeyLogSanitizer.SanitizeExceptionForLogging(ex));
             return (false, null);
         }
     }
@@ -97,11 +105,11 @@ public class AsyncExternalCacheProvider<TKey>(
         {
             // A failed cache write must not fail the request — skip caching when the cache is
             // temporarily unavailable (open circuit breaker or Redis connectivity failure).
-            _logger.Warn("Distributed cache unavailable; skipping the cache write.", ex);
+            _logger.Warn($"Distributed cache unavailable; skipping the cache write. ({CacheKeyLogSanitizer.SanitizeExceptionMessageForLogging(ex)})");
         }
         catch (Exception ex)
         {
-            _logger.Error(ex);
+            _logger.Error(CacheKeyLogSanitizer.SanitizeExceptionForLogging(ex));
             throw new DistributedCacheException(DefaultExceptionMessage, ex);
         }
     }
@@ -125,11 +133,11 @@ public class AsyncExternalCacheProvider<TKey>(
         }
         catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
         {
-            _logger.Warn("Distributed cache unavailable; skipping the cache write.", ex);
+            _logger.Warn($"Distributed cache unavailable; skipping the cache write. ({CacheKeyLogSanitizer.SanitizeExceptionMessageForLogging(ex)})");
         }
         catch (Exception ex)
         {
-            _logger.Error(ex);
+            _logger.Error(CacheKeyLogSanitizer.SanitizeExceptionForLogging(ex));
             throw new DistributedCacheException(DefaultExceptionMessage, ex);
         }
     }
