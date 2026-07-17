@@ -12,7 +12,7 @@ namespace EdFi.Ods.Features.ExternalCache.Redis;
 
 /// <summary>
 /// Provides a base class for person UniqueId/USI caching in Redis that optimizes the string allocations by storing the
-/// cache key string representations in a dictionary, and avoids boxing while validating the cache key. 
+/// cache key string representations in a dictionary, and avoids boxing while validating the cache key.
 /// </summary>
 /// <typeparam name="TMapKey">The type of the hash's key.</typeparam>
 /// <typeparam name="TMapValue">The type of the hash's value.</typeparam>
@@ -22,8 +22,13 @@ public abstract class RedisPersonIdentifierMapCache<TMapKey, TMapValue>
     private readonly ConcurrentDictionary<(ulong odsInstanceHashId, string personType, PersonMapType personMapType), string>
         _cacheKeyAsStringByKey = new();
 
-    protected RedisPersonIdentifierMapCache(IRedisConnectionProvider redisConnectionProvider, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod)
-        : base(redisConnectionProvider, absoluteExpirationPeriod, slidingExpirationPeriod) { }
+    protected RedisPersonIdentifierMapCache(
+        IRedisConnectionProvider redisConnectionProvider,
+        RedisCacheResilience resilience,
+        TimeSpan? absoluteExpirationPeriod,
+        TimeSpan? slidingExpirationPeriod,
+        int batchSize)
+        : base(redisConnectionProvider, resilience, absoluteExpirationPeriod, slidingExpirationPeriod, batchSize) { }
 
     protected override void ValidateKey((ulong odsInstanceHashId, string personType, PersonMapType personMapType) key)
     {

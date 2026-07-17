@@ -52,9 +52,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .PreserveExistingDefaults()
                 .SingleInstance();
 
-            builder.Register(c => new MemoryCache(new MemoryCacheOptions()))
-                .As<IMemoryCache>()
-                .SingleInstance();
+            // Note: We do NOT register a singleton IMemoryCache here.
+            // Instead, each tiered cache gets its own dedicated MemoryCache instance
+            // to prevent unintended cross-module eviction when one cache is cleared.
+            // See RegisterPersonIdentifierCaching for the dedicated registrations.
 
             builder.RegisterType<MemoryCacheProvider>()
                 .As<ICacheProvider<string>>()
@@ -80,7 +81,7 @@ namespace EdFi.Ods.Api.Container.Modules
                     ctx =>
                     {
                         var apiSettings = ctx.Resolve<ApiSettings>();
-            
+
                         return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                             "Descriptors",
                             TimeSpan.FromSeconds(apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds));
@@ -275,8 +276,18 @@ namespace EdFi.Ods.Api.Container.Modules
 
         private static void RegisterPersonIdentifierCaching(ContainerBuilder builder)
         {
+            // Register dedicated MemoryCache for UsiByUniqueId map cache
+            builder
+                .Register(c => new MemoryCache(new MemoryCacheOptions()))
+                .Keyed<IMemoryCache>("UsiByUniqueIdMemoryCache")
+                .SingleInstance();
+
             builder
                 .RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType personMapType), string, int>>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.ParameterType == typeof(IMemoryCache),
+                        (p, c) => c.ResolveKeyed<IMemoryCache>("UsiByUniqueIdMemoryCache")))
                 .WithParameter(
                     new ResolvedParameter(
                         (p, c) => p.Name.Equals("slidingExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
@@ -303,7 +314,17 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
                 .SingleInstance();
 
+            // Register dedicated MemoryCache for UniqueIdByUsi map cache
+            builder
+                .Register(c => new MemoryCache(new MemoryCacheOptions()))
+                .Keyed<IMemoryCache>("UniqueIdByUsiMemoryCache")
+                .SingleInstance();
+
             builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.ParameterType == typeof(IMemoryCache),
+                        (p, c) => c.ResolveKeyed<IMemoryCache>("UniqueIdByUsiMemoryCache")))
                 .WithParameter(
                     new ResolvedParameter(
                         (p, c) => p.Name.Equals("slidingExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
@@ -339,7 +360,12 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<UniqueIdCacheInitializationMarkerKeyProvider>()
                 .As<ICacheInitializationMarkerKeyProvider<string>>()
                 .SingleInstance();
-            
+
+            builder.RegisterType<InMemoryDistributedLockProvider>()
+                .As<IDistributedLockProvider>()
+                .SingleInstance()
+                .PreserveExistingDefaults();
+
             builder.RegisterType<PersonUniqueIdResolver>()
                 .WithParameter(
                     new ResolvedParameter(

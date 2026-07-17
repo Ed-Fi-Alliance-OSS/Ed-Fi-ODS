@@ -16,171 +16,318 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.ExternalCache.Redis;
 using EdFi.Ods.Features.Services.Redis;
+using log4net;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.FeatureManagement;
 
-namespace EdFi.Ods.Features.ExternalCache
+namespace EdFi.Ods.Features.ExternalCache;
+
+public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheModule
 {
-    public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheModule
+    private const string ApiClientDetailsCacheProviderName = "ApiClientDetailsTieredCacheProvider";
+
+    private static readonly ILog _logger = LogManager.GetLogger(typeof(ExternalCacheModule));
+
+    private readonly CacheSettings _cacheSettings;
+
+    protected ExternalCacheModule(IFeatureManager featureManager, ApiSettings apiSettings)
+        : base(featureManager)
     {
-        private readonly CacheSettings _cacheSettings;
+        _cacheSettings = apiSettings.Caching;
+    }
 
-        protected ExternalCacheModule(IFeatureManager featureManager, ApiSettings apiSettings)
-            : base(featureManager)
+    protected override bool IsSelected() => _cacheSettings.ApiClientDetails.UseExternalCache
+        || _cacheSettings.Descriptors.UseExternalCache
+        || _cacheSettings.PersonUniqueIdToUsi.UseExternalCache;
+
+    protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+    {
+        WarnOnUnrecognizedCachingModes();
+
+        LogConfiguredCacheModes();
+
+        RegisterDistributedCache(builder);
+
+        RegisterProvider(builder);
+
+        if (_cacheSettings.ApiClientDetails.UseExternalCache)
         {
-            _cacheSettings = apiSettings.Caching;
+            OverrideApiClientDetailsCache(builder);
         }
 
-        protected override bool IsSelected() => _cacheSettings.ApiClientDetails.UseExternalCache ||
-            _cacheSettings.Descriptors.UseExternalCache ||
-            _cacheSettings.PersonUniqueIdToUsi.UseExternalCache;
-
-        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        if (_cacheSettings.Descriptors.UseExternalCache)
         {
-            RegisterDistributedCache(builder);
-
-            RegisterProvider(builder);
-
-            if (_cacheSettings.ApiClientDetails.UseExternalCache)
-            {
-                OverrideApiClientDetailsCache(builder);
-            }
-
-            if (_cacheSettings.Descriptors.UseExternalCache)
-            {
-                OverrideDescriptorsCache(builder);
-            }
-
-            if (_cacheSettings.PersonUniqueIdToUsi.UseExternalCache)
-            {
-                OverridePersonUniqueIdToUsiCache(builder);
-            }
+            OverrideDescriptorsCache(builder);
         }
 
-        public abstract string ExternalCacheProvider { get; }
-
-        public bool IsProviderSelected()
+        if (_cacheSettings.PersonUniqueIdToUsi.UseExternalCache)
         {
-            return ExternalCacheProvider.EqualsIgnoreCase(_cacheSettings.ExternalCacheProvider);
+            OverridePersonUniqueIdToUsiCache(builder);
         }
+    }
 
-        public void RegisterProvider(ContainerBuilder builder)
+    public abstract string ExternalCacheProvider { get; }
+
+    public bool IsProviderSelected()
+    {
+        return ExternalCacheProvider.EqualsIgnoreCase(_cacheSettings.ExternalCacheProvider);
+    }
+
+    public void RegisterProvider(ContainerBuilder builder)
+    {
+        builder.RegisterType<ExternalCacheProvider<string>>()
+            .WithParameter(
+                new ResolvedParameter(
+                    (p, _) => p.ParameterType == typeof(TimeSpan),
+                    (_, _) => GetDefaultExpiration()))
+            .WithParameter(
+                new ResolvedParameter(
+                    (p, _) => p.ParameterType == typeof(RedisCacheResilience),
+                    (_, c) => c.Resolve<RedisCacheResilience>()))
+            .As<IExternalCacheProvider<string>>()
+            .SingleInstance();
+    }
+
+    private static TimeSpan GetDefaultExpiration()
+    {
+        return TimeSpan.FromSeconds(1800);
+    }
+
+    public abstract void RegisterDistributedCache(ContainerBuilder builder);
+
+    private void OverrideApiClientDetailsCache(ContainerBuilder builder)
+    {
+        builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
+            .As<IApiClientDetailsCacheKeyProvider>()
+            .SingleInstance();
+
+        // None/empty falls back to this type's default (Hybrid); only an explicit External opts out of L1.
+        if (_cacheSettings.ApiClientDetails.CachingModeOption != CachingMode.External)
         {
-            builder.RegisterType<ExternalCacheProvider<string>>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, _) => p.ParameterType == typeof(TimeSpan),
-                        (_, _) => GetDefaultExpiration()))
-                .As<IExternalCacheProvider<string>>()
+            // Hybrid: short-lived in-process L1 cache in front of the external (L2) cache.
+            builder.Register(
+                    ctx =>
+                    {
+                        int l1CacheDurationSeconds = _cacheSettings.ApiClientDetails.L1CacheDurationSeconds;
+
+                        return new TieredCacheProvider<string>(
+                            ctx.Resolve<IMemoryCache>(),
+                            ctx.Resolve<IExternalCacheProvider<string>>(),
+                            TimeSpan.FromSeconds(l1CacheDurationSeconds));
+                    })
+                .Named<ICacheProvider<string>>(ApiClientDetailsCacheProviderName)
+                .SingleInstance();
+        }
+        else
+        {
+            // External (L2 only): the caching decorator uses the external cache provider directly.
+            builder.Register(ctx => ctx.Resolve<IExternalCacheProvider<string>>())
+                .Named<ICacheProvider<string>>(ApiClientDetailsCacheProviderName)
                 .SingleInstance();
         }
 
-        private static TimeSpan GetDefaultExpiration()
+        builder.RegisterDecorator<IApiClientDetailsProvider>(
+            (context, parameters, instance) => GetCachingApiClientDetailsProviderDecorator(context, instance));
+    }
+
+    private static CachingApiClientDetailsProviderDecorator GetCachingApiClientDetailsProviderDecorator(
+        IComponentContext componentContext,
+        IApiClientDetailsProvider apiClientDetailsProvider)
+    {
+        return new CachingApiClientDetailsProviderDecorator(
+            apiClientDetailsProvider,
+            componentContext.ResolveNamed<ICacheProvider<string>>(ApiClientDetailsCacheProviderName),
+            componentContext.Resolve<IApiClientDetailsCacheKeyProvider>());
+    }
+
+    private void OverrideDescriptorsCache(ContainerBuilder builder)
+    {
+        // None/empty falls back to this type's default (Hybrid); only an explicit External opts out of L1.
+        if (_cacheSettings.Descriptors.CachingModeOption != CachingMode.External)
         {
-            return TimeSpan.FromSeconds(1800);
-        }
-
-        public abstract void RegisterDistributedCache(ContainerBuilder builder);
-
-        public void OverrideApiClientDetailsCache(ContainerBuilder builder)
-        {
-            builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
-                .As<IApiClientDetailsCacheKeyProvider>()
-                .SingleInstance();
-
-            builder.RegisterDecorator<IApiClientDetailsProvider>(
-                (context, parameters, instance) => GetCachingApiClientDetailsProviderDecorator(context, instance));
-        }
-
-        private static CachingApiClientDetailsProviderDecorator GetCachingApiClientDetailsProviderDecorator(
-            IComponentContext componentContext,
-            IApiClientDetailsProvider apiClientDetailsProvider)
-        {
-            return new CachingApiClientDetailsProviderDecorator(
-                apiClientDetailsProvider,
-                componentContext.Resolve<IExternalCacheProvider<string>>(),
-                componentContext.Resolve<IApiClientDetailsCacheKeyProvider>());
-        }
-
-        public void OverrideDescriptorsCache(ContainerBuilder builder)
-        {
-            // Override the named interceptor registration to use the external (distributed) cache
-            builder.RegisterType<ContextualCachingInterceptor<OdsInstanceConfiguration>>()
-                .Named<IInterceptor>(InterceptorCacheKeys.Descriptors)
-                .WithParameter(
+            // Hybrid: short-lived in-process L1 cache in front of the external (L2) cache.
+            builder.Register(
                     ctx =>
                     {
                         int absoluteExpirationSeconds = _cacheSettings.Descriptors.AbsoluteExpirationSeconds;
+                        int l1CacheDurationSeconds = _cacheSettings.Descriptors.L1CacheDurationSeconds;
+                        var distributedCache = ctx.Resolve<IDistributedCache>();
+                        var absoluteExpiration = TimeSpan.FromSeconds(absoluteExpirationSeconds);
+                        var resilience = ctx.Resolve<RedisCacheResilience>();
 
-                        return (ICacheProvider<ulong>)new ExternalCacheProvider<ulong>(
-                            ctx.Resolve<IDistributedCache>(),
-                            TimeSpan.Zero,
-                            TimeSpan.FromSeconds(absoluteExpirationSeconds));
+                        return new TieredCacheProvider<ulong>(
+                            ctx.Resolve<IMemoryCache>(),
+                            new ExternalCacheProvider<ulong>(distributedCache, TimeSpan.Zero, absoluteExpiration, resilience),
+                            TimeSpan.FromSeconds(l1CacheDurationSeconds),
+                            new AsyncExternalCacheProvider<ulong>(distributedCache, TimeSpan.Zero, absoluteExpiration, resilience));
                     })
+                .As<ICacheProvider<ulong>>()
+                .As<IAsyncCacheProvider<ulong>>()
+                .SingleInstance();
+        }
+        else
+        {
+            // External (L2 only): register a single async provider as BOTH the synchronous and asynchronous
+            // provider so the AsyncCachingInterceptor's reference-equality check skips the blocking
+            // synchronous path and always uses async access — no in-process L1 tier.
+            builder.Register(
+                    ctx =>
+                    {
+                        int absoluteExpirationSeconds = _cacheSettings.Descriptors.AbsoluteExpirationSeconds;
+                        var distributedCache = ctx.Resolve<IDistributedCache>();
+                        var absoluteExpiration = TimeSpan.FromSeconds(absoluteExpirationSeconds);
+                        var resilience = ctx.Resolve<RedisCacheResilience>();
+
+                        return new AsyncExternalCacheProvider<ulong>(distributedCache, TimeSpan.Zero, absoluteExpiration, resilience);
+                    })
+                .As<ICacheProvider<ulong>>()
+                .As<IAsyncCacheProvider<ulong>>()
                 .SingleInstance();
         }
 
-        public void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder)
+        builder.RegisterType<AsyncContextualCachingInterceptor<OdsInstanceConfiguration>>()
+            .Named<IInterceptor>(InterceptorCacheKeys.Descriptors)
+            .SingleInstance();
+    }
+
+    private void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder)
+    {
+        if (!IsProviderSelected())
         {
-            if (IsProviderSelected())
-            {
-                builder.RegisterType<RedisConnectionProvider>()
-                    .WithParameter(
-                        new ResolvedParameter(
-                            (p, c) => p.Name == "configuration",
-                            (p, c) =>
-                            {
-                                var apiSettings = c.Resolve<ApiSettings>();
-
-                                return apiSettings.Services.Redis.Configuration;
-                            }))
-                    .As<IRedisConnectionProvider>()
-                    .SingleInstance();
-
-                builder.RegisterType<RedisUsiByUniqueIdMapCache>()
-                    .WithParameter(
-                        new ResolvedParameter(
-                            (p, c) => p.Name.EqualsIgnoreCase("slidingExpirationPeriod"),
-                            (p, c) =>
-                            {
-                                var apiSettings = c.Resolve<ApiSettings>();
-                                int seconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
-                                return seconds > 0 ? TimeSpan.FromSeconds(seconds) : null;
-                            }))
-                    .WithParameter(
-                        new ResolvedParameter(
-                            (p, c) => p.Name.EqualsIgnoreCase("absoluteExpirationPeriod"),
-                            (p, c) =>
-                            {
-                                var apiSettings = c.Resolve<ApiSettings>();
-                                int seconds = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
-                                return seconds > 0 ? TimeSpan.FromSeconds(seconds) : null;
-                            }))
-                    .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
-                    .SingleInstance();
-
-                builder.RegisterType<RedisUniqueIdByUsiMapCache>()
-                    .WithParameter(
-                        new ResolvedParameter(
-                            (p, c) => p.Name.EqualsIgnoreCase("slidingExpirationPeriod"),
-                            (p, c) =>
-                            {
-                                var apiSettings = c.Resolve<ApiSettings>();
-                                int seconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
-                                return seconds > 0 ? TimeSpan.FromSeconds(seconds) : null;
-                            }))
-                    .WithParameter(
-                        new ResolvedParameter(
-                            (p, c) => p.Name.EqualsIgnoreCase("absoluteExpirationPeriod"),
-                            (p, c) =>
-                            {
-                                var apiSettings = c.Resolve<ApiSettings>();
-                                int seconds = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
-                                return seconds > 0 ? TimeSpan.FromSeconds(seconds) : null;
-                            }))
-                    .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
-                    .SingleInstance();
-            }
+            return;
         }
+
+        builder.Register(
+                c => new RedisConnectionProvider(c.Resolve<ApiSettings>().Services.Redis))
+            .As<IRedisConnectionProvider>()
+            .IfNotRegistered(typeof(IRedisConnectionProvider))
+            .SingleInstance();
+
+        builder.RegisterType<RedisDistributedLockProvider>()
+            .WithParameter(
+                new ResolvedParameter(
+                    (p, c) => p.ParameterType == typeof(RedisCacheResilience),
+                    (_, c) => c.Resolve<RedisCacheResilience>()))
+            .As<IDistributedLockProvider>()
+            .SingleInstance();
+
+        bool hybrid = _cacheSettings.PersonUniqueIdToUsi.CachingModeOption == CachingMode.Hybrid;
+
+        builder.Register(ctx => BuildUsiByUniqueIdMapCache(ctx, hybrid))
+            .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
+            .SingleInstance();
+
+        builder.Register(ctx => BuildUniqueIdByUsiMapCache(ctx, hybrid))
+            .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
+            .SingleInstance();
+    }
+
+    private IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> BuildUsiByUniqueIdMapCache(
+        IComponentContext ctx, bool hybrid)
+    {
+        var person = _cacheSettings.PersonUniqueIdToUsi;
+
+        var l2 = new RedisUsiByUniqueIdMapCache(
+            ctx.Resolve<IRedisConnectionProvider>(),
+            ctx.Resolve<RedisCacheResilience>(),
+            ToExpirationPeriod(person.AbsoluteExpirationSeconds),
+            ToExpirationPeriod(person.SlidingExpirationSeconds),
+            person.BatchSize);
+
+        if (!hybrid)
+        {
+            return l2;
+        }
+
+        var l1 = new InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>(
+            ctx.Resolve<IMemoryCache>(),
+            TimeSpan.FromSeconds(person.L1CacheDurationSeconds),
+            TimeSpan.Zero);
+
+        return new TieredMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>(l1, l2);
+    }
+
+    private IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> BuildUniqueIdByUsiMapCache(
+        IComponentContext ctx, bool hybrid)
+    {
+        var person = _cacheSettings.PersonUniqueIdToUsi;
+
+        var l2 = new RedisUniqueIdByUsiMapCache(
+            ctx.Resolve<IRedisConnectionProvider>(),
+            ctx.Resolve<RedisCacheResilience>(),
+            ToExpirationPeriod(person.AbsoluteExpirationSeconds),
+            ToExpirationPeriod(person.SlidingExpirationSeconds),
+            person.BatchSize);
+
+        if (!hybrid)
+        {
+            return l2;
+        }
+
+        var l1 = new InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>(
+            ctx.Resolve<IMemoryCache>(),
+            TimeSpan.FromSeconds(person.L1CacheDurationSeconds),
+            TimeSpan.Zero);
+
+        return new TieredMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>(l1, l2);
+    }
+
+    private static TimeSpan? ToExpirationPeriod(int seconds)
+    {
+        return seconds > 0 ? TimeSpan.FromSeconds(seconds) : null;
+    }
+
+    // Surfaces configuration mistakes: an unrecognized CachingMode value (e.g. a typo) parses to
+    // CachingMode.None and silently falls back to the cache type's default, so without this warning the
+    // operator gets no feedback that their configured value was ignored.
+    private void WarnOnUnrecognizedCachingModes()
+    {
+        WarnIfUnrecognizedCachingMode("ApiSettings:Caching:Descriptors:CachingMode", _cacheSettings.Descriptors.CachingMode);
+        WarnIfUnrecognizedCachingMode("ApiSettings:Caching:PersonUniqueIdToUsi:CachingMode", _cacheSettings.PersonUniqueIdToUsi.CachingMode);
+        WarnIfUnrecognizedCachingMode("ApiSettings:Caching:ApiClientDetails:CachingMode", _cacheSettings.ApiClientDetails.CachingMode);
+    }
+
+    private static void WarnIfUnrecognizedCachingMode(string settingPath, string configuredValue)
+    {
+        if (string.IsNullOrEmpty(configuredValue) || Enum.TryParse<CachingMode>(configuredValue, ignoreCase: true, out _))
+        {
+            return;
+        }
+
+        _logger.Warn(
+            $"Unrecognized value '{configuredValue}' for '{settingPath}'; allowed values are "
+            + $"'{nameof(CachingMode.External)}' and '{nameof(CachingMode.Hybrid)}'. The value has been ignored "
+            + "and the cache type's default mode will be used.");
+    }
+
+    // Emits a one-time, startup summary of the effective caching mode for each cache type so operators can
+    // confirm whether the API is using in-memory, external (L2 only), or hybrid (L1 + L2) caching.
+    private void LogConfiguredCacheModes()
+    {
+        if (!_logger.IsInfoEnabled)
+        {
+            return;
+        }
+
+        _logger.Info(
+            $"Cache mode configuration: provider='{_cacheSettings.ExternalCacheProvider}', "
+            + $"Descriptors={DescribeMode(_cacheSettings.Descriptors.UseExternalCache, _cacheSettings.Descriptors.CachingModeOption, CachingMode.Hybrid)}, "
+            + $"PersonUniqueIdToUsi={DescribeMode(_cacheSettings.PersonUniqueIdToUsi.UseExternalCache, _cacheSettings.PersonUniqueIdToUsi.CachingModeOption, CachingMode.External)}, "
+            + $"ApiClientDetails={DescribeMode(_cacheSettings.ApiClientDetails.UseExternalCache, _cacheSettings.ApiClientDetails.CachingModeOption, CachingMode.Hybrid)}.");
+    }
+
+    // Resolves the effective mode for the startup summary: in-memory when external caching is off, otherwise
+    // the configured mode — with None/empty falling back to this type's default, mirroring the registration dispatch.
+    private static string DescribeMode(bool useExternalCache, CachingMode cachingMode, CachingMode defaultMode)
+    {
+        if (!useExternalCache)
+        {
+            return "InMemory";
+        }
+
+        return cachingMode == CachingMode.None
+            ? defaultMode.ToString()
+            : cachingMode.ToString();
     }
 }

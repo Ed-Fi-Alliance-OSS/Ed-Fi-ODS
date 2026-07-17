@@ -5,66 +5,101 @@
 
 using System;
 using System.Threading;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
+using System.Threading.Tasks;
+using EdFi.Ods.Common.Configuration;
+using log4net;
 using StackExchange.Redis;
 
 namespace EdFi.Ods.Features.Services.Redis;
 
+/// <summary>
+/// Provides access to a Redis database connection.
+/// </summary>
 public class RedisConnectionProvider : IRedisConnectionProvider
 {
-    private readonly RedisCacheOptions _options;
+    private readonly ConfigurationOptions _configurationOptions;
     private readonly SemaphoreSlim _connectionLock = new(initialCount: 1, maxCount: 1);
+    private readonly ILog _logger = LogManager.GetLogger(typeof(RedisConnectionProvider));
 
     private volatile IConnectionMultiplexer _connection;
     private IDatabase _cache;
 
-    public RedisConnectionProvider(string configuration)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RedisConnectionProvider"/> class.
+    /// </summary>
+    /// <param name="redisConfiguration">The Redis connection settings.</param>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="redisConfiguration"/> is null.</exception>
+    public RedisConnectionProvider(RedisConfiguration redisConfiguration)
     {
-        _options = new RedisCacheOptions() { Configuration = configuration };
+        ArgumentNullException.ThrowIfNull(redisConfiguration);
+
+        _configurationOptions = CreateConfigurationOptions(redisConfiguration);
+        _ = WarmupConnectionAsync();
     }
-    
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RedisConnectionProvider"/> class.
+    /// </summary>
+    /// <param name="configuration">The Redis connection string.</param>
+    public RedisConnectionProvider(string configuration)
+        : this(new RedisConfiguration { Configuration = configuration })
+    {
+    }
+
+    /// <inheritdoc />
+    public bool IsConnected { get; private set; }
+
+    /// <inheritdoc />
     public IDatabase Get()
     {
-        EnsureConnected();
+        EnsureConnectedAsync().GetAwaiter().GetResult();
 
         return _cache;
     }
-    
-    private void EnsureConnected()
+
+    internal static ConfigurationOptions CreateConfigurationOptions(
+        RedisConfiguration redisConfiguration
+    )
     {
-        if (_cache != null)
+        ArgumentNullException.ThrowIfNull(redisConfiguration);
+
+        // Deliberately falling back to an empty string below rather than defaulting to potentially insecure localhost
+        var configurationOptions = ConfigurationOptions.Parse(
+            redisConfiguration.Configuration ?? string.Empty
+        );
+        configurationOptions.SyncTimeout = redisConfiguration.SyncTimeoutMs;
+        configurationOptions.AsyncTimeout = redisConfiguration.AsyncTimeoutMs;
+        configurationOptions.ConnectTimeout = redisConfiguration.ConnectTimeoutMs;
+        configurationOptions.ConnectRetry = redisConfiguration.ConnectRetry;
+        configurationOptions.AbortOnConnectFail = redisConfiguration.AbortOnConnectFail;
+        configurationOptions.KeepAlive = redisConfiguration.KeepAliveSeconds;
+        configurationOptions.Ssl = redisConfiguration.Ssl;
+
+        if (!string.IsNullOrWhiteSpace(redisConfiguration.Password))
+        {
+            configurationOptions.Password = redisConfiguration.Password;
+        }
+
+        return configurationOptions;
+    }
+
+    private async Task EnsureConnectedAsync()
+    {
+        if (_cache is not null)
         {
             return;
         }
 
-        _connectionLock.Wait();
+        await _connectionLock.WaitAsync().ConfigureAwait(false);
 
         try
         {
-            if (_cache == null)
+            if (_cache is null)
             {
-                if(_options.ConnectionMultiplexerFactory is null)
-                {
-                    if (_options.ConfigurationOptions is not null)
-                    {
-                        _connection = ConnectionMultiplexer.Connect(_options.ConfigurationOptions);
-                    }
-                    else if (!string.IsNullOrWhiteSpace(_options.Configuration))
-                    {
-                        _connection = ConnectionMultiplexer.Connect(_options.Configuration);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("External cache is enabled and configured for Redis, but neither a configuration string nor Redis configuration options have been provided in appsettings");
-                    }
-                }
-                else
-                {
-                    _connection = _options.ConnectionMultiplexerFactory().ConfigureAwait(false).GetAwaiter().GetResult();;
-                }
-
-                TryRegisterProfiler();
+                _connection = await ConnectionMultiplexer.ConnectAsync(_configurationOptions).ConfigureAwait(false);
+                SubscribeToConnectionEvents(_connection);
                 _cache = _connection.GetDatabase();
+                IsConnected = _connection.IsConnected;
             }
         }
         finally
@@ -73,16 +108,52 @@ public class RedisConnectionProvider : IRedisConnectionProvider
         }
     }
 
-    private void TryRegisterProfiler()
+    private async Task WarmupConnectionAsync()
     {
-        if (_connection == null)
+        try
         {
-            throw new InvalidOperationException($"{nameof(_connection)} cannot be null.");
+            await EnsureConnectedAsync().ConfigureAwait(false);
         }
+        catch (Exception ex)
+        {
+            _logger.Warn("Unable to pre-establish Redis connection. A subsequent cache operation will retry.", ex);
+        }
+    }
 
-        if (_options.ProfilingSession != null)
-        {
-            _connection.RegisterProfiler(_options.ProfilingSession);
-        }
+    private void SubscribeToConnectionEvents(IConnectionMultiplexer connection)
+    {
+        connection.ConnectionFailed += OnConnectionFailed;
+        connection.ConnectionRestored += OnConnectionRestored;
+        connection.ErrorMessage += OnErrorMessage;
+        connection.InternalError += OnInternalError;
+    }
+
+    private void OnConnectionFailed(object sender, ConnectionFailedEventArgs args)
+    {
+        IsConnected = false;
+
+        _logger.Error(
+            $"Redis connection failed. Endpoint: {args.EndPoint}, FailureType: {args.FailureType}, ConnectionType: {args.ConnectionType}.",
+            args.Exception
+        );
+    }
+
+    private void OnConnectionRestored(object sender, ConnectionFailedEventArgs args)
+    {
+        IsConnected = true;
+
+        _logger.Info(
+            $"Redis connection restored. Endpoint: {args.EndPoint}, FailureType: {args.FailureType}, ConnectionType: {args.ConnectionType}."
+        );
+    }
+
+    private void OnErrorMessage(object sender, RedisErrorEventArgs args)
+    {
+        _logger.Warn($"Redis reported an error message: {args.Message}");
+    }
+
+    private void OnInternalError(object sender, InternalErrorEventArgs args)
+    {
+        _logger.Warn($"Redis reported an internal error from '{args.Origin}'.", args.Exception);
     }
 }

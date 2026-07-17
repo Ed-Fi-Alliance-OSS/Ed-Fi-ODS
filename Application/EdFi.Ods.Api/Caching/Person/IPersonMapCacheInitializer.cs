@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EdFi.Ods.Api.Caching.Person;
@@ -17,6 +18,8 @@ public interface IPersonMapCacheInitializer
     /// </summary>
     /// <param name="odsInstanceHashId">The unique hashId of the ODS instance.</param>
     /// <param name="personType">The person type for the cache initialization.</param>
-    /// <returns>A <see cref="Task" /> that is suitable for background execution (i.e. created using the <see cref="Task.Run" /> method).</returns>
-    Task InitializePersonMapAsync(ulong odsInstanceHashId, string personType);
+    /// <param name="lockKey">The distributed lock key to release when initialization completes.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A <see cref="Task" /> that is suitable for background execution.</returns>
+    Task InitializePersonMapAsync(ulong odsInstanceHashId, string personType, string lockKey, CancellationToken cancellationToken = default);
 }

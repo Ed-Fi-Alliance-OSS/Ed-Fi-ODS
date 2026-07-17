@@ -22,31 +22,28 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
 
     public PersonUsiResolver(
         IPersonMapCacheInitializer personMapCacheInitializer,
+        IDistributedLockProvider distributedLockProvider,
         IPersonIdentifiersProvider personIdentifiersProvider,
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> mapCache,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> reverseMapCache,
         ICacheInitializationMarkerKeyProvider<string> cacheInitializationMarkerKeyForLookupProvider,
-        ICacheInitializationMarkerKeyProvider<int> cacheInitializationMarkerKeyForResolvedProvider,
         Dictionary<string, bool> cacheSuppressionByPersonType,
         bool useProgressiveLoading)
         : base(
             personMapCacheInitializer,
+            distributedLockProvider,
             odsInstanceConfigurationContextProvider,
             mapCache,
             reverseMapCache,
             cacheInitializationMarkerKeyForLookupProvider,
-            cacheInitializationMarkerKeyForResolvedProvider,
             cacheSuppressionByPersonType,
             useProgressiveLoading)
     {
         _personIdentifiersProvider = personIdentifiersProvider;
     }
 
-    protected override PersonMapType MapType
-    {
-        get => PersonMapType.UsiByUniqueId;
-    }
+    protected override PersonMapType MapType => PersonMapType.UsiByUniqueId;
 
     /// <inheritdoc cref="IPersonUsiResolver.ResolveUsisAsync" />
     public async Task ResolveUsisAsync(string personType, IDictionary<string, int> lookups)
