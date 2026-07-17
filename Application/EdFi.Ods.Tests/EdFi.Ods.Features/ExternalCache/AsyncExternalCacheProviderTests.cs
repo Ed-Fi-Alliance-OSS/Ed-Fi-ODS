@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Features.ExternalCache;
+using EdFi.Ods.Features.ExternalCache.Redis;
 using FakeItEasy;
 using Microsoft.Extensions.Caching.Distributed;
 using NUnit.Framework;
@@ -30,7 +31,33 @@ public class AsyncExternalCacheProviderTests
         var provider = new AsyncExternalCacheProvider<string>(
             distributedCache,
             TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(5));
+            TimeSpan.FromMinutes(5),
+            new RedisCacheResilience());
+
+        // Act
+        var (found, value) = await provider.TryGetCachedObjectAsync("test-key");
+
+        // Assert
+        found.ShouldBeFalse();
+        value.ShouldBeNull();
+    }
+
+    [Test]
+    public async Task TryGetCachedObjectAsync_ShouldDegradeToMiss_WhenDistributedCacheIsUnavailable()
+    {
+        // Arrange
+        var distributedCache = A.Fake<IDistributedCache>();
+
+        // A Redis connectivity failure surfaces as a timeout/connection exception, which should be
+        // treated as the cache being temporarily unavailable rather than a hard failure.
+        A.CallTo(() => distributedCache.GetAsync("test-key", A<CancellationToken>._))
+            .ThrowsAsync(new TimeoutException());
+
+        var provider = new AsyncExternalCacheProvider<string>(
+            distributedCache,
+            TimeSpan.FromMinutes(1),
+            TimeSpan.FromMinutes(5),
+            new RedisCacheResilience());
 
         // Act
         var (found, value) = await provider.TryGetCachedObjectAsync("test-key");
@@ -52,7 +79,8 @@ public class AsyncExternalCacheProviderTests
         var provider = new AsyncExternalCacheProvider<string>(
             distributedCache,
             TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(5));
+            TimeSpan.FromMinutes(5),
+            new RedisCacheResilience());
 
         // Act
         var (found, value) = await provider.TryGetCachedObjectAsync("test-key");

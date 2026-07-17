@@ -5,11 +5,14 @@
 
 using System;
 using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common;
 using EdFi.Common.Security;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Features.ExternalCache.Redis;
 using log4net;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
@@ -26,16 +29,19 @@ namespace EdFi.Ods.Features.ExternalCache;
 /// <param name="distributedCache">The distributed cache.</param>
 /// <param name="slidingExpiration">The sliding expiration to apply to set operations.</param>
 /// <param name="absoluteExpiration">The absolute expiration to apply to set operations.</param>
+/// <param name="resilience">The resilience pipeline for Redis operations.</param>
 public class AsyncExternalCacheProvider<TKey>(
     IDistributedCache distributedCache,
     TimeSpan slidingExpiration,
-    TimeSpan absoluteExpiration) : IAsyncCacheProvider<TKey>
+    TimeSpan absoluteExpiration,
+    RedisCacheResilience resilience) : IAsyncCacheProvider<TKey>, ICacheProvider<TKey>
 {
     private const string DefaultExceptionMessage = "Unable to access distributed cache.";
 
     private readonly IDistributedCache _distributedCache = distributedCache;
     private readonly TimeSpan _absoluteExpiration = absoluteExpiration;
     private readonly TimeSpan _slidingExpiration = slidingExpiration;
+    private readonly RedisCacheResilience _resilience = Preconditions.ThrowIfNull(resilience, nameof(resilience));
     private readonly ILog _logger = LogManager.GetLogger(typeof(AsyncExternalCacheProvider<TKey>));
 
     /// <inheritdoc />
@@ -44,10 +50,15 @@ public class AsyncExternalCacheProvider<TKey>(
         try
         {
             var keyAsString = GetKeyAsString(key);
-            var cachedValue = await _distributedCache.GetStringAsync(keyAsString).ConfigureAwait(false);
+            var cachedValue = await ExecuteGetAsync(keyAsString).ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(cachedValue))
             {
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"[External] Distributed (L2) cache miss for key '{CacheKeyLogSanitizer.SanitizeKeyForLogging(key)}'.");
+                }
+
                 return (false, null);
             }
 
@@ -55,11 +66,24 @@ public class AsyncExternalCacheProvider<TKey>(
                 ? JsonConvert.DeserializeObject<ApiClientDetails>(cachedValue)
                 : ExternalCacheSerializationHelper.Deserialize(cachedValue, _logger);
 
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"[External] Distributed (L2) cache hit for key '{CacheKeyLogSanitizer.SanitizeKeyForLogging(key)}'.");
+            }
+
             return (true, value);
+        }
+        catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
+        {
+            // Degrade gracefully: a temporarily unavailable cache (open circuit breaker or Redis
+            // connectivity failure) is treated as a miss so the caller falls back to the underlying
+            // source of truth instead of failing the request.
+            _logger.Warn($"Distributed cache unavailable; treating the read as a cache miss. ({CacheKeyLogSanitizer.SanitizeExceptionMessageForLogging(ex)})");
+            return (false, null);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex);
+            _logger.Error(CacheKeyLogSanitizer.SanitizeExceptionForLogging(ex));
             return (false, null);
         }
     }
@@ -67,17 +91,25 @@ public class AsyncExternalCacheProvider<TKey>(
     /// <inheritdoc />
     public async Task SetCachedObjectAsync(TKey key, object obj)
     {
+        var keyAsString = GetKeyAsString(key);
+
         try
         {
-            await _distributedCache.SetStringAsync(
-                    GetKeyAsString(key),
+            await ExecuteSetAsync(
+                    keyAsString,
                     ExternalCacheSerializationHelper.Serialize(obj),
                     CreateDistributedCacheEntryOptions())
                 .ConfigureAwait(false);
         }
+        catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
+        {
+            // A failed cache write must not fail the request — skip caching when the cache is
+            // temporarily unavailable (open circuit breaker or Redis connectivity failure).
+            _logger.Warn($"Distributed cache unavailable; skipping the cache write. ({CacheKeyLogSanitizer.SanitizeExceptionMessageForLogging(ex)})");
+        }
         catch (Exception ex)
         {
-            _logger.Error(ex);
+            _logger.Error(CacheKeyLogSanitizer.SanitizeExceptionForLogging(ex));
             throw new DistributedCacheException(DefaultExceptionMessage, ex);
         }
     }
@@ -85,10 +117,12 @@ public class AsyncExternalCacheProvider<TKey>(
     /// <inheritdoc />
     public async Task InsertAsync(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
     {
+        var keyAsString = GetKeyAsString(key);
+
         try
         {
-            await _distributedCache.SetStringAsync(
-                    GetKeyAsString(key),
+            await ExecuteSetAsync(
+                    keyAsString,
                     ExternalCacheSerializationHelper.Serialize(value),
                     new DistributedCacheEntryOptions
                     {
@@ -97,11 +131,57 @@ public class AsyncExternalCacheProvider<TKey>(
                     })
                 .ConfigureAwait(false);
         }
+        catch (Exception ex) when (DistributedCacheAvailability.IsUnavailable(ex))
+        {
+            _logger.Warn($"Distributed cache unavailable; skipping the cache write. ({CacheKeyLogSanitizer.SanitizeExceptionMessageForLogging(ex)})");
+        }
         catch (Exception ex)
         {
-            _logger.Error(ex);
+            _logger.Error(CacheKeyLogSanitizer.SanitizeExceptionForLogging(ex));
             throw new DistributedCacheException(DefaultExceptionMessage, ex);
         }
+    }
+
+    // Runs the distributed-cache read through the Redis circuit breaker so repeated failures fail fast
+    // once the circuit opens instead of blocking on the full timeout.
+    private async Task<string> ExecuteGetAsync(string keyAsString)
+    {
+        return await _resilience.Pipeline.ExecuteAsync(
+                async _ => await _distributedCache.GetStringAsync(keyAsString).ConfigureAwait(false),
+                CancellationToken.None)
+            .ConfigureAwait(false);
+    }
+
+    private async Task ExecuteSetAsync(string keyAsString, string serializedValue, DistributedCacheEntryOptions options)
+    {
+        await _resilience.Pipeline.ExecuteAsync(
+                async _ => await _distributedCache.SetStringAsync(keyAsString, serializedValue, options).ConfigureAwait(false),
+                CancellationToken.None)
+            .ConfigureAwait(false);
+    }
+
+    // ICacheProvider<TKey> is implemented so a single instance can be registered as BOTH the synchronous
+    // and asynchronous cache provider. The AsyncCachingInterceptor uses a reference-equality check between
+    // its sync and async providers to skip the blocking synchronous path (see AsyncCachingInterceptor.cs);
+    // registering the same instance for both interfaces enables external-only (no L1) caching without a
+    // blocking Redis call on the hot path. These synchronous members are therefore not expected to be
+    // invoked on that path; they delegate to the asynchronous implementations for correctness if used.
+
+    bool ICacheProvider<TKey>.TryGetCachedObject(TKey key, out object value)
+    {
+        (bool found, object cachedValue) = TryGetCachedObjectAsync(key).GetAwaiter().GetResult();
+        value = cachedValue;
+        return found;
+    }
+
+    void ICacheProvider<TKey>.SetCachedObject(TKey key, object obj)
+    {
+        SetCachedObjectAsync(key, obj).GetAwaiter().GetResult();
+    }
+
+    void ICacheProvider<TKey>.Insert(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+    {
+        InsertAsync(key, value, absoluteExpiration, slidingExpiration).GetAwaiter().GetResult();
     }
 
     private static string GetKeyAsString(TKey key)
