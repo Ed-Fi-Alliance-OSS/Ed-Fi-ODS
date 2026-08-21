@@ -34,6 +34,15 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         /// </summary>
         public abstract (string sql, object parameters, string prologue) GetInClause(string columnName, string parameterName, IList values);
 
+        /// <summary>
+        /// Gets the query hint to be appended to a statement whose relationship-based authorization uses only the
+        /// supplied kinds of authorization views, or <b>null</b> when no hint is warranted.
+        /// </summary>
+        /// <param name="hasEducationOrganizationFilter">Indicates whether an education-organization-to-education-organization authorization view was applied.</param>
+        /// <param name="hasPersonFilter">Indicates whether a person-based authorization view (for example StudentUSI) was applied.</param>
+        /// <param name="personIsCompleteResourceKey">Indicates whether the person endpoint is the resource's entire primary key, meaning the resource holds at most one row per authorized person.</param>
+        public virtual string GetAuthorizationQueryHint(bool hasEducationOrganizationFilter, bool hasPersonFilter, bool personIsCompleteResourceKey) => null;
+
         public virtual string GetCteString(string cteName, string sql)
         {
             return $"{cteName} AS ({sql})";

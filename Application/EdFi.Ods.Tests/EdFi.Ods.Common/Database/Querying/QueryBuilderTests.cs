@@ -1463,6 +1463,84 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             }
 
             [Test]
+            public void Should_append_the_row_goal_hint_when_authorization_is_person_view_only()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentGradebookEntry")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                q.MarkPersonAuthorizationFilter();
+
+                q.BuildTemplate().RawSql.NormalizeSql()
+                    .ShouldEndWith("OPTION (USE HINT('DISABLE_OPTIMIZER_ROWGOAL'))");
+            }
+
+            [Test]
+            public void Should_not_append_the_row_goal_hint_when_the_person_is_the_complete_resource_key()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.Student")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                q.MarkPersonAuthorizationFilter(personIsCompleteResourceKey: true);
+
+                q.BuildTemplate().RawSql.ShouldNotContain("DISABLE_OPTIMIZER_ROWGOAL");
+            }
+
+            [Test]
+            public void Should_not_append_the_row_goal_hint_when_an_education_organization_view_is_also_used()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentSectionAssociation")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                q.MarkPersonAuthorizationFilter();
+                q.MarkEducationOrganizationAuthorizationFilter();
+
+                q.BuildTemplate().RawSql.ShouldNotContain("DISABLE_OPTIMIZER_ROWGOAL");
+            }
+
+            [Test]
+            public void Should_append_the_row_goal_hint_to_the_count_query_as_well()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentGradebookEntry")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                q.MarkPersonAuthorizationFilter();
+
+                q.BuildCountTemplate().RawSql.NormalizeSql()
+                    .ShouldEndWith("OPTION (USE HINT('DISABLE_OPTIMIZER_ROWGOAL'))");
+            }
+
+            [Test]
+            public void Should_not_append_any_hint_when_no_authorization_view_was_applied()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentGradebookEntry")
+                    .Select("StudentUSI");
+
+                q.BuildTemplate().RawSql.ShouldNotContain("OPTION (USE HINT");
+            }
+
+            [Test]
+            public void Should_not_append_the_hint_on_PostgreSQL_even_for_person_view_only_authorization()
+            {
+                var q = new QueryBuilder(new PostgreSqlDialect())
+                    .From("edfi.StudentGradebookEntry")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                q.MarkPersonAuthorizationFilter();
+
+                q.BuildTemplate().RawSql.ShouldNotContain("USE HINT");
+            }
+
+            [Test]
             public void Should_leave_the_PostgreSQL_claims_parameter_binding_unchanged()
             {
                 var q = new QueryBuilder(new PostgreSqlDialect())

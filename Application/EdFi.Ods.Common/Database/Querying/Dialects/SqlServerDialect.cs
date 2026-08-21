@@ -36,14 +36,38 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         public const string AuthEdOrgsTempTableLandingSql =
             $"CREATE TABLE {AuthEdOrgsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {AuthEdOrgsTempTableName} (Id) SELECT DISTINCT TargetEducationOrganizationId FROM auth.EducationOrganizationIdToEducationOrganizationId WHERE SourceEducationOrganizationId IN (SELECT Id FROM {ClaimsTempTableName});";
 
+        // When a resource's relationship-based authorization runs only through person views (for example
+        // StudentUSI), there is no education-organization predicate to narrow the resource, and the optimizer's row
+        // goal makes it scan the resource in AggregateId order expecting to fill the page early. On a large resource
+        // where the claim authorizes few or no rows, that scan reads the whole table.
+        //
+        // Whether suppressing the row goal is worth it depends on how many rows the resource holds per authorized
+        // person, which is a property of the resource's primary key rather than of the data:
+        //
+        // - When the person is the resource's entire primary key (Student, Staff, Contact), the resource holds at
+        //   most one row per person, so an ordered scan finds authorized rows at the same density the claim
+        //   authorizes, and the row goal is what makes the first page instant. The hint is not applied.
+        // - When the person is only part of a composite primary key (StudentGradebookEntry,
+        //   StudentContactAssociation), the resource holds many rows per person and those rows can be concentrated
+        //   in one range of the scan or absent altogether, so the row goal is an unbacked bet. Suppressing it costs
+        //   little (the authorized person set is small relative to the resource) and avoids the full scan.
+        public const string PersonOnlyAuthorizationQueryHint = "OPTION (USE HINT('DISABLE_OPTIMIZER_ROWGOAL'))";
+
         public override string GetTemplateString(string sourceTableName)
         {
-            return $"/**prologue**/{base.GetTemplateString(sourceTableName)}";
+            return $"/**prologue**/{base.GetTemplateString(sourceTableName)} /**queryhints**/";
         }
 
         public override string GetCountTemplateString(string countTableCteName)
         {
-            return $"/**prologue**/{base.GetCountTemplateString(countTableCteName)}";
+            return $"/**prologue**/{base.GetCountTemplateString(countTableCteName)} /**queryhints**/";
+        }
+
+        public override string GetAuthorizationQueryHint(bool hasEducationOrganizationFilter, bool hasPersonFilter, bool personIsCompleteResourceKey)
+        {
+            return hasPersonFilter && !hasEducationOrganizationFilter && !personIsCompleteResourceKey
+                ? PersonOnlyAuthorizationQueryHint
+                : null;
         }
 
         public override string GetLimitOffsetString(string limitParameter, string offsetParameter)

@@ -65,6 +65,35 @@ namespace EdFi.Ods.Common.Database.Querying
         
         public IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
+        /// <summary>
+        /// Records that an education-organization-to-education-organization authorization view was applied, so that
+        /// the dialect can decide whether a query hint is warranted.
+        /// </summary>
+        public QueryBuilder MarkEducationOrganizationAuthorizationFilter()
+        {
+            _sqlBuilder.HasEducationOrganizationAuthorizationFilter = true;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Records that a person-based authorization view (for example StudentUSI) was applied, so that the dialect
+        /// can decide whether a query hint is warranted.
+        /// </summary>
+        /// <param name="personIsCompleteResourceKey">Indicates the person endpoint is the resource's entire primary
+        /// key, meaning the resource holds at most one row per authorized person.</param>
+        public QueryBuilder MarkPersonAuthorizationFilter(bool personIsCompleteResourceKey = false)
+        {
+            _sqlBuilder.HasPersonAuthorizationFilter = true;
+
+            if (personIsCompleteResourceKey)
+            {
+                _sqlBuilder.PersonIsCompleteResourceKey = true;
+            }
+
+            return this;
+        }
+
         public ParameterIndexer ParameterIndexer
         {
             get => _parameterIndexer;
@@ -515,8 +544,27 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
+        /// <summary>
+        /// Applies the dialect's authorization query hint, if any, based on the kinds of authorization views that
+        /// were applied to this query (recorded in <see cref="Context" /> by the authorization filters).
+        /// </summary>
+        private void ApplyAuthorizationQueryHint(SqlBuilder sqlBuilder)
+        {
+            string hint = _dialect.GetAuthorizationQueryHint(
+                sqlBuilder.HasEducationOrganizationAuthorizationFilter,
+                sqlBuilder.HasPersonAuthorizationFilter,
+                sqlBuilder.PersonIsCompleteResourceKey);
+
+            if (hint != null)
+            {
+                sqlBuilder.QueryHints(hint);
+            }
+        }
+
         public SqlBuilder.Template BuildTemplate()
         {
+            ApplyAuthorizationQueryHint(_sqlBuilder);
+
             // Build the template
             string template = _dialect.GetTemplateString(TableName);
 
@@ -551,6 +599,8 @@ namespace EdFi.Ods.Common.Database.Querying
             countSqlBuilder.With(CountQueryCteName, _sqlBuilder, countableTemplateString, _dialect.GetCteString);
             countSqlBuilder.Select(_dialect.GetSelectCountString());
             countSqlBuilder.AddParameters(parameters);
+
+            ApplyAuthorizationQueryHint(countSqlBuilder);
 
             if (!includePrologue)
             {

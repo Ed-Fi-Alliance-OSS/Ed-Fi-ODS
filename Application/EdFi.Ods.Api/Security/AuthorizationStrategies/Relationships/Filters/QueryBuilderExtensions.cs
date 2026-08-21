@@ -20,6 +20,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
     {
         private static readonly CallContextStorage _callContextStorage = new();
 
+        private const string EducationOrganizationIdToEducationOrganizationIdViewName =
+            "EducationOrganizationIdToEducationOrganizationId";
+
         /// <summary>
         /// Applies a join-based filter to the criteria for the specified authorization view.
         /// </summary>
@@ -151,13 +154,23 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
             authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authView{viewName}" : $"authView{authViewAlias}";
 
+            // Record the kind of authorization view applied, so the dialect can decide on query hints
+            if (viewName == EducationOrganizationIdToEducationOrganizationIdViewName)
+            {
+                queryBuilder.MarkEducationOrganizationAuthorizationFilter();
+            }
+            else
+            {
+                queryBuilder.MarkPersonAuthorizationFilter(IsPersonTheCompleteResourceKey(resource, subjectEndpointName));
+            }
+
             QueryBuilder cte;
 
             // For SQL Server, land the ed-org expansion for the claim into a temp table so the optimizer gets
             // value-level statistics on the authorized ed-org ids (the landing INSERT is the exact query this CTE
             // would otherwise run, so consuming the temp table is semantically identical).
             if (queryBuilder.Dialect is SqlServerDialect
-                && viewName == "EducationOrganizationIdToEducationOrganizationId"
+                && viewName == EducationOrganizationIdToEducationOrganizationIdViewName
                 && value is object[] claimValues
                 && claimValues.Length > 0)
             {
@@ -282,6 +295,18 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                             .WhereNotNull($"{authViewAlias}.{viewTargetEndpointName}"));
                 }
             }
+        }
+
+        /// <summary>
+        /// Indicates whether the supplied person endpoint is the resource's entire primary key, meaning the resource
+        /// holds at most one row per authorized person.
+        /// </summary>
+        private static bool IsPersonTheCompleteResourceKey(Resource resource, string subjectEndpointName)
+        {
+            var identifyingProperties = resource.Entity.Identifier.Properties;
+
+            return identifyingProperties.Count == 1
+                && identifyingProperties[0].PropertyName.Equals(subjectEndpointName, StringComparison.OrdinalIgnoreCase);
         }
 
         private static (string tableAlias, string endpointName) GetSubjectJoinDetails(Resource resource, string subjectEndpointName)
