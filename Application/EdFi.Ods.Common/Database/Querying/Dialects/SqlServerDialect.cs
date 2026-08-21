@@ -23,8 +23,18 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         // relationship-based authorization joins for large claim lists. Landing the TVP contents into a temp table
         // inside the batch provides the optimizer with statistics, while the TVP remains the transport on the wire
         // (required to stay under the 2,100 parameter limit for clients with very large EdOrg counts).
-        private const string ClaimsTempTableLandingSql =
+        public const string ClaimsTempTableLandingSql =
             $"CREATE TABLE {ClaimsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {ClaimsTempTableName} (Id) SELECT Id FROM {ClaimsParameterName};";
+
+        public const string AuthEdOrgsTempTableName = "#AuthEdOrgs";
+
+        // Claim statistics alone leave the ed-org fanout estimated from average density, which is skew-blind:
+        // narrow claims on large resources can flip to a row-goal scan that never terminates when few or no rows
+        // are authorized. Landing the ed-org EXPANSION (the tuple targets for the claim) gives the optimizer the
+        // concrete ed-org ids with value-level statistics. The INSERT is the exact query the authorization CTE
+        // for the ed-org view runs today, so consuming this table instead is semantically identical.
+        public const string AuthEdOrgsTempTableLandingSql =
+            $"CREATE TABLE {AuthEdOrgsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {AuthEdOrgsTempTableName} (Id) SELECT DISTINCT TargetEducationOrganizationId FROM auth.EducationOrganizationIdToEducationOrganizationId WHERE SourceEducationOrganizationId IN (SELECT Id FROM {ClaimsTempTableName});";
 
         public override string GetTemplateString(string sourceTableName)
         {
@@ -64,6 +74,21 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
                 return ("1 = 0", null, null);
             }
 
+            var parameters = CreateTableValuedParameters(parameterName, values);
+
+            if (parameterName == ClaimsParameterName)
+            {
+                return ($"{columnName} IN (SELECT Id FROM {ClaimsTempTableName})", parameters, ClaimsTempTableLandingSql);
+            }
+
+            return ($"{columnName} IN (SELECT Id FROM {parameterName})", parameters, null);
+        }
+
+        /// <summary>
+        /// Creates the <see cref="DynamicParameters" /> holding the supplied values as a table-valued parameter.
+        /// </summary>
+        public static DynamicParameters CreateTableValuedParameters(string parameterName, IList values)
+        {
             var itemSystemType = values[0].GetType();
 
             // ODS does not support TVPs using shorts, so use int instead
@@ -78,12 +103,7 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             var parameters = new DynamicParameters();
             parameters.AddDynamicParams(new[] { new KeyValuePair<string, object>(parameterName, tvp) });
 
-            if (parameterName == ClaimsParameterName)
-            {
-                return ($"{columnName} IN (SELECT Id FROM {ClaimsTempTableName})", parameters, ClaimsTempTableLandingSql);
-            }
-
-            return ($"{columnName} IN (SELECT Id FROM {parameterName})", parameters, null);
+            return parameters;
         }
 
         public override string GetGreatestString(string expression1, string expression2)

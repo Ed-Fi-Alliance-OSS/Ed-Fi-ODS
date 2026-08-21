@@ -554,6 +554,17 @@ namespace EdFi.Ods.Common.Database.Querying
 
             return this;
         }
+
+        /// <summary>
+        /// Adds a statement to be emitted once at the start of the batch (duplicates are suppressed), optionally
+        /// registering parameters the prologue statement needs on the wire.
+        /// </summary>
+        public QueryBuilder Prologue(string sql, DynamicParameters parameters = null)
+        {
+            _sqlBuilder.Prologue(sql, parameters);
+
+            return this;
+        }
     }
 
     public class ParameterIndexer

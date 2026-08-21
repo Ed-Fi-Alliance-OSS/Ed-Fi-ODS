@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Security.Authorization;
@@ -76,20 +77,44 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
             authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authView{viewName}" : $"authView{authViewAlias}";
 
-            // Create a CTE query for the authorization view
-            var cte = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
-            cte.From($"auth.{viewName} AS av");
-            cte.Select($"av.{viewTargetEndpointName}");
-            cte.Distinct();
+            QueryBuilder cte;
 
-            // Apply claims to the CTE query
-            if (value is object[] arrayOfValues)
+            // For SQL Server, land the ed-org expansion for the claim into a temp table so the optimizer gets
+            // value-level statistics on the authorized ed-org ids (the landing INSERT is the exact query this CTE
+            // would otherwise run, so consuming the temp table is semantically identical).
+            if (queryBuilder.Dialect is SqlServerDialect
+                && viewName == "EducationOrganizationIdToEducationOrganizationId"
+                && value is object[] claimValues
+                && claimValues.Length > 0)
             {
-                cte.WhereIn($"av.{viewSourceEndpointName}", arrayOfValues, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+                var tvpParameters = SqlServerDialect.CreateTableValuedParameters(
+                    SqlServerDialect.ClaimsParameterName,
+                    claimValues);
+
+                queryBuilder.Prologue(SqlServerDialect.ClaimsTempTableLandingSql, tvpParameters);
+                queryBuilder.Prologue(SqlServerDialect.AuthEdOrgsTempTableLandingSql);
+
+                cte = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
+                cte.From($"{SqlServerDialect.AuthEdOrgsTempTableName} AS av");
+                cte.Select($"av.Id AS {viewTargetEndpointName}");
             }
             else
             {
-                cte.Where($"av.{viewSourceEndpointName}", value, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+                // Create a CTE query for the authorization view
+                cte = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
+                cte.From($"auth.{viewName} AS av");
+                cte.Select($"av.{viewTargetEndpointName}");
+                cte.Distinct();
+
+                // Apply claims to the CTE query
+                if (value is object[] arrayOfValues)
+                {
+                    cte.WhereIn($"av.{viewSourceEndpointName}", arrayOfValues, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+                }
+                else
+                {
+                    cte.Where($"av.{viewSourceEndpointName}", value, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+                }
             }
 
             // Add the CTE to the main query, with alias
