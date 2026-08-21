@@ -452,6 +452,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
                 // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.BusResourceId == null)
+                {
+                    target.BusResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
                 if (target.StaffEducationOrganizationAssignmentAssociationResourceId == null)
                 {
                     target.StaffEducationOrganizationAssignmentAssociationResourceId = null;
@@ -526,6 +531,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                 if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                     || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
                 {
+                target.BusResourceId = source.BusResourceId;
+                target.BusDiscriminator = source.BusDiscriminator;
                 target.StaffEducationOrganizationAssignmentAssociationResourceId = source.StaffEducationOrganizationAssignmentAssociationResourceId;
                 target.StaffEducationOrganizationAssignmentAssociationDiscriminator = source.StaffEducationOrganizationAssignmentAssociationDiscriminator;
                 }
@@ -3858,6 +3865,87 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             if (mappingContract?.IsMinimumWeightSupported != false)
                 target.MinimumWeight = source.MinimumWeight;
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: StudentAcademicRecord
+
+namespace EdFi.Ods.Entities.Common.Sample //.StudentAcademicRecordAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class StudentAcademicRecordExtensionMapper
+    {
+        private static readonly FullName _fullName_sample_StudentAcademicRecordExtension = new FullName("sample", "StudentAcademicRecordExtension");
+    
+        public static bool SynchronizeTo(this IStudentAcademicRecordExtension source, IStudentAcademicRecordExtension target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentAcademicRecordExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentAcademicRecordExtension);
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsNotesSupported != false)
+                && target.Notes != source.Notes)
+            {
+                target.Notes = source.Notes;
+                isModified = true;
+            }
+
+
+            // Sync lists
+
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentAcademicRecordExtension source, IStudentAcademicRecordExtension target, Action<IStudentAcademicRecordExtension, IStudentAcademicRecordExtension> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentAcademicRecordExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentAcademicRecordExtension);
+    
+            // Copy contextual primary key values
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsNotesSupported != false)
+                target.Notes = source.Notes;
 
             // Copy Aggregate Reference Data
 
