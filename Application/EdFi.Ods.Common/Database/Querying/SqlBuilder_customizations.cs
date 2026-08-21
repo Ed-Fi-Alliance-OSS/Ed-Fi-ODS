@@ -60,6 +60,37 @@ namespace EdFi.Ods.Common.Database.Querying
         public SqlBuilder With(string sql, dynamic parameters = null) =>
             AddClause("with", sql, parameters, ", ", "WITH ", "\n", false);
 
+        /// <summary>
+        /// Adds a statement to be emitted once at the start of the batch, before the main statement (resolved through
+        /// the "/**prologue**/" template marker), suppressing duplicate statements.
+        /// </summary>
+        /// <param name="sql">The SQL statement (terminated with a semicolon) to be emitted at the start of the batch.</param>
+        /// <returns>The current <see cref="SqlBuilder" />.</returns>
+        public SqlBuilder Prologue(string sql)
+        {
+            if (_data.TryGetValue(ClauseKey.Prologue, out var clauses) && clauses.Any(c => c.Sql == sql))
+            {
+                return this;
+            }
+
+            return AddClause(ClauseKey.Prologue, sql, null, "\n", string.Empty, "\n", false);
+        }
+
+        /// <summary>
+        /// Copies the prologue statements from the supplied <see cref="SqlBuilder" /> instance, suppressing duplicates.
+        /// </summary>
+        /// <param name="source">The <see cref="SqlBuilder" /> instance from which prologue statements are to be copied.</param>
+        protected internal void CopyPrologueFrom(SqlBuilder source)
+        {
+            if (source._data.TryGetValue(ClauseKey.Prologue, out var clauses))
+            {
+                foreach (Clause clause in clauses)
+                {
+                    Prologue(clause.Sql);
+                }
+            }
+        }
+
         public SqlBuilder Clone()
         {
             // Get the new builder's data
@@ -130,8 +161,13 @@ namespace EdFi.Ods.Common.Database.Querying
                 }
             }
 
-            // Apply supplied template to the nested SqlBuilder (stripping the WITH and ORDER BY clauses, if present)
-            string templateStringWithoutWith = templateString.Replace("/**with**/", string.Empty);
+            // Prologue statements must precede the outermost statement of the batch, so hoist them up as well
+            CopyPrologueFrom(cteSqlBuilder);
+
+            // Apply supplied template to the nested SqlBuilder (stripping the WITH and prologue markers, if present)
+            string templateStringWithoutWith = templateString
+                .Replace("/**with**/", string.Empty)
+                .Replace("/**prologue**/", string.Empty);
 
             // Apply the query of the nested SqlBuilder as another CTE
             var nestedTemplate = cteSqlBuilder.AddTemplate(templateStringWithoutWith);
@@ -191,5 +227,6 @@ namespace EdFi.Ods.Common.Database.Querying
         public static string Set = "set";
         public static string Distinct = "distinct";
         public static string With = "with";
+        public static string Prologue = "prologue";
     }
 }

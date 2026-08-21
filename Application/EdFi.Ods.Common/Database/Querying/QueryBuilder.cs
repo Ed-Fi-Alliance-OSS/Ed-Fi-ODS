@@ -170,6 +170,9 @@ namespace EdFi.Ods.Common.Database.Querying
             // Incorporate any JOINs added into this builder
             _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "with", "innerjoin", "leftjoin", "rightjoin", "join");
 
+            // Hoist any prologue statements (they must precede the outermost statement of the batch)
+            _sqlBuilder.CopyPrologueFrom(childScopeSqlBuilder);
+
             return this;
         }
 
@@ -209,6 +212,9 @@ namespace EdFi.Ods.Common.Database.Querying
 
             // Incorporate the JOINs into this builder
             _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "with", "innerjoin", "leftjoin", "rightjoin", "join");
+
+            // Hoist any prologue statements (they must precede the outermost statement of the batch)
+            _sqlBuilder.CopyPrologueFrom(childScopeSqlBuilder);
 
             return this;
         }
@@ -340,7 +346,12 @@ namespace EdFi.Ods.Common.Database.Querying
         {
             string parameterName = parameterNameDisposition ?? _parameterIndexer.NextParameterName();
 
-            var (sql, parameters) = _dialect.GetInClause(columnName, parameterName, values);
+            var (sql, parameters, prologue) = _dialect.GetInClause(columnName, parameterName, values);
+
+            if (prologue != null)
+            {
+                _sqlBuilder.Prologue(prologue);
+            }
 
             if (useOrWhere)
             {
@@ -470,7 +481,12 @@ namespace EdFi.Ods.Common.Database.Querying
             return _sqlBuilder.AddTemplate(template, parameters);
         }
 
-        public SqlBuilder.Template BuildCountTemplate()
+        /// <summary>
+        /// Builds the template for the count query, optionally omitting the prologue statements (for use when the
+        /// count query is executed in the same batch as the main query, which already carries the prologue).
+        /// </summary>
+        /// <param name="includePrologue"><b>false</b> to omit the prologue statements from the count query.</param>
+        public SqlBuilder.Template BuildCountTemplate(bool includePrologue = true)
         {
             var parameters = Parameters.Any()
                 ? new DynamicParameters(Parameters)
@@ -485,12 +501,17 @@ namespace EdFi.Ods.Common.Database.Querying
                 .Replace("/**paging**/", string.Empty);
 
             const string CountQueryCteName = "__count_data";
-            
+
             countSqlBuilder.With(CountQueryCteName, _sqlBuilder, countableTemplateString, _dialect.GetCteString);
             countSqlBuilder.Select(_dialect.GetSelectCountString());
             countSqlBuilder.AddParameters(parameters);
 
-            // Return the template for the count query 
+            if (!includePrologue)
+            {
+                countSqlBuilder.ClearClause(ClauseKey.Prologue);
+            }
+
+            // Return the template for the count query
             return countSqlBuilder.AddTemplate(_dialect.GetCountTemplateString(CountQueryCteName));
         }
 

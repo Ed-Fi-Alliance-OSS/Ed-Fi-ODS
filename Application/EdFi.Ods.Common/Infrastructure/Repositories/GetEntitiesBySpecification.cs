@@ -206,7 +206,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // If requested, get a total count of available records
                 if (CountRequested())
                 {
-                    countTemplate = (idsQueryBuilder ?? GetIdsQueryBuilder()).BuildCountTemplate();
+                    // When the ids and count queries are combined into a single batch, the ids query already carries
+                    // the prologue statements for the whole batch, so they must not be repeated in the count query
+                    countTemplate = idsQueryBuilder != null
+                        ? idsQueryBuilder.BuildCountTemplate(includePrologue: false)
+                        : GetIdsQueryBuilder().BuildCountTemplate();
 
                     if (countTemplate.Parameters is DynamicParameters countTemplateParameters)
                     {
