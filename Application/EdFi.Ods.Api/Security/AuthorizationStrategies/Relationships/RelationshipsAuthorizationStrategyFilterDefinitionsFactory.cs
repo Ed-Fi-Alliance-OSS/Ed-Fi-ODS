@@ -189,8 +189,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     $"c.Old{trackedChangesPropertyName}",
                     $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
 
-                // Apply claim value criteria
-                queryBuilder.OrWhereIn($"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}", filterContext.ClaimParameterValues);
+                // Apply claim value criteria (named as the claims parameter so the SQL Server dialect lands the
+                // TVP into the statistics-bearing temp table, as with the primary queries)
+                queryBuilder.OrWhereIn(
+                    $"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}",
+                    filterContext.ClaimParameterValues,
+                    $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
             }
             else
             {
@@ -199,8 +203,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     $"c.Old{trackedChangesPropertyName}",
                     $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
 
-                // Apply claim value criteria
-                queryBuilder.WhereIn($"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}", filterContext.ClaimParameterValues);
+                // Apply claim value criteria (named as the claims parameter so the SQL Server dialect lands the
+                // TVP into the statistics-bearing temp table, as with the primary queries)
+                queryBuilder.WhereIn(
+                    $"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}",
+                    filterContext.ClaimParameterValues,
+                    $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
             }
             
             string GetBasePropertyNameForSubjectEndpointName()
