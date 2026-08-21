@@ -13,6 +13,29 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
 {
     public class SqlServerDialect : Dialect
     {
+        // Must match RelationshipAuthorizationConventions.ClaimsParameterName (in EdFi.Ods.Api, which cannot be
+        // referenced from this assembly), prefixed with '@'.
+        public const string ClaimsParameterName = "@ClaimEducationOrganizationIds";
+
+        public const string ClaimsTempTableName = "#ClaimEdOrgIds";
+
+        // TVPs carry no statistics on their values, causing the optimizer to catastrophically misestimate the
+        // relationship-based authorization joins for large claim lists. Landing the TVP contents into a temp table
+        // inside the batch provides the optimizer with statistics, while the TVP remains the transport on the wire
+        // (required to stay under the 2,100 parameter limit for clients with very large EdOrg counts).
+        private const string ClaimsTempTableLandingSql =
+            $"CREATE TABLE {ClaimsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {ClaimsTempTableName} (Id) SELECT Id FROM {ClaimsParameterName};";
+
+        public override string GetTemplateString(string sourceTableName)
+        {
+            return $"/**prologue**/{base.GetTemplateString(sourceTableName)}";
+        }
+
+        public override string GetCountTemplateString(string countTableCteName)
+        {
+            return $"/**prologue**/{base.GetCountTemplateString(countTableCteName)}";
+        }
+
         public override string GetLimitOffsetString(string limitParameter, string offsetParameter)
         {
             if (offsetParameter == null && limitParameter == null)
@@ -33,12 +56,12 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             return $"OFFSET 0 ROWS FETCH NEXT {limitParameter} ROWS ONLY";
         }
 
-        public override (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values)
+        public override (string sql, object parameters, string prologue) GetInClause(string columnName, string parameterName, IList values)
         {
             // If list is empty, replace the IN clause with literal false condition
             if (values.Count == 0)
             {
-                return ("1 = 0", null);
+                return ("1 = 0", null, null);
             }
 
             var itemSystemType = values[0].GetType();
@@ -55,7 +78,12 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             var parameters = new DynamicParameters();
             parameters.AddDynamicParams(new[] { new KeyValuePair<string, object>(parameterName, tvp) });
 
-            return ($"{columnName} IN (SELECT Id FROM {parameterName})", parameters);
+            if (parameterName == ClaimsParameterName)
+            {
+                return ($"{columnName} IN (SELECT Id FROM {ClaimsTempTableName})", parameters, ClaimsTempTableLandingSql);
+            }
+
+            return ($"{columnName} IN (SELECT Id FROM {parameterName})", parameters, null);
         }
 
         public override string GetGreatestString(string expression1, string expression2)
