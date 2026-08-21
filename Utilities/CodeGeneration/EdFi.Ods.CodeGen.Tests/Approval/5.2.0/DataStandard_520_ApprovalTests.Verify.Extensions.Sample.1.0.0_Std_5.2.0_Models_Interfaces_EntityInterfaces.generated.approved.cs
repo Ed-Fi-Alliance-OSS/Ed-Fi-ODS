@@ -172,6 +172,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         ICollection<IBusRouteTelephone> BusRouteTelephones { get; set; }
 
         // Resource reference data
+        Guid? BusResourceId { get; set; }
+        string BusDiscriminator { get; set; }
         Guid? StaffEducationOrganizationAssignmentAssociationResourceId { get; set; }
         string StaffEducationOrganizationAssignmentAssociationDiscriminator { get; set; }
     }
@@ -184,6 +186,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     {
         public BusRouteMappingContract(
             bool isBeginDateSupported,
+            bool isBusReferenceSupported,
             bool isBusRouteBusYearsSupported,
             bool isBusRouteDirectionSupported,
             bool isBusRouteDurationSupported,
@@ -216,6 +219,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             )
         {
             IsBeginDateSupported = isBeginDateSupported;
+            IsBusReferenceSupported = isBusReferenceSupported;
             IsBusRouteBusYearsSupported = isBusRouteBusYearsSupported;
             IsBusRouteDirectionSupported = isBusRouteDirectionSupported;
             IsBusRouteDurationSupported = isBusRouteDurationSupported;
@@ -248,6 +252,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         }
 
         public bool IsBeginDateSupported { get; }
+        public bool IsBusReferenceSupported { get; }
         public bool IsBusRouteBusYearsSupported { get; }
         public bool IsBusRouteDirectionSupported { get; }
         public bool IsBusRouteDurationSupported { get; }
@@ -284,6 +289,8 @@ namespace EdFi.Ods.Entities.Common.Sample
             {
                 case "BeginDate":
                     return IsBeginDateSupported;
+                case "BusReference":
+                    return IsBusReferenceSupported;
                 case "BusRouteBusYears":
                     return IsBusRouteBusYearsSupported;
                 case "BusRouteDirection":
@@ -1962,6 +1969,55 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsMaximumWeightSupported;
                 case "MinimumWeight":
                     return IsMinimumWeightSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentAcademicRecordExtension model.
+    /// </summary>
+    public interface IStudentAcademicRecordExtension : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        EdFi.IStudentAcademicRecord StudentAcademicRecord { get; set; }
+
+        // Non-PK properties
+        string Notes { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentAcademicRecordExtensionMappingContract : IMappingContract
+    {
+        public StudentAcademicRecordExtensionMappingContract(
+            bool isNotesSupported
+            )
+        {
+            IsNotesSupported = isNotesSupported;
+        }
+
+        public bool IsNotesSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "Notes":
+                    return IsNotesSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
