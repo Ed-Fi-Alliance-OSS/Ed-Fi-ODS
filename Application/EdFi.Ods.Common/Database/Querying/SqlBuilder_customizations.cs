@@ -66,18 +66,19 @@ namespace EdFi.Ods.Common.Database.Querying
         /// </summary>
         /// <param name="sql">The SQL statement (terminated with a semicolon) to be emitted at the start of the batch.</param>
         /// <returns>The current <see cref="SqlBuilder" />.</returns>
-        public SqlBuilder Prologue(string sql)
+        public SqlBuilder Prologue(string sql, object parameters = null)
         {
             if (_data.TryGetValue(ClauseKey.Prologue, out var clauses) && clauses.Any(c => c.Sql == sql))
             {
                 return this;
             }
 
-            return AddClause(ClauseKey.Prologue, sql, null, "\n", string.Empty, "\n", false);
+            return AddClause(ClauseKey.Prologue, sql, parameters, "\n", string.Empty, "\n", false);
         }
 
         /// <summary>
-        /// Copies the prologue statements from the supplied <see cref="SqlBuilder" /> instance, suppressing duplicates.
+        /// Copies the prologue statements (with their parameters) from the supplied <see cref="SqlBuilder" />
+        /// instance, suppressing duplicates.
         /// </summary>
         /// <param name="source">The <see cref="SqlBuilder" /> instance from which prologue statements are to be copied.</param>
         protected internal void CopyPrologueFrom(SqlBuilder source)
@@ -86,7 +87,7 @@ namespace EdFi.Ods.Common.Database.Querying
             {
                 foreach (Clause clause in clauses)
                 {
-                    Prologue(clause.Sql);
+                    Prologue(clause.Sql, clause.Parameters);
                 }
             }
         }
