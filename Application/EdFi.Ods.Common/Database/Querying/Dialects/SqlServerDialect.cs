@@ -19,12 +19,17 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
 
         public const string ClaimsTempTableName = "#ClaimEdOrgIds";
 
+        // The DROP guards below are defensive. A temp table created inside an sp_executesql batch is scoped to
+        // that batch and disappears with it, so today the CREATE cannot collide; the guard is there so a future
+        // change to how these statements are executed does not turn into a runtime failure. Dropping a table that
+        // does not exist costs nothing.
+        //
         // TVPs carry no statistics on their values, causing the optimizer to catastrophically misestimate the
         // relationship-based authorization joins for large claim lists. Landing the TVP contents into a temp table
         // inside the batch provides the optimizer with statistics, while the TVP remains the transport on the wire
         // (required to stay under the 2,100 parameter limit for clients with very large EdOrg counts).
         public const string ClaimsTempTableLandingSql =
-            $"CREATE TABLE {ClaimsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {ClaimsTempTableName} (Id) SELECT Id FROM {ClaimsParameterName};";
+            $"DROP TABLE IF EXISTS {ClaimsTempTableName}; CREATE TABLE {ClaimsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {ClaimsTempTableName} (Id) SELECT Id FROM {ClaimsParameterName};";
 
         public const string AuthEdOrgsTempTableName = "#AuthEdOrgs";
 
@@ -34,7 +39,7 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         // concrete ed-org ids with value-level statistics. The INSERT is the exact query the authorization CTE
         // for the ed-org view runs today, so consuming this table instead is semantically identical.
         public const string AuthEdOrgsTempTableLandingSql =
-            $"CREATE TABLE {AuthEdOrgsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {AuthEdOrgsTempTableName} (Id) SELECT DISTINCT TargetEducationOrganizationId FROM auth.EducationOrganizationIdToEducationOrganizationId WHERE SourceEducationOrganizationId IN (SELECT Id FROM {ClaimsTempTableName});";
+            $"DROP TABLE IF EXISTS {AuthEdOrgsTempTableName}; CREATE TABLE {AuthEdOrgsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {AuthEdOrgsTempTableName} (Id) SELECT DISTINCT TargetEducationOrganizationId FROM auth.EducationOrganizationIdToEducationOrganizationId WHERE SourceEducationOrganizationId IN (SELECT Id FROM {ClaimsTempTableName});";
 
         // When a resource's relationship-based authorization runs only through person views (for example
         // StudentUSI), there is no education-organization predicate to narrow the resource, and the optimizer's row

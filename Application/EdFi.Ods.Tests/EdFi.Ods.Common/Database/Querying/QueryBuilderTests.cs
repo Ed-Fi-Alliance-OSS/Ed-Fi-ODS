@@ -1284,7 +1284,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             private const string ClaimsParameterName = "@ClaimEducationOrganizationIds";
 
             private const string ExpectedPrologue =
-                "CREATE TABLE #ClaimEdOrgIds (Id BIGINT PRIMARY KEY); INSERT INTO #ClaimEdOrgIds (Id) SELECT Id FROM @ClaimEducationOrganizationIds;";
+                "DROP TABLE IF EXISTS #ClaimEdOrgIds; CREATE TABLE #ClaimEdOrgIds (Id BIGINT PRIMARY KEY); INSERT INTO #ClaimEdOrgIds (Id) SELECT Id FROM @ClaimEducationOrganizationIds;";
 
             [Test]
             public void Should_land_the_claims_TVP_into_a_temp_table_with_a_batch_prologue_on_SQL_Server()
