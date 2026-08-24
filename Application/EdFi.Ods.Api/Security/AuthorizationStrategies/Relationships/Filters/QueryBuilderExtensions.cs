@@ -169,8 +169,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             // For SQL Server, land the ed-org expansion for the claim into a temp table so the optimizer gets
             // value-level statistics on the authorized ed-org ids (the landing INSERT is the exact query this CTE
             // would otherwise run, so consuming the temp table is semantically identical).
+            //
+            // Restricted to the forward orientation on purpose. The inverted relationship strategies reuse this same
+            // view with the source and target columns swapped, so they expand the claim in the opposite direction and
+            // the landing statement below would authorize the wrong set of education organizations for them.
             if (queryBuilder.Dialect is SqlServerDialect
-                && viewName == EducationOrganizationIdToEducationOrganizationIdViewName
+                && IsForwardEducationOrganizationExpansion(viewName, viewSourceEndpointName, viewTargetEndpointName)
                 && value is object[] claimValues
                 && claimValues.Length > 0)
             {
@@ -295,6 +299,22 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                             .WhereNotNull($"{authViewAlias}.{viewTargetEndpointName}"));
                 }
             }
+        }
+
+        /// <summary>
+        /// Indicates whether the supplied authorization view and column pair is the forward education organization
+        /// expansion, which is the only orientation the temp table landing statement is written for. The inverted
+        /// relationship strategies reuse the same view with the source and target columns swapped, so they expand the
+        /// claim in the opposite direction and must not take that path.
+        /// </summary>
+        internal static bool IsForwardEducationOrganizationExpansion(
+            string viewName,
+            string viewSourceEndpointName,
+            string viewTargetEndpointName)
+        {
+            return viewName == EducationOrganizationIdToEducationOrganizationIdViewName
+                && viewSourceEndpointName == EducationOrganizationAuthorizationViewConstants.SourceColumnName
+                && viewTargetEndpointName == EducationOrganizationAuthorizationViewConstants.TargetColumnName;
         }
 
         /// <summary>
