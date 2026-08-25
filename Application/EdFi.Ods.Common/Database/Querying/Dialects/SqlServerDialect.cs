@@ -13,6 +13,68 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
 {
     public class SqlServerDialect : Dialect
     {
+        // Must match RelationshipAuthorizationConventions.ClaimsParameterName (in EdFi.Ods.Api, which cannot be
+        // referenced from this assembly), prefixed with '@'.
+        public const string ClaimsParameterName = "@ClaimEducationOrganizationIds";
+
+        public const string ClaimsTempTableName = "#ClaimEdOrgIds";
+
+        // The DROP guards below are defensive. A temp table created inside an sp_executesql batch is scoped to
+        // that batch and disappears with it, so today the CREATE cannot collide; the guard is there so a future
+        // change to how these statements are executed does not turn into a runtime failure. Dropping a table that
+        // does not exist costs nothing.
+        //
+        // TVPs carry no statistics on their values, causing the optimizer to catastrophically misestimate the
+        // relationship-based authorization joins for large claim lists. Landing the TVP contents into a temp table
+        // inside the batch provides the optimizer with statistics, while the TVP remains the transport on the wire
+        // (required to stay under the 2,100 parameter limit for clients with very large EdOrg counts).
+        public const string ClaimsTempTableLandingSql =
+            $"DROP TABLE IF EXISTS {ClaimsTempTableName}; CREATE TABLE {ClaimsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {ClaimsTempTableName} (Id) SELECT Id FROM {ClaimsParameterName};";
+
+        public const string AuthEdOrgsTempTableName = "#AuthEdOrgs";
+
+        // Claim statistics alone leave the ed-org fanout estimated from average density, which is skew-blind:
+        // narrow claims on large resources can flip to a row-goal scan that never terminates when few or no rows
+        // are authorized. Landing the ed-org EXPANSION (the tuple targets for the claim) gives the optimizer the
+        // concrete ed-org ids with value-level statistics. The INSERT is the exact query the authorization CTE
+        // for the ed-org view runs today, so consuming this table instead is semantically identical.
+        public const string AuthEdOrgsTempTableLandingSql =
+            $"DROP TABLE IF EXISTS {AuthEdOrgsTempTableName}; CREATE TABLE {AuthEdOrgsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {AuthEdOrgsTempTableName} (Id) SELECT DISTINCT TargetEducationOrganizationId FROM auth.EducationOrganizationIdToEducationOrganizationId WHERE SourceEducationOrganizationId IN (SELECT Id FROM {ClaimsTempTableName});";
+
+        // When a resource's relationship-based authorization runs only through person views (for example
+        // StudentUSI), there is no education-organization predicate to narrow the resource, and the optimizer's row
+        // goal makes it scan the resource in AggregateId order expecting to fill the page early. On a large resource
+        // where the claim authorizes few or no rows, that scan reads the whole table.
+        //
+        // Whether suppressing the row goal is worth it depends on how many rows the resource holds per authorized
+        // person, which is a property of the resource's primary key rather than of the data:
+        //
+        // - When the person is the resource's entire primary key (Student, Staff, Contact), the resource holds at
+        //   most one row per person, so an ordered scan finds authorized rows at the same density the claim
+        //   authorizes, and the row goal is what makes the first page instant. The hint is not applied.
+        // - When the person is only part of a composite primary key (StudentGradebookEntry,
+        //   StudentContactAssociation), the resource holds many rows per person and those rows can be concentrated
+        //   in one range of the scan or absent altogether, so the row goal is an unbacked bet. Suppressing it costs
+        //   little (the authorized person set is small relative to the resource) and avoids the full scan.
+        public const string PersonOnlyAuthorizationQueryHint = "OPTION (USE HINT('DISABLE_OPTIMIZER_ROWGOAL'))";
+
+        public override string GetTemplateString(string sourceTableName)
+        {
+            return $"/**prologue**/{base.GetTemplateString(sourceTableName)} /**queryhints**/";
+        }
+
+        public override string GetCountTemplateString(string countTableCteName)
+        {
+            return $"/**prologue**/{base.GetCountTemplateString(countTableCteName)} /**queryhints**/";
+        }
+
+        public override string GetAuthorizationQueryHint(bool hasEducationOrganizationFilter, bool hasPersonFilter, bool personIsCompleteResourceKey)
+        {
+            return hasPersonFilter && !hasEducationOrganizationFilter && !personIsCompleteResourceKey
+                ? PersonOnlyAuthorizationQueryHint
+                : null;
+        }
+
         public override string GetLimitOffsetString(string limitParameter, string offsetParameter)
         {
             if (offsetParameter == null && limitParameter == null)
@@ -33,14 +95,29 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             return $"OFFSET 0 ROWS FETCH NEXT {limitParameter} ROWS ONLY";
         }
 
-        public override (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values)
+        public override (string sql, object parameters, string prologue) GetInClause(string columnName, string parameterName, IList values)
         {
             // If list is empty, replace the IN clause with literal false condition
             if (values.Count == 0)
             {
-                return ("1 = 0", null);
+                return ("1 = 0", null, null);
             }
 
+            var parameters = CreateTableValuedParameters(parameterName, values);
+
+            if (parameterName == ClaimsParameterName)
+            {
+                return ($"{columnName} IN (SELECT Id FROM {ClaimsTempTableName})", parameters, ClaimsTempTableLandingSql);
+            }
+
+            return ($"{columnName} IN (SELECT Id FROM {parameterName})", parameters, null);
+        }
+
+        /// <summary>
+        /// Creates the <see cref="DynamicParameters" /> holding the supplied values as a table-valued parameter.
+        /// </summary>
+        public static DynamicParameters CreateTableValuedParameters(string parameterName, IList values)
+        {
             var itemSystemType = values[0].GetType();
 
             // ODS does not support TVPs using shorts, so use int instead
@@ -55,7 +132,7 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             var parameters = new DynamicParameters();
             parameters.AddDynamicParams(new[] { new KeyValuePair<string, object>(parameterName, tvp) });
 
-            return ($"{columnName} IN (SELECT Id FROM {parameterName})", parameters);
+            return parameters;
         }
 
         public override string GetGreatestString(string expression1, string expression2)

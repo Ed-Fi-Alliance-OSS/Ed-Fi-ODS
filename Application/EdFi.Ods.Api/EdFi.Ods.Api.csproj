@@ -56,4 +56,7 @@
   <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="EdFi.Ods.Tests" />
+  </ItemGroup>
 </Project>

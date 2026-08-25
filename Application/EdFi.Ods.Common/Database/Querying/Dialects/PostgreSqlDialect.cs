@@ -30,12 +30,12 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             return $"LIMIT {limitParameter}";
         }
 
-        public override (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values)
+        public override (string sql, object parameters, string prologue) GetInClause(string columnName, string parameterName, IList values)
         {
             // If list is empty, replace the IN clause with literal false condition
             if (values.Count == 0)
             {
-                return ("1 = 0", null);
+                return ("1 = 0", null, null);
             }
 
             var parameters = new Dictionary<string, object>();
@@ -48,7 +48,7 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
                 parameters.Add(itemParameterName, value);
             }
 
-            return ($"{columnName} IN (VALUES ({string.Join("), (", parameters.Keys)}) )", parameters);
+            return ($"{columnName} IN (VALUES ({string.Join("), (", parameters.Keys)}) )", parameters, null);
         }
 
         /// <summary>

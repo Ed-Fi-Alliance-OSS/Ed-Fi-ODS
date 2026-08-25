@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Security.Authorization;
@@ -18,6 +19,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
     public static class QueryBuilderExtensions
     {
         private static readonly CallContextStorage _callContextStorage = new();
+
+        private const string EducationOrganizationIdToEducationOrganizationIdViewName =
+            "EducationOrganizationIdToEducationOrganizationId";
 
         /// <summary>
         /// Applies a join-based filter to the criteria for the specified authorization view.
@@ -150,20 +154,58 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
             authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authView{viewName}" : $"authView{authViewAlias}";
 
-            // Create a CTE query for the authorization view
-            var cte = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
-            cte.From($"auth.{viewName} AS av");
-            cte.Select($"av.{viewTargetEndpointName}");
-            cte.Distinct();
-
-            // Apply claims to the CTE query
-            if (value is object[] arrayOfValues)
+            // Record the kind of authorization view applied, so the dialect can decide on query hints
+            if (viewName == EducationOrganizationIdToEducationOrganizationIdViewName)
             {
-                cte.WhereIn($"av.{viewSourceEndpointName}", arrayOfValues, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+                queryBuilder.MarkEducationOrganizationAuthorizationFilter();
             }
             else
             {
-                cte.Where($"av.{viewSourceEndpointName}", value, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+                queryBuilder.MarkPersonAuthorizationFilter(IsPersonTheCompleteResourceKey(resource, subjectEndpointName));
+            }
+
+            QueryBuilder cte;
+
+            // For SQL Server, land the ed-org expansion for the claim into a temp table so the optimizer gets
+            // value-level statistics on the authorized ed-org ids (the landing INSERT is the exact query this CTE
+            // would otherwise run, so consuming the temp table is semantically identical).
+            //
+            // Restricted to the forward orientation on purpose. The inverted relationship strategies reuse this same
+            // view with the source and target columns swapped, so they expand the claim in the opposite direction and
+            // the landing statement below would authorize the wrong set of education organizations for them.
+            if (queryBuilder.Dialect is SqlServerDialect
+                && IsForwardEducationOrganizationExpansion(viewName, viewSourceEndpointName, viewTargetEndpointName)
+                && value is object[] claimValues
+                && claimValues.Length > 0)
+            {
+                var tvpParameters = SqlServerDialect.CreateTableValuedParameters(
+                    SqlServerDialect.ClaimsParameterName,
+                    claimValues);
+
+                queryBuilder.Prologue(SqlServerDialect.ClaimsTempTableLandingSql, tvpParameters);
+                queryBuilder.Prologue(SqlServerDialect.AuthEdOrgsTempTableLandingSql);
+
+                cte = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
+                cte.From($"{SqlServerDialect.AuthEdOrgsTempTableName} AS av");
+                cte.Select($"av.Id AS {viewTargetEndpointName}");
+            }
+            else
+            {
+                // Create a CTE query for the authorization view
+                cte = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
+                cte.From($"auth.{viewName} AS av");
+                cte.Select($"av.{viewTargetEndpointName}");
+                cte.Distinct();
+
+                // Apply claims to the CTE query
+                if (value is object[] arrayOfValues)
+                {
+                    cte.WhereIn($"av.{viewSourceEndpointName}", arrayOfValues, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+                }
+                else
+                {
+                    cte.Where($"av.{viewSourceEndpointName}", value, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+                }
             }
 
             // Add the CTE to the main query, with alias
@@ -257,6 +299,34 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                             .WhereNotNull($"{authViewAlias}.{viewTargetEndpointName}"));
                 }
             }
+        }
+
+        /// <summary>
+        /// Indicates whether the supplied authorization view and column pair is the forward education organization
+        /// expansion, which is the only orientation the temp table landing statement is written for. The inverted
+        /// relationship strategies reuse the same view with the source and target columns swapped, so they expand the
+        /// claim in the opposite direction and must not take that path.
+        /// </summary>
+        internal static bool IsForwardEducationOrganizationExpansion(
+            string viewName,
+            string viewSourceEndpointName,
+            string viewTargetEndpointName)
+        {
+            return viewName == EducationOrganizationIdToEducationOrganizationIdViewName
+                && viewSourceEndpointName == EducationOrganizationAuthorizationViewConstants.SourceColumnName
+                && viewTargetEndpointName == EducationOrganizationAuthorizationViewConstants.TargetColumnName;
+        }
+
+        /// <summary>
+        /// Indicates whether the supplied person endpoint is the resource's entire primary key, meaning the resource
+        /// holds at most one row per authorized person.
+        /// </summary>
+        private static bool IsPersonTheCompleteResourceKey(Resource resource, string subjectEndpointName)
+        {
+            var identifyingProperties = resource.Entity.Identifier.Properties;
+
+            return identifyingProperties.Count == 1
+                && identifyingProperties[0].PropertyName.Equals(subjectEndpointName, StringComparison.OrdinalIgnoreCase);
         }
 
         private static (string tableAlias, string endpointName) GetSubjectJoinDetails(Resource resource, string subjectEndpointName)

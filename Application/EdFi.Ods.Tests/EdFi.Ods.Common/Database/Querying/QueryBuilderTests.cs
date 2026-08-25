@@ -1279,6 +1279,286 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             }
         }
 
+        public class With_claims_authorization_temp_table_landing
+        {
+            private const string ClaimsParameterName = "@ClaimEducationOrganizationIds";
+
+            private const string ExpectedPrologue =
+                "DROP TABLE IF EXISTS #ClaimEdOrgIds; CREATE TABLE #ClaimEdOrgIds (Id BIGINT PRIMARY KEY); INSERT INTO #ClaimEdOrgIds (Id) SELECT Id FROM @ClaimEducationOrganizationIds;";
+
+            [Test]
+            public void Should_land_the_claims_TVP_into_a_temp_table_with_a_batch_prologue_on_SQL_Server()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentSchoolAssociation")
+                    .Select("StudentUSI", "SchoolId", "EntryDate")
+                    .WhereIn("StudentUSI", new[] { 255901001L, 255901044L }, ClaimsParameterName);
+
+                var template = q.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@$"
+                    {ExpectedPrologue}
+                    SELECT  StudentUSI, SchoolId, EntryDate
+                    FROM    edfi.StudentSchoolAssociation
+                    WHERE   StudentUSI IN (SELECT Id FROM #ClaimEdOrgIds)".NormalizeSql()),
+                    () => actualParameters.ShouldNotBeNull(),
+                    // The TVP must remain on the wire to feed the prologue's INSERT statement
+                    () => actualParameters.ParameterNames.ShouldContain("ClaimEducationOrganizationIds"));
+
+                ExecuteQueryAndWriteResults(DatabaseEngine.MsSql, template);
+
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+
+            [Test]
+            public void Should_emit_a_single_prologue_when_multiple_authorization_CTEs_reference_the_claims_parameter()
+            {
+                var dialect = new SqlServerDialect();
+                var claimValues = new[] { 255901001L, 255901044L };
+
+                var q = new QueryBuilder(dialect)
+                    .From("edfi.StudentSectionAssociation AS r")
+                    .Select("r.AggregateId");
+
+                var cte1 = new QueryBuilder(dialect, q.ParameterIndexer);
+                cte1.From("auth.EducationOrganizationIdToStudentUSI AS av");
+                cte1.Select("av.StudentUSI");
+                cte1.Distinct();
+                cte1.WhereIn("av.SourceEducationOrganizationId", claimValues, ClaimsParameterName);
+
+                q.With("authViewEducationOrganizationIdToStudentUSI", cte1);
+                q.Join("authViewEducationOrganizationIdToStudentUSI", "r.StudentUSI", "authViewEducationOrganizationIdToStudentUSI.StudentUSI");
+
+                var cte2 = new QueryBuilder(dialect, q.ParameterIndexer);
+                cte2.From("auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS av");
+                cte2.Select("av.StudentUSI");
+                cte2.Distinct();
+                cte2.WhereIn("av.SourceEducationOrganizationId", claimValues, ClaimsParameterName);
+
+                q.With("authViewEducationOrganizationIdToStudentUSIThroughResponsibility", cte2);
+                q.Join("authViewEducationOrganizationIdToStudentUSIThroughResponsibility", "r.StudentUSI", "authViewEducationOrganizationIdToStudentUSIThroughResponsibility.StudentUSI");
+
+                var template = q.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@$"
+                    {ExpectedPrologue}
+                    WITH authViewEducationOrganizationIdToStudentUSI AS (
+                        SELECT  DISTINCT av.StudentUSI
+                        FROM    auth.EducationOrganizationIdToStudentUSI AS av
+                        WHERE   av.SourceEducationOrganizationId IN (SELECT Id FROM #ClaimEdOrgIds)),
+                    authViewEducationOrganizationIdToStudentUSIThroughResponsibility AS (
+                        SELECT  DISTINCT av.StudentUSI
+                        FROM    auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS av
+                        WHERE   av.SourceEducationOrganizationId IN (SELECT Id FROM #ClaimEdOrgIds))
+                    SELECT  r.AggregateId
+                    FROM    edfi.StudentSectionAssociation AS r
+                    INNER JOIN authViewEducationOrganizationIdToStudentUSI
+                        ON r.StudentUSI = authViewEducationOrganizationIdToStudentUSI.StudentUSI
+                    INNER JOIN authViewEducationOrganizationIdToStudentUSIThroughResponsibility
+                        ON r.StudentUSI = authViewEducationOrganizationIdToStudentUSIThroughResponsibility.StudentUSI".NormalizeSql()),
+                    () => actualParameters.ShouldNotBeNull(),
+                    () => actualParameters.ParameterNames.ShouldContain("ClaimEducationOrganizationIds"));
+
+                ExecuteQueryAndWriteResults(DatabaseEngine.MsSql, template);
+
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+
+            [Test]
+            public void Should_include_the_prologue_in_a_standalone_count_query_and_omit_it_when_excluded()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentSchoolAssociation")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                var countTemplate = q.BuildCountTemplate();
+
+                countTemplate.RawSql.NormalizeSql().ShouldBe(@$"
+                    {ExpectedPrologue}
+                    WITH __count_data AS (
+                        SELECT  StudentUSI
+                        FROM    edfi.StudentSchoolAssociation
+                        WHERE   StudentUSI IN (SELECT Id FROM #ClaimEdOrgIds)
+                    )
+                    SELECT COUNT(1) FROM __count_data".NormalizeSql());
+
+                var countTemplateWithoutPrologue = q.BuildCountTemplate(includePrologue: false);
+
+                countTemplateWithoutPrologue.RawSql.NormalizeSql().ShouldBe(@"
+                    WITH __count_data AS (
+                        SELECT  StudentUSI
+                        FROM    edfi.StudentSchoolAssociation
+                        WHERE   StudentUSI IN (SELECT Id FROM #ClaimEdOrgIds)
+                    )
+                    SELECT COUNT(1) FROM __count_data".NormalizeSql());
+            }
+
+            [Test]
+            public void Should_hoist_the_prologue_out_of_an_exists_subquery()
+            {
+                // The EXISTS subquery is where the partitions and cursor paging queries apply authorization
+                var existsQuery = new QueryBuilder(new SqlServerDialect())
+                    .From("auth.EducationOrganizationIdToStudentUSI AS av")
+                    .Select("1")
+                    .WhereIn("av.SourceEducationOrganizationId", new[] { 255901001L }, ClaimsParameterName);
+
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentGradebookEntry")
+                    .Select("StudentUSI");
+
+                q.WhereExists(existsQuery);
+
+                string sql = q.BuildTemplate().RawSql;
+
+                sql.ShouldSatisfyAllConditions(
+                    // The prologue belongs to the batch, not to the subquery
+                    () => sql.NormalizeSql().ShouldStartWith(ExpectedPrologue.NormalizeSql()),
+                    () => sql.IndexOf("CREATE TABLE #ClaimEdOrgIds", StringComparison.Ordinal)
+                        .ShouldBeLessThan(sql.IndexOf("EXISTS (", StringComparison.Ordinal)),
+                    // Emitted exactly once, and the marker must not survive inside the subquery
+                    () => sql.Split("CREATE TABLE #ClaimEdOrgIds").Length.ShouldBe(2),
+                    () => sql.ShouldNotContain("/**prologue**/"));
+            }
+
+            [Test]
+            public void Should_hoist_the_prologue_through_an_exists_subquery_nested_in_a_cte()
+            {
+                // Mirrors the partitions query shape: authorization lands in an EXISTS subquery inside a builder
+                // that is itself nested as a CTE, so the prologue has to travel up two hops
+                var existsQuery = new QueryBuilder(new SqlServerDialect())
+                    .From("auth.EducationOrganizationIdToStudentUSI AS av")
+                    .Select("1")
+                    .WhereIn("av.SourceEducationOrganizationId", new[] { 255901001L }, ClaimsParameterName);
+
+                var rowNumbersQuery = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentGradebookEntry AS r")
+                    .Select("r.AggregateId");
+
+                rowNumbersQuery.WhereExists(existsQuery);
+
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .With("Ranked", rowNumbersQuery)
+                    .From("Ranked")
+                    .Select("AggregateId");
+
+                string sql = q.BuildTemplate().RawSql;
+
+                sql.ShouldSatisfyAllConditions(
+                    () => sql.NormalizeSql().ShouldStartWith(ExpectedPrologue.NormalizeSql()),
+                    () => sql.IndexOf("CREATE TABLE #ClaimEdOrgIds", StringComparison.Ordinal)
+                        .ShouldBeLessThan(sql.IndexOf("WITH", StringComparison.Ordinal)),
+                    () => sql.Split("CREATE TABLE #ClaimEdOrgIds").Length.ShouldBe(2),
+                    () => sql.ShouldNotContain("/**prologue**/"));
+            }
+
+            [Test]
+            public void Should_append_the_row_goal_hint_when_authorization_is_person_view_only()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentGradebookEntry")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                q.MarkPersonAuthorizationFilter();
+
+                q.BuildTemplate().RawSql.NormalizeSql()
+                    .ShouldEndWith("OPTION (USE HINT('DISABLE_OPTIMIZER_ROWGOAL'))");
+            }
+
+            [Test]
+            public void Should_not_append_the_row_goal_hint_when_the_person_is_the_complete_resource_key()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.Student")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                q.MarkPersonAuthorizationFilter(personIsCompleteResourceKey: true);
+
+                q.BuildTemplate().RawSql.ShouldNotContain("DISABLE_OPTIMIZER_ROWGOAL");
+            }
+
+            [Test]
+            public void Should_not_append_the_row_goal_hint_when_an_education_organization_view_is_also_used()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentSectionAssociation")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                q.MarkPersonAuthorizationFilter();
+                q.MarkEducationOrganizationAuthorizationFilter();
+
+                q.BuildTemplate().RawSql.ShouldNotContain("DISABLE_OPTIMIZER_ROWGOAL");
+            }
+
+            [Test]
+            public void Should_append_the_row_goal_hint_to_the_count_query_as_well()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentGradebookEntry")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                q.MarkPersonAuthorizationFilter();
+
+                q.BuildCountTemplate().RawSql.NormalizeSql()
+                    .ShouldEndWith("OPTION (USE HINT('DISABLE_OPTIMIZER_ROWGOAL'))");
+            }
+
+            [Test]
+            public void Should_not_append_any_hint_when_no_authorization_view_was_applied()
+            {
+                var q = new QueryBuilder(new SqlServerDialect())
+                    .From("edfi.StudentGradebookEntry")
+                    .Select("StudentUSI");
+
+                q.BuildTemplate().RawSql.ShouldNotContain("OPTION (USE HINT");
+            }
+
+            [Test]
+            public void Should_not_append_the_hint_on_PostgreSQL_even_for_person_view_only_authorization()
+            {
+                var q = new QueryBuilder(new PostgreSqlDialect())
+                    .From("edfi.StudentGradebookEntry")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L }, ClaimsParameterName);
+
+                q.MarkPersonAuthorizationFilter();
+
+                q.BuildTemplate().RawSql.ShouldNotContain("USE HINT");
+            }
+
+            [Test]
+            public void Should_leave_the_PostgreSQL_claims_parameter_binding_unchanged()
+            {
+                var q = new QueryBuilder(new PostgreSqlDialect())
+                    .From("edfi.StudentSchoolAssociation")
+                    .Select("StudentUSI")
+                    .WhereIn("StudentUSI", new[] { 255901001L, 255901044L }, ClaimsParameterName);
+
+                var template = q.BuildTemplate();
+
+                template.RawSql.NormalizeSql().ShouldBe(@"
+                    SELECT  StudentUSI
+                    FROM    edfi.StudentSchoolAssociation
+                    WHERE   StudentUSI IN (VALUES (@ClaimEducationOrganizationIds_0), (@ClaimEducationOrganizationIds_1))".NormalizeSql());
+
+                ExecuteQueryAndWriteResults(DatabaseEngine.PgSql, template);
+            }
+        }
+
         public enum DatabaseEngine
         {
             MsSql,
