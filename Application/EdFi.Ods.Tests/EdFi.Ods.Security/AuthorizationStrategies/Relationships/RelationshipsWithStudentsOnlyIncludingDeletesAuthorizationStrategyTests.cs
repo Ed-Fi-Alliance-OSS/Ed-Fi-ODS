@@ -83,6 +83,7 @@ public class RelationshipsWithStudentsOnlyIncludingDeletesAuthorizationStrategyT
         // Assert
         var subjectEndpoint = subjectEndpoints.ShouldHaveSingleItem();
         subjectEndpoint.Name.ShouldBe("StudentUSI");
+        subjectEndpoint.Value.ShouldBe(100);
         subjectEndpoint.AuthorizationPathModifier.ShouldBe(IncludingDeletes);
     }
 
