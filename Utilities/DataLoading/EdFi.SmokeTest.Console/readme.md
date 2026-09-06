@@ -13,6 +13,47 @@ To disable authorization you can run this query on the EdFi_Security database
 
 Deleting the EdFi_Security database will cause it to be rebuilt with the default claims
 
+## SDK data path
+
+For SDK test sets the tool builds the new-generator SDK's `HttpClient.BaseAddress` by injecting a
+data-management path segment onto the API server URL. This segment defaults to `/data/v3`, which matches
+the standard ODS convention, so ordinary ODS runs need no change. APIs that serve data routes under a
+different path can override it &mdash; for example DMS serves data under `/data`.
+
+Behavior of the configured value (`OdsApi:DataPath`):
+
+- Non-empty values are normalized to a leading slash with no trailing slash (`data/v3/` becomes `/data/v3`).
+- Empty, whitespace, or `/` injects no segment; the server URL's own path is used (trailing slash trimmed).
+- If the server URL already contains the configured data path, it is not appended again (the check is a
+  simple substring match, preserved from earlier behavior); the trailing slash is still trimmed.
+
+Override in `appsettings.json`:
+
+```json
+{
+  "OdsApi": {
+    "DataPath": "/data"
+  }
+}
+```
+
+Override with an environment variable (standard .NET double-underscore section separator):
+
+```powershell
+$env:OdsApi__DataPath = "/data"
+```
+
+Override from the command line:
+
+```powershell
+dotnet run --project EdFi.SmokeTest.Console.csproj -- --data-path /data
+```
+
+The `-d` short form is equivalent to `--data-path`.
+
+Configuration sources are applied in this order, with later sources overriding earlier ones:
+`appsettings.json` < environment variables < command-line arguments < user secrets.
+
 ## destructive SDK numeric fallback
 
 When OpenAPI omits `minimum` and `maximum` for a required numeric property, destructive SDK tests generate

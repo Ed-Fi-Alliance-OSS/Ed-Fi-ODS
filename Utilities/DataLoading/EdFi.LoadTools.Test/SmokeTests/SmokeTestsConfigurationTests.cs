@@ -32,6 +32,39 @@ namespace EdFi.LoadTools.Test.SmokeTests
         }
 
         [Test]
+        public void Create_should_default_data_path_to_data_v3()
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(
+                    new Dictionary<string, string>
+                    {
+                        ["TestSet"] = "DestructiveSdk"
+                    })
+                .Build();
+
+            var smokeTestsConfiguration = SmokeTestsConfiguration.Create(configuration);
+
+            Assert.AreEqual("/data/v3", smokeTestsConfiguration.DataPath);
+        }
+
+        [Test]
+        public void Create_should_read_data_path_from_ods_api_configuration()
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(
+                    new Dictionary<string, string>
+                    {
+                        ["TestSet"] = "DestructiveSdk",
+                        ["OdsApi:DataPath"] = "/data"
+                    })
+                .Build();
+
+            var smokeTestsConfiguration = SmokeTestsConfiguration.Create(configuration);
+
+            Assert.AreEqual("/data", smokeTestsConfiguration.DataPath);
+        }
+
+        [Test]
         public void Create_should_read_default_numeric_fallback_max_from_ods_api_configuration()
         {
             var configuration = new ConfigurationBuilder()
