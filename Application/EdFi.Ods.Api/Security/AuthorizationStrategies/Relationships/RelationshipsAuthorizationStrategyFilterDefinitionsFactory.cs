@@ -248,6 +248,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 // restriction cannot change the result, and it keeps the cost proportional to the change history
                 // rather than to the breadth of the claim.
                 queryBuilder.Context.TryGetTrackedChangesTableName(out string trackedChangesTableName);
+                queryBuilder.Context.TryGetTrackedChangesCriterion(out string trackedChangesCriterion);
 
                 queryBuilder.Prologue(
                     SqlServerDialect.GetAuthPersonsTempTableLandingSql(
@@ -255,7 +256,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         viewBasedFilterDefinition.ViewSourceEndpointName,
                         personColumnName,
                         trackedChangesTableName,
-                        trackedChangesTableName == null ? null : $"Old{trackedChangesPropertyName}"));
+                        trackedChangesTableName == null ? null : $"Old{trackedChangesPropertyName}",
+                        trackedChangesTableName == null ? null : trackedChangesCriterion));
 
                 string authPersonsAlias = $"ap{filterIndex}";
 

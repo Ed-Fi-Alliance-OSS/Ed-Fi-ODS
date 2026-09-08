@@ -17,6 +17,36 @@ public static class TrackedChangesQueryBuilderContextExtensions
 {
     private const string TrackedChangesTableNameKey = "TrackedChangesTableName";
 
+    private const string TrackedChangesCriterionKey = "TrackedChangesCriterion";
+
+    /// <summary>
+    /// Records the criterion that selects the kind of change the query is about, expressed against a row of the
+    /// tracked changes table and without a table alias (for example "NewBeginDate IS NOT NULL").
+    /// </summary>
+    /// <remarks>
+    /// Deletes and key changes read the same table and are told apart by this criterion. An authorization filter
+    /// that restricts what it materializes has to apply it too, or a table full of one kind of change looks like
+    /// work to be done when the query will discard all of it.
+    /// </remarks>
+    public static void SetTrackedChangesCriterion(this IDictionary<string, object> queryBuilderContext, string criterion)
+    {
+        queryBuilderContext[TrackedChangesCriterionKey] = criterion;
+    }
+
+    public static bool TryGetTrackedChangesCriterion(this IDictionary<string, object> queryBuilderContext, out string criterion)
+    {
+        if (queryBuilderContext.TryGetValue(TrackedChangesCriterionKey, out var value) && value is string criterionText)
+        {
+            criterion = criterionText;
+
+            return true;
+        }
+
+        criterion = null;
+
+        return false;
+    }
+
     public static void SetTrackedChangesTableName(this IDictionary<string, object> queryBuilderContext, string tableName)
     {
         queryBuilderContext[TrackedChangesTableNameKey] = tableName;

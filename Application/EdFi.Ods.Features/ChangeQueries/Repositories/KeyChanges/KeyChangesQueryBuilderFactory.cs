@@ -10,6 +10,7 @@ using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
@@ -72,6 +73,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                 $"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{firstIdentifierProperty.PropertyName}");
 
             changeWindowVersionsCteQuery.WhereNotNull($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{columnName}");
+
+            // Tell the authorization filters which kind of change this query selects, so they can restrict what
+            // they materialize the same way
+            changeWindowVersionsCteQuery.Context.SetTrackedChangesCriterion($"{columnName} IS NOT NULL");
 
             return changeWindowVersionsCteQuery;
         }

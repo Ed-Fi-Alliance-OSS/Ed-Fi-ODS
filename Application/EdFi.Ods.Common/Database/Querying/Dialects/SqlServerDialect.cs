@@ -64,25 +64,33 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         /// <param name="personColumnName">The view's person column.</param>
         /// <param name="trackedChangesTableName">The tracked changes table the query reads, when it is known.</param>
         /// <param name="trackedChangesPersonColumnName">That table's person column.</param>
+        /// <param name="trackedChangesCriterion">The criterion selecting the kind of change the query is about.</param>
         /// <remarks>
-        /// When the tracked changes table is known the expansion is restricted to the persons that appear in it.
-        /// The query only ever uses this set joined to that same table, so the restriction cannot change its result,
-        /// and it keeps the cost proportional to the change history rather than to the breadth of the claim: a
-        /// resource with no tracked changes lands nothing instead of the client's entire authorized population.
+        /// When the tracked changes table is known the expansion is restricted to the persons that appear in it,
+        /// under the same criterion the query itself applies. The query only ever uses this set joined to that same
+        /// table under that same criterion, so the restriction cannot change its result, and it keeps the cost
+        /// proportional to the change history the request is actually about rather than to the breadth of the
+        /// claim: a resource with no matching tracked changes lands nothing instead of the client's entire
+        /// authorized population.
         /// </remarks>
         public static string GetAuthPersonsTempTableLandingSql(
             string viewName,
             string sourceColumnName,
             string personColumnName,
             string trackedChangesTableName = null,
-            string trackedChangesPersonColumnName = null)
+            string trackedChangesPersonColumnName = null,
+            string trackedChangesCriterion = null)
         {
             string tempTableName = GetAuthPersonsTempTableName(viewName);
+
+            string changeKindCriterion = trackedChangesCriterion == null
+                ? string.Empty
+                : $" AND tc.{trackedChangesCriterion}";
 
             string trackedChangesRestriction = trackedChangesTableName == null
                 ? string.Empty
                 : $" AND EXISTS (SELECT 1 FROM {trackedChangesTableName} AS tc"
-                    + $" WHERE tc.{trackedChangesPersonColumnName} = av.{personColumnName})";
+                    + $" WHERE tc.{trackedChangesPersonColumnName} = av.{personColumnName}{changeKindCriterion})";
 
             return $"DROP TABLE IF EXISTS {tempTableName}; CREATE TABLE {tempTableName} ({personColumnName} INT PRIMARY KEY); "
                 + $"INSERT INTO {tempTableName} ({personColumnName}) SELECT DISTINCT av.{personColumnName} "

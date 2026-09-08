@@ -161,6 +161,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                     $"{NewKeyValueColumnPrefix}{firstIdentifierProperty.PropertyName}");
 
                 baselineDeletedItemsQuery.WhereNull($"{TrackedChangesAlias}.{columnName}");
+
+                // Tell the authorization filters which kind of change this query selects, so they can restrict
+                // what they materialize the same way
+                baselineDeletedItemsQuery.Context.SetTrackedChangesCriterion($"{columnName} IS NULL");
             }
         }
     }

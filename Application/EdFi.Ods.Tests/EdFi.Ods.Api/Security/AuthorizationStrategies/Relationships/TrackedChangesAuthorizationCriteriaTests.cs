@@ -48,14 +48,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
         private static readonly object[] ClaimValues = { 255901L, 255902L };
 
-        // What a change query emits: it knows its tracked changes table, so the expansion is restricted to the
-        // persons that table holds.
+        // A /deletes query selects the rows whose new key values are absent.
+        private const string TrackedChangesCriterion = "NewBeginDate IS NULL";
+
+        // What a change query emits: it knows its tracked changes table and which kind of change it selects, so
+        // the expansion is restricted to the persons that table holds under that same criterion.
         private static readonly string PersonLandingSql = SqlServerDialect.GetAuthPersonsTempTableLandingSql(
             PersonViewName,
             EducationOrganizationAuthorizationViewConstants.SourceColumnName,
             "StudentUSI",
             TrackedChangesTableName,
-            "OldStudentUSI");
+            "OldStudentUSI",
+            TrackedChangesCriterion);
 
         // The fallback, for a caller that did not record its tracked changes table.
         private static readonly string UnrestrictedPersonLandingSql = SqlServerDialect.GetAuthPersonsTempTableLandingSql(
@@ -127,8 +131,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         {
             string sql = BuildTrackedChangesSql(new SqlServerDialect(), PersonFilterName, "StudentUSI", useOuterJoins: false);
 
-            sql.ShouldContain($"EXISTS (SELECT 1 FROM {TrackedChangesTableName} AS tc WHERE tc.OldStudentUSI = av.StudentUSI)");
+            sql.ShouldContain(
+                $"EXISTS (SELECT 1 FROM {TrackedChangesTableName} AS tc"
+                + $" WHERE tc.OldStudentUSI = av.StudentUSI AND tc.{TrackedChangesCriterion})");
+
             sql.ShouldNotContain(UnrestrictedPersonLandingSql);
+        }
+
+        [Test]
+        public void Should_carry_the_change_kind_criterion_into_the_restriction()
+        {
+            // Deletes and key changes read the same table. Without the criterion, a table holding only deletes
+            // looks like work to a key changes query that will discard every one of those rows.
+            string sql = BuildTrackedChangesSql(new SqlServerDialect(), PersonFilterName, "StudentUSI", useOuterJoins: false);
+
+            sql.ShouldContain($"AND tc.{TrackedChangesCriterion})");
         }
 
         [Test]
@@ -233,6 +250,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             if (trackedChangesTableName != null)
             {
                 queryBuilder.Context.SetTrackedChangesTableName(trackedChangesTableName);
+                queryBuilder.Context.SetTrackedChangesCriterion(TrackedChangesCriterion);
             }
 
             return queryBuilder;
