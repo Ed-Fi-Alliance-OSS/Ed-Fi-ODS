@@ -48,7 +48,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
         private static readonly object[] ClaimValues = { 255901L, 255902L };
 
+        // What a change query emits: it knows its tracked changes table, so the expansion is restricted to the
+        // persons that table holds.
         private static readonly string PersonLandingSql = SqlServerDialect.GetAuthPersonsTempTableLandingSql(
+            PersonViewName,
+            EducationOrganizationAuthorizationViewConstants.SourceColumnName,
+            "StudentUSI",
+            TrackedChangesTableName,
+            "OldStudentUSI");
+
+        // The fallback, for a caller that did not record its tracked changes table.
+        private static readonly string UnrestrictedPersonLandingSql = SqlServerDialect.GetAuthPersonsTempTableLandingSql(
             PersonViewName,
             EducationOrganizationAuthorizationViewConstants.SourceColumnName,
             "StudentUSI");
@@ -110,6 +120,37 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             // The view is no longer joined to the tracked changes table. Asserting on the JOIN rather than on the
             // view name, because the landing statement itself selects from the view.
             sql.ShouldNotContain($"JOIN auth.{PersonViewName}");
+        }
+
+        [Test]
+        public void Should_restrict_the_person_expansion_to_the_tracked_changes_table()
+        {
+            string sql = BuildTrackedChangesSql(new SqlServerDialect(), PersonFilterName, "StudentUSI", useOuterJoins: false);
+
+            sql.ShouldContain($"EXISTS (SELECT 1 FROM {TrackedChangesTableName} AS tc WHERE tc.OldStudentUSI = av.StudentUSI)");
+            sql.ShouldNotContain(UnrestrictedPersonLandingSql);
+        }
+
+        [Test]
+        public void Should_land_the_whole_expansion_when_the_tracked_changes_table_is_not_known()
+        {
+            // Falling back is what keeps the filter usable by any future caller that does not record its table.
+            var resource = _resourceModel.GetResourceByFullName(ResourceFullName);
+
+            var queryBuilder = CreateTrackedChangesQueryBuilder(new SqlServerDialect(), trackedChangesTableName: null);
+
+            queryBuilder.Where(
+                nestedQueryBuilder =>
+                {
+                    ApplyFilter(nestedQueryBuilder, resource, PersonFilterName, "StudentUSI", 0, useOuterJoins: false);
+
+                    return nestedQueryBuilder;
+                });
+
+            string sql = queryBuilder.BuildTemplate().RawSql;
+
+            sql.ShouldContain(UnrestrictedPersonLandingSql);
+            sql.ShouldNotContain("AS tc WHERE");
         }
 
         [Test]
@@ -182,12 +223,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             return queryBuilder.BuildTemplate().RawSql;
         }
 
-        private static QueryBuilder CreateTrackedChangesQueryBuilder(Dialect dialect)
+        private static QueryBuilder CreateTrackedChangesQueryBuilder(Dialect dialect, string trackedChangesTableName = TrackedChangesTableName)
         {
             var queryBuilder = new QueryBuilder(dialect);
 
             queryBuilder.From($"{TrackedChangesTableName} AS {ChangeQueriesDatabaseConstants.TrackedChangesAlias}");
             queryBuilder.Select($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.*");
+
+            if (trackedChangesTableName != null)
+            {
+                queryBuilder.Context.SetTrackedChangesTableName(trackedChangesTableName);
+            }
 
             return queryBuilder;
         }

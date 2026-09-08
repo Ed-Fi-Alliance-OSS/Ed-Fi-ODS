@@ -11,6 +11,7 @@ using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Security.Authorization;
 
 using static EdFi.Ods.Features.ChangeQueries.ChangeQueriesDatabaseConstants;
 
@@ -99,6 +100,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                 baselineDeletedItemsQuery = _createQueryBuilderWithIndexer(cteQuery.ParameterIndexer)
                     .From(cteName.Alias(TrackedChangesAlias))
                     .With(cteName, cteQuery);
+
+                // The outer query is a new builder, so carry the tracked changes table over for the
+                // authorization filters, which read it from the context
+                if (cteQuery.Context.TryGetTrackedChangesTableName(out string trackedChangesTableName))
+                {
+                    baselineDeletedItemsQuery.Context.SetTrackedChangesTableName(trackedChangesTableName);
+                }
             }
             else
             {

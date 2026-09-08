@@ -243,11 +243,19 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 // prologue statements are suppressed.
                 queryBuilder.Prologue(SqlServerDialect.ClaimsTempTableLandingSql, claimsParameters);
 
+                // Restrict the expansion to the persons the tracked changes table actually holds, when the change
+                // query told us which table that is. The query only uses this set joined to that table, so the
+                // restriction cannot change the result, and it keeps the cost proportional to the change history
+                // rather than to the breadth of the claim.
+                queryBuilder.Context.TryGetTrackedChangesTableName(out string trackedChangesTableName);
+
                 queryBuilder.Prologue(
                     SqlServerDialect.GetAuthPersonsTempTableLandingSql(
                         viewName,
                         viewBasedFilterDefinition.ViewSourceEndpointName,
-                        personColumnName));
+                        personColumnName,
+                        trackedChangesTableName,
+                        trackedChangesTableName == null ? null : $"Old{trackedChangesPropertyName}"));
 
                 string authPersonsAlias = $"ap{filterIndex}";
 

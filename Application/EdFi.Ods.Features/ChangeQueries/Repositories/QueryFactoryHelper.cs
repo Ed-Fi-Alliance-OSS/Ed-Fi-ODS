@@ -8,6 +8,7 @@ using System.Linq;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Authorization;
 
 using static EdFi.Ods.Features.ChangeQueries.ChangeQueriesDatabaseConstants;
 
@@ -53,6 +54,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                     namingConvention.TableName(entity));
 
             var templateQuery = createQueryBuilder().From($"{changeTableSchema}.{changeTableName} AS {TrackedChangesAlias}");
+
+            // Record the table for the authorization filters, which cannot derive it themselves
+            templateQuery.Context.SetTrackedChangesTableName($"{changeTableSchema}.{changeTableName}");
 
             return templateQuery;
         }

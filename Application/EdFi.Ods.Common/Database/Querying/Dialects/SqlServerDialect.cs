@@ -52,13 +52,38 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         // identifiers (USIs) are 32-bit integers throughout the data standard.
         public static string GetAuthPersonsTempTableName(string viewName) => $"#Auth{viewName}";
 
-        public static string GetAuthPersonsTempTableLandingSql(string viewName, string sourceColumnName, string personColumnName)
+        /// <summary>
+        /// Builds the statement that lands the claim's expansion through a person authorization view.
+        /// </summary>
+        /// <param name="viewName">The name of the person authorization view to expand.</param>
+        /// <param name="sourceColumnName">The view's claim-side column.</param>
+        /// <param name="personColumnName">The view's person column.</param>
+        /// <param name="trackedChangesTableName">The tracked changes table the query reads, when it is known.</param>
+        /// <param name="trackedChangesPersonColumnName">That table's person column.</param>
+        /// <remarks>
+        /// When the tracked changes table is known the expansion is restricted to the persons that appear in it.
+        /// The query only ever uses this set joined to that same table, so the restriction cannot change its result,
+        /// and it keeps the cost proportional to the change history rather than to the breadth of the claim: a
+        /// resource with no tracked changes lands nothing instead of the client's entire authorized population.
+        /// </remarks>
+        public static string GetAuthPersonsTempTableLandingSql(
+            string viewName,
+            string sourceColumnName,
+            string personColumnName,
+            string trackedChangesTableName = null,
+            string trackedChangesPersonColumnName = null)
         {
             string tempTableName = GetAuthPersonsTempTableName(viewName);
 
+            string trackedChangesRestriction = trackedChangesTableName == null
+                ? string.Empty
+                : $" AND EXISTS (SELECT 1 FROM {trackedChangesTableName} AS tc"
+                    + $" WHERE tc.{trackedChangesPersonColumnName} = av.{personColumnName})";
+
             return $"DROP TABLE IF EXISTS {tempTableName}; CREATE TABLE {tempTableName} ({personColumnName} INT PRIMARY KEY); "
                 + $"INSERT INTO {tempTableName} ({personColumnName}) SELECT DISTINCT av.{personColumnName} "
-                + $"FROM auth.{viewName} AS av WHERE av.{sourceColumnName} IN (SELECT Id FROM {ClaimsTempTableName});";
+                + $"FROM auth.{viewName} AS av WHERE av.{sourceColumnName} IN (SELECT Id FROM {ClaimsTempTableName})"
+                + $"{trackedChangesRestriction};";
         }
 
         // When a resource's relationship-based authorization runs only through person views (for example
