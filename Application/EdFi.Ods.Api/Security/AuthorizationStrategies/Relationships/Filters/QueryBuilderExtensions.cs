@@ -20,7 +20,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
     {
         private static readonly CallContextStorage _callContextStorage = new();
 
-        private const string EducationOrganizationIdToEducationOrganizationIdViewName =
+        internal const string EducationOrganizationIdToEducationOrganizationIdViewName =
             "EducationOrganizationIdToEducationOrganizationId";
 
         /// <summary>

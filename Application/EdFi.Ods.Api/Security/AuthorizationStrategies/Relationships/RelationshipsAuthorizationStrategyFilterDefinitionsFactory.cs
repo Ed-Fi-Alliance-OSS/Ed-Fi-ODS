@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Api.Security.Extensions;
 using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -178,9 +179,14 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
             string viewName = viewBasedFilterDefinition.ViewName;
 
-            string trackedChangesPropertyName = resource.Entity.IsDerived 
-                ? GetBasePropertyNameForSubjectEndpointName() 
+            string trackedChangesPropertyName = resource.Entity.IsDerived
+                ? GetBasePropertyNameForSubjectEndpointName()
                 : filterContext.SubjectEndpointName;
+
+            if (TryApplyPersonExpansionLanding())
+            {
+                return;
+            }
 
             if (useOuterJoins)
             {
@@ -189,8 +195,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     $"c.Old{trackedChangesPropertyName}",
                     $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
 
-                // Apply claim value criteria
-                queryBuilder.OrWhereIn($"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}", filterContext.ClaimParameterValues);
+                // Apply claim value criteria (named as the claims parameter so the SQL Server dialect lands the
+                // TVP into the statistics-bearing temp table, as with the primary queries)
+                queryBuilder.OrWhereIn(
+                    $"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}",
+                    filterContext.ClaimParameterValues,
+                    $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
             }
             else
             {
@@ -199,10 +209,64 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     $"c.Old{trackedChangesPropertyName}",
                     $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
 
-                // Apply claim value criteria
-                queryBuilder.WhereIn($"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}", filterContext.ClaimParameterValues);
+                // Apply claim value criteria (named as the claims parameter so the SQL Server dialect lands the
+                // TVP into the statistics-bearing temp table, as with the primary queries)
+                queryBuilder.WhereIn(
+                    $"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}",
+                    filterContext.ClaimParameterValues,
+                    $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
             }
             
+            // For SQL Server, land the claim's expansion through a person authorization view into a temp table and
+            // read it as a semi-join. The claims landing on its own leaves this expansion estimated from average
+            // density, and the better claim estimate actually lowers that estimate, which shrinks the memory grant
+            // on a hash join that is already spilling. Restricted to the person views: the education organization
+            // expansion is not affected, and the inverted relationship strategies reuse that view with the source
+            // and target columns swapped, so a landing written for one orientation would authorize the wrong set.
+            bool TryApplyPersonExpansionLanding()
+            {
+                if (queryBuilder.Dialect is not SqlServerDialect
+                    || viewName == QueryBuilderExtensions.EducationOrganizationIdToEducationOrganizationIdViewName
+                    || filterContext.ClaimParameterValues is not { Length: > 0 } claimValues)
+                {
+                    return false;
+                }
+
+                string personColumnName = viewBasedFilterDefinition.ViewTargetEndpointName;
+
+                var claimsParameters = SqlServerDialect.CreateTableValuedParameters(
+                    SqlServerDialect.ClaimsParameterName,
+                    claimValues);
+
+                // The person landing reads from the claims temp table, so both statements are emitted here rather
+                // than relying on another filter in the same query to have produced the first one. Duplicate
+                // prologue statements are suppressed.
+                queryBuilder.Prologue(SqlServerDialect.ClaimsTempTableLandingSql, claimsParameters);
+
+                queryBuilder.Prologue(
+                    SqlServerDialect.GetAuthPersonsTempTableLandingSql(
+                        viewName,
+                        viewBasedFilterDefinition.ViewSourceEndpointName,
+                        personColumnName));
+
+                string authPersonsAlias = $"ap{filterIndex}";
+
+                string semiJoinCriteria =
+                    $"EXISTS (SELECT 1 FROM {SqlServerDialect.GetAuthPersonsTempTableName(viewName)} AS {authPersonsAlias}"
+                    + $" WHERE {authPersonsAlias}.{personColumnName} = c.Old{trackedChangesPropertyName})";
+
+                if (useOuterJoins)
+                {
+                    queryBuilder.OrWhereRaw(semiJoinCriteria);
+                }
+                else
+                {
+                    queryBuilder.WhereRaw(semiJoinCriteria);
+                }
+
+                return true;
+            }
+
             string GetBasePropertyNameForSubjectEndpointName()
             {
                 if (!resource.Entity.PropertyByName.TryGetValue(filterContext.SubjectEndpointName, out var entityProperty))

@@ -41,6 +41,26 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         public const string AuthEdOrgsTempTableLandingSql =
             $"DROP TABLE IF EXISTS {AuthEdOrgsTempTableName}; CREATE TABLE {AuthEdOrgsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {AuthEdOrgsTempTableName} (Id) SELECT DISTINCT TargetEducationOrganizationId FROM auth.EducationOrganizationIdToEducationOrganizationId WHERE SourceEducationOrganizationId IN (SELECT Id FROM {ClaimsTempTableName});";
 
+        // Landing the claims alone is not enough on the change query endpoints. There the claim expansion runs
+        // through a person view, and giving the optimizer exact claim statistics lowers its estimate of that
+        // expansion (measured at 108,140 authorized students estimated as 533), which shrinks the memory grant on a
+        // hash join that was already spilling. Landing the person expansion gives that side value-level statistics
+        // instead. As with the ed-org expansion, the INSERT is the query the authorization join would run anyway,
+        // so consuming this table is semantically identical.
+        //
+        // The table is named for the view because a single query can expand more than one person type, and person
+        // identifiers (USIs) are 32-bit integers throughout the data standard.
+        public static string GetAuthPersonsTempTableName(string viewName) => $"#Auth{viewName}";
+
+        public static string GetAuthPersonsTempTableLandingSql(string viewName, string sourceColumnName, string personColumnName)
+        {
+            string tempTableName = GetAuthPersonsTempTableName(viewName);
+
+            return $"DROP TABLE IF EXISTS {tempTableName}; CREATE TABLE {tempTableName} ({personColumnName} INT PRIMARY KEY); "
+                + $"INSERT INTO {tempTableName} ({personColumnName}) SELECT DISTINCT av.{personColumnName} "
+                + $"FROM auth.{viewName} AS av WHERE av.{sourceColumnName} IN (SELECT Id FROM {ClaimsTempTableName});";
+        }
+
         // When a resource's relationship-based authorization runs only through person views (for example
         // StudentUSI), there is no education-organization predicate to narrow the resource, and the optimizer's row
         // goal makes it scan the resource in AggregateId order expecting to fill the page early. On a large resource
