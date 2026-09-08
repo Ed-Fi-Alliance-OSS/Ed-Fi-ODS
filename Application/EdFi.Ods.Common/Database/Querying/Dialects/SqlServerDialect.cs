@@ -28,8 +28,12 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         // relationship-based authorization joins for large claim lists. Landing the TVP contents into a temp table
         // inside the batch provides the optimizer with statistics, while the TVP remains the transport on the wire
         // (required to stay under the 2,100 parameter limit for clients with very large EdOrg counts).
+        //
+        // The SELECT is DISTINCT because the temp table has a primary key while the table-valued parameter type
+        // does not, so a repeated education organization id in the claim would fail the insert and turn every
+        // request from that client into a 500. Nothing in the SQL should depend on the caller having deduplicated.
         public const string ClaimsTempTableLandingSql =
-            $"DROP TABLE IF EXISTS {ClaimsTempTableName}; CREATE TABLE {ClaimsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {ClaimsTempTableName} (Id) SELECT Id FROM {ClaimsParameterName};";
+            $"DROP TABLE IF EXISTS {ClaimsTempTableName}; CREATE TABLE {ClaimsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {ClaimsTempTableName} (Id) SELECT DISTINCT Id FROM {ClaimsParameterName};";
 
         public const string AuthEdOrgsTempTableName = "#AuthEdOrgs";
 
