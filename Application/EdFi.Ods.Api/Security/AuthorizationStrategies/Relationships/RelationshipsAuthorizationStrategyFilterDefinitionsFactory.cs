@@ -244,11 +244,27 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 queryBuilder.Prologue(SqlServerDialect.ClaimsTempTableLandingSql, claimsParameters);
 
                 // Restrict the expansion to the persons the tracked changes table actually holds, when the change
-                // query told us which table that is. The query only uses this set joined to that table, so the
-                // restriction cannot change the result, and it keeps the cost proportional to the change history
-                // rather than to the breadth of the claim.
-                queryBuilder.Context.TryGetTrackedChangesTableName(out string trackedChangesTableName);
-                queryBuilder.Context.TryGetTrackedChangesCriterion(out string trackedChangesCriterion);
+                // query told us which table that is and which kind of change it selects. The query only uses this
+                // set joined to that table under that criterion, so the restriction cannot change the result, and it
+                // keeps the cost proportional to the change history the request is about rather than to the breadth
+                // of the claim.
+                //
+                // The table and the criterion are taken as a unit. Restricting by the table without the criterion
+                // would leave a table holding only the other kind of change looking like work to be done, which is
+                // the case the restriction exists to avoid.
+                string trackedChangesTableName = null;
+                string trackedChangesCriterion = null;
+
+                if (queryBuilder.Context.TryGetTrackedChangesTableName(out string contextTableName)
+                    && queryBuilder.Context.TryGetTrackedChangesCriterion(out string contextCriterion))
+                {
+                    trackedChangesTableName = contextTableName;
+                    trackedChangesCriterion = contextCriterion;
+                }
+
+                string trackedChangesPersonColumnName = trackedChangesTableName == null
+                    ? null
+                    : $"Old{trackedChangesPropertyName}";
 
                 queryBuilder.Prologue(
                     SqlServerDialect.GetAuthPersonsTempTableLandingSql(
@@ -256,13 +272,17 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         viewBasedFilterDefinition.ViewSourceEndpointName,
                         personColumnName,
                         trackedChangesTableName,
-                        trackedChangesTableName == null ? null : $"Old{trackedChangesPropertyName}",
-                        trackedChangesTableName == null ? null : trackedChangesCriterion));
+                        trackedChangesPersonColumnName,
+                        trackedChangesCriterion));
 
                 string authPersonsAlias = $"ap{filterIndex}";
 
+                string authPersonsTempTableName = SqlServerDialect.GetAuthPersonsTempTableName(
+                    viewName,
+                    trackedChangesPersonColumnName);
+
                 string semiJoinCriteria =
-                    $"EXISTS (SELECT 1 FROM {SqlServerDialect.GetAuthPersonsTempTableName(viewName)} AS {authPersonsAlias}"
+                    $"EXISTS (SELECT 1 FROM {authPersonsTempTableName} AS {authPersonsAlias}"
                     + $" WHERE {authPersonsAlias}.{personColumnName} = c.Old{trackedChangesPropertyName})";
 
                 if (useOuterJoins)

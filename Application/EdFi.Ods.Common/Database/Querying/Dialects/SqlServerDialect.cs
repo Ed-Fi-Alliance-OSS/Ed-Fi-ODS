@@ -52,9 +52,17 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         // instead. As with the ed-org expansion, the INSERT is the query the authorization join would run anyway,
         // so consuming this table is semantically identical.
         //
-        // The table is named for the view because a single query can expand more than one person type, and person
-        // identifiers (USIs) are 32-bit integers throughout the data standard.
-        public static string GetAuthPersonsTempTableName(string viewName) => $"#Auth{viewName}";
+        // The table is named for everything its contents depend on, because a single query can expand more than one
+        // person type and, where a resource carries two role-named references to one person type, the same view
+        // twice against different tracked changes columns. Naming it for the view alone would let the second landing
+        // silently replace the first's contents. Person identifiers (USIs) are 32-bit integers throughout the data
+        // standard.
+        public static string GetAuthPersonsTempTableName(string viewName, string trackedChangesPersonColumnName = null)
+        {
+            return trackedChangesPersonColumnName == null
+                ? $"#Auth{viewName}"
+                : $"#Auth{viewName}_{trackedChangesPersonColumnName}";
+        }
 
         /// <summary>
         /// Builds the statement that lands the claim's expansion through a person authorization view.
@@ -81,7 +89,7 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             string trackedChangesPersonColumnName = null,
             string trackedChangesCriterion = null)
         {
-            string tempTableName = GetAuthPersonsTempTableName(viewName);
+            string tempTableName = GetAuthPersonsTempTableName(viewName, trackedChangesPersonColumnName);
 
             string changeKindCriterion = trackedChangesCriterion == null
                 ? string.Empty

@@ -5,6 +5,7 @@
 
 using System.Linq;
 using System.Text.RegularExpressions;
+using Dapper;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
@@ -51,6 +52,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         // A /deletes query selects the rows whose new key values are absent.
         private const string TrackedChangesCriterion = "NewBeginDate IS NULL";
 
+        private const string TrackedChangesPersonColumn = "OldStudentUSI";
+
         // What a change query emits: it knows its tracked changes table and which kind of change it selects, so
         // the expansion is restricted to the persons that table holds under that same criterion.
         private static readonly string PersonLandingSql = SqlServerDialect.GetAuthPersonsTempTableLandingSql(
@@ -58,7 +61,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             EducationOrganizationAuthorizationViewConstants.SourceColumnName,
             "StudentUSI",
             TrackedChangesTableName,
-            "OldStudentUSI",
+            TrackedChangesPersonColumn,
             TrackedChangesCriterion);
 
         // The fallback, for a caller that did not record its tracked changes table.
@@ -119,7 +122,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             sql.ShouldContain(PersonLandingSql);
             sql.IndexOf(SqlServerDialect.ClaimsTempTableLandingSql).ShouldBeLessThan(sql.IndexOf(PersonLandingSql));
 
-            sql.ShouldContain($"EXISTS (SELECT 1 FROM {SqlServerDialect.GetAuthPersonsTempTableName(PersonViewName)}");
+            sql.ShouldContain(
+                $"EXISTS (SELECT 1 FROM {SqlServerDialect.GetAuthPersonsTempTableName(PersonViewName, TrackedChangesPersonColumn)}");
 
             // The view is no longer joined to the tracked changes table. Asserting on the JOIN rather than on the
             // view name, because the landing statement itself selects from the view.
@@ -170,6 +174,82 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             sql.ShouldNotContain("AS tc WHERE");
         }
 
+        [TestCase(true, TestName = "Should_bind_the_claims_parameter_on_the_person_path_using_outer_joins")]
+        [TestCase(false, TestName = "Should_bind_the_claims_parameter_on_the_person_path_using_inner_joins")]
+        public void Should_bind_the_claims_parameter_on_the_person_path(bool useOuterJoins)
+        {
+            // This path returns before the WhereIn that used to register the table-valued parameter, so the only
+            // registration left is the one carried by the landing statement. Nothing else in the query references
+            // it, and asserting the SQL alone would not notice it going missing.
+            var template = BuildTrackedChangesTemplate(new SqlServerDialect(), PersonFilterName, "StudentUSI", useOuterJoins);
+
+            var parameters = template.Parameters as DynamicParameters;
+
+            parameters.ShouldNotBeNull();
+            parameters.ParameterNames.ShouldContain(RelationshipAuthorizationConventions.ClaimsParameterName);
+        }
+
+        [Test]
+        public void Should_build_the_person_expansion_landing_statement()
+        {
+            // Pinned as a literal rather than against the generator, so a change to the emitted statement shows up
+            // as a diff in review instead of passing because both sides moved together.
+            SqlServerDialect.GetAuthPersonsTempTableLandingSql(
+                    PersonViewName,
+                    EducationOrganizationAuthorizationViewConstants.SourceColumnName,
+                    "StudentUSI",
+                    TrackedChangesTableName,
+                    TrackedChangesPersonColumn,
+                    TrackedChangesCriterion)
+                .ShouldBe(
+                    "DROP TABLE IF EXISTS #AuthEducationOrganizationIdToStudentUSI_OldStudentUSI; "
+                    + "CREATE TABLE #AuthEducationOrganizationIdToStudentUSI_OldStudentUSI (StudentUSI INT PRIMARY KEY); "
+                    + "INSERT INTO #AuthEducationOrganizationIdToStudentUSI_OldStudentUSI (StudentUSI) SELECT DISTINCT av.StudentUSI "
+                    + "FROM auth.EducationOrganizationIdToStudentUSI AS av "
+                    + "WHERE av.SourceEducationOrganizationId IN (SELECT Id FROM #ClaimEdOrgIds) "
+                    + "AND EXISTS (SELECT 1 FROM tracked_changes_edfi.StudentSectionAssociation AS tc "
+                    + "WHERE tc.OldStudentUSI = av.StudentUSI AND tc.NewBeginDate IS NULL);");
+        }
+
+        [Test]
+        public void Should_build_the_unrestricted_person_expansion_landing_statement()
+        {
+            SqlServerDialect.GetAuthPersonsTempTableLandingSql(
+                    PersonViewName,
+                    EducationOrganizationAuthorizationViewConstants.SourceColumnName,
+                    "StudentUSI")
+                .ShouldBe(
+                    "DROP TABLE IF EXISTS #AuthEducationOrganizationIdToStudentUSI; "
+                    + "CREATE TABLE #AuthEducationOrganizationIdToStudentUSI (StudentUSI INT PRIMARY KEY); "
+                    + "INSERT INTO #AuthEducationOrganizationIdToStudentUSI (StudentUSI) SELECT DISTINCT av.StudentUSI "
+                    + "FROM auth.EducationOrganizationIdToStudentUSI AS av "
+                    + "WHERE av.SourceEducationOrganizationId IN (SELECT Id FROM #ClaimEdOrgIds);");
+        }
+
+        [TestCase(PersonFilterName, "StudentUSI", TestName = "Should_land_nothing_for_an_empty_claim_on_a_person_filter")]
+        [TestCase(EducationOrganizationFilterName, "SchoolId", TestName = "Should_land_nothing_for_an_empty_claim_on_an_education_organization_filter")]
+        public void Should_land_nothing_when_the_claim_list_is_empty(string filterName, string subjectEndpointName)
+        {
+            var resource = _resourceModel.GetResourceByFullName(ResourceFullName);
+
+            var queryBuilder = CreateTrackedChangesQueryBuilder(new SqlServerDialect());
+
+            queryBuilder.Where(
+                nestedQueryBuilder =>
+                {
+                    ApplyFilter(nestedQueryBuilder, resource, filterName, subjectEndpointName, 0, useOuterJoins: false, claimValues: []);
+
+                    return nestedQueryBuilder;
+                });
+
+            string sql = queryBuilder.BuildTemplate().RawSql;
+
+            // An empty claim authorizes nothing, so there is nothing to land and the dialect short circuits.
+            sql.ShouldContain("1 = 0");
+            sql.ShouldNotContain(SqlServerDialect.ClaimsTempTableName);
+            sql.ShouldNotContain(SqlServerDialect.GetAuthPersonsTempTableName(PersonViewName));
+        }
+
         [Test]
         public void Should_not_emit_the_landing_for_a_dialect_that_does_not_use_it()
         {
@@ -209,6 +289,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
         private string BuildTrackedChangesSql(Dialect dialect, string filterName, string subjectEndpointName, bool useOuterJoins)
         {
+            return BuildTrackedChangesTemplate(dialect, filterName, subjectEndpointName, useOuterJoins).RawSql;
+        }
+
+        private SqlBuilder.Template BuildTrackedChangesTemplate(Dialect dialect, string filterName, string subjectEndpointName, bool useOuterJoins)
+        {
             var resource = _resourceModel.GetResourceByFullName(ResourceFullName);
 
             var queryBuilder = CreateTrackedChangesQueryBuilder(dialect);
@@ -237,7 +322,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                     });
             }
 
-            return queryBuilder.BuildTemplate().RawSql;
+            return queryBuilder.BuildTemplate();
         }
 
         private static QueryBuilder CreateTrackedChangesQueryBuilder(Dialect dialect, string trackedChangesTableName = TrackedChangesTableName)
@@ -262,7 +347,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             string filterName,
             string subjectEndpointName,
             int filterIndex,
-            bool useOuterJoins)
+            bool useOuterJoins,
+            object[] claimValues = null)
         {
             var filterDefinition = GetFilterDefinition(filterName);
 
@@ -271,7 +357,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 FilterName = filterName,
                 SubjectEndpointName = subjectEndpointName,
                 ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,
-                ClaimEndpointValues = ClaimValues
+                ClaimEndpointValues = claimValues ?? ClaimValues
             };
 
             filterDefinition.TrackedChangesCriteriaApplicator(
