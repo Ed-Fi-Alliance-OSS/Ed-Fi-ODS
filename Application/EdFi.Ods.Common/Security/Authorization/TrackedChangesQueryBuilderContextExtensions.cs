@@ -4,72 +4,39 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using EdFi.Ods.Common.Database.Querying;
 
 namespace EdFi.Ods.Common.Security.Authorization;
 
 /// <summary>
-/// Carries the name of the tracked changes table a change query reads from, so an authorization
-/// filter can restrict what it materializes to the rows that table actually holds. The table name is
-/// known by the change queries feature and needed by the authorization filters, which are in
-/// assemblies that cannot reference each other.
+/// Carries the rows a change query is about from the change queries feature, which knows them, to the authorization
+/// filters, which need them to restrict what they materialize. The two are in assemblies that cannot reference each
+/// other.
 /// </summary>
 public static class TrackedChangesQueryBuilderContextExtensions
 {
-    private const string TrackedChangesTableNameKey = "TrackedChangesTableName";
+    private const string TrackedChangesRestrictionKey = "TrackedChangesRestriction";
 
-    private const string TrackedChangesCriterionKey = "TrackedChangesCriterion";
-
-    /// <summary>
-    /// Records the criterion that selects the kind of change the query is about, expressed against a row of the
-    /// tracked changes table and without a table alias (for example "NewBeginDate IS NOT NULL").
-    /// </summary>
-    /// <remarks>
-    /// Deletes and key changes read the same table and are told apart by this criterion. An authorization filter
-    /// that restricts what it materializes has to apply it too, or a table full of one kind of change looks like
-    /// work to be done when the query will discard all of it.
-    /// </remarks>
-    public static void SetTrackedChangesCriterion(this IDictionary<string, object> queryBuilderContext, string criterion)
+    public static void SetTrackedChangesRestriction(
+        this IDictionary<string, object> queryBuilderContext,
+        TrackedChangesRestriction restriction)
     {
-        queryBuilderContext[TrackedChangesCriterionKey] = criterion;
+        queryBuilderContext[TrackedChangesRestrictionKey] = restriction;
     }
 
-    public static bool TryGetTrackedChangesCriterion(this IDictionary<string, object> queryBuilderContext, out string criterion)
+    public static bool TryGetTrackedChangesRestriction(
+        this IDictionary<string, object> queryBuilderContext,
+        out TrackedChangesRestriction restriction)
     {
-        if (queryBuilderContext.TryGetValue(TrackedChangesCriterionKey, out var value) && value is string criterionText)
+        if (queryBuilderContext.TryGetValue(TrackedChangesRestrictionKey, out var value)
+            && value is TrackedChangesRestriction trackedChangesRestriction)
         {
-            criterion = criterionText;
+            restriction = trackedChangesRestriction;
 
             return true;
         }
 
-        criterion = null;
-
-        return false;
-    }
-
-    /// <summary>
-    /// Records the tracked changes table the query reads, schema-qualified and without an alias (for example
-    /// "tracked_changes_edfi.StudentSectionAssociation").
-    /// </summary>
-    /// <remarks>
-    /// Set this together with <see cref="SetTrackedChangesCriterion" />. A filter that has the table but not the
-    /// criterion cannot tell one kind of change from the other, and the two are consumed as a unit for that reason.
-    /// </remarks>
-    public static void SetTrackedChangesTableName(this IDictionary<string, object> queryBuilderContext, string tableName)
-    {
-        queryBuilderContext[TrackedChangesTableNameKey] = tableName;
-    }
-
-    public static bool TryGetTrackedChangesTableName(this IDictionary<string, object> queryBuilderContext, out string tableName)
-    {
-        if (queryBuilderContext.TryGetValue(TrackedChangesTableNameKey, out var value) && value is string name)
-        {
-            tableName = name;
-
-            return true;
-        }
-
-        tableName = null;
+        restriction = null;
 
         return false;
     }

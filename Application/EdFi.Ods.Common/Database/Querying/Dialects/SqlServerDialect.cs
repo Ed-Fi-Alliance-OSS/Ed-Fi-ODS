@@ -45,67 +45,6 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         public const string AuthEdOrgsTempTableLandingSql =
             $"DROP TABLE IF EXISTS {AuthEdOrgsTempTableName}; CREATE TABLE {AuthEdOrgsTempTableName} (Id BIGINT PRIMARY KEY); INSERT INTO {AuthEdOrgsTempTableName} (Id) SELECT DISTINCT TargetEducationOrganizationId FROM auth.EducationOrganizationIdToEducationOrganizationId WHERE SourceEducationOrganizationId IN (SELECT Id FROM {ClaimsTempTableName});";
 
-        // Landing the claims alone is not enough on the change query endpoints. There the claim expansion runs
-        // through a person view, and giving the optimizer exact claim statistics lowers its estimate of that
-        // expansion (measured at 108,140 authorized students estimated as 533), which shrinks the memory grant on a
-        // hash join that was already spilling. Landing the person expansion gives that side value-level statistics
-        // instead. As with the ed-org expansion, the INSERT is the query the authorization join would run anyway,
-        // so consuming this table is semantically identical.
-        //
-        // The table is named for everything its contents depend on, because a single query can expand more than one
-        // person type and, where a resource carries two role-named references to one person type, the same view
-        // twice against different tracked changes columns. Naming it for the view alone would let the second landing
-        // silently replace the first's contents. Person identifiers (USIs) are 32-bit integers throughout the data
-        // standard.
-        public static string GetAuthPersonsTempTableName(string viewName, string trackedChangesPersonColumnName = null)
-        {
-            return trackedChangesPersonColumnName == null
-                ? $"#Auth{viewName}"
-                : $"#Auth{viewName}_{trackedChangesPersonColumnName}";
-        }
-
-        /// <summary>
-        /// Builds the statement that lands the claim's expansion through a person authorization view.
-        /// </summary>
-        /// <param name="viewName">The name of the person authorization view to expand.</param>
-        /// <param name="sourceColumnName">The view's claim-side column.</param>
-        /// <param name="personColumnName">The view's person column.</param>
-        /// <param name="trackedChangesTableName">The tracked changes table the query reads, when it is known.</param>
-        /// <param name="trackedChangesPersonColumnName">That table's person column.</param>
-        /// <param name="trackedChangesCriterion">The criterion selecting the kind of change the query is about.</param>
-        /// <remarks>
-        /// When the tracked changes table is known the expansion is restricted to the persons that appear in it,
-        /// under the same criterion the query itself applies. The query only ever uses this set joined to that same
-        /// table under that same criterion, so the restriction cannot change its result, and it keeps the cost
-        /// proportional to the change history the request is actually about rather than to the breadth of the
-        /// claim: a resource with no matching tracked changes lands nothing instead of the client's entire
-        /// authorized population.
-        /// </remarks>
-        public static string GetAuthPersonsTempTableLandingSql(
-            string viewName,
-            string sourceColumnName,
-            string personColumnName,
-            string trackedChangesTableName = null,
-            string trackedChangesPersonColumnName = null,
-            string trackedChangesCriterion = null)
-        {
-            string tempTableName = GetAuthPersonsTempTableName(viewName, trackedChangesPersonColumnName);
-
-            string changeKindCriterion = trackedChangesCriterion == null
-                ? string.Empty
-                : $" AND tc.{trackedChangesCriterion}";
-
-            string trackedChangesRestriction = trackedChangesTableName == null
-                ? string.Empty
-                : $" AND EXISTS (SELECT 1 FROM {trackedChangesTableName} AS tc"
-                    + $" WHERE tc.{trackedChangesPersonColumnName} = av.{personColumnName}{changeKindCriterion})";
-
-            return $"DROP TABLE IF EXISTS {tempTableName}; CREATE TABLE {tempTableName} ({personColumnName} INT PRIMARY KEY); "
-                + $"INSERT INTO {tempTableName} ({personColumnName}) SELECT DISTINCT av.{personColumnName} "
-                + $"FROM auth.{viewName} AS av WHERE av.{sourceColumnName} IN (SELECT Id FROM {ClaimsTempTableName})"
-                + $"{trackedChangesRestriction};";
-        }
-
         // When a resource's relationship-based authorization runs only through person views (for example
         // StudentUSI), there is no education-organization predicate to narrow the resource, and the optimizer's row
         // goal makes it scan the resource in AggregateId order expecting to fill the page early. On a large resource
@@ -122,6 +61,59 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         //   in one range of the scan or absent altogether, so the row goal is an unbacked bet. Suppressing it costs
         //   little (the authorized person set is small relative to the resource) and avoids the full scan.
         public const string PersonOnlyAuthorizationQueryHint = "OPTION (USE HINT('DISABLE_OPTIMIZER_ROWGOAL'))";
+
+        // Landing the claims alone is not enough on the change query endpoints. There the claim expansion runs
+        // through a person view, and giving the optimizer exact claim statistics lowers its estimate of that
+        // expansion (measured at 108,140 authorized students estimated as 533), which shrinks the memory grant on a
+        // hash join that was already spilling. Landing the person expansion gives that side value-level statistics
+        // instead. As with the ed-org expansion, the INSERT is the query the authorization join would run anyway,
+        // so consuming this table is semantically identical.
+        //
+        // The table is named for everything its contents depend on, because a single query can expand more than one
+        // person type and, where a resource carries two role-named references to one person type, the same view
+        // twice against different tracked changes columns. Naming it for the view alone would let the second landing
+        // silently replace the first's contents. Person identifiers (USIs) are 32-bit integers throughout the data
+        // standard.
+        public static string GetAuthPersonsTempTableName(string viewName, TrackedChangesRestriction restriction = null)
+        {
+            return restriction == null
+                ? $"#Auth{viewName}"
+                : $"#Auth{viewName}_{restriction.PersonColumnName}";
+        }
+
+        /// <summary>
+        /// Builds the statement that lands the claim's expansion through a person authorization view.
+        /// </summary>
+        /// <param name="viewName">The name of the person authorization view to expand.</param>
+        /// <param name="sourceColumnName">The view's claim-side column.</param>
+        /// <param name="personColumnName">The view's person column.</param>
+        /// <param name="restriction">The rows the change query is about, when the caller knows them.</param>
+        /// <remarks>
+        /// Given a restriction, the expansion is narrowed to the people that appear in the change query's own rows.
+        /// The query only ever uses this set joined to that same table under that same criterion, so narrowing it
+        /// cannot change the query's result, and it keeps the cost proportional to the change history the request is
+        /// actually about rather than to the breadth of the claim: a resource with no matching tracked changes lands
+        /// nothing instead of the client's entire authorized population.
+        /// </remarks>
+        public static string GetAuthPersonsTempTableLandingSql(
+            string viewName,
+            string sourceColumnName,
+            string personColumnName,
+            TrackedChangesRestriction restriction = null)
+        {
+            string tempTableName = GetAuthPersonsTempTableName(viewName, restriction);
+
+            string trackedChangesRestriction = restriction == null
+                ? string.Empty
+                : $" AND EXISTS (SELECT 1 FROM {restriction.TableName} AS tc"
+                    + $" WHERE tc.{restriction.PersonColumnName} = av.{personColumnName}"
+                    + $" AND tc.{restriction.ChangeKindColumnName} IS {(restriction.SelectsNewValues ? "NOT NULL" : "NULL")})";
+
+            return $"DROP TABLE IF EXISTS {tempTableName}; CREATE TABLE {tempTableName} ({personColumnName} INT PRIMARY KEY); "
+                + $"INSERT INTO {tempTableName} ({personColumnName}) SELECT DISTINCT av.{personColumnName} "
+                + $"FROM auth.{viewName} AS av WHERE av.{sourceColumnName} IN (SELECT Id FROM {ClaimsTempTableName})"
+                + $"{trackedChangesRestriction};";
+        }
 
         public override string GetTemplateString(string sourceTableName)
         {

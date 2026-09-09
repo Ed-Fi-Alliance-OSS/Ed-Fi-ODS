@@ -18,17 +18,17 @@ using Test.Common;
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.ChangeQueries.Repositories
 {
     /// <summary>
-    /// The authorization filters restrict what they materialize using the tracked changes table and the criterion
-    /// that selects the kind of change a query is about, and both reach them through the query builder context. When
-    /// they do not arrive the filters fall back to landing the client's entire authorized population, which is
-    /// correct but is the cost the restriction exists to remove, and it fails as a slow query rather than an error.
-    /// These tests hold the producing end of that contract.
+    /// The authorization filters restrict what they materialize to the rows the change query is about, and they learn
+    /// those rows through the query builder context. When the restriction does not arrive the filters fall back to
+    /// landing the client's entire authorized population, which is correct but is the cost the restriction exists to
+    /// remove, and it fails as a slow query rather than as an error. These tests hold the producing end of that
+    /// contract.
     /// </summary>
     [TestFixture]
     public class TrackedChangesQueryBuilderContextTests
     {
         // A resource whose identifier carries a person, so the deletes factory takes its USI translation branch and
-        // returns an outer query builder that is not the one the table name was first recorded on.
+        // returns an outer query builder that is not the one the restriction was first recorded on.
         private const string PersonKeyedResource = "edfi.studentSectionAssociation";
 
         // A resource with no person in its identifier, so the deletes factory returns the base query builder itself.
@@ -44,55 +44,56 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.ChangeQueries.Repositories
             _namingConvention = new SqlServerDatabaseNamingConvention();
         }
 
-        [TestCase(PersonKeyedResource, "tracked_changes_edfi.StudentSectionAssociation", "NewBeginDate IS NULL")]
-        [TestCase(EducationOrganizationKeyedResource, "tracked_changes_edfi.Section", "NewLocalCourseCode IS NULL")]
-        public void Deletes_should_record_the_tracked_changes_table_and_criterion_on_the_returned_query_builder(
+        [TestCase(PersonKeyedResource, "tracked_changes_edfi.StudentSectionAssociation", "NewBeginDate")]
+        [TestCase(EducationOrganizationKeyedResource, "tracked_changes_edfi.Section", "NewLocalCourseCode")]
+        public void Deletes_should_record_the_restriction_on_the_returned_query_builder(
             string resourceFullName,
             string expectedTableName,
-            string expectedCriterion)
+            string expectedChangeKindColumnName)
         {
             var queryBuilder = CreateDeletedItemsQueryBuilderFactory()
                 .CreateQueryBuilder(_resourceModel.GetResourceByFullName(resourceFullName));
 
-            queryBuilder.Context.TryGetTrackedChangesTableName(out string tableName).ShouldBeTrue();
-            tableName.ShouldBe(expectedTableName);
+            queryBuilder.Context.TryGetTrackedChangesRestriction(out var restriction).ShouldBeTrue();
 
-            queryBuilder.Context.TryGetTrackedChangesCriterion(out string criterion).ShouldBeTrue();
-            criterion.ShouldBe(expectedCriterion);
+            restriction.TableName.ShouldBe(expectedTableName);
+            restriction.ChangeKindColumnName.ShouldBe(expectedChangeKindColumnName);
+            restriction.SelectsNewValues.ShouldBeFalse();
         }
 
-        [TestCase(PersonKeyedResource, "tracked_changes_edfi.StudentSectionAssociation", "NewBeginDate IS NOT NULL")]
-        [TestCase(EducationOrganizationKeyedResource, "tracked_changes_edfi.Section", "NewLocalCourseCode IS NOT NULL")]
-        public void Key_changes_should_record_the_tracked_changes_table_and_criterion_on_the_returned_query_builder(
+        [TestCase(PersonKeyedResource, "tracked_changes_edfi.StudentSectionAssociation", "NewBeginDate")]
+        [TestCase(EducationOrganizationKeyedResource, "tracked_changes_edfi.Section", "NewLocalCourseCode")]
+        public void Key_changes_should_record_the_restriction_on_the_returned_query_builder(
             string resourceFullName,
             string expectedTableName,
-            string expectedCriterion)
+            string expectedChangeKindColumnName)
         {
             var queryBuilder = new KeyChangesQueryBuilderFactory(_namingConvention, CreateQueryBuilder)
                 .CreateQueryBuilder(_resourceModel.GetResourceByFullName(resourceFullName));
 
-            queryBuilder.Context.TryGetTrackedChangesTableName(out string tableName).ShouldBeTrue();
-            tableName.ShouldBe(expectedTableName);
+            queryBuilder.Context.TryGetTrackedChangesRestriction(out var restriction).ShouldBeTrue();
 
-            queryBuilder.Context.TryGetTrackedChangesCriterion(out string criterion).ShouldBeTrue();
-            criterion.ShouldBe(expectedCriterion);
+            restriction.TableName.ShouldBe(expectedTableName);
+            restriction.ChangeKindColumnName.ShouldBe(expectedChangeKindColumnName);
+            restriction.SelectsNewValues.ShouldBeTrue();
         }
 
         [Test]
-        public void Deletes_and_key_changes_should_record_opposite_criteria_for_the_same_resource()
+        public void Deletes_and_key_changes_should_record_opposite_change_kinds_for_the_same_resource()
         {
-            // The two endpoints read the same table and are told apart only by this predicate. If they ever agreed,
-            // one of them would be restricting its expansion to the other's rows.
+            // The two endpoints read the same table and are told apart only by this flag. If they ever agreed, one of
+            // them would be restricting its expansion to the other's rows.
             var resource = _resourceModel.GetResourceByFullName(PersonKeyedResource);
 
             CreateDeletedItemsQueryBuilderFactory().CreateQueryBuilder(resource)
-                .Context.TryGetTrackedChangesCriterion(out string deletesCriterion);
+                .Context.TryGetTrackedChangesRestriction(out var deletesRestriction);
 
             new KeyChangesQueryBuilderFactory(_namingConvention, CreateQueryBuilder).CreateQueryBuilder(resource)
-                .Context.TryGetTrackedChangesCriterion(out string keyChangesCriterion);
+                .Context.TryGetTrackedChangesRestriction(out var keyChangesRestriction);
 
-            deletesCriterion.ShouldBe("NewBeginDate IS NULL");
-            keyChangesCriterion.ShouldBe("NewBeginDate IS NOT NULL");
+            deletesRestriction.ChangeKindColumnName.ShouldBe(keyChangesRestriction.ChangeKindColumnName);
+            deletesRestriction.SelectsNewValues.ShouldBeFalse();
+            keyChangesRestriction.SelectsNewValues.ShouldBeTrue();
         }
 
         [Test]
@@ -107,8 +108,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.ChangeQueries.Repositories
 
             var second = factory.CreateQueryBuilder(resource);
 
-            second.Context.TryGetTrackedChangesTableName(out _).ShouldBeTrue();
-            second.Context.TryGetTrackedChangesCriterion(out _).ShouldBeTrue();
+            second.Context.TryGetTrackedChangesRestriction(out _).ShouldBeTrue();
         }
 
         private DeletedItemsQueryBuilderFactory CreateDeletedItemsQueryBuilderFactory()

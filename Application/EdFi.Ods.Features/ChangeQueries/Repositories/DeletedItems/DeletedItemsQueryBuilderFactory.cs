@@ -100,13 +100,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                 baselineDeletedItemsQuery = _createQueryBuilderWithIndexer(cteQuery.ParameterIndexer)
                     .From(cteName.Alias(TrackedChangesAlias))
                     .With(cteName, cteQuery);
-
-                // The outer query is a new builder, so carry the tracked changes table over for the
-                // authorization filters, which read it from the context
-                if (cteQuery.Context.TryGetTrackedChangesTableName(out string trackedChangesTableName))
-                {
-                    baselineDeletedItemsQuery.Context.SetTrackedChangesTableName(trackedChangesTableName);
-                }
             }
             else
             {
@@ -153,18 +146,17 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
             void ApplyDeletesOnlyCriteria()
             {
                 // Only return deletes
-                var firstIdentifierProperty = (entity.IsDerived
-                    ? entity.BaseEntity
-                    : entity).Identifier.Properties.First();
-
-                string columnName = _namingConvention.ColumnName(
-                    $"{NewKeyValueColumnPrefix}{firstIdentifierProperty.PropertyName}");
+                string columnName = QueryFactoryHelper.ChangeKindColumnName(entity, _namingConvention);
 
                 baselineDeletedItemsQuery.WhereNull($"{TrackedChangesAlias}.{columnName}");
 
-                // Tell the authorization filters which kind of change this query selects, so they can restrict
-                // what they materialize the same way
-                baselineDeletedItemsQuery.Context.SetTrackedChangesCriterion($"{columnName} IS NULL");
+                // Tell the authorization filters which rows this query is about, so they can restrict what they
+                // materialize to the same ones
+                baselineDeletedItemsQuery.Context.SetTrackedChangesRestriction(
+                    new TrackedChangesRestriction(
+                        QueryFactoryHelper.TrackedChangesTableName(entity, _namingConvention),
+                        columnName,
+                        selectsNewValues: false));
             }
         }
     }

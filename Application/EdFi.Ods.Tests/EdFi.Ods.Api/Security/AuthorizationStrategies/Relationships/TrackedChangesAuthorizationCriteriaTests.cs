@@ -49,10 +49,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
         private static readonly object[] ClaimValues = { 255901L, 255902L };
 
-        // A /deletes query selects the rows whose new key values are absent.
-        private const string TrackedChangesCriterion = "NewBeginDate IS NULL";
+        private const string ChangeKindColumnName = "NewBeginDate";
 
         private const string TrackedChangesPersonColumn = "OldStudentUSI";
+
+        // A /deletes query selects the rows whose new key values are absent.
+        private static readonly TrackedChangesRestriction DeletesRestriction = new(
+            TrackedChangesTableName,
+            ChangeKindColumnName,
+            selectsNewValues: false);
 
         // What a change query emits: it knows its tracked changes table and which kind of change it selects, so
         // the expansion is restricted to the persons that table holds under that same criterion.
@@ -60,9 +65,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             PersonViewName,
             EducationOrganizationAuthorizationViewConstants.SourceColumnName,
             "StudentUSI",
-            TrackedChangesTableName,
-            TrackedChangesPersonColumn,
-            TrackedChangesCriterion);
+            DeletesRestriction.ForPersonColumn(TrackedChangesPersonColumn));
 
         // The fallback, for a caller that did not record its tracked changes table.
         private static readonly string UnrestrictedPersonLandingSql = SqlServerDialect.GetAuthPersonsTempTableLandingSql(
@@ -123,7 +126,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             sql.IndexOf(SqlServerDialect.ClaimsTempTableLandingSql).ShouldBeLessThan(sql.IndexOf(PersonLandingSql));
 
             sql.ShouldContain(
-                $"EXISTS (SELECT 1 FROM {SqlServerDialect.GetAuthPersonsTempTableName(PersonViewName, TrackedChangesPersonColumn)}");
+                "EXISTS (SELECT 1 FROM "
+                + SqlServerDialect.GetAuthPersonsTempTableName(
+                    PersonViewName,
+                    DeletesRestriction.ForPersonColumn(TrackedChangesPersonColumn)));
 
             // The view is no longer joined to the tracked changes table. Asserting on the JOIN rather than on the
             // view name, because the landing statement itself selects from the view.
@@ -137,13 +143,51 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
             sql.ShouldContain(
                 $"EXISTS (SELECT 1 FROM {TrackedChangesTableName} AS tc"
-                + $" WHERE tc.OldStudentUSI = av.StudentUSI AND tc.{TrackedChangesCriterion})");
+                + $" WHERE tc.OldStudentUSI = av.StudentUSI AND tc.{ChangeKindColumnName} IS NULL)");
 
             sql.ShouldNotContain(UnrestrictedPersonLandingSql);
 
             // The row-goal hint ODS-6862 added for the resource endpoints is deliberately not applied here:
             // suppressing the row goal was measured on this path and changed nothing.
             sql.ShouldNotContain(SqlServerDialect.PersonOnlyAuthorizationQueryHint);
+        }
+
+        [Test]
+        public void Should_land_one_table_per_tracked_changes_column_over_the_same_view()
+        {
+            // A resource can carry two role-named references to one person type, which resolve to one view but two
+            // tracked changes columns. Naming the landed table for the view alone would have both statements target
+            // one table, and the second would silently replace the first's contents with a set restricted on the
+            // wrong column. That is a wrong authorization result rather than an error.
+            var resource = _resourceModel.GetResourceByFullName(ResourceFullName);
+
+            var queryBuilder = CreateTrackedChangesQueryBuilder(new SqlServerDialect());
+
+            queryBuilder.OrWhere(
+                nestedQueryBuilder =>
+                {
+                    ApplyFilter(nestedQueryBuilder, resource, PersonFilterName, "StudentUSI", 0, useOuterJoins: true);
+                    ApplyFilter(nestedQueryBuilder, resource, PersonFilterName, "AlternateStudentUSI", 1, useOuterJoins: true);
+
+                    return nestedQueryBuilder;
+                });
+
+            string sql = queryBuilder.BuildTemplate().RawSql;
+
+            string firstTable = SqlServerDialect.GetAuthPersonsTempTableName(
+                PersonViewName,
+                DeletesRestriction.ForPersonColumn("OldStudentUSI"));
+
+            string secondTable = SqlServerDialect.GetAuthPersonsTempTableName(
+                PersonViewName,
+                DeletesRestriction.ForPersonColumn("OldAlternateStudentUSI"));
+
+            firstTable.ShouldNotBe(secondTable);
+
+            sql.ShouldContain($"CREATE TABLE {firstTable} ");
+            sql.ShouldContain($"CREATE TABLE {secondTable} ");
+            sql.ShouldContain($"EXISTS (SELECT 1 FROM {firstTable} AS ap0");
+            sql.ShouldContain($"EXISTS (SELECT 1 FROM {secondTable} AS ap1");
         }
 
         [Test]
@@ -156,7 +200,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
             var queryBuilder = CreateTrackedChangesQueryBuilder(
                 new SqlServerDialect(),
-                trackedChangesTableName: "tracked_changes_edfi.GeneralStudentProgramAssociation");
+                new TrackedChangesRestriction(
+                    "tracked_changes_edfi.GeneralStudentProgramAssociation",
+                    ChangeKindColumnName,
+                    selectsNewValues: false));
 
             queryBuilder.Where(
                 nestedQueryBuilder =>
@@ -173,14 +220,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 + " WHERE tc.OldStudentUSI = av.StudentUSI");
         }
 
-        [Test]
-        public void Should_carry_the_change_kind_criterion_into_the_restriction()
+        [TestCase(false, "IS NULL", TestName = "Should_restrict_a_deletes_query_to_the_rows_with_no_new_key_values")]
+        [TestCase(true, "IS NOT NULL", TestName = "Should_restrict_a_key_changes_query_to_the_rows_with_new_key_values")]
+        public void Should_carry_the_change_kind_into_the_restriction(bool selectsNewValues, string expectedPredicate)
         {
-            // Deletes and key changes read the same table. Without the criterion, a table holding only deletes
-            // looks like work to a key changes query that will discard every one of those rows.
-            string sql = BuildTrackedChangesSql(new SqlServerDialect(), PersonFilterName, "StudentUSI", useOuterJoins: false);
+            // Deletes and key changes read the same table and are told apart only here. Without the change kind, a
+            // table holding only deletes looks like work to a key changes query that will discard every one of
+            // those rows.
+            var resource = _resourceModel.GetResourceByFullName(ResourceFullName);
 
-            sql.ShouldContain($"AND tc.{TrackedChangesCriterion})");
+            var queryBuilder = CreateTrackedChangesQueryBuilder(
+                new SqlServerDialect(),
+                new TrackedChangesRestriction(TrackedChangesTableName, ChangeKindColumnName, selectsNewValues));
+
+            queryBuilder.Where(
+                nestedQueryBuilder =>
+                {
+                    ApplyFilter(nestedQueryBuilder, resource, PersonFilterName, "StudentUSI", 0, useOuterJoins: false);
+
+                    return nestedQueryBuilder;
+                });
+
+            string sql = queryBuilder.BuildTemplate().RawSql;
+
+            sql.ShouldContain($"AND tc.{ChangeKindColumnName} {expectedPredicate})");
         }
 
         [Test]
@@ -189,7 +252,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             // Falling back is what keeps the filter usable by any future caller that does not record its table.
             var resource = _resourceModel.GetResourceByFullName(ResourceFullName);
 
-            var queryBuilder = CreateTrackedChangesQueryBuilder(new SqlServerDialect(), trackedChangesTableName: null);
+            var queryBuilder = CreateTrackedChangesQueryBuilder(new SqlServerDialect(), restriction: null);
 
             queryBuilder.Where(
                 nestedQueryBuilder =>
@@ -229,9 +292,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                     PersonViewName,
                     EducationOrganizationAuthorizationViewConstants.SourceColumnName,
                     "StudentUSI",
-                    TrackedChangesTableName,
-                    TrackedChangesPersonColumn,
-                    TrackedChangesCriterion)
+                    DeletesRestriction.ForPersonColumn(TrackedChangesPersonColumn))
                 .ShouldBe(
                     "DROP TABLE IF EXISTS #AuthEducationOrganizationIdToStudentUSI_OldStudentUSI; "
                     + "CREATE TABLE #AuthEducationOrganizationIdToStudentUSI_OldStudentUSI (StudentUSI INT PRIMARY KEY); "
@@ -356,17 +417,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             return queryBuilder.BuildTemplate();
         }
 
-        private static QueryBuilder CreateTrackedChangesQueryBuilder(Dialect dialect, string trackedChangesTableName = TrackedChangesTableName)
+        private static QueryBuilder CreateTrackedChangesQueryBuilder(Dialect dialect)
+        {
+            return CreateTrackedChangesQueryBuilder(dialect, DeletesRestriction);
+        }
+
+        private static QueryBuilder CreateTrackedChangesQueryBuilder(Dialect dialect, TrackedChangesRestriction restriction)
         {
             var queryBuilder = new QueryBuilder(dialect);
 
             queryBuilder.From($"{TrackedChangesTableName} AS {ChangeQueriesDatabaseConstants.TrackedChangesAlias}");
             queryBuilder.Select($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.*");
 
-            if (trackedChangesTableName != null)
+            if (restriction != null)
             {
-                queryBuilder.Context.SetTrackedChangesTableName(trackedChangesTableName);
-                queryBuilder.Context.SetTrackedChangesCriterion(TrackedChangesCriterion);
+                queryBuilder.Context.SetTrackedChangesRestriction(restriction);
             }
 
             return queryBuilder;

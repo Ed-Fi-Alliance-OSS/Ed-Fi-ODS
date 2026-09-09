@@ -185,15 +185,18 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             bool useOuterJoins)
         {
             string viewName = viewBasedFilterDefinition.ViewName;
+            string personColumnName = viewBasedFilterDefinition.ViewTargetEndpointName;
 
+            // Recognised positively, by the view expanding the claim to a person identifier, rather than as
+            // "anything that is not the education organization view". The landed table types that identifier as
+            // INT, so a view that expanded to something else would silently overflow or truncate. This also
+            // excludes both orientations of the education organization view, whose endpoints are ed-org ids.
             if (queryBuilder.Dialect is not SqlServerDialect
-                || viewName == QueryBuilderExtensions.EducationOrganizationIdToEducationOrganizationIdViewName
+                || !personColumnName.EndsWith("USI")
                 || filterContext.ClaimParameterValues is not { Length: > 0 } claimValues)
             {
                 return false;
             }
-
-            string personColumnName = viewBasedFilterDefinition.ViewTargetEndpointName;
 
             var claimsParameters = SqlServerDialect.CreateTableValuedParameters(
                 SqlServerDialect.ClaimsParameterName,
@@ -203,36 +206,22 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             // relying on another filter in the same query to have produced the first one. Duplicates are suppressed.
             queryBuilder.Prologue(SqlServerDialect.ClaimsTempTableLandingSql, claimsParameters);
 
-            // The tracked changes table and the criterion selecting the kind of change are taken as a unit:
-            // restricting by the table without the criterion leaves the case the restriction exists to avoid.
-            string trackedChangesTableName = null;
-            string trackedChangesCriterion = null;
-
-            if (queryBuilder.Context.TryGetTrackedChangesTableName(out string contextTableName)
-                && queryBuilder.Context.TryGetTrackedChangesCriterion(out string contextCriterion))
-            {
-                trackedChangesTableName = contextTableName;
-                trackedChangesCriterion = contextCriterion;
-            }
-
-            string trackedChangesPersonColumnName = trackedChangesTableName == null
-                ? null
-                : $"Old{trackedChangesPropertyName}";
+            // The change query tells us which of its rows it is about; this filter contributes the column those rows
+            // carry the person on, which is the one it is about to authorize.
+            var restriction = queryBuilder.Context.TryGetTrackedChangesRestriction(out var contextRestriction)
+                ? contextRestriction.ForPersonColumn($"Old{trackedChangesPropertyName}")
+                : null;
 
             queryBuilder.Prologue(
                 SqlServerDialect.GetAuthPersonsTempTableLandingSql(
                     viewName,
                     viewBasedFilterDefinition.ViewSourceEndpointName,
                     personColumnName,
-                    trackedChangesTableName,
-                    trackedChangesPersonColumnName,
-                    trackedChangesCriterion));
+                    restriction));
 
             string authPersonsAlias = $"ap{filterIndex}";
 
-            string authPersonsTempTableName = SqlServerDialect.GetAuthPersonsTempTableName(
-                viewName,
-                trackedChangesPersonColumnName);
+            string authPersonsTempTableName = SqlServerDialect.GetAuthPersonsTempTableName(viewName, restriction);
 
             string semiJoinCriteria =
                 $"EXISTS (SELECT 1 FROM {authPersonsTempTableName} AS {authPersonsAlias}"

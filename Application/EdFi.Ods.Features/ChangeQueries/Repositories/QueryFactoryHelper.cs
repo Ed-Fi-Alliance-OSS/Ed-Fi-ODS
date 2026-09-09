@@ -8,7 +8,6 @@ using System.Linq;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Security.Authorization;
 
 using static EdFi.Ods.Features.ChangeQueries.ChangeQueriesDatabaseConstants;
 
@@ -42,23 +41,35 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             return selectColumns;
         }
         
+        /// <summary>
+        /// Gets the tracked changes table a query over the supplied entity reads, schema-qualified. A derived entity
+        /// is tracked on its base entity's table.
+        /// </summary>
+        public static string TrackedChangesTableName(Entity entity, IDatabaseNamingConvention namingConvention)
+        {
+            var trackedEntity = entity.IsDerived ? entity.BaseEntity : entity;
+
+            return $"{TrackedChangesSchemaPrefix}{namingConvention.Schema(trackedEntity)}.{namingConvention.TableName(trackedEntity)}";
+        }
+
+        /// <summary>
+        /// Gets the column whose new value tells a delete from a key change, which is the new value of the first
+        /// identifying property of the entity the changes are tracked on.
+        /// </summary>
+        public static string ChangeKindColumnName(Entity entity, IDatabaseNamingConvention namingConvention)
+        {
+            var firstIdentifierProperty = (entity.IsDerived ? entity.BaseEntity : entity).Identifier.Properties.First();
+
+            return namingConvention.ColumnName($"{NewKeyValueColumnPrefix}{firstIdentifierProperty.PropertyName}");
+        }
+
         public static QueryBuilder CreateBaseTrackedChangesQuery(
             Func<QueryBuilder> createQueryBuilder,
             IDatabaseNamingConvention namingConvention,
             Entity entity)
         {
-            var (changeTableSchema, changeTableName) = entity.IsDerived
-                ? (TrackedChangesSchemaPrefix + namingConvention.Schema(entity.BaseEntity),
-                    namingConvention.TableName(entity.BaseEntity))
-                : (TrackedChangesSchemaPrefix + namingConvention.Schema(entity),
-                    namingConvention.TableName(entity));
-
-            var templateQuery = createQueryBuilder().From($"{changeTableSchema}.{changeTableName} AS {TrackedChangesAlias}");
-
-            // Record the table for the authorization filters, which cannot derive it themselves
-            templateQuery.Context.SetTrackedChangesTableName($"{changeTableSchema}.{changeTableName}");
-
-            return templateQuery;
+            return createQueryBuilder()
+                .From($"{TrackedChangesTableName(entity, namingConvention)} AS {TrackedChangesAlias}");
         }
     }
 }

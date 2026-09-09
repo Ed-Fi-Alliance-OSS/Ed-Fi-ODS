@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Linq;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Domain;
@@ -65,18 +64,17 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                 _namingConvention);
 
             // Apply criteria for only including key changes
-            var firstIdentifierProperty = (entity.IsDerived
-                ? entity.BaseEntity
-                : entity).Identifier.Properties.First();
-
-            string columnName = _namingConvention.ColumnName(
-                $"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{firstIdentifierProperty.PropertyName}");
+            string columnName = QueryFactoryHelper.ChangeKindColumnName(entity, _namingConvention);
 
             changeWindowVersionsCteQuery.WhereNotNull($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{columnName}");
 
-            // Tell the authorization filters which kind of change this query selects, so they can restrict what
-            // they materialize the same way
-            changeWindowVersionsCteQuery.Context.SetTrackedChangesCriterion($"{columnName} IS NOT NULL");
+            // Tell the authorization filters which rows this query is about, so they can restrict what they
+            // materialize to the same ones
+            changeWindowVersionsCteQuery.Context.SetTrackedChangesRestriction(
+                new TrackedChangesRestriction(
+                    QueryFactoryHelper.TrackedChangesTableName(entity, _namingConvention),
+                    columnName,
+                    selectsNewValues: true));
 
             return changeWindowVersionsCteQuery;
         }
