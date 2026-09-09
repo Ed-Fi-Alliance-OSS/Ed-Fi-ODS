@@ -140,6 +140,37 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 + $" WHERE tc.OldStudentUSI = av.StudentUSI AND tc.{TrackedChangesCriterion})");
 
             sql.ShouldNotContain(UnrestrictedPersonLandingSql);
+
+            // The row-goal hint ODS-6862 added for the resource endpoints is deliberately not applied here:
+            // suppressing the row goal was measured on this path and changed nothing.
+            sql.ShouldNotContain(SqlServerDialect.PersonOnlyAuthorizationQueryHint);
+        }
+
+        [Test]
+        public void Should_restrict_using_the_base_property_for_a_derived_resource()
+        {
+            // A derived resource reads its base entity's tracked changes table, and the subject endpoint resolves to
+            // the base property. The restriction has to pair that column with that table, and this is the only test
+            // that runs the derived branch at all.
+            var resource = _resourceModel.GetResourceByFullName("edfi.studentCTEProgramAssociation");
+
+            var queryBuilder = CreateTrackedChangesQueryBuilder(
+                new SqlServerDialect(),
+                trackedChangesTableName: "tracked_changes_edfi.GeneralStudentProgramAssociation");
+
+            queryBuilder.Where(
+                nestedQueryBuilder =>
+                {
+                    ApplyFilter(nestedQueryBuilder, resource, PersonFilterName, "StudentUSI", 0, useOuterJoins: false);
+
+                    return nestedQueryBuilder;
+                });
+
+            string sql = queryBuilder.BuildTemplate().RawSql;
+
+            sql.ShouldContain(
+                "EXISTS (SELECT 1 FROM tracked_changes_edfi.GeneralStudentProgramAssociation AS tc"
+                + " WHERE tc.OldStudentUSI = av.StudentUSI");
         }
 
         [Test]

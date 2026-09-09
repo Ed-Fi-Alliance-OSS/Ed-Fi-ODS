@@ -155,6 +155,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
+            public void Should_apply_or_where_raw_into_the_inclusive_clause_group(DatabaseEngine databaseEngine)
+            {
+                // Matches OrWhereIn: the clauses join each other with OR inside one parenthesized group, and that
+                // group joins the rest of the WHERE with AND. A bare OR would change the meaning of the statement.
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
+                    .Select("FirstName")
+                    .Where("BirthCity", "Chicago")
+                    .OrWhereRaw("EXISTS (SELECT 1 FROM #First AS f WHERE f.StudentUSI = c.OldStudentUSI)")
+                    .OrWhereRaw("EXISTS (SELECT 1 FROM #Second AS s WHERE s.StaffUSI = c.OldStaffUSI)");
+
+                var template = q.BuildTemplate();
+
+                template.RawSql.NormalizeSql()
+                    .ShouldContain(
+                        "AND (EXISTS (SELECT 1 FROM #First AS f WHERE f.StudentUSI = c.OldStudentUSI)"
+                        + " OR EXISTS (SELECT 1 FROM #Second AS s WHERE s.StaffUSI = c.OldStaffUSI))");
+            }
+
+            [TestCase(DatabaseEngine.MsSql)]
+            [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_nested_conditions_wrapped_in_parenthesis(DatabaseEngine databaseEngine)
             {
                 var q = new QueryBuilder(GetDialectFor(databaseEngine))

@@ -47,6 +47,14 @@ public static class TrackedChangesQueryBuilderContextExtensions
         return false;
     }
 
+    /// <summary>
+    /// Records the tracked changes table the query reads, schema-qualified and without an alias (for example
+    /// "tracked_changes_edfi.StudentSectionAssociation").
+    /// </summary>
+    /// <remarks>
+    /// Set this together with <see cref="SetTrackedChangesCriterion" />. A filter that has the table but not the
+    /// criterion cannot tell one kind of change from the other, and the two are consumed as a unit for that reason.
+    /// </remarks>
     public static void SetTrackedChangesTableName(this IDictionary<string, object> queryBuilderContext, string tableName)
     {
         queryBuilderContext[TrackedChangesTableNameKey] = tableName;

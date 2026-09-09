@@ -164,6 +164,92 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             return InstanceAuthorizationResult.NotPerformed();
         }
 
+        /// <summary>
+        /// For SQL Server, applies a person authorization filter by landing the claim's expansion through the view
+        /// into a temp table and reading it as a semi-join, replacing the join this filter would otherwise apply.
+        /// </summary>
+        /// <returns><b>true</b> when the filter was applied this way; otherwise <b>false</b>, leaving it to the caller.</returns>
+        /// <remarks>
+        /// The claims landing on its own leaves this expansion estimated from average density, and the better claim
+        /// estimate actually lowers that estimate, which shrinks the memory grant on a hash join that is already
+        /// spilling. Restricted to the person views: the education organization expansion is not the misestimated
+        /// side, and the inverted relationship strategies reuse that view with the source and target columns
+        /// swapped, so a landing written for one orientation would authorize the wrong set for the other.
+        /// </remarks>
+        private static bool TryApplyPersonExpansionAuthorizationCriteria(
+            QueryBuilder queryBuilder,
+            ViewBasedAuthorizationFilterDefinition viewBasedFilterDefinition,
+            AuthorizationFilterContext filterContext,
+            string trackedChangesPropertyName,
+            int filterIndex,
+            bool useOuterJoins)
+        {
+            string viewName = viewBasedFilterDefinition.ViewName;
+
+            if (queryBuilder.Dialect is not SqlServerDialect
+                || viewName == QueryBuilderExtensions.EducationOrganizationIdToEducationOrganizationIdViewName
+                || filterContext.ClaimParameterValues is not { Length: > 0 } claimValues)
+            {
+                return false;
+            }
+
+            string personColumnName = viewBasedFilterDefinition.ViewTargetEndpointName;
+
+            var claimsParameters = SqlServerDialect.CreateTableValuedParameters(
+                SqlServerDialect.ClaimsParameterName,
+                claimValues);
+
+            // The person landing reads from the claims temp table, so both statements are emitted here rather than
+            // relying on another filter in the same query to have produced the first one. Duplicates are suppressed.
+            queryBuilder.Prologue(SqlServerDialect.ClaimsTempTableLandingSql, claimsParameters);
+
+            // The tracked changes table and the criterion selecting the kind of change are taken as a unit:
+            // restricting by the table without the criterion leaves the case the restriction exists to avoid.
+            string trackedChangesTableName = null;
+            string trackedChangesCriterion = null;
+
+            if (queryBuilder.Context.TryGetTrackedChangesTableName(out string contextTableName)
+                && queryBuilder.Context.TryGetTrackedChangesCriterion(out string contextCriterion))
+            {
+                trackedChangesTableName = contextTableName;
+                trackedChangesCriterion = contextCriterion;
+            }
+
+            string trackedChangesPersonColumnName = trackedChangesTableName == null
+                ? null
+                : $"Old{trackedChangesPropertyName}";
+
+            queryBuilder.Prologue(
+                SqlServerDialect.GetAuthPersonsTempTableLandingSql(
+                    viewName,
+                    viewBasedFilterDefinition.ViewSourceEndpointName,
+                    personColumnName,
+                    trackedChangesTableName,
+                    trackedChangesPersonColumnName,
+                    trackedChangesCriterion));
+
+            string authPersonsAlias = $"ap{filterIndex}";
+
+            string authPersonsTempTableName = SqlServerDialect.GetAuthPersonsTempTableName(
+                viewName,
+                trackedChangesPersonColumnName);
+
+            string semiJoinCriteria =
+                $"EXISTS (SELECT 1 FROM {authPersonsTempTableName} AS {authPersonsAlias}"
+                + $" WHERE {authPersonsAlias}.{personColumnName} = c.Old{trackedChangesPropertyName})";
+
+            if (useOuterJoins)
+            {
+                queryBuilder.OrWhereRaw(semiJoinCriteria);
+            }
+            else
+            {
+                queryBuilder.WhereRaw(semiJoinCriteria);
+            }
+
+            return true;
+        }
+
         private static void ApplyTrackedChangesAuthorizationCriteria(
             AuthorizationFilterDefinition filterDefinition, 
             AuthorizationFilterContext filterContext, 
@@ -183,7 +269,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 ? GetBasePropertyNameForSubjectEndpointName()
                 : filterContext.SubjectEndpointName;
 
-            if (TryApplyPersonExpansionLanding())
+            if (TryApplyPersonExpansionAuthorizationCriteria(
+                    queryBuilder,
+                    viewBasedFilterDefinition,
+                    filterContext,
+                    trackedChangesPropertyName,
+                    filterIndex,
+                    useOuterJoins))
             {
                 return;
             }
@@ -217,86 +309,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
             }
             
-            // For SQL Server, land the claim's expansion through a person authorization view into a temp table and
-            // read it as a semi-join. The claims landing on its own leaves this expansion estimated from average
-            // density, and the better claim estimate actually lowers that estimate, which shrinks the memory grant
-            // on a hash join that is already spilling. Restricted to the person views: the education organization
-            // expansion is not affected, and the inverted relationship strategies reuse that view with the source
-            // and target columns swapped, so a landing written for one orientation would authorize the wrong set.
-            bool TryApplyPersonExpansionLanding()
-            {
-                if (queryBuilder.Dialect is not SqlServerDialect
-                    || viewName == QueryBuilderExtensions.EducationOrganizationIdToEducationOrganizationIdViewName
-                    || filterContext.ClaimParameterValues is not { Length: > 0 } claimValues)
-                {
-                    return false;
-                }
-
-                string personColumnName = viewBasedFilterDefinition.ViewTargetEndpointName;
-
-                var claimsParameters = SqlServerDialect.CreateTableValuedParameters(
-                    SqlServerDialect.ClaimsParameterName,
-                    claimValues);
-
-                // The person landing reads from the claims temp table, so both statements are emitted here rather
-                // than relying on another filter in the same query to have produced the first one. Duplicate
-                // prologue statements are suppressed.
-                queryBuilder.Prologue(SqlServerDialect.ClaimsTempTableLandingSql, claimsParameters);
-
-                // Restrict the expansion to the persons the tracked changes table actually holds, when the change
-                // query told us which table that is and which kind of change it selects. The query only uses this
-                // set joined to that table under that criterion, so the restriction cannot change the result, and it
-                // keeps the cost proportional to the change history the request is about rather than to the breadth
-                // of the claim.
-                //
-                // The table and the criterion are taken as a unit. Restricting by the table without the criterion
-                // would leave a table holding only the other kind of change looking like work to be done, which is
-                // the case the restriction exists to avoid.
-                string trackedChangesTableName = null;
-                string trackedChangesCriterion = null;
-
-                if (queryBuilder.Context.TryGetTrackedChangesTableName(out string contextTableName)
-                    && queryBuilder.Context.TryGetTrackedChangesCriterion(out string contextCriterion))
-                {
-                    trackedChangesTableName = contextTableName;
-                    trackedChangesCriterion = contextCriterion;
-                }
-
-                string trackedChangesPersonColumnName = trackedChangesTableName == null
-                    ? null
-                    : $"Old{trackedChangesPropertyName}";
-
-                queryBuilder.Prologue(
-                    SqlServerDialect.GetAuthPersonsTempTableLandingSql(
-                        viewName,
-                        viewBasedFilterDefinition.ViewSourceEndpointName,
-                        personColumnName,
-                        trackedChangesTableName,
-                        trackedChangesPersonColumnName,
-                        trackedChangesCriterion));
-
-                string authPersonsAlias = $"ap{filterIndex}";
-
-                string authPersonsTempTableName = SqlServerDialect.GetAuthPersonsTempTableName(
-                    viewName,
-                    trackedChangesPersonColumnName);
-
-                string semiJoinCriteria =
-                    $"EXISTS (SELECT 1 FROM {authPersonsTempTableName} AS {authPersonsAlias}"
-                    + $" WHERE {authPersonsAlias}.{personColumnName} = c.Old{trackedChangesPropertyName})";
-
-                if (useOuterJoins)
-                {
-                    queryBuilder.OrWhereRaw(semiJoinCriteria);
-                }
-                else
-                {
-                    queryBuilder.WhereRaw(semiJoinCriteria);
-                }
-
-                return true;
-            }
-
             string GetBasePropertyNameForSubjectEndpointName()
             {
                 if (!resource.Entity.PropertyByName.TryGetValue(filterContext.SubjectEndpointName, out var entityProperty))

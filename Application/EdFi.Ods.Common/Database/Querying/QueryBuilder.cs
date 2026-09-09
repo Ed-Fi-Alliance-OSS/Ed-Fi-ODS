@@ -332,6 +332,13 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
+        /// <summary>
+        /// Adds the supplied SQL to the WHERE clause as a disjunct, verbatim.
+        /// </summary>
+        /// <remarks>
+        /// The SQL is not parameterized. Callers must build it from the model rather than from anything carried on a
+        /// request, exactly as with <see cref="WhereRaw" />.
+        /// </remarks>
         public QueryBuilder OrWhereRaw(string rawSql)
         {
             _sqlBuilder.OrWhere(rawSql);
