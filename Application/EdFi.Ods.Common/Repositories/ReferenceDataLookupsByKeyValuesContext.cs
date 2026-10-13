@@ -54,12 +54,41 @@ public class ReferenceDataLookupContext
     }
 
     /// <summary>
+    /// Restores reference data that was pending resolution before tracking was suppressed, without resuming tracking.
+    /// </summary>
+    /// <remarks>
+    /// This method is used when some aggregates of a request were deserialized (registering their unresolved reference
+    /// data) before others were hydrated by NHibernate (which suppresses tracking and clears the context).
+    /// </remarks>
+    /// <param name="pendingItems">The reference data items that were pending resolution before suppression.</param>
+    public void Restore(IEnumerable<IEntityReferenceData> pendingItems)
+    {
+        foreach (var item in pendingItems)
+        {
+            _values.Value.Add(item);
+        }
+    }
+
+    /// <summary>
+    /// Clears all reference data that has been added for resolution and resumes tracking (if it had been suppressed).
+    /// </summary>
+    /// <remarks>
+    /// This method is used once an existing aggregate has been retrieved for an update, deferring reference data
+    /// tracking to the subsequent synchronization of the submitted aggregate onto the persisted one.
+    /// </remarks>
+    public void Reset()
+    {
+        Clear();
+        _isSuppressed = false;
+    }
+
+    /// <summary>
     /// Indicates whether any lookups have been added to the context. 
     /// </summary>
     /// <returns><b>true</b> if there are any identifier values to be resolved; otherwise <b>false</b>.</returns>
     public bool Any()
     {
-        return !_isSuppressed && _values.IsValueCreated && _values.Value.Count > 0;
+        return _values.IsValueCreated && _values.Value.Count > 0;
     }
 
     /// <summary>

@@ -26,6 +26,10 @@ public class UpdateEntityReferenceDataLookupDecorator<TEntity> : IUpdateEntity<T
 
     public async Task UpdateAsync(TEntity persistentEntity, CancellationToken cancellationToken)
     {
+        // Track any reference data of the persisted aggregate that still needs to be resolved (e.g. child items added during
+        // synchronization, or existing items of an aggregate hydrated by NHibernate) before it is serialized
+        ReferenceDataTracking.TrackUnresolvedReferenceData(persistentEntity);
+
         await _referenceDataResolver.ResolveReferenceDataAsync();
         
         await _decoratedInstance.UpdateAsync(persistentEntity, cancellationToken);
