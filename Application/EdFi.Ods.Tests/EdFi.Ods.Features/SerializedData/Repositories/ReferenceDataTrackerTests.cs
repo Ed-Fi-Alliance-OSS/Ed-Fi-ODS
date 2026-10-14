@@ -4,21 +4,22 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
+using EdFi.Ods.Features.SerializedData.Repositories;
 using MessagePack;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Common.Repositories
+namespace EdFi.Ods.Tests.EdFi.Ods.Features.SerializedData.Repositories
 {
-    public class ReferenceDataTrackingTests
+    public class ReferenceDataTrackerTests
     {
         public class TestReferenceData : IEntityReferenceData
         {
@@ -58,6 +59,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Repositories
             public TestReferenceData SchoolReferenceData => throw new InvalidOperationException("NHibernate reference data accessed.");
 
             public ICollection<TestChild> Children { get; set; } = new List<TestChild>();
+
+            // Mirrors the generated (non-generic) aggregate extensions dictionary, keyed by extension schema name
+            public IDictionary AggregateExtensions { get; set; } = new Dictionary<string, object>();
         }
 
         public class TestChild : IChildEntity
@@ -68,6 +72,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Repositories
             public TestReferenceData ClassPeriodSerializedReferenceData { get; set; }
 
             public ICollection<TestGrandchild> Grandchildren { get; set; } = new List<TestGrandchild>();
+
+            // A reference to another child that is not part of the domain signature (allows a non-parent cycle)
+            public TestChild Sibling { get; set; }
 
             public void SetParent(object value) => Parent = (TestAggregateRoot) value;
         }
@@ -80,6 +87,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Repositories
             public TestReferenceData ProgramSerializedReferenceData { get; set; }
 
             public void SetParent(object value) => Child = (TestChild) value;
+        }
+
+        public class TestExtension : IChildEntity
+        {
+            public TestReferenceData ExtensionSerializedReferenceData { get; set; }
+
+            public ICollection<TestChild> ExtensionChildren { get; set; } = new List<TestChild>();
+
+            public void SetParent(object value) { }
         }
 
         public class TestReferenceDataLookupContextProvider : IContextProvider<ReferenceDataLookupContext>
@@ -95,29 +111,23 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Repositories
         {
             protected ReferenceDataLookupContext Context;
 
-            protected virtual bool SerializedDataEnabled => true;
+            protected virtual bool ContextInitialized => true;
 
             [SetUp]
             public void Setup()
             {
                 var provider = new TestReferenceDataLookupContextProvider();
                 Context = new ReferenceDataLookupContext();
-                provider.Set(Context);
 
-                GeneratedArtifactStaticDependencies.Resolvers.Set(() => provider);
-                GeneratedArtifactStaticDependencies.Resolvers.SetEnabledFeatures(SerializedDataEnabled, resourceLinksEnabled: true);
+                if (ContextInitialized)
+                {
+                    provider.Set(Context);
+                }
 
-                Act();
+                Act(new ReferenceDataTracker(provider));
             }
 
-            [TearDown]
-            public void TearDown()
-            {
-                GeneratedArtifactStaticDependencies.Resolvers.Set(() => (IContextProvider<ReferenceDataLookupContext>) null);
-                GeneratedArtifactStaticDependencies.Resolvers.SetEnabledFeatures(false, false);
-            }
-
-            protected abstract void Act();
+            protected abstract void Act(IReferenceDataTracker tracker);
         }
 
         [TestFixture]
@@ -130,7 +140,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Repositories
             private TestChild _childWithDeferredInitialization;
             private TestGrandchild _grandchild;
 
-            protected override void Act()
+            protected override void Act(IReferenceDataTracker tracker)
             {
                 _root = new TestAggregateRoot { SchoolSerializedReferenceData = new TestReferenceData() };
 
@@ -160,7 +170,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Repositories
 
                 _grandchild.SetParent(_child);
 
-                ReferenceDataTracking.TrackUnresolvedReferenceData(_root);
+                tracker.TrackUnresolvedReferenceData(_root);
             }
 
             [Test]
@@ -212,13 +222,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Repositories
             private TestAggregateRoot _root;
             private TestChild _child;
 
-            protected override void Act()
+            protected override void Act(IReferenceDataTracker tracker)
             {
                 _root = new TestAggregateRoot { SchoolSerializedReferenceData = new TestReferenceData() };
                 _child = new TestChild { ClassPeriodSerializedReferenceData = new TestReferenceData() };
                 _child.SetParent(_root);
 
-                ReferenceDataTracking.TrackUnresolvedReferenceData(_child);
+                tracker.TrackUnresolvedReferenceData(_child);
             }
 
             [Test]
@@ -230,14 +240,96 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Repositories
         }
 
         [TestFixture]
-        public class When_tracking_with_serialized_data_disabled : When_tracking_unresolved_reference_data_base
+        public class When_tracking_an_aggregate_with_extensions : When_tracking_unresolved_reference_data_base
         {
-            protected override bool SerializedDataEnabled => false;
+            private TestExtension _extension;
+            private TestChild _extensionChild;
 
-            protected override void Act()
+            protected override void Act(IReferenceDataTracker tracker)
             {
-                ReferenceDataTracking.TrackUnresolvedReferenceData(
-                    new TestAggregateRoot { SchoolSerializedReferenceData = new TestReferenceData() });
+                _extensionChild = new TestChild { ClassPeriodSerializedReferenceData = new TestReferenceData() };
+
+                _extension = new TestExtension
+                {
+                    ExtensionSerializedReferenceData = new TestReferenceData(),
+                    ExtensionChildren = { _extensionChild }
+                };
+
+                var root = new TestAggregateRoot { AggregateExtensions = { ["Sample"] = _extension } };
+
+                tracker.TrackUnresolvedReferenceData(root);
+            }
+
+            [Test]
+            public void Should_track_unresolved_reference_data_of_the_extension()
+            {
+                Context.Items.ShouldContain(_extension.ExtensionSerializedReferenceData);
+            }
+
+            [Test]
+            public void Should_track_unresolved_reference_data_of_extension_collections()
+            {
+                Context.Items.ShouldContain(_extensionChild.ClassPeriodSerializedReferenceData);
+            }
+        }
+
+        [TestFixture]
+        public class When_tracking_an_aggregate_whose_children_reference_each_other : When_tracking_unresolved_reference_data_base
+        {
+            private TestChild _first;
+            private TestChild _second;
+
+            protected override void Act(IReferenceDataTracker tracker)
+            {
+                var root = new TestAggregateRoot();
+
+                _first = new TestChild { ClassPeriodSerializedReferenceData = new TestReferenceData() };
+                _second = new TestChild { ClassPeriodSerializedReferenceData = new TestReferenceData() };
+
+                // Non-parent cycle, with each child also reachable through more than one path
+                _first.Sibling = _second;
+                _second.Sibling = _first;
+
+                root.Children.Add(_first);
+                root.Children.Add(_second);
+                root.AggregateExtensions["Sample"] = _first;
+
+                tracker.TrackUnresolvedReferenceData(root);
+            }
+
+            [Test]
+            public void Should_terminate_and_track_each_reference_exactly_once()
+            {
+                Context.Items.Count.ShouldBe(2);
+                Context.Items.ShouldContain(_first.ClassPeriodSerializedReferenceData);
+                Context.Items.ShouldContain(_second.ClassPeriodSerializedReferenceData);
+            }
+        }
+
+        [TestFixture]
+        public class When_tracking_without_a_reference_data_lookup_context : When_tracking_unresolved_reference_data_base
+        {
+            private Exception _exception;
+
+            protected override bool ContextInitialized => false;
+
+            protected override void Act(IReferenceDataTracker tracker)
+            {
+                try
+                {
+                    tracker.TrackUnresolvedReferenceData(
+                        new TestAggregateRoot { SchoolSerializedReferenceData = new TestReferenceData() });
+                }
+                catch (Exception ex)
+                {
+                    _exception = ex;
+                }
+            }
+
+            [Test]
+            public void Should_not_throw()
+            {
+                _exception.ShouldBeNull();
             }
 
             [Test]

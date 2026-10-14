@@ -12,7 +12,6 @@ using Dapper;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Database.Querying;
-using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Listeners;
@@ -130,23 +129,10 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         .Select(i => i.AggregateId)
                         .ToList();
                     
-                    // Capture the reference data lookups registered by the deserialized entities, since hydrating entities
-                    // through NHibernate suppresses (and clears) reference data tracking for the remainder of the request
-                    var referenceDataLookupContext = GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider?.Get();
-
-                    var pendingReferenceDataLookups = referenceDataLookupContext?.Any() == true
-                        ? referenceDataLookupContext.Items.ToArray()
-                        : null;
-
                     // Load entities using NHibernate
                     var entityResults = await _getEntitiesByAggregateIds.GetByAggregateIdsAsync(
                         aggregateIdsToLoad,
                         cancellationToken);
-
-                    if (pendingReferenceDataLookups != null)
-                    {
-                        referenceDataLookupContext.Restore(pendingReferenceDataLookups);
-                    }
 
                     // Results will be ordered by AggregateId
                     int pageItemIndex = 0;

@@ -9,42 +9,41 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Attributes;
-using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Repositories;
 using MessagePack;
 
-namespace EdFi.Ods.Common.Repositories;
+namespace EdFi.Ods.Features.SerializedData.Repositories;
 
 /// <summary>
-/// Provides support for registering the unresolved reference data of entities with the current
-/// <see cref="ReferenceDataLookupContext" /> so that the resource identifiers used in resource reference links can be
-/// resolved before the aggregate is serialized.
+/// Registers the unresolved reference data of entities with the current <see cref="ReferenceDataLookupContext" /> so that
+/// the resource identifiers used in resource reference links can be resolved before the aggregate is serialized.
 /// </summary>
-public static class ReferenceDataTracking
+/// <remarks>
+/// When an existing aggregate is updated, the reference data registered while mapping the submitted aggregate is
+/// discarded and tracking is deferred to the synchronization onto the persisted aggregate. That synchronization does
+/// not register the reference data of child items it adds (they are the submitted instances themselves), and when the
+/// persisted aggregate was hydrated by NHibernate (because its serialized data was missing or stale), the serialized
+/// reference data of its existing items is never resolved either. Tracking the persisted aggregate immediately before
+/// resolution ensures the serialized aggregate contains the resource identifiers needed for resource reference links.
+/// </remarks>
+public class ReferenceDataTracker : IReferenceDataTracker
 {
     private static readonly ConcurrentDictionary<Type, TrackedMembers> _trackedMembersByType = new();
 
-    /// <summary>
-    /// Registers all fully defined, but unresolved, reference data that will be serialized with the supplied entity (including
-    /// its child collections, one-to-one children and extensions) with the current reference data lookup context.
-    /// </summary>
-    /// <remarks>
-    /// When an existing aggregate is updated, the reference data registered while mapping the submitted aggregate is
-    /// discarded and tracking is deferred to the synchronization onto the persisted aggregate. That synchronization does
-    /// not register the reference data of child items it adds (they are the submitted instances themselves), and when the
-    /// persisted aggregate was hydrated by NHibernate (because its serialized data was missing or stale), the serialized
-    /// reference data of its existing items is never resolved either. Tracking the persisted aggregate immediately before
-    /// resolution ensures the serialized aggregate contains the resource identifiers needed for resource reference links.
-    /// </remarks>
-    /// <param name="entity">The entity whose reference data should be tracked.</param>
-    public static void TrackUnresolvedReferenceData(object entity)
-    {
-        if (!(GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
-        {
-            return;
-        }
+    private readonly IContextProvider<ReferenceDataLookupContext> _referenceDataLookupContextProvider;
 
-        var referenceDataLookupContext = GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider?.Get();
+    public ReferenceDataTracker(IContextProvider<ReferenceDataLookupContext> referenceDataLookupContextProvider)
+    {
+        _referenceDataLookupContextProvider = referenceDataLookupContextProvider;
+    }
+
+    /// <inheritdoc cref="IReferenceDataTracker.TrackUnresolvedReferenceData" />
+    public void TrackUnresolvedReferenceData(object entity)
+    {
+        var referenceDataLookupContext = _referenceDataLookupContextProvider.Get();
 
         if (referenceDataLookupContext is null)
         {
