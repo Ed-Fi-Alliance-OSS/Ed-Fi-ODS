@@ -70,6 +70,10 @@ public class SerializedDataModule : ConditionalModule
                 .As<IReferenceDataResolver>()
                 .SingleInstance();
 
+            builder.RegisterType<ReferenceDataTracker>()
+                .As<IReferenceDataTracker>()
+                .SingleInstance();
+
             builder.RegisterGeneric(typeof(ResolveReferenceData<,,,>))
                 .AsSelf()
                 .SingleInstance();
@@ -80,6 +84,7 @@ public class SerializedDataModule : ConditionalModule
 
             builder.RegisterGenericDecorator(typeof(GetEntityByIdReferenceDataLookupDecorator<>), typeof(IGetEntityById<>));
             builder.RegisterGenericDecorator(typeof(GetEntityByKeyReferenceDataLookupDecorator<>), typeof(IGetEntityByKey<>));
+            builder.RegisterGenericDecorator(typeof(GetEntitiesByAggregateIdsReferenceDataLookupDecorator<>), typeof(IGetEntitiesByAggregateIds<>));
 
             builder.RegisterGenericDecorator(typeof(UpdateEntityReferenceDataLookupDecorator<>), typeof(IUpdateEntity<>));
             builder.RegisterGenericDecorator(typeof(CreateEntityReferenceDataLookupDecorator<>), typeof(ICreateEntity<>));

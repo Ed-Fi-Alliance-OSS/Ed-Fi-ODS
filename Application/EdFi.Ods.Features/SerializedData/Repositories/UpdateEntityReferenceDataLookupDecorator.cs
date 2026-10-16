@@ -15,17 +15,24 @@ public class UpdateEntityReferenceDataLookupDecorator<TEntity> : IUpdateEntity<T
 {
     private readonly IUpdateEntity<TEntity> _decoratedInstance;
     private readonly IReferenceDataResolver _referenceDataResolver;
+    private readonly IReferenceDataTracker _referenceDataTracker;
 
     public UpdateEntityReferenceDataLookupDecorator(
         IUpdateEntity<TEntity> decoratedInstance,
-        IReferenceDataResolver referenceDataResolver)
+        IReferenceDataResolver referenceDataResolver,
+        IReferenceDataTracker referenceDataTracker)
     {
         _decoratedInstance = decoratedInstance;
         _referenceDataResolver = referenceDataResolver;
+        _referenceDataTracker = referenceDataTracker;
     }
 
     public async Task UpdateAsync(TEntity persistentEntity, CancellationToken cancellationToken)
     {
+        // Track any reference data of the persisted aggregate that still needs to be resolved (e.g. child items added during
+        // synchronization, or existing items of an aggregate hydrated by NHibernate) before it is serialized
+        _referenceDataTracker.TrackUnresolvedReferenceData(persistentEntity);
+
         await _referenceDataResolver.ResolveReferenceDataAsync();
         
         await _decoratedInstance.UpdateAsync(persistentEntity, cancellationToken);

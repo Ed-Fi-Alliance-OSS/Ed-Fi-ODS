@@ -52,8 +52,8 @@ public class ReferenceDataResolver : IReferenceDataResolver
     {
         var referenceDataLookupContext = _referenceDataLookupContextProvider.Get();
 
-        // Quit now if there's no work to do
-        if (referenceDataLookupContext.IsSuppressed() || !referenceDataLookupContext.Any())
+        // Quit now if there's no work to do (lookups restored after suppression must still be resolved)
+        if (referenceDataLookupContext == null || !referenceDataLookupContext.Any())
         {
             return;
         }

@@ -38,8 +38,9 @@ public class GetEntityByIdReferenceDataLookupDecorator<TEntity> : IGetEntityById
         // If the entity already exists and we're writing (via a PUT request)
         if (result != null && _dataManagementResourceContextProvider.Get()?.HttpMethod == HttpMethods.Put)
         {
-            // Clear the context (if it exists), deferring to synch processing for lookup context
-            _referenceDataLookupContextProvider.Get()?.Clear();
+            // Reset the context (if it exists), deferring to synch processing for lookup context (tracking must be resumed
+            // in case loading the existing entity through NHibernate suppressed it)
+            _referenceDataLookupContextProvider.Get()?.Reset();
         }
 
         return result;
