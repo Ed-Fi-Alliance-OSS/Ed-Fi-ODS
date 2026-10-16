@@ -2,7 +2,8 @@
   <ItemGroup>
     <!--
       Adds the patched System.Security.Cryptography.Pkcs to every project that brings in Microsoft.Data.SqlClient
-      through a direct package reference, including projects added later. In a packable project the reference
+      through a direct package reference, including projects added later. EdFi.Suite3.Common is listed because
+      published versions depend on SqlClient without the pin. In a packable project the reference
       becomes a dependency of the published package. See the System.Security.Cryptography.Pkcs entry in
       Directory.Packages.props for why, and for when to remove this rule.
     -->
@@ -11,7 +12,8 @@
       Condition="('@(PackageReference->WithMetadataValue('Identity', 'Microsoft.Data.SqlClient'))' != ''
                   or '@(PackageReference->WithMetadataValue('Identity', 'Microsoft.EntityFrameworkCore.SqlServer'))' != ''
                   or '@(PackageReference->WithMetadataValue('Identity', 'Microsoft.Extensions.Caching.SqlServer'))' != ''
-                  or '@(PackageReference->WithMetadataValue('Identity', 'AspNetCore.HealthChecks.SqlServer'))' != '')
+                  or '@(PackageReference->WithMetadataValue('Identity', 'AspNetCore.HealthChecks.SqlServer'))' != ''
+                  or '@(PackageReference->WithMetadataValue('Identity', 'EdFi.Suite3.Common'))' != '')
                  and '@(PackageReference->WithMetadataValue('Identity', 'System.Security.Cryptography.Pkcs'))' == ''"
     />
   </ItemGroup>
