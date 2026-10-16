@@ -81,7 +81,7 @@
 
     <!-- Serialization -->
     <PackageVersion Include="JsonSubTypes" Version="2.0.1" />
-    <PackageVersion Include="MessagePack" Version="3.1.7" />
+    <PackageVersion Include="MessagePack" Version="3.1.9" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
 
     <!-- Logging -->
@@ -96,7 +96,7 @@
 
     <!-- OpenAPI -->
     <PackageVersion Include="Microsoft.OpenApi" Version="2.7.5" />
-    <PackageVersion Include="Microsoft.OpenApi.Readers" Version="1.6.28" />
+    <PackageVersion Include="Microsoft.OpenApi.Readers" Version="1.6.30" />
 
     <!-- Standard Libraries -->
     <PackageVersion Include="NETStandard.Library" Version="2.0.3" />
@@ -107,7 +107,8 @@
          as a direct reference to every project that brings in SqlClient through a direct package reference, and
          tests/Directory.Build.props adds it to every test project. Once a SqlClient release depends on a patched
          Pkcs, remove this entry, the Directory.Build.targets rule, and the tests/Directory.Build.props reference.
-         Ed-Fi-ODS-Implementation imports the same rule and carries the same pin; remove both there too. -->
+         Ed-Fi-ODS-Implementation carries the same pin, referenced directly by its SandboxAdmin projects; remove it
+         there too. -->
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="9.0.21" />
 
     <!-- Resilience -->
