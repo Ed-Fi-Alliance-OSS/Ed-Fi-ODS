@@ -2,4 +2,8 @@
   <PropertyGroup>
     <Copyright>Copyright © $([System.DateTime]::Now.ToString(`yyyy`)) Ed-Fi Alliance, LLC and Contributors</Copyright>
   </PropertyGroup>
+  <ItemGroup>
+    <!-- Overrides the vulnerable version brought in transitively by Microsoft.Data.SqlClient -->
+    <PackageReference Include="System.Security.Cryptography.Pkcs" />
+  </ItemGroup>
 </Project>
