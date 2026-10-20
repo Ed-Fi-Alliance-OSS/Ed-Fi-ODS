@@ -31,6 +31,12 @@ namespace EdFi.Ods.Standard.Container.Modules
             builder.RegisterType<StudentAssessmentRelationshipsAuthorizationContextDataProvider>()
                 .As<IRelationshipsAuthorizationContextDataProvider<IStudentAssessment>>()
                 .SingleInstance();
+
+            // Establish authorization context for Assessment using the (non-identifying) EducationOrganizationId rather than
+            // using the default convention (no authorization context properties, since it's not part of the primary key)
+            builder.RegisterType<AssessmentRelationshipsAuthorizationContextDataProvider>()
+                .As<IRelationshipsAuthorizationContextDataProvider<IAssessment>>()
+                .SingleInstance();
         }
     }
 }
