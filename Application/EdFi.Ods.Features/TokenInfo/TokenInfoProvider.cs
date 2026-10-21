@@ -6,16 +6,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Security.Authorization.AuthorizationBasis;
+using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
 using NHibernate;
 using NHibernate.Transform;
@@ -28,7 +29,7 @@ namespace EdFi.Ods.Features.TokenInfo
         IClaimSetClaimsProvider claimSetClaimsProvider,
         IResourceClaimUriProvider resourceClaimUriProvider,
         ISecurityRepository securityRepository,
-        IClaimSetRequestEvaluator claimSetRequestEvaluator)
+        IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector)
         : ITokenInfoProvider
     {
         public async Task<TokenInfo> GetTokenInfoAsync(ApiClientContext apiContext)
@@ -77,25 +78,37 @@ namespace EdFi.Ods.Features.TokenInfo
                     var claimUris = resourceClaimUriProvider.GetResourceClaimUris(r);
 
                     var authorizedActions = securityRepository.GetActions()
-                        .Where(action =>
+                        .Select(action =>
                         {
                             try
                             {
-                                return claimSetRequestEvaluator.EvaluateRequest(
-                                    apiContext.ClaimSetName, claimUris, action.ActionUri).Success;
+                                var authMetadata =
+                                      authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+                                          apiContext.ClaimSetName, claimUris, action.ActionUri);
+
+                                return (action, authMetadata);
                             }
-                            catch (AuthorizationContextException)
+                            catch
                             {
-                                return false;
+                                // Action isn't authorized if an exception is thrown
+                                return default;
                             }
                         })
-                        .Select(action => action.ActionName)
+                        .Where(aa => aa != default)
                         .ToList();
 
                     return new TokenInfoResource
                     {
                         Resource = $"/{r.SchemaUriSegment()}/{r.PluralName.ToCamelCase()}",
-                        Operations = authorizedActions
+                        Operations = authorizedActions.Select(
+                            aa => new TokenInfoOperation
+                            {
+                                Name = aa.action.ActionName,
+                                AuthorizationStrategies =
+                                    aa.authMetadata.AuthorizationStrategies.Select(
+                                            aus => aus.GetType().GetCustomAttribute<AuthorizationStrategyNameAttribute>()?.Name)
+                                        .ToList()
+                            }).ToList()
                     };
                 })
                 .Where(tir => tir.Operations.Any())
