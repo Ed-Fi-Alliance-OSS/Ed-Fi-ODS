@@ -115,8 +115,9 @@
     <!-- Resilience -->
     <!-- Held at 10.2.0: later versions pull Microsoft.Extensions.* above the 10.0.2 pins (NU1605) -->
     <PackageVersion Include="Microsoft.Extensions.Resilience" Version="10.2.0" />
+    <!-- Only the generated SDK (Utilities/SdkGen/EdFi.SdkGen.Console/csharp) still references Polly directly.
+         Remove this entry once the SDK no longer depends on Polly (ODS-6868). -->
     <PackageVersion Include="Polly" Version="8.6.4" />
-    <PackageVersion Include="Polly.Contrib.WaitAndRetry" Version="1.1.1" />
 
     <!-- Scheduling -->
     <PackageVersion Include="Quartz.AspNetCore" Version="3.15.1" />
