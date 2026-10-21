@@ -13,6 +13,7 @@
     <PackageVersion Include="NUnit" Version="4.4.0" />
     <PackageVersion Include="NUnit.ConsoleRunner" Version="3.22.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.2.0" />
+    <PackageVersion Include="Microsoft.Extensions.TimeProvider.Testing" Version="10.2.0" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="SpecFlow" Version="3.9.74" />
     <PackageVersion Include="SpecFlow.NUnit" Version="3.9.74" />
@@ -112,6 +113,7 @@
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="9.0.21" />
 
     <!-- Resilience -->
+    <PackageVersion Include="Microsoft.Extensions.Resilience" Version="10.2.0" />
     <PackageVersion Include="Polly" Version="8.6.4" />
     <PackageVersion Include="Polly.Contrib.WaitAndRetry" Version="1.1.1" />
 
