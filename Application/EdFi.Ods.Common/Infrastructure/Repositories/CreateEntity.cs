@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
@@ -18,6 +17,7 @@ using log4net;
 using NHibernate;
 using NHibernate.Id;
 using NHibernate.Persister.Entity;
+using Polly;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
 {
@@ -25,7 +25,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         where TEntity : AggregateRootWithCompositeKey
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(CreateEntity<TEntity>));
-        private readonly Dictionary<string, object> _retryPolicyContextData;
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
 
 
@@ -33,12 +32,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             : base(sessionFactory)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
-
-            _retryPolicyContextData = new Dictionary<string, object>()
-            {
-                { "Logger", _logger },
-                { "EntityTypeName", typeof(TEntity).Name },
-            };
         }
 
         public async Task CreateAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
@@ -110,29 +103,40 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 CallContext.SetData("CurrentDateTime", DateTime.UtcNow);
 
                 // Save the incoming entity
-                await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
-                    async ctx =>
-                    {
-                        bool isRetry = false;
+                var resilienceContext = ResilienceContextPool.Shared.Get(cancellationToken);
+                resilienceContext.Properties.Set(DeadlockPolicyHelper.LoggerKey, _logger);
+                resilienceContext.Properties.Set(DeadlockPolicyHelper.EntityTypeNameKey, typeof(TEntity).Name);
 
-                        if (ctx.TryGetValue("Retries", out object retryCount))
+                try
+                {
+                    await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
+                        async ctx =>
                         {
-                            isRetry = true;
-                            _logger.Info($"Retry #{retryCount}: Retrying create of '{typeof(TEntity).Name}'...");
-                        }
+                            bool isRetry = false;
 
-                        using (ITransaction trans = Session.BeginTransaction())
-                        {
-                            await Session.SaveAsync(entity, cancellationToken);
-                            await trans.CommitAsync(cancellationToken);
-                        }
+                            if (ctx.Properties.TryGetValue(DeadlockPolicyHelper.RetriesKey, out int retryCount))
+                            {
+                                isRetry = true;
+                                _logger.Info($"Retry #{retryCount}: Retrying create of '{typeof(TEntity).Name}'...");
+                            }
 
-                        if (isRetry)
-                        {
-                            _logger.Info($"Retry #{retryCount}: Successfully created '{typeof(TEntity).Name}' after {retryCount} retries...");
-                        }
-                    },
-                    _retryPolicyContextData);
+                            using (ITransaction trans = Session.BeginTransaction())
+                            {
+                                await Session.SaveAsync(entity, cancellationToken);
+                                await trans.CommitAsync(cancellationToken);
+                            }
+
+                            if (isRetry)
+                            {
+                                _logger.Info($"Retry #{retryCount}: Successfully created '{typeof(TEntity).Name}' after {retryCount} retries...");
+                            }
+                        },
+                        resilienceContext);
+                }
+                finally
+                {
+                    ResilienceContextPool.Shared.Return(resilienceContext);
+                }
 
                 // Clear the contextual current date/time explicitly
                 CallContext.SetData("CurrentDateTime", null);
