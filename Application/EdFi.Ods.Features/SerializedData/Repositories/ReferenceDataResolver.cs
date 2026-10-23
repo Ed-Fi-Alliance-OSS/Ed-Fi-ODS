@@ -142,7 +142,7 @@ public class ReferenceDataResolver : IReferenceDataResolver
                 var entity = _domainModel.EntityByFullName[referenceData.FullName];
                 
                 var qb = GetQueryBuilder(entity);
-                qb.Select(GetIdxSelect(i));
+                qb.Select($"{i} AS Idx");
                 
                 var pks = referenceData.GetPrimaryKeyValues();
 
@@ -178,22 +178,7 @@ public class ReferenceDataResolver : IReferenceDataResolver
     }
 
     private readonly ConcurrentDictionary<Entity, QueryBuilder> _queryBuilderByEntity = new();
-    
-    private readonly List<string> _idxSelects = new();
 
-    private string GetIdxSelect(int index)
-    {
-        if (index >= _idxSelects.Count)
-        {
-            for (int i = _idxSelects.Count; i <= index; i++)
-            {
-                _idxSelects.Add($"{i} AS Idx");
-            }
-        }
-
-        return _idxSelects[index];
-    }
-    
     private QueryBuilder GetQueryBuilder(Entity entity)
     {
         var baselineQueryBuilder = _queryBuilderByEntity.GetOrAdd(
