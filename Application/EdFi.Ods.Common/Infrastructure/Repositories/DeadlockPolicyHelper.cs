@@ -15,6 +15,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories;
 
 public static class DeadlockPolicyHelper
 {
+    private const int RetryCount = 5;
+
     /// <summary>
     /// Key for the <see cref="ILog" /> used to report retries, set by the caller on the <see cref="ResilienceContext" />.
     /// </summary>
@@ -26,16 +28,27 @@ public static class DeadlockPolicyHelper
     public static readonly ResiliencePropertyKey<string> EntityTypeNameKey = new("EntityTypeName");
 
     /// <summary>
-    /// Key for the number of retries performed so far, set by the retry policy on the <see cref="ResilienceContext" />
-    /// before each retry attempt.
+    /// Key for the 1-based number of the retry about to run, set by the retry policy on the
+    /// <see cref="ResilienceContext" /> before each retry (absent on the first attempt).
     /// </summary>
     public static readonly ResiliencePropertyKey<int> RetriesKey = new("Retries");
 
-    private const int RetryCount = 5;
-    private static readonly TimeSpan RetryStartingDelay = TimeSpan.FromMilliseconds(100);
+    [Obsolete("Has no effect. Will be removed in a future release.")]
+    public static int RetryStartingDelayMilliseconds = 100;
+
+    internal static readonly TimeSpan RetryStartingDelay = TimeSpan.FromMilliseconds(100);
 
     private static int _cumulativeRetries = 0;
 
+    /// <summary>
+    /// Gets the pipeline that retries entity persistence on SQL Server and PostgreSQL deadlocks (5 retries with
+    /// exponential backoff of 100, 200, 400, 800 and 1600ms).
+    /// </summary>
+    /// <remarks>
+    /// Rent a <see cref="ResilienceContext" /> from <see cref="ResilienceContextPool" /> for each call, set
+    /// <see cref="LoggerKey" /> and <see cref="EntityTypeNameKey" /> on it (otherwise retries are not logged),
+    /// and return it to the pool in a <c>finally</c> block. See <c>CreateEntity</c> for an example.
+    /// </remarks>
     public static ResiliencePipeline RetryPolicy { get; }
 
     static DeadlockPolicyHelper()
@@ -104,7 +117,7 @@ public static class DeadlockPolicyHelper
         {
             return false;
         }
-
+        
         // SQL Server deadlock detection
         if (exception.InnerException is SqlException { Number: 1205 })
         {

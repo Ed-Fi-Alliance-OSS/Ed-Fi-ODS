@@ -40,7 +40,7 @@ public class DeadlockRetryPolicyTests
     {
         // Arrange
         var timeProvider = new FakeTimeProvider();
-        var pipeline = DeadlockPolicyHelper.CreatePipeline(TimeSpan.FromMilliseconds(100), timeProvider);
+        var pipeline = DeadlockPolicyHelper.CreatePipeline(DeadlockPolicyHelper.RetryStartingDelay, timeProvider);
 
         var warnings = new List<string>();
         var logger = A.Fake<ILog>();
@@ -70,7 +70,14 @@ public class DeadlockRetryPolicyTests
                 context)
             .AsTask();
 
-        await AdvanceUntilCompleted(timeProvider, execution);
+        try
+        {
+            await AdvanceUntilCompleted(timeProvider, execution);
+        }
+        finally
+        {
+            ResilienceContextPool.Shared.Return(context);
+        }
 
         // Assert
         await Should.ThrowAsync<GenericADOException>(execution);
@@ -90,7 +97,7 @@ public class DeadlockRetryPolicyTests
     {
         // Arrange
         var timeProvider = new FakeTimeProvider();
-        var pipeline = DeadlockPolicyHelper.CreatePipeline(TimeSpan.FromMilliseconds(100), timeProvider);
+        var pipeline = DeadlockPolicyHelper.CreatePipeline(DeadlockPolicyHelper.RetryStartingDelay, timeProvider);
 
         int attempts = 0;
 
@@ -108,11 +115,21 @@ public class DeadlockRetryPolicyTests
         attempts.ShouldBe(3);
     }
 
-    [Test]
-    public async Task RetryPolicy_NonDeadlockErrorOccurs_DoesNotRetry()
+    private static IEnumerable<TestCaseData> NonDeadlockErrors()
+    {
+        yield return new TestCaseData(
+                (Func<Exception>)(() => CreateWrappedSqlException(547, "The INSERT statement conflicted with the FOREIGN KEY constraint")))
+            .SetArgDisplayNames("SqlServerForeignKeyViolation");
+
+        yield return new TestCaseData((Func<Exception>)(() => CreateWrappedPostgresException(PostgresErrorCodes.UniqueViolation)))
+            .SetArgDisplayNames("PostgreSqlUniqueViolation");
+    }
+
+    [TestCaseSource(nameof(NonDeadlockErrors))]
+    public async Task RetryPolicy_NonDeadlockErrorOccurs_DoesNotRetry(Func<Exception> createException)
     {
         // Arrange
-        var pipeline = DeadlockPolicyHelper.CreatePipeline(TimeSpan.FromMilliseconds(100), new FakeTimeProvider());
+        var pipeline = DeadlockPolicyHelper.CreatePipeline(DeadlockPolicyHelper.RetryStartingDelay, new FakeTimeProvider());
 
         int attempts = 0;
 
@@ -122,8 +139,7 @@ public class DeadlockRetryPolicyTests
             {
                 attempts++;
 
-                // Foreign key violation
-                return ValueTask.FromException(CreateWrappedSqlException(547, "The INSERT statement conflicted with the FOREIGN KEY constraint"));
+                return ValueTask.FromException(createException());
             });
 
         // Assert
@@ -276,7 +292,7 @@ public class DeadlockRetryPolicyTests
 
     private static GenericADOException CreateWrappedPostgresException(string sqlState)
     {
-        var postgresException = new PostgresException("deadlock detected", "ERROR", "ERROR", sqlState);
+        var postgresException = new PostgresException("Database error", "ERROR", "ERROR", sqlState);
 
         return new GenericADOException("Could not do it.", postgresException);
     }
