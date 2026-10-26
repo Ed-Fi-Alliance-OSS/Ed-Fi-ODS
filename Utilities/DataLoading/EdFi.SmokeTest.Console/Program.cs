@@ -74,6 +74,7 @@ namespace EdFi.SmokeTest.Console
                 var configRoot = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
                     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .AddEnvironmentVariables()
                     .AddCommandLine(args, CommandLineOverrides.SwitchingMapping())
                     .AddUserSecrets<CommandLineOverrides>()
                     .Build();
@@ -127,6 +128,7 @@ namespace EdFi.SmokeTest.Console
                     .As<IOAuthTokenConfiguration>()
                     .As<IOAuthSessionToken>()
                     .As<ISdkLibraryConfiguration>()
+                    .As<ISdkDataPathConfiguration>()
                     .As<IDestructiveTestConfiguration>()
                     .AsSelf()
                     .SingleInstance();
