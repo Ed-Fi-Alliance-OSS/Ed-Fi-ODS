@@ -215,6 +215,9 @@ namespace EdFi.Ods.Api.Middleware.Tests
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(2)).Returns(odsInstanceConfiguration_2);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(3)).Returns(odsInstanceConfiguration_3);
 
+            _apiSettings.OdsContextRouteTemplate = "{schoolYear}/{secondKey}";
+            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider, _apiSettings);
+
             _routeValueDictionary.Add("schoolYear", schoolYearRouteValue);
             _routeValueDictionary.Add("secondKey", secondKeyRouteValue);
 
@@ -224,7 +227,81 @@ namespace EdFi.Ods.Api.Middleware.Tests
             AssertHelper.All(
                 () => problemDetails.Status.ShouldBe(403),
                 () => problemDetails.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization")),
-                () => problemDetails.Detail.ShouldBe(SecurityAuthorizationException.DefaultDetail)
+                () => problemDetails.Detail.ShouldBe(SecurityAuthorizationException.DefaultDetail),
+                () => ((IEdFiProblemDetails)problemDetails).Errors.ShouldBe(
+                    new[]
+                    {
+                        $"The API client is not authorized for an ODS instance matching the route context values [schoolYear={schoolYearRouteValue}, secondKey={secondKeyRouteValue}]."
+                    })
+            );
+        }
+
+        [Test]
+        public void GetOdsInstanceAsync_ThrowsSecurityAuthorizationException_WhenNoneOfTheApiClientOdsInstancesHaveContextValues()
+        {
+            // Arrange
+            var odsInstanceIds = new[] { 1, 2 };
+
+            var apiClientContext = CreateApiClientContext(odsInstanceIds);
+
+            var odsInstanceConfiguration_1 = new OdsInstanceConfiguration(
+                1,
+                1UL,
+                "TheConnectionString",
+                new Dictionary<string, string>(),
+                new Dictionary<DerivativeType, string>());
+
+            var odsInstanceConfiguration_2 = new OdsInstanceConfiguration(
+                2,
+                2UL,
+                "TheConnectionString",
+                new Dictionary<string, string>(),
+                new Dictionary<DerivativeType, string>());
+
+            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
+            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration_1);
+            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(2)).Returns(odsInstanceConfiguration_2);
+
+            _apiSettings.OdsContextRouteTemplate = "{schoolYear:range(2000,2099)}";
+            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider, _apiSettings);
+
+            _routeValueDictionary.Add("schoolYear", "2023");
+
+            // Act & Assert
+            var problemDetails = Assert.ThrowsAsync<SecurityAuthorizationException>(async () => await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
+
+            problemDetails.Status.ShouldBe(403);
+        }
+
+        [Test]
+        public void GetOdsInstanceAsync_ThrowsNotFoundException_WhenRouteValuesHaveNoOdsContextValue()
+        {
+            // Arrange
+            var odsInstanceId = 1;
+
+            var apiClientContext = CreateApiClientContext(odsInstanceId);
+
+            var odsInstanceConfiguration = new OdsInstanceConfiguration(
+                1,
+                1UL,
+                "TheConnectionString",
+                new Dictionary<string, string> { { "schoolYear", "2022" } },
+                new Dictionary<DerivativeType, string>());
+
+            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
+            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration);
+
+            _apiSettings.OdsContextRouteTemplate = "{schoolYear:range(2000,2099)}";
+            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider, _apiSettings);
+
+            // Route values of a request whose path matched no endpoint are empty.
+
+            // Act & Assert
+            var problemDetails = Assert.ThrowsAsync<NotFoundException>(async () => await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
+
+            AssertHelper.All(
+                () => problemDetails.Status.ShouldBe(404),
+                () => problemDetails.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "not-found"))
             );
         }
 

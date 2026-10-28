@@ -67,15 +67,23 @@ public class OdsInstanceSelector : IOdsInstanceSelector
 
         if (firstMatchingOdsInstanceConfiguration == null)
         {
-            var contextRouteValues = string.Join(
-                ", ",
-                _odsContextRouteKeys
-                    .Where(routeValues.ContainsKey)
-                    .Select(key => $"{key}={routeValues[key]}"));
+            var contextRouteValues = _odsContextRouteKeys
+                .Where(routeValues.ContainsKey)
+                .Select(key => $"{key}={routeValues[key]}")
+                .ToArray();
+
+            // Without an ODS context value in the route (for example, a path that matches no endpoint),
+            // there is nothing the client could be denied access to, so the request is not found.
+            if (contextRouteValues.Length == 0)
+            {
+                throw new NotFoundException(
+                    NotFoundException.DefaultDetail,
+                    $"No ODS instance matching the available route values was found. Route values were: [{string.Join(", ", routeValues.Select(kvp => $"{kvp.Key}={kvp.Value}"))}]");
+            }
 
             throw new SecurityAuthorizationException(
                 SecurityAuthorizationException.DefaultDetail,
-                $"The API client is not authorized for an ODS instance matching the route context values [{contextRouteValues}].");
+                $"The API client is not authorized for an ODS instance matching the route context values [{string.Join(", ", contextRouteValues)}].");
         }
 
         return firstMatchingOdsInstanceConfiguration;

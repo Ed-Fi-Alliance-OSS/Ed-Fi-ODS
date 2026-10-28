@@ -4,8 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Logging;
@@ -75,7 +78,10 @@ namespace EdFi.Ods.Api.Middleware.Tests
         {
             // Arrange
             var context = new DefaultHttpContext();
+            context.Response.Body = new MemoryStream();
             var next = A.Fake<RequestDelegate>();
+
+            A.CallTo(() => _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)).Returns("TheCorrelationId");
 
             A.CallTo(() => _instanceSelector.GetOdsInstanceAsync(context.Request.RouteValues))
                 .ThrowsAsync(new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, "Not authorized."));
@@ -84,8 +90,37 @@ namespace EdFi.Ods.Api.Middleware.Tests
             await _middleware.InvokeAsync(context, next);
 
             // Assert
+            var body = ReadResponseBody(context);
+
             context.Response.StatusCode.ShouldBe(StatusCodes.Status403Forbidden);
             context.Response.ContentType.ShouldBe("application/problem+json");
+            body.GetProperty("type").GetString().ShouldBe("urn:ed-fi:api:security:authorization");
+            body.GetProperty("correlationId").GetString().ShouldBe("TheCorrelationId");
+            body.GetProperty("errors")[0].GetString().ShouldBe("Not authorized.");
+            A.CallTo(() => _contextProvider.Set(A<OdsInstanceConfiguration>._)).MustNotHaveHappened();
+            A.CallTo(() => next(context)).MustNotHaveHappened();
+        }
+
+        [Test]
+        public async Task InvokeAsync_WhenSelectorFindsNoInstance_WritesNotFoundProblemDetailsAndDoesNotInvokeNext()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Response.Body = new MemoryStream();
+            var next = A.Fake<RequestDelegate>();
+
+            A.CallTo(() => _instanceSelector.GetOdsInstanceAsync(context.Request.RouteValues))
+                .ThrowsAsync(new NotFoundException(NotFoundException.DefaultDetail, "No ODS instance found."));
+
+            // Act
+            await _middleware.InvokeAsync(context, next);
+
+            // Assert
+            var body = ReadResponseBody(context);
+
+            context.Response.StatusCode.ShouldBe(StatusCodes.Status404NotFound);
+            context.Response.ContentType.ShouldBe("application/problem+json");
+            body.GetProperty("type").GetString().ShouldBe("urn:ed-fi:api:not-found");
             A.CallTo(() => _contextProvider.Set(A<OdsInstanceConfiguration>._)).MustNotHaveHappened();
             A.CallTo(() => next(context)).MustNotHaveHappened();
         }
@@ -105,6 +140,12 @@ namespace EdFi.Ods.Api.Middleware.Tests
 
             // Act + Assert
             Assert.ThrowsAsync<SecurityAuthorizationException>(() => _middleware.InvokeAsync(context, next));
+        }
+
+        private static JsonElement ReadResponseBody(HttpContext context)
+        {
+            context.Response.Body.Position = 0;
+            return JsonDocument.Parse(context.Response.Body).RootElement;
         }
     }
 }
