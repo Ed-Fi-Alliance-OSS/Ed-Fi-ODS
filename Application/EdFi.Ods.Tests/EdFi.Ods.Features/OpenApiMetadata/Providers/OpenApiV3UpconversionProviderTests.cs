@@ -16,7 +16,12 @@ using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.TestFixture;
 using FakeItEasy;
+using log4net;
+using log4net.Appender;
+using log4net.Core;
+using log4net.Repository.Hierarchy;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
 using Npgsql;
@@ -102,11 +107,39 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
         private static IEnumerable<string> GetServerTenants(OpenApiDocument document)
             => document.Servers.Single().Variables.Values.Single().Enum;
 
+        // Logging is off in the test run, so it is turned on for the provider's logger only while the action runs
+        private static LoggingEvent[] CaptureProviderLogEvents(Action action)
+        {
+            var repository = (Hierarchy) LogManager.GetRepository(typeof(OpenApiV3UpconversionProvider).Assembly);
+            var logger = (Logger) repository.GetLogger(typeof(OpenApiV3UpconversionProvider).FullName);
+            var appender = new MemoryAppender();
+            var wasConfigured = repository.Configured;
+
+            logger.AddAppender(appender);
+            repository.Configured = true;
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                logger.RemoveAppender(appender);
+                repository.Configured = wasConfigured;
+            }
+
+            return appender.GetEvents();
+        }
+
+        private static LoggingEvent[] GetWarnings(IEnumerable<LoggingEvent> logEvents)
+            => logEvents.Where(logEvent => logEvent.Level == Level.Warn).ToArray();
+
         public class When_one_tenant_admin_database_does_not_exist_on_SQL_Server : TestFixtureBase
         {
             private OpenApiV3UpconversionProvider _provider;
             private string _actualJson;
             private OpenApiDocument _actualDocument;
+            private LoggingEvent[] _actualLogEvents;
 
             protected override void Arrange()
             {
@@ -118,7 +151,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
             protected override void Act()
             {
-                _actualJson = _provider.GetUpconvertedOpenApiJson(OpenApiV2Json);
+                _actualLogEvents = CaptureProviderLogEvents(
+                    () => _actualJson = _provider.GetUpconvertedOpenApiJson(OpenApiV2Json));
+
                 _actualDocument = ReadDocument(_actualJson);
             }
 
@@ -159,6 +194,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             public void Should_not_expose_the_admin_database_name_in_the_document()
             {
                 _actualJson.ShouldNotContain("EdFi_Admin_Tenant2");
+            }
+
+            [Test]
+            public void Should_log_a_warning_that_names_the_tenant_and_the_database_error()
+            {
+                var warning = GetWarnings(_actualLogEvents).ShouldHaveSingleItem();
+                warning.RenderedMessage.ShouldContain("Tenant 'Tenant2' was omitted from the OpenAPI metadata");
+                warning.RenderedMessage.ShouldContain("Cannot open database \"EdFi_Admin_Tenant2\"");
+                warning.ExceptionObject.ShouldBeOfType<SqlException>();
             }
         }
 
@@ -352,6 +396,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
         {
             private OpenApiV3UpconversionProvider _provider;
             private OpenApiDocument _actualDocument;
+            private LoggingEvent[] _actualLogEvents;
 
             protected override void Arrange()
             {
@@ -363,7 +408,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
             protected override void Act()
             {
-                _actualDocument = ReadDocument(_provider.GetUpconvertedOpenApiJson(OpenApiV2Json));
+                var actualJson = string.Empty;
+                _actualLogEvents = CaptureProviderLogEvents(() => actualJson = _provider.GetUpconvertedOpenApiJson(OpenApiV2Json));
+                _actualDocument = ReadDocument(actualJson);
+            }
+
+            [Test]
+            public void Should_log_one_warning_per_unavailable_tenant()
+            {
+                var warnings = GetWarnings(_actualLogEvents);
+                warnings.Length.ShouldBe(2);
+                warnings[0].RenderedMessage.ShouldStartWith("Tenant 'Tenant1' was omitted");
+                warnings[1].RenderedMessage.ShouldStartWith("Tenant 'Tenant3' was omitted");
             }
 
             [Test]
