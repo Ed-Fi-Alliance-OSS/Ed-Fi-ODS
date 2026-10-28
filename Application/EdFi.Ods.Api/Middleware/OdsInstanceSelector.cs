@@ -22,6 +22,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
     private readonly IApiClientContextProvider _apiClientContextProvider;
     private readonly IOdsInstanceConfigurationProvider _odsInstanceConfigurationProvider;
     private readonly bool _hasOdsContextRouteTemplate;
+    private readonly string[] _odsContextRouteKeys;
 
     public OdsInstanceSelector(
         IApiClientContextProvider apiClientContextProvider,
@@ -31,6 +32,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
         _apiClientContextProvider = apiClientContextProvider;
         _odsInstanceConfigurationProvider = odsInstanceConfigurationProvider;
         _hasOdsContextRouteTemplate = !string.IsNullOrEmpty(apiSettings.OdsContextRouteTemplate);
+        _odsContextRouteKeys = apiSettings.GetOdsContextRouteTemplateKeys();
     }
 
     /// <inheritdoc cref="IOdsInstanceSelector.GetOdsInstanceAsync" />
@@ -65,9 +67,15 @@ public class OdsInstanceSelector : IOdsInstanceSelector
 
         if (firstMatchingOdsInstanceConfiguration == null)
         {
-            throw new NotFoundException(
-                NotFoundException.DefaultDetail,
-                $"No ODS instance matching the available route values was found. Route values were: [{string.Join(", ", routeValues.Select(kvp => $"{kvp.Key}={kvp.Value}"))}]");
+            var contextRouteValues = string.Join(
+                ", ",
+                _odsContextRouteKeys
+                    .Where(routeValues.ContainsKey)
+                    .Select(key => $"{key}={routeValues[key]}"));
+
+            throw new SecurityAuthorizationException(
+                SecurityAuthorizationException.DefaultDetail,
+                $"The API client is not authorized for an ODS instance matching the route context values [{contextRouteValues}].");
         }
 
         return firstMatchingOdsInstanceConfiguration;

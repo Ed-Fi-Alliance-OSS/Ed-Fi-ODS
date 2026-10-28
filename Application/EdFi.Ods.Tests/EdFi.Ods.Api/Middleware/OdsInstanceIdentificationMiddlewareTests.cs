@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Logging;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
+using Shouldly;
 
 // NOTE: Initial test fixture generated using ChatGPT
 namespace EdFi.Ods.Api.Middleware.Tests
@@ -66,6 +68,43 @@ namespace EdFi.Ods.Api.Middleware.Tests
             // Assert
             A.CallTo(() => _contextProvider.Set(A<OdsInstanceConfiguration>._)).MustNotHaveHappened();
             A.CallTo(() => next(context)).MustHaveHappened();
+        }
+
+        [Test]
+        public async Task InvokeAsync_WhenSelectorDeniesAuthorization_WritesForbiddenProblemDetailsAndDoesNotInvokeNext()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            var next = A.Fake<RequestDelegate>();
+
+            A.CallTo(() => _instanceSelector.GetOdsInstanceAsync(context.Request.RouteValues))
+                .ThrowsAsync(new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, "Not authorized."));
+
+            // Act
+            await _middleware.InvokeAsync(context, next);
+
+            // Assert
+            context.Response.StatusCode.ShouldBe(StatusCodes.Status403Forbidden);
+            context.Response.ContentType.ShouldBe("application/problem+json");
+            A.CallTo(() => _contextProvider.Set(A<OdsInstanceConfiguration>._)).MustNotHaveHappened();
+            A.CallTo(() => next(context)).MustNotHaveHappened();
+        }
+
+        [Test]
+        public void InvokeAsync_WhenDownstreamDeniesAuthorization_DoesNotHandleTheException()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            var next = A.Fake<RequestDelegate>();
+
+            A.CallTo(() => _instanceSelector.GetOdsInstanceAsync(context.Request.RouteValues))
+                .Returns(Task.FromResult(null as OdsInstanceConfiguration));
+
+            A.CallTo(() => next(context))
+                .ThrowsAsync(new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, "Not authorized."));
+
+            // Act + Assert
+            Assert.ThrowsAsync<SecurityAuthorizationException>(() => _middleware.InvokeAsync(context, next));
         }
     }
 }

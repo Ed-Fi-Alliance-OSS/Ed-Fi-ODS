@@ -42,7 +42,17 @@ public class OdsInstanceIdentificationMiddleware : IMiddleware
     {
         try
         {
-            var odsInstanceConfiguration = await _odsInstanceSelector.GetOdsInstanceAsync(context.Request.RouteValues);
+            OdsInstanceConfiguration odsInstanceConfiguration;
+
+            try
+            {
+                odsInstanceConfiguration = await _odsInstanceSelector.GetOdsInstanceAsync(context.Request.RouteValues);
+            }
+            catch (SecurityAuthorizationException ex)
+            {
+                await WriteProblemDetailsAsync(context, ex);
+                return;
+            }
 
             if (odsInstanceConfiguration != null)
             {
@@ -58,12 +68,17 @@ public class OdsInstanceIdentificationMiddleware : IMiddleware
         }
         catch (NotFoundException ex)
         {
-            _logger.Error(ex.Message);
-
-            string correlationId = _logContextAccessor.GetCorrelationId();
-            ex.CorrelationId = correlationId;
-
-            await context.Response.WriteProblemDetailsAsync(ex);
+            await WriteProblemDetailsAsync(context, ex);
         }
+    }
+
+    private async Task WriteProblemDetailsAsync(HttpContext context, EdFiProblemDetailsExceptionBase ex)
+    {
+        _logger.Error(ex.Message);
+
+        string correlationId = _logContextAccessor.GetCorrelationId();
+        ex.CorrelationId = correlationId;
+
+        await context.Response.WriteProblemDetailsAsync(ex);
     }
 }
