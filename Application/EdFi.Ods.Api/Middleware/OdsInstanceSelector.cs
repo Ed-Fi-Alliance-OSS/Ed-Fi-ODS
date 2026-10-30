@@ -22,6 +22,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
     private readonly IApiClientContextProvider _apiClientContextProvider;
     private readonly IOdsInstanceConfigurationProvider _odsInstanceConfigurationProvider;
     private readonly bool _hasOdsContextRouteTemplate;
+    private readonly string[] _odsContextRouteKeys;
 
     public OdsInstanceSelector(
         IApiClientContextProvider apiClientContextProvider,
@@ -31,6 +32,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
         _apiClientContextProvider = apiClientContextProvider;
         _odsInstanceConfigurationProvider = odsInstanceConfigurationProvider;
         _hasOdsContextRouteTemplate = !string.IsNullOrEmpty(apiSettings.OdsContextRouteTemplate);
+        _odsContextRouteKeys = apiSettings.GetOdsContextRouteTemplateKeys();
     }
 
     /// <inheritdoc cref="IOdsInstanceSelector.GetOdsInstanceAsync" />
@@ -65,9 +67,23 @@ public class OdsInstanceSelector : IOdsInstanceSelector
 
         if (firstMatchingOdsInstanceConfiguration == null)
         {
-            throw new NotFoundException(
-                NotFoundException.DefaultDetail,
-                $"No ODS instance matching the available route values was found. Route values were: [{string.Join(", ", routeValues.Select(kvp => $"{kvp.Key}={kvp.Value}"))}]");
+            var contextRouteValues = _odsContextRouteKeys
+                .Where(routeValues.ContainsKey)
+                .Select(key => $"{key}={routeValues[key]}")
+                .ToArray();
+
+            // Without an ODS context value in the route (for example, a path that matches no endpoint),
+            // there is nothing the client could be denied access to, so the request is not found.
+            if (contextRouteValues.Length == 0)
+            {
+                throw new NotFoundException(
+                    NotFoundException.DefaultDetail,
+                    $"No ODS instance matching the available route values was found. Route values were: [{string.Join(", ", routeValues.Select(kvp => $"{kvp.Key}={kvp.Value}"))}]");
+            }
+
+            throw new SecurityAuthorizationException(
+                SecurityAuthorizationException.DefaultDetail,
+                $"The API client is not authorized for an ODS instance matching the route context values [{string.Join(", ", contextRouteValues)}].");
         }
 
         return firstMatchingOdsInstanceConfiguration;
