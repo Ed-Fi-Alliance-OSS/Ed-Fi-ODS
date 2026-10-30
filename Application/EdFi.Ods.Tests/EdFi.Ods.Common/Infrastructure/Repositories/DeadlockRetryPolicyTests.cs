@@ -15,12 +15,16 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Extensions;
 using FakeItEasy;
+using log4net;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Time.Testing;
 using NHibernate;
 using NHibernate.Context;
 using NHibernate.Engine;
 using NHibernate.Exceptions;
+using Npgsql;
 using NUnit.Framework;
+using Polly;
 using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories;
@@ -28,19 +32,119 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories;
 [TestFixture]
 public class DeadlockRetryPolicyTests
 {
-    private int _originalStartingDelayMilliseconds;
-    
-    [OneTimeSetUp]
-    public void OneTimeSetup()
+    private const string SqlServerDeadlockMessage =
+        "Transaction (Process ID 54) was deadlocked on lock resources with another process and has been chosen as the deadlock victim";
+
+    [Test]
+    public async Task RetryPolicy_DeadlockOccursRepeatedly_RetriesWithExponentialBackoffAndLogsEachRetry()
     {
-        _originalStartingDelayMilliseconds = DeadlockPolicyHelper.RetryStartingDelayMilliseconds;
-        DeadlockPolicyHelper.RetryStartingDelayMilliseconds = 10;
+        // Arrange
+        var timeProvider = new FakeTimeProvider();
+        var pipeline = DeadlockPolicyHelper.CreatePipeline(DeadlockPolicyHelper.RetryStartingDelay, timeProvider);
+
+        var warnings = new List<string>();
+        var logger = A.Fake<ILog>();
+        A.CallTo(() => logger.IsWarnEnabled).Returns(true);
+        A.CallTo(() => logger.Warn(A<object>._)).Invokes((object message) => warnings.Add(message.ToString()));
+
+        var context = ResilienceContextPool.Shared.Get();
+        context.Properties.Set(DeadlockPolicyHelper.LoggerKey, logger);
+        context.Properties.Set(DeadlockPolicyHelper.EntityTypeNameKey, nameof(TestEntity));
+
+        int attempts = 0;
+        var retriesSeenByCallback = new List<int>();
+
+        // Act
+        var execution = pipeline.ExecuteAsync(
+                ctx =>
+                {
+                    attempts++;
+
+                    if (ctx.Properties.TryGetValue(DeadlockPolicyHelper.RetriesKey, out int retries))
+                    {
+                        retriesSeenByCallback.Add(retries);
+                    }
+
+                    return ValueTask.FromException(CreateWrappedSqlException(1205, SqlServerDeadlockMessage));
+                },
+                context)
+            .AsTask();
+
+        try
+        {
+            await AdvanceUntilCompleted(timeProvider, execution);
+        }
+        finally
+        {
+            ResilienceContextPool.Shared.Return(context);
+        }
+
+        // Assert
+        await Should.ThrowAsync<GenericADOException>(execution);
+        attempts.ShouldBe(6);
+        retriesSeenByCallback.ShouldBe(new[] { 1, 2, 3, 4, 5 });
+
+        // Log output (up to the cumulative count, which is shared across tests) must match the Polly v7 implementation
+        warnings.Select(w => w.Substring(0, w.IndexOf(" (Cumulative total retries", StringComparison.Ordinal)))
+            .ShouldBe(
+                new[] { 100, 200, 400, 800, 1600 }.Select(
+                    (delay, i) =>
+                        $"Deadlock exception encountered during 'TestEntity' entity persistence. Retrying transaction (with attempt #{i + 2} overall of 6 total in {delay:N0}ms)."));
     }
 
-    [OneTimeTearDown]
-    public void OneTimeTeardown()
+    [Test]
+    public async Task RetryPolicy_PostgreSqlDeadlockOccurs_Retries()
     {
-        DeadlockPolicyHelper.RetryStartingDelayMilliseconds = _originalStartingDelayMilliseconds;
+        // Arrange
+        var timeProvider = new FakeTimeProvider();
+        var pipeline = DeadlockPolicyHelper.CreatePipeline(DeadlockPolicyHelper.RetryStartingDelay, timeProvider);
+
+        int attempts = 0;
+
+        // Act
+        var execution = pipeline.ExecuteAsync(
+                _ => ++attempts <= 2
+                    ? ValueTask.FromException(CreateWrappedPostgresException(PostgresErrorCodes.DeadlockDetected))
+                    : ValueTask.CompletedTask)
+            .AsTask();
+
+        await AdvanceUntilCompleted(timeProvider, execution);
+
+        // Assert
+        await Should.NotThrowAsync(execution);
+        attempts.ShouldBe(3);
+    }
+
+    private static IEnumerable<TestCaseData> NonDeadlockErrors()
+    {
+        yield return new TestCaseData(
+                (Func<Exception>)(() => CreateWrappedSqlException(547, "The INSERT statement conflicted with the FOREIGN KEY constraint")))
+            .SetArgDisplayNames("SqlServerForeignKeyViolation");
+
+        yield return new TestCaseData((Func<Exception>)(() => CreateWrappedPostgresException(PostgresErrorCodes.UniqueViolation)))
+            .SetArgDisplayNames("PostgreSqlUniqueViolation");
+    }
+
+    [TestCaseSource(nameof(NonDeadlockErrors))]
+    public async Task RetryPolicy_NonDeadlockErrorOccurs_DoesNotRetry(Func<Exception> createException)
+    {
+        // Arrange
+        var pipeline = DeadlockPolicyHelper.CreatePipeline(DeadlockPolicyHelper.RetryStartingDelay, new FakeTimeProvider());
+
+        int attempts = 0;
+
+        // Act
+        Func<Task> action = async () => await pipeline.ExecuteAsync(
+            _ =>
+            {
+                attempts++;
+
+                return ValueTask.FromException(createException());
+            });
+
+        // Assert
+        await action.ShouldThrowAsync<GenericADOException>();
+        attempts.ShouldBe(1);
     }
 
     [Test]
@@ -172,6 +276,25 @@ public class DeadlockRetryPolicyTests
         // Assert
         await action.ShouldNotThrowAsync(); // Ensure the deadlock exception is NOT thrown
         A.CallTo(() => session.UpdateAsync(entity, CancellationToken.None)).MustHaveHappened(4, Times.Exactly);
+    }
+
+    private static async Task AdvanceUntilCompleted(FakeTimeProvider timeProvider, Task execution)
+    {
+        // Advance the fake clock past each pending retry delay until the execution finishes (bounded to avoid hanging)
+        for (int i = 0; i < 1000 && !execution.IsCompleted; i++)
+        {
+            timeProvider.Advance(TimeSpan.FromSeconds(2));
+            await Task.Delay(1);
+        }
+
+        execution.IsCompleted.ShouldBeTrue("The retry pipeline execution did not complete.");
+    }
+
+    private static GenericADOException CreateWrappedPostgresException(string sqlState)
+    {
+        var postgresException = new PostgresException("Database error", "ERROR", "ERROR", sqlState);
+
+        return new GenericADOException("Could not do it.", postgresException);
     }
 
     private static GenericADOException CreateWrappedSqlException(int number, string message)

@@ -8,6 +8,7 @@
     <PackageVersion Include="ApprovalTests" Version="7.0.0" />
     <PackageVersion Include="CompareNETObjects" Version="4.84.0" />
     <PackageVersion Include="FakeItEasy" Version="8.3.0" />
+    <PackageVersion Include="Microsoft.Extensions.TimeProvider.Testing" Version="10.2.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageVersion Include="NCrunch.Framework" Version="5.11.0" />
     <PackageVersion Include="NUnit" Version="4.4.0" />
@@ -112,6 +113,8 @@
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="9.0.21" />
 
     <!-- Resilience -->
+    <!-- Held at 10.2.0: later versions pull Microsoft.Extensions.* above the 10.0.2 pins (NU1605) -->
+    <PackageVersion Include="Microsoft.Extensions.Resilience" Version="10.2.0" />
     <PackageVersion Include="Polly" Version="8.6.4" />
     <PackageVersion Include="Polly.Contrib.WaitAndRetry" Version="1.1.1" />
 
