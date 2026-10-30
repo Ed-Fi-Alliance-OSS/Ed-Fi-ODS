@@ -143,7 +143,7 @@ jobs:
         sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
         sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
         sudo apt-get update
-        sudo apt-get -y --allow-downgrades install postgresql-client-16=16.12-1.pgdg24.04+1   
+        sudo apt-get -y --allow-downgrades install postgresql-client-16   
     - name: Cache Nuget packages
       uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
