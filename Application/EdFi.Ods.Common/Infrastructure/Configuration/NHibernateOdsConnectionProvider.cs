@@ -12,21 +12,63 @@ using EdFi.Ods.Common.Exceptions;
 using log4net;
 using NHibernate.Connection;
 using Polly;
-using Polly.Contrib.WaitAndRetry;
+using Polly.Retry;
 
 namespace EdFi.Ods.Common.Infrastructure.Configuration
 {
     public class NHibernateOdsConnectionProvider : DriverConnectionProvider
     {
         public const string UseReadWriteConnectionCacheKey = "UseReadWriteConnection";
-        
+
+        private const int RetryCount = 5;
+        private static readonly TimeSpan RetryStartingDelay = TimeSpan.FromSeconds(1);
+
         private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(NHibernateOdsConnectionProvider));
-        
+
+        private readonly ResiliencePipeline _connectionRetryPolicy;
+
         public NHibernateOdsConnectionProvider(IOdsDatabaseConnectionStringProvider connectionStringProvider)
         {
             _connectionStringProvider = connectionStringProvider;
+            _connectionRetryPolicy = CreateConnectionRetryPipeline(_logger);
+        }
+
+        /// <summary>
+        /// Creates the connection retry pipeline (exponential backoff without jitter of 1, 2, 4, 8 and 16 seconds),
+        /// retrying on any exception except <see cref="EdFiProblemDetailsExceptionBase" />.
+        /// </summary>
+        /// <param name="logger">The logger used to report retries.</param>
+        /// <param name="timeProvider">The time provider used for the delays (defaults to the system time provider).</param>
+        internal static ResiliencePipeline CreateConnectionRetryPipeline(ILog logger, TimeProvider timeProvider = null)
+        {
+            var builder = new ResiliencePipelineBuilder();
+
+            if (timeProvider != null)
+            {
+                builder.TimeProvider = timeProvider;
+            }
+
+            return builder
+                .AddRetry(
+                    new RetryStrategyOptions
+                    {
+                        // Retry on any exception except EdFiProblemDetailsExceptionBase
+                        ShouldHandle = new PredicateBuilder().Handle<Exception>(ex => ex is not EdFiProblemDetailsExceptionBase),
+                        MaxRetryAttempts = RetryCount,
+                        Delay = RetryStartingDelay,
+                        BackoffType = DelayBackoffType.Exponential,
+                        UseJitter = false,
+                        OnRetry = args =>
+                        {
+                            // AttemptNumber is zero-based (the Polly v7 retry attempt was one-based)
+                            logger.Warn($"Retry attempt {args.AttemptNumber + 1} of {RetryCount}: Retrying connection in {args.RetryDelay.TotalSeconds} seconds due to exception: {args.Outcome.Exception?.Message}");
+
+                            return default;
+                        }
+                    })
+                .Build();
         }
 
         public override DbConnection GetConnection()
@@ -37,19 +79,8 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             {
                 connection.ConnectionString = _connectionStringProvider.GetConnectionString();
 
-                // Define a retry policy with exponential backoff
-                var retryPolicy = Policy
-                    .Handle<Exception>(ex => !(ex is EdFiProblemDetailsExceptionBase)) // Retry on any exception except EdFiProblemDetailsExceptionBase
-                    .WaitAndRetry(Backoff.ExponentialBackoff(
-                        initialDelay: TimeSpan.FromSeconds(1), // Initial retry delay
-                        retryCount: 5),
-                        onRetry: (exception, timeSpan, retryAttempt, context) =>
-                        {
-                            _logger.Warn($"Retry attempt {retryAttempt} of 5: Retrying connection in {timeSpan.TotalSeconds} seconds due to exception: {exception.Message}");
-                        });
-
                 // Execute the Open method with the retry policy
-                retryPolicy.Execute(() => connection.Open());
+                _connectionRetryPolicy.Execute(() => connection.Open());
             }
             catch (EdFiProblemDetailsExceptionBase)
             {
