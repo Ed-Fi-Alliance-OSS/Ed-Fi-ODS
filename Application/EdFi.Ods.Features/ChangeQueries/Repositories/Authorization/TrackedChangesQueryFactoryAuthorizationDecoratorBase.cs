@@ -119,28 +119,35 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             {
                 var orStrategies = authorizationPlan.Filtering.Where(x => x.Operator == FilterOperator.Or).ToArray();
 
-                // Combine 'OR' strategies
-                bool orFiltersApplied = false;
+                bool disjunctionFiltersApplied = false;
 
+                // Combine 'OR' strategies
                 if (orStrategies.Any())
                 {
-                    queryBuilder.OrWhere(
-                        nestedOrQueryBuilder =>
+                    queryBuilder.Where(
+                        disjunctionBuilder =>
                         {
                             foreach (var orStrategy in orStrategies)
                             {
-                                if (TryApplyFilters(nestedOrQueryBuilder, orStrategy.Filters, relationshipBasedAuthViewJoinType != JoinType.InnerJoin))
-                                {
-                                    orFiltersApplied = true;
-                                }
+                                disjunctionBuilder.OrWhere(
+                                    filtersConjunctionBuilder =>
+                                    {
+                                        // Combine filters with 'AND'
+                                        if (TryApplyFilters(filtersConjunctionBuilder, orStrategy.Filters, relationshipBasedAuthViewJoinType != JoinType.InnerJoin))
+                                        {
+                                            disjunctionFiltersApplied = true;
+                                        }
+
+                                        return filtersConjunctionBuilder;
+                                    });
                             }
 
-                            return nestedOrQueryBuilder;
+                            return disjunctionBuilder;
                         });
                 }
 
                 // If we have some OR strategies with filters defined, but no filters were applied, this is an error condition
-                if (orStrategies.SelectMany(s => s.Filters).Any() && !orFiltersApplied)
+                if (orStrategies.SelectMany(s => s.Filters).Any() && !disjunctionFiltersApplied)
                 {
                     throw new Exception(
                         $"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
