@@ -291,13 +291,8 @@ namespace EdFi.Ods.Api.Startup
 
             if (_apiSettings.UseReverseProxyHeaders.HasValue && _apiSettings.UseReverseProxyHeaders.Value)
             {
-                services.Configure<ForwardedHeadersOptions>(
-                    options =>
-                    {
-                        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
-                                                   & ForwardedHeaders.XForwardedHost
-                                                   & ForwardedHeaders.XForwardedProto;
-                    });
+                services.AddSingleton<IConfigureOptions<ForwardedHeadersOptions>>(
+                    new ForwardedHeadersOptionsConfigurator(_apiSettings));
             }
 
             services.AddHealthCheck(Configuration, featureManager, _apiSettings.GetDatabaseEngine());
@@ -414,7 +409,7 @@ namespace EdFi.Ods.Api.Startup
 
             if (_apiSettings.UseReverseProxyHeaders.HasValue && _apiSettings.UseReverseProxyHeaders.Value)
             {
-                app.UseForwardedHeaders();
+                app.UseReverseProxyHeaders();
             }
 
             if (env.IsDevelopment())
