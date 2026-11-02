@@ -6105,6 +6105,936 @@
 						}
 					],
 					"description": "ODS-6480"
+				},
+				{
+					"name": "Multiple Relationship Strategies (StudentSpecialEducationProgramEligibilityAssociation)",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Initialize StandardVersion",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const response = pm.response.json();",
+													"const standardVersion = response[\"dataModels\"].filter(dm => dm.name === 'Ed-Fi').map(dm => dm.version);",
+													"pm.environment.set('known:standardVersion', standardVersion);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get AvailableChangeVersions",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:' + scenarioId + ':newestChangeVersion', responseItem.newestChangeVersion + 1);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"availableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Student (Responsibility Only)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:' + scenarioId + ':student:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"studentUniqueId\": \"CQAuth{{scenarioId}}\",\r\n    \"birthDate\": \"2012-05-14\",\r\n    \"firstName\": \"Responsibility\",\r\n    \"lastSurname\": \"Only\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create StudentEducationOrganizationResponsibilityAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:' + scenarioId + ':responsibilityAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"beginDate\": \"2021-08-23\",\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": 255901044\r\n    },\r\n    \"responsibilityDescriptor\": \"uri://ed-fi.org/ResponsibilityDescriptor#Accountability\",\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"CQAuth{{scenarioId}}\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationResponsibilityAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentEducationOrganizationResponsibilityAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Eligibility (Partial Match for School Client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:' + scenarioId + ':eligibility:partial:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"consentToEvaluationReceivedDate\": \"2021-09-01\",\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": 255901044\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": 255901,\r\n        \"programName\": \"Bilingual\",\r\n        \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"604822\"\r\n    },\r\n    \"ideaPartDescriptor\": \"uri://ed-fi.org/IDEAPartDescriptor#IDEA Part B\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Eligibility (Complete Match for School Client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:' + scenarioId + ':eligibility:complete:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"consentToEvaluationReceivedDate\": \"2021-09-02\",\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": 255901044\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": 255901,\r\n        \"programName\": \"Bilingual\",\r\n        \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"604824\"\r\n    },\r\n    \"ideaPartDescriptor\": \"uri://ed-fi.org/IDEAPartDescriptor#IDEA Part B\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Eligibility (Responsibility Match for School Client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:' + scenarioId + ':eligibility:responsibility:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"consentToEvaluationReceivedDate\": \"2021-09-03\",\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": 255901\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": 255901,\r\n        \"programName\": \"Bilingual\",\r\n        \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"CQAuth{{scenarioId}}\"\r\n    },\r\n    \"ideaPartDescriptor\": \"uri://ed-fi.org/IDEAPartDescriptor#IDEA Part B\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Delete and Verify",
+							"item": [
+								{
+									"name": "Delete Eligibility (Partial Match)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:{{scenarioId}}:eligibility:partial:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"{{known:{{scenarioId}}:eligibility:partial:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Eligibility (Complete Match)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:{{scenarioId}}:eligibility:complete:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"{{known:{{scenarioId}}:eligibility:complete:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Eligibility (Responsibility Match)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:{{scenarioId}}:eligibility:responsibility:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"{{known:{{scenarioId}}:eligibility:responsibility:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get AvailableChangeVersions (After Deletes)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:' + scenarioId + ':maxChangeVersion', responseItem.newestChangeVersion);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"availableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Deleted Eligibilities (School Client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const ids = pm.response.json().map(item => item.id);",
+													"",
+													"pm.test(\"Should return only the items that satisfy every filter of at least one authorization strategy\", () => {",
+													"    pm.expect(ids, \"the complete-match and responsibility-match deletes should be the only ones returned\").to.have.members([",
+													"        pm.environment.get(`known:${scenarioId}:eligibility:complete:id`),",
+													"        pm.environment.get(`known:${scenarioId}:eligibility:responsibility:id`)",
+													"    ]);",
+													"});",
+													"",
+													"pm.test(\"Should not return an item that satisfies only some filters of an authorization strategy\", () => {",
+													"    pm.expect(ids, \"the partial-match delete should be hidden from the school client\")",
+													"        .to.not.include(pm.environment.get(`known:${scenarioId}:eligibility:partial:id`));",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&maxChangeVersion={{known:{{scenarioId}}:maxChangeVersion}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"deletes"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+												},
+												{
+													"key": "maxChangeVersion",
+													"value": "{{known:{{scenarioId}}:maxChangeVersion}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Deleted Eligibilities Count (School Client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"One item should be returned due to limit parameter\", () => {",
+													"    pm.expect(pm.response.json().length).equal(1);",
+													"});",
+													"",
+													"pm.test(\"Total-Count header should have a value of 2\", () => {",
+													"    pm.response.to.have.header(\"Total-Count\");",
+													"    pm.expect(parseInt(pm.response.headers.one('Total-Count').value), \"only the complete-match and responsibility-match deletes should be counted\").equal(2);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&maxChangeVersion={{known:{{scenarioId}}:maxChangeVersion}}&totalCount=true&limit=1",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"deletes"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+												},
+												{
+													"key": "maxChangeVersion",
+													"value": "{{known:{{scenarioId}}:maxChangeVersion}}"
+												},
+												{
+													"key": "totalCount",
+													"value": "true"
+												},
+												{
+													"key": "limit",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Deleted Eligibilities (LEA Client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Should return all three deleted items\", () => {",
+													"    pm.expect(pm.response.json().map(item => item.id), \"the LEA client should see all three deletes\").to.have.members([",
+													"        pm.environment.get(`known:${scenarioId}:eligibility:partial:id`),",
+													"        pm.environment.get(`known:${scenarioId}:eligibility:complete:id`),",
+													"        pm.environment.get(`known:${scenarioId}:eligibility:responsibility:id`)",
+													"    ]);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&maxChangeVersion={{known:{{scenarioId}}:maxChangeVersion}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"deletes"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+												},
+												{
+													"key": "maxChangeVersion",
+													"value": "{{known:{{scenarioId}}:maxChangeVersion}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Create StudentSchoolAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:' + scenarioId + ':studentSchoolAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"entryDate\": \"2021-08-23\",\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"CQAuth{{scenarioId}}\"\r\n    },\r\n    \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSchoolAssociations"
+											]
+										},
+										"description": "Deleting the StudentEducationOrganizationResponsibilityAssociation is only authorized when the student has an enrollment, so a temporary one is created here and removed after it."
+									},
+									"response": []
+								},
+								{
+									"name": "Delete StudentEducationOrganizationResponsibilityAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationResponsibilityAssociations/{{known:{{scenarioId}}:responsibilityAssociation:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentEducationOrganizationResponsibilityAssociations",
+												"{{known:{{scenarioId}}:responsibilityAssociation:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete StudentSchoolAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:{{scenarioId}}:studentSchoolAssociation:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSchoolAssociations",
+												"{{known:{{scenarioId}}:studentSchoolAssociation:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:student:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:{{scenarioId}}:student:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"description": "ODS-6894",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Data Standard 4.0.0 does not include this resource",
+									"const standardVersion = pm.environment.get(\"known:standardVersion\");",
+									"",
+									"if (pm.info.requestName !== \"Initialize StandardVersion\" && standardVersion && standardVersion[0] === \"4.0.0\") {",
+									"    pm.execution.skipRequest();",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
 				}
 			]
 		},
