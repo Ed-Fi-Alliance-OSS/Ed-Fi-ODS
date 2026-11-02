@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Extensions;
@@ -14,6 +15,7 @@ using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Extensions;
+using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.FeatureManagement;
 using Microsoft.OpenApi;
@@ -30,6 +32,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers;
 /// </summary>
 public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 {
+    private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiV3UpconversionProvider));
     private readonly IFeatureManager _featureManager;
     private readonly ApiSettings _apiSettings;
     private readonly ReverseProxySettings _reverseProxySettings;
@@ -90,18 +93,36 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         openApiDocument.Servers.Add(odsServer);
 
         var odsRouteContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
+        var unavailableTenantIdentifiers = new List<string>();
 
         foreach (var server in openApiDocument.Servers)
         {
+            var routeContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
+
             if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
             {
                 foreach (var tenantMapEntry in tenantMap)
                 {
-                    var connectionString = tenantMapEntry.Value.AdminConnectionString;
+                    // A tenant whose admin database is not available is left out so it does not break the document for
+                    // every other tenant. Nothing is added for the tenant until all of its lookups succeed:
+                    // AddSecurityScheme runs its lookups before it adds the scheme, and it must stay before Enum.AddRange.
+                    try
+                    {
+                        var tenantContextValuePaths = GenerateContextValuePathCombinations(
+                            new List<string> { tenantMapEntry.Key }, odsRouteContextKeys.ToList(),
+                            tenantMapEntry.Value.AdminConnectionString);
 
-                    serverVariable.Enum.AddRange(
-                        GenerateContextValuePathCombinations(
-                            new List<string>() { $"{tenantMapEntry.Key}" }, odsRouteContextKeys.ToList(), connectionString));
+                        AddSecurityScheme(routeContextKeys, tenantMapEntry.Value);
+                        serverVariable.Enum.AddRange(tenantContextValuePaths);
+                    }
+                    catch (Exception exception) when (TryGetDatabaseException(exception, out var databaseException))
+                    {
+                        unavailableTenantIdentifiers.Add(tenantMapEntry.Key);
+
+                        _logger.Warn(
+                            $"Tenant '{tenantMapEntry.Key}' was omitted from the OpenAPI metadata because its admin database is not available: {databaseException.Message}",
+                            databaseException);
+                    }
                 }
             }
             else
@@ -110,19 +131,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                     GenerateContextValuePathCombinations(
                         new List<string>() { $"" }, odsRouteContextKeys,
                         _adminDatabaseConnectionStringProvider.GetConnectionString()));
-            }
 
-            var routeContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
-            
-            if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
-            {
-                foreach (KeyValuePair<string, TenantConfiguration> tenant in tenantMap)
-                {
-                    AddSecurityScheme(routeContextKeys, tenant.Value);
-                }
-            }
-            else
-            {
                 AddSecurityScheme(routeContextKeys);
             }
 
@@ -134,7 +143,14 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                 server.Variables.Add(GetTenantContextTitle(), serverVariable);
             }
         }
-        
+
+        // Tell consumers which tenants are missing from this document; the admin database errors stay in the server log only
+        if (unavailableTenantIdentifiers.Any())
+        {
+            openApiDocument.Info.Description += CreateUnavailableTenantsNotice(
+                unavailableTenantIdentifiers, tenantMap.Count, GetTenantContextTitle());
+        }
+
         // Configure OpenAPI SecuritySchemes array
         foreach (KeyValuePair<string, OpenApiSecurityScheme> securityScheme in openApiDocument.Components.SecuritySchemes)
         {
@@ -243,5 +259,42 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
             return "Context Selection";
         }
+    }
+
+    private static bool TryGetDatabaseException(Exception exception, out DbException databaseException)
+    {
+        // The admin database lookups are read synchronously with .Result, so the provider exception arrives wrapped
+        // in an AggregateException
+        databaseException = exception switch
+        {
+            AggregateException aggregateException =>
+                aggregateException.Flatten().InnerExceptions.OfType<DbException>().FirstOrDefault(),
+            DbException providerException => providerException,
+            _ => null
+        };
+
+        return databaseException != null;
+    }
+
+    private static string CreateUnavailableTenantsNotice(
+        IReadOnlyCollection<string> unavailableTenantIdentifiers,
+        int configuredTenantCount,
+        string tenantSelectionTitle)
+    {
+        var tenantList = string.Join(", ", unavailableTenantIdentifiers);
+
+        if (unavailableTenantIdentifiers.Count == configuredTenantCount)
+        {
+            return $"\n > **No tenants are available:** {tenantList}. "
+                + "Their configuration database could not be reached when this documentation was generated (for example, during database maintenance). "
+                + "Requests sent from this page will fail until they are restored. "
+                + "Contact the API administrator. \n***\n";
+        }
+
+        return $"\n > **Unavailable tenants:** {tenantList}. "
+            + "These tenants are configured in this API, but their configuration database could not be reached when this documentation was generated (for example, during database maintenance), "
+            + $"so they are not listed under {tenantSelectionTitle} or in the Authorize dialog. "
+            + "This documentation is refreshed periodically. "
+            + "If you use one of these tenants, contact the API administrator. \n***\n";
     }
 }

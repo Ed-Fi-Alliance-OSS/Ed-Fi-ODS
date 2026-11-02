@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
@@ -78,7 +79,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
         public IList<OpenApiContent> GetAllSectionDocuments(bool sdk)
         {
-            var sections = _openApiMetadataMetadataCache.Value.Values
+            var sections = GetCache().Values
                 .Where(
                     c => sdk
                         ? _sdkGenSections.Contains(c.Section)
@@ -97,7 +98,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
         public OpenApiContent GetOpenApiContentByFeedName(string feedName)
         {
-            if (!_openApiMetadataMetadataCache.Value.TryGetValue(feedName, out OpenApiContent document))
+            if (!GetCache().TryGetValue(feedName, out OpenApiContent document))
             {
                 _logger.Warn($"Unable to find OpenApiContent for {feedName}");
             }
@@ -114,6 +115,28 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
             // Reset the underlying cache
             _openApiMetadataMetadataCache = new Lazy<ConcurrentDictionary<string, OpenApiContent>>(LazyInitializeCache);
+        }
+
+        private ConcurrentDictionary<string, OpenApiContent> GetCache()
+        {
+            var cache = _openApiMetadataMetadataCache;
+
+            try
+            {
+                return cache.Value;
+            }
+            catch (Exception)
+            {
+                // Lazy keeps a failed initialization, and the cache is shared by every tenant. Start over on the next
+                // request so a failure caused by one tenant (for example, its admin database being unavailable) is not
+                // returned to every other tenant until the cache expires.
+                Interlocked.CompareExchange(
+                    ref _openApiMetadataMetadataCache,
+                    new Lazy<ConcurrentDictionary<string, OpenApiContent>>(LazyInitializeCache),
+                    cache);
+
+                throw;
+            }
         }
 
         private ConcurrentDictionary<string, OpenApiContent> LazyInitializeCache()

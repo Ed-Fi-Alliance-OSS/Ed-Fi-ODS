@@ -815,5 +815,79 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 Assert.That(_actualMetadata, Is.Empty);
             }
         }
+
+        public class When_building_the_cache_fails_for_one_request : TestFixtureBase
+        {
+            private const string FeedName = "Other-Identity";
+
+            private IOpenApiContentProvider _openApiContentProvider;
+            private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
+            private Exception _firstRequestException;
+            private OpenApiContent _secondRequestDocument;
+            private List<OpenApiContent> _thirdRequestDocuments;
+
+            protected override void Arrange()
+            {
+                _openApiContentProvider = A.Fake<IOpenApiContentProvider>();
+
+                A.CallTo(() => _openApiContentProvider.RouteName).Returns("identity");
+
+                // The first build fails, as it does when the requesting tenant's admin database is not available
+                A.CallTo(() => _openApiContentProvider.GetOpenApiContent())
+                    .Throws(new InvalidOperationException("The admin database of the requesting tenant is not available.")).Once()
+                    .Then.Returns(
+                        new[]
+                        {
+                            new OpenApiContent(
+                                OpenApiMetadataSections.Other, "Identity", new Lazy<string>(string.Empty),
+                                new Lazy<string>(string.Empty), "identity/v2")
+                        });
+
+                _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
+                    ResourceModelProvider,
+                    new List<IOpenApiMetadataRouteInformation> { new IdentityOpenApiMetadataRouteInformation() },
+                    new List<IOpenApiContentProvider> { _openApiContentProvider },
+                    A.Fake<IOpenApiMetadataDocumentFactory>());
+            }
+
+            protected override void Act()
+            {
+                _openApiMetadataCacheProvider.ResetCacheInitialization();
+
+                _firstRequestException = Assert.Throws<InvalidOperationException>(
+                    () => _openApiMetadataCacheProvider.GetOpenApiContentByFeedName(FeedName));
+
+                _secondRequestDocument = _openApiMetadataCacheProvider.GetOpenApiContentByFeedName(FeedName);
+                _thirdRequestDocuments = _openApiMetadataCacheProvider.GetAllSectionDocuments(sdk: false).ToList();
+            }
+
+            [Test]
+            public void Should_fail_the_request_that_hit_the_failure()
+            {
+                Assert.That(
+                    _firstRequestException.Message,
+                    Is.EqualTo("The admin database of the requesting tenant is not available."));
+            }
+
+            [Test]
+            public void Should_build_the_cache_again_for_the_next_request()
+            {
+                Assert.That(_secondRequestDocument, Is.Not.Null);
+                Assert.That(_secondRequestDocument.Name, Is.EqualTo("Identity"));
+            }
+
+            [Test]
+            public void Should_serve_the_rebuilt_cache_to_later_requests()
+            {
+                Assert.That(_thirdRequestDocuments.Select(x => x.Name), Is.EqualTo(new[] { "Identity" }));
+            }
+
+            [Test]
+            public void Should_not_rebuild_a_cache_that_was_built()
+            {
+                // One failed build and one good build; later requests reuse the good one
+                A.CallTo(() => _openApiContentProvider.GetOpenApiContent()).MustHaveHappenedTwiceExactly();
+            }
+        }
     }
 }
