@@ -296,6 +296,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
             }
 
             [Test]
+            public async Task Given_the_request_comes_from_a_known_ipv4_mapped_network_then_it_returns_the_forwarded_port()
+            {
+                var apiSettings = ProxyHeadersEnforced(knownNetworks: ["::ffff:10.0.0.0/104"]);
+                var request = await ReceiveRequest(apiSettings, ProxyAddress.MapToIPv6(), NginxHeaders());
+
+                request.Host(apiSettings.GetReverseProxySettings()).ShouldBe("api.example.org");
+                request.Port(apiSettings.GetReverseProxySettings()).ShouldBe(8443);
+            }
+
+            [Test]
             public async Task Given_the_request_does_not_come_from_a_known_proxy_then_it_ignores_the_forwarded_port()
             {
                 var apiSettings = ProxyHeadersEnforced(knownProxies: [ProxyAddress.ToString()]);

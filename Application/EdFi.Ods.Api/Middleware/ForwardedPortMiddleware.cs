@@ -54,17 +54,18 @@ public class ForwardedPortMiddleware
             return true;
         }
 
-        if (remoteIpAddress is null)
+        return remoteIpAddress is not null && IsKnownAddress(remoteIpAddress);
+    }
+
+    // Mirrors the address check of the forwarded headers middleware, so that both trust the same callers
+    private bool IsKnownAddress(IPAddress address)
+    {
+        if (address.IsIPv4MappedToIPv6 && IsKnownAddress(address.MapToIPv4()))
         {
-            return false;
+            return true;
         }
 
-        if (remoteIpAddress.IsIPv4MappedToIPv6)
-        {
-            remoteIpAddress = remoteIpAddress.MapToIPv4();
-        }
-
-        return _options.KnownProxies.Any(p => p.Equals(remoteIpAddress) || p.Equals(remoteIpAddress.MapToIPv6()))
-            || _options.KnownIPNetworks.Any(n => n.Contains(remoteIpAddress));
+        return _options.KnownProxies.Contains(address)
+            || _options.KnownIPNetworks.Any(n => n.Contains(address));
     }
 }
