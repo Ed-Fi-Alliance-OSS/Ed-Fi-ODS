@@ -82,7 +82,7 @@ namespace EdFi.Ods.Features.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(_oneRosterVersionUrl))
                 {
-                    var baseUrl = _oneRosterVersionUrl.TrimEnd('/');
+                    var baseUrl = Request.ToAbsoluteUrl(_reverseProxySettings, _oneRosterVersionUrl).TrimEnd('/');
                     content.Add(new OpenApiMetadataSectionDetails
                     {
                         EndpointUri = $"{baseUrl}/{OpenApiMetadataDocumentHelper.Json}",

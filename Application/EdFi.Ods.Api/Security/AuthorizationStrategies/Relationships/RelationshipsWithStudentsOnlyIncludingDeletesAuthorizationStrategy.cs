@@ -35,16 +35,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             IEnumerable<(string name, object value)> authorizationContextTuples)
         {
             return authorizationContextTuples
-                .Select(
-                    nv =>
-                    {
-                        if (_personEntitySpecification.IsPersonIdentifier(nv.name))
-                        {
-                            return new SubjectEndpoint(nv, "IncludingDeletes");
-                        }
-
-                        return new SubjectEndpoint(nv);
-                    })
+                .Where(nv => _personEntitySpecification.IsPersonIdentifier(nv.name, WellKnownPersonTypes.Student))
+                .Select(nv => new SubjectEndpoint(nv, "IncludingDeletes"))
                 .ToArray();
         }
     }

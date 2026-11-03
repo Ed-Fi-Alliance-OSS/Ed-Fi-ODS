@@ -169,6 +169,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             result.Value.ShouldBeEquivalentTo(expectedContent);
         }
 
+        [TestCase("/oneroster", "http://localhost/oneroster")]
+        [TestCase("https://custom.example.com/oneroster", "https://custom.example.com/oneroster")]
+        public void Get_WithOneRosterVersionUrl_ShouldIncludeAbsoluteOneRosterUrl(
+            string configuredUrl, string expectedUrl)
+        {
+            _apiSettings.OneRosterVersionUrl = configuredUrl;
+
+            var result = _controller.Get() as OkObjectResult;
+            var response = result!.Value as VersionController.VersionResponse;
+
+            response!.urls.ShouldContainKey("oneRoster");
+            response.urls["oneRoster"].ShouldBe(expectedUrl);
+        }
+
         private void SetRouteValue(string key, string value)
         {
             _controller.Request.RouteValues[key] = value;

@@ -14,6 +14,24 @@ namespace EdFi.Ods.Common.Database.Querying
         private const string Space = " ";
 
         /// <summary>
+        /// Indicates an education-organization-to-education-organization authorization view was applied to this
+        /// query (or to a nested scope hoisted into it).
+        /// </summary>
+        protected internal bool HasEducationOrganizationAuthorizationFilter { get; set; }
+
+        /// <summary>
+        /// Indicates a person-based authorization view (for example StudentUSI) was applied to this query (or to a
+        /// nested scope hoisted into it).
+        /// </summary>
+        protected internal bool HasPersonAuthorizationFilter { get; set; }
+
+        /// <summary>
+        /// Indicates a person-based authorization view was applied against a resource whose primary key is that
+        /// person alone, meaning the resource holds at most one row per authorized person.
+        /// </summary>
+        protected internal bool PersonIsCompleteResourceKey { get; set; }
+
+        /// <summary>
         /// Sets a clause that should only appear once within the resulting query (e.g. paging).
         /// </summary>
         /// <param name="name"></param>
@@ -57,8 +75,53 @@ namespace EdFi.Ods.Common.Database.Querying
         public SqlBuilder LimitOffset(string sql, dynamic parameters = null) =>
             SetClause("paging", sql, parameters);
 
+        /// <summary>
+        /// Sets the query hint clause appended to the end of the statement (resolved through the
+        /// "/**queryhints**/" template marker). Only one hint clause is retained.
+        /// </summary>
+        public SqlBuilder QueryHints(string sql) =>
+            SetClause(ClauseKey.QueryHints, sql, null);
+
         public SqlBuilder With(string sql, dynamic parameters = null) =>
             AddClause("with", sql, parameters, ", ", "WITH ", "\n", false);
+
+        /// <summary>
+        /// Adds a statement to be emitted once at the start of the batch, before the main statement (resolved through
+        /// the "/**prologue**/" template marker), suppressing duplicate statements.
+        /// </summary>
+        /// <param name="sql">The SQL statement (terminated with a semicolon) to be emitted at the start of the batch.</param>
+        /// <returns>The current <see cref="SqlBuilder" />.</returns>
+        public SqlBuilder Prologue(string sql, object parameters = null)
+        {
+            if (_data.TryGetValue(ClauseKey.Prologue, out var clauses) && clauses.Any(c => c.Sql == sql))
+            {
+                return this;
+            }
+
+            return AddClause(ClauseKey.Prologue, sql, parameters, "\n", string.Empty, "\n", false);
+        }
+
+        /// <summary>
+        /// Copies the prologue statements (with their parameters) from the supplied <see cref="SqlBuilder" />
+        /// instance, suppressing duplicates.
+        /// </summary>
+        /// <param name="source">The <see cref="SqlBuilder" /> instance from which prologue statements are to be copied.</param>
+        protected internal void CopyPrologueFrom(SqlBuilder source)
+        {
+            // Authorization-view state travels with the prologue: both are decided in nested scopes but must be
+            // visible on the builder that composes the final statement
+            HasEducationOrganizationAuthorizationFilter |= source.HasEducationOrganizationAuthorizationFilter;
+            HasPersonAuthorizationFilter |= source.HasPersonAuthorizationFilter;
+            PersonIsCompleteResourceKey |= source.PersonIsCompleteResourceKey;
+
+            if (source._data.TryGetValue(ClauseKey.Prologue, out var clauses))
+            {
+                foreach (Clause clause in clauses)
+                {
+                    Prologue(clause.Sql, clause.Parameters);
+                }
+            }
+        }
 
         public SqlBuilder Clone()
         {
@@ -73,6 +136,10 @@ namespace EdFi.Ods.Common.Database.Querying
         
             // Copy the seq value
             newBuilder._seq = _seq;
+
+            newBuilder.HasEducationOrganizationAuthorizationFilter = HasEducationOrganizationAuthorizationFilter;
+            newBuilder.HasPersonAuthorizationFilter = HasPersonAuthorizationFilter;
+            newBuilder.PersonIsCompleteResourceKey = PersonIsCompleteResourceKey;
         
             // Return the cloned builder
             return newBuilder;
@@ -130,8 +197,14 @@ namespace EdFi.Ods.Common.Database.Querying
                 }
             }
 
-            // Apply supplied template to the nested SqlBuilder (stripping the WITH and ORDER BY clauses, if present)
-            string templateStringWithoutWith = templateString.Replace("/**with**/", string.Empty);
+            // Prologue statements must precede the outermost statement of the batch, so hoist them up as well
+            CopyPrologueFrom(cteSqlBuilder);
+
+            // Apply supplied template to the nested SqlBuilder (stripping the WITH and prologue markers, if present)
+            string templateStringWithoutWith = templateString
+                .Replace("/**with**/", string.Empty)
+                .Replace("/**prologue**/", string.Empty)
+                .Replace("/**queryhints**/", string.Empty);
 
             // Apply the query of the nested SqlBuilder as another CTE
             var nestedTemplate = cteSqlBuilder.AddTemplate(templateStringWithoutWith);
@@ -194,5 +267,7 @@ namespace EdFi.Ods.Common.Database.Querying
         public static string Set = "set";
         public static string Distinct = "distinct";
         public static string With = "with";
+        public static string Prologue = "prologue";
+        public static string QueryHints = "queryhints";
     }
 }

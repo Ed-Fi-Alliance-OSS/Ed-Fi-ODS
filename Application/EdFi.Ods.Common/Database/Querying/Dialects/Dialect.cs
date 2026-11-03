@@ -27,7 +27,21 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
 
         public abstract string GetLimitOffsetString(string limitParameter, string offsetParameter);
 
-        public abstract (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values);
+        /// <summary>
+        /// Gets the SQL for an IN clause along with its parameters, and (optionally) a prologue statement that must be
+        /// emitted once at the start of the batch containing the IN clause (e.g. to materialize parameter values into
+        /// a temp table); returns a <b>null</b> prologue when no batch preparation is needed.
+        /// </summary>
+        public abstract (string sql, object parameters, string prologue) GetInClause(string columnName, string parameterName, IList values);
+
+        /// <summary>
+        /// Gets the query hint to be appended to a statement whose relationship-based authorization uses only the
+        /// supplied kinds of authorization views, or <b>null</b> when no hint is warranted.
+        /// </summary>
+        /// <param name="hasEducationOrganizationFilter">Indicates whether an education-organization-to-education-organization authorization view was applied.</param>
+        /// <param name="hasPersonFilter">Indicates whether a person-based authorization view (for example StudentUSI) was applied.</param>
+        /// <param name="personIsCompleteResourceKey">Indicates whether the person endpoint is the resource's entire primary key, meaning the resource holds at most one row per authorized person.</param>
+        public virtual string GetAuthorizationQueryHint(bool hasEducationOrganizationFilter, bool hasPersonFilter, bool personIsCompleteResourceKey) => null;
 
         public virtual string GetCteString(string cteName, string sql)
         {

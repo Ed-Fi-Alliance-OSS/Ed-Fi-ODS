@@ -45,6 +45,8 @@ namespace EdFi.LoadTools.Engine
         IReadOnlyDictionary<string, int> EducationOrganizationIdOverrides { get; }
 
         IEnumerable<string> UnifiedProperties { get; }
+
+        int DefaultNumericFallbackMax { get; }
     }
 
     public interface IHashCacheConfiguration

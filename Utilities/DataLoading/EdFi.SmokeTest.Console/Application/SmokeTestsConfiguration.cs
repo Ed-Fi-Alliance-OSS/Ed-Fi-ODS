@@ -82,6 +82,8 @@ namespace EdFi.SmokeTest.Console.Application
 
         public IEnumerable<string> UnifiedProperties { get; set; }
 
+        public int DefaultNumericFallbackMax { get; set; }
+
         string IOAuthSessionToken.SessionToken { get; set; }
 
         // IOAuthTokenConfiguration
@@ -137,6 +139,9 @@ namespace EdFi.SmokeTest.Console.Application
                 EducationOrganizationIdOverrides =
                     configuration.GetSection("EducationOrganizationIdOverrides").Get<IReadOnlyDictionary<string, int>>(),
                 UnifiedProperties = configuration.GetSection("UnifiedProperties").Get<IEnumerable<string>>(),
+                DefaultNumericFallbackMax = configuration.GetValue(
+                    "OdsApi:DefaultNumericFallbackMax",
+                    DestructiveTestConfigurationDefaults.DefaultNumericFallbackMax),
                 SdkLibraryPath = configuration.GetValue<string>("SdkLibraryPath"),
                 TestSet = testSet
             };
