@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "3f2b6c1e-8d4a-4f7e-9b21-6903a0c5d7e4",
+		"name": "Ed-Fi ODS/API API Publisher Claim Sets Test Suite",
+		"description": "Checks the permissions of the Ed-Fi API Publisher claim sets that a publish depends on.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Publisher - Reader",
+			"item": [
+				{
+					"name": "Reader can read surveys",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/surveys",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"surveys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reader can read survey deletes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/surveys/deletes",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"surveys",
+								"deletes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reader can read survey responses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/surveyResponses",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"surveyResponses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reader cannot create a survey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", () => {",
+									"    pm.expect(pm.response.code).to.equal(403);",
+									"});",
+									"",
+									"pm.test(\"The action is denied\", () => {",
+									"    pm.expect(pm.response.json().type).to.equal(\"urn:ed-fi:api:security:authorization:access-denied:action\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"surveyIdentifier\": \"ApiPublisherReaderWriteCheck\",\n  \"namespace\": \"uri://ed-fi.org\",\n  \"surveyTitle\": \"API Publisher Reader write check\",\n  \"schoolYearTypeReference\": {\n    \"schoolYear\": 2022\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/surveys",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"surveys"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken_ApiPublisherReader}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"CreateAccessToken(\"ApiPublisherReader\");",
+					"",
+					"// Same token helper as the other collections in this suite: reads ApiKey_<client> and ApiSecret_<client>",
+					"// from the environment and stores AccessToken_<client> and TokenExpiry_<client>.",
+					"function CreateAccessToken(clientSuffix) {",
+					"  const apiKeyName = `ApiKey_${clientSuffix}`;",
+					"  const apiSecretName = `ApiSecret_${clientSuffix}`;",
+					"  const tokenExpiryName = `TokenExpiry_${clientSuffix}`;",
+					"  const accessTokenName = `AccessToken_${clientSuffix}`;",
+					"",
+					"  let tokenExpiration = pm.environment.get(tokenExpiryName);",
+					"  let currentToken = pm.environment.get(accessTokenName);",
+					"  let getToken = true;",
+					"",
+					"  if (!tokenExpiration || !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"  } else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"  } else {",
+					"    getToken = false;",
+					"  }",
+					"",
+					"  if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;",
+					"    let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;",
+					"    let grantType = 'client_credentials';",
+					"",
+					"    let getTokenRequest = {",
+					"      method: 'POST',",
+					"      url: tokenUrl,",
+					"      auth: {",
+					"        type: \"basic\",",
+					"        basic: [",
+					"          { key: \"username\", value: clientId },",
+					"          { key: \"password\", value: clientSecret }",
+					"        ]",
+					"      },",
+					"      header: [",
+					"        \"content-type:application/x-www-form-urlencoded\"",
+					"      ],",
+					"      body: {",
+					"        mode: \"urlencoded\",",
+					"        urlencoded: [{ key: \"grant_type\", value: grantType }]",
+					"      }",
+					"    };",
+					"",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"      let jsonResponse = response.json();",
+					"      let newAccessToken = jsonResponse.access_token;",
+					"",
+					"      pm.environment.set(accessTokenName, newAccessToken);",
+					"",
+					"      let expiryDate = new Date();",
+					"      expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"      pm.environment.set(tokenExpiryName, expiryDate.getTime());",
+					"    });",
+					"  }",
+					"}"
+				]
+			}
+		}
+	]
+}
