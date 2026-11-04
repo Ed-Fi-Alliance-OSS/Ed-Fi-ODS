@@ -29,7 +29,9 @@ namespace EdFi.Common.Security
         /// </summary>
         /// <param name="key">The key of the API client for which details should be retrieved.</param>
         /// <returns>A <see cref="ApiClientDetails"/> instance if a matching key is found; otherwise <b>null</b>.</returns>
-        /// <remarks>This method is used during API client authentication, returning the secret for verification.</remarks>
+        /// <remarks>This method is used during API client authentication, returning the secret for verification.
+        /// It must not be cached, so that a changed secret takes effect on the next token request; the API registration
+        /// excludes it from the "cache-api-client-details" interceptor with ApiClientDetailsProviderProxyGenerationHook.</remarks>
         Task<ApiClientDetails> GetApiClientDetailsForKeyAsync(string key);
     }
 }

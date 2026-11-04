@@ -216,7 +216,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<ApiClientDetailsProvider>()
                 .As<IApiClientDetailsProvider>()
-                .EnableInterfaceInterceptors()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions(new ApiClientDetailsProviderProxyGenerationHook()))
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
