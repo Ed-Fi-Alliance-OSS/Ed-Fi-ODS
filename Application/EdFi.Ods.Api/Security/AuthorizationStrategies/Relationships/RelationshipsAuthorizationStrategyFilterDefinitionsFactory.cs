@@ -188,9 +188,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     $"auth.{viewName} AS rba{filterIndex}",
                     $"c.Old{trackedChangesPropertyName}",
                     $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
-
-                // Apply claim value criteria
-                queryBuilder.OrWhereIn($"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}", filterContext.ClaimParameterValues);
             }
             else
             {
@@ -198,11 +195,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     $"auth.{viewName} AS rba{filterIndex}",
                     $"c.Old{trackedChangesPropertyName}",
                     $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
-
-                // Apply claim value criteria
-                queryBuilder.WhereIn($"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}", filterContext.ClaimParameterValues);
             }
-            
+
+            // Apply claim value criteria (combined with 'AND' alongside the other filters of the same authorization strategy)
+            queryBuilder.WhereIn($"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}", filterContext.ClaimParameterValues);
+
             string GetBasePropertyNameForSubjectEndpointName()
             {
                 if (!resource.Entity.PropertyByName.TryGetValue(filterContext.SubjectEndpointName, out var entityProperty))
