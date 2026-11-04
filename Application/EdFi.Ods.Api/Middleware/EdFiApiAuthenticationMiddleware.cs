@@ -94,6 +94,18 @@ namespace EdFi.Ods.Api.Middleware
                         {
                             // Authenticate using the unwrapped token
                             var edfiAuthenticateResult = await _oauthTokenAuthenticator.AuthenticateAsync(guidToken, "Bearer");
+
+                            // Fail as with GUID tokens when the token in the JWT is no longer valid (e.g. expired or revoked)
+                            if (!edfiAuthenticateResult.Succeeded)
+                            {
+                                var problemDetails = GetProblemDetailsExceptionFromResult(edfiAuthenticateResult);
+                                problemDetails.CorrelationId = _logContextAccessor.GetCorrelationId();
+
+                                await context.Response.WriteProblemDetailsAsync(problemDetails);
+
+                                return;
+                            }
+
                             apiClientContext = (ApiClientContext) edfiAuthenticateResult.Ticket?.Properties.Parameters[nameof(ApiClientContext)];
 
                             // Merge service claims from the GUID auth (loaded from the security DB) into the JWT principal

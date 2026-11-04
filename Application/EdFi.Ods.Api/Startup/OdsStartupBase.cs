@@ -256,6 +256,8 @@ namespace EdFi.Ods.Api.Startup
                             ValidIssuer = securitySettings.Jwt.Issuer,
                             ValidAudiences = securitySettings.Jwt.Audiences,
                         };
+
+                        options.Events = new EdFiJwtBearerEvents();
                     });
             }
             else
