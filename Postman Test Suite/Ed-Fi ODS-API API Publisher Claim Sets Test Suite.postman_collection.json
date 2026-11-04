@@ -46,6 +46,19 @@
 					"name": "Reader can read survey deletes",
 					"event": [
 						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Only run if Change Queries feature is available",
+									"if (!pm.environment.get('ChangeQueriesFeatureIsEnabled')) {",
+									"  console.log('Skipping request because Change Queries feature is not enabled...');",
+									"  pm.execution.skipRequest();",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
 							"listen": "test",
 							"script": {
 								"exec": [
