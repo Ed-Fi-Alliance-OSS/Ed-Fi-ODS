@@ -26,12 +26,15 @@ namespace EdFi.SmokeTest.Console.Application
         public object SdkConfig;
 
         public SdkConfigurationFactory(IApiConfiguration apiConfiguration,
-                                       ISdkLibraryConfiguration sdkLibraryConfiguration, IOAuthTokenHandler tokenHandler)
+                                       ISdkLibraryConfiguration sdkLibraryConfiguration,
+                                       ISdkDataPathConfiguration sdkDataPathConfiguration,
+                                       IOAuthTokenHandler tokenHandler)
         {
             _tokenHandler = tokenHandler;
 
             var sdkGenerationBasePath = sdkLibraryConfiguration.Path;
             var owinServerUrl = apiConfiguration.Url;
+            var dataPath = sdkDataPathConfiguration.DataPath;
 
             // New-generator SDKs ship Client.HostConfiguration (DI-based); old-generator SDKs ship
             // only Client.Configuration. Probe for the new type first and select the mode by which
@@ -44,7 +47,7 @@ namespace EdFi.SmokeTest.Console.Application
             {
                 _isHostConfiguration = true;
                 _configType = hostConfigType;
-                _serviceProvider = ConfigureHostConfiguration(sdkGenerationBasePath, owinServerUrl);
+                _serviceProvider = ConfigureHostConfiguration(sdkGenerationBasePath, owinServerUrl, dataPath);
             }
             else
             {
@@ -96,7 +99,7 @@ namespace EdFi.SmokeTest.Console.Application
             }
         }
 
-        private IServiceProvider ConfigureHostConfiguration(string sdkGenerationBasePath, string owinServerUrl)
+        private IServiceProvider ConfigureHostConfiguration(string sdkGenerationBasePath, string owinServerUrl, string dataPath)
         {
             // Configure service collection for DI
             var services = new ServiceCollection();
@@ -129,33 +132,11 @@ namespace EdFi.SmokeTest.Console.Application
             var addApiHttpClientsMethod = _configType.GetMethod("AddApiHttpClients");
             if (addApiHttpClientsMethod != null)
             {
-                // Create delegate for configuring HttpClient
+                // Create delegate for configuring HttpClient. The data-path suffix injected into the
+                // BaseAddress is configurable (OdsApi:DataPath, default "/data/v3"); see ComposeSdkBaseAddress.
                 Action<HttpClient> configureClient = (client) =>
                 {
-                    // CRITICAL: The SDK constructs URLs by concatenating BaseAddress.AbsolutePath + "/ed-fi/..."
-                    // So we need to include /data/v3 in the base address WITHOUT a trailing slash
-                    // to avoid double slashes: /data/v3//ed-fi/...
-                    var baseUri = new Uri(owinServerUrl);
-
-                    // If the base URL doesn't have /data/v3, add it
-                    if (!baseUri.AbsolutePath.Contains("/data/v3"))
-                    {
-                        var uriBuilder = new UriBuilder(baseUri)
-                        {
-                            Path = "/data/v3"  // No trailing slash
-                        };
-                        client.BaseAddress = uriBuilder.Uri;
-                    }
-                    else
-                    {
-                        // Remove trailing slash if present
-                        var path = baseUri.AbsolutePath.TrimEnd('/');
-                        var uriBuilder = new UriBuilder(baseUri)
-                        {
-                            Path = path
-                        };
-                        client.BaseAddress = uriBuilder.Uri;
-                    }
+                    client.BaseAddress = ComposeSdkBaseAddress(owinServerUrl, dataPath);
                 };
 
                 // Call AddApiHttpClients(configureClient, null)
@@ -171,6 +152,44 @@ namespace EdFi.SmokeTest.Console.Application
             SdkConfig = hostConfiguration;
 
             return serviceProvider;
+        }
+
+        /// <summary>
+        ///     Composes the new-generator SDK's HttpClient BaseAddress from the server URL and the configured
+        ///     data-path suffix. The SDK constructs request URLs by concatenating BaseAddress.AbsolutePath with
+        ///     operation paths like "/ed-fi/...", so the base address must carry the data path WITHOUT a trailing
+        ///     slash (otherwise "/data/v3//ed-fi/..."). Behavior:
+        ///     <list type="bullet">
+        ///         <item>Empty/whitespace/"/" data path: no segment is injected; the base URL path is kept, only
+        ///         its trailing slash trimmed.</item>
+        ///         <item>Otherwise the data path is normalized to a leading slash and no trailing slash.</item>
+        ///         <item>If the base URL path already contains the (normalized) data path, it is not appended
+        ///         again (escape hatch); the trailing slash is still trimmed.</item>
+        ///     </list>
+        /// </summary>
+        public static Uri ComposeSdkBaseAddress(string owinServerUrl, string dataPath)
+        {
+            var baseUri = new Uri(owinServerUrl);
+            var normalizedDataPath = NormalizeDataPath(dataPath);
+
+            // No injection (empty/"/" data path) OR the base URL already carries the data path (escape hatch):
+            // keep the base URL's own path, trimming only a trailing slash.
+            var path = string.IsNullOrEmpty(normalizedDataPath) || baseUri.AbsolutePath.Contains(normalizedDataPath)
+                ? baseUri.AbsolutePath.TrimEnd('/')
+                : normalizedDataPath;
+
+            return new UriBuilder(baseUri) { Path = path }.Uri;
+        }
+
+        // Normalizes a configured data path to a leading slash with no trailing slash (e.g. "data/v3/" ->
+        // "/data/v3"). Returns empty string for null/whitespace/"/" to signal "do not inject a segment".
+        private static string NormalizeDataPath(string dataPath)
+        {
+            var trimmed = dataPath?.Trim().Trim('/');
+
+            return string.IsNullOrEmpty(trimmed)
+                ? string.Empty
+                : $"/{trimmed}";
         }
 
         private static Type TryGetTypeFromAssembly(string sdkAssemblyPath, string typeToRetrieve)
