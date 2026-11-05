@@ -52,6 +52,12 @@ namespace EdFi.Ods.Common.Configuration
 
         public int? OverrideForForwardingHostPort { get; set; }
 
+        /// <summary>
+        /// Origins (e.g. "https://swagger.example.org") allowed to make cross-origin requests to the API. When empty,
+        /// requests from any origin are allowed.
+        /// </summary>
+        public List<string> CorsAllowedOrigins { get; set; } = new();
+
         public string PathBase { get; set; }
 
         public string OdsContextRouteTemplate { get; set; }
