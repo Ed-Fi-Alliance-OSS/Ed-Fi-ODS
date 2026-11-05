@@ -3,11 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using log4net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EdFi.Ods.Api.Middleware;
 
@@ -45,10 +47,23 @@ public class EdFiJwtBearerEvents : JwtBearerEvents
 
     public override Task AuthenticationFailed(AuthenticationFailedContext context)
     {
+        if (IsConfigurationFailure(context.Exception))
+        {
+            // Every token fails this way when the Security:Jwt settings don't match the issued tokens, so log it at
+            // the default thresholds (only the exception type; the details are logged at Debug below)
+            _logger.Warn(
+                $"JWT validation failed with {context.Exception.GetType().Name}. Check the Security:Jwt Issuer, Audiences and SigningKey settings.");
+        }
+
         // Don't expose token validation details (e.g. IdentityModel IDX messages) to the caller
         _logger.Debug("JWT validation failed.", context.Exception);
         context.Fail(AuthenticationFailureMessages.InvalidToken);
 
         return base.AuthenticationFailed(context);
     }
+
+    private static bool IsConfigurationFailure(Exception exception)
+        => exception is SecurityTokenInvalidIssuerException
+            or SecurityTokenInvalidAudienceException
+            or SecurityTokenSignatureKeyNotFoundException;
 }
