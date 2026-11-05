@@ -12,7 +12,9 @@ namespace EdFi.Common.Security
     /// <summary>
     /// Defines a method for obtaining the API client's details from their OAuth bearer access token.
     /// </summary>
-    /// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of "cache-api-client-details".</remarks>
+    /// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of "cache-api-client-details".
+    /// Registrations must also apply ApiClientDetailsProviderProxyGenerationHook so that
+    /// <see cref="IApiClientDetailsProvider.GetApiClientDetailsForKeyAsync" /> is not cached.</remarks>
     [Intercept("cache-api-client-details")]
     public interface IApiClientDetailsProvider
     {
