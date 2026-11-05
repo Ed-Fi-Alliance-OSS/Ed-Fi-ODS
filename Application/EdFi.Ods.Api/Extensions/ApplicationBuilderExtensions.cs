@@ -40,5 +40,13 @@ namespace EdFi.Ods.Api.Extensions
 
         public static IApplicationBuilder UseOAuthContentTypeValidation(this IApplicationBuilder builder)
             => builder.UseMiddleware<OAuthContentTypeValidationMiddleware>();
+
+        /// <summary>
+        /// Applies the X-Forwarded-* headers sent by trusted reverse proxies to the request. The forwarded port is
+        /// captured first because the forwarded headers middleware replaces the remote IP address used to decide trust.
+        /// </summary>
+        public static IApplicationBuilder UseReverseProxyHeaders(this IApplicationBuilder builder)
+            => builder.UseMiddleware<ForwardedPortMiddleware>()
+                .UseForwardedHeaders();
     }
 }
