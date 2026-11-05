@@ -48,6 +48,7 @@ using log4net;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -71,7 +72,6 @@ namespace EdFi.Ods.Api.Startup
     public abstract class OdsStartupBase
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private const string CorsPolicyName = "_development_";
 
         private static readonly string _identityManagementClaimType = $"{EdFiConventions.EdFiOdsResourceClaimBaseUri}/services/identity";
 
@@ -178,18 +178,17 @@ namespace EdFi.Ods.Api.Startup
             // netcore team, as the claims principal is on the controllers.
             // c.f. https://docs.microsoft.com/en-us/aspnet/core/migration/claimsprincipal-current?view=aspnetcore-3.1
 
-            // this is opening up all sites to connect to the server. this should probably be reviewed.
-            services.AddCors(
-                options =>
-                {
-                    options.AddPolicy(
-                        CorsPolicyName,
-                        builder => builder
-                            .AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader()
-                            .WithExposedHeaders("*"));
-                });
+            // Reading AllowsAnyOrigin validates the configured origins, so an invalid value fails at startup
+            var corsOptionsConfigurator = new CorsOptionsConfigurator(_apiSettings);
+
+            if (corsOptionsConfigurator.AllowsAnyOrigin)
+            {
+                _logger.Warn(
+                    $"Cross-origin requests are allowed from any origin. Set ApiSettings:{nameof(ApiSettings.CorsAllowedOrigins)} to restrict them to known origins.");
+            }
+
+            services.AddCors();
+            services.AddSingleton<IConfigureOptions<CorsOptions>>(corsOptionsConfigurator);
 
             // will apply the MvcConfigurator at runtime.
             var mvcBuilder = services
@@ -425,7 +424,7 @@ namespace EdFi.Ods.Api.Startup
             app.UseRouting();
             app.UseStaticFiles();
 
-            app.UseCors(CorsPolicyName);
+            app.UseCors(CorsOptionsConfigurator.PolicyName);
 
             // Identifies the current ODS instance for the request (if enabled)
             app.UseTenantIdentification();
