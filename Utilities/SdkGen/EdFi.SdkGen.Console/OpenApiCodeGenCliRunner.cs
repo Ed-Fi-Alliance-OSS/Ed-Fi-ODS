@@ -65,11 +65,13 @@ namespace EdFi.SdkGen.Console
                 string modelPackage = $"Models.{section}{metadataSectionReplaced}";
 
                 // code-gen paramaters
+                // supportsRetry=false keeps Polly out of the generated SDK: no Microsoft.Extensions.Http.Polly
+                // reference and no Polly-based IHttpClientBuilderExtensions helpers (ODS-6868).
                 string[] @params =
                 {
                     $"-Xmx7g -jar {_options.CliExecutableFullName()}", "generate", "-g csharp", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
-                    $"--additional-properties packageName={_options.Namespace},targetFramework=net10.0,netCoreProjectFile=true",
+                    $"--additional-properties packageName={_options.Namespace},targetFramework=net10.0,netCoreProjectFile=true,supportsRetry=false",
                     "--global-property modelTests=false --global-property apiTests=false --global-property apiDocs=false --global-property modelDocs=false --skip-validate-spec"
                 };
 
