@@ -4,7 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -56,12 +58,12 @@ public class OneRosterJwtAccessTokenFactoryDecorator(
         // Set the OAuth 2.0 token response's scope (space delimited)
         if (!string.IsNullOrEmpty(scope))
         {
-            // Preserve the original scope behavior (EdOrgIds)
-            string baseScope = string.IsNullOrWhiteSpace(token.Scope)
-                ? string.Empty
-                : (token.Scope.Trim() + ' '); 
+            // Preserve the original scope behavior (EdOrgIds), without a trailing delimiter when there are no OneRoster scopes
+            IEnumerable<string> scopes = string.IsNullOrWhiteSpace(token.Scope)
+                ? claimsResult.OneRosterScopes
+                : claimsResult.OneRosterScopes.Prepend(token.Scope.Trim());
 
-            token.Scope = baseScope + string.Join(' ', claimsResult.OneRosterScopes);
+            token.Scope = string.Join(' ', scopes);
         }
 
         return token;
