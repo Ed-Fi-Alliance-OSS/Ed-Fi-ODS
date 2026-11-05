@@ -80,6 +80,17 @@ public class CorsOptionsConfiguratorTests
         policy.IsOriginAllowed("https://swagger.example.org").ShouldBeTrue();
     }
 
+    [TestCase("https://swagger.example.org:443", "https://swagger.example.org")]
+    [TestCase("http://swagger.example.org:80", "http://swagger.example.org")]
+    [TestCase("https://swagger.example.org:8443", "https://swagger.example.org:8443")]
+    public void Should_match_the_origin_a_browser_sends_when_a_port_is_configured(string configuredOrigin, string browserOrigin)
+    {
+        var policy = GetPolicy(new List<string> { configuredOrigin });
+
+        policy.Origins.ShouldBe(new[] { browserOrigin });
+        policy.IsOriginAllowed(browserOrigin).ShouldBeTrue();
+    }
+
     [Test]
     public void Should_ignore_duplicate_origins()
     {

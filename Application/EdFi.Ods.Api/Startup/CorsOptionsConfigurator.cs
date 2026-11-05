@@ -85,6 +85,7 @@ public class CorsOptionsConfigurator : IConfigureOptions<CorsOptions>
                 $"Invalid origin '{origin}' in ApiSettings:{nameof(ApiSettings.CorsAllowedOrigins)}. Use the form 'https://host[:port]' with no path, or leave the setting empty to allow any origin.");
         }
 
-        return trimmedOrigin;
+        // Return the canonical form a browser sends, e.g. "https://host:443" becomes "https://host"
+        return uri.GetComponents(UriComponents.SchemeAndServer, UriFormat.UriEscaped);
     }
 }
