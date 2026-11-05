@@ -131,5 +131,36 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                     .MustNotHaveHappened()
             );
         }
+
+        [Test]
+        public async Task When_requesting_API_client_details_for_a_key_should_call_through_without_using_the_cache()
+        {
+            // Arrange
+            var suppliedKey = "theKey";
+            var suppliedApiClientDetails = new ApiClientDetails();
+
+            var cacheKeyProvider = A.Fake<IApiClientDetailsCacheKeyProvider>();
+            var cacheProvider = A.Fake<ICacheProvider<string>>();
+
+            var apiClientDetailsProvider = A.Fake<IApiClientDetailsProvider>();
+            A.CallTo(() => apiClientDetailsProvider.GetApiClientDetailsForKeyAsync(suppliedKey))
+                .Returns(suppliedApiClientDetails);
+
+            // Act
+            CachingApiClientDetailsProviderDecorator decorator = new(apiClientDetailsProvider, cacheProvider, cacheKeyProvider);
+            var actualApiClientDetails = await decorator.GetApiClientDetailsForKeyAsync(suppliedKey);
+
+            // Assert
+            decorator.ShouldSatisfyAllConditions(
+                () => actualApiClientDetails.ShouldBeSameAs(suppliedApiClientDetails),
+
+                // Should call through to underlying store, so that a changed secret takes effect on the next token request
+                () => A.CallTo(() => apiClientDetailsProvider.GetApiClientDetailsForKeyAsync(suppliedKey))
+                    .MustHaveHappenedOnceExactly(),
+
+                // Should neither read nor write the cache
+                () => A.CallTo(cacheProvider).MustNotHaveHappened()
+            );
+        }
    }
 }
