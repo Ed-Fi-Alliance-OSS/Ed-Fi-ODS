@@ -6,7 +6,7 @@
 using System;
 using System.Linq;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
@@ -60,51 +60,21 @@ namespace EdFi.Ods.Api.Extensions
             return uriBuilder.Uri.ToString().TrimEnd('/');
         }
 
+        // When UseReverseProxyHeaders is enabled, the X-Forwarded-Proto and X-Forwarded-Host headers of trusted proxies
+        // have already been applied to the request's Scheme and Host by the forwarded headers middleware
+        // (see ApplicationBuilderExtensions.UseReverseProxyHeaders), so they are not read directly here.
         public static string Scheme(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
-            string scheme = request.Scheme;
-
-            if (!reverseProxySettings.UseReverseProxyHeaders)
-            {
-                return scheme;
-            }
-
-            request.TryGetRequestHeader(HeaderConstants.XForwardedProto, out string proxyHeaderValue);
-
-            // Pass through for any value provided, null means header wasn't found so default to request
-            if (proxyHeaderValue != null)
-            {
-                scheme = proxyHeaderValue;
-            }
-
-            // The x-forwarded-proto header can contain a single originating protocol or, in some 
-            // cases, multiple protocols. See ODS-5481 for more information. We care about the
-            // _first_ protocol listed.
-            if (scheme == null) { return "http"; }
-
-            return scheme.Split(',')[0];
+            return request.Scheme;
         }
 
         public static string Host(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
-            // Use actual request host when not configured for use behind a reverse proxy
-            if (!reverseProxySettings.UseReverseProxyHeaders)
-            {
-                return request.Host.Host;
-            }
-
             // Use override value if available
-            if (!string.IsNullOrWhiteSpace(reverseProxySettings.OverrideForForwardingHostServer))
+            if (reverseProxySettings.UseReverseProxyHeaders
+                && !string.IsNullOrWhiteSpace(reverseProxySettings.OverrideForForwardingHostServer))
             {
                 return reverseProxySettings.OverrideForForwardingHostServer;
-            }
-
-            // Try to extract a X-Forwarded-Host value
-            if (request.TryGetRequestHeader(HeaderConstants.XForwardedHost, out string proxyHeaderValue) &&
-             !string.IsNullOrWhiteSpace(proxyHeaderValue))
-            {
-                // Return the forwarding host
-                return proxyHeaderValue;
             }
 
             return request.Host.Host;
@@ -124,12 +94,10 @@ namespace EdFi.Ods.Api.Extensions
                 return reverseProxySettings.OverrideForForwardingHostPort.Value;
             }
 
-            // Try to extract a X-Forwarded-Port value
-            if (request.TryGetRequestHeader(HeaderConstants.XForwardedPort, out string proxyHeaderValue) &&
-                int.TryParse(proxyHeaderValue, out int port))
+            // Use the X-Forwarded-Port value sent by a trusted proxy, if any (captured by ForwardedPortMiddleware)
+            if (request.HttpContext?.Items.TryGetValue(ForwardedPortMiddleware.ForwardedPortItemKey, out object port) == true)
             {
-                // Return the forwarding port
-                return port;
+                return (int) port;
             }
 
             // Try to send the requested port

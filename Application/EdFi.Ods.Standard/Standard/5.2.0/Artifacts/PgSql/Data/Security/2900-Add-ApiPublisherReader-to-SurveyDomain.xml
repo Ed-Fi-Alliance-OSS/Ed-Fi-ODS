@@ -1,0 +1,14 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/surveyDomain">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+  </Claims>
+</SecurityMetadata>

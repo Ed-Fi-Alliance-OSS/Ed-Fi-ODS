@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
@@ -125,22 +124,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
                 var request = A.Fake<HttpRequest>();
                 request.Method = HttpMethods.Post;
-                request.Scheme = "http";
+                // The forwarded headers middleware has already applied the X-Forwarded-Proto and X-Forwarded-Host values
+                request.Scheme = "https";
 
-                A.CallTo(() => request.Host).Returns(new HostString("localhost", 80));
+                A.CallTo(() => request.Host).Returns(new HostString("api.com"));
 
                 request.PathBase = "/";
                 request.Path = "/metadata";
                 request.RouteValues = new RouteValueDictionary { {
                             "controller", "Token"
                         } };
-
-                HeaderDictionary headers = new HeaderDictionary();
-                headers.Add(HeaderConstants.XForwardedProto, "https");
-                headers.Add(HeaderConstants.XForwardedHost, "api.com");
-                headers.Add(HeaderConstants.XForwardedPort, "443");
-
-                A.CallTo(() => request.Headers).Returns(headers);
 
                 var httpContext = A.Fake<HttpContext>();
 

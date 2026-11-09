@@ -6,7 +6,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.Controllers;
 using EdFi.Ods.Features.IdentityManagement.Models;
@@ -769,11 +768,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             if (useReverseProxyHeaders)
             {
-                A.CallTo(() => request.Headers).Returns(new HeaderDictionary() {
-                    { HeaderConstants.XForwardedProto, "https" },
-                    { HeaderConstants.XForwardedHost, "some-forwarded-host"},
-                    { HeaderConstants.XForwardedPort, "443"},
-                });
+                // The forwarded headers middleware has already applied the X-Forwarded-Proto and X-Forwarded-Host values
+                request.Scheme = "https";
+                request.Host = new HostString("some-forwarded-host");
             }
 
             var httpContext = A.Fake<HttpContext>();
