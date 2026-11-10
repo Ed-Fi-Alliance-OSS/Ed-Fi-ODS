@@ -14,6 +14,7 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
@@ -755,6 +756,58 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.Incomplete)),
                     () => response!.IdentitySystemErrors.ShouldBe(null),
                     () => response!.Message.ShouldBe("Invalid response from identity service: ."));
+            }
+        }
+
+        public class IdentitySystemThrowsException
+        {
+            private const string InternalDetail = "Login failed for user 'identity_svc' on server 'internal-sql-01'";
+
+            private static readonly (string Action, Func<TestIdentitiesController, Task<IActionResult>> Invoke)[] _actions =
+            [
+                ("GetById", c => c.GetById("ignored")),
+                ("Create", c => c.Create(new IdentityCreateRequest())),
+                ("Find", c => c.Find(["ignored"])),
+                ("Search", c => c.Search([new IdentitySearchRequest()])),
+                ("Result", c => c.Result("ignored")),
+            ];
+
+            private static string[] ActionNames() => _actions.Select(a => a.Action).ToArray();
+
+            [TestCaseSource(nameof(ActionNames))]
+            public async Task Should_return_bad_gateway_without_the_exception(string actionName)
+            {
+                var actionResult = (ObjectResult) await _actions.Single(a => a.Action == actionName).Invoke(BuildController());
+                var json = JsonConvert.SerializeObject(actionResult.Value);
+
+                AssertHelper.All(
+                    () => actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
+                    () => actionResult.Value.ShouldBeOfType<ErrorResponse>(),
+                    () => ((ErrorResponse) actionResult.Value)!.Message.ShouldBe("The identity service request failed."),
+                    () => json.ShouldNotContain("internal-sql-01"),
+                    () => json.ShouldNotContain("StackTrace"),
+                    () => json.ShouldNotContain("InnerException"));
+            }
+
+            private static TestIdentitiesController BuildController()
+            {
+                var exception = new InvalidOperationException(InternalDetail, new Exception(InternalDetail));
+                var allCapabilities = IdentityServiceCapabilities.Create | IdentityServiceCapabilities.Find
+                    | IdentityServiceCapabilities.Search | IdentityServiceCapabilities.Results;
+
+                var identityService = A.Fake<IIdentityService<IdentityCreateRequest, IdentitySearchRequest, TestIdentitySearchResponse, IdentityResponse>>();
+                A.CallTo(() => identityService.IdentityServiceCapabilities).Returns(allCapabilities);
+                A.CallTo(() => identityService.Create(A<IdentityCreateRequest>._)).ThrowsAsync(exception);
+                A.CallTo(() => identityService.Find(A<string[]>._)).ThrowsAsync(exception);
+                A.CallTo(() => identityService.Search(A<IdentitySearchRequest[]>._)).ThrowsAsync(exception);
+
+                var identityServiceAsync = A.Fake<IIdentityServiceAsync<IdentitySearchRequest, TestIdentitySearchResponse, IdentityResponse>>();
+                A.CallTo(() => identityServiceAsync.IdentityServiceCapabilities).Returns(allCapabilities);
+                A.CallTo(() => identityServiceAsync.Find(A<string[]>._)).ThrowsAsync(exception);
+                A.CallTo(() => identityServiceAsync.Search(A<IdentitySearchRequest[]>._)).ThrowsAsync(exception);
+                A.CallTo(() => identityServiceAsync.Response(A<string>._)).ThrowsAsync(exception);
+
+                return new TestIdentitiesController(identityService, identityServiceAsync, BuildApiSettings());
             }
         }
 
