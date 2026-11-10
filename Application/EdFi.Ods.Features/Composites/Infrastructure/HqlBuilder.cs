@@ -332,7 +332,16 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 null,
                 null,
                 builderContext.AliasGenerator
-            );
+            )
+            {
+                IsFlattenedMemberContext = true,
+                // The flattened member's columns (and any authorization parameters they use) are part of the containing query
+                CurrentQueryFilterParameterValueByName = builderContext.CurrentQueryFilterParameterValueByName,
+                AuthorizationFlagAliasesByFieldAlias = builderContext.AuthorizationFlagAliasesByFieldAlias,
+                InheritedAuthorizationFlagAliases = builderContext.AuthorizationFlagAlias == null
+                    ? builderContext.InheritedAuthorizationFlagAliases
+                    : builderContext.InheritedAuthorizationFlagAliases.Append(builderContext.AuthorizationFlagAlias).ToArray()
+            };
 
             flattenedBuilderContext.PropertyProjections = builderContext.PropertyProjections;
 
@@ -442,7 +451,10 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 builderContext.FilterCriteria,
                 builderContext.QueryStringParameters,
                 builderContext.QueryRangeParameters,
-                builderContext.AliasGenerator);
+                builderContext.AliasGenerator)
+            {
+                ContainingReferenceAuthorizations = builderContext.ContainingReferenceAuthorizations
+            };
         }
 
         /// <summary>
@@ -466,7 +478,10 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 parentingBuilderContext.FilterCriteria,
                 parentingBuilderContext.QueryStringParameters,
                 parentingBuilderContext.QueryRangeParameters,
-                parentingBuilderContext.AliasGenerator);
+                parentingBuilderContext.AliasGenerator)
+            {
+                ContainingReferenceAuthorizations = parentingBuilderContext.ContainingReferenceAuthorizations
+            };
         }
 
         /// <summary>
@@ -487,7 +502,11 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 parentingBuilderContext.FilterCriteria,
                 parentingBuilderContext.QueryStringParameters,
                 parentingBuilderContext.QueryRangeParameters,
-                parentingBuilderContext.AliasGenerator);
+                parentingBuilderContext.AliasGenerator)
+            {
+                IsFlattenedReferenceChildContext = true,
+                ContainingReferenceAuthorizations = parentingBuilderContext.ContainingReferenceAuthorizations
+            };
         }
 
         /// <summary>
@@ -529,6 +548,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     builderContext.CurrentAlias,
                     "Discriminator",
                     discriminatorDisplayName);
+
+                RecordAuthorizationFlags(builderContext, discriminatorDisplayName + "__PassThrough", isIdentifying: false);
             }
 
             propertyProjections
@@ -540,19 +561,22 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         if (p.ResourceProperty.EntityProperty.IsDescriptorUsage)
                         {
                             string lookupAlias = builderContext.AliasGenerator.GetNextAlias();
+                            string fieldAlias = p.DisplayName.ToCamelCase() ?? p.ResourceProperty.PropertyName.ToCamelCase();
 
                             builderContext.Select.AppendFormat(
                                 "{0}{1}.Namespace as {2}__Namespace",
                                 CommaIfNeeded(builderContext.Select),
                                 lookupAlias,
-                                p.DisplayName.ToCamelCase() ?? p.ResourceProperty.PropertyName.ToCamelCase());
+                                fieldAlias);
 
                             builderContext.Select.AppendFormat(
                                 "{0}{1}.{2} as {3}",
                                 CommaIfNeeded(builderContext.Select),
                                 lookupAlias,
                                 "CodeValue",
-                                p.DisplayName.ToCamelCase() ?? p.ResourceProperty.PropertyName.ToCamelCase());
+                                fieldAlias);
+
+                            RecordAuthorizationFlags(builderContext, fieldAlias, p.ResourceProperty.IsIdentifying);
 
                             builderContext.From.AppendFormat(
                                 "{0}\t\tleft join {1}.{2} {3} ",
@@ -563,14 +587,40 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         }
                         else
                         {
+                            string fieldAlias = p.DisplayName.ToCamelCase() ?? p.ResourceProperty.EntityProperty.PropertyName.ToCamelCase();
+
                             builderContext.Select.AppendFormat(
                                 "{0}{1}.{2} as {3}",
                                 CommaIfNeeded(builderContext.Select),
                                 builderContext.CurrentAlias,
                                 p.ResourceProperty.EntityProperty.PropertyName,
-                                p.DisplayName.ToCamelCase() ?? p.ResourceProperty.EntityProperty.PropertyName.ToCamelCase());
+                                fieldAlias);
+
+                            RecordAuthorizationFlags(builderContext, fieldAlias, p.ResourceProperty.IsIdentifying);
                         }
                     });
+        }
+
+        /// <summary>
+        /// Records which authorization flag columns must be 1 for the projected field to be returned to the API client.
+        /// </summary>
+        /// <remarks>
+        /// A field projected from a flattened reference is subject to the flags of all the flattened references containing it.
+        /// It's also subject to the flag of its own reference unless it's an identifying property of that reference, because
+        /// those values are the foreign key values of the containing row, which the API client is already authorized to read.
+        /// The decision is based on the resource model, so properties added to a composite definition are covered with no
+        /// additional code changes.
+        /// </remarks>
+        private static void RecordAuthorizationFlags(HqlBuilderContext builderContext, string fieldAlias, bool isIdentifying)
+        {
+            var flagAliases = builderContext.AuthorizationFlagAlias != null && !isIdentifying
+                ? builderContext.InheritedAuthorizationFlagAliases.Append(builderContext.AuthorizationFlagAlias).ToArray()
+                : builderContext.InheritedAuthorizationFlagAliases.ToArray();
+
+            if (flagAliases.Length > 0)
+            {
+                builderContext.AuthorizationFlagAliasesByFieldAlias[fieldAlias] = flagAliases;
+            }
         }
 
         /// <summary>
@@ -723,7 +773,10 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             x.ResourceProperty.PropertyType))
                     .ToDictionary(x => x.Key, x => x.Value),
                 queryResults,
-                builderContext.IsSingleItemResult);
+                builderContext.IsSingleItemResult)
+            {
+                AuthorizationFlagAliasesByFieldAlias = builderContext.AuthorizationFlagAliasesByFieldAlias
+            };
 
             rootCompositeQuery = thisQuery;
             return true;
@@ -792,7 +845,10 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 query
                    .SetResultTransformer(Transformers.AliasToEntityMap)
                    .Future<object>(),
-                isSingleItemResult);
+                isSingleItemResult)
+            {
+                AuthorizationFlagAliasesByFieldAlias = builderContext.AuthorizationFlagAliasesByFieldAlias
+            };
 
             parentResult.ChildQueries.Add(thisQuery);
 

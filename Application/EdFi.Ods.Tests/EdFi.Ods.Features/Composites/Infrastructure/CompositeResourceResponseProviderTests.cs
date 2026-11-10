@@ -10,8 +10,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.TestFixture;
+using FakeItEasy;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
@@ -39,6 +41,185 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
         protected const string KeyEndsWithUnderscoresNamespace = "Something__Namespace";
         protected const string KeyStartsWithHUnderscore = "H_Something";
         protected const string DisplayName = "DisplayName";
+
+        public class When_a_flattened_reference_is_not_authorized_for_some_rows : ScenarioFor<CompositeResourceResponseProvider>
+        {
+            private IList<IDictionary> _actualWithNullsIgnored;
+            private IList<IDictionary> _actualWithNullsIncluded;
+
+            protected override void Act()
+            {
+                _actualWithNullsIgnored = Process(NullValueHandling.Ignore);
+                _actualWithNullsIncluded = Process(NullValueHandling.Include);
+            }
+
+            private IList<IDictionary> Process(NullValueHandling nullValueHandling)
+            {
+                var orderedFieldNamesWithTypes = new Dictionary<string, PropertyType>
+                {
+                    { "sectionIdentifier", new PropertyType(System.Data.DbType.String) },
+                    { "localCourseCode", new PropertyType(System.Data.DbType.String) },
+                    { "localCourseTitle", new PropertyType(System.Data.DbType.String) },
+                    { "courseTitle", new PropertyType(System.Data.DbType.String) },
+                };
+
+                IEnumerable<object> futureQuery = new List<Hashtable>
+                {
+                    Row("authorized", courseOfferingFlag: 1, courseFlag: 1),
+                    Row("courseOfferingDenied", courseOfferingFlag: 0, courseFlag: 1),
+                    Row("onlyNestedCourseDenied", courseOfferingFlag: 1, courseFlag: 0),
+                };
+
+                var query = new CompositeQuery(DisplayName, orderedFieldNamesWithTypes, futureQuery, isSingleItemResult: false)
+                {
+                    AuthorizationFlagAliasesByFieldAlias = new Dictionary<string, string[]>
+                    {
+                        // LocalCourseCode is an identifying property of the CourseOffering, so it has no entry
+                        { "localCourseTitle", ["__Auth_comp_ab"] },
+                        { "courseTitle", ["__Auth_comp_ab", "__Auth_comp_ac"] },
+                    }
+                };
+
+                return (IList<IDictionary>) SystemUnderTest.ProcessResults(query, null, nullValueHandling, new UniqueIdLookupsByUsiContext());
+            }
+
+            private static Hashtable Row(string sectionIdentifier, int courseOfferingFlag, int courseFlag)
+                => new()
+                {
+                    { "sectionIdentifier", sectionIdentifier },
+                    { "localCourseCode", "ALG-1" },
+                    { "localCourseTitle", "Algebra I" },
+                    { "courseTitle", "Algebra" },
+                    { "__Auth_comp_ab", courseOfferingFlag },
+                    { "__Auth_comp_ac", courseFlag },
+                };
+
+            [Test]
+            public void Should_return_every_row()
+            {
+                _actualWithNullsIgnored.Count.ShouldBe(3);
+                _actualWithNullsIncluded.Count.ShouldBe(3);
+            }
+
+            [Test]
+            public void Should_return_all_values_for_authorized_rows()
+            {
+                var item = _actualWithNullsIgnored[0];
+
+                AssertHelper.All(
+                    () => item["sectionIdentifier"].ShouldBe("authorized"),
+                    () => item["localCourseCode"].ShouldBe("ALG-1"),
+                    () => item["localCourseTitle"].ShouldBe("Algebra I"),
+                    () => item["courseTitle"].ShouldBe("Algebra"),
+                    () => item.Count.ShouldBe(4));
+            }
+
+            [Test]
+            public void Should_remove_non_identifying_values_of_the_unauthorized_reference_and_of_references_nested_in_it()
+            {
+                var item = _actualWithNullsIgnored[1];
+
+                AssertHelper.All(
+                    () => item["sectionIdentifier"].ShouldBe("courseOfferingDenied"),
+                    () => item["localCourseCode"].ShouldBe("ALG-1"),
+                    () => item.Contains("localCourseTitle").ShouldBeFalse(),
+                    () => item.Contains("courseTitle").ShouldBeFalse(),
+                    () => item.Count.ShouldBe(2));
+            }
+
+            [Test]
+            public void Should_remove_only_the_values_of_an_unauthorized_nested_reference()
+            {
+                var item = _actualWithNullsIgnored[2];
+
+                AssertHelper.All(
+                    () => item["localCourseTitle"].ShouldBe("Algebra I"),
+                    () => item.Contains("courseTitle").ShouldBeFalse(),
+                    () => item.Count.ShouldBe(3));
+            }
+
+            [Test]
+            public void Should_return_nulls_for_unauthorized_values_when_nulls_are_included()
+            {
+                var item = _actualWithNullsIncluded[1];
+
+                AssertHelper.All(
+                    () => item["localCourseCode"].ShouldBe("ALG-1"),
+                    () => item.Contains("localCourseTitle").ShouldBeTrue(),
+                    () => item["localCourseTitle"].ShouldBeNull(),
+                    () => item.Contains("courseTitle").ShouldBeTrue(),
+                    () => item["courseTitle"].ShouldBeNull());
+            }
+
+            [Test]
+            public void Should_never_return_the_authorization_flags()
+            {
+                foreach (var item in _actualWithNullsIncluded.Concat(_actualWithNullsIgnored))
+                {
+                    item.Keys.Cast<string>().ShouldAllBe(k => !k.StartsWith("__"));
+                }
+            }
+        }
+
+        public class When_an_unauthorized_flattened_reference_value_is_a_USI_and_nulls_are_included
+            : ScenarioFor<CompositeResourceResponseProvider>
+        {
+            private IList<IDictionary> _actual;
+
+            protected override void Arrange()
+            {
+                var personEntitySpecification = Given<IPersonEntitySpecification>();
+
+                string personType;
+                string roleName;
+
+                A.CallTo(() => personEntitySpecification.TryGetUSIPersonTypeAndRoleName("studentUSI", out personType, out roleName))
+                    .Returns(true)
+                    .AssignsOutAndRefParameters("Student", string.Empty);
+            }
+
+            protected override void Act()
+            {
+                var orderedFieldNamesWithTypes = new Dictionary<string, PropertyType>
+                {
+                    { "sectionIdentifier", new PropertyType(System.Data.DbType.String) },
+                    { "studentUniqueId", new PropertyType(System.Data.DbType.String) },
+                };
+
+                IEnumerable<object> futureQuery = new List<Hashtable>
+                {
+                    new()
+                    {
+                        { "sectionIdentifier", "denied" },
+                        { "studentUSI", 123 },
+                        { "__Auth_comp_ab", 0 },
+                    }
+                };
+
+                var query = new CompositeQuery(DisplayName, orderedFieldNamesWithTypes, futureQuery, isSingleItemResult: false)
+                {
+                    AuthorizationFlagAliasesByFieldAlias = new Dictionary<string, string[]>
+                    {
+                        { "studentUSI", ["__Auth_comp_ab"] },
+                    }
+                };
+
+                _actual = (IList<IDictionary>) SystemUnderTest.ProcessResults(
+                    query, null, NullValueHandling.Include, new UniqueIdLookupsByUsiContext());
+            }
+
+            [Test]
+            public void Should_return_a_null_UniqueId_instead_of_the_USI()
+            {
+                var item = _actual.Single();
+
+                AssertHelper.All(
+                    () => item["sectionIdentifier"].ShouldBe("denied"),
+                    () => item.Contains("studentUniqueId").ShouldBeTrue(),
+                    () => item["studentUniqueId"].ShouldBeNull(),
+                    () => item.Contains("studentUSI").ShouldBeFalse());
+            }
+        }
 
         public class When_child_is_outside_context_of_parent : ScenarioFor<CompositeResourceResponseProvider>
         {

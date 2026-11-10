@@ -340,7 +340,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 }
 
                 // Convert the row to serializable form
-                var resultItem = GetItem(currentRow, query.DataFields, query.OrderedFieldNamesWithTypes, fieldSelections, nullValueHandling, uniqueIdLookupsByUsiContext);
+                var resultItem = GetItem(currentRow, query.DataFields, query.OrderedFieldNamesWithTypes, fieldSelections, nullValueHandling, uniqueIdLookupsByUsiContext, query.AuthorizationFlagAliasesByFieldAlias);
 
                 // Process the children
                 foreach (var childQuery in query.ChildQueries)
@@ -386,7 +386,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             IDictionary<string, PropertyType> orderedFieldNamesWithTypes,
             IReadOnlyList<SelectedResourceMember> fieldSelections,
             NullValueHandling nullValueHandling,
-            UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext)
+            UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext,
+            IDictionary<string, string[]> authorizationFlagAliasesByFieldAlias)
         {
             var item = new OrderedDictionary();
 
@@ -394,6 +395,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             {
                 return item;
             }
+
+            var unauthorizedKeys = GetUnauthorizedKeys(sourceRow, authorizationFlagAliasesByFieldAlias);
 
             var descriptorNamespaceByKey = keys
                                           .Where(x => x.EndsWith(CompositeDefinitionHelper.NamespaceMarker))
@@ -423,7 +426,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                .Concat(keys.Where(x => x.EndsWith(CompositeDefinitionHelper.PassThroughMarker))
                                            .Select(x => x.TrimSuffix(CompositeDefinitionHelper.PassThroughMarker)))
                                .Join(
-                                    EnumerateKeyValuePairs(sourceRow, nullValueHandling, keysToProcess, descriptorNamespaceByKey, selectedKeys, uniqueIdLookupsByUsiContext, orderedFieldNamesWithTypes),
+                                    EnumerateKeyValuePairs(sourceRow, nullValueHandling, keysToProcess, descriptorNamespaceByKey, selectedKeys, uniqueIdLookupsByUsiContext, orderedFieldNamesWithTypes, unauthorizedKeys),
                                     x => x,
                                     x => x.Key,
                                     (prop, kvp) => kvp,
@@ -445,11 +448,41 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             Dictionary<string, object> descriptorNamespaceByKey,
             HashSet<string> selectedKeys,
             UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext,
-            IDictionary<string, PropertyType> orderedFieldNamesWithTypes)
+            IDictionary<string, PropertyType> orderedFieldNamesWithTypes,
+            HashSet<string> unauthorizedKeys)
         {
             foreach (string key in keysToProcess)
             {
                 string renamedKey = null;
+
+                // Handle values from flattened references the API client is not authorized to read as null values
+                if (unauthorizedKeys.Contains(key))
+                {
+                    if (nullValueHandling != NullValueHandling.Include)
+                    {
+                        continue;
+                    }
+
+                    if (key.EndsWith(CompositeDefinitionHelper.PassThroughMarker))
+                    {
+                        yield return new KeyValuePair<string, object>(key.TrimSuffix(CompositeDefinitionHelper.PassThroughMarker), null);
+
+                        continue;
+                    }
+
+                    // USIs are returned as UniqueIds
+                    string unauthorizedKey = UniqueIdConventions.IsUSI(key)
+                        && _personEntitySpecification.TryGetUSIPersonTypeAndRoleName(key, out string usiPersonType, out string usiRoleName)
+                            ? (usiRoleName + usiPersonType + CompositeDefinitionHelper.UniqueId).ToCamelCase()
+                            : key;
+
+                    if (selectedKeys == null || selectedKeys.Contains(unauthorizedKey))
+                    {
+                        yield return new KeyValuePair<string, object>(unauthorizedKey, null);
+                    }
+
+                    continue;
+                }
 
                 // Handle Pass through values
                 if (key.EndsWith(CompositeDefinitionHelper.PassThroughMarker))
@@ -525,6 +558,39 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         yield return new KeyValuePair<string, object>(renamedKey ?? key, value);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets the keys of the row's values that come from flattened references the API client is not authorized to read.
+        /// </summary>
+        private static HashSet<string> GetUnauthorizedKeys(
+            Hashtable sourceRow,
+            IDictionary<string, string[]> authorizationFlagAliasesByFieldAlias)
+        {
+            var unauthorizedKeys = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            if (authorizationFlagAliasesByFieldAlias == null || authorizationFlagAliasesByFieldAlias.Count == 0)
+            {
+                return unauthorizedKeys;
+            }
+
+            foreach (var fieldAliasAndFlagAliases in authorizationFlagAliasesByFieldAlias)
+            {
+                if (!fieldAliasAndFlagAliases.Value.All(IsAuthorized))
+                {
+                    unauthorizedKeys.Add(fieldAliasAndFlagAliases.Key);
+                }
+            }
+
+            return unauthorizedKeys;
+
+            bool IsAuthorized(string flagAlias)
+            {
+                // Treat a missing flag as unauthorized
+                object flagValue = sourceRow[flagAlias];
+
+                return flagValue != null && Convert.ToInt32(flagValue) == 1;
             }
         }
 

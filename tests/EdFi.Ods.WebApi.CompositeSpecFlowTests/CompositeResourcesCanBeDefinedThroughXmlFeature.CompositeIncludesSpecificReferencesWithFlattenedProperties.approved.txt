@@ -4,6 +4,10 @@ select
 	comp_aaa.EntryDate as PK1a_EntryDate,
 	comp_aaa.SchoolId as PK1a_SchoolId,
 	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	case when (( (comp_aab.StudentUSI IN (
+                    SELECT fltr_aac.StudentUSI 
+                    FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aac 
+                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))) then 1 else 0 end as __Auth_comp_aab,
 	comp_aab.FirstName as firstName
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ comp_aaa
