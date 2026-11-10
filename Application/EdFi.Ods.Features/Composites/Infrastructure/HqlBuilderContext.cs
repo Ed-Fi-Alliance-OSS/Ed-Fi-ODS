@@ -163,7 +163,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
     /// <summary>
     /// Captures the authorization filtering of a flattened reference along with the alias of the reference in the query.
     /// </summary>
-    /// <param name="Filtering">The authorization filtering of the referenced resource.</param>
+    /// <param name="Filtering">The authorization filtering of the referenced resource, or <b>null</b> if the referenced
+    /// resource is abstract and cannot be authorized (in which case no rows are returned for its members).</param>
     /// <param name="Alias">The alias of the referenced resource's entity in the query.</param>
     public record ContainingReferenceAuthorizationFiltering(
         IReadOnlyList<AuthorizationStrategyFiltering> Filtering,

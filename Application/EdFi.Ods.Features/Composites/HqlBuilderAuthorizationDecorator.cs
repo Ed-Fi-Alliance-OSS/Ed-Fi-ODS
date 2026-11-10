@@ -81,6 +81,15 @@ namespace EdFi.Ods.Features.Composites
                         "Resource is abstract and so target resource '{0}' cannot be authorized. Join will be included, but non-identifying resource members should be stripped from results.",
                         processorContext.CurrentResourceClass.Name);
 
+                    // The members of a flattened reference to an abstract resource (e.g. its collections) cannot be authorized
+                    // either, so no rows are returned for them
+                    if (builderContext.IsFlattenedReferenceChildContext)
+                    {
+                        builderContext.ContainingReferenceAuthorizations = builderContext.ContainingReferenceAuthorizations
+                            .Append(new ContainingReferenceAuthorizationFiltering(null, builderContext.ParentAlias))
+                            .ToArray();
+                    }
+
                     return true;
                 }
 
@@ -380,6 +389,18 @@ namespace EdFi.Ods.Features.Composites
 
             foreach (var containingReferenceAuthorization in builderContext.ContainingReferenceAuthorizations)
             {
+                // The referenced resource is abstract, and cannot be authorized
+                if (containingReferenceAuthorization.Filtering == null)
+                {
+                    Logger.DebugFormat(
+                        "No rows will be returned for '{0}' because it is a member of a flattened reference to an abstract resource, which cannot be authorized.",
+                        processorContext.CurrentResourceClass.Name);
+
+                    builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}1 = 0");
+
+                    continue;
+                }
+
                 if (TryBuildAuthorizationPredicate(
                         containingReferenceAuthorization.Filtering,
                         containingReferenceAuthorization.Alias,
@@ -537,11 +558,28 @@ namespace EdFi.Ods.Features.Composites
                         // Copy over the values of the named parameters, but only if they are actually present in the filter
                         if (filterHql.Contains($":{parameterName}"))
                         {
-                            object parameterValue = filterContext.ClaimParameterValues.Length == 1
-                                ? filterContext.ClaimParameterValues.Single()
-                                : filterContext.ClaimParameterValues;
+                            var claimParameterValues = filterContext.ClaimParameterValues;
 
-                            filterHql = SetParameterValue(filterHql, parameterName, parameterValue);
+                            if (claimParameterValues.Length > 1
+                                && TryExpandLikeComparison(filterHql, parameterName, claimParameterValues.Length, out string expandedFilterHql))
+                            {
+                                // LIKE compares with a single value (e.g. a client with several namespace prefixes), so
+                                // compare with each value separately
+                                filterHql = expandedFilterHql;
+
+                                for (int i = 0; i < claimParameterValues.Length; i++)
+                                {
+                                    filterHql = SetParameterValue(filterHql, $"{parameterName}_{i + 1}", claimParameterValues[i]);
+                                }
+                            }
+                            else
+                            {
+                                object parameterValue = claimParameterValues.Length == 1
+                                    ? claimParameterValues.Single()
+                                    : claimParameterValues;
+
+                                filterHql = SetParameterValue(filterHql, parameterName, parameterValue);
+                            }
                         }
 
                         // Add HQL to the predicate
@@ -614,6 +652,41 @@ namespace EdFi.Ods.Features.Composites
                     $@":{Regex.Escape(parameterName)}(?!\w)",
                     $":{distinctParameterName}");
             }
+        }
+
+        /// <summary>
+        /// Rewrites the LIKE comparisons with a named parameter (e.g. <c>x.Namespace LIKE :Namespace</c>) as one comparison
+        /// per value, combined with OR, using parameters named <c>{parameterName}_1</c> to <c>{parameterName}_{valueCount}</c>.
+        /// </summary>
+        /// <returns><b>true</b> if the filter only uses the parameter in LIKE comparisons and was rewritten; otherwise
+        /// <b>false</b>.</returns>
+        private static bool TryExpandLikeComparison(
+            string filterHql,
+            string parameterName,
+            int valueCount,
+            out string expandedFilterHql)
+        {
+            var likeComparison = new Regex(
+                $@"(?<operand>[\w.]+)\s+LIKE\s+:{Regex.Escape(parameterName)}(?!\w)",
+                RegexOptions.IgnoreCase);
+
+            expandedFilterHql = likeComparison.Replace(
+                filterHql,
+                m => "("
+                    + string.Join(
+                        " OR ",
+                        Enumerable.Range(1, valueCount).Select(i => $"{m.Groups["operand"].Value} LIKE :{parameterName}_{i}"))
+                    + ")");
+
+            // Only use the rewritten filter if no other usages of the parameter remain
+            if (expandedFilterHql == filterHql
+                || Regex.IsMatch(expandedFilterHql, $@":{Regex.Escape(parameterName)}(?!\w)"))
+            {
+                expandedFilterHql = null;
+                return false;
+            }
+
+            return true;
         }
 
         private static bool ParameterValuesAreEqual(object value1, object value2)

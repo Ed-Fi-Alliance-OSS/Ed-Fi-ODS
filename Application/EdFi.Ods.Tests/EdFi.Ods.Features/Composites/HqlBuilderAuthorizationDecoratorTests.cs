@@ -5,6 +5,7 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
@@ -233,13 +234,13 @@ public class HqlBuilderAuthorizationDecoratorTests
             ClaimEndpointValues = claimEducationOrganizationIds,
         };
 
-    private static AuthorizationFilterContext NamespaceFilter(string namespacePrefix)
+    private static AuthorizationFilterContext NamespaceFilter(params string[] namespacePrefixes)
         => new()
         {
             FilterName = NamespaceFilterName,
             SubjectEndpointName = "Namespace",
             ClaimParameterName = "Namespace",
-            ClaimEndpointValues = [namespacePrefix],
+            ClaimEndpointValues = namespacePrefixes.Cast<object>().ToArray(),
         };
 
     private static AuthorizationFilterContext OwnershipFilter(params object[] ownershipTokenIds)
@@ -678,6 +679,163 @@ public class HqlBuilderAuthorizationDecoratorTests
         // Assert
         builderContext.Where.ToString().ShouldBe("comp_aa.Id IN (:BaseEntityId)");
         builderContext.CurrentQueryFilterParameterValueByName.ShouldBeEmpty();
+    }
+
+    [Test]
+    public void ApplyFlattenedMember_WithSeveralNamespacePrefixes_ComparesWithEachPrefixSeparately()
+    {
+        // Arrange
+        RegisterFilterDefinitions();
+
+        var builderContext = CreateFlattenedReferenceBuilderContext(
+            new AuthorizationStrategyFiltering
+            {
+                Operator = FilterOperator.Or,
+                Filters = [NamespaceFilter("uri://ed-fi.org%", "uri://gbisd.edu%")]
+            });
+
+        // Act
+        _decorator.ApplyFlattenedMember(null, builderContext);
+
+        // Assert (LIKE can't be compared with a list)
+        string select = builderContext.Select.ToString();
+
+        select.ShouldContain(
+            "case when (( ((comp_ab.Namespace IS NOT NULL AND (comp_ab.Namespace LIKE :Namespace_1 OR comp_ab.Namespace LIKE :Namespace_2))))) then 1 else 0 end as __Auth_comp_ab");
+
+        select.ShouldNotContain(":Namespace)");
+
+        var parameters = builderContext.CurrentQueryFilterParameterValueByName;
+        parameters["Namespace_1"].ShouldBe("uri://ed-fi.org%");
+        parameters["Namespace_2"].ShouldBe("uri://gbisd.edu%");
+        parameters.ContainsKey("Namespace").ShouldBeFalse();
+    }
+
+    [Test]
+    public void TryBuildForRootResource_WithSeveralNamespacePrefixes_ComparesWithEachPrefixSeparately()
+    {
+        // Arrange
+        RegisterFilterDefinitions();
+
+        var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
+        A.CallTo(() => processorContext.CurrentResourceClass).Returns(new Resource("Assessment"));
+
+        var builderContext = new HqlBuilderContext(
+            new StringBuilder(),
+            new StringBuilder(),
+            new StringBuilder(),
+            new StringBuilder())
+        {
+            CurrentAlias = "comp_aa",
+            CurrentQueryAuthorizationFiltering =
+            [
+                new AuthorizationStrategyFiltering
+                {
+                    Operator = FilterOperator.Or,
+                    Filters = [NamespaceFilter("uri://ed-fi.org%", "uri://gbisd.edu%", "uri://tpdm.ed-fi.org%")]
+                }
+            ]
+        };
+
+        // Act
+        _decorator.TryBuildForRootResource(builderContext, processorContext, out _);
+
+        // Assert
+        builderContext.Where.ToString().ShouldBe(
+            "( ((comp_aa.Namespace IS NOT NULL AND (comp_aa.Namespace LIKE :Namespace_1 OR comp_aa.Namespace LIKE :Namespace_2 OR comp_aa.Namespace LIKE :Namespace_3))))");
+
+        var parameters = builderContext.CurrentQueryFilterParameterValueByName;
+        parameters["Namespace_1"].ShouldBe("uri://ed-fi.org%");
+        parameters["Namespace_2"].ShouldBe("uri://gbisd.edu%");
+        parameters["Namespace_3"].ShouldBe("uri://tpdm.ed-fi.org%");
+    }
+
+    [Test]
+    public void TryBuildForRootResource_WithSeveralValuesForAnInComparison_BindsTheValuesAsAList()
+    {
+        // Arrange
+        RegisterFilterDefinitions();
+
+        var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
+        A.CallTo(() => processorContext.CurrentResourceClass).Returns(new Resource("Section"));
+
+        var builderContext = new HqlBuilderContext(
+            new StringBuilder(),
+            new StringBuilder(),
+            new StringBuilder(),
+            new StringBuilder())
+        {
+            CurrentAlias = "comp_aa",
+            CurrentQueryAuthorizationFiltering =
+            [
+                new AuthorizationStrategyFiltering
+                {
+                    Operator = FilterOperator.Or,
+                    Filters = [RelationshipFilter(255901, 255902)]
+                }
+            ]
+        };
+
+        // Act
+        _decorator.TryBuildForRootResource(builderContext, processorContext, out _);
+
+        // Assert (only LIKE comparisons are expanded)
+        builderContext.Where.ToString().ShouldContain("IN (:ClaimEducationOrganizationIds)");
+        builderContext.CurrentQueryFilterParameterValueByName["ClaimEducationOrganizationIds"]
+            .ShouldBe(new object[] { 255901, 255902 });
+    }
+
+    [Test]
+    public void TryIncludeResource_ForFlattenedReferenceToAbstractResource_PreventsRowsForTheReferencesMembers()
+    {
+        // Arrange (e.g. <ReferencedResource name="EducationOrganizationReference" flatten="true" includeResourceSubtype="true">)
+        var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
+        A.CallTo(() => processorContext.CurrentResourceClass).Returns(new Resource("EducationOrganization"));
+        A.CallTo(() => processorContext.IsAbstract()).Returns(true);
+        A.CallTo(() => processorContext.ShouldIncludeResourceSubtype()).Returns(true);
+
+        var builderContext = new HqlBuilderContext(
+            new StringBuilder(), new StringBuilder(), new StringBuilder(), new StringBuilder(),
+            null, "comp_ab", 1, null, null, null, new AliasGenerator("comp_"))
+        {
+            IsFlattenedReferenceChildContext = true
+        };
+
+        // Act
+        var result = _decorator.TryIncludeResource(processorContext, builderContext);
+
+        // Assert
+        result.ShouldBeTrue();
+
+        builderContext.ContainingReferenceAuthorizations.Count.ShouldBe(1);
+        builderContext.ContainingReferenceAuthorizations[0].Filtering.ShouldBeNull();
+        builderContext.ContainingReferenceAuthorizations[0].Alias.ShouldBe("comp_ab");
+    }
+
+    [Test]
+    public void BuildForChildResource_ForMemberOfFlattenedReferenceToAbstractResource_ReturnsNoRows()
+    {
+        // Arrange (e.g. <Collection name="EducationOrganizationAddresses"> of the flattened reference)
+        var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
+        A.CallTo(() => processorContext.CurrentResourceClass)
+            .Returns(new ResourceChildItem("EducationOrganizationAddress", new Resource("EducationOrganization")));
+
+        var builderContext = new HqlBuilderContext(
+            new StringBuilder(),
+            new StringBuilder(),
+            new StringBuilder("comp_aa.Id IN (:BaseEntityId)"),
+            new StringBuilder())
+        {
+            CurrentAlias = "comp_ac",
+            ContainingReferenceAuthorizations = [new ContainingReferenceAuthorizationFiltering(null, "comp_ab")]
+        };
+
+        // Act
+        _decorator.BuildForChildResource(null, builderContext, processorContext);
+
+        // Assert
+        builderContext.Where.ToString().ShouldBe("comp_aa.Id IN (:BaseEntityId) AND 1 = 0");
+        A.CallTo(() => _next.BuildForChildResource(null, builderContext, processorContext)).MustHaveHappenedOnceExactly();
     }
 
     [Test]
