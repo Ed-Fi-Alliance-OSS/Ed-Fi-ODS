@@ -471,10 +471,9 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     }
 
                     // USIs are returned as UniqueIds
-                    string unauthorizedKey = UniqueIdConventions.IsUSI(key)
-                        && _personEntitySpecification.TryGetUSIPersonTypeAndRoleName(key, out string usiPersonType, out string usiRoleName)
-                            ? (usiRoleName + usiPersonType + CompositeDefinitionHelper.UniqueId).ToCamelCase()
-                            : key;
+                    string unauthorizedKey = TryGetUniqueIdKey(key, out _, out string uniqueIdKeyForUsi)
+                        ? uniqueIdKeyForUsi
+                        : key;
 
                     if (selectedKeys == null || selectedKeys.Contains(unauthorizedKey))
                     {
@@ -519,8 +518,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         else
                         {
                             // See if we need to convert an USI to a UniqueId
-                            if (UniqueIdConventions.IsUSI(key)
-                                && _personEntitySpecification.TryGetUSIPersonTypeAndRoleName(key, out string personType, out string roleName))
+                            if (TryGetUniqueIdKey(key, out string personType, out string uniqueIdKey))
                             {
                                 // Resolve the UniqueId from the USI
                                 if (!uniqueIdLookupsByUsiContext.UniqueIdByUsiByPersonType.TryGetValue(personType, out var map)
@@ -529,8 +527,6 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                     // This should never happen
                                     throw new Exception($"Unable to resolve {personType}USI '{(int)sourceRow[key]}' to a UniqueId value.");
                                 }
-
-                                string uniqueIdKey = (roleName + personType + CompositeDefinitionHelper.UniqueId).ToCamelCase();
 
                                 renamedKey = uniqueIdKey;
                                 value = uniqueId;
@@ -559,6 +555,25 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the key under which the value of a USI is returned (as a UniqueId), if the key is for a person's USI.
+        /// </summary>
+        private bool TryGetUniqueIdKey(string usiKey, out string personType, out string uniqueIdKey)
+        {
+            if (UniqueIdConventions.IsUSI(usiKey)
+                && _personEntitySpecification.TryGetUSIPersonTypeAndRoleName(usiKey, out personType, out string roleName))
+            {
+                uniqueIdKey = (roleName + personType + CompositeDefinitionHelper.UniqueId).ToCamelCase();
+
+                return true;
+            }
+
+            personType = null;
+            uniqueIdKey = null;
+
+            return false;
         }
 
         /// <summary>

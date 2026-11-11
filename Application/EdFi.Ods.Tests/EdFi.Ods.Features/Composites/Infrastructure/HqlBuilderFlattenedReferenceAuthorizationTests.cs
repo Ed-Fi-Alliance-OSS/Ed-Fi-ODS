@@ -61,6 +61,8 @@ public class HqlBuilderFlattenedReferenceAuthorizationTests
         flattenedContext.IsFlattenedMemberContext.ShouldBeTrue();
         rootContext.IsFlattenedMemberContext.ShouldBeFalse();
         flattenedContext.CurrentQueryFilterParameterValueByName.ShouldBeSameAs(rootContext.CurrentQueryFilterParameterValueByName);
+        // The specification parameters, so that authorization parameters don't reuse their names
+        flattenedContext.ParameterValueByName.ShouldBeSameAs(rootContext.ParameterValueByName);
         flattenedContext.AuthorizationFlagAliasesByFieldAlias.ShouldBeSameAs(rootContext.AuthorizationFlagAliasesByFieldAlias);
         flattenedContext.Select.ShouldBeSameAs(rootContext.Select);
         flattenedContext.InheritedAuthorizationFlagAliases.ShouldBeEmpty();

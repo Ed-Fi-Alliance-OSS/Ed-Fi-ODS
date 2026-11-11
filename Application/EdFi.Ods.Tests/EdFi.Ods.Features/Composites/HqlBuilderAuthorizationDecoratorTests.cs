@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -874,6 +875,98 @@ public class HqlBuilderAuthorizationDecoratorTests
         builderContext.Where.ToString().ShouldContain("comp_aa.Namespace LIKE :Namespace_comp_aa)");
         builderContext.CurrentQueryFilterParameterValueByName["Namespace"].ShouldBe("uri://ed-fi.org/Assessment");
         builderContext.CurrentQueryFilterParameterValueByName["Namespace_comp_aa"].ShouldBe("uri://ed-fi.org%");
+    }
+
+    [Test]
+    public void TryBuildForRootResource_WithSpecificationParameterOfTheSameName_UsesADistinctParameterName()
+    {
+        // Arrange
+        RegisterFilterDefinitions();
+
+        var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
+        A.CallTo(() => processorContext.CurrentResourceClass).Returns(new Resource("Assessment"));
+
+        // e.g. a composite specification with a "Namespace" parameter in its route
+        var specificationParameterValueByName = new Dictionary<string, object> { ["Namespace"] = "uri://ed-fi.org/Assessment" };
+
+        var builderContext = new HqlBuilderContext(
+            new StringBuilder(),
+            new StringBuilder(),
+            new StringBuilder(),
+            new StringBuilder(),
+            specificationParameterValueByName,
+            null,
+            0,
+            null,
+            null,
+            null,
+            new AliasGenerator("comp_"))
+        {
+            CurrentAlias = "comp_aa",
+            CurrentQueryAuthorizationFiltering =
+            [
+                new AuthorizationStrategyFiltering
+                {
+                    Operator = FilterOperator.Or,
+                    Filters = [NamespaceFilter("uri://ed-fi.org%")]
+                }
+            ]
+        };
+
+        // Act
+        _decorator.TryBuildForRootResource(builderContext, processorContext, out _);
+
+        // Assert
+        builderContext.Where.ToString().ShouldContain("comp_aa.Namespace LIKE :Namespace_comp_aa)");
+
+        // The specification's value would be overwritten if the authorization value were bound with the same name
+        builderContext.CurrentQueryFilterParameterValueByName.ContainsKey("Namespace").ShouldBeFalse();
+        builderContext.CurrentQueryFilterParameterValueByName["Namespace_comp_aa"].ShouldBe("uri://ed-fi.org%");
+        specificationParameterValueByName["Namespace"].ShouldBe("uri://ed-fi.org/Assessment");
+    }
+
+    [Test]
+    public void ApplyFlattenedMember_WithSpecificationParameterOfTheSameName_UsesADistinctParameterName()
+    {
+        // Arrange
+        RegisterFilterDefinitions();
+
+        // e.g. a composite specification with a "Namespace" parameter in its route
+        var specificationParameterValueByName = new Dictionary<string, object> { ["Namespace"] = "uri://ed-fi.org/Assessment" };
+
+        var builderContext = new HqlBuilderContext(
+            new StringBuilder("comp_aa.Id As __BaseEntityId__"),
+            new StringBuilder("\tStudentAssessmentQ comp_aa\n\tjoin comp_aa.Assessment comp_ab"),
+            null,
+            null,
+            specificationParameterValueByName,
+            "comp_aa",
+            int.MinValue,
+            null,
+            null,
+            null,
+            new AliasGenerator("comp_"))
+        {
+            IsFlattenedMemberContext = true,
+            CurrentAlias = "comp_ab",
+            CurrentQueryAuthorizationFiltering =
+            [
+                new AuthorizationStrategyFiltering
+                {
+                    Operator = FilterOperator.Or,
+                    Filters = [NamespaceFilter("uri://ed-fi.org%")]
+                }
+            ]
+        };
+
+        // Act
+        _decorator.ApplyFlattenedMember(null, builderContext);
+
+        // Assert
+        builderContext.Select.ToString().ShouldContain("comp_ab.Namespace LIKE :Namespace_comp_ab)");
+        builderContext.CurrentQueryFilterParameterValueByName.ContainsKey("Namespace").ShouldBeFalse();
+        builderContext.CurrentQueryFilterParameterValueByName["Namespace_comp_ab"].ShouldBe("uri://ed-fi.org%");
+        specificationParameterValueByName["Namespace"].ShouldBe("uri://ed-fi.org/Assessment");
     }
 
     /*

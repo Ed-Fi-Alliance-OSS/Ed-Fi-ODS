@@ -325,7 +325,9 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 builderContext.From,
                 null,
                 null,
-                null,
+                // Shared so that the authorization parameters of the flattened member don't reuse the names of the
+                // containing query's specification parameters
+                builderContext.ParameterValueByName,
                 builderContext.CurrentAlias,
                 int.MinValue,
                 null,
@@ -540,16 +542,17 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             // in the case where we have an abstract reference, we add the discriminator to the query
             if (processorContext.ShouldIncludeResourceSubtype())
             {
-                string discriminatorDisplayName = processorContext.CurrentResourceClass.Name.ToCamelCase() + "Type";
+                string discriminatorFieldAlias = processorContext.CurrentResourceClass.Name.ToCamelCase() + "Type"
+                    + CompositeDefinitionHelper.PassThroughMarker;
 
                 builderContext.Select.AppendFormat(
-                    "{0}{1}.{2} as {3}__PassThrough",
+                    "{0}{1}.{2} as {3}",
                     CommaIfNeeded(builderContext.Select),
                     builderContext.CurrentAlias,
                     "Discriminator",
-                    discriminatorDisplayName);
+                    discriminatorFieldAlias);
 
-                RecordAuthorizationFlags(builderContext, discriminatorDisplayName + "__PassThrough", isIdentifying: false);
+                RecordAuthorizationFlags(builderContext, discriminatorFieldAlias, isIdentifying: false);
             }
 
             propertyProjections

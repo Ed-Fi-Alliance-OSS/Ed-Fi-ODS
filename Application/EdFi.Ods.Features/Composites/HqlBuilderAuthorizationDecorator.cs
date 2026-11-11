@@ -279,6 +279,7 @@ namespace EdFi.Ods.Features.Composites
                     authorizationFiltering,
                     builderContext.CurrentAlias,
                     builderContext.CurrentQueryFilterParameterValueByName,
+                    builderContext.ParameterValueByName,
                     out string predicate))
             {
                 return;
@@ -287,7 +288,7 @@ namespace EdFi.Ods.Features.Composites
             string flagAlias = $"{CompositeDefinitionHelper.Marker}Auth_{builderContext.CurrentAlias}";
 
             builderContext.Select.Append(
-                $"{(builderContext.Select.Length > 0 ? $",{Environment.NewLine}\t" : string.Empty)}case when ({predicate}) then 1 else 0 end as {flagAlias}");
+                $"{CommaIfNeeded(builderContext.Select)}case when ({predicate}) then 1 else 0 end as {flagAlias}");
 
             builderContext.AuthorizationFlagAlias = flagAlias;
         }
@@ -366,6 +367,7 @@ namespace EdFi.Ods.Features.Composites
                     builderContext.CurrentQueryAuthorizationFiltering,
                     builderContext.CurrentAlias,
                     builderContext.CurrentQueryFilterParameterValueByName,
+                    builderContext.ParameterValueByName,
                     out string predicate))
             {
                 builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{predicate}");
@@ -405,6 +407,7 @@ namespace EdFi.Ods.Features.Composites
                         containingReferenceAuthorization.Filtering,
                         containingReferenceAuthorization.Alias,
                         builderContext.CurrentQueryFilterParameterValueByName,
+                        builderContext.ParameterValueByName,
                         out string predicate))
                 {
                     builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{predicate}");
@@ -421,12 +424,15 @@ namespace EdFi.Ods.Features.Composites
         /// <param name="parameterValueByName">The parameter values of the query that will contain the predicate. A parameter
         /// value already present in the query is reused if it's equal, and a distinct parameter name is used if it's not
         /// (several resources can be authorized in the same query, and the query string criteria also use named parameters).</param>
+        /// <param name="specificationParameterValueByName">The values of the composite specification's parameters (e.g. from the
+        /// route), which are bound to the query separately, so their names are never used for the predicate's parameters.</param>
         /// <param name="predicate">The HQL predicate, if any filters were applied.</param>
         /// <returns><b>true</b> if any filters were applied; otherwise <b>false</b>.</returns>
         private bool TryBuildAuthorizationPredicate(
             IReadOnlyList<AuthorizationStrategyFiltering> authorizationFiltering,
             string currentAlias,
             IDictionary<string, object> parameterValueByName,
+            IDictionary<string, object> specificationParameterValueByName,
             out string predicate)
         {
             predicate = null;
@@ -628,8 +634,7 @@ namespace EdFi.Ods.Features.Composites
 
             string SetParameterValue(string filterHql, string parameterName, object parameterValue)
             {
-                if (!parameterValueByName.TryGetValue(parameterName, out object existingValue)
-                    || ParameterValuesAreEqual(existingValue, parameterValue))
+                if (CanUseParameterName(parameterName, parameterValue))
                 {
                     parameterValueByName[parameterName] = parameterValue;
 
@@ -639,8 +644,7 @@ namespace EdFi.Ods.Features.Composites
                 // The query already uses the parameter name with a different value, so use a distinct name
                 string distinctParameterName = $"{parameterName}_{currentAlias}";
 
-                for (int i = 2; parameterValueByName.TryGetValue(distinctParameterName, out existingValue)
-                         && !ParameterValuesAreEqual(existingValue, parameterValue); i++)
+                for (int i = 2; !CanUseParameterName(distinctParameterName, parameterValue); i++)
                 {
                     distinctParameterName = $"{parameterName}_{currentAlias}_{i}";
                 }
@@ -651,6 +655,18 @@ namespace EdFi.Ods.Features.Composites
                     filterHql,
                     $@":{Regex.Escape(parameterName)}(?!\w)",
                     $":{distinctParameterName}");
+            }
+
+            bool CanUseParameterName(string parameterName, object parameterValue)
+            {
+                // Specification parameters are bound to the query separately, and would be overwritten
+                if (specificationParameterValueByName?.ContainsKey(parameterName) == true)
+                {
+                    return false;
+                }
+
+                return !parameterValueByName.TryGetValue(parameterName, out object existingValue)
+                    || ParameterValuesAreEqual(existingValue, parameterValue);
             }
         }
 
@@ -711,6 +727,13 @@ namespace EdFi.Ods.Features.Composites
         {
             return where.Length > 0
                 ? " OR "
+                : string.Empty;
+        }
+
+        private static string CommaIfNeeded(StringBuilder select)
+        {
+            return select.Length > 0
+                ? $",{Environment.NewLine}\t"
                 : string.Empty;
         }
     }
