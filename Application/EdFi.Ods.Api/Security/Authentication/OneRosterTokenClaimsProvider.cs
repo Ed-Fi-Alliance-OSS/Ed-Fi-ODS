@@ -41,6 +41,11 @@ public class OneRosterTokenClaimsProvider(
     IUsersContextFactory _usersContextFactory,
     IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider) : IOneRosterTokenClaimsProvider
 {
+    /// <summary>
+    /// The JWT claim that holds the identifier of the tenant that issued the token (multi-tenant deployments only).
+    /// </summary>
+    public const string TenantIdClaimType = "tenantId";
+
     public OneRosterTokenClaimsResult CreateClaims(ApiClientDetails apiClientDetails, AccessToken token, string scope)
     {
         List<Claim> claims = [new(JwtRegisteredClaimNames.Jti, token.Id)];
@@ -56,7 +61,7 @@ public class OneRosterTokenClaimsProvider(
 
             if (tenantConfig != null)
             {
-                claims.Add(new Claim("tenantId", tenantConfig.TenantIdentifier));
+                claims.Add(new Claim(TenantIdClaimType, tenantConfig.TenantIdentifier));
             }
         }
 

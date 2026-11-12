@@ -7,15 +7,20 @@ using System;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Security.Authentication;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Context;
 using log4net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 namespace EdFi.Ods.Api.Middleware;
 
 /// <summary>
 /// Makes JWT authentication fail with the same messages as GUID token authentication
-/// (see <see cref="EdFiOAuthAuthenticationHandler" />), instead of the default JWT bearer handler results.
+/// (see <see cref="EdFiOAuthAuthenticationHandler" />), instead of the default JWT bearer handler results,
+/// and rejects a JWT issued by one tenant when it is used with another tenant.
 /// </summary>
 public class EdFiJwtBearerEvents : JwtBearerEvents
 {
@@ -60,6 +65,36 @@ public class EdFiJwtBearerEvents : JwtBearerEvents
         context.Fail(AuthenticationFailureMessages.InvalidToken);
 
         return base.AuthenticationFailed(context);
+    }
+
+    public override Task TokenValidated(TokenValidatedContext context)
+    {
+        var tokenTenantIdentifier = context.Principal?.FindFirst(OneRosterTokenClaimsProvider.TenantIdClaimType)?.Value;
+
+        // Tokens without a tenant claim (e.g. single-tenant deployments) are left to the token lookup
+        if (string.IsNullOrEmpty(tokenTenantIdentifier))
+        {
+            return base.TokenValidated(context);
+        }
+
+        var requestTenantIdentifier = context.HttpContext.RequestServices
+            ?.GetService<IContextProvider<TenantConfiguration>>()
+            ?.Get()
+            ?.TenantIdentifier;
+
+        // Without a tenant in context (single-tenant), the token lookup by jti still decides whether the token is valid
+        if (requestTenantIdentifier != null && !tokenTenantIdentifier.EqualsIgnoreCase(requestTenantIdentifier))
+        {
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug(
+                    $"JWT validation failed because the token was issued for tenant '{tokenTenantIdentifier}' and the request is for tenant '{requestTenantIdentifier}'.");
+            }
+
+            context.Fail(AuthenticationFailureMessages.InvalidToken);
+        }
+
+        return base.TokenValidated(context);
     }
 
     private static bool IsConfigurationFailure(Exception exception)
