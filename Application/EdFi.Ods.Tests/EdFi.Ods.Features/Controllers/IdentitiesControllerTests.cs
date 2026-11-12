@@ -7,6 +7,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Features.Controllers;
 using EdFi.Ods.Features.IdentityManagement.Models;
 using EdFi.Ods.Tests.EdFi.Ods.Features.Helpers;
@@ -14,6 +16,7 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
@@ -787,6 +790,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => json.ShouldNotContain("internal-sql-01"),
                     () => json.ShouldNotContain("StackTrace"),
                     () => json.ShouldNotContain("InnerException"));
+            }
+
+            [TestCaseSource(nameof(ActionNames))]
+            public async Task Should_return_the_correlation_id(string actionName)
+            {
+                var logContextAccessor = A.Fake<ILogContextAccessor>();
+                A.CallTo(() => logContextAccessor.GetValue(CorrelationConstants.LogContextKey)).Returns("ods-6873-correlation-id");
+
+                var controller = BuildController();
+                controller.ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        RequestServices = new ServiceCollection().AddSingleton(logContextAccessor).BuildServiceProvider()
+                    }
+                };
+
+                var actionResult = (ObjectResult) await _actions.Single(a => a.Action == actionName).Invoke(controller);
+
+                AssertHelper.All(
+                    () => actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
+                    () => ((ErrorResponse) actionResult.Value)!.CorrelationId.ShouldBe("ods-6873-correlation-id"));
             }
 
             private static TestIdentitiesController BuildController()
