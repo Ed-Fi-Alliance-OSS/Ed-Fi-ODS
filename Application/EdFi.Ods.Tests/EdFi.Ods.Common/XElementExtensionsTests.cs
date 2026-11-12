@@ -45,7 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         public void And_Element_Is_Parsable_As_Decimal_Should_Return_Value()
         {
             var reals = @"<root><reals>10.3</reals></root>";
-            var expected = (decimal) 10.3;
+            var expected = 10.3m;
 
             XElement.Parse(reals)
                 .DecimalValueOf("reals")
@@ -60,7 +60,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         public void And_Element_has_Value_Should_Return_Value()
         {
             var valuable = @"<root><valuable>100.4</valuable></root>";
-            var expected = (decimal?) 100.4;
+            decimal? expected = 100.4m;
 
             XElement.Parse(valuable)
                 .NullableDecimalValueOf("valuable")
