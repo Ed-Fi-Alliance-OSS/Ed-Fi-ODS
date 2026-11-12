@@ -57,7 +57,8 @@ namespace EdFi.Ods.Common.Configuration
         /// requests from any origin are allowed.
         /// </summary>
         public List<string> CorsAllowedOrigins { get; set; } = new();
-        
+
+        /// <summary>
         /// IP addresses of the reverse proxies whose X-Forwarded-* headers are trusted when
         /// <see cref="UseReverseProxyHeaders"/> is enabled. When neither this nor <see cref="KnownNetworks"/>
         /// is set, the headers are accepted from any client.

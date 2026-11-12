@@ -140,4 +140,22 @@ public class CorsOptionsConfiguratorTests
         new CorsOptionsConfigurator(new ApiSettings { CorsAllowedOrigins = new List<string> { "https://swagger.example.org" } })
             .AllowsAnyOrigin.ShouldBeFalse();
     }
+
+    [Test]
+    public void AllowedOrigins_should_return_the_normalized_origins()
+    {
+        var configurator = new CorsOptionsConfigurator(
+            new ApiSettings
+            {
+                CorsAllowedOrigins = new List<string> { " https://swagger.example.org:443/ ", "http://localhost:5000", "" }
+            });
+
+        configurator.AllowedOrigins.ShouldBe(new[] { "https://swagger.example.org", "http://localhost:5000" });
+    }
+
+    [Test]
+    public void AllowedOrigins_should_be_empty_when_no_origins_are_configured()
+    {
+        new CorsOptionsConfigurator(new ApiSettings()).AllowedOrigins.ShouldBeEmpty();
+    }
 }

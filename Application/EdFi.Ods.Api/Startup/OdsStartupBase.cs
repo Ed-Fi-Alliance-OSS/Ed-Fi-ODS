@@ -186,6 +186,11 @@ namespace EdFi.Ods.Api.Startup
                 _logger.Warn(
                     $"Cross-origin requests are allowed from any origin. Set ApiSettings:{nameof(ApiSettings.CorsAllowedOrigins)} to restrict them to known origins.");
             }
+            else
+            {
+                _logger.Info(
+                    $"Cross-origin requests are allowed from: {string.Join(", ", corsOptionsConfigurator.AllowedOrigins)}");
+            }
 
             services.AddCors();
             services.AddSingleton<IConfigureOptions<CorsOptions>>(corsOptionsConfigurator);

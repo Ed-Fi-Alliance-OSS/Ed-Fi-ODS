@@ -33,7 +33,12 @@ public class CorsOptionsConfigurator : IConfigureOptions<CorsOptions>
     /// <summary>
     /// Indicates whether the API accepts cross-origin requests from any origin (no allowed origins configured).
     /// </summary>
-    public bool AllowsAnyOrigin => GetAllowedOrigins().Length == 0;
+    public bool AllowsAnyOrigin => AllowedOrigins.Length == 0;
+
+    /// <summary>
+    /// Gets the normalized origins allowed to make cross-origin requests (empty when any origin is allowed).
+    /// </summary>
+    public string[] AllowedOrigins => GetAllowedOrigins();
 
     public void Configure(CorsOptions options)
     {
