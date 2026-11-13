@@ -12,8 +12,27 @@ select distinct
 	comp_aad.Namespace as educationalEnvironmentDescriptor__Namespace,
 	comp_aad.CodeValue as educationalEnvironmentDescriptor,
 	comp_aaa.AvailableCredits as availableCredits,
+	case when (( (comp_aae.SchoolId IN (
+                    SELECT fltr_aal.TargetEducationOrganizationId 
+                    FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
+                    WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))) then 1 else 0 end as __Auth_comp_aae,
+	case when (( (comp_aaf.EducationOrganizationId IN (
+                    SELECT fltr_aaf.TargetEducationOrganizationId 
+                    FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aaf 
+                    WHERE fltr_aaf.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) OR  (comp_aaf.EducationOrganizationId IN (
+                    SELECT fltr_aap.SourceEducationOrganizationId 
+                    FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aap 
+                    WHERE fltr_aap.TargetEducationOrganizationId IN (:ClaimEducationOrganizationIds))))) then 1 else 0 end as __Auth_comp_aaf,
 	comp_aag.Namespace as maximumAvailableCreditTypeDescriptor__Namespace,
 	comp_aag.CodeValue as maximumAvailableCreditTypeDescriptor,
+	case when (( (comp_aah.SchoolId IN (
+                    SELECT fltr_aal.TargetEducationOrganizationId 
+                    FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
+                    WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))) then 1 else 0 end as __Auth_comp_aah,
+	case when (( (comp_aai.SchoolId IN (
+                    SELECT fltr_aal.TargetEducationOrganizationId 
+                    FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
+                    WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))) then 1 else 0 end as __Auth_comp_aai,
 	comp_aai.LocalCourseCode as localCourseCode,
 	comp_aai.LocalCourseTitle as localCourseTitle
 from 
@@ -65,6 +84,10 @@ select
 	comp_aaa.SessionName as PK1a_SessionName,
 	comp_aak.BeginDate as PK2b_BeginDate,
 	comp_aak.StaffUSI as PK2b_StaffUSI,
+	case when (( (comp_aal.StaffUSI IN (
+                    SELECT fltr_aab.StaffUSI 
+                    FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aab 
+                    WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))) then 1 else 0 end as __Auth_comp_aal,
 	comp_aal.Id as id,
 	comp_aal.StaffUniqueId as staffUniqueId
 from 
@@ -97,6 +120,10 @@ select
 	comp_aan.StudentUSI as PK2c_StudentUSI,
 	comp_aan.BeginDate as enrollmentBeginDate,
 	comp_aan.EndDate as enrollmentEndDate,
+	case when (( (comp_aao.StudentUSI IN (
+                    SELECT fltr_aac.StudentUSI 
+                    FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aac 
+                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))) then 1 else 0 end as __Auth_comp_aao,
 	comp_aao.Id as id,
 	comp_aao.StudentUniqueId as studentUniqueId
 from 

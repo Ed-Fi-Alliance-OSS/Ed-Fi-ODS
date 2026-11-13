@@ -4,9 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using EdFi.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
@@ -59,6 +61,13 @@ namespace EdFi.Ods.Features.Composites
                     $"Unable to evaluate resource '{resourceClass.FullName}' for inclusion in HQL query because it is not the root class of the resource.");
             }
 
+            // A resource that is not flattened is authorized on its own, so the rows of its members are not subject to the
+            // authorization of any flattened references that contain it
+            if (!builderContext.IsFlattenedReferenceChildContext)
+            {
+                builderContext.ContainingReferenceAuthorizations = Array.Empty<ContainingReferenceAuthorizationFiltering>();
+            }
+
             // --------------------------
             //   Determine inclusion
             // --------------------------
@@ -71,6 +80,15 @@ namespace EdFi.Ods.Features.Composites
                     Logger.DebugFormat(
                         "Resource is abstract and so target resource '{0}' cannot be authorized. Join will be included, but non-identifying resource members should be stripped from results.",
                         processorContext.CurrentResourceClass.Name);
+
+                    // The members of a flattened reference to an abstract resource (e.g. its collections) cannot be authorized
+                    // either, so no rows are returned for them
+                    if (builderContext.IsFlattenedReferenceChildContext)
+                    {
+                        builderContext.ContainingReferenceAuthorizations = builderContext.ContainingReferenceAuthorizations
+                            .Append(new ContainingReferenceAuthorizationFiltering(null, builderContext.ParentAlias))
+                            .ToArray();
+                    }
 
                     return true;
                 }
@@ -119,6 +137,17 @@ namespace EdFi.Ods.Features.Composites
             // Save the filters to be applied to this query for use later in the process
             builderContext.CurrentQueryAuthorizationFiltering = authorizationPlan.Filtering;
 
+            // The child queries for the members of a flattened reference (e.g. its collections) must be authorized
+            // against the referenced resource
+            if (builderContext.IsFlattenedReferenceChildContext)
+            {
+                // The referenced resource's alias is the parent alias of the context used to process the reference's
+                // children (see CreateFlattenedReferenceChildContext)
+                builderContext.ContainingReferenceAuthorizations = builderContext.ContainingReferenceAuthorizations
+                    .Append(new ContainingReferenceAuthorizationFiltering(authorizationPlan.Filtering, builderContext.ParentAlias))
+                    .ToArray();
+            }
+
             return true;
         }
 
@@ -152,6 +181,7 @@ namespace EdFi.Ods.Features.Composites
             CompositeDefinitionProcessorContext processorContext)
         {
             ApplyFilters(processorContext, builderContext);
+            ApplyContainingReferenceFilters(processorContext, builderContext);
 
             return _next.BuildForChildResource(parentResult, builderContext, processorContext);
         }
@@ -211,6 +241,56 @@ namespace EdFi.Ods.Features.Composites
         public void ApplyFlattenedMember(ResourceMemberBase member, HqlBuilderContext builderContext)
         {
             _next.ApplyFlattenedMember(member, builderContext);
+
+            // Only contexts created for projecting a flattened member's properties carry that member's authorization
+            // filtering. Flattened members are also applied to the contexts of child queries (before the member is
+            // authorized) just to join to the members they contain, and no properties are projected there.
+            if (!builderContext.IsFlattenedMemberContext)
+            {
+                return;
+            }
+
+            // Embedded objects are part of the containing resource (any filtering present on the context was established
+            // for the containing resource, not for the embedded object's alias).
+            if (member is EmbeddedObject)
+            {
+                return;
+            }
+
+            ApplyFlattenedReferenceAuthorizationFlag(builderContext);
+        }
+
+        /// <summary>
+        /// Projects a hidden column indicating whether the API client is authorized to read the resource referenced by a
+        /// flattened reference, so that the reference's values can be removed from the response when it is not.
+        /// </summary>
+        /// <remarks>The containing rows are not filtered here because the flattened values are an optional part of
+        /// the containing resource's representation.</remarks>
+        private void ApplyFlattenedReferenceAuthorizationFlag(HqlBuilderContext builderContext)
+        {
+            var authorizationFiltering = builderContext.CurrentQueryAuthorizationFiltering;
+
+            if (authorizationFiltering == null || !authorizationFiltering.SelectMany(f => f.Filters).Any())
+            {
+                return;
+            }
+
+            if (!TryBuildAuthorizationPredicate(
+                    authorizationFiltering,
+                    builderContext.CurrentAlias,
+                    builderContext.CurrentQueryFilterParameterValueByName,
+                    builderContext.ParameterValueByName,
+                    out string predicate))
+            {
+                return;
+            }
+
+            string flagAlias = $"{CompositeDefinitionHelper.Marker}Auth_{builderContext.CurrentAlias}";
+
+            builderContext.Select.Append(
+                $"{CommaIfNeeded(builderContext.Select)}case when ({predicate}) then 1 else 0 end as {flagAlias}");
+
+            builderContext.AuthorizationFlagAlias = flagAlias;
         }
 
         /// <summary>
@@ -282,8 +362,80 @@ namespace EdFi.Ods.Features.Composites
             {
                 return;
             }
-            
-            var authorizationFiltering = builderContext.CurrentQueryAuthorizationFiltering;
+
+            if (TryBuildAuthorizationPredicate(
+                    builderContext.CurrentQueryAuthorizationFiltering,
+                    builderContext.CurrentAlias,
+                    builderContext.CurrentQueryFilterParameterValueByName,
+                    builderContext.ParameterValueByName,
+                    out string predicate))
+            {
+                builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{predicate}");
+            }
+        }
+
+        /// <summary>
+        /// Applies the authorization filters of the flattened references containing the member to the member's child query,
+        /// so that the rows of the members of a referenced resource (e.g. its collections) are only returned when the API
+        /// client is authorized to read the referenced resource.
+        /// </summary>
+        private void ApplyContainingReferenceFilters(
+            CompositeDefinitionProcessorContext processorContext,
+            HqlBuilderContext builderContext)
+        {
+            // Resources are authorized on their own (see TryIncludeResource and ApplyFilters)
+            if (processorContext.CurrentResourceClass is Resource)
+            {
+                return;
+            }
+
+            foreach (var containingReferenceAuthorization in builderContext.ContainingReferenceAuthorizations)
+            {
+                // The referenced resource is abstract, and cannot be authorized
+                if (containingReferenceAuthorization.Filtering == null)
+                {
+                    Logger.DebugFormat(
+                        "No rows will be returned for '{0}' because it is a member of a flattened reference to an abstract resource, which cannot be authorized.",
+                        processorContext.CurrentResourceClass.Name);
+
+                    builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}1 = 0");
+
+                    continue;
+                }
+
+                if (TryBuildAuthorizationPredicate(
+                        containingReferenceAuthorization.Filtering,
+                        containingReferenceAuthorization.Alias,
+                        builderContext.CurrentQueryFilterParameterValueByName,
+                        builderContext.ParameterValueByName,
+                        out string predicate))
+                {
+                    builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{predicate}");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Builds the HQL predicate that combines the authorization filters of the supplied authorization strategies,
+        /// and captures the values of the named parameters used by the predicate.
+        /// </summary>
+        /// <param name="authorizationFiltering">The filtering of the authorization strategies to be combined.</param>
+        /// <param name="currentAlias">The alias of the entity in the HQL query to which the filters apply.</param>
+        /// <param name="parameterValueByName">The parameter values of the query that will contain the predicate. A parameter
+        /// value already present in the query is reused if it's equal, and a distinct parameter name is used if it's not
+        /// (several resources can be authorized in the same query, and the query string criteria also use named parameters).</param>
+        /// <param name="specificationParameterValueByName">The values of the composite specification's parameters (e.g. from the
+        /// route), which are bound to the query separately, so their names are never used for the predicate's parameters.</param>
+        /// <param name="predicate">The HQL predicate, if any filters were applied.</param>
+        /// <returns><b>true</b> if any filters were applied; otherwise <b>false</b>.</returns>
+        private bool TryBuildAuthorizationPredicate(
+            IReadOnlyList<AuthorizationStrategyFiltering> authorizationFiltering,
+            string currentAlias,
+            IDictionary<string, object> parameterValueByName,
+            IDictionary<string, object> specificationParameterValueByName,
+            out string predicate)
+        {
+            predicate = null;
 
             // Create the "AND" junction
             var mainConjunction = new StringBuilder();
@@ -303,9 +455,9 @@ namespace EdFi.Ods.Features.Composites
             bool conjunctionFiltersWereApplied = ApplyAuthorizationStrategiesCombinedWithAndLogic();
             bool disjunctionFiltersWereApplied = ApplyAuthorizationStrategiesCombinedWithOrLogic();
 
-            ApplyJunctionsToHqlQuery();
+            predicate = CombineJunctions();
 
-            return;
+            return predicate != null;
 
             HashSet<string> GetUnsupportedAuthorizationFilters()
             {
@@ -405,27 +557,39 @@ namespace EdFi.Ods.Features.Composites
                     if (!string.IsNullOrWhiteSpace(filterHqlFormat))
                     {
                         // Set the current alias for the contextual fields
-                        string filterHql = string.Format(filterHqlFormat, builderContext.CurrentAlias, filterContext.SubjectEndpointName);
-
-                        // Add HQL to the current resource query's WHERE clause
-                        conjunction.Append($"{AndIfNeeded(conjunction)}({filterHql})");
+                        string filterHql = string.Format(filterHqlFormat, currentAlias, filterContext.SubjectEndpointName);
 
                         string parameterName = filterContext.ClaimParameterName;
 
                         // Copy over the values of the named parameters, but only if they are actually present in the filter
                         if (filterHql.Contains($":{parameterName}"))
                         {
-                            if (filterContext.ClaimParameterValues.Length == 1)
+                            var claimParameterValues = filterContext.ClaimParameterValues;
+
+                            if (claimParameterValues.Length > 1
+                                && TryExpandLikeComparison(filterHql, parameterName, claimParameterValues.Length, out string expandedFilterHql))
                             {
-                                builderContext.CurrentQueryFilterParameterValueByName[parameterName] =
-                                    filterContext.ClaimParameterValues.Single();
+                                // LIKE compares with a single value (e.g. a client with several namespace prefixes), so
+                                // compare with each value separately
+                                filterHql = expandedFilterHql;
+
+                                for (int i = 0; i < claimParameterValues.Length; i++)
+                                {
+                                    filterHql = SetParameterValue(filterHql, $"{parameterName}_{i + 1}", claimParameterValues[i]);
+                                }
                             }
                             else
                             {
-                                builderContext.CurrentQueryFilterParameterValueByName[parameterName] =
-                                    filterContext.ClaimParameterValues;
+                                object parameterValue = claimParameterValues.Length == 1
+                                    ? claimParameterValues.Single()
+                                    : claimParameterValues;
+
+                                filterHql = SetParameterValue(filterHql, parameterName, parameterValue);
                             }
                         }
+
+                        // Add HQL to the predicate
+                        conjunction.Append($"{AndIfNeeded(conjunction)}({filterHql})");
                     }
                     else
                     {
@@ -443,32 +607,113 @@ namespace EdFi.Ods.Features.Composites
                 return filtersApplied;
             }
 
-            void ApplyJunctionsToHqlQuery()
+            string CombineJunctions()
             {
                 if (disjunctionFiltersWereApplied)
                 {
                     if (conjunctionFiltersWereApplied)
                     {
-                        // mainConjunction.Add(mainDisjunction);
-
                         // Apply grouped disjunction (OR criteria) to the conjunction (AND criteria) containing other strategies combined using AND
                         mainConjunction.Append($"{AndIfNeeded(mainConjunction)}({mainDisjunction})");
 
-                        builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{mainConjunction}");
+                        return mainConjunction.ToString();
                     }
-                    else
-                    {
-                        // Apply grouped disjunction (OR criteria) to the top-level WHERE clause (using AND if needed)
-                        builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}({mainDisjunction})");
-                    }
+
+                    // Grouped disjunction (OR criteria)
+                    return $"({mainDisjunction})";
                 }
+
                 // When only conjunction filters were applied (AND)
-                else if (conjunctionFiltersWereApplied)
+                if (conjunctionFiltersWereApplied)
                 {
-                    // Add all the filters to the top level
-                    builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{mainConjunction}");
+                    return mainConjunction.ToString();
                 }
+
+                return null;
             }
+
+            string SetParameterValue(string filterHql, string parameterName, object parameterValue)
+            {
+                if (CanUseParameterName(parameterName, parameterValue))
+                {
+                    parameterValueByName[parameterName] = parameterValue;
+
+                    return filterHql;
+                }
+
+                // The query already uses the parameter name with a different value, so use a distinct name
+                string distinctParameterName = $"{parameterName}_{currentAlias}";
+
+                for (int i = 2; !CanUseParameterName(distinctParameterName, parameterValue); i++)
+                {
+                    distinctParameterName = $"{parameterName}_{currentAlias}_{i}";
+                }
+
+                parameterValueByName[distinctParameterName] = parameterValue;
+
+                return Regex.Replace(
+                    filterHql,
+                    $@":{Regex.Escape(parameterName)}(?!\w)",
+                    $":{distinctParameterName}");
+            }
+
+            bool CanUseParameterName(string parameterName, object parameterValue)
+            {
+                // Specification parameters are bound to the query separately, and would be overwritten
+                if (specificationParameterValueByName?.ContainsKey(parameterName) == true)
+                {
+                    return false;
+                }
+
+                return !parameterValueByName.TryGetValue(parameterName, out object existingValue)
+                    || ParameterValuesAreEqual(existingValue, parameterValue);
+            }
+        }
+
+        /// <summary>
+        /// Rewrites the LIKE comparisons with a named parameter (e.g. <c>x.Namespace LIKE :Namespace</c>) as one comparison
+        /// per value, combined with OR, using parameters named <c>{parameterName}_1</c> to <c>{parameterName}_{valueCount}</c>.
+        /// </summary>
+        /// <returns><b>true</b> if the filter only uses the parameter in LIKE comparisons and was rewritten; otherwise
+        /// <b>false</b>.</returns>
+        private static bool TryExpandLikeComparison(
+            string filterHql,
+            string parameterName,
+            int valueCount,
+            out string expandedFilterHql)
+        {
+            var likeComparison = new Regex(
+                $@"(?<operand>[\w.]+)\s+LIKE\s+:{Regex.Escape(parameterName)}(?!\w)",
+                RegexOptions.IgnoreCase);
+
+            expandedFilterHql = likeComparison.Replace(
+                filterHql,
+                m => "("
+                    + string.Join(
+                        " OR ",
+                        Enumerable.Range(1, valueCount).Select(i => $"{m.Groups["operand"].Value} LIKE :{parameterName}_{i}"))
+                    + ")");
+
+            // Only use the rewritten filter if no other usages of the parameter remain
+            if (expandedFilterHql == filterHql
+                || Regex.IsMatch(expandedFilterHql, $@":{Regex.Escape(parameterName)}(?!\w)"))
+            {
+                expandedFilterHql = null;
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool ParameterValuesAreEqual(object value1, object value2)
+        {
+            if (value1 is not string && value1 is IEnumerable values1
+                && value2 is not string && value2 is IEnumerable values2)
+            {
+                return values1.Cast<object>().SequenceEqual(values2.Cast<object>());
+            }
+
+            return Equals(value1, value2);
         }
 
         private static string AndIfNeeded(StringBuilder where)
@@ -482,6 +727,13 @@ namespace EdFi.Ods.Features.Composites
         {
             return where.Length > 0
                 ? " OR "
+                : string.Empty;
+        }
+
+        private static string CommaIfNeeded(StringBuilder select)
+        {
+            return select.Length > 0
+                ? $",{Environment.NewLine}\t"
                 : string.Empty;
         }
     }
