@@ -33,7 +33,6 @@
     <PackageReference Include="Microsoft.OpenApi.Readers" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="JsonSubTypes" />
-    <PackageReference Include="Polly" />
     <PackageReference Include="RestSharp" />
     <PackageReference Include="Sandwych.QuickGraph.Core" />
   </ItemGroup>
