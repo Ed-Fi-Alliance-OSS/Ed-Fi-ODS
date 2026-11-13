@@ -10,10 +10,14 @@ using System.Security.Cryptography;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Api.Security.Authentication;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Context;
 using FakeItEasy;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -46,7 +50,10 @@ public class EdFiJwtBearerEventsTests
     }
 
     // Authenticates the header with the real JWT bearer handler, configured as the ODS/API does in JWT mode
-    private async Task<AuthenticateResult> AuthenticateAsync(string authorizationHeader)
+    private async Task<AuthenticateResult> AuthenticateAsync(
+        string authorizationHeader,
+        string requestTenantIdentifier = null,
+        bool registerTenantContextProvider = false)
     {
         var options = new JwtBearerOptions
         {
@@ -70,6 +77,22 @@ public class EdFiJwtBearerEventsTests
 
         var httpContext = new DefaultHttpContext();
 
+        // The tenant identification middleware sets the request's tenant before authentication (multi-tenant only)
+        if (requestTenantIdentifier != null || registerTenantContextProvider)
+        {
+            var tenantContextProvider = A.Fake<IContextProvider<TenantConfiguration>>();
+
+            A.CallTo(() => tenantContextProvider.Get())
+                .Returns(
+                    requestTenantIdentifier == null
+                        ? null
+                        : new TenantConfiguration { TenantIdentifier = requestTenantIdentifier });
+
+            httpContext.RequestServices = new ServiceCollection()
+                .AddSingleton(tenantContextProvider)
+                .BuildServiceProvider();
+        }
+
         if (authorizationHeader != null)
         {
             httpContext.Request.Headers.Authorization = authorizationHeader;
@@ -82,13 +105,20 @@ public class EdFiJwtBearerEventsTests
         return await handler.AuthenticateAsync();
     }
 
-    private string CreateJwt(RSA key, DateTime expires)
+    private string CreateJwt(RSA key, DateTime expires, string tokenTenantIdentifier = null)
     {
+        var subject = new ClaimsIdentity([new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N"))]);
+
+        if (tokenTenantIdentifier != null)
+        {
+            subject.AddClaim(new Claim(OneRosterTokenClaimsProvider.TenantIdClaimType, tokenTenantIdentifier));
+        }
+
         var descriptor = new SecurityTokenDescriptor
         {
             Issuer = Issuer,
             Audience = Audience,
-            Subject = new ClaimsIdentity([new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N"))]),
+            Subject = subject,
             NotBefore = expires.AddHours(-1),
             Expires = expires,
             SigningCredentials = new SigningCredentials(new RsaSecurityKey(key), SecurityAlgorithms.RsaSha256)
@@ -154,5 +184,58 @@ public class EdFiJwtBearerEventsTests
 
         result.Succeeded.ShouldBeTrue();
         result.Principal.HasClaim(c => c.Type == JwtRegisteredClaimNames.Jti).ShouldBeTrue();
+    }
+
+    [Test]
+    public async Task Should_fail_with_invalid_token_when_the_token_was_issued_for_another_tenant()
+    {
+        var token = CreateJwt(_signingKey, DateTime.UtcNow.AddMinutes(30), tokenTenantIdentifier: "TenantA");
+
+        var result = await AuthenticateAsync($"Bearer {token}", requestTenantIdentifier: "TenantB");
+
+        result.Succeeded.ShouldBeFalse();
+        (result.Failure?.Message).ShouldBe(AuthenticationFailureMessages.InvalidToken);
+    }
+
+    [Test]
+    public async Task Should_succeed_when_the_token_was_issued_for_the_requested_tenant_regardless_of_case()
+    {
+        var token = CreateJwt(_signingKey, DateTime.UtcNow.AddMinutes(30), tokenTenantIdentifier: "TenantA");
+
+        var result = await AuthenticateAsync($"Bearer {token}", requestTenantIdentifier: "tenanta");
+
+        result.Succeeded.ShouldBeTrue();
+    }
+
+    [Test]
+    public async Task Should_succeed_when_the_token_has_no_tenant_claim_in_a_multi_tenant_request()
+    {
+        // The token lookup by jti (in the requested tenant's Admin database) still applies to these tokens
+        var token = CreateJwt(_signingKey, DateTime.UtcNow.AddMinutes(30));
+
+        var result = await AuthenticateAsync($"Bearer {token}", requestTenantIdentifier: "TenantB");
+
+        result.Succeeded.ShouldBeTrue();
+    }
+
+    [Test]
+    public async Task Should_succeed_when_the_token_has_a_tenant_claim_in_a_single_tenant_request()
+    {
+        var token = CreateJwt(_signingKey, DateTime.UtcNow.AddMinutes(30), tokenTenantIdentifier: "TenantA");
+
+        var result = await AuthenticateAsync($"Bearer {token}");
+
+        result.Succeeded.ShouldBeTrue();
+    }
+
+    [Test]
+    public async Task Should_succeed_when_the_token_has_a_tenant_claim_and_no_tenant_is_set_for_the_request()
+    {
+        // The tenant context provider is always registered; it has no tenant when multi-tenancy is not in use
+        var token = CreateJwt(_signingKey, DateTime.UtcNow.AddMinutes(30), tokenTenantIdentifier: "TenantA");
+
+        var result = await AuthenticateAsync($"Bearer {token}", registerTenantContextProvider: true);
+
+        result.Succeeded.ShouldBeTrue();
     }
 }

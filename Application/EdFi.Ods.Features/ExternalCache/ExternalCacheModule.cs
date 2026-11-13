@@ -13,6 +13,7 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.ExternalCache.Redis;
 using EdFi.Ods.Features.Services.Redis;
@@ -84,9 +85,18 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public void OverrideApiClientDetailsCache(ContainerBuilder builder)
         {
-            builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
-                .As<IApiClientDetailsCacheKeyProvider>()
-                .SingleInstance();
+            if (IsFeatureEnabled(ApiFeature.MultiTenancy))
+            {
+                builder.RegisterType<MultiTenantApiClientDetailsCacheKeyProvider>()
+                    .As<IApiClientDetailsCacheKeyProvider>()
+                    .SingleInstance();
+            }
+            else
+            {
+                builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
+                    .As<IApiClientDetailsCacheKeyProvider>()
+                    .SingleInstance();
+            }
 
             builder.RegisterDecorator<IApiClientDetailsProvider>(
                 (context, parameters, instance) => GetCachingApiClientDetailsProviderDecorator(context, instance));
