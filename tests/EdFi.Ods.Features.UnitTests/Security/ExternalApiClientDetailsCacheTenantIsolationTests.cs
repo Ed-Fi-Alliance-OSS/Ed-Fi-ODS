@@ -73,6 +73,29 @@ public class ExternalApiClientDetailsCacheTenantIsolationTests
             .MustHaveHappenedTwiceExactly();
     }
 
+    [Test]
+    public async Task Token_cached_for_one_tenant_is_not_returned_for_another_tenant_when_MultiTenancyModule_is_registered_first()
+    {
+        // Arrange
+        var provider = CreateProvider(isMultiTenant: true, registerMultiTenancyModuleFirst: true);
+        var token = Guid.NewGuid();
+
+        // The token exists only in tenant A's Admin database
+        A.CallTo(() => _fakeRawProvider.GetRawClientDetailsDataAsync(token))
+            .ReturnsNextFromSequence(Rows(), Array.Empty<RawApiClientDetailsDataRow>());
+
+        // Act
+        _currentTenant = new TenantConfiguration { TenantIdentifier = TenantA };
+        var tenantADetails = await provider.GetApiClientDetailsForTokenAsync(token.ToString());
+
+        _currentTenant = new TenantConfiguration { TenantIdentifier = TenantB };
+        var tenantBDetails = await provider.GetApiClientDetailsForTokenAsync(token.ToString());
+
+        // Assert
+        tenantADetails.ShouldNotBeNull();
+        tenantBDetails.ShouldBeNull();
+    }
+
     [TestCase(false, TestName = "Token cached by the external cache is returned for the next request (single-tenant)")]
     [TestCase(true, TestName = "Token cached by the external cache is returned for the next request (multi-tenant)")]
     public async Task Token_cached_for_a_tenant_is_returned_for_the_same_tenant(bool isMultiTenant)
@@ -101,6 +124,34 @@ public class ExternalApiClientDetailsCacheTenantIsolationTests
 
         A.CallTo(() => _fakeRawProvider.GetRawClientDetailsDataAsync(token))
             .MustHaveHappenedOnceExactly();
+    }
+
+    [TestCase(false, TestName = "Different tokens in the same tenant are cached under different keys (single-tenant)")]
+    [TestCase(true, TestName = "Different tokens in the same tenant are cached under different keys (multi-tenant)")]
+    public async Task Different_tokens_in_the_same_tenant_are_cached_under_different_keys(bool isMultiTenant)
+    {
+        // Arrange
+        var provider = CreateProvider(isMultiTenant);
+        var firstToken = Guid.NewGuid();
+        var secondToken = Guid.NewGuid();
+
+        A.CallTo(() => _fakeRawProvider.GetRawClientDetailsDataAsync(firstToken))
+            .Returns(Rows("first-key"));
+
+        A.CallTo(() => _fakeRawProvider.GetRawClientDetailsDataAsync(secondToken))
+            .Returns(Rows("second-key"));
+
+        _currentTenant = new TenantConfiguration { TenantIdentifier = TenantA };
+
+        // Act
+        var firstDetails = await provider.GetApiClientDetailsForTokenAsync(firstToken.ToString());
+        var secondDetails = await provider.GetApiClientDetailsForTokenAsync(secondToken.ToString());
+
+        // Assert
+        firstDetails.ApiKey.ShouldBe("first-key");
+        secondDetails.ApiKey.ShouldBe("second-key");
+
+        _distributedCache.Keys.Count.ShouldBe(2);
     }
 
     [TestCase(false, TestName = "External cache key holds a hash of the token, not the token (single-tenant)")]
@@ -133,6 +184,26 @@ public class ExternalApiClientDetailsCacheTenantIsolationTests
         cacheKey.Substring(expectedPrefix.Length).ShouldMatch("^[0-9A-F]{64}$");
     }
 
+    [Test]
+    public void Cache_key_holds_the_upper_case_hexadecimal_SHA256_hash_of_the_token()
+    {
+        // Arrange
+        const string KnownTokenHash = "BA7816BF8F01CFEA414140DE5DAE2223B00361A396177A9CB410FF61F20015AD";
+
+        var fakeTenantContextProvider = A.Fake<IContextProvider<TenantConfiguration>>();
+
+        A.CallTo(() => fakeTenantContextProvider.Get())
+            .Returns(new TenantConfiguration { TenantIdentifier = TenantA });
+
+        // Act
+        var singleTenantKey = new ApiClientDetailsCacheKeyProvider().GetCacheKey("abc");
+        var multiTenantKey = new MultiTenantApiClientDetailsCacheKeyProvider(fakeTenantContextProvider).GetCacheKey("abc");
+
+        // Assert
+        singleTenantKey.ShouldBe($"ApiClientDetails.{KnownTokenHash}");
+        multiTenantKey.ShouldBe($"ApiClientDetails.{TenantA}.{KnownTokenHash}");
+    }
+
     [TestCase(false, null, TestName = "Multi-tenant cache key requires a tenant in context (no tenant configuration)")]
     [TestCase(true, null, TestName = "Multi-tenant cache key requires a tenant in context (null tenant identifier)")]
     [TestCase(true, "", TestName = "Multi-tenant cache key requires a tenant in context (empty tenant identifier)")]
@@ -151,7 +222,7 @@ public class ExternalApiClientDetailsCacheTenantIsolationTests
             () => cacheKeyProvider.GetCacheKey(Guid.NewGuid().ToString()));
     }
 
-    private IApiClientDetailsProvider CreateProvider(bool isMultiTenant)
+    private IApiClientDetailsProvider CreateProvider(bool isMultiTenant, bool registerMultiTenancyModuleFirst = false)
     {
         _fakeRawProvider = A.Fake<IEdFiAdminRawApiClientDetailsProvider>();
         _distributedCache = new InMemoryDistributedCache();
@@ -173,8 +244,17 @@ public class ExternalApiClientDetailsCacheTenantIsolationTests
 
         var builder = new ContainerBuilder();
 
-        builder.RegisterModule(new ApplicationModule(Options.Create(new SecuritySettings())));
-        builder.RegisterModule(new MultiTenancyModule(fakeFeatureManager));
+        if (registerMultiTenancyModuleFirst)
+        {
+            builder.RegisterModule(new MultiTenancyModule(fakeFeatureManager));
+            builder.RegisterModule(new ApplicationModule(Options.Create(new SecuritySettings())));
+        }
+        else
+        {
+            builder.RegisterModule(new ApplicationModule(Options.Create(new SecuritySettings())));
+            builder.RegisterModule(new MultiTenancyModule(fakeFeatureManager));
+        }
+
         builder.RegisterModule(new OverrideRedisExternalCacheModule(fakeFeatureManager, apiSettings));
 
         // Registered after the modules so that they replace Redis and the tenant context
@@ -189,14 +269,14 @@ public class ExternalApiClientDetailsCacheTenantIsolationTests
         return _container.Resolve<IApiClientDetailsProvider>();
     }
 
-    private static IReadOnlyList<RawApiClientDetailsDataRow> Rows()
+    private static IReadOnlyList<RawApiClientDetailsDataRow> Rows(string key = "the-key")
     {
         return
         [
             new RawApiClientDetailsDataRow
             {
                 ApiClientId = 1,
-                Key = "the-key",
+                Key = key,
                 Secret = "secret",
                 SecretIsHashed = false,
                 ClaimSetName = "SIS Vendor",

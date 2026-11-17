@@ -198,6 +198,17 @@ public class EdFiJwtBearerEventsTests
     }
 
     [Test]
+    public async Task Should_fail_with_invalid_token_when_the_request_tenant_is_empty()
+    {
+        var token = CreateJwt(_signingKey, DateTime.UtcNow.AddMinutes(30), tokenTenantIdentifier: "TenantA");
+
+        var result = await AuthenticateAsync($"Bearer {token}", requestTenantIdentifier: string.Empty);
+
+        result.Succeeded.ShouldBeFalse();
+        (result.Failure?.Message).ShouldBe(AuthenticationFailureMessages.InvalidToken);
+    }
+
+    [Test]
     public async Task Should_succeed_when_the_token_was_issued_for_the_requested_tenant_regardless_of_case()
     {
         var token = CreateJwt(_signingKey, DateTime.UtcNow.AddMinutes(30), tokenTenantIdentifier: "TenantA");
