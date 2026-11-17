@@ -10,9 +10,9 @@ using System.Security.Cryptography;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Middleware;
-using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Security;
 using FakeItEasy;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -111,7 +111,7 @@ public class EdFiJwtBearerEventsTests
 
         if (tokenTenantIdentifier != null)
         {
-            subject.AddClaim(new Claim(OneRosterTokenClaimsProvider.TenantIdClaimType, tokenTenantIdentifier));
+            subject.AddClaim(new Claim(EdFiOdsApiClaimTypes.TenantId, tokenTenantIdentifier));
         }
 
         var descriptor = new SecurityTokenDescriptor

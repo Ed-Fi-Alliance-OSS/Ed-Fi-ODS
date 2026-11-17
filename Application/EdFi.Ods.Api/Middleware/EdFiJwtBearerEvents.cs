@@ -7,9 +7,9 @@ using System;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Security;
 using log4net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
@@ -69,7 +69,7 @@ public class EdFiJwtBearerEvents : JwtBearerEvents
 
     public override Task TokenValidated(TokenValidatedContext context)
     {
-        var tokenTenantIdentifier = context.Principal?.FindFirst(OneRosterTokenClaimsProvider.TenantIdClaimType)?.Value;
+        var tokenTenantIdentifier = context.Principal?.FindFirst(EdFiOdsApiClaimTypes.TenantId)?.Value;
 
         // Tokens without a tenant claim (e.g. single-tenant deployments) are left to the token lookup
         if (string.IsNullOrEmpty(tokenTenantIdentifier))
@@ -85,11 +85,10 @@ public class EdFiJwtBearerEvents : JwtBearerEvents
         // Without a tenant in context (single-tenant), the token lookup by jti still decides whether the token is valid
         if (requestTenantIdentifier != null && !tokenTenantIdentifier.EqualsIgnoreCase(requestTenantIdentifier))
         {
-            if (_logger.IsDebugEnabled)
-            {
-                _logger.Debug(
-                    $"JWT validation failed because the token was issued for tenant '{tokenTenantIdentifier}' and the request is for tenant '{requestTenantIdentifier}'.");
-            }
+            // Logged at Info so that operators can see why clients get 401 (the token has a valid signature, so only
+            // clients holding a real token reach this point)
+            _logger.Info(
+                $"JWT validation failed because the token was issued for tenant '{tokenTenantIdentifier}' and the request is for tenant '{requestTenantIdentifier}'.");
 
             context.Fail(AuthenticationFailureMessages.InvalidToken);
         }
