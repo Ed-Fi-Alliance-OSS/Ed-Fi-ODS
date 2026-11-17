@@ -34,5 +34,11 @@ namespace EdFi.Ods.Common.Security
         /// The prefix for the claim types related to Ed-Fi ODS API service endpoints (as opposed to data management resources).
         /// </summary>
         public const string ServicesPrefix = @"http://ed-fi.org/ods/identity/claims/services/";
+
+        /// <summary>
+        /// The JWT claim that holds the identifier of the tenant that issued the token (multi-tenant deployments only).
+        /// Unlike the other claim types it is not a URI, because it is part of the issued token's format.
+        /// </summary>
+        public const string TenantId = "tenantId";
     }
 }
