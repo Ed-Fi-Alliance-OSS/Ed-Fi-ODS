@@ -423,6 +423,22 @@ namespace EdFi.Ods.Api.Startup
                 app.UseDeveloperExceptionPage();
             }
 
+            if (apiSettings.EnableSecurityHeaders)
+            {
+                app.UseSecurityHeaders();
+            }
+
+            // Registered after the reverse proxy headers, so that a request the proxy received over HTTPS is seen as HTTPS
+            if (apiSettings.EnableHsts)
+            {
+                app.UseHsts();
+            }
+
+            if (apiSettings.EnableHttpsRedirection)
+            {
+                app.UseHttpsRedirection();
+            }
+
             app.UseRouting();
             app.UseStaticFiles();
 

@@ -72,6 +72,24 @@ namespace EdFi.Ods.Common.Configuration
         /// </summary>
         public List<string> KnownNetworks { get; set; } = new();
 
+        /// <summary>
+        /// Adds the X-Content-Type-Options and X-Frame-Options headers to every response. Enabled by default.
+        /// </summary>
+        public bool EnableSecurityHeaders { get; set; } = true;
+
+        /// <summary>
+        /// Redirects HTTP requests to HTTPS. Disabled by default, because the API is usually hosted behind a reverse
+        /// proxy or IIS that already does this. Behind a reverse proxy, also enable <see cref="UseReverseProxyHeaders"/>.
+        /// </summary>
+        public bool EnableHttpsRedirection { get; set; }
+
+        /// <summary>
+        /// Adds the Strict-Transport-Security header to HTTPS responses. Disabled by default, because the API is
+        /// usually hosted behind a reverse proxy or IIS that already does this. Behind a reverse proxy, also enable
+        /// <see cref="UseReverseProxyHeaders"/>.
+        /// </summary>
+        public bool EnableHsts { get; set; }
+
         public string PathBase { get; set; }
 
         public string OdsContextRouteTemplate { get; set; }
