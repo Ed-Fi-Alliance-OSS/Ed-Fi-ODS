@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -788,7 +787,7 @@ public class HqlBuilderAuthorizationDecoratorTests
     }
 
     [Test]
-    public void TryIncludeResource_ForFlattenedReferenceToAbstractResource_PreventsRowsForTheReferencesMembers()
+    public void TryIncludeResource_ForFlattenedReferenceToAbstractResource_DoesNotFilterTheReferencesMembers()
     {
         // Arrange (e.g. <ReferencedResource name="EducationOrganizationReference" flatten="true" includeResourceSubtype="true">)
         var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
@@ -806,222 +805,10 @@ public class HqlBuilderAuthorizationDecoratorTests
         // Act
         var result = _decorator.TryIncludeResource(processorContext, builderContext);
 
-        // Assert
-        result.ShouldBeTrue();
-
-        builderContext.ContainingReferenceAuthorizations.Count.ShouldBe(1);
-        builderContext.ContainingReferenceAuthorizations[0].Filtering.ShouldBeNull();
-        builderContext.ContainingReferenceAuthorizations[0].Alias.ShouldBe("comp_ab");
-    }
-
-    [Test]
-    public void TryIncludeResource_ForFlattenedReferenceToAbstractResource_WhenAllSubtypesAreReadableWithoutFiltering_ReturnsRowsForTheReferencesMembers()
-    {
-        // Arrange
-        var educationOrganization = CreateEducationOrganizationResource();
-        var processorContext = CreateAbstractReferenceProcessorContext(educationOrganization);
-        var builderContext = CreateReferenceChildBuilderContext(isFlattened: true);
-
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(A<Resource>._, RequestActions.ReadActionUri))
-            .Returns(CreateAuthorizationPlan(hasFilters: false));
-
-        // Act
-        var result = _decorator.TryIncludeResource(processorContext, builderContext);
-
-        // Assert
-        result.ShouldBeTrue();
-        builderContext.ContainingReferenceAuthorizations.ShouldBeEmpty();
-
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(
-                A<Resource>.That.Matches(r => r.Name == "School"), RequestActions.ReadActionUri))
-            .MustHaveHappenedOnceExactly();
-
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(
-                A<Resource>.That.Matches(r => r.Name == "LocalEducationAgency"), RequestActions.ReadActionUri))
-            .MustHaveHappenedOnceExactly();
-
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(
-                A<Resource>.That.Matches(r => r.Name == "EducationOrganization"), A<string>._))
-            .MustNotHaveHappened();
-    }
-
-    [Test]
-    public void TryIncludeResource_ForFlattenedReferenceToAbstractResource_WhenASubtypeIsFiltered_PreventsRowsForTheReferencesMembers()
-    {
-        // Arrange
-        var educationOrganization = CreateEducationOrganizationResource();
-        var processorContext = CreateAbstractReferenceProcessorContext(educationOrganization);
-        var builderContext = CreateReferenceChildBuilderContext(isFlattened: true);
-
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(A<Resource>._, RequestActions.ReadActionUri))
-            .Returns(CreateAuthorizationPlan(hasFilters: false));
-
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(
-                A<Resource>.That.Matches(r => r.Name == "LocalEducationAgency"), RequestActions.ReadActionUri))
-            .Returns(CreateAuthorizationPlan(hasFilters: true));
-
-        // Act
-        var result = _decorator.TryIncludeResource(processorContext, builderContext);
-
-        // Assert
-        result.ShouldBeTrue();
-        builderContext.ContainingReferenceAuthorizations.Count.ShouldBe(1);
-        builderContext.ContainingReferenceAuthorizations[0].Filtering.ShouldBeNull();
-        builderContext.ContainingReferenceAuthorizations[0].Alias.ShouldBe("comp_ab");
-    }
-
-    [Test]
-    public void TryIncludeResource_ForFlattenedReferenceToAbstractResource_WhenASubtypeIsNotReadable_PreventsRowsForTheReferencesMembers()
-    {
-        // Arrange
-        var educationOrganization = CreateEducationOrganizationResource();
-        var processorContext = CreateAbstractReferenceProcessorContext(educationOrganization);
-        var builderContext = CreateReferenceChildBuilderContext(isFlattened: true);
-
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(A<Resource>._, RequestActions.ReadActionUri))
-            .Returns(CreateAuthorizationPlan(hasFilters: false));
-
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(
-                A<Resource>.That.Matches(r => r.Name == "School"), RequestActions.ReadActionUri))
-            .Throws(new SecurityAuthorizationException("detail", "error"));
-
-        // Act
-        var result = _decorator.TryIncludeResource(processorContext, builderContext);
-
-        // Assert
-        result.ShouldBeTrue();
-        builderContext.ContainingReferenceAuthorizations.Count.ShouldBe(1);
-        builderContext.ContainingReferenceAuthorizations[0].Filtering.ShouldBeNull();
-    }
-
-    [Test]
-    public void TryIncludeResource_ForNonFlattenedReferenceToAbstractResource_DoesNotCheckTheSubtypes()
-    {
-        // Arrange
-        var educationOrganization = CreateEducationOrganizationResource();
-        var processorContext = CreateAbstractReferenceProcessorContext(educationOrganization);
-        var builderContext = CreateReferenceChildBuilderContext(isFlattened: false);
-
-        // Act
-        var result = _decorator.TryIncludeResource(processorContext, builderContext);
-
-        // Assert
+        // Assert (the members of the reference, e.g. its collections, are returned as before)
         result.ShouldBeTrue();
         builderContext.ContainingReferenceAuthorizations.ShouldBeEmpty();
         A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(A<Resource>._, A<string>._)).MustNotHaveHappened();
-    }
-
-    private static CompositeDefinitionProcessorContext CreateAbstractReferenceProcessorContext(Resource resource)
-    {
-        // e.g. <ReferencedResource name="EducationOrganizationReference" flatten="true" includeResourceSubtype="true">
-        var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
-        A.CallTo(() => processorContext.CurrentResourceClass).Returns(resource);
-        A.CallTo(() => processorContext.IsAbstract()).Returns(true);
-        A.CallTo(() => processorContext.ShouldIncludeResourceSubtype()).Returns(true);
-
-        return processorContext;
-    }
-
-    private static HqlBuilderContext CreateReferenceChildBuilderContext(bool isFlattened)
-    {
-        return new HqlBuilderContext(
-            new StringBuilder(), new StringBuilder(), new StringBuilder(), new StringBuilder(),
-            null, "comp_ab", 1, null, null, null, new AliasGenerator("comp_"))
-        {
-            IsFlattenedReferenceChildContext = isFlattened
-        };
-    }
-
-    private static DataManagementAuthorizationPlan CreateAuthorizationPlan(bool hasFilters)
-    {
-        return new DataManagementAuthorizationPlan
-        {
-            Filtering =
-            [
-                new AuthorizationStrategyFiltering
-                {
-                    AuthorizationStrategyName = hasFilters ? "RelationshipsWithEdOrgsOnly" : "NoFurtherAuthorizationRequired",
-                    Filters = hasFilters
-                        ? [new AuthorizationFilterContext { FilterName = "EducationOrganizationIdToEducationOrganizationId" }]
-                        : []
-                }
-            ]
-        };
-    }
-
-    /// <summary>
-    /// Creates an abstract EducationOrganization resource with School and LocalEducationAgency as its concrete subtypes.
-    /// </summary>
-    private static Resource CreateEducationOrganizationResource()
-    {
-        var domainModelBuilder = new DomainModelBuilder();
-        var schema = EdFiConventions.PhysicalSchemaName;
-
-        domainModelBuilder.AddSchema(new SchemaDefinition(EdFiConventions.LogicalName, schema));
-
-        AddEntity("EducationOrganization", "EducationOrganizationId", isAbstract: true);
-        AddEntity("School", "SchoolId");
-        AddEntity("LocalEducationAgency", "LocalEducationAgencyId");
-
-        AddInheritance("School", "SchoolId");
-        AddInheritance("LocalEducationAgency", "LocalEducationAgencyId");
-
-        var resourceModel = new ResourceModel(domainModelBuilder.Build());
-
-        return resourceModel.GetResourceByFullName(new FullName(schema, "EducationOrganization"));
-
-        void AddEntity(string name, string identifierName, bool isAbstract = false)
-        {
-            domainModelBuilder.AddEntity(
-                new EntityDefinition(
-                    schema,
-                    name,
-                    [new EntityPropertyDefinition(identifierName, new PropertyType(DbType.Int32), null, true)],
-                    [new EntityIdentifierDefinition($"PK_{name}", [identifierName], true)],
-                    isAbstract));
-
-            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName(schema, name), []));
-        }
-
-        void AddInheritance(string derivedName, string derivedIdentifierName)
-        {
-            domainModelBuilder.AddAssociation(
-                new AssociationDefinition(
-                    new FullName(schema, $"EducationOrganization2{derivedName}"),
-                    Cardinality.OneToOneInheritance,
-                    new FullName(schema, "EducationOrganization"),
-                    [new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int32), null, true)],
-                    new FullName(schema, derivedName),
-                    [new EntityPropertyDefinition(derivedIdentifierName, new PropertyType(DbType.Int32), null, true)],
-                    isIdentifying: true,
-                    isRequired: true));
-        }
-    }
-
-    [Test]
-    public void BuildForChildResource_ForMemberOfFlattenedReferenceToAbstractResource_ReturnsNoRows()
-    {
-        // Arrange (e.g. <Collection name="EducationOrganizationAddresses"> of the flattened reference)
-        var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
-        A.CallTo(() => processorContext.CurrentResourceClass)
-            .Returns(new ResourceChildItem("EducationOrganizationAddress", new Resource("EducationOrganization")));
-
-        var builderContext = new HqlBuilderContext(
-            new StringBuilder(),
-            new StringBuilder(),
-            new StringBuilder("comp_aa.Id IN (:BaseEntityId)"),
-            new StringBuilder())
-        {
-            CurrentAlias = "comp_ac",
-            ContainingReferenceAuthorizations = [new ContainingReferenceAuthorizationFiltering(null, "comp_ab")]
-        };
-
-        // Act
-        _decorator.BuildForChildResource(null, builderContext, processorContext);
-
-        // Assert
-        builderContext.Where.ToString().ShouldBe("comp_aa.Id IN (:BaseEntityId) AND 1 = 0");
-        A.CallTo(() => _next.BuildForChildResource(null, builderContext, processorContext)).MustHaveHappenedOnceExactly();
     }
 
     [Test]

@@ -81,17 +81,6 @@ namespace EdFi.Ods.Features.Composites
                         "Resource is abstract and so target resource '{0}' cannot be authorized. Join will be included, but non-identifying resource members should be stripped from results.",
                         processorContext.CurrentResourceClass.Name);
 
-                    // The members of a flattened reference to an abstract resource (e.g. its collections) cannot be authorized
-                    // either, so no rows are returned for them unless the API client can read every concrete subtype
-                    // without further authorization
-                    if (builderContext.IsFlattenedReferenceChildContext
-                        && !CanReadAllConcreteSubtypesWithoutFiltering(resource))
-                    {
-                        builderContext.ContainingReferenceAuthorizations = builderContext.ContainingReferenceAuthorizations
-                            .Append(new ContainingReferenceAuthorizationFiltering(null, builderContext.ParentAlias))
-                            .ToArray();
-                    }
-
                     return true;
                 }
 
@@ -151,75 +140,6 @@ namespace EdFi.Ods.Features.Composites
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// Indicates whether the API client can read every concrete subtype of an abstract resource (e.g. School, LocalEducationAgency
-        /// for EducationOrganization) with no authorization filters applied.
-        /// </summary>
-        private bool CanReadAllConcreteSubtypesWithoutFiltering(Resource abstractResource)
-        {
-            var concreteSubtypes = GetConcreteSubtypes(abstractResource.Entity).ToArray();
-
-            if (concreteSubtypes.Length == 0)
-            {
-                return false;
-            }
-
-            foreach (var subtypeEntity in concreteSubtypes)
-            {
-                var subtypeResource = abstractResource.ResourceModel.GetResourceByFullName(subtypeEntity.FullName);
-
-                DataManagementAuthorizationPlan authorizationPlan;
-
-                try
-                {
-                    authorizationPlan =
-                        _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(subtypeResource, RequestActions.ReadActionUri);
-                }
-                catch (SecurityAuthorizationException)
-                {
-                    Logger.DebugFormat(
-                        "API client cannot read '{0}', a subtype of abstract resource '{1}'.",
-                        subtypeResource.FullName,
-                        abstractResource.FullName);
-
-                    return false;
-                }
-
-                if (authorizationPlan.Filtering.SelectMany(f => f.Filters).Any())
-                {
-                    Logger.DebugFormat(
-                        "API client's access to '{0}', a subtype of abstract resource '{1}', is filtered.",
-                        subtypeResource.FullName,
-                        abstractResource.FullName);
-
-                    return false;
-                }
-            }
-
-            return true;
-
-            static IEnumerable<Entity> GetConcreteSubtypes(Entity entity)
-            {
-                if (entity == null)
-                {
-                    yield break;
-                }
-
-                foreach (var derivedEntity in entity.DerivedEntities)
-                {
-                    if (!derivedEntity.IsAbstract)
-                    {
-                        yield return derivedEntity;
-                    }
-
-                    foreach (var subtype in GetConcreteSubtypes(derivedEntity))
-                    {
-                        yield return subtype;
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -462,18 +382,6 @@ namespace EdFi.Ods.Features.Composites
 
             foreach (var containingReferenceAuthorization in builderContext.ContainingReferenceAuthorizations)
             {
-                // The referenced resource is abstract, and cannot be authorized
-                if (containingReferenceAuthorization.Filtering == null)
-                {
-                    Logger.DebugFormat(
-                        "No rows will be returned for '{0}' because it is a member of a flattened reference to an abstract resource, which cannot be authorized.",
-                        processorContext.CurrentResourceClass.Name);
-
-                    builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}1 = 0");
-
-                    continue;
-                }
-
                 if (TryBuildAuthorizationPredicate(
                         containingReferenceAuthorization.Filtering,
                         containingReferenceAuthorization.Alias,
