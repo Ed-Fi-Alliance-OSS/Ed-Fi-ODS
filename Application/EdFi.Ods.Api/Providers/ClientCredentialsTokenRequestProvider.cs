@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Globalization;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
@@ -33,6 +34,12 @@ namespace EdFi.Ods.Api.Providers
 
         public async Task<AuthenticationResponse> HandleAsync(TokenRequest tokenRequest)
         {
+            // A missing required parameter is an invalid request (https://tools.ietf.org/html/rfc6749#section-5.2)
+            if (string.IsNullOrEmpty(tokenRequest.Grant_type))
+            {
+                return new AuthenticationResponse {TokenError = new TokenError(TokenErrorType.InvalidRequest)};
+            }
+
             // Only handle the "client_credentials" grant type
             if (!RequestIsRequiredGrantType())
             {
@@ -63,7 +70,8 @@ namespace EdFi.Ods.Api.Providers
             // validate client is in scope
             if (tokenRequestScope != null)
             {
-                if (int.TryParse(tokenRequestScope, out int educationOrganizationScope))
+                // Digits only, so the scope stored with the token is exactly the education organization id validated here
+                if (long.TryParse(tokenRequestScope, NumberStyles.None, CultureInfo.InvariantCulture, out long educationOrganizationScope))
                 {
                     if (!authenticationResult.ApiClientDetails.EducationOrganizationIds
                             .Contains(educationOrganizationScope))

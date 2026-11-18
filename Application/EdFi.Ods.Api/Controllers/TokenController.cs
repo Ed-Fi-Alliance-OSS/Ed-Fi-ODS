@@ -5,10 +5,12 @@
 
 using System;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Api.Models.ClientCredentials;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
 using log4net;
@@ -26,6 +28,8 @@ namespace EdFi.Ods.Api.Controllers
     [Route("oauth/token")]
     public class TokenController : ControllerBase
     {
+        private const string BasicAuthenticationChallenge = "Basic realm=\"Ed-Fi ODS API\", charset=\"UTF-8\"";
+
         private readonly ILog _logger = LogManager.GetLogger(typeof(TokenController));
         private readonly ITokenRequestProvider _requestProvider;
 
@@ -41,16 +45,14 @@ namespace EdFi.Ods.Api.Controllers
         {
             // Look for the authorization header, since we MUST support this method of authorization
             // https://tools.ietf.org/html/rfc6749#section-2.3.1
-            // Decode and parse the client id/secret from the header
-            // Authorization is in a form of Bearer <encoded client and secret>
-            // We accept two cases for the json post, if the json post contains the client secret and client credentials
-            // then we process with that information, other we look for a header with a bearer token
-            // and parse the response then. We fail when there is a client_secret or client_id in the header and json at the
-            // same time.
-            string[] clientIdAndSecret = Array.Empty<string>();
+            // The header is in the form of Basic <base64 of client_id:client_secret>.
+            // We accept the client credentials either in the header or in the body, but not in both
+            // (https://tools.ietf.org/html/rfc6749#section-2.3).
+            string rawClientId = null;
+            string rawClientSecret = null;
 
             var authorizationHeader = Request.Headers.Authorization.FirstOrDefault();
-            
+
             if (authorizationHeader != null)
             {
                 string[] encodedClientAndSecret = authorizationHeader.Split(' ');
@@ -64,7 +66,7 @@ namespace EdFi.Ods.Api.Controllers
                 if (!encodedClientAndSecret[0].EqualsIgnoreCase("Basic"))
                 {
                     _logger.Debug("Authorization scheme is not Basic");
-                    return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
+                    return InvalidClient();
                 }
 
                 if (string.IsNullOrWhiteSpace(encodedClientAndSecret[1]))
@@ -73,45 +75,65 @@ namespace EdFi.Ods.Api.Controllers
                     return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
                 }
 
+                string decodedClientAndSecret;
+
                 try
                 {
-                    clientIdAndSecret = GetClientIdAndSecret(encodedClientAndSecret[1]);
-
-                    if (clientIdAndSecret.Length != 2)
-                    {
-                        return BadRequest(new TokenError(TokenErrorType.InvalidClient));
-                    }
+                    decodedClientAndSecret = Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret[1]));
                 }
-                catch (Exception)
+                catch (FormatException)
                 {
+                    _logger.Debug("Header <encoded credentials> value is not valid Base64");
                     return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
                 }
-            }
 
-            if (clientIdAndSecret.Length == 2)
-            {
-                if (!string.IsNullOrWhiteSpace(tokenRequest.Client_id) || !string.IsNullOrWhiteSpace(tokenRequest.Client_secret))
+                // The client secret may contain a colon, so only the first colon separates the two values
+                // (https://tools.ietf.org/html/rfc7617#section-2).
+                int separatorIndex = decodedClientAndSecret.IndexOf(':');
+
+                if (separatorIndex < 0)
                 {
-                    return BadRequest(new TokenError(TokenErrorType.InvalidClient));
+                    _logger.Debug("Header <encoded credentials> value does not contain a colon separator");
+                    return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
                 }
 
-                // Correct format will include 2 entries
-                // format of the string is <client_id>:<client_secret>
-                tokenRequest.Client_id = clientIdAndSecret[0];
-                tokenRequest.Client_secret = clientIdAndSecret[1];
+                if (!string.IsNullOrWhiteSpace(tokenRequest.Client_id) || !string.IsNullOrWhiteSpace(tokenRequest.Client_secret))
+                {
+                    _logger.Debug("Client credentials were supplied in both the header and the body");
+                    return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+                }
+
+                rawClientId = decodedClientAndSecret[..separatorIndex];
+                rawClientSecret = decodedClientAndSecret[(separatorIndex + 1)..];
+
+                // RFC 6749 section 2.3.1 requires both values to be form-urlencoded before the Base64 encoding
+                tokenRequest.Client_id = WebUtility.UrlDecode(rawClientId);
+                tokenRequest.Client_secret = WebUtility.UrlDecode(rawClientSecret);
             }
 
             if (string.IsNullOrWhiteSpace(tokenRequest.Client_id) || string.IsNullOrWhiteSpace(tokenRequest.Client_secret))
             {
-                return Unauthorized(new TokenError(TokenErrorType.InvalidRequest));
+                return InvalidClient();
             }
 
             // Handle token request
             var authenticationResult = await _requestProvider.HandleAsync(tokenRequest);
 
-            if (authenticationResult.TokenError != null && authenticationResult.TokenError.Error.EqualsIgnoreCase(TokenErrorType.InvalidClient))
+            if (IsInvalidClient(authenticationResult) && HeaderCredentialsChangedByDecoding())
             {
-                return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
+                // Credentials created before the decoding was introduced may contain '+' or '%' characters
+                // that their clients send without form-urlencoding them, so try the values as received.
+                _logger.Debug("Retrying client authentication with the header credentials as received");
+
+                tokenRequest.Client_id = rawClientId;
+                tokenRequest.Client_secret = rawClientSecret;
+
+                authenticationResult = await _requestProvider.HandleAsync(tokenRequest);
+            }
+
+            if (IsInvalidClient(authenticationResult))
+            {
+                return InvalidClient();
             }
 
             if (authenticationResult.TokenError != null)
@@ -121,10 +143,14 @@ namespace EdFi.Ods.Api.Controllers
 
             return Ok(authenticationResult.TokenResponse);
 
-            string[] GetClientIdAndSecret(string encodedClientAndSecret)
-                => Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret)).Split(':');
+            bool HeaderCredentialsChangedByDecoding()
+                => rawClientId != null
+                    && (rawClientId != tokenRequest.Client_id || rawClientSecret != tokenRequest.Client_secret);
+
+            static bool IsInvalidClient(AuthenticationResponse response)
+                => response.TokenError != null && response.TokenError.Error.EqualsIgnoreCase(TokenErrorType.InvalidClient);
         }
-    
+
         [HttpPost]
         [AllowAnonymous]
         [Consumes("application/x-www-form-urlencoded")]
@@ -133,8 +159,17 @@ namespace EdFi.Ods.Api.Controllers
             // Look for the authorization header, since we MUST support this method of authorization
             // https://tools.ietf.org/html/rfc6749#section-2.3.1
             // Decode and parse the client id/secret from the header
-            // Authorization is in a form of Bearer <encoded client and secret>
+            // Authorization is in a form of Basic <encoded client and secret>
             return await PostFromJsonAsync(tokenRequest);
+        }
+
+        private UnauthorizedObjectResult InvalidClient()
+        {
+            // RFC 6749 section 5.2 requires the challenge when the client attempted the Authorization header,
+            // and allows it otherwise.
+            Response.Headers.WWWAuthenticate = BasicAuthenticationChallenge;
+
+            return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
         }
     }
 }
