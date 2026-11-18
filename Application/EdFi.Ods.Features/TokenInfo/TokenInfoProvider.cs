@@ -42,6 +42,12 @@ namespace EdFi.Ods.Features.TokenInfo
 
         private async Task<IList<TokenInfoEducationOrganizationData>> GetAuthorizedEducationOrganizations(ApiClientContext apiContext)
         {
+            // An empty list would produce "IN ()", which is invalid SQL on both engines
+            if (apiContext.EducationOrganizationIds.Count == 0)
+            {
+                return new List<TokenInfoEducationOrganizationData>();
+            }
+
             const string EdOrgIdentifiersSql = """
                                                SELECT  accessibleEdOrg.EducationOrganizationId,
                                                        accessibleEdOrg.NameOfInstitution,
@@ -57,12 +63,6 @@ namespace EdFi.Ods.Features.TokenInfo
                                                            ON ancestorTuples.SourceEducationOrganizationId = ancestorEdOrg.EducationOrganizationId
                                                WHERE	accessibleTuples.SourceEducationOrganizationId IN ({0});
                                                """;
-
-            // An empty list would produce "IN ()", which is invalid SQL on both engines
-            if (apiContext.EducationOrganizationIds.Count == 0)
-            {
-                return new List<TokenInfoEducationOrganizationData>();
-            }
 
             string edOrgIds = string.Join(",", apiContext.EducationOrganizationIds);
 
