@@ -105,7 +105,71 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         }
 
         [Test]
-        public async Task Body_credentials_are_not_decoded_again()
+        public async Task Header_credentials_that_fail_both_decoded_and_as_received_are_rejected()
+        {
+            SetBasicAuthorizationHeader("clientId:wrong%2Bsecret");
+
+            var actionResult = await _controller.PostAsync(new TokenRequest { Grant_type = ClientCredentialsGrantType });
+
+            AssertInvalidClientWithChallenge(actionResult);
+
+            A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                .MustHaveHappenedTwiceExactly();
+        }
+
+        [Test]
+        public async Task Header_credentials_changed_by_decoding_are_not_retried_after_a_scope_error()
+        {
+            AcceptCredentials("clientId", "se+cret");
+            SetBasicAuthorizationHeader("clientId:se%2Bcret");
+
+            var actionResult = await _controller.PostAsync(
+                new TokenRequest
+                {
+                    Grant_type = ClientCredentialsGrantType,
+                    Scope = "999"
+                });
+
+            AssertBadRequestWithoutChallenge(actionResult, TokenErrorType.InvalidScope);
+
+            A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                .MustHaveHappenedOnceExactly();
+        }
+
+        [Test]
+        public async Task Header_credentials_changed_by_decoding_are_not_retried_when_the_client_is_not_approved()
+        {
+            AcceptCredentials("clientId", "se+cret");
+            SetBasicAuthorizationHeader("clientId:se%2Bcret");
+
+            A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<ApiClientDetails>._, A<string>._))
+                .Returns((AccessToken) null);
+
+            var actionResult = await _controller.PostAsync(new TokenRequest { Grant_type = ClientCredentialsGrantType });
+
+            AssertInvalidClientWithChallenge(actionResult);
+
+            A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                .MustHaveHappenedOnceExactly();
+        }
+
+        [TestCase("%20:%20")]
+        [TestCase("+:+")]
+        public async Task Header_credentials_that_decode_to_whitespace_are_rejected_without_authenticating(
+            string decodedCredentials)
+        {
+            SetBasicAuthorizationHeader(decodedCredentials);
+
+            var actionResult = await _controller.PostAsync(new TokenRequest { Grant_type = ClientCredentialsGrantType });
+
+            AssertInvalidClientWithChallenge(actionResult);
+
+            A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                .MustNotHaveHappened();
+        }
+
+        [Test]
+        public async Task Body_credentials_are_not_form_url_decoded()
         {
             AcceptCredentials("clientId", "se%2Bcret");
 
@@ -153,7 +217,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     Client_secret = "clientSecret"
                 });
 
-            AssertBadRequestWithoutChallenge(actionResult, TokenErrorType.InvalidRequest);
+            AssertBadRequestWithoutChallenge(
+                actionResult,
+                TokenErrorType.InvalidRequest,
+                "Client credentials must be supplied in either the Authorization header or the request body, not both.");
         }
 
         [Test]
@@ -163,11 +230,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             var actionResult = await _controller.PostAsync(new TokenRequest { Grant_type = ClientCredentialsGrantType });
 
-            AssertBadRequestWithoutChallenge(actionResult, TokenErrorType.InvalidRequest);
+            AssertBadRequestWithoutChallenge(
+                actionResult,
+                TokenErrorType.InvalidRequest,
+                "The decoded Basic credentials must contain a ':' between the client_id and the client_secret.");
+        }
+
+        [TestCase("Basic")]
+        [TestCase("Basic ")]
+        [TestCase("Basic ThisIsNotBase64Encoded")]
+        public async Task Malformed_basic_header_returns_invalid_request_with_a_description(string authorizationHeader)
+        {
+            _httpContext.Request.Headers.Authorization = authorizationHeader;
+
+            var actionResult = await _controller.PostAsync(new TokenRequest { Grant_type = ClientCredentialsGrantType });
+
+            AssertBadRequestWithoutChallenge(
+                actionResult,
+                TokenErrorType.InvalidRequest,
+                "The Authorization header must be 'Basic' followed by the Base64 encoding of client_id:client_secret.");
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [TestCase(" ")]
         public async Task Missing_grant_type_returns_invalid_request(string grantType)
         {
             AcceptCredentials("clientId", "clientSecret");
@@ -175,7 +261,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             var actionResult = await _controller.PostAsync(new TokenRequest { Grant_type = grantType });
 
-            AssertBadRequestWithoutChallenge(actionResult, TokenErrorType.InvalidRequest);
+            AssertBadRequestWithoutChallenge(
+                actionResult,
+                TokenErrorType.InvalidRequest,
+                "The 'grant_type' parameter is required.");
         }
 
         [Test]
@@ -217,12 +306,23 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     .ShouldBe("Basic realm=\"Ed-Fi ODS API\", charset=\"UTF-8\""));
         }
 
-        private void AssertBadRequestWithoutChallenge(IActionResult actionResult, string expectedError)
+        private void AssertBadRequestWithoutChallenge(
+            IActionResult actionResult,
+            string expectedError,
+            string expectedDescription = null)
         {
             var badRequestResult = actionResult.ShouldBeOfType<BadRequestObjectResult>();
+            var tokenError = badRequestResult.Value.ShouldBeOfType<TokenError>();
 
             badRequestResult.ShouldSatisfyAllConditions(
-                () => badRequestResult.Value.ShouldBeOfType<TokenError>().Error.ShouldBe(expectedError),
+                () => tokenError.Error.ShouldBe(expectedError),
+                () =>
+                {
+                    if (expectedDescription != null)
+                    {
+                        tokenError.Error_description.ShouldBe(expectedDescription);
+                    }
+                },
                 () => _httpContext.Response.Headers.WWWAuthenticate.ShouldBeEmpty());
         }
     }

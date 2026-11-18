@@ -17,13 +17,21 @@ using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Providers
 {
-    [TestFixture]
+    [TestFixture(SecuritySettings.AccessTokenTypeGuid)]
+    [TestFixture(SecuritySettings.AccessTokenTypeJwt)]
     public class ClientCredentialsTokenRequestProviderScopeTests
     {
         private const long EducationOrganizationIdAboveIntMaxValue = 3_000_000_001L;
 
+        private readonly string _accessTokenType;
+
         private IAccessTokenFactory _accessTokenFactory;
         private ClientCredentialsTokenRequestProvider _provider;
+
+        public ClientCredentialsTokenRequestProviderScopeTests(string accessTokenType)
+        {
+            _accessTokenType = accessTokenType;
+        }
 
         [SetUp]
         public void SetUp()
@@ -50,12 +58,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Providers
             _provider = new ClientCredentialsTokenRequestProvider(
                 apiClientAuthenticator,
                 _accessTokenFactory,
-                new OptionsWrapper<SecuritySettings>(new SecuritySettings()));
+                new OptionsWrapper<SecuritySettings>(new SecuritySettings { AccessTokenType = _accessTokenType }));
         }
 
         [TestCase("255901")]
-        [TestCase("3000000001")]
-        public async Task A_scope_matching_an_associated_education_organization_is_issued(string scope)
+        [TestCase("0255901")]
+        public async Task A_scope_matching_an_associated_education_organization_is_issued_as_requested(string scope)
         {
             var response = await _provider.HandleAsync(CreateTokenRequest(scope));
 
@@ -67,11 +75,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Providers
                 .MustHaveHappenedOnceExactly();
         }
 
+        // "+255901" is the case that requires NumberStyles.None: the default integer style accepts the sign.
         [TestCase("+255901")]
         [TestCase("-255901")]
         [TestCase("255,901")]
         [TestCase("255901 255902")]
-        public async Task A_scope_that_is_not_only_digits_is_rejected_without_issuing_a_token(string scope)
+        // Above the int range: dbo.GetClientForToken converts the stored scope to int on both engines
+        [TestCase("3000000001")]
+        public async Task A_scope_that_is_not_an_int_education_organization_id_is_rejected_without_issuing_a_token(string scope)
         {
             var response = await _provider.HandleAsync(CreateTokenRequest(scope));
 
