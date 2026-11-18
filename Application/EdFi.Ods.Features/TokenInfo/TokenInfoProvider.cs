@@ -58,6 +58,12 @@ namespace EdFi.Ods.Features.TokenInfo
                                                WHERE	accessibleTuples.SourceEducationOrganizationId IN ({0});
                                                """;
 
+            // An empty list would produce "IN ()", which is invalid SQL on both engines
+            if (apiContext.EducationOrganizationIds.Count == 0)
+            {
+                return new List<TokenInfoEducationOrganizationData>();
+            }
+
             string edOrgIds = string.Join(",", apiContext.EducationOrganizationIds);
 
             using var session = sessionFactory.OpenStatelessSession();
