@@ -119,5 +119,113 @@ public class RequestCorrelationMiddlewareTests
         A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, A<object>.That.Matches(x => IsGuid(x)))).MustHaveHappenedOnceExactly();
     }
 
+    [TestCase("abc\r\n2026-11-10 12:00:00 INFO forged line")]
+    [TestCase("abc\nforged")]
+    [TestCase("abc\tdef")]
+    [TestCase("abc\u0000def")]
+    [TestCase("abc\u0085def")]
+    [TestCase("abc\u2028def")]
+    [TestCase("abc\u2029def")]
+    [TestCase("")]
+    [TestCase("   ")]
+    public async Task InvokeAsync_WithInvalidHeaderValue_SetsPropertyToANewGuid(string suppliedValue)
+    {
+        // Arrange
+        var context = new DefaultHttpContext();
+        var nextMiddleware = A.Fake<RequestDelegate>();
+        var logContextWriter = A.Fake<ILogContextAccessor>();
+        var apiSettings = A.Fake<ApiSettings>();
+
+        var middleware = new RequestCorrelationMiddleware(logContextWriter, apiSettings);
+        context.Request.Headers[CorrelationConstants.HttpHeader] = suppliedValue;
+
+        // Act
+        await middleware.InvokeAsync(context, nextMiddleware);
+
+        // Assert
+        A.CallTo(() => nextMiddleware(context)).MustHaveHappenedOnceExactly();
+        A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, A<object>.That.Matches(x => IsGuid(x)))).MustHaveHappenedOnceExactly();
+    }
+
+    [Test]
+    public async Task InvokeAsync_WithEncodedNewLineInQueryString_SetsPropertyToANewGuid()
+    {
+        // Arrange
+        var context = new DefaultHttpContext();
+        var nextMiddleware = A.Fake<RequestDelegate>();
+        var logContextWriter = A.Fake<ILogContextAccessor>();
+        var apiSettings = A.Fake<ApiSettings>();
+
+        var middleware = new RequestCorrelationMiddleware(logContextWriter, apiSettings);
+        context.Request.QueryString = new QueryString("?correlationId=abc%0D%0A2026-11-10%20INFO%20forged");
+
+        // Act
+        await middleware.InvokeAsync(context, nextMiddleware);
+
+        // Assert
+        A.CallTo(() => nextMiddleware(context)).MustHaveHappenedOnceExactly();
+        A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, A<object>.That.Matches(x => IsGuid(x)))).MustHaveHappenedOnceExactly();
+    }
+
+    [Test]
+    public async Task InvokeAsync_WithValueAtMaximumLength_CapturesCorrelationId()
+    {
+        // Arrange
+        var context = new DefaultHttpContext();
+        var nextMiddleware = A.Fake<RequestDelegate>();
+        var logContextWriter = A.Fake<ILogContextAccessor>();
+        var apiSettings = A.Fake<ApiSettings>();
+        var suppliedValue = new string('a', RequestCorrelationMiddleware.MaxCorrelationIdLength);
+
+        var middleware = new RequestCorrelationMiddleware(logContextWriter, apiSettings);
+        context.Request.Headers[CorrelationConstants.HttpHeader] = suppliedValue;
+
+        // Act
+        await middleware.InvokeAsync(context, nextMiddleware);
+
+        // Assert
+        A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, suppliedValue)).MustHaveHappenedOnceExactly();
+    }
+
+    [Test]
+    public async Task InvokeAsync_WithValueOverMaximumLength_SetsPropertyToANewGuid()
+    {
+        // Arrange
+        var context = new DefaultHttpContext();
+        var nextMiddleware = A.Fake<RequestDelegate>();
+        var logContextWriter = A.Fake<ILogContextAccessor>();
+        var apiSettings = A.Fake<ApiSettings>();
+
+        var middleware = new RequestCorrelationMiddleware(logContextWriter, apiSettings);
+        context.Request.Headers[CorrelationConstants.HttpHeader] = new string('a', RequestCorrelationMiddleware.MaxCorrelationIdLength + 1);
+
+        // Act
+        await middleware.InvokeAsync(context, nextMiddleware);
+
+        // Assert
+        A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, A<object>.That.Matches(x => IsGuid(x)))).MustHaveHappenedOnceExactly();
+    }
+
+    [TestCase("2b1a6f0e-3c4d-4e5f-8a9b-0c1d2e3f4a5b")]
+    [TestCase("a1:b2:c3:d4:e5:f6")]
+    [TestCase("bulk-load 2026-11-10 #42")]
+    public async Task InvokeAsync_WithPrintableValue_CapturesCorrelationId(string suppliedValue)
+    {
+        // Arrange
+        var context = new DefaultHttpContext();
+        var nextMiddleware = A.Fake<RequestDelegate>();
+        var logContextWriter = A.Fake<ILogContextAccessor>();
+        var apiSettings = A.Fake<ApiSettings>();
+
+        var middleware = new RequestCorrelationMiddleware(logContextWriter, apiSettings);
+        context.Request.Headers[CorrelationConstants.HttpHeader] = suppliedValue;
+
+        // Act
+        await middleware.InvokeAsync(context, nextMiddleware);
+
+        // Assert
+        A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, suppliedValue)).MustHaveHappenedOnceExactly();
+    }
+
     private static bool IsGuid(object x) => Guid.TryParse(x as string, out var ignored);
 }

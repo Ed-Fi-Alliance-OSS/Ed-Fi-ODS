@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Globalization;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
@@ -33,13 +34,23 @@ namespace EdFi.Ods.Api.Providers
 
         public async Task<AuthenticationResponse> HandleAsync(TokenRequest tokenRequest)
         {
+            // A missing required parameter is an invalid request (https://tools.ietf.org/html/rfc6749#section-5.2)
+            if (string.IsNullOrWhiteSpace(tokenRequest.Grant_type))
+            {
+                return new AuthenticationResponse
+                {
+                    TokenError = new TokenError(TokenErrorType.InvalidRequest, "The 'grant_type' parameter is required.")
+                };
+            }
+
             // Only handle the "client_credentials" grant type
             if (!RequestIsRequiredGrantType())
             {
                 return new AuthenticationResponse {TokenError = new TokenError(TokenErrorType.UnsupportedGrantType)};
             }
 
-            // Verify client_id and client_secret are present
+            // Verify client_id and client_secret are present (the token controller already rejects missing
+            // credentials with invalid_client; this guard protects other callers of the provider)
             if (!HasIdAndSecret())
             {
                 return new AuthenticationResponse {TokenError = new TokenError(TokenErrorType.InvalidRequest)};
@@ -52,7 +63,11 @@ namespace EdFi.Ods.Api.Providers
 
             if (!authenticationResult.IsAuthenticated)
             {
-                return new AuthenticationResponse {TokenError = new TokenError(TokenErrorType.InvalidClient)};
+                return new AuthenticationResponse
+                {
+                    TokenError = new TokenError(TokenErrorType.InvalidClient),
+                    ClientAuthenticationFailed = true
+                };
             }
 
             // Convert empty scope to null
@@ -63,7 +78,9 @@ namespace EdFi.Ods.Api.Providers
             // validate client is in scope
             if (tokenRequestScope != null)
             {
-                if (int.TryParse(tokenRequestScope, out int educationOrganizationScope))
+                // Digits only, so the scope stored with the token is exactly the education organization id validated here.
+                // The range stays int because dbo.GetClientForToken converts the stored scope to int on both database engines.
+                if (int.TryParse(tokenRequestScope, NumberStyles.None, CultureInfo.InvariantCulture, out int educationOrganizationScope))
                 {
                     if (!authenticationResult.ApiClientDetails.EducationOrganizationIds
                             .Contains(educationOrganizationScope))

@@ -493,9 +493,9 @@
 									"  pm.expect(pm.response.code).to.equal(401);\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Should return a invalid_request\", () => {\r",
+									"pm.test(\"Should return a invalid_client\", () => {\r",
 									"  const responseItem = pm.response.json();\r",
-									"  pm.expect(responseItem.error).to.equal(\"invalid_request\");\r",
+									"  pm.expect(responseItem.error).to.equal(\"invalid_client\");\r",
 									"});\r",
 									""
 								],

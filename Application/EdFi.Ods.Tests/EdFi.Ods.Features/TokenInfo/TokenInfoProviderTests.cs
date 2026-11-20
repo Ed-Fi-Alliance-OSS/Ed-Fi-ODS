@@ -94,6 +94,34 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
         }
 
         [Test]
+        public async Task Should_return_no_education_organizations_without_querying_when_the_client_has_none()
+        {
+            // Arrange
+            var sessionFactory = A.Fake<ISessionFactory>();
+
+            var apiContext = new ApiClientContext(
+                Guid.NewGuid().ToString("n"), "Claim Set", Array.Empty<long>(), new[] { "uri://ed-fi.org" }, new List<string>(),
+                "descriptor", null, null, null, 0);
+
+            var tokenInfoProvider = new TokenInfoProvider(
+                sessionFactory,
+                A.Fake<IResourceModelProvider>(),
+                A.Fake<IClaimSetClaimsProvider>(),
+                A.Fake<IResourceClaimUriProvider>(),
+                A.Fake<ISecurityRepository>(),
+                A.Fake<IClaimSetRequestEvaluator>());
+
+            // Act
+            var results = await tokenInfoProvider.GetTokenInfoAsync(apiContext);
+
+            // Assert
+            results.EducationOrganizations.ShouldBeEmpty();
+
+            A.CallTo(() => sessionFactory.OpenStatelessSession())
+                .MustNotHaveHappened();
+        }
+
+        [Test]
         public async Task Should_get_education_organization_identifiers_for_a_user_lea_context()
         {
             // Arrange

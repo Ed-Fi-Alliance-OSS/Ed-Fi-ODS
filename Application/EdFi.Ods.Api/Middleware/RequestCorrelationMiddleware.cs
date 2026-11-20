@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -15,30 +16,50 @@ namespace EdFi.Ods.Api.Middleware;
 
 /// <summary>
 /// Implements middleware that inspects the request and captures a correlation identifier supplied in an HTTP header or query
-/// string parameter (in that order of precedence).
+/// string parameter (in that order of precedence). A supplied value that is empty, longer than
+/// <see cref="MaxCorrelationIdLength" /> characters or contains control or line separator characters is replaced with a new
+/// GUID, because the value is written to the logs and returned to the caller.
 /// </summary>
 public class RequestCorrelationMiddleware(ILogContextAccessor logContextAccessor, ApiSettings apiSettings) : IMiddleware
 {
+    public const int MaxCorrelationIdLength = 64;
+
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
+        string correlationId = null;
+
         // Capture correlation from the header, if present
         if (context.Request.Headers.TryGetValue(string.IsNullOrEmpty(apiSettings.OdsCorrelationIdHttpHeaderName) ? CorrelationConstants.HttpHeader : apiSettings.OdsCorrelationIdHttpHeaderName, out var headerValues))
         {
-            logContextAccessor.SetCorrelationId(headerValues[0]);
+            correlationId = headerValues[0];
         }
-        else
+        // Capture correlation from the query string, if present
+        else if (context.Request.Query.TryGetValue(CorrelationConstants.QueryString, out var queryStringValues))
         {
-            // Capture correlation from the query string, if present
-            if (context.Request.Query.TryGetValue(CorrelationConstants.QueryString, out var queryStringValues))
+            correlationId = queryStringValues[0];
+        }
+
+        logContextAccessor.SetCorrelationId(IsValidCorrelationId(correlationId) ? correlationId : Guid.NewGuid().ToString());
+
+        await next(context);
+    }
+
+    private static bool IsValidCorrelationId(string correlationId)
+    {
+        if (string.IsNullOrWhiteSpace(correlationId) || correlationId.Length > MaxCorrelationIdLength)
+        {
+            return false;
+        }
+
+        foreach (char c in correlationId)
+        {
+            if (char.IsControl(c)
+                || char.GetUnicodeCategory(c) is UnicodeCategory.LineSeparator or UnicodeCategory.ParagraphSeparator)
             {
-                logContextAccessor.SetCorrelationId(queryStringValues[0]);
-            }
-            else
-            {
-                logContextAccessor.SetCorrelationId(Guid.NewGuid().ToString());
+                return false;
             }
         }
 
-        await next(context);
+        return true;
     }
 }

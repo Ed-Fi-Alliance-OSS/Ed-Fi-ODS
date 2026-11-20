@@ -15,5 +15,11 @@ namespace EdFi.Ods.Api.Models.ClientCredentials
         public TokenResponse TokenResponse { get; set; }
 
         public ApiClientDetails ApiClientDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the client id and secret did not authenticate, as opposed to
+        /// an authenticated client whose request was refused for another reason.
+        /// </summary>
+        public bool ClientAuthenticationFailed { get; set; }
     }
 }

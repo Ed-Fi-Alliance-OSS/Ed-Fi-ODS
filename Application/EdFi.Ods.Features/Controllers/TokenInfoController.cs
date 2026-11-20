@@ -76,7 +76,8 @@ namespace EdFi.Ods.Features.Controllers
 
             Guid guidAccessToken = Guid.Empty;
 
-            // see https://tools.ietf.org/html/rfc7662#section-2.2 for oauth token_info spec
+            // This endpoint is not an RFC 7662 introspection endpoint: it only inspects the caller's own token
+            // and returns an Ed-Fi specific response.
             if (tokenInfoRequest?.Token == null
                 || (_securitySettings.Value.AccessTokenType == SecuritySettings.AccessTokenTypeGuid
                     && !Guid.TryParse(tokenInfoRequest.Token, out guidAccessToken)))
