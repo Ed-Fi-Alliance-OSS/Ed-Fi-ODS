@@ -18,8 +18,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 {
     public static class QueryBuilderExtensions
     {
-        private static readonly CallContextStorage _callContextStorage = new();
-
         private const string EducationOrganizationIdToEducationOrganizationIdViewName =
             "EducationOrganizationIdToEducationOrganizationId";
 
@@ -46,10 +44,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             JoinType joinType,
             string authViewAlias = null)
         {
-            // Undocumented opt-in to using original join-based authorization
-            bool useJoinAuth = _callContextStorage.GetValue<bool>("UseJoinAuth"); 
-
-            if (useJoinAuth || queryBuilder.Context.UsesJoinFilterStrategy())
+            if (queryBuilder.Context.UsesJoinFilterStrategy())
             {
                 ApplySingleColumnJoinFilterUsingJoins(
                     queryBuilder,
