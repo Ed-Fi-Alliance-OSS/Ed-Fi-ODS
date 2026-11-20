@@ -34,6 +34,7 @@ namespace EdFi.Ods.Features.Controllers
     public class AggregateDependencyController : ControllerBase
     {
         private readonly IResourceLoadGraphFactory _resourceLoadGraphFactory;
+        private readonly AggregateDependencyCache _aggregateDependencyCache;
         private readonly ILogContextAccessor _logContextAccessor;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(AggregateDependencyController));
@@ -58,10 +59,12 @@ namespace EdFi.Ods.Features.Controllers
         public AggregateDependencyController(
             IFeatureManager featureManager,
             IResourceLoadGraphFactory resourceLoadGraphFactory,
+            AggregateDependencyCache aggregateDependencyCache,
             ILogContextAccessor logContextAccessor)
         {
             _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.AggregateDependencies);
             _resourceLoadGraphFactory = resourceLoadGraphFactory;
+            _aggregateDependencyCache = aggregateDependencyCache;
             _logContextAccessor = logContextAccessor;
         }
 
@@ -75,17 +78,15 @@ namespace EdFi.Ods.Features.Controllers
 
             try
             {
-                var resourceDependencyGraph = _resourceLoadGraphFactory.CreateResourceLoadGraph();
-                
-                var groupedLoadOrder = GetGroupedLoadOrder(resourceDependencyGraph).ToList();
-
+                // The responses depend only on the resource model, so they are built once and cached
                 if (IsGraphMLRequest())
                 {
-                    return Ok(CreateGraphML(resourceDependencyGraph));
+                    return Ok(
+                        _aggregateDependencyCache.GetGraphML(
+                            () => CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph())));
                 }
 
-                ModifyLoadOrderForAuthorizationConcerns(groupedLoadOrder);
-                return Ok(groupedLoadOrder);
+                return Ok(_aggregateDependencyCache.GetLoadOrder(CreateLoadOrder));
             }
             catch (NonAcyclicGraphException e)
             {
@@ -106,6 +107,13 @@ namespace EdFi.Ods.Features.Controllers
             {
                 return Request.GetTypedHeaders().Accept != null
                     && Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML));
+            }
+
+            IReadOnlyList<ResourceLoadOrder> CreateLoadOrder()
+            {
+                var groupedLoadOrder = GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()).ToList();
+                ModifyLoadOrderForAuthorizationConcerns(groupedLoadOrder);
+                return groupedLoadOrder;
             }
         }
 
