@@ -43,7 +43,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers.Partitions
             var result = await controller.Get(
                 null,
                 new UrlQueryParametersRequest(),
-                new Dictionary<string, string> { [PartitionsController.AllowSmallPartitionsParameterName] = value });
+                new Dictionary<string, string> { [PartitionsParameters.AllowSmallPartitions] = value });
 
             var badRequest = result.ShouldBeOfType<BadRequestObjectResult>();
             var problemDetails = badRequest.Value.ShouldBeAssignableTo<IEdFiProblemDetails>();
@@ -62,7 +62,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers.Partitions
             var result = await controller.Get(
                 null,
                 new UrlQueryParametersRequest(),
-                new Dictionary<string, string> { [PartitionsController.AllowSmallPartitionsParameterName] = value });
+                new Dictionary<string, string> { [PartitionsParameters.AllowSmallPartitions] = value });
 
             result.ShouldBeAssignableTo<IStatusCodeActionResult>().StatusCode.ShouldBe(StatusCodes.Status404NotFound);
         }
@@ -117,7 +117,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers.Partitions
         {
             var additionalParameters = value == null
                 ? new Dictionary<string, string>()
-                : new Dictionary<string, string> { [PartitionsController.AllowSmallPartitionsParameterName] = value };
+                : new Dictionary<string, string> { [PartitionsParameters.AllowSmallPartitions] = value };
 
             var (dialect, applicator) = BuildApplicator(databaseEngine);
 

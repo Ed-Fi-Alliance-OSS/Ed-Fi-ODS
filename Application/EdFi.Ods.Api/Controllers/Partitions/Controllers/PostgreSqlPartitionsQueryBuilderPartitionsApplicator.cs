@@ -30,8 +30,7 @@ public class PostgreSqlPartitionsQueryBuilderPartitionsApplicator(
 
         string partitionSizeSql;
 
-        if (additionalParameters.TryGetValue(PartitionsController.AllowSmallPartitionsParameterName, out string value)
-            && bool.TryParse(value, out bool allowSmallPartitions)
+        if (PartitionsParameters.TryGetAllowSmallPartitions(additionalParameters, out bool allowSmallPartitions)
             && allowSmallPartitions)
         {
             string greatest = _dialect.GetGreatestString("1", "CEILING(CountOfRows / @numberOfPartitions)");

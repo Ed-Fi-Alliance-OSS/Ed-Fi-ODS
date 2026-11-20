@@ -44,7 +44,6 @@ public class PartitionsController : ControllerBase
 {
     public const int MinPartitions = 1;
     public const int MaxPartitions = 200;
-    public const string AllowSmallPartitionsParameterName = "allowSmallPartitions";
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly DbProviderFactory _dbProviderFactory;
     private readonly ILogContextAccessor _logContextAccessor;
@@ -95,27 +94,12 @@ public class PartitionsController : ControllerBase
 
         if (number is < MinPartitions or > MaxPartitions)
         {
-            var problemDetails = new BadRequestParameterException(
-                BadRequestException.DefaultDetail,
-                new[] { $"Number of partitions must be between {MinPartitions} and {MaxPartitions}." })
-            {
-                CorrelationId = _logContextAccessor.GetCorrelationId()
-            }.AsSerializableModel();
-
-            return BadRequest(problemDetails);
+            return BadRequestParameter($"Number of partitions must be between {MinPartitions} and {MaxPartitions}.");
         }
 
-        if (additionalParameters.TryGetValue(AllowSmallPartitionsParameterName, out string allowSmallPartitions)
-            && !bool.TryParse(allowSmallPartitions, out _))
+        if (!PartitionsParameters.TryGetAllowSmallPartitions(additionalParameters, out _))
         {
-            var problemDetails = new BadRequestParameterException(
-                BadRequestException.DefaultDetail,
-                new[] { $"The '{AllowSmallPartitionsParameterName}' parameter must be 'true' or 'false'." })
-            {
-                CorrelationId = _logContextAccessor.GetCorrelationId()
-            }.AsSerializableModel();
-
-            return BadRequest(problemDetails);
+            return BadRequestParameter($"The '{PartitionsParameters.AllowSmallPartitions}' parameter must be 'true' or 'false'.");
         }
 
         var  queryParameters = new QueryParameters(urlQueryParametersRequest);
@@ -302,5 +286,15 @@ public class PartitionsController : ControllerBase
 
             return list.ToArray();
         }
+    }
+
+    private BadRequestObjectResult BadRequestParameter(string error)
+    {
+        var problemDetails = new BadRequestParameterException(BadRequestException.DefaultDetail, [error])
+        {
+            CorrelationId = _logContextAccessor.GetCorrelationId()
+        }.AsSerializableModel();
+
+        return BadRequest(problemDetails);
     }
 }
