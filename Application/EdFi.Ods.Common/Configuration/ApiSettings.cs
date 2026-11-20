@@ -78,15 +78,18 @@ namespace EdFi.Ods.Common.Configuration
         public bool EnableSecurityHeaders { get; set; } = true;
 
         /// <summary>
-        /// Redirects HTTP requests to HTTPS (307 Temporary Redirect), except for the health check endpoint. Disabled
-        /// by default, because the API is usually hosted behind a reverse proxy or IIS that already does this.
+        /// Redirects HTTP GET and HEAD requests to HTTPS (307 Temporary Redirect), and rejects other HTTP requests with
+        /// a 400 Bad Request, so that a client that sends data over HTTP is told to use HTTPS instead of silently
+        /// resending it. The health check endpoint is not affected. Disabled by default, because the API is usually
+        /// hosted behind a reverse proxy or IIS that already does this.
         /// </summary>
         /// <remarks>
         /// Behind a reverse proxy that terminates TLS, also enable <see cref="UseReverseProxyHeaders"/> and make sure
         /// the proxy is trusted (see <see cref="KnownProxies"/> and <see cref="KnownNetworks"/>); otherwise every
         /// request is seen as HTTP and is redirected again. The redirect uses <see cref="OverrideForForwardingHostServer"/>
-        /// when set, and the port from <see cref="HttpsRedirectionPort"/>. Note that a client that calls the API over
-        /// HTTP has already sent its request, including any credentials, before it is redirected.
+        /// when set, otherwise the request's Host header, so also restrict the accepted host names with the
+        /// top-level AllowedHosts setting. The port comes from <see cref="HttpsRedirectionPort"/>.
+        /// Keep this disabled when hosting in IIS with the shipped web.config, which already redirects to HTTPS.
         /// </remarks>
         public bool EnableHttpsRedirection { get; set; }
 
@@ -101,6 +104,7 @@ namespace EdFi.Ods.Common.Configuration
         /// Adds the Strict-Transport-Security header (max-age of one year) to HTTPS responses. Disabled by default,
         /// because the API is usually hosted behind a reverse proxy or IIS that already does this. Behind a reverse
         /// proxy, also enable <see cref="UseReverseProxyHeaders"/>. The header is never sent to localhost.
+        /// Keep this disabled when hosting in IIS with the shipped web.config, which already sends this header.
         /// </summary>
         public bool EnableHsts { get; set; }
 
