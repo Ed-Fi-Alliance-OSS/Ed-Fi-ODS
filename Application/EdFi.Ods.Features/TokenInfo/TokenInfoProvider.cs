@@ -42,6 +42,12 @@ namespace EdFi.Ods.Features.TokenInfo
 
         private async Task<IList<TokenInfoEducationOrganizationData>> GetAuthorizedEducationOrganizations(ApiClientContext apiContext)
         {
+            // An empty list would produce "IN ()", which is invalid SQL on both engines
+            if (apiContext.EducationOrganizationIds.Count == 0)
+            {
+                return new List<TokenInfoEducationOrganizationData>();
+            }
+
             const string EdOrgIdentifiersSql = """
                                                SELECT  accessibleEdOrg.EducationOrganizationId,
                                                        accessibleEdOrg.NameOfInstitution,

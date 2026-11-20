@@ -858,9 +858,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 }
 
                 [Test]
-                public void Should_not_return_a_single_valued_response_with_an_error_indicating_invalid_client()
+                public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
                 {
-                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
+                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidRequest);
                 }
             }
 
@@ -989,14 +989,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 protected override async Task ActAsync()
                 {
-                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                        new HeaderDictionary
-                        {
-                            {
-                                "Authorization",
-                                $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: string.Empty)}"
-                            }
-                        });
+                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(new HeaderDictionary());
 
                     _actionResult = await _controller.PostFromJsonAsync(
                         new TokenRequest
@@ -1010,17 +1003,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 }
 
                 [Test]
-                public void Should_return_HTTP_status_of_BadRequest()
+                public void Should_return_HTTP_status_of_Unauthorized()
                 {
                     AssertHelper.All(
-                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<UnauthorizedObjectResult>(),
+                        () => ((UnauthorizedObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
                 }
 
                 [Test]
                 public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
                 {
-                    _tokenError.Error.Equals(TokenErrorType.InvalidClient);
+                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
                 }
             }
 
@@ -1067,9 +1060,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 }
 
                 [Test]
-                public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
+                public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
                 {
-                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidRequest);
+                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
                 }
             }
         }
