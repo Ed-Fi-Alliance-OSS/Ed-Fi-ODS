@@ -13,13 +13,17 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.IdentityManagement.Models;
+using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EdFi.Ods.Features.Controllers
 {
@@ -44,6 +48,9 @@ namespace EdFi.Ods.Features.Controllers
         private const string InvalidServerResponse = "Invalid response from identity service: ";
         private const string NoIdentitySystem = "There is no integrated Unique Identity System";
         private const string ResultsRoute = "results";
+        private const string IdentitySystemFailureMessage = "The identity service request failed.";
+
+        private readonly ILog _logger = LogManager.GetLogger(typeof(IdentitiesControllerBase<TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse>));
 
         private readonly IIdentityService<TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse> _identitySubsystem;
         private readonly IIdentityServiceAsync<TSearchRequest, TSearchResponse, TIdentityResponse> _identitySubsystemAsync;
@@ -100,7 +107,7 @@ namespace EdFi.Ods.Features.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int) HttpStatusCode.BadGateway, ex);
+                return IdentitySystemFailure(ex);
             }
         }
 
@@ -141,7 +148,7 @@ namespace EdFi.Ods.Features.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int) HttpStatusCode.BadGateway, ex);
+                return IdentitySystemFailure(ex);
             }
         }
 
@@ -191,7 +198,7 @@ namespace EdFi.Ods.Features.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int) HttpStatusCode.BadGateway, ex);
+                return IdentitySystemFailure(ex);
             }
         }
 
@@ -236,7 +243,7 @@ namespace EdFi.Ods.Features.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int) HttpStatusCode.BadGateway, ex);
+                return IdentitySystemFailure(ex);
             }
         }
 
@@ -277,13 +284,29 @@ namespace EdFi.Ods.Features.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int) HttpStatusCode.BadGateway, ex);
+                return IdentitySystemFailure(ex);
             }
         }
 
         private IActionResult NotImplemented()
         {
             return StatusCode((int) HttpStatusCode.NotImplemented, NoIdentitySystem);
+        }
+
+        /// <summary>
+        /// Logs an unexpected exception from the identity service and returns a 502 response that does not include the
+        /// exception, because its message, stack trace and inner exceptions can carry internal details. The response
+        /// includes the request's correlation id so the client can match it to the log entry.
+        /// </summary>
+        private IActionResult IdentitySystemFailure(Exception exception)
+        {
+            _logger.Error(exception);
+
+            var correlationId = HttpContext?.RequestServices?.GetService<ILogContextAccessor>()?.GetCorrelationId();
+
+            return StatusCode(
+                (int) HttpStatusCode.BadGateway,
+                new ErrorResponse { Message = IdentitySystemFailureMessage, CorrelationId = correlationId });
         }
 
         private static ErrorResponse BuildErrorResponse<T>(IdentityResponseStatus<T> identityResponse)
@@ -304,5 +327,6 @@ namespace EdFi.Ods.Features.Controllers
         public string Message { get; set; }
         public string IdentitySystemStatusCode { get; set; }
         public IEnumerable<IdentityError> IdentitySystemErrors { get; set; }
+        public string CorrelationId { get; set; }
     }
 }

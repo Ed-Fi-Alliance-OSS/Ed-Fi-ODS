@@ -5,15 +5,25 @@
 
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 
 namespace EdFi.Ods.Common.Models.Queries
 {
-    public class QueryParameters : IQueryParameters
+    public partial class QueryParameters : IQueryParameters
     {
         // TODO: public string[] Fields { get; set; }
 
+        private const int QueryExpressionMatchTimeoutMilliseconds = 1000;
+
         private string _q;
+
+        // The q parameter comes from the client, so matching is bounded by a timeout.
+        [GeneratedRegex(
+            @"(?i)(?<PropertyName>[a-z]+)\:((?<NumericRange>(\[|\{)[\d]+\sto\s[\d]+(\]|\}))|(?<DateRange>\[\d{4}-\d{1,2}\-\d{1,2}\sto\s[\d\-]+\])|'(?<QuotedText>\*?[a-z\s]+\*?)'|(?<Text>\*?[a-z]+\*?))",
+            RegexOptions.None,
+            QueryExpressionMatchTimeoutMilliseconds)]
+        private static partial Regex QueryExpressionRegex();
 
         public QueryParameters(UrlQueryParametersRequest parameters)
         {
@@ -77,10 +87,20 @@ namespace EdFi.Ods.Common.Models.Queries
 
                 var queryCriteria = new List<IQueryCriteriaBase>();
 
-                var regex = new Regex(
-                    @"(?i)(?<PropertyName>[a-z]+)\:((?<NumericRange>(\[|\{)[\d]+\sto\s[\d]+(\]|\}))|(?<DateRange>\[\d{4}-\d{1,2}\-\d{1,2}\sto\s[\d\-]+\])|'(?<QuotedText>\*?[a-z\s]+\*?)'|(?<Text>\*?[a-z]+\*?))");
+                var matches = QueryExpressionRegex().Matches(_q);
 
-                var matches = regex.Matches(_q);
+                try
+                {
+                    // MatchCollection is lazy; Count runs every match here so a timeout is handled below.
+                    _ = matches.Count;
+                }
+                catch (RegexMatchTimeoutException ex)
+                {
+                    throw new BadRequestParameterException(
+                        BadRequestException.DefaultDetail,
+                        ["The query expression parameter 'q' could not be processed."],
+                        ex);
+                }
 
                 foreach (Match match in matches)
                 {
