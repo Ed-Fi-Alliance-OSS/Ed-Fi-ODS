@@ -126,11 +126,24 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         public IReadOnlyList<string> InheritedAuthorizationFlagAliases { get; init; } = Array.Empty<string>();
 
         /// <summary>
-        /// Gets the aliases of the authorization flag columns that must all be 1 for each projected field to be returned,
-        /// keyed by the field's alias in the query.
+        /// Gets the aliases of the authorization flag columns of the flattened references that contain the member being
+        /// processed with this context, followed by the member's own flag (if any) when <paramref name="includeOwnFlag"/> is <b>true</b>.
+        /// </summary>
+        /// <param name="includeOwnFlag">Indicates whether to include <see cref="AuthorizationFlagAlias"/>.</param>
+        public string[] GetAuthorizationFlagAliases(bool includeOwnFlag = true)
+        {
+            return includeOwnFlag && AuthorizationFlagAlias != null
+                ? [..InheritedAuthorizationFlagAliases, AuthorizationFlagAlias]
+                : [..InheritedAuthorizationFlagAliases];
+        }
+
+        /// <summary>
+        /// Gets the aliases of the authorization flag columns that must all be 1 for a projected field's value to be returned,
+        /// keyed by the field's alias in the query. Fields with no entry are always returned.
         /// </summary>
         /// <remarks>Contexts created for flattened members share this dictionary with the context of the query
-        /// that contains them.</remarks>
+        /// that contains them, and the <see cref="CompositeQuery" /> built for that query receives it as
+        /// <see cref="CompositeQuery.AuthorizationFlagAliasesByFieldAlias" />.</remarks>
         public IDictionary<string, string[]> AuthorizationFlagAliasesByFieldAlias { get; init; } =
             new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
 

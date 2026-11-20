@@ -270,13 +270,13 @@ namespace EdFi.Ods.Features.Composites
                     authorizationFiltering,
                     builderContext.CurrentAlias,
                     builderContext.CurrentQueryFilterParameterValueByName,
-                    builderContext.ParameterValueByName,
+                    builderContext.ParameterValueByName?.Keys,
                     out string predicate))
             {
                 return;
             }
 
-            string flagAlias = $"{CompositeDefinitionHelper.Marker}Auth_{builderContext.CurrentAlias}";
+            string flagAlias = $"{CompositeDefinitionHelper.AuthorizationFlagMarker}{builderContext.CurrentAlias}";
 
             builderContext.Select.Append(
                 $"{CommaIfNeeded(builderContext.Select)}case when ({predicate}) then 1 else 0 end as {flagAlias}");
@@ -358,7 +358,7 @@ namespace EdFi.Ods.Features.Composites
                     builderContext.CurrentQueryAuthorizationFiltering,
                     builderContext.CurrentAlias,
                     builderContext.CurrentQueryFilterParameterValueByName,
-                    builderContext.ParameterValueByName,
+                    builderContext.ParameterValueByName?.Keys,
                     out string predicate))
             {
                 builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{predicate}");
@@ -386,7 +386,7 @@ namespace EdFi.Ods.Features.Composites
                         containingReferenceAuthorization.Filtering,
                         containingReferenceAuthorization.Alias,
                         builderContext.CurrentQueryFilterParameterValueByName,
-                        builderContext.ParameterValueByName,
+                        builderContext.ParameterValueByName?.Keys,
                         out string predicate))
                 {
                     builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{predicate}");
@@ -400,18 +400,18 @@ namespace EdFi.Ods.Features.Composites
         /// </summary>
         /// <param name="authorizationFiltering">The filtering of the authorization strategies to be combined.</param>
         /// <param name="currentAlias">The alias of the entity in the HQL query to which the filters apply.</param>
-        /// <param name="parameterValueByName">The parameter values of the query that will contain the predicate. A parameter
-        /// value already present in the query is reused if it's equal, and a distinct parameter name is used if it's not
-        /// (several resources can be authorized in the same query, and the query string criteria also use named parameters).</param>
-        /// <param name="specificationParameterValueByName">The values of the composite specification's parameters (e.g. from the
-        /// route), which are bound to the query separately, so their names are never used for the predicate's parameters.</param>
-        /// <param name="predicate">The HQL predicate, if any filters were applied.</param>
-        /// <returns><b>true</b> if any filters were applied; otherwise <b>false</b>.</returns>
+        /// <param name="parameterValueByName">The authorization parameter values of the query that will contain the predicate,
+        /// to which the predicate's parameter values are added. A parameter already present in the query is reused if its value
+        /// is equal, and a distinct parameter name is used if it's not (several resources can be authorized in the same query).</param>
+        /// <param name="reservedParameterNames">The names of the parameters bound to the query separately (e.g. the composite
+        /// specification's parameters from the route), which are never used for the predicate's parameters.</param>
+        /// <param name="predicate">The HQL predicate, or <b>null</b> if there are no filters to apply.</param>
+        /// <returns><b>true</b> if a predicate was built; otherwise <b>false</b>.</returns>
         private bool TryBuildAuthorizationPredicate(
             IReadOnlyList<AuthorizationStrategyFiltering> authorizationFiltering,
             string currentAlias,
             IDictionary<string, object> parameterValueByName,
-            IDictionary<string, object> specificationParameterValueByName,
+            ICollection<string> reservedParameterNames,
             out string predicate)
         {
             predicate = null;
@@ -639,7 +639,7 @@ namespace EdFi.Ods.Features.Composites
             bool CanUseParameterName(string parameterName, object parameterValue)
             {
                 // Specification parameters are bound to the query separately, and would be overwritten
-                if (specificationParameterValueByName?.ContainsKey(parameterName) == true)
+                if (reservedParameterNames?.Contains(parameterName) == true)
                 {
                     return false;
                 }
@@ -661,17 +661,16 @@ namespace EdFi.Ods.Features.Composites
             int valueCount,
             out string expandedFilterHql)
         {
-            var likeComparison = new Regex(
-                $@"(?<operand>[\w.]+)\s+LIKE\s+:{Regex.Escape(parameterName)}(?!\w)",
-                RegexOptions.IgnoreCase);
-
-            expandedFilterHql = likeComparison.Replace(
+            // The static Regex methods cache the patterns, which only vary by parameter name
+            expandedFilterHql = Regex.Replace(
                 filterHql,
+                $@"(?<operand>[\w.]+)\s+LIKE\s+:{Regex.Escape(parameterName)}(?!\w)",
                 m => "("
                     + string.Join(
                         " OR ",
                         Enumerable.Range(1, valueCount).Select(i => $"{m.Groups["operand"].Value} LIKE :{parameterName}_{i}"))
-                    + ")");
+                    + ")",
+                RegexOptions.IgnoreCase);
 
             // Only use the rewritten filter if no other usages of the parameter remain
             if (expandedFilterHql == filterHql

@@ -898,6 +898,54 @@ public class HqlBuilderAuthorizationDecoratorTests
     }
 
     [Test]
+    public void TryBuildForRootResource_WithSpecificationParameterOfTheSameNameInADifferentCase_UsesADistinctParameterName()
+    {
+        // Arrange
+        RegisterFilterDefinitions();
+
+        var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
+        A.CallTo(() => processorContext.CurrentResourceClass).Returns(new Resource("Assessment"));
+
+        // The specification parameters are matched ignoring case, as they are in CompositeResourceResponseProvider
+        var specificationParameterValueByName = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+        {
+            ["namespace"] = "uri://ed-fi.org/Assessment"
+        };
+
+        var builderContext = new HqlBuilderContext(
+            new StringBuilder(),
+            new StringBuilder(),
+            new StringBuilder(),
+            new StringBuilder(),
+            specificationParameterValueByName,
+            null,
+            0,
+            null,
+            null,
+            null,
+            new AliasGenerator("comp_"))
+        {
+            CurrentAlias = "comp_aa",
+            CurrentQueryAuthorizationFiltering =
+            [
+                new AuthorizationStrategyFiltering
+                {
+                    Operator = FilterOperator.Or,
+                    Filters = [NamespaceFilter("uri://ed-fi.org%")]
+                }
+            ]
+        };
+
+        // Act
+        _decorator.TryBuildForRootResource(builderContext, processorContext, out _);
+
+        // Assert
+        builderContext.Where.ToString().ShouldContain("comp_aa.Namespace LIKE :Namespace_comp_aa)");
+        builderContext.CurrentQueryFilterParameterValueByName.ContainsKey("Namespace").ShouldBeFalse();
+        specificationParameterValueByName["namespace"].ShouldBe("uri://ed-fi.org/Assessment");
+    }
+
+    [Test]
     public void ApplyFlattenedMember_WithSpecificationParameterOfTheSameName_UsesADistinctParameterName()
     {
         // Arrange

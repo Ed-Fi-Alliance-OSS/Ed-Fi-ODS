@@ -78,6 +78,7 @@ public class HqlBuilderFlattenedReferenceAuthorizationTests
 
         _hqlBuilder.ProjectProperties(
             [
+                Projection("Id"),
                 Projection("LocalCourseCode"),
                 Projection("LocalCourseTitle"),
                 // A property that no code refers to by name, to show that nothing is hard-coded
@@ -89,9 +90,11 @@ public class HqlBuilderFlattenedReferenceAuthorizationTests
         var flagsByField = rootContext.AuthorizationFlagAliasesByFieldAlias;
 
         flagsByField.ContainsKey("localCourseCode").ShouldBeFalse();
+        // The referenced resource's id is not an identifying property, so it's removed with the other values
+        flagsByField["id"].ShouldBe(["__Auth_comp_ab"]);
         flagsByField["localCourseTitle"].ShouldBe(["__Auth_comp_ab"]);
         flagsByField["renamedProperty"].ShouldBe(["__Auth_comp_ab"]);
-        flagsByField.Count.ShouldBe(2);
+        flagsByField.Count.ShouldBe(3);
 
         // The HQL projection itself is unchanged
         rootContext.Select.ToString().ShouldContain("comp_ab.LocalCourseTitle as localCourseTitle");
@@ -258,9 +261,14 @@ public class HqlBuilderFlattenedReferenceAuthorizationTests
                 [
                     new EntityPropertyDefinition("LocalCourseCode", new PropertyType(DbType.String), isIdentifying: true),
                     new EntityPropertyDefinition("LocalCourseTitle", new PropertyType(DbType.String)),
-                    new EntityPropertyDefinition("SomeNewlyAddedProperty", new PropertyType(DbType.Int32))
+                    new EntityPropertyDefinition("SomeNewlyAddedProperty", new PropertyType(DbType.Int32)),
+                    // Like the Ed-Fi model, "Id" is not part of the primary key, but has an alternate key of its own
+                    new EntityPropertyDefinition("Id", new PropertyType(DbType.Guid))
                 ],
-                [new EntityIdentifierDefinition("PK", ["LocalCourseCode"], isPrimary: true)]));
+                [
+                    new EntityIdentifierDefinition("PK", ["LocalCourseCode"], isPrimary: true),
+                    new EntityIdentifierDefinition("UI_Id", ["Id"])
+                ]));
 
         domainModelBuilder.AddAggregate(new AggregateDefinition(entityName, Array.Empty<FullName>()));
 

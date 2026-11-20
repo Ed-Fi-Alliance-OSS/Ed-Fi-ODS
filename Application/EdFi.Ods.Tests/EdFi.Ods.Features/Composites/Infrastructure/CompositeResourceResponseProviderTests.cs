@@ -47,6 +47,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
             private IList<IDictionary> _actualWithNullsIgnored;
             private IList<IDictionary> _actualWithNullsIncluded;
 
+            private static readonly Guid CourseOfferingId = Guid.NewGuid();
+
             protected override void Act()
             {
                 _actualWithNullsIgnored = Process(NullValueHandling.Ignore);
@@ -58,6 +60,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                 var orderedFieldNamesWithTypes = new Dictionary<string, PropertyType>
                 {
                     { "sectionIdentifier", new PropertyType(System.Data.DbType.String) },
+                    { "id", new PropertyType(System.Data.DbType.Guid) },
                     { "localCourseCode", new PropertyType(System.Data.DbType.String) },
                     { "localCourseTitle", new PropertyType(System.Data.DbType.String) },
                     { "courseTitle", new PropertyType(System.Data.DbType.String) },
@@ -75,6 +78,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                     AuthorizationFlagAliasesByFieldAlias = new Dictionary<string, string[]>
                     {
                         // LocalCourseCode is an identifying property of the CourseOffering, so it has no entry
+                        { "id", ["__Auth_comp_ab"] },
                         { "localCourseTitle", ["__Auth_comp_ab"] },
                         { "courseTitle", ["__Auth_comp_ab", "__Auth_comp_ac"] },
                     }
@@ -87,6 +91,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                 => new()
                 {
                     { "sectionIdentifier", sectionIdentifier },
+                    { "id", CourseOfferingId },
                     { "localCourseCode", "ALG-1" },
                     { "localCourseTitle", "Algebra I" },
                     { "courseTitle", "Algebra" },
@@ -108,10 +113,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
 
                 AssertHelper.All(
                     () => item["sectionIdentifier"].ShouldBe("authorized"),
+                    () => item["id"].ShouldBe(CourseOfferingId.ToString("N")),
                     () => item["localCourseCode"].ShouldBe("ALG-1"),
                     () => item["localCourseTitle"].ShouldBe("Algebra I"),
                     () => item["courseTitle"].ShouldBe("Algebra"),
-                    () => item.Count.ShouldBe(4));
+                    () => item.Count.ShouldBe(5));
             }
 
             [Test]
@@ -122,6 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                 AssertHelper.All(
                     () => item["sectionIdentifier"].ShouldBe("courseOfferingDenied"),
                     () => item["localCourseCode"].ShouldBe("ALG-1"),
+                    () => item.Contains("id").ShouldBeFalse(),
                     () => item.Contains("localCourseTitle").ShouldBeFalse(),
                     () => item.Contains("courseTitle").ShouldBeFalse(),
                     () => item.Count.ShouldBe(2));
@@ -135,7 +142,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                 AssertHelper.All(
                     () => item["localCourseTitle"].ShouldBe("Algebra I"),
                     () => item.Contains("courseTitle").ShouldBeFalse(),
-                    () => item.Count.ShouldBe(3));
+                    () => item.Count.ShouldBe(4));
             }
 
             [Test]
@@ -145,6 +152,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
 
                 AssertHelper.All(
                     () => item["localCourseCode"].ShouldBe("ALG-1"),
+                    () => item.Contains("id").ShouldBeTrue(),
+                    () => item["id"].ShouldBeNull(),
                     () => item.Contains("localCourseTitle").ShouldBeTrue(),
                     () => item["localCourseTitle"].ShouldBeNull(),
                     () => item.Contains("courseTitle").ShouldBeTrue(),

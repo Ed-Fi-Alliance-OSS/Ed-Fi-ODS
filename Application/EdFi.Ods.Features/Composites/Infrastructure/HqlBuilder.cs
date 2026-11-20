@@ -340,9 +340,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 // The flattened member's columns (and any authorization parameters they use) are part of the containing query
                 CurrentQueryFilterParameterValueByName = builderContext.CurrentQueryFilterParameterValueByName,
                 AuthorizationFlagAliasesByFieldAlias = builderContext.AuthorizationFlagAliasesByFieldAlias,
-                InheritedAuthorizationFlagAliases = builderContext.AuthorizationFlagAlias == null
-                    ? builderContext.InheritedAuthorizationFlagAliases
-                    : builderContext.InheritedAuthorizationFlagAliases.Append(builderContext.AuthorizationFlagAlias).ToArray()
+                InheritedAuthorizationFlagAliases = builderContext.GetAuthorizationFlagAliases()
             };
 
             flattenedBuilderContext.PropertyProjections = builderContext.PropertyProjections;
@@ -616,9 +614,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         /// </remarks>
         private static void RecordAuthorizationFlags(HqlBuilderContext builderContext, string fieldAlias, bool isIdentifying)
         {
-            var flagAliases = builderContext.AuthorizationFlagAlias != null && !isIdentifying
-                ? builderContext.InheritedAuthorizationFlagAliases.Append(builderContext.AuthorizationFlagAlias).ToArray()
-                : builderContext.InheritedAuthorizationFlagAliases.ToArray();
+            var flagAliases = builderContext.GetAuthorizationFlagAliases(includeOwnFlag: !isIdentifying);
 
             if (flagAliases.Length > 0)
             {
