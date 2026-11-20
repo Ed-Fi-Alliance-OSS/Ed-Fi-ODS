@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using EdFi.Ods.Api.Constants;
@@ -19,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using QuickGraph;
+using Shouldly;
 using Test.Common;
 using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
@@ -138,13 +140,87 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         }
 
+        [TestFixture]
+        public class When_getting_the_dependencies_more_than_once
+        {
+            private IResourceLoadGraphFactory _resourceLoadGraphFactory;
+            private AggregateDependencyCache _cache;
+
+            [SetUp]
+            public void SetUp()
+            {
+                var graph = new BidirectionalGraph<Resource, AssociationViewEdge>();
+                graph.AddVertex(new Resource("Test"));
+
+                _resourceLoadGraphFactory = A.Fake<IResourceLoadGraphFactory>();
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph()).Returns(graph);
+
+                // One cache shared by every controller, as with the singleton registration
+                _cache = new AggregateDependencyCache();
+            }
+
+            [Test]
+            public void Should_build_the_load_order_once_and_return_the_same_response()
+            {
+                var first = (OkObjectResult) CreateController(_resourceLoadGraphFactory, cache: _cache).Get();
+                var second = (OkObjectResult) CreateController(_resourceLoadGraphFactory, cache: _cache).Get();
+
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph()).MustHaveHappenedOnceExactly();
+                second.Value.ShouldBeSameAs(first.Value);
+                first.Value.ShouldBeAssignableTo<System.Collections.Generic.IReadOnlyList<ResourceLoadOrder>>()
+                    .Select(x => x.Order)
+                    .ShouldBe(new[] { 1 });
+            }
+
+            [Test]
+            public void Should_build_the_graphml_once_and_return_the_same_response()
+            {
+                var first = (OkObjectResult) CreateController(_resourceLoadGraphFactory, true, _cache).Get();
+                var second = (OkObjectResult) CreateController(_resourceLoadGraphFactory, true, _cache).Get();
+
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph()).MustHaveHappenedOnceExactly();
+                second.Value.ShouldBeSameAs(first.Value);
+                first.Value.ShouldBeOfType<GraphML>();
+            }
+
+            [Test]
+            public void Should_build_the_load_order_and_the_graphml_separately()
+            {
+                CreateController(_resourceLoadGraphFactory, cache: _cache).Get().ShouldBeOfType<OkObjectResult>()
+                    .Value.ShouldNotBeOfType<GraphML>();
+
+                CreateController(_resourceLoadGraphFactory, true, _cache).Get().ShouldBeOfType<OkObjectResult>()
+                    .Value.ShouldBeOfType<GraphML>();
+
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph()).MustHaveHappenedTwiceExactly();
+            }
+
+            [Test]
+            public void Should_not_analyze_a_circular_model_again_on_every_request()
+            {
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph())
+                    .Throws(new NonAcyclicGraphException());
+
+                CreateController(_resourceLoadGraphFactory, cache: _cache).Get().ShouldBeOfType<BadRequestObjectResult>();
+                CreateController(_resourceLoadGraphFactory, cache: _cache).Get().ShouldBeOfType<BadRequestObjectResult>();
+
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph()).MustHaveHappenedOnceExactly();
+            }
+        }
+
         private static AggregateDependencyController CreateController(IResourceLoadGraphFactory graphFactory,
-            bool isGraphRequest = false)
+            bool isGraphRequest = false,
+            AggregateDependencyCache cache = null)
         {
             var featureManager = new FakeFeatureManager();
 
             var logContextAccessor = A.Fake<ILogContextAccessor>();
-            var controller = new AggregateDependencyController(featureManager, graphFactory, logContextAccessor);
+
+            var controller = new AggregateDependencyController(
+                featureManager,
+                graphFactory,
+                cache ?? new AggregateDependencyCache(),
+                logContextAccessor);
             var request = A.Fake<HttpRequest>();
             var headerDictionary = A.Fake<IHeaderDictionary>();
             HeaderDictionary dict = new HeaderDictionary();

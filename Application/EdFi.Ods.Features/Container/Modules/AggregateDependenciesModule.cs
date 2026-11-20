@@ -9,6 +9,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Features.Controllers;
 using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
@@ -28,6 +29,10 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<PersonResourceLoadGraphTransformer>()
                 .As<IResourceLoadGraphTransformer>()
+                .SingleInstance();
+
+            builder.RegisterType<AggregateDependencyCache>()
+                .AsSelf()
                 .SingleInstance();
         }
     }
