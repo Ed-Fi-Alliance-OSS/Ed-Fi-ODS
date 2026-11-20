@@ -44,6 +44,9 @@ namespace EdFi.Ods.Api.Extensions
         public static IApplicationBuilder UseSecurityHeaders(this IApplicationBuilder builder)
             => builder.UseMiddleware<SecurityHeadersMiddleware>();
 
+        public static IApplicationBuilder UseHttpToHttpsRedirect(this IApplicationBuilder builder)
+            => builder.UseMiddleware<HttpToHttpsRedirectMiddleware>();
+
         /// <summary>
         /// Applies the X-Forwarded-* headers sent by trusted reverse proxies to the request. The forwarded port is
         /// captured first because the forwarded headers middleware replaces the remote IP address used to decide trust.

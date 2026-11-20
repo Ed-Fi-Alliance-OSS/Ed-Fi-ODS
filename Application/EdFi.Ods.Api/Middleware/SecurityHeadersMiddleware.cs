@@ -23,9 +23,19 @@ public class SecurityHeadersMiddleware
 
     public Task InvokeAsync(HttpContext context)
     {
-        context.Response.Headers[HeaderNames.XContentTypeOptions] = "nosniff";
-        context.Response.Headers[HeaderNames.XFrameOptions] = "SAMEORIGIN";
+        // Set the headers when the response starts, so that they survive a cleared response (e.g. an error page)
+        context.Response.OnStarting(AddSecurityHeaders, context.Response);
 
         return _next(context);
+    }
+
+    private static Task AddSecurityHeaders(object state)
+    {
+        var response = (HttpResponse) state;
+
+        response.Headers[HeaderNames.XContentTypeOptions] = "nosniff";
+        response.Headers[HeaderNames.XFrameOptions] = "DENY";
+
+        return Task.CompletedTask;
     }
 }

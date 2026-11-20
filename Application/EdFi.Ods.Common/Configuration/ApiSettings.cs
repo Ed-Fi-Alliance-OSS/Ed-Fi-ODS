@@ -78,15 +78,29 @@ namespace EdFi.Ods.Common.Configuration
         public bool EnableSecurityHeaders { get; set; } = true;
 
         /// <summary>
-        /// Redirects HTTP requests to HTTPS. Disabled by default, because the API is usually hosted behind a reverse
-        /// proxy or IIS that already does this. Behind a reverse proxy, also enable <see cref="UseReverseProxyHeaders"/>.
+        /// Redirects HTTP requests to HTTPS (307 Temporary Redirect), except for the health check endpoint. Disabled
+        /// by default, because the API is usually hosted behind a reverse proxy or IIS that already does this.
         /// </summary>
+        /// <remarks>
+        /// Behind a reverse proxy that terminates TLS, also enable <see cref="UseReverseProxyHeaders"/> and make sure
+        /// the proxy is trusted (see <see cref="KnownProxies"/> and <see cref="KnownNetworks"/>); otherwise every
+        /// request is seen as HTTP and is redirected again. The redirect uses <see cref="OverrideForForwardingHostServer"/>
+        /// when set, and the port from <see cref="HttpsRedirectionPort"/>. Note that a client that calls the API over
+        /// HTTP has already sent its request, including any credentials, before it is redirected.
+        /// </remarks>
         public bool EnableHttpsRedirection { get; set; }
 
         /// <summary>
-        /// Adds the Strict-Transport-Security header to HTTPS responses. Disabled by default, because the API is
-        /// usually hosted behind a reverse proxy or IIS that already does this. Behind a reverse proxy, also enable
-        /// <see cref="UseReverseProxyHeaders"/>.
+        /// The HTTPS port that <see cref="EnableHttpsRedirection"/> redirects to. When not set, the
+        /// <see cref="OverrideForForwardingHostPort"/> is used if <see cref="UseReverseProxyHeaders"/> is enabled,
+        /// otherwise the default HTTPS port (443).
+        /// </summary>
+        public int? HttpsRedirectionPort { get; set; }
+
+        /// <summary>
+        /// Adds the Strict-Transport-Security header (max-age of one year) to HTTPS responses. Disabled by default,
+        /// because the API is usually hosted behind a reverse proxy or IIS that already does this. Behind a reverse
+        /// proxy, also enable <see cref="UseReverseProxyHeaders"/>. The header is never sent to localhost.
         /// </summary>
         public bool EnableHsts { get; set; }
 
