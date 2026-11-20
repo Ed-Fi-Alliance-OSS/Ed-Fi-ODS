@@ -35,6 +35,7 @@
     <PackageReference Include="MediatR" />
     <PackageReference Include="MessagePack" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Resilience" />
     <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" />
     <PackageReference Include="NHibernate" />
     <PackageReference Include="Npgsql" />
@@ -56,6 +57,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Metadata\Schemas\Ed-Fi-ODS-API-Profiles.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="EdFi.Ods.Tests" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
