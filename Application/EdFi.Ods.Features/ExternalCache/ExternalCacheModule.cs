@@ -13,6 +13,7 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.ExternalCache.Redis;
 using EdFi.Ods.Features.Services.Redis;
@@ -84,9 +85,33 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public void OverrideApiClientDetailsCache(ContainerBuilder builder)
         {
-            builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
-                .As<IApiClientDetailsCacheKeyProvider>()
-                .SingleInstance();
+            if (IsFeatureEnabled(ApiFeature.MultiTenancy))
+            {
+                builder.RegisterType<MultiTenantApiClientDetailsCacheKeyProvider>()
+                    .As<IApiClientDetailsCacheKeyProvider>()
+                    .SingleInstance();
+
+                // Also registered by MultiTenancyModule; override modules are always registered last, so the
+                // tenant-scoped in-process cache behind the external cache does not depend on module load order
+                builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
+                    .Named<IInterceptor>(InterceptorCacheKeys.ApiClientDetails)
+                    .WithParameter(
+                        ctx =>
+                        {
+                            var apiSettings = ctx.Resolve<ApiSettings>();
+
+                            return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                                "API Client Details",
+                                TimeSpan.FromSeconds(apiSettings.Caching.ApiClientDetails.AbsoluteExpirationSeconds));
+                        })
+                    .SingleInstance();
+            }
+            else
+            {
+                builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
+                    .As<IApiClientDetailsCacheKeyProvider>()
+                    .SingleInstance();
+            }
 
             builder.RegisterDecorator<IApiClientDetailsProvider>(
                 (context, parameters, instance) => GetCachingApiClientDetailsProviderDecorator(context, instance));
