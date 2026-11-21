@@ -18,14 +18,15 @@ public static class QueryBuilderExtensions
             return;
         }
 
+        // Use WhereRaw to inline literal values instead of parameters to avoid SQL Server parameter sniffing issues
         if (queryParameters.MinChangeVersion.HasValue)
         {
-            queryBuilder.Where(ColumnNames.ChangeVersion, ">=", queryParameters.MinChangeVersion.Value);
+            queryBuilder.WhereRaw($"{ColumnNames.ChangeVersion} >= {queryParameters.MinChangeVersion.Value}");
         }
 
         if (queryParameters.MaxChangeVersion.HasValue)
         {
-            queryBuilder.Where(ColumnNames.ChangeVersion, "<=", queryParameters.MaxChangeVersion.Value);
+            queryBuilder.WhereRaw($"{ColumnNames.ChangeVersion} <= {queryParameters.MaxChangeVersion.Value}");
         }
     }
 
