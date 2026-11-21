@@ -10,5 +10,5 @@ namespace EdFi.Ods.Features.TokenInfo;
 public class TokenInfoResource
 {
     public string Resource { get; set; }
-    public IReadOnlyList<string> Operations { get; set; }
+    public IReadOnlyList<TokenInfoOperation> Operations { get; set; }
 }
