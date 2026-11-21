@@ -20,6 +20,7 @@ select
 	comp_aaa.StudentAssessmentIdentifier as PK1a_StudentAssessmentIdentifier,
 	comp_aaa.StudentUSI as PK1a_StudentUSI,
 	comp_aab.IdentificationCode as PK2a_IdentificationCode,
+	case when (((comp_aac.Namespace IS NOT NULL AND comp_aac.Namespace LIKE :Namespace))) then 1 else 0 end as __Auth_comp_aac,
 	comp_aac.MaxRawScore as maxRawScore
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ comp_aaa
