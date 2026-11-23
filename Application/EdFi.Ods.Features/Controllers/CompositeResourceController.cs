@@ -35,17 +35,19 @@ namespace EdFi.Ods.Features.Controllers
     [Route("composites/")]
     public class CompositeResourceController : ControllerBase
     {
-        private static readonly HashSet<string> _standardApiRouteKeys
-            = new(StringComparer.OrdinalIgnoreCase)
-            {
-                "compositeVersion",
-                "compositeCategory",
-                "compositeName",
-                "controller",
-                "id",
-                "organizationCode",
-                "action" // required for net core
-            };
+        private static readonly string[] _baseStandardApiRouteKeys =
+        {
+            "compositeVersion",
+            "compositeCategory",
+            "compositeName",
+            "controller",
+            "id",
+            "organizationCode",
+            "action" // required for net core
+        };
+
+        // Built per instance and only read afterwards, so concurrent requests never write to a shared set
+        private readonly HashSet<string> _standardApiRouteKeys;
         private readonly ICompositesMetadataProvider _compositeMetadataProvider;
         private readonly ICompositeResourceResponseProvider _compositeResourceResponseProvider;
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceController));
@@ -67,6 +69,8 @@ namespace EdFi.Ods.Features.Controllers
             _logContextAccessor = logContextAccessor;
             _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.Composites);
 
+            _standardApiRouteKeys = new HashSet<string>(_baseStandardApiRouteKeys, StringComparer.OrdinalIgnoreCase);
+
             if (featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
             {
                 _standardApiRouteKeys.Add("tenantIdentifier");
@@ -74,10 +78,7 @@ namespace EdFi.Ods.Features.Controllers
 
             if (!string.IsNullOrEmpty(apiSettings.OdsContextRouteTemplate))
             {
-                foreach (var odsContextRouteKey in apiSettings.GetOdsContextRouteTemplateKeys())
-                {
-                    _standardApiRouteKeys.Add(odsContextRouteKey);
-                }
+                _standardApiRouteKeys.UnionWith(apiSettings.GetOdsContextRouteTemplateKeys());
             }
         }
 
