@@ -62,7 +62,9 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
         IQueryParameters queryParameters,
         IDictionary<string, string> additionalParameters)
     {
-        // TODO: ODS-6510 - This needs to be invokes an authorization decorator of some sort -- copied from the data management controller pipeline. Also, look for approach to DRY here.
+        // The authorization decorator wraps this provider (see SecurityPersistenceModule); this establishes the plan it
+        // applies, copied from the data management controller pipeline.
+        // TODO: ODS-6510 - Look for an approach to DRY this with the data management controller pipeline.
         EstablishAuthorizationPlan(entity);
 
         var rowNumbersQueryBuilder = new QueryBuilder(_dialect)
