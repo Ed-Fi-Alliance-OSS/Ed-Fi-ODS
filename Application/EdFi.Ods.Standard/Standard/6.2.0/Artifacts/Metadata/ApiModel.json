@@ -3,8 +3,7 @@
   "schemaDefinition": {
     "logicalName": "Ed-Fi",
     "physicalName": "edfi",
-    "description": "The Ed-Fi Data Model 6.1",
-    "version": "6.1.0"
+    "version": "6.2.0"
   },
   "aggregateDefinitions": [
     {
@@ -1336,6 +1335,18 @@
         {
           "schema": "edfi",
           "name": "ContactIdentificationSystemDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "ContactResponsibilityDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "edfi",
+          "name": "ContactResponsibilityDescriptor"
         }
       ]
     },
@@ -6604,6 +6615,10 @@
         {
           "schema": "edfi",
           "name": "StudentSpecialEducationProgramAssociationDisabilityDesignation"
+        },
+        {
+          "schema": "edfi",
+          "name": "StudentSpecialEducationProgramAssociationResponsibleContact"
         },
         {
           "schema": "edfi",
@@ -12518,7 +12533,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The analyzed result of a student's response to an assessment item.. For example:\n    Correct\n    Incorrect\n    Met standard\n    ...",
+      "description": "The analyzed result of a student's response to an assessment item.. For example:    Correct    Incorrect    Met standard    ...",
       "domains": [
         "Assessment",
         "StudentAssessment"
@@ -21334,6 +21349,32 @@
       "tableNames": {
         "sqlServer": "ContactPersonalIdentificationDocument",
         "postgreSql": "ContactPersonalIdentificationDocument"
+      }
+    },
+    {
+      "schema": "edfi",
+      "name": "ContactResponsibilityDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "ContactResponsibilityDescriptor_PK",
+          "identifyingPropertyNames": [
+            "ContactResponsibilityDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "ContactResponsibilityDescriptor_PK",
+            "postgreSql": "ContactResponsibilityDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Defines the type of responsibility a contact has for a specific student.",
+      "domains": [],
+      "tableNames": {
+        "sqlServer": "ContactResponsibilityDescriptor",
+        "postgreSql": "ContactResponsibilityDescriptor"
       }
     },
     {
@@ -70892,6 +70933,97 @@
     },
     {
       "schema": "edfi",
+      "name": "StudentSpecialEducationProgramAssociationResponsibleContact",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "ContactResponsibilityBeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The date on which the specific contact responsibility for the student becomes effective. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactResponsibilityBeginDate",
+            "postgreSql": "ContactResponsibilityBeginDate"
+          }
+        },
+        {
+          "propertyName": "ContactResponsibilityEndDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The date on which the specific contact responsibility for the student ends. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactResponsibilityEndDate",
+            "postgreSql": "ContactResponsibilityEndDate"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentSpecialEducationProgramAssociationResponsibleContact_PK",
+          "identifyingPropertyNames": [
+            "BeginDate",
+            "EducationOrganizationId",
+            "ProgramEducationOrganizationId",
+            "ProgramName",
+            "ProgramTypeDescriptorId",
+            "StudentUSI",
+            "ContactResponsibilityBeginDate",
+            "ContactResponsibilityDescriptorId",
+            "ContactUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentSpecialEducationProgramAssociationResponsibleContact_PK",
+            "postgreSql": "StudentSpecialEducationProgramAssociationResponsibleContact_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Identifies a contact’s responsibility to the student in the special education program, effective as of the begin date.",
+      "domains": [
+        "AlternativeAndSupplementalServices",
+        "SpecialEducation"
+      ],
+      "tableNames": {
+        "sqlServer": "StudentSpecialEducationProgramAssociationResponsibleContact",
+        "postgreSql": "StudentSpecialEducationProgramAssociationResponsibleContact"
+      }
+    },
+    {
+      "schema": "edfi",
       "name": "StudentSpecialEducationProgramAssociationServiceProvider",
       "locallyDefinedProperties": [
         {
@@ -100992,6 +101124,66 @@
     {
       "fullName": {
         "schema": "edfi",
+        "name": "FK_ContactResponsibilityDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "ContactResponsibilityDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactResponsibilityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "ContactResponsibilityDescriptorId",
+            "postgreSql": "ContactResponsibilityDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_ContactResponsibilityDescriptor_Descriptor",
+        "postgreSql": "FK_64806a_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
         "name": "FK_ContactTelephone_Contact"
       },
       "cardinality": "OneToZeroOrMore",
@@ -113992,7 +114184,7 @@
         "schema": "edfi",
         "name": "FK_EducationOrganizationCategory_EducationOrganization"
       },
-      "cardinality": "OneToOneOrMore",
+      "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
         "name": "EducationOrganization"
@@ -202456,7 +202648,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\n        Present\n        Unexcused absence\n        Excused absence\n        Tardy.",
+          "description": "A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -207532,7 +207724,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\n        Present\n        Unexcused absence\n        Excused absence\n        Tardy.",
+          "description": "A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -211438,7 +211630,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\n        Present\n        Unexcused absence\n        Excused absence\n        Tardy.",
+          "description": "A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -213592,7 +213784,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\n        Present\n        Unexcused absence\n        Excused absence\n        Tardy.",
+          "description": "A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -214047,7 +214239,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\n        Present\n        Unexcused absence\n        Excused absence\n        Tardy.",
+          "description": "A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -214193,7 +214385,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\n        Present\n        Unexcused absence\n        Excused absence\n        Tardy.",
+          "description": "A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -215365,6 +215557,360 @@
       "constraintNames": {
         "sqlServer": "FK_StudentSpecialEducationProgramAssociationDisabilityDesignation_StudentSpecialEducationProgramAssociationDisability",
         "postgreSql": "FK_a2fd20_StudentSpecialEducationProgramAssociationDisability"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_StudentSpecialEducationProgramAssociationResponsibleContact_Contact"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Contact"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentSpecialEducationProgramAssociationResponsibleContact"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationProgramAssociationResponsibleContact_Contact",
+        "postgreSql": "FK_b8d1a7_Contact"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_StudentSpecialEducationProgramAssociationResponsibleContact_ContactResponsibilityDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "ContactResponsibilityDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactResponsibilityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactResponsibilityDescriptorId",
+            "postgreSql": "ContactResponsibilityDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentSpecialEducationProgramAssociationResponsibleContact"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactResponsibilityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Defines the type of responsibility a contact has for a specific student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactResponsibilityDescriptorId",
+            "postgreSql": "ContactResponsibilityDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationProgramAssociationResponsibleContact_ContactResponsibilityDescriptor",
+        "postgreSql": "FK_b8d1a7_ContactResponsibilityDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_StudentSpecialEducationProgramAssociationResponsibleContact_StudentSpecialEducationProgramAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentSpecialEducationProgramAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramEducationOrganizationId",
+            "postgreSql": "ProgramEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentSpecialEducationProgramAssociationResponsibleContact"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramEducationOrganizationId",
+            "postgreSql": "ProgramEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationProgramAssociationResponsibleContact_StudentSpecialEducationProgramAssociation",
+        "postgreSql": "FK_b8d1a7_StudentSpecialEducationProgramAssociation"
       },
       "potentiallyLogical": false
     },

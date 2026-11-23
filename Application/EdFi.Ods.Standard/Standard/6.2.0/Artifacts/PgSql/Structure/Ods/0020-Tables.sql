@@ -1997,6 +1997,12 @@ CREATE TABLE edfi.ContactPersonalIdentificationDocument (
 );
 ALTER TABLE edfi.ContactPersonalIdentificationDocument ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
+-- Table edfi.ContactResponsibilityDescriptor --
+CREATE TABLE edfi.ContactResponsibilityDescriptor (
+    ContactResponsibilityDescriptorId INT NOT NULL,
+    CONSTRAINT ContactResponsibilityDescriptor_PK PRIMARY KEY (ContactResponsibilityDescriptorId)
+);
+
 -- Table edfi.ContactTelephone --
 CREATE TABLE edfi.ContactTelephone (
     ContactUSI INT NOT NULL,
@@ -9674,6 +9680,23 @@ CREATE TABLE edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation
     CONSTRAINT StudentSpecialEducationProgramAssociationDisabilit_a2fd20_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, DisabilityDescriptorId, DisabilityDesignationDescriptorId)
 );
 ALTER TABLE edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
+
+-- Table edfi.StudentSpecialEducationProgramAssociationResponsibleContact --
+CREATE TABLE edfi.StudentSpecialEducationProgramAssociationResponsibleContact (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
+    ProgramName VARCHAR(60) NOT NULL,
+    ProgramTypeDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    ContactResponsibilityBeginDate DATE NOT NULL,
+    ContactResponsibilityDescriptorId INT NOT NULL,
+    ContactUSI INT NOT NULL,
+    ContactResponsibilityEndDate DATE NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentSpecialEducationProgramAssociationResponsibleContact_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, ContactResponsibilityBeginDate, ContactResponsibilityDescriptorId, ContactUSI)
+);
+ALTER TABLE edfi.StudentSpecialEducationProgramAssociationResponsibleContact ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table edfi.StudentSpecialEducationProgramAssociationServiceProvider --
 CREATE TABLE edfi.StudentSpecialEducationProgramAssociationServiceProvider (

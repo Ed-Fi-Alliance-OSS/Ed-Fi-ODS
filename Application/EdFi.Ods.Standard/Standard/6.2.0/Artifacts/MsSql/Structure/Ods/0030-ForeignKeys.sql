@@ -2287,6 +2287,11 @@ CREATE NONCLUSTERED INDEX [FK_ContactPersonalIdentificationDocument_PersonalInfo
 ON [edfi].[ContactPersonalIdentificationDocument] ([PersonalInformationVerificationDescriptorId] ASC)
 GO
 
+ALTER TABLE [edfi].[ContactResponsibilityDescriptor] WITH CHECK ADD CONSTRAINT [FK_ContactResponsibilityDescriptor_Descriptor] FOREIGN KEY ([ContactResponsibilityDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [edfi].[ContactTelephone] WITH CHECK ADD CONSTRAINT [FK_ContactTelephone_Contact] FOREIGN KEY ([ContactUSI])
 REFERENCES [edfi].[Contact] ([ContactUSI])
 ON DELETE CASCADE
@@ -10307,6 +10312,27 @@ GO
 
 ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationDisabilityDesignation] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationDisabilityDesignation_StudentSpecialEducationProgramAssociationDisability] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI], [DisabilityDescriptorId])
 REFERENCES [edfi].[StudentSpecialEducationProgramAssociationDisability] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI], [DisabilityDescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationResponsibleContact] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationResponsibleContact_Contact] FOREIGN KEY ([ContactUSI])
+REFERENCES [edfi].[Contact] ([ContactUSI])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSpecialEducationProgramAssociationResponsibleContact_Contact]
+ON [edfi].[StudentSpecialEducationProgramAssociationResponsibleContact] ([ContactUSI] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationResponsibleContact] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationResponsibleContact_ContactResponsibilityDescriptor] FOREIGN KEY ([ContactResponsibilityDescriptorId])
+REFERENCES [edfi].[ContactResponsibilityDescriptor] ([ContactResponsibilityDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSpecialEducationProgramAssociationResponsibleContact_ContactResponsibilityDescriptor]
+ON [edfi].[StudentSpecialEducationProgramAssociationResponsibleContact] ([ContactResponsibilityDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationResponsibleContact] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationResponsibleContact_StudentSpecialEducationProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+REFERENCES [edfi].[StudentSpecialEducationProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
 GO
 

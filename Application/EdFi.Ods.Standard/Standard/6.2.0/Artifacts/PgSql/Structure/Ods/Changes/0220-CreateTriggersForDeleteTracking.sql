@@ -1500,6 +1500,23 @@ CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.contactidentificationsystemdesc
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.contactidentificationsystemdescriptor_deleted();
 END IF;
 
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.contactresponsibilitydescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.ContactResponsibilityDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.ContactResponsibilityDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.ContactResponsibilityDescriptorId = b.descriptorid ;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'contactresponsibilitydescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.contactresponsibilitydescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.contactresponsibilitydescriptor_deleted();
+END IF;
+
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.contentclassdescriptor_deleted()
     RETURNS trigger AS
 $BODY$

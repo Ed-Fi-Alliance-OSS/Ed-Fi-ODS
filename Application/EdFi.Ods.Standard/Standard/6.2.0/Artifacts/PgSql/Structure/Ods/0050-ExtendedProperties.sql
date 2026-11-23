@@ -1299,6 +1299,10 @@ COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.IssuerCountryDescri
 COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.IssuerDocumentIdentificationCode IS 'The unique identifier on the issuer''s identification system.';
 COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.IssuerName IS 'Name of the entity or institution that issued the document.';
 
+-- Extended Properties [edfi].[ContactResponsibilityDescriptor] --
+COMMENT ON TABLE edfi.ContactResponsibilityDescriptor IS 'Defines the type of responsibility a contact has for a specific student.';
+COMMENT ON COLUMN edfi.ContactResponsibilityDescriptor.ContactResponsibilityDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[ContactTelephone] --
 COMMENT ON TABLE edfi.ContactTelephone IS 'The 10-digit telephone number, including the area code, for the person.';
 COMMENT ON COLUMN edfi.ContactTelephone.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
@@ -6347,6 +6351,19 @@ COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesign
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.DisabilityDescriptorId IS 'A disability category that describes a individual''s impairment.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.DisabilityDesignationDescriptorId IS 'Whether the disability is IDEA, Section 504, or other disability designation.';
+
+-- Extended Properties [edfi].[StudentSpecialEducationProgramAssociationResponsibleContact] --
+COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociationResponsibleContact IS 'Identifies a contact’s responsibility to the student in the special education program, effective as of the begin date.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationResponsibleContact.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationResponsibleContact.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationResponsibleContact.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationResponsibleContact.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationResponsibleContact.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationResponsibleContact.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationResponsibleContact.ContactResponsibilityBeginDate IS 'The date on which the specific contact responsibility for the student becomes effective. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationResponsibleContact.ContactResponsibilityDescriptorId IS 'Defines the type of responsibility a contact has for a specific student.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationResponsibleContact.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationResponsibleContact.ContactResponsibilityEndDate IS 'The date on which the specific contact responsibility for the student ends. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 
 -- Extended Properties [edfi].[StudentSpecialEducationProgramAssociationServiceProvider] --
 COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociationServiceProvider IS 'The staff providing special education services to the student.';
