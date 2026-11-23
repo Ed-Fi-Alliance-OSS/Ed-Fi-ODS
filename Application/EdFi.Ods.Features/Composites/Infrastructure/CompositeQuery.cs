@@ -95,6 +95,15 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
         public List<CompositeQuery> ChildQueries { get; }
 
+        /// <summary>
+        /// Gets or sets the aliases of the authorization flag columns that must all be 1 for a field's value to be returned,
+        /// keyed by the field's alias. Fields with no entry are always returned. The values of fields from flattened references
+        /// the API client is not authorized to read are left out of the response (or returned as null when null values are
+        /// included).
+        /// </summary>
+        public IDictionary<string, string[]> AuthorizationFlagAliasesByFieldAlias { get; set; } =
+            new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
+
         private bool RequiresDataReordering
         {
             get

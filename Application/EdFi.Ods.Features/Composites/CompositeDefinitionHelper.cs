@@ -32,6 +32,7 @@ namespace EdFi.Ods.Features.Composites
         public const string NamespaceMarker = "__Namespace";
         public const string Marker = "__";
         public const string PassThroughMarker = "__PassThrough";
+        public const string AuthorizationFlagMarker = "__Auth_";
         public const string UniqueId = "UniqueId";
 
         public static bool ShouldFlatten(XElement childElement)
