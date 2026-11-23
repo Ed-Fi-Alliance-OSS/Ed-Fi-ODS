@@ -1,0 +1,9 @@
+<SecurityMetadata modifyHierarchy = 'true'>
+	<Claims>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/contactResponsibilityDescriptor" />
+			</Claims>
+		</Claim>
+	</Claims>
+</SecurityMetadata>
