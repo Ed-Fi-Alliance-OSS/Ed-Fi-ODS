@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Security;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
 using static EdFi.Ods.Common.Constants.RequestActions;
@@ -56,7 +57,7 @@ public class OneRosterTokenClaimsProvider(
 
             if (tenantConfig != null)
             {
-                claims.Add(new Claim("tenantId", tenantConfig.TenantIdentifier));
+                claims.Add(new Claim(EdFiOdsApiClaimTypes.TenantId, tenantConfig.TenantIdentifier));
             }
         }
 
