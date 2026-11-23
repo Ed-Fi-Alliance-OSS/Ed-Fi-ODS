@@ -51,7 +51,7 @@ public class PartitionsParametersTests
 
     [TestCase("yes")]
     [TestCase("1")]
-    [TestCase("true,false")]
+    [TestCase("true,false", TestName = "{m}(literal comma value, not a repeated parameter)")]
     [TestCase("true; DROP TABLE x")]
     public void Should_reject_a_value_that_is_not_a_boolean(string value)
     {

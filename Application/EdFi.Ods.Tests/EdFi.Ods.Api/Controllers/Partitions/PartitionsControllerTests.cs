@@ -62,7 +62,7 @@ public class PartitionsControllerTests
 
     [TestCase("allowSmallPartitions", "yes")]
     [TestCase("allowSmallPartitions", "1")]
-    [TestCase("allowSmallPartitions", "true,false")]
+    [TestCase("allowSmallPartitions", "true,false", TestName = "{m}(literal comma value, not a repeated parameter)")]
     [TestCase("allowSmallPartitions", "true; DROP TABLE x")]
     [TestCase("AllowSmallPartitions", "yes")]
     public async Task Should_return_bad_request_when_allowSmallPartitions_is_not_a_boolean(string name, string value)
