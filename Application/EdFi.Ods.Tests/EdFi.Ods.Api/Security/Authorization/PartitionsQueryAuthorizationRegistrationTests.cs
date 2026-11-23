@@ -3,7 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Reflection;
+using System;
+using System.Collections.Generic;
 using Autofac;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Container.Modules;
@@ -11,9 +12,13 @@ using EdFi.Ods.Api.Controllers.Partitions.Controllers;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.Container.Modules;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -34,7 +39,12 @@ public class PartitionsQueryAuthorizationRegistrationTests
     private IContainer _container;
 
     [OneTimeSetUp]
-    public void OneTimeSetUp()
+    public void OneTimeSetUp() => _container = BuildContainer(_ => { });
+
+    [OneTimeTearDown]
+    public void OneTimeTearDown() => _container?.Dispose();
+
+    private static IContainer BuildContainer(Action<ContainerBuilder> overrideRegistrations)
     {
         var builder = new ContainerBuilder();
 
@@ -51,11 +61,12 @@ public class PartitionsQueryAuthorizationRegistrationTests
         builder.RegisterInstance(A.Fake<IAuthorizationFilterDefinitionProvider>());
         builder.RegisterInstance(A.Fake<IPartitionsQueryBuilderPartitionsApplicator>());
 
-        _container = builder.Build();
-    }
+        // The fakes above only satisfy the dependencies of the two modules
 
-    [OneTimeTearDown]
-    public void OneTimeTearDown() => _container?.Dispose();
+        overrideRegistrations(builder);
+
+        return builder.Build();
+    }
 
     [Test]
     public void Should_decorate_the_keyed_partitions_row_numbers_query_builder_with_authorization()
@@ -67,14 +78,43 @@ public class PartitionsQueryAuthorizationRegistrationTests
     }
 
     [Test]
-    public void Should_give_the_partitions_query_builder_the_decorated_row_numbers_query_builder()
+    public void Should_authorize_the_row_numbers_query_of_the_partitions_query()
     {
-        var partitionsQueryBuilderProvider = _container.Resolve<IPartitionsQueryBuilderProvider>();
+        var rowNumbersQueryBuilderProvider = A.Fake<IAggregateRootQueryBuilderProvider>();
 
-        var rowNumbersQueryBuilderProvider = typeof(PartitionsQueryBuilderProvider)
-            .GetField("_partitionRowNumbersCteQueryBuilderProvider", BindingFlags.Instance | BindingFlags.NonPublic)
-            .GetValue(partitionsQueryBuilderProvider);
+        A.CallTo(
+                () => rowNumbersQueryBuilderProvider.GetQueryBuilder(
+                    A<Entity>._,
+                    A<AggregateRootWithCompositeKey>._,
+                    A<IQueryParameters>._,
+                    A<IDictionary<string, string>>._))
+            .ReturnsLazily(() => new QueryBuilder(new SqlServerDialect()));
 
-        rowNumbersQueryBuilderProvider.ShouldBeOfType<AggregateRootQueryBuilderProviderAuthorizationDecorator>();
+        var authorizationPlanContextProvider = A.Fake<IContextProvider<DataManagementAuthorizationPlan>>();
+
+        A.CallTo(() => authorizationPlanContextProvider.Get())
+            .Returns(new DataManagementAuthorizationPlan { Filtering = Array.Empty<AuthorizationStrategyFiltering>() });
+
+        // Replaces only the inner query builder and the plan; the registrations and the decorator come from the modules
+        using var container = BuildContainer(
+            builder =>
+            {
+                builder.RegisterInstance(rowNumbersQueryBuilderProvider)
+                    .Keyed<IAggregateRootQueryBuilderProvider>(PartitionRowNumbersCteQueryBuilderProvider.RegistrationKey);
+
+                builder.RegisterInstance(authorizationPlanContextProvider);
+            });
+
+        container.Resolve<IPartitionsQueryBuilderProvider>()
+            .GetQueryBuilder(1, null, null, new QueryParameters(), new Dictionary<string, string>());
+
+        A.CallTo(() => rowNumbersQueryBuilderProvider.GetQueryBuilder(
+                A<Entity>._,
+                A<AggregateRootWithCompositeKey>._,
+                A<IQueryParameters>._,
+                A<IDictionary<string, string>>._))
+            .MustHaveHappenedOnceExactly();
+
+        A.CallTo(() => authorizationPlanContextProvider.Get()).MustHaveHappenedOnceExactly();
     }
 }

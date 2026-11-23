@@ -24,13 +24,34 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization;
 [TestFixture]
 public class AggregateRootQueryBuilderProviderAuthorizationDecoratorTests
 {
-    [TestCase("UseJoinAuth", "true")]
-    [TestCase("UseJoinAuth", "yes")]
-    [TestCase("useJoinAuth", "true")]
-    public void Should_not_let_the_caller_choose_the_authorization_filter_strategy(string parameterName, string value)
+    // The decorator used to read "UseJoinAuth" (capital U) and switch the query to the join-based filter
+    [TestCase("true", TestName = "Should_not_switch_to_joins_on_UseJoinAuth_true")]
+    [TestCase("yes", TestName = "Should_not_throw_on_non_boolean_UseJoinAuth")]
+    public void Should_keep_the_server_strategy_when_the_caller_sends_UseJoinAuth(string value)
     {
         var queryBuilder = new QueryBuilder(new SqlServerDialect());
         queryBuilder.Context.SetQueryBuilderFilterStrategy(QueryBuilderFilterStrategy.ExistsSubquery);
+
+        var result = GetQueryBuilder(queryBuilder, new Dictionary<string, string> { ["UseJoinAuth"] = value });
+
+        result.Context.UsesExistsSubqueryFilterStrategy().ShouldBeTrue();
+        result.Context.UsesJoinFilterStrategy().ShouldBeFalse();
+    }
+
+    [Test]
+    public void Should_keep_the_default_cte_strategy_for_get_all_when_the_caller_sends_UseJoinAuth()
+    {
+        // GET all sets no strategy, so the CTE filter is used
+        var result = GetQueryBuilder(
+            new QueryBuilder(new SqlServerDialect()),
+            new Dictionary<string, string> { ["UseJoinAuth"] = "true" });
+
+        result.Context.UsesCteFilterStrategy().ShouldBeTrue();
+        result.Context.UsesJoinFilterStrategy().ShouldBeFalse();
+    }
+
+    private static QueryBuilder GetQueryBuilder(QueryBuilder queryBuilder, IDictionary<string, string> additionalParameters)
+    {
 
         var decoratedInstance = A.Fake<IAggregateRootQueryBuilderProvider>();
 
@@ -52,13 +73,6 @@ public class AggregateRootQueryBuilderProviderAuthorizationDecoratorTests
             authorizationPlanContextProvider,
             A.Fake<IAuthorizationFilterDefinitionProvider>());
 
-        var result = decorator.GetQueryBuilder(
-            null,
-            null,
-            A.Fake<IQueryParameters>(),
-            new Dictionary<string, string> { [parameterName] = value });
-
-        result.Context.UsesExistsSubqueryFilterStrategy().ShouldBeTrue();
-        result.Context.UsesJoinFilterStrategy().ShouldBeFalse();
+        return decorator.GetQueryBuilder(null, null, A.Fake<IQueryParameters>(), additionalParameters);
     }
 }
