@@ -67539,6 +67539,188 @@ namespace EdFi.Ods.Entities.NHibernate.ContactIdentificationSystemDescriptorAggr
 
     }
 }
+// Aggregate: ContactResponsibilityDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.ContactResponsibilityDescriptorAggregate.EdFi
+{
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the edfi.ContactResponsibilityDescriptor table of the ContactResponsibilityDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Schema("edfi")]
+    [ExcludeFromCodeCoverage]
+    [MessagePackObject]
+    public class ContactResponsibilityDescriptor : DescriptorAggregate.EdFi.Descriptor,
+        Entities.Common.EdFi.IContactResponsibilityDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
+    {
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        [IgnoreMember]
+        public virtual int ContactResponsibilityDescriptorId 
+        {
+            get { return base.DescriptorId; }
+            set { base.DescriptorId = value; }
+        }
+        
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        string IDescriptor.CodeValue
+        {
+            get { return CodeValue; }
+            set { CodeValue = value; }
+        }
+        string IDescriptor.Description
+        {
+            get { return Description; }
+            set { Description = value; }
+        }
+        DateTime? IDescriptor.EffectiveBeginDate
+        {
+            get { return EffectiveBeginDate; }
+            set { EffectiveBeginDate = value; }
+        }
+        DateTime? IDescriptor.EffectiveEndDate
+        {
+            get { return EffectiveEndDate; }
+            set { EffectiveEndDate = value; }
+        }
+        string IDescriptor.Namespace
+        {
+            get { return Namespace; }
+            set { Namespace = value; }
+        }
+        string IDescriptor.ShortDescription
+        {
+            get { return ShortDescription; }
+            set { ShortDescription = value; }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Initialize a new dictionary to hold the key values
+            var keyValues = new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("ContactResponsibilityDescriptorId", ContactResponsibilityDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
+            {
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
+            }
+
+            return hashCode.ToHashCode();
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.EdFi.IContactResponsibilityDescriptor)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.EdFi.IContactResponsibilityDescriptor) target, null);
+        }
+
+    }
+}
 // Aggregate: ContentClassDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.ContentClassDescriptorAggregate.EdFi
@@ -307990,6 +308172,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSpecialEducationProgramAssociation
         public StudentSpecialEducationProgramAssociation()
         {
             StudentSpecialEducationProgramAssociationDisabilities = new HashSet<StudentSpecialEducationProgramAssociationDisability>();
+            StudentSpecialEducationProgramAssociationResponsibleContacts = new HashSet<StudentSpecialEducationProgramAssociationResponsibleContact>();
             StudentSpecialEducationProgramAssociationServiceProviders = new HashSet<StudentSpecialEducationProgramAssociationServiceProvider>();
             StudentSpecialEducationProgramAssociationSpecialEducationProgramServices = new HashSet<StudentSpecialEducationProgramAssociationSpecialEducationProgramService>();
             Extensions = GeneratedArtifactStaticDependencies.EntityExtensionsFactory == null ? new Dictionary<string, object>() : new Dictionary<string, object>(GeneratedArtifactStaticDependencies.EntityExtensionsFactory.CreateRequiredEntityExtensions<StudentSpecialEducationProgramAssociation>(this));
@@ -308457,9 +308640,63 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSpecialEducationProgramAssociation
         }
 
 
+        private ICollection<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContact> _studentSpecialEducationProgramAssociationResponsibleContacts;
+        private ICollection<Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact> _studentSpecialEducationProgramAssociationResponsibleContactsCovariant;
+        [Key(39)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContact>))]
+        public virtual ICollection<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContact> StudentSpecialEducationProgramAssociationResponsibleContacts
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // On-demand deserialization logic to attach reverse reference of children
+                // due to ServiceStack's lack of [OnDeserialized] attribute support.
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                if (_studentSpecialEducationProgramAssociationResponsibleContacts is DeserializedPersistentGenericSet<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContact> set)
+                {
+                    set.Reattach(this, "StudentSpecialEducationProgramAssociationResponsibleContacts");
+                }
+            
+                foreach (var item in _studentSpecialEducationProgramAssociationResponsibleContacts)
+                    if (item.StudentSpecialEducationProgramAssociation == null)
+                        item.StudentSpecialEducationProgramAssociation = this;
+                // -------------------------------------------------------------
+
+                return _studentSpecialEducationProgramAssociationResponsibleContacts;
+            }
+            set
+            {
+                _studentSpecialEducationProgramAssociationResponsibleContacts = value;
+                _studentSpecialEducationProgramAssociationResponsibleContactsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact, Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContact>(value);
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact> Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation.StudentSpecialEducationProgramAssociationResponsibleContacts
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _studentSpecialEducationProgramAssociationResponsibleContacts)
+                    if (item.StudentSpecialEducationProgramAssociation == null)
+                        item.StudentSpecialEducationProgramAssociation = this;
+                // -------------------------------------------------------------
+
+                return _studentSpecialEducationProgramAssociationResponsibleContactsCovariant;
+            }
+            set
+            {
+                StudentSpecialEducationProgramAssociationResponsibleContacts = new HashSet<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContact>(value.Cast<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContact>());
+            }
+        }
+
+
         private ICollection<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationServiceProvider> _studentSpecialEducationProgramAssociationServiceProviders;
         private ICollection<Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationServiceProvider> _studentSpecialEducationProgramAssociationServiceProvidersCovariant;
-        [Key(39)]
+        [Key(40)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationServiceProvider>))]
         public virtual ICollection<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationServiceProvider> StudentSpecialEducationProgramAssociationServiceProviders
         {
@@ -308513,7 +308750,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSpecialEducationProgramAssociation
 
         private ICollection<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationSpecialEducationProgramService> _studentSpecialEducationProgramAssociationSpecialEducationProgramServices;
         private ICollection<Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationSpecialEducationProgramService> _studentSpecialEducationProgramAssociationSpecialEducationProgramServicesCovariant;
-        [Key(40)]
+        [Key(41)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationSpecialEducationProgramService>))]
         public virtual ICollection<Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationSpecialEducationProgramService> StudentSpecialEducationProgramAssociationSpecialEducationProgramServices
         {
@@ -309335,6 +309572,456 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSpecialEducationProgramAssociation
         void IChildEntity.SetParent(object value)
         {
             StudentSpecialEducationProgramAssociationDisability = (StudentSpecialEducationProgramAssociationDisability) value;
+        }
+    }
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the edfi.StudentSpecialEducationProgramAssociationResponsibleContact table of the StudentSpecialEducationProgramAssociation aggregate in the ODS database.
+    /// </summary>
+    [Schema("edfi")]
+    [ExcludeFromCodeCoverage]
+    [MessagePackObject]
+    public class StudentSpecialEducationProgramAssociationResponsibleContact : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IHasExtensions
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public StudentSpecialEducationProgramAssociationResponsibleContact()
+        {
+            Extensions = GeneratedArtifactStaticDependencies.EntityExtensionsFactory == null ? new Dictionary<string, object>() : new Dictionary<string, object>(GeneratedArtifactStaticDependencies.EntityExtensionsFactory.CreateRequiredEntityExtensions<StudentSpecialEducationProgramAssociationResponsibleContact>(this));
+            AggregateExtensions = GeneratedArtifactStaticDependencies.EntityExtensionsFactory == null ? new Dictionary<string, object>() : new Dictionary<string, object>(GeneratedArtifactStaticDependencies.EntityExtensionsFactory.CreateAggregateExtensions<StudentSpecialEducationProgramAssociationResponsibleContact>());
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.ContactAggregate.EdFi.ContactReferenceData _contactReferenceData;
+
+        private bool ContactReferenceDataIsProxied()
+        {
+            return _contactReferenceData != null 
+                && _contactReferenceData.GetType() != typeof(NHibernate.ContactAggregate.EdFi.ContactReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.ContactAggregate.EdFi.ContactReferenceData ContactReferenceData
+        {
+            get => _contactReferenceData;
+            set
+            {
+                _contactReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !ContactReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.ContactAggregate.EdFi.ContactReferenceData ContactSerializedReferenceData { get => _contactSerializedReferenceData; set { if (value != null) _contactSerializedReferenceData = value; } }
+        private NHibernate.ContactAggregate.EdFi.ContactReferenceData _contactSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the Contact discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact.ContactDiscriminator
+        {
+            get
+            {
+                return ContactReferenceDataIsProxied()
+                    ? (ContactSerializedReferenceData ?? ContactReferenceData)?.Discriminator
+                    : (ContactReferenceData ?? ContactSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the Contact resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact.ContactResourceId
+        {
+            get
+            {
+                return ContactReferenceDataIsProxied()
+                    ? (ContactSerializedReferenceData ?? ContactReferenceData)?.Id
+                    : (ContactReferenceData ?? ContactSerializedReferenceData)?.Id;
+            }
+            set { if (ContactSerializedReferenceData?.IsFullyDefined() == true) ContactSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, IgnoreMember]
+        public virtual StudentSpecialEducationProgramAssociation StudentSpecialEducationProgramAssociation { get; set; }
+
+        Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation IStudentSpecialEducationProgramAssociationResponsibleContact.StudentSpecialEducationProgramAssociation
+        {
+            get { return StudentSpecialEducationProgramAssociation; }
+            set { StudentSpecialEducationProgramAssociation = (StudentSpecialEducationProgramAssociation) value; }
+        }
+
+        [DomainSignature]
+        [Key(2)]
+        public virtual DateTime ContactResponsibilityBeginDate 
+        {
+            get { return _contactResponsibilityBeginDate; }
+            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+            set { _contactResponsibilityBeginDate = new DateTime(value.Year, value.Month, value.Day); }
+        }
+
+        private DateTime _contactResponsibilityBeginDate;
+
+        [DomainSignature]
+        [Key(3)]
+        public virtual int ContactResponsibilityDescriptorId 
+        {
+            get
+            {
+                if (_contactResponsibilityDescriptorId == default(int))
+                {
+                    _contactResponsibilityDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ContactResponsibilityDescriptor", _contactResponsibilityDescriptor);
+                }
+
+                return _contactResponsibilityDescriptorId;
+            } 
+            set
+            {
+                _contactResponsibilityDescriptorId = value;
+                _contactResponsibilityDescriptor = null;
+            }
+        }
+
+        private int _contactResponsibilityDescriptorId;
+        private string _contactResponsibilityDescriptor;
+
+        [IgnoreMember]
+        public virtual string ContactResponsibilityDescriptor
+        {
+            get
+            {
+                if (_contactResponsibilityDescriptor == null)
+                    _contactResponsibilityDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ContactResponsibilityDescriptor", _contactResponsibilityDescriptorId);
+                    
+                return _contactResponsibilityDescriptor;
+            }
+            set
+            {
+                _contactResponsibilityDescriptor = value;
+                _contactResponsibilityDescriptorId = default(int);
+            }
+        }
+
+        [Display(Name="ContactUniqueId")][DomainSignature]
+        [Key(4)]
+        public virtual int ContactUSI 
+        {
+            get
+            {
+                if (_contactUSI == default(int) && _contactUniqueId != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Contact", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_contactUniqueId, out var usi))
+                    {
+                        _contactUSI = usi;
+
+                        if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                        {
+                            ContactSerializedReferenceData ??= new NHibernate.ContactAggregate.EdFi.ContactReferenceData(trackLookupContext: true);
+                            ContactSerializedReferenceData.ContactUSI = _contactUSI;
+                        }
+                    }
+                }
+
+                return _contactUSI;
+            } 
+            set
+            {
+                _contactUSI = value;
+                GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Contact", value);
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    ContactSerializedReferenceData ??= new NHibernate.ContactAggregate.EdFi.ContactReferenceData(trackLookupContext: true);
+                    ContactSerializedReferenceData.ContactUSI = value;
+                }
+            }
+        }
+
+        private int _contactUSI;
+        private string _contactUniqueId;
+
+        [IgnoreMember]
+        public virtual string ContactUniqueId
+        {
+            get
+            {
+                if (_contactUniqueId == null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Contact", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue(_contactUSI, out var uniqueId))
+                    {
+                        _contactUniqueId = uniqueId;
+                    }
+                }
+
+                return _contactUniqueId;
+            }
+            set
+            {
+                if (_contactUniqueId != value)
+                        _contactUSI = default(int);
+
+                _contactUniqueId = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Contact", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_contactUniqueId, out var usi))
+                    {
+                        ContactSerializedReferenceData ??= new NHibernate.ContactAggregate.EdFi.ContactReferenceData(trackLookupContext: true);
+                        ContactSerializedReferenceData.ContactUSI = usi;
+                    }
+                }
+            }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        [Key(5)]
+        public virtual DateTime? ContactResponsibilityEndDate 
+        {
+            get { return _contactResponsibilityEndDate; }
+            set 
+            { 
+                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+                if(value == null)
+                {
+                    _contactResponsibilityEndDate = null;
+                } else
+                {
+                    var given = (DateTime) value;
+                    _contactResponsibilityEndDate = new DateTime(given.Year, given.Month, given.Day);
+                }
+            }
+        }
+
+        private DateTime? _contactResponsibilityEndDate;
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        private IDictionary _extensions;
+
+        [MessagePackFormatter(typeof(EntityExtensionsMessagePackFormatter), "StudentSpecialEducationProgramAssociation", "StudentSpecialEducationProgramAssociationResponsibleContact")]
+        [Key(6)]
+        public IDictionary Extensions
+        {
+            get 
+            {
+                foreach (var key in _extensions.Keys)
+                {
+                    if (_extensions[key] is IDeserializedPersistentGenericCollection collection)
+                    {
+                        collection.ReattachExtension(this, (string) key);
+                    }
+                }
+
+                return _extensions;
+            }
+            set
+            {
+                // If the _extensions is null, this is being assigned from the constructor
+                // for the first time and no special handling is required
+                if (_extensions != null && value != null)
+                {
+                    // For extensions that have already been initialized by the extensions factory,
+                    // we need to copy any "implicit" extension object entries over to the incoming
+                    // value dictionary being assigned by NHibernate because it won't have them,
+                    // but they must be there for correct handling of extensions for the API.
+                    foreach (var key in _extensions.Keys)
+                    {
+                        if (!value.Contains(key))
+                        {
+                            value[key] = _extensions[key];
+                        }
+                    }
+                }
+
+                _extensions = value;
+            }
+        }
+
+        private IDictionary _aggregateExtensions;
+
+        [MessagePackFormatter(typeof(AggregateExtensionsMessagePackFormatter), "StudentSpecialEducationProgramAssociation", "StudentSpecialEducationProgramAssociationResponsibleContact")]
+        [Key(7)]
+        public IDictionary AggregateExtensions
+        { 
+            get
+            {
+                foreach (var key in _aggregateExtensions.Keys)
+                {
+                    if (_aggregateExtensions[key] is IDeserializedPersistentGenericCollection collection)
+                    {
+                        collection.ReattachAggregateExtension(this, (string) key);
+                    }
+                }
+
+                return _aggregateExtensions; 
+            }
+            set
+            {
+                // If the _aggregateExtensions is null, this is being assigned from the constructor
+                // for the first time and no special handling is required
+                if (_aggregateExtensions != null && value != null)
+                {
+                    // For aggregate extensions that have already been initialized by the extensions factory,
+                    // we need to copy any "implicit" aggregate extension object entries over to the incoming
+                    // value dictionary being assigned by NHibernate (or deserialization) because it won't have them,
+                    // but they must be there for correct handling of extensions for the API.
+                    foreach (var key in _aggregateExtensions.Keys)
+                    {
+                        if (!value.Contains(key))
+                        {
+                            value[key] = _aggregateExtensions[key];
+                        }
+                    }
+                }
+
+                _aggregateExtensions = value;
+            }
+        }
+
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "ContactResponsibilityDescriptor", new LookupColumnDetails { PropertyName = "ContactResponsibilityDescriptorId", LookupTypeName = "ContactResponsibilityDescriptor"} },
+                { "ProgramTypeDescriptor", new LookupColumnDetails { PropertyName = "ProgramTypeDescriptorId", LookupTypeName = "ProgramTypeDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (StudentSpecialEducationProgramAssociation as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("ContactResponsibilityBeginDate", ContactResponsibilityBeginDate);
+            keyValues.Add("ContactResponsibilityDescriptorId", ContactResponsibilityDescriptorId);
+            keyValues.Add("ContactUSI", ContactUSI);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
+            {
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
+            }
+
+            return hashCode.ToHashCode();
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentSpecialEducationProgramAssociation = (StudentSpecialEducationProgramAssociation) value;
         }
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only

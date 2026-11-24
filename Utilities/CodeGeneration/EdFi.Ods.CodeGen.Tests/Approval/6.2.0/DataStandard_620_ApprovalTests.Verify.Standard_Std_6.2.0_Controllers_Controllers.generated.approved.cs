@@ -3152,6 +3152,43 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactIdentificationSystemDescripto
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.ContactResponsibilityDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/contactResponsibilityDescriptors")]
+    public partial class ContactResponsibilityDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ContactResponsibilityDescriptor.EdFi.ContactResponsibilityDescriptor,
+        Entities.Common.EdFi.IContactResponsibilityDescriptor,
+        Entities.NHibernate.ContactResponsibilityDescriptorAggregate.EdFi.ContactResponsibilityDescriptor,
+        Api.Common.Models.Requests.ContactResponsibilityDescriptors.EdFi.ContactResponsibilityDescriptorPut,
+        Api.Common.Models.Requests.ContactResponsibilityDescriptors.EdFi.ContactResponsibilityDescriptorPost,
+        Api.Common.Models.Requests.ContactResponsibilityDescriptors.EdFi.ContactResponsibilityDescriptorDelete,
+        Api.Common.Models.Requests.ContactResponsibilityDescriptors.EdFi.ContactResponsibilityDescriptorGetByExample>
+    {
+        public ContactResponsibilityDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ContactResponsibilityDescriptors.EdFi.ContactResponsibilityDescriptorGetByExample request, Entities.Common.EdFi.IContactResponsibilityDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.ContactResponsibilityDescriptorId = request.ContactResponsibilityDescriptorId;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]

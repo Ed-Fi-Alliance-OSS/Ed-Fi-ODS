@@ -7719,6 +7719,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StudentContactAssociationAggregate.EdFi.StudentContactAssociationQ> StudentContactAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContactQ> StudentSpecialEducationProgramAssociationResponsibleContacts  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.SurveyResponseAggregate.EdFi.SurveyResponseQ> SurveyResponses  { get; set; }
     #pragma warning restore 114
 
@@ -8304,6 +8307,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentificationSystemDe
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCodeQ> ContactIdentificationCodes  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ContactResponsibilityDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactResponsibilityDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ContactResponsibilityDescriptor table of the ContactResponsibilityDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ContactResponsibilityDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int ContactResponsibilityDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContactQ> StudentSpecialEducationProgramAssociationResponsibleContacts  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -39109,6 +39154,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
         //                          Collections
         // -------------------------------------------------------------
         public virtual ICollection<StudentSpecialEducationProgramAssociationDisabilityQ> StudentSpecialEducationProgramAssociationDisabilities { get; set; }
+        public virtual ICollection<StudentSpecialEducationProgramAssociationResponsibleContactQ> StudentSpecialEducationProgramAssociationResponsibleContacts { get; set; }
         public virtual ICollection<StudentSpecialEducationProgramAssociationServiceProviderQ> StudentSpecialEducationProgramAssociationServiceProviders { get; set; }
         public virtual ICollection<StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceQ> StudentSpecialEducationProgramAssociationSpecialEducationProgramServices { get; set; }
 
@@ -39200,6 +39246,49 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.DisabilityDesignationDescriptorAggregate.EdFi.DisabilityDesignationDescriptorQ DisabilityDesignationDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentSpecialEducationProgramAssociationResponsibleContact table of the StudentSpecialEducationProgramAssociation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentSpecialEducationProgramAssociationResponsibleContactQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationQ StudentSpecialEducationProgramAssociation { get; set; }
+        [DomainSignature]
+        public virtual DateTime ContactResponsibilityBeginDate { get; set; }
+        [DomainSignature]
+        public virtual int ContactResponsibilityDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual int ContactUSI { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual DateTime? ContactResponsibilityEndDate  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ContactAggregate.EdFi.ContactQ Contact { get; set; }
+        protected virtual NHibernate.QueryModels.ContactResponsibilityDescriptorAggregate.EdFi.ContactResponsibilityDescriptorQ ContactResponsibilityDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 

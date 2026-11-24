@@ -4763,6 +4763,13 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentContactAssociationAggregate.EdFi.StudentContactAssociationQ" />
     </set>
 
+    <set name="StudentSpecialEducationProgramAssociationResponsibleContacts" cascade="none" lazy="true">
+      <key>
+        <column name="ContactUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContactQ" />
+    </set>
+
     <set name="SurveyResponses" cascade="none" lazy="true">
       <key>
         <column name="ContactUSI" />
@@ -8209,6 +8216,29 @@
               <column name="ContactIdentificationSystemDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ContactIdentificationCodeAggregate.EdFi.ContactIdentificationCodeQ" />
+          </set>
+
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.ContactResponsibilityDescriptorAggregate.EdFi.ContactResponsibilityDescriptorQ" lazy="false" discriminator-value="edfi.ContactResponsibilityDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ContactResponsibilityDescriptor" >
+          <key>
+            <column name="ContactResponsibilityDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ContactResponsibilityDescriptorId" column="ContactResponsibilityDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="StudentSpecialEducationProgramAssociationResponsibleContacts" cascade="none" lazy="true">
+            <key>
+              <column name="ContactResponsibilityDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContactQ" />
           </set>
 
       </join>
@@ -19589,6 +19619,18 @@
               <column name="StudentUSI" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationDisabilityQ" />
+          </set>
+
+          <set name="StudentSpecialEducationProgramAssociationResponsibleContacts" cascade="none" lazy="true">
+            <key>
+              <column name="BeginDate" />
+              <column name="EducationOrganizationId" />
+              <column name="ProgramEducationOrganizationId" />
+              <column name="ProgramName" />
+              <column name="ProgramTypeDescriptorId" />
+              <column name="StudentUSI" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContactQ" />
           </set>
 
           <set name="StudentSpecialEducationProgramAssociationServiceProviders" cascade="none" lazy="true">
@@ -35013,6 +35055,44 @@
     <!-- Back references -->
     <many-to-one name="DisabilityDesignationDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDesignationDescriptorAggregate.EdFi.DisabilityDesignationDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="DisabilityDesignationDescriptorId" />
+    </many-to-one>
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContactQ" table="StudentSpecialEducationProgramAssociationResponsibleContact" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ContactResponsibilityBeginDate" column="ContactResponsibilityBeginDate" type="date" />
+      <key-property name="ContactResponsibilityDescriptorId" column="ContactResponsibilityDescriptorId" type="int" />
+      <key-property name="ContactUSI" column="ContactUSI" type="int" />
+      <key-many-to-one name="StudentSpecialEducationProgramAssociation">
+        <column name="BeginDate" />
+        <column name="EducationOrganizationId" />
+        <column name="ProgramEducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="ContactResponsibilityEndDate" column="ContactResponsibilityEndDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+    <many-to-one name="Contact" class="EdFi.Ods.Entities.NHibernate.QueryModels.ContactAggregate.EdFi.ContactQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="ContactUSI" />
+    </many-to-one>
+    <many-to-one name="ContactResponsibilityDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.ContactResponsibilityDescriptorAggregate.EdFi.ContactResponsibilityDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="ContactResponsibilityDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->
