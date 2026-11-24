@@ -94,14 +94,12 @@ public class PartitionsController : ControllerBase
 
         if (number is < MinPartitions or > MaxPartitions)
         {
-            var problemDetails = new BadRequestParameterException(
-                BadRequestException.DefaultDetail,
-                new[] { $"Number of partitions must be between {MinPartitions} and {MaxPartitions}." })
-            {
-                CorrelationId = _logContextAccessor.GetCorrelationId()
-            }.AsSerializableModel();
+            return BadRequestParameter($"Number of partitions must be between {MinPartitions} and {MaxPartitions}.");
+        }
 
-            return BadRequest(problemDetails);
+        if (!PartitionsParameters.TryGetAllowSmallPartitions(additionalParameters, out _))
+        {
+            return BadRequestParameter($"The '{PartitionsParameters.AllowSmallPartitions}' parameter must be 'true' or 'false'.");
         }
 
         var  queryParameters = new QueryParameters(urlQueryParametersRequest);
@@ -288,5 +286,15 @@ public class PartitionsController : ControllerBase
 
             return list.ToArray();
         }
+    }
+
+    private BadRequestObjectResult BadRequestParameter(string error)
+    {
+        var problemDetails = new BadRequestParameterException(BadRequestException.DefaultDetail, [error])
+        {
+            CorrelationId = _logContextAccessor.GetCorrelationId()
+        }.AsSerializableModel();
+
+        return BadRequest(problemDetails);
     }
 }
