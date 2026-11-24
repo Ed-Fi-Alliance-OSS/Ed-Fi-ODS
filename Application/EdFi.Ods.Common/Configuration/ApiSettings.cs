@@ -72,6 +72,42 @@ namespace EdFi.Ods.Common.Configuration
         /// </summary>
         public List<string> KnownNetworks { get; set; } = new();
 
+        /// <summary>
+        /// Adds the X-Content-Type-Options and X-Frame-Options headers to every response. Enabled by default.
+        /// </summary>
+        public bool EnableSecurityHeaders { get; set; } = true;
+
+        /// <summary>
+        /// Redirects HTTP GET and HEAD requests to HTTPS (307 Temporary Redirect), and rejects other HTTP requests with
+        /// a 400 Bad Request, so that a client that sends data over HTTP is told to use HTTPS instead of silently
+        /// resending it. The health check endpoint is not affected. Disabled by default, because the API is usually
+        /// hosted behind a reverse proxy or IIS that already does this.
+        /// </summary>
+        /// <remarks>
+        /// Behind a reverse proxy that terminates TLS, also enable <see cref="UseReverseProxyHeaders"/> and make sure
+        /// the proxy is trusted (see <see cref="KnownProxies"/> and <see cref="KnownNetworks"/>); otherwise every
+        /// request is seen as HTTP and is redirected again. The redirect uses <see cref="OverrideForForwardingHostServer"/>
+        /// when set, otherwise the request's Host header, so also restrict the accepted host names with the
+        /// top-level AllowedHosts setting. The port comes from <see cref="HttpsRedirectionPort"/>.
+        /// Keep this disabled when hosting in IIS with the shipped web.config, which already redirects to HTTPS.
+        /// </remarks>
+        public bool EnableHttpsRedirection { get; set; }
+
+        /// <summary>
+        /// The HTTPS port that <see cref="EnableHttpsRedirection"/> redirects to. When not set, the
+        /// <see cref="OverrideForForwardingHostPort"/> is used if <see cref="UseReverseProxyHeaders"/> is enabled,
+        /// otherwise the default HTTPS port (443).
+        /// </summary>
+        public int? HttpsRedirectionPort { get; set; }
+
+        /// <summary>
+        /// Adds the Strict-Transport-Security header (max-age of one year) to HTTPS responses. Disabled by default,
+        /// because the API is usually hosted behind a reverse proxy or IIS that already does this. Behind a reverse
+        /// proxy, also enable <see cref="UseReverseProxyHeaders"/>. The header is never sent to localhost.
+        /// Keep this disabled when hosting in IIS with the shipped web.config, which already sends this header.
+        /// </summary>
+        public bool EnableHsts { get; set; }
+
         public string PathBase { get; set; }
 
         public string OdsContextRouteTemplate { get; set; }

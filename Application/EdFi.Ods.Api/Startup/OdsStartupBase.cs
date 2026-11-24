@@ -192,6 +192,18 @@ namespace EdFi.Ods.Api.Startup
                     $"Cross-origin requests are allowed from: {string.Join(", ", corsOptionsConfigurator.AllowedOrigins)}");
             }
 
+            if (_apiSettings.EnableHsts)
+            {
+                // Matches the max-age previously sent by the IIS configuration
+                services.AddHsts(options => options.MaxAge = TimeSpan.FromDays(365));
+            }
+
+            if (_apiSettings.EnableHttpsRedirection && _apiSettings.UseReverseProxyHeaders != true)
+            {
+                _logger.Warn(
+                    $"ApiSettings:{nameof(ApiSettings.EnableHttpsRedirection)} is enabled but ApiSettings:{nameof(ApiSettings.UseReverseProxyHeaders)} is not. Behind a reverse proxy that terminates TLS, every request will be redirected.");
+            }
+
             services.AddCors();
             services.AddSingleton<IConfigureOptions<CorsOptions>>(corsOptionsConfigurator);
 
@@ -400,8 +412,6 @@ namespace EdFi.Ods.Api.Startup
             // Process headers and query string arguments for correlation ids, and add to log messages
             app.UseRequestCorrelation();
 
-            app.UseOAuthContentTypeValidation();
-
             var apiSettings = apiSettingsOptions.Value;
 
             if (!string.IsNullOrEmpty(apiSettings.PathBase))
@@ -422,6 +432,25 @@ namespace EdFi.Ods.Api.Startup
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            if (_apiSettings.EnableSecurityHeaders)
+            {
+                app.UseSecurityHeaders();
+            }
+
+            // Registered after the reverse proxy headers, so that a request the proxy received over HTTPS is seen as HTTPS
+            if (_apiSettings.EnableHsts)
+            {
+                app.UseHsts();
+            }
+
+            if (_apiSettings.EnableHttpsRedirection)
+            {
+                app.UseHttpToHttpsRedirect();
+            }
+
+            // Registered after the security headers, HSTS and HTTPS redirection, so that its 415 responses also get them
+            app.UseOAuthContentTypeValidation();
 
             app.UseRouting();
             app.UseStaticFiles();
