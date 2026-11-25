@@ -26,6 +26,7 @@ using Microsoft.FeatureManagement;
 using NUnit.Framework;
 using Shouldly;
 using static EdFi.Ods.Common.Configuration.SecuritySettings;
+using static EdFi.Ods.Common.Constants.RequestActions;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Authentication;
 
@@ -124,7 +125,7 @@ MIIBOgIBAAJBALeQw...
 
         result.ShouldNotBeNull();
         result.Claims.Count(c => c.Type == JwtRegisteredClaimNames.Aud && c.Value == "aud1").ShouldBe(1);
-        result.Claims.Count(c => c.Type == "educationOrganizationId" && c.Value == "100").ShouldBe(1);
+        result.Claims.Where(c => c.Type == "educationOrganizationId").Select(c => c.Value).ShouldBe(new[] { "100", "200" });
         result.Claims.Any(c => c.Type == "odsInstances").ShouldBeTrue();
     }
 
@@ -258,6 +259,82 @@ MIIBOgIBAAJBALeQw...
 
         result.Claims.Any(c => c.Type == "scope" && c.Value == studentsReadOnlyScope).ShouldBeTrue();
         result.OneRosterScopes.ShouldContain(studentsReadOnlyScope);
+    }
+
+    [TestCase(new[] { CreateActionUri }, false)]
+    [TestCase(new[] { UpdateActionUri }, false)]
+    [TestCase(new[] { CreateActionUri, UpdateActionUri }, true)]
+    [TestCase(new[] { CreateActionUri, ReadActionUri, UpdateActionUri, DeleteActionUri }, true)]
+    public void Should_add_OneRoster_createput_scope_only_when_both_create_and_update_are_granted(
+        string[] actionUris,
+        bool expectCreatePutScope)
+    {
+        SetUpEmptyUsersContext();
+
+        A.CallTo(() => _claimSetClaimsProvider.GetClaims(A<string>._))
+            .Returns(
+            [
+                new(OneRosterScopePrefix + "students",
+                    actionUris.Select(uri => new ResourceAction { Name = uri }).ToArray())
+            ]);
+
+        var studentsCreatePutScope = OneRosterScopePrefix + "students.createput";
+        var apiClientDetails = new ApiClientDetails { ApiClientId = 1, ClaimSetName = "TestClaimSet" };
+
+        var provider = CreateProvider();
+        var result = provider.CreateClaims(apiClientDetails, new AccessToken("id", TimeSpan.FromMinutes(5), "scope"), studentsCreatePutScope);
+
+        result.OneRosterScopes.Contains(studentsCreatePutScope).ShouldBe(expectCreatePutScope);
+        result.Claims.Any(c => c.Type == "scope" && c.Value == studentsCreatePutScope).ShouldBe(expectCreatePutScope);
+    }
+
+    [TestCase("200")]
+    [TestCase(" 200 ")]
+    [TestCase("0200")]
+    public void Should_add_only_the_scoped_educationOrganizationId_claim_when_scope_is_numeric(string scope)
+    {
+        SetUpEmptyUsersContext();
+
+        var apiClientDetails = new ApiClientDetails
+        {
+            ApiClientId = 1,
+            EducationOrganizationIds = [100, 200, 300],
+            ClaimSetName = "TestClaimSet"
+        };
+
+        var provider = CreateProvider();
+        var result = provider.CreateClaims(apiClientDetails, new AccessToken("id", TimeSpan.FromMinutes(5), scope), scope);
+
+        result.Claims.Where(c => c.Type == "educationOrganizationId").Select(c => c.Value).ShouldBe(new[] { "200" });
+    }
+
+    [Test]
+    public void Should_add_all_educationOrganizationId_claims_when_scope_is_a_OneRoster_scope()
+    {
+        SetUpEmptyUsersContext();
+
+        var apiClientDetails = new ApiClientDetails
+        {
+            ApiClientId = 1,
+            EducationOrganizationIds = [100, 200, 300],
+            ClaimSetName = "TestClaimSet"
+        };
+
+        var studentsReadOnlyScope = OneRosterScopePrefix + "students.readonly";
+
+        var provider = CreateProvider();
+        var result = provider.CreateClaims(apiClientDetails, new AccessToken("id", TimeSpan.FromMinutes(5), "scope"), studentsReadOnlyScope);
+
+        result.Claims.Where(c => c.Type == "educationOrganizationId").Select(c => c.Value).ShouldBe(new[] { "100", "200", "300" });
+    }
+
+    private void SetUpEmptyUsersContext()
+    {
+        var usersContext = A.Fake<IUsersContext>();
+        A.CallTo(() => usersContext.ApiClientOdsInstances).Returns(new TestDbSet<ApiClientOdsInstance>([]));
+        A.CallTo(() => usersContext.OdsInstanceContexts).Returns(new TestDbSet<OdsInstanceContext>([]));
+        A.CallTo(() => _usersContextFactory.CreateContext()).Returns(usersContext);
+        A.CallTo(() => _featureManager.IsEnabledAsync(A<string>._)).Returns(false);
     }
 }
 
