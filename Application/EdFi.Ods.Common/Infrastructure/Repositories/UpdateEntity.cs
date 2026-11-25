@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Context;
@@ -12,6 +11,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using log4net;
 using NHibernate;
+using Polly;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
 {
@@ -19,17 +19,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         where TEntity : DomainObjectBase, IHasIdentifier, IDateVersionedEntity
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(UpdateEntity<TEntity>));
-        private readonly Dictionary<string, object> _retryPolicyContextData;
 
         public UpdateEntity(ISessionFactory sessionFactory)
-            : base(sessionFactory)
-        {
-            _retryPolicyContextData = new Dictionary<string, object>()
-            {
-                { "Logger", _logger },
-                { "EntityTypeName", typeof(TEntity).Name },
-            };
-        }
+            : base(sessionFactory) { }
 
         public async Task UpdateAsync(TEntity persistentEntity, CancellationToken cancellationToken)
         {
@@ -39,37 +31,48 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 CallContext.SetData("CurrentDateTime", DateTime.UtcNow);
 
                 // Save the incoming entity
-                await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
-                    async ctx =>
-                    {
-                        bool isRetry = false;
+                var resilienceContext = ResilienceContextPool.Shared.Get(cancellationToken);
+                resilienceContext.Properties.Set(DeadlockPolicyHelper.LoggerKey, _logger);
+                resilienceContext.Properties.Set(DeadlockPolicyHelper.EntityTypeNameKey, typeof(TEntity).Name);
 
-                        if (ctx.TryGetValue("Retries", out object retryCount))
+                try
+                {
+                    await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
+                        async ctx =>
                         {
-                            isRetry = true;
-                            _logger.Info($"Retry #{retryCount}: Retrying update of '{typeof(TEntity).Name}'...");
-                        }
+                            bool isRetry = false;
 
-                        using (ITransaction trans = Session.BeginTransaction())
-                        {
-                            // If the entity supports key changes and a key change is being made...
-                            if (persistentEntity is IHasCascadableKeyValues { OriginalKeyValues: not null } persistentEntityWithKeyValues)
+                            if (ctx.Properties.TryGetValue(DeadlockPolicyHelper.RetriesKey, out int retryCount))
                             {
-                                // Restore the original key values to prevent NHibernate from handling the key change portion of the update
-                                persistentEntityWithKeyValues.RestoreOriginalKeyValues();
+                                isRetry = true;
+                                _logger.Info($"Retry #{retryCount}: Retrying update of '{typeof(TEntity).Name}'...");
                             }
 
-                            await Session.UpdateAsync(persistentEntity, cancellationToken);
-                            await trans.CommitAsync(cancellationToken);
-                        }
-                        
-                        if (isRetry)
-                        {
-                            _logger.Info($"Retry #{retryCount}: Successfully updated '{typeof(TEntity).Name}' after {retryCount} retries...");
-                        }
-                    },
-                    _retryPolicyContextData);
-                
+                            using (ITransaction trans = Session.BeginTransaction())
+                            {
+                                // If the entity supports key changes and a key change is being made...
+                                if (persistentEntity is IHasCascadableKeyValues { OriginalKeyValues: not null } persistentEntityWithKeyValues)
+                                {
+                                    // Restore the original key values to prevent NHibernate from handling the key change portion of the update
+                                    persistentEntityWithKeyValues.RestoreOriginalKeyValues();
+                                }
+
+                                await Session.UpdateAsync(persistentEntity, cancellationToken);
+                                await trans.CommitAsync(cancellationToken);
+                            }
+
+                            if (isRetry)
+                            {
+                                _logger.Info($"Retry #{retryCount}: Successfully updated '{typeof(TEntity).Name}' after {retryCount} retries...");
+                            }
+                        },
+                        resilienceContext);
+                }
+                finally
+                {
+                    ResilienceContextPool.Shared.Return(resilienceContext);
+                }
+
                 // Clear the contextual current date/time explicitly
                 CallContext.SetData("CurrentDateTime", null);
             }
