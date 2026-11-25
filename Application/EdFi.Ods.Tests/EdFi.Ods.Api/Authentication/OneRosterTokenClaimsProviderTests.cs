@@ -288,8 +288,10 @@ MIIBOgIBAAJBALeQw...
         result.Claims.Any(c => c.Type == "scope" && c.Value == studentsCreatePutScope).ShouldBe(expectCreatePutScope);
     }
 
-    [Test]
-    public void Should_add_only_the_scoped_educationOrganizationId_claim_when_scope_is_numeric()
+    [TestCase("200")]
+    [TestCase(" 200 ")]
+    [TestCase("0200")]
+    public void Should_add_only_the_scoped_educationOrganizationId_claim_when_scope_is_numeric(string scope)
     {
         SetUpEmptyUsersContext();
 
@@ -301,7 +303,7 @@ MIIBOgIBAAJBALeQw...
         };
 
         var provider = CreateProvider();
-        var result = provider.CreateClaims(apiClientDetails, new AccessToken("id", TimeSpan.FromMinutes(5), "200"), "200");
+        var result = provider.CreateClaims(apiClientDetails, new AccessToken("id", TimeSpan.FromMinutes(5), scope), scope);
 
         result.Claims.Where(c => c.Type == "educationOrganizationId").Select(c => c.Value).ShouldBe(new[] { "200" });
     }
