@@ -59,15 +59,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             var authorizationPlan = _authorizationPlanContextProvider.Get();
 
-            // Check for undocumented opt-in to using original join-based authorization
-            bool shouldUseJoinAuth = additionalQueryParameters?.TryGetValue("UseJoinAuth", out string useJoinAuth) == true
-                && Convert.ToBoolean(useJoinAuth);
-
-            if (shouldUseJoinAuth)
-            {
-                queryBuilder.Context.SetQueryBuilderFilterStrategy(QueryBuilderFilterStrategy.Joins);
-            }
-
             var unsupportedAuthorizationFilters = new HashSet<string>();
 
             // If there are multiple relationship-based authorization strategies with views (that are combined with OR), we must use left outer joins and null/not null checks

@@ -56,8 +56,6 @@ public class PartitionsController : ControllerBase
     private readonly (string UniqueId, string PersonType)[] _personUniqueIds;
     private readonly ConcurrentDictionary<Type, PropertyInfo[]> _uniqueIdPropertiesByModelInterfaceType = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
-    private static readonly IContextStorage _contextStorage = new CallContextStorage();
-
     public PartitionsController(
         DbProviderFactory dbProviderFactory,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
@@ -85,13 +83,6 @@ public class PartitionsController : ControllerBase
         [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest,
         [FromQuery] Dictionary<string, string> additionalParameters)
     {
-        // Undocumented opt-in to using original join-based authorization
-        if (additionalParameters.TryGetValue("useJoinAuth", out string useJoinAuth) == true)
-        {
-            // Store alternative auth approach decision into call context
-            _contextStorage.SetValue("UseJoinAuth", Convert.ToBoolean(useJoinAuth));
-        }
-
         if (number is < MinPartitions or > MaxPartitions)
         {
             return BadRequestParameter($"Number of partitions must be between {MinPartitions} and {MaxPartitions}.");
