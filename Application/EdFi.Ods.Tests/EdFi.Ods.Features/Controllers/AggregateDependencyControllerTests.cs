@@ -3,15 +3,19 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models.GraphML;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Features.AggregateDependencies;
 using EdFi.Ods.Features.Controllers;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -19,6 +23,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using QuickGraph;
+using Shouldly;
 using Test.Common;
 using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
@@ -138,13 +143,55 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         }
 
+        [TestFixture]
+        public class When_the_resource_model_has_a_circular_dependency
+        {
+            private IAggregateDependencyProvider _provider;
+            private ILogContextAccessor _logContextAccessor;
+
+            [SetUp]
+            public void SetUp()
+            {
+                var circularDependency = new NonAcyclicGraphException(
+                    $"Circular dependency found:{Environment.NewLine}(ed-fi.School){Environment.NewLine}    is used by (ed-fi.Course)");
+
+                _provider = A.Fake<IAggregateDependencyProvider>();
+                A.CallTo(() => _provider.GetLoadOrder()).Throws(circularDependency);
+                A.CallTo(() => _provider.GetGraphML()).Throws(circularDependency);
+
+                _logContextAccessor = A.Fake<ILogContextAccessor>();
+                A.CallTo(() => _logContextAccessor.GetValue(A<string>._)).ReturnsNextFromSequence("first", "second");
+            }
+
+            [TestCase(false, TestName = "Load order")]
+            [TestCase(true, TestName = "GraphML")]
+            public void Should_return_a_bad_request_with_the_cycle_and_its_own_correlation_id(bool isGraphRequest)
+            {
+                var first = GetProblemDetails(isGraphRequest);
+                var second = GetProblemDetails(isGraphRequest);
+
+                first.Errors.ShouldBe(new[] { "Circular dependency found: (ed-fi.School) -> (ed-fi.Course)" });
+                second.Errors.ShouldBe(first.Errors);
+                first.CorrelationId.ShouldBe("first");
+                second.CorrelationId.ShouldBe("second");
+            }
+
+            private IEdFiProblemDetails GetProblemDetails(bool isGraphRequest)
+                => CreateController(_provider, isGraphRequest, _logContextAccessor)
+                    .Get()
+                    .ShouldBeOfType<BadRequestObjectResult>()
+                    .Value.ShouldBeAssignableTo<IEdFiProblemDetails>();
+        }
+
         private static AggregateDependencyController CreateController(IResourceLoadGraphFactory graphFactory,
             bool isGraphRequest = false)
-        {
-            var featureManager = new FakeFeatureManager();
+            => CreateController(new AggregateDependencyProvider(graphFactory), isGraphRequest, A.Fake<ILogContextAccessor>());
 
-            var logContextAccessor = A.Fake<ILogContextAccessor>();
-            var controller = new AggregateDependencyController(featureManager, graphFactory, logContextAccessor);
+        private static AggregateDependencyController CreateController(IAggregateDependencyProvider provider,
+            bool isGraphRequest,
+            ILogContextAccessor logContextAccessor)
+        {
+            var controller = new AggregateDependencyController(new FakeFeatureManager(), provider, logContextAccessor);
             var request = A.Fake<HttpRequest>();
             var headerDictionary = A.Fake<IHeaderDictionary>();
             HeaderDictionary dict = new HeaderDictionary();

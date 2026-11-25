@@ -9,6 +9,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Features.AggregateDependencies;
 using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
@@ -28,6 +29,11 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<PersonResourceLoadGraphTransformer>()
                 .As<IResourceLoadGraphTransformer>()
+                .SingleInstance();
+
+            // The responses depend only on the resource model, so one instance builds and keeps them
+            builder.RegisterType<AggregateDependencyProvider>()
+                .As<IAggregateDependencyProvider>()
                 .SingleInstance();
         }
     }
