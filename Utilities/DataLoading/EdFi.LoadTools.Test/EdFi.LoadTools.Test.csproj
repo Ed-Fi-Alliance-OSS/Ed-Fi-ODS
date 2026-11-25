@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<StandardVersion Condition="'$(StandardVersion)' == '' ">6.1.0</StandardVersion>
+		<StandardVersion Condition="'$(StandardVersion)' == '' ">6.2.0</StandardVersion>
 	</PropertyGroup>	
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
@@ -23,7 +23,7 @@
         <!-- Referenced so the legacy branch of SdkConfigurationFactory can be tested directly. -->
         <ProjectReference Include="..\EdFi.SmokeTest.Console\EdFi.SmokeTest.Console.csproj" />
     </ItemGroup>
-  <ItemGroup Condition=" '$(StandardVersion)' == '6.1.0' ">
+  <ItemGroup Condition=" '$(StandardVersion)' == '6.2.0' ">
 		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.6.1.0" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(StandardVersion)' == '5.2.0' ">

@@ -8,22 +8,22 @@ using NUnit.Framework;
 
 namespace EdFi.Ods.CodeGen.Tests.Approval_Tests;
 
-public class V610 : IStandardVersionMetadata
+public class V620 : IStandardVersionMetadata
 {
-    public string StandardVersion => "6.1.0";
+    public string StandardVersion => "6.2.0";
 
-    public string ApprovalsFileNamePrefix => nameof(DataStandard_610_ApprovalTests);
+    public string ApprovalsFileNamePrefix => nameof(DataStandard_620_ApprovalTests);
 }
 
 [TestFixture]
-public class DataStandard_610_ApprovalTests : ApprovalTestsBase<V610>
+public class DataStandard_620_ApprovalTests : ApprovalTestsBase<V620>
 {
     // =========================================================================================
     [Test, Explicit("WARNING!!! This copies all the generated files as approved files")]
     public void Create_Approved_Files() => CreateApprovedFiles();
     // =========================================================================================
 
-    [Test, TestCaseSource(typeof(ApprovalFileInfoSource<V610>))]
+    [Test, TestCaseSource(typeof(ApprovalFileInfoSource<V620>))]
     public void Verify(ApprovalFileInfo approvalFileInfo) => ApproveFile(approvalFileInfo);
 
     [Test]
