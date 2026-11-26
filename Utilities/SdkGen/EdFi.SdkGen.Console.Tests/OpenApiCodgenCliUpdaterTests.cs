@@ -26,6 +26,7 @@ namespace EdFi.SdkGen.Console.Tests
         private string _originalDirectory;
         private string _workingDirectory;
         private List<TimeSpan> _waits;
+        private double _random;
 
         [SetUp]
         public void SetUp()
@@ -35,6 +36,7 @@ namespace EdFi.SdkGen.Console.Tests
             Directory.CreateDirectory(_workingDirectory);
             Environment.CurrentDirectory = _workingDirectory;
             _waits = new List<TimeSpan>();
+            _random = 0;
         }
 
         [TearDown]
@@ -69,7 +71,46 @@ namespace EdFi.SdkGen.Console.Tests
             CreateUpdater(handler).Run();
 
             File.ReadAllText(JarPath).ShouldBe(JarContent);
-            _waits.ShouldBe(new[] { TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(4) });
+            _waits.ShouldBe(new[] { TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(10) });
+        }
+
+        [Test]
+        public void The_backoff_adds_up_to_20_percent_jitter()
+        {
+            _random = 1;
+            var handler = new SequenceHandler(
+                () => new HttpResponseMessage(HttpStatusCode.ServiceUnavailable),
+                () => new HttpResponseMessage(HttpStatusCode.ServiceUnavailable),
+                Jar);
+
+            CreateUpdater(handler).Run();
+
+            _waits.ShouldBe(new[] { TimeSpan.FromSeconds(6), TimeSpan.FromSeconds(12) });
+        }
+
+        [Test]
+        public void Retry_After_is_used_without_jitter()
+        {
+            _random = 1;
+            var handler = new SequenceHandler(
+                () => TooManyRequests(TimeSpan.FromSeconds(7)),
+                Jar);
+
+            CreateUpdater(handler).Run();
+
+            _waits.ShouldBe(new[] { TimeSpan.FromSeconds(7) });
+        }
+
+        [Test]
+        public void Repeated_429s_without_Retry_After_are_retried_for_about_two_minutes()
+        {
+            var handler = new SequenceHandler(
+                Enumerable.Repeat<Func<HttpResponseMessage>>(() => TooManyRequests(null), 10).ToArray());
+
+            Should.Throw<InvalidOperationException>(() => CreateUpdater(handler).Run());
+
+            _waits.ShouldBe(OpenApiCodgenCliUpdater.Backoff);
+            _waits.Aggregate(TimeSpan.Zero, (total, wait) => total + wait).ShouldBe(TimeSpan.FromSeconds(135));
         }
 
         [Test]
@@ -121,7 +162,7 @@ namespace EdFi.SdkGen.Console.Tests
 
             handler.Requests.ShouldBe(OpenApiCodgenCliUpdater.MaxAttempts);
             _waits.Count.ShouldBe(OpenApiCodgenCliUpdater.MaxAttempts - 1);
-            exception.Message.ShouldContain("after 5 attempts");
+            exception.Message.ShouldContain($"after {OpenApiCodgenCliUpdater.MaxAttempts} attempts");
             exception.Message.ShouldContain("429");
             exception.Message.ShouldContain("https://example.test/maven/7.19.0/openapi-generator-cli-7.19.0.jar");
         }
@@ -183,7 +224,8 @@ namespace EdFi.SdkGen.Console.Tests
                 {
                     _waits.Add(wait);
                     return Task.CompletedTask;
-                });
+                },
+                () => _random);
 
         private static HttpResponseMessage Jar()
             => new(HttpStatusCode.OK) { Content = new StringContent(JarContent, Encoding.UTF8) };

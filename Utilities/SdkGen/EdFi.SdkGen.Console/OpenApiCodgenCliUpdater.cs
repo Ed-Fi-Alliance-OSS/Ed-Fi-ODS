@@ -18,35 +18,48 @@ namespace EdFi.SdkGen.Console
         /// <summary>
         /// The number of download attempts before giving up.
         /// </summary>
-        public const int MaxAttempts = 5;
+        public const int MaxAttempts = 6;
 
         /// <summary>
         /// The longest wait honored from a Retry-After header.
         /// </summary>
         public static readonly TimeSpan MaxRetryAfter = TimeSpan.FromSeconds(60);
 
-        // Waits between attempts when the server doesn't send Retry-After
-        private static readonly TimeSpan[] _backoff =
+        /// <summary>
+        /// The waits between attempts when the server doesn't send Retry-After. Maven Central can keep
+        /// answering 429 to a runner for more than 30 seconds, so the attempts span about two minutes.
+        /// </summary>
+        public static readonly TimeSpan[] Backoff =
         {
-            TimeSpan.FromSeconds(2),
-            TimeSpan.FromSeconds(4),
-            TimeSpan.FromSeconds(8),
-            TimeSpan.FromSeconds(16)
+            TimeSpan.FromSeconds(5),
+            TimeSpan.FromSeconds(10),
+            TimeSpan.FromSeconds(20),
+            TimeSpan.FromSeconds(40),
+            TimeSpan.FromSeconds(60)
         };
+
+        // Up to this fraction is added to each backoff wait, so parallel jobs don't retry together
+        private const double MaxJitter = 0.2;
 
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Options _options;
         private readonly HttpMessageHandler _httpMessageHandler;
         private readonly Func<TimeSpan, Task> _delay;
+        private readonly Func<double> _random;
 
         public OpenApiCodgenCliUpdater(Options options)
-            : this(options, new HttpClientHandler(), Task.Delay) { }
+            : this(options, new HttpClientHandler(), Task.Delay, Random.Shared.NextDouble) { }
 
-        public OpenApiCodgenCliUpdater(Options options, HttpMessageHandler httpMessageHandler, Func<TimeSpan, Task> delay)
+        public OpenApiCodgenCliUpdater(
+            Options options,
+            HttpMessageHandler httpMessageHandler,
+            Func<TimeSpan, Task> delay,
+            Func<double> random)
         {
             _options = options;
             _httpMessageHandler = httpMessageHandler;
             _delay = delay;
+            _random = random;
         }
 
         public void Run()
@@ -132,7 +145,7 @@ namespace EdFi.SdkGen.Console
                     break;
                 }
 
-                var wait = retryAfter ?? _backoff[attempt - 1];
+                var wait = retryAfter ?? Backoff[attempt - 1] * (1 + MaxJitter * _random());
 
                 _log.Warn(
                     $"Downloading the openapi-generator-cli from {downloadUrl} failed ({lastFailure}); retrying in {wait.TotalSeconds:0.#} seconds (attempt {attempt + 1} of {MaxAttempts}).");
