@@ -3,6 +3,7 @@
   "schemaDefinition": {
     "logicalName": "Ed-Fi",
     "physicalName": "edfi",
+    "description": "The Ed-Fi Data Model 6.2",
     "version": "6.2.0"
   },
   "aggregateDefinitions": [

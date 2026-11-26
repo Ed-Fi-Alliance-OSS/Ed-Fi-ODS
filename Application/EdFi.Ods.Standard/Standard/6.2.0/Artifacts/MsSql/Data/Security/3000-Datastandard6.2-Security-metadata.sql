@@ -3,18 +3,20 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
--- Adds the resource claims for the descriptors that are new in Data Standard 6.2 as children of the existing
+-- Adds the resource claim for the descriptor that is new in Data Standard 6.2 as a child of the existing
 -- systemDescriptors claim. The systemDescriptors claim itself is not modified, so its authorization metadata and
 -- claim set assignments are kept as they are.
+--
+-- This script is intentionally hand-written instead of generated from the XML like the 2800 script: the generated
+-- shape would re-apply the systemDescriptors metadata. The XML next to it describes the same change.
 
 BEGIN
     DECLARE
         @claimId AS INT,
         @claimName AS nvarchar(max),
         @parentResourceClaimId AS INT,
-        @existingParentResourceClaimId AS INT
-
-    BEGIN TRANSACTION
+        @existingParentResourceClaimId AS INT,
+        @msg AS nvarchar(max)
 
     SELECT @parentResourceClaimId = ResourceClaimId
     FROM dbo.ResourceClaims
@@ -22,10 +24,11 @@ BEGIN
 
     IF @parentResourceClaimId IS NULL
         BEGIN
-            ROLLBACK TRANSACTION
-            RAISERROR('The systemDescriptors resource claim does not exist.', 16, 1)
-            RETURN
+            SET @msg = 'Resource claim does not exist: ''http://ed-fi.org/ods/identity/claims/domains/systemDescriptors''. Run the earlier security metadata scripts first.';
+            THROW 50000, @msg, 1
         END
+
+    BEGIN TRANSACTION
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/contactResponsibilityDescriptor'
@@ -49,7 +52,7 @@ BEGIN
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR @existingParentResourceClaimId IS NULL
             BEGIN
-                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Moving claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to be a child of a different resource claim (from ResourceClaimId=' + CONVERT(nvarchar, COALESCE(@existingParentResourceClaimId, 0)) + ' to ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
