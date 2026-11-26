@@ -82,6 +82,12 @@ namespace EdFi.SdkGen.Console
         public bool CoreOnly { get; set; }
         
         [Option(
+            "cli-download-url",
+            Default = CliDownloadUri,
+            HelpText = "the base URL to download openapi-generator-cli from, followed by /<version>/openapi-generator-cli-<version>.jar (default: Maven Central)")]
+        public string CliDownloadBaseUrl { get; set; } = CliDownloadUri;
+
+        [Option(
             'j',
             "java-path",
             Default = "java",
@@ -90,7 +96,7 @@ namespace EdFi.SdkGen.Console
       
         public string CliVersionText() => $"{SdkCodegenVersionKey}:{CliVersion}";
 
-        public string CliDownloadUrl() => $"{CliDownloadUri}/{CliVersion}/{OpenApiCodegenCliJarName}-{CliVersion}.jar";
+        public string CliDownloadUrl() => $"{CliDownloadBaseUrl.TrimEnd('/')}/{CliVersion}/{OpenApiCodegenCliJarName}-{CliVersion}.jar";
 
         public string CliExecutableFullName() => Path.Combine(Environment.CurrentDirectory, SdkCodeGenExecuteable);
     }

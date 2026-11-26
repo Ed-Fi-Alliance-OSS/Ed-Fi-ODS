@@ -3,7 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -13,12 +15,38 @@ namespace EdFi.SdkGen.Console
 {
     public class OpenApiCodgenCliUpdater
     {
+        /// <summary>
+        /// The number of download attempts before giving up.
+        /// </summary>
+        public const int MaxAttempts = 5;
+
+        /// <summary>
+        /// The longest wait honored from a Retry-After header.
+        /// </summary>
+        public static readonly TimeSpan MaxRetryAfter = TimeSpan.FromSeconds(60);
+
+        // Waits between attempts when the server doesn't send Retry-After
+        private static readonly TimeSpan[] _backoff =
+        {
+            TimeSpan.FromSeconds(2),
+            TimeSpan.FromSeconds(4),
+            TimeSpan.FromSeconds(8),
+            TimeSpan.FromSeconds(16)
+        };
+
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Options _options;
+        private readonly HttpMessageHandler _httpMessageHandler;
+        private readonly Func<TimeSpan, Task> _delay;
 
         public OpenApiCodgenCliUpdater(Options options)
+            : this(options, new HttpClientHandler(), Task.Delay) { }
+
+        public OpenApiCodgenCliUpdater(Options options, HttpMessageHandler httpMessageHandler, Func<TimeSpan, Task> delay)
         {
             _options = options;
+            _httpMessageHandler = httpMessageHandler;
+            _delay = delay;
         }
 
         public void Run()
@@ -29,7 +57,7 @@ namespace EdFi.SdkGen.Console
             }
 
             // run the task synchronously to avoid collitions to get the jar file.
-            DownloadOpenApiCodegenCli().Wait();
+            DownloadOpenApiCodegenCli().GetAwaiter().GetResult();
         }
 
         private bool ShouldUpdate()
@@ -55,31 +83,124 @@ namespace EdFi.SdkGen.Console
         {
             _log.Info($"Downloading a new copy of the {_options.CliExecutableFullName()}");
 
-            using (var httpClient = new HttpClient())
+            var downloadUrl = _options.CliDownloadUrl();
+            string lastFailure = null;
+
+            using var httpClient = new HttpClient(_httpMessageHandler, disposeHandler: false);
+
+            for (int attempt = 1; attempt <= MaxAttempts; attempt++)
             {
-                var downloadUrl = _options.CliDownloadUrl();
+                _log.Debug($"Downloading openApi-codegen-cli.jar from {downloadUrl} (attempt {attempt} of {MaxAttempts})");
 
-                _log.Debug($"Downloading openApi-codegen-cli.jar from {downloadUrl}");
+                TimeSpan? retryAfter = null;
 
-                using (HttpResponseMessage response = await httpClient.GetAsync(downloadUrl))
+                try
                 {
-                    response.EnsureSuccessStatusCode();
+                    using var response = await httpClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
 
-                    // save to a temporary file before moving to the final file.
-                    var fileName = $"{_options.CliExecutableFullName()}.download";
-
-                    _log.Debug($"Writing file {fileName}");
-
-                    using (var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
+                    if (response.IsSuccessStatusCode)
                     {
-                        await response.Content.CopyToAsync(fileStream);
+                        await SaveAsync(response);
+                        return;
                     }
 
-                    // if download is successful we can then move the temp file to the proper name.
-                    _log.Debug($"Renaming {fileName} to {_options.CliExecutableFullName()}");
-                    File.Move(fileName, _options.CliExecutableFullName());
+                    lastFailure = $"{(int)response.StatusCode} {response.ReasonPhrase}";
+
+                    if (!IsTransient(response.StatusCode))
+                    {
+                        throw new InvalidOperationException(
+                            $"Could not download the openapi-generator-cli from {downloadUrl}: the server returned {lastFailure}.");
+                    }
+
+                    retryAfter = GetRetryAfter(response);
+                }
+                catch (HttpRequestException e)
+                {
+                    lastFailure = e.Message;
+                }
+                catch (IOException e)
+                {
+                    lastFailure = e.Message;
+                }
+                catch (TaskCanceledException)
+                {
+                    lastFailure = "the request timed out";
+                }
+
+                if (attempt == MaxAttempts)
+                {
+                    break;
+                }
+
+                var wait = retryAfter ?? _backoff[attempt - 1];
+
+                _log.Warn(
+                    $"Downloading the openapi-generator-cli from {downloadUrl} failed ({lastFailure}); retrying in {wait.TotalSeconds:0.#} seconds (attempt {attempt + 1} of {MaxAttempts}).");
+
+                await _delay(wait);
+            }
+
+            throw new InvalidOperationException(
+                $"Could not download the openapi-generator-cli from {downloadUrl} after {MaxAttempts} attempts. Last failure: {lastFailure}.");
+        }
+
+        private async Task SaveAsync(HttpResponseMessage response)
+        {
+            // save to a temporary file before moving to the final file.
+            var fileName = $"{_options.CliExecutableFullName()}.download";
+
+            _log.Debug($"Writing file {fileName}");
+
+            try
+            {
+                using (var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    await response.Content.CopyToAsync(fileStream);
+                }
+
+                // if download is successful we can then move the temp file to the proper name.
+                _log.Debug($"Renaming {fileName} to {_options.CliExecutableFullName()}");
+                File.Move(fileName, _options.CliExecutableFullName(), overwrite: true);
+            }
+            finally
+            {
+                if (File.Exists(fileName))
+                {
+                    File.Delete(fileName);
                 }
             }
+        }
+
+        private static bool IsTransient(HttpStatusCode statusCode)
+            => statusCode == HttpStatusCode.TooManyRequests
+               || statusCode == HttpStatusCode.RequestTimeout
+               || (int)statusCode >= 500;
+
+        private static TimeSpan? GetRetryAfter(HttpResponseMessage response)
+        {
+            var retryAfter = response.Headers.RetryAfter;
+
+            if (retryAfter == null)
+            {
+                return null;
+            }
+
+            var wait = retryAfter.Delta
+                       ?? (retryAfter.Date.HasValue ? retryAfter.Date.Value - DateTimeOffset.UtcNow : (TimeSpan?)null);
+
+            if (wait == null)
+            {
+                return null;
+            }
+
+            if (wait < TimeSpan.Zero)
+            {
+                return TimeSpan.Zero;
+            }
+
+            return wait > MaxRetryAfter
+                ? MaxRetryAfter
+                : wait;
         }
     }
 }
