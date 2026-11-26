@@ -50,7 +50,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             _httpContext = new DefaultHttpContext();
 
-            _controller = new TokenController(tokenRequestProvider)
+            _controller = new TokenController(tokenRequestProvider, new TokenRequestRateLimiter(new ApiSettings()))
             {
                 ControllerContext = new ControllerContext { HttpContext = _httpContext }
             };

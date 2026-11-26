@@ -108,6 +108,12 @@ namespace EdFi.Ods.Common.Configuration
         /// </summary>
         public bool EnableHsts { get; set; }
 
+        /// <summary>
+        /// Limits the requests to the token endpoint per client IP address and failed authentications per client_id.
+        /// Disabled by default; see <see cref="TokenRateLimitSettings"/>.
+        /// </summary>
+        public TokenRateLimitSettings TokenRateLimit { get; set; } = new();
+
         public string PathBase { get; set; }
 
         public string OdsContextRouteTemplate { get; set; }

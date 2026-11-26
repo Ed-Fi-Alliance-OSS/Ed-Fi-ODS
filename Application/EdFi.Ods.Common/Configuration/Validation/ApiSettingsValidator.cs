@@ -13,5 +13,6 @@ public class ApiSettingsValidator : AbstractValidator<ApiSettings>
     {
         RuleFor(x => x.Services).SetValidator(apiSettings => new ServiceSettingsValidator(apiSettings));
         RuleFor(x => x.Caching).SetValidator(apiSettings => new CacheSettingsValidator(apiSettings));
+        RuleFor(x => x.TokenRateLimit).SetValidator(new TokenRateLimitSettingsValidator());
     }
 }
