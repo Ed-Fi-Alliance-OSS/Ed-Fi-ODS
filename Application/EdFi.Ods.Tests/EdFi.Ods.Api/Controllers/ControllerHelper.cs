@@ -25,7 +25,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             IAccessTokenFactory accessTokenFactory)
         {
             var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(apiClientAuthenticator, accessTokenFactory, new OptionsWrapper<SecuritySettings>(new SecuritySettings()));
-            var controller = new TokenController(tokenRequestProvider);
+            var controller = new TokenController(tokenRequestProvider, new TokenRequestRateLimiter(new ApiSettings()));
             var request = A.Fake<HttpRequest>();
             request.Method = "Post";
             request.Scheme = "http";

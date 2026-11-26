@@ -12,8 +12,10 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Api.Security.Authentication;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Api.Controllers
@@ -39,12 +41,17 @@ namespace EdFi.Ods.Api.Controllers
         private const string CredentialsInHeaderAndBodyDescription =
             "Client credentials must be supplied in either the Authorization header or the request body, not both.";
 
+        private const string TooManyRequestsDescription =
+            "Too many token requests. Wait for the time in the Retry-After header before trying again.";
+
         private readonly ILog _logger = LogManager.GetLogger(typeof(TokenController));
         private readonly ITokenRequestProvider _requestProvider;
+        private readonly ITokenRequestRateLimiter _rateLimiter;
 
-        public TokenController(ITokenRequestProvider provider)
+        public TokenController(ITokenRequestProvider provider, ITokenRequestRateLimiter rateLimiter)
         {
             _requestProvider = provider;
+            _rateLimiter = rateLimiter;
         }
 
         [HttpPost]
@@ -52,6 +59,14 @@ namespace EdFi.Ods.Api.Controllers
         [Consumes("application/json")]
         public async Task<IActionResult> PostFromJsonAsync([FromBody] TokenRequest tokenRequest)
         {
+            var remoteIpAddress = HttpContext?.Connection?.RemoteIpAddress;
+
+            if (!_rateLimiter.TryAcquireForIpAddress(remoteIpAddress, out var ipAddressRetryAfter))
+            {
+                _logger.Warn($"Token request rate limit exceeded for IP address '{remoteIpAddress}'.");
+                return TooManyRequests(ipAddressRetryAfter);
+            }
+
             // We MUST support client credentials in the Authorization header (https://tools.ietf.org/html/rfc6749#section-2.3.1)
             // and also accept them in the body, but not in both (https://tools.ietf.org/html/rfc6749#section-2.3).
             BasicCredentials headerCredentials = null;
@@ -81,6 +96,15 @@ namespace EdFi.Ods.Api.Controllers
                 return InvalidClientWithChallenge();
             }
 
+            // Checked before authenticating, so that guessing a client's secret can't keep using the server's CPU
+            var clientId = tokenRequest.Client_id;
+
+            if (!_rateLimiter.IsClientIdAllowed(clientId, out var clientIdRetryAfter))
+            {
+                _logger.Warn($"Token request rate limit for failed authentications exceeded for client '{ForLog(clientId)}'.");
+                return TooManyRequests(clientIdRetryAfter);
+            }
+
             var authenticationResult = await _requestProvider.HandleAsync(tokenRequest);
 
             if (authenticationResult.ClientAuthenticationFailed && headerCredentials is { DecodingChangedValues: true })
@@ -101,6 +125,11 @@ namespace EdFi.Ods.Api.Controllers
                     _logger.Info(
                         $"Client '{tokenRequest.Client_id}' authenticated with Basic credentials that were not form-urlencoded.");
                 }
+            }
+
+            if (authenticationResult.ClientAuthenticationFailed)
+            {
+                _rateLimiter.RecordFailedAuthentication(clientId);
             }
 
             if (authenticationResult.TokenError != null
@@ -201,6 +230,19 @@ namespace EdFi.Ods.Api.Controllers
 
             return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
         }
+
+        private ObjectResult TooManyRequests(TimeSpan retryAfter)
+        {
+            Response.Headers.RetryAfter = Math.Max(1, (int)Math.Ceiling(retryAfter.TotalSeconds)).ToString();
+
+            return StatusCode(
+                StatusCodes.Status429TooManyRequests,
+                new TokenError(TokenErrorType.InvalidRequest, TooManyRequestsDescription));
+        }
+
+        // The client_id comes from the request and may not belong to any client, so keep it short and on one line
+        private static string ForLog(string value)
+            => new string(value.Where(c => !char.IsControl(c)).Take(100).ToArray());
 
         private sealed record BasicCredentials(string RawClientId, string RawClientSecret, string ClientId, string ClientSecret)
         {

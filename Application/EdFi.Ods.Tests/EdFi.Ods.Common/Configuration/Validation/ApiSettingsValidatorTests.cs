@@ -175,4 +175,46 @@ public class ApiSettingsValidatorTests
         // Assert
         validationResult.IsValid.ShouldBeTrue();
     }
+
+    [TestCase(0, 10, 60)]
+    [TestCase(30, 0, 60)]
+    [TestCase(30, 10, 0)]
+    public void TokenRateLimitEnabledWithANonPositiveValue_Validate_ShouldFail(
+        int permitsPerIpAddress,
+        int failedAttemptsPerClientId,
+        int windowSeconds)
+    {
+        var apiSettings = new ApiSettings
+        {
+            TokenRateLimit = new()
+            {
+                Enabled = true,
+                PermitsPerIpAddress = permitsPerIpAddress,
+                FailedAttemptsPerClientId = failedAttemptsPerClientId,
+                WindowSeconds = windowSeconds
+            }
+        };
+
+        var validationResult = new ApiSettingsValidator().Validate(apiSettings);
+
+        validationResult.IsValid.ShouldBeFalse();
+        validationResult.Errors.ShouldHaveSingleItem().ErrorMessage.ShouldStartWith("ApiSettings:TokenRateLimit:");
+    }
+
+    [Test]
+    public void TokenRateLimitDisabledWithNonPositiveValues_Validate_ShouldIndicateSuccess()
+    {
+        var apiSettings = new ApiSettings
+        {
+            TokenRateLimit = new()
+            {
+                Enabled = false,
+                PermitsPerIpAddress = 0,
+                FailedAttemptsPerClientId = 0,
+                WindowSeconds = 0
+            }
+        };
+
+        new ApiSettingsValidator().Validate(apiSettings).IsValid.ShouldBeTrue();
+    }
 }

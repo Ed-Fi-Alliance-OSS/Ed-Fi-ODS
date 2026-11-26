@@ -214,6 +214,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<ITokenRequestProvider>()
                 .SingleInstance();
 
+            builder.RegisterType<TokenRequestRateLimiter>()
+                .As<ITokenRequestRateLimiter>()
+                .SingleInstance();
+
             builder.RegisterType<ApiClientDetailsProvider>()
                 .As<IApiClientDetailsProvider>()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions(new ApiClientDetailsProviderProxyGenerationHook()))
