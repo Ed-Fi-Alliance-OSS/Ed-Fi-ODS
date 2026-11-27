@@ -503,6 +503,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class ContactResponsibilityDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ContactResponsibilityDescriptor.EdFi.ContactResponsibilityDescriptor, Entities.NHibernate.ContactResponsibilityDescriptorAggregate.EdFi.ContactResponsibilityDescriptor>
+    {
+        public ContactResponsibilityDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class ContentClassDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ContentClassDescriptor.EdFi.ContentClassDescriptor, Entities.NHibernate.ContentClassDescriptorAggregate.EdFi.ContentClassDescriptor>
     {
         public ContentClassDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }

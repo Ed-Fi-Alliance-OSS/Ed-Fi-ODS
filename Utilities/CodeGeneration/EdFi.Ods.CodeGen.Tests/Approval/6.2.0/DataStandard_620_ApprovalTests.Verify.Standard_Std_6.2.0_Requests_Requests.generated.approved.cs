@@ -4464,6 +4464,59 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ContactIdentificationSystemDescrip
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.ContactResponsibilityDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ContactResponsibilityDescriptorGetByExample
+    {
+        public string CodeValue { get; set; }
+        public int ContactResponsibilityDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ContactResponsibilityDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public ContactResponsibilityDescriptorGetByIds() { }
+
+        public ContactResponsibilityDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ContactResponsibilityDescriptorPost : Resources.ContactResponsibilityDescriptor.EdFi.ContactResponsibilityDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ContactResponsibilityDescriptorPut : Resources.ContactResponsibilityDescriptor.EdFi.ContactResponsibilityDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ContactResponsibilityDescriptorDelete : IHasIdentifier
+    {
+        public ContactResponsibilityDescriptorDelete() { }
+
+        public ContactResponsibilityDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.ContentClassDescriptors.EdFi
 {
 

@@ -23586,6 +23586,163 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ContactIdentificationSystemDescriptor
     }
 
 }
+// Aggregate: ContactResponsibilityDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.ContactResponsibilityDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class ContactResponsibilityDescriptorMapper
+    {
+        private static readonly FullName _fullName_edfi_ContactResponsibilityDescriptor = new FullName("edfi", "ContactResponsibilityDescriptor");
+    
+        public static bool SynchronizeTo(this IContactResponsibilityDescriptor source, IContactResponsibilityDescriptor target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ContactResponsibilityDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ContactResponsibilityDescriptor);
+
+            // Detect primary key changes
+            if (
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
+            {
+                // Disallow PK column updates on ContactResponsibilityDescriptor
+                throw new KeyChangeNotSupportedException("ContactResponsibilityDescriptor");
+            }
+
+
+            // Copy inherited non-PK properties
+
+
+            if ((mappingContract?.IsCodeValueSupported != false)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsDescriptionSupported != false)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNamespaceSupported != false)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsShortDescriptionSupported != false)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+
+            return isModified;
+        }
+
+        public static void MapTo(this IContactResponsibilityDescriptor source, IContactResponsibilityDescriptor target, Action<IContactResponsibilityDescriptor, IContactResponsibilityDescriptor> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ContactResponsibilityDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ContactResponsibilityDescriptor);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            //Copy identifier Source
+            if (target is IHasIdentifierSource identifierSource)
+                identifierSource.IdSource = (source as IHasIdentifierSource).IdSource;
+
+            // Copy contextual primary key values
+            target.ContactResponsibilityDescriptorId = source.ContactResponsibilityDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (mappingContract?.IsCodeValueSupported != false)
+                target.CodeValue = source.CodeValue;
+
+            if (mappingContract?.IsDescriptionSupported != false)
+                target.Description = source.Description;
+
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+
+            if (mappingContract?.IsNamespaceSupported != false)
+                target.Namespace = source.Namespace;
+
+            if (mappingContract?.IsShortDescriptionSupported != false)
+                target.ShortDescription = source.ShortDescription;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
 // Aggregate: ContentClassDescriptor
 
 namespace EdFi.Ods.Entities.Common.EdFi //.ContentClassDescriptorAggregate
@@ -110752,6 +110909,19 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
                         includeItem: item => mappingContract?.IsStudentSpecialEducationProgramAssociationDisabilityIncluded?.Invoke(item) ?? true);
             }
 
+            if (mappingContract?.IsStudentSpecialEducationProgramAssociationResponsibleContactsSupported ?? true)
+            {
+                isModified |=
+                    source.StudentSpecialEducationProgramAssociationResponsibleContacts.SynchronizeCollectionTo(
+                        target.StudentSpecialEducationProgramAssociationResponsibleContacts,
+                        onChildAdded: child =>
+                            {
+                                child.StudentSpecialEducationProgramAssociation = target;
+                            },
+                        itemCreatable: mappingContract?.IsStudentSpecialEducationProgramAssociationResponsibleContactsItemCreatable ?? true,
+                        includeItem: item => mappingContract?.IsStudentSpecialEducationProgramAssociationResponsibleContactIncluded?.Invoke(item) ?? true);
+            }
+
             if (mappingContract?.IsStudentSpecialEducationProgramAssociationServiceProvidersSupported ?? true)
             {
                 isModified |=
@@ -110924,6 +111094,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
             if (mappingContract?.IsStudentSpecialEducationProgramAssociationDisabilitiesSupported != false)
             {
                 source.StudentSpecialEducationProgramAssociationDisabilities.MapCollectionTo(target.StudentSpecialEducationProgramAssociationDisabilities, mappingContract?.IsStudentSpecialEducationProgramAssociationDisabilitiesItemCreatable ?? true, target, mappingContract?.IsStudentSpecialEducationProgramAssociationDisabilityIncluded);
+            }
+
+            if (mappingContract?.IsStudentSpecialEducationProgramAssociationResponsibleContactsSupported != false)
+            {
+                source.StudentSpecialEducationProgramAssociationResponsibleContacts.MapCollectionTo(target.StudentSpecialEducationProgramAssociationResponsibleContacts, mappingContract?.IsStudentSpecialEducationProgramAssociationResponsibleContactsItemCreatable ?? true, target, mappingContract?.IsStudentSpecialEducationProgramAssociationResponsibleContactIncluded);
             }
 
             if (mappingContract?.IsStudentSpecialEducationProgramAssociationServiceProvidersSupported != false)
@@ -111118,6 +111293,109 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentSpecialEducationProgramAssociationResponsibleContactMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentSpecialEducationProgramAssociationResponsibleContact = new FullName("edfi", "StudentSpecialEducationProgramAssociationResponsibleContact");
+    
+        public static bool SynchronizeTo(this IStudentSpecialEducationProgramAssociationResponsibleContact source, IStudentSpecialEducationProgramAssociationResponsibleContact target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentSpecialEducationProgramAssociationResponsibleContactMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentSpecialEducationProgramAssociationResponsibleContact);
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsContactResponsibilityEndDateSupported != false)
+                && target.ContactResponsibilityEndDate != source.ContactResponsibilityEndDate)
+            {
+                target.ContactResponsibilityEndDate = source.ContactResponsibilityEndDate;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.ContactResourceId == null)
+                {
+                    target.ContactResourceId = null;
+                }
+            }
+
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentSpecialEducationProgramAssociationResponsibleContact source, IStudentSpecialEducationProgramAssociationResponsibleContact target, Action<IStudentSpecialEducationProgramAssociationResponsibleContact, IStudentSpecialEducationProgramAssociationResponsibleContact> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentSpecialEducationProgramAssociationResponsibleContactMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentSpecialEducationProgramAssociationResponsibleContact);
+    
+            // Copy contextual primary key values
+            target.ContactResponsibilityBeginDate = source.ContactResponsibilityBeginDate;
+            target.ContactResponsibilityDescriptor = source.ContactResponsibilityDescriptor;
+            target.ContactUniqueId = source.ContactUniqueId;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsContactResponsibilityEndDateSupported != false)
+                target.ContactResponsibilityEndDate = source.ContactResponsibilityEndDate;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
+                target.ContactResourceId = source.ContactResourceId;
+                target.ContactDiscriminator = source.ContactDiscriminator;
+                }
+            }
+
 
 
             // ----------------------------------

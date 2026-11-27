@@ -14685,6 +14685,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the ContactResponsibilityDescriptor model.
+    /// </summary>
+    public interface IContactResponsibilityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IHasIdentifierSource, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int ContactResponsibilityDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ContactResponsibilityDescriptorMappingContract : IMappingContract
+    {
+        public ContactResponsibilityDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ContactResponsibilityDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the ContactTelephone model.
     /// </summary>
     public interface IContactTelephone : ISynchronizable, IMappable, IHasExtensions, IGetByExample
@@ -68236,6 +68312,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Lists
         ICollection<IStudentSpecialEducationProgramAssociationDisability> StudentSpecialEducationProgramAssociationDisabilities { get; set; }
+        ICollection<IStudentSpecialEducationProgramAssociationResponsibleContact> StudentSpecialEducationProgramAssociationResponsibleContacts { get; set; }
         ICollection<IStudentSpecialEducationProgramAssociationServiceProvider> StudentSpecialEducationProgramAssociationServiceProviders { get; set; }
         ICollection<IStudentSpecialEducationProgramAssociationSpecialEducationProgramService> StudentSpecialEducationProgramAssociationSpecialEducationProgramServices { get; set; }
 
@@ -68274,12 +68351,15 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isSpecialEducationSettingDescriptorSupported,
             bool isStudentReferenceSupported,
             bool isStudentSpecialEducationProgramAssociationDisabilitiesSupported,
+            bool isStudentSpecialEducationProgramAssociationResponsibleContactsSupported,
             bool isStudentSpecialEducationProgramAssociationServiceProvidersSupported,
             bool isStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesSupported,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentSpecialEducationProgramAssociationDisabilitiesItemCreatable,
             Func<IStudentSpecialEducationProgramAssociationDisability, bool> isStudentSpecialEducationProgramAssociationDisabilityIncluded,
+            bool isStudentSpecialEducationProgramAssociationResponsibleContactsItemCreatable,
+            Func<IStudentSpecialEducationProgramAssociationResponsibleContact, bool> isStudentSpecialEducationProgramAssociationResponsibleContactIncluded,
             bool isStudentSpecialEducationProgramAssociationServiceProvidersItemCreatable,
             Func<IStudentSpecialEducationProgramAssociationServiceProvider, bool> isStudentSpecialEducationProgramAssociationServiceProviderIncluded,
             bool isStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesItemCreatable,
@@ -68312,12 +68392,15 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsSpecialEducationSettingDescriptorSupported = isSpecialEducationSettingDescriptorSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             IsStudentSpecialEducationProgramAssociationDisabilitiesSupported = isStudentSpecialEducationProgramAssociationDisabilitiesSupported;
+            IsStudentSpecialEducationProgramAssociationResponsibleContactsSupported = isStudentSpecialEducationProgramAssociationResponsibleContactsSupported;
             IsStudentSpecialEducationProgramAssociationServiceProvidersSupported = isStudentSpecialEducationProgramAssociationServiceProvidersSupported;
             IsStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesSupported = isStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesSupported;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentSpecialEducationProgramAssociationDisabilitiesItemCreatable = isStudentSpecialEducationProgramAssociationDisabilitiesItemCreatable;
             IsStudentSpecialEducationProgramAssociationDisabilityIncluded = isStudentSpecialEducationProgramAssociationDisabilityIncluded;
+            IsStudentSpecialEducationProgramAssociationResponsibleContactsItemCreatable = isStudentSpecialEducationProgramAssociationResponsibleContactsItemCreatable;
+            IsStudentSpecialEducationProgramAssociationResponsibleContactIncluded = isStudentSpecialEducationProgramAssociationResponsibleContactIncluded;
             IsStudentSpecialEducationProgramAssociationServiceProvidersItemCreatable = isStudentSpecialEducationProgramAssociationServiceProvidersItemCreatable;
             IsStudentSpecialEducationProgramAssociationServiceProviderIncluded = isStudentSpecialEducationProgramAssociationServiceProviderIncluded;
             IsStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesItemCreatable = isStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesItemCreatable;
@@ -68350,12 +68433,15 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsSpecialEducationSettingDescriptorSupported { get; }
         public bool IsStudentReferenceSupported { get; }
         public bool IsStudentSpecialEducationProgramAssociationDisabilitiesSupported { get; }
+        public bool IsStudentSpecialEducationProgramAssociationResponsibleContactsSupported { get; }
         public bool IsStudentSpecialEducationProgramAssociationServiceProvidersSupported { get; }
         public bool IsStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesSupported { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentSpecialEducationProgramAssociationDisabilitiesItemCreatable { get; }
         public Func<IStudentSpecialEducationProgramAssociationDisability, bool> IsStudentSpecialEducationProgramAssociationDisabilityIncluded { get; }
+        public bool IsStudentSpecialEducationProgramAssociationResponsibleContactsItemCreatable { get; }
+        public Func<IStudentSpecialEducationProgramAssociationResponsibleContact, bool> IsStudentSpecialEducationProgramAssociationResponsibleContactIncluded { get; }
         public bool IsStudentSpecialEducationProgramAssociationServiceProvidersItemCreatable { get; }
         public Func<IStudentSpecialEducationProgramAssociationServiceProvider, bool> IsStudentSpecialEducationProgramAssociationServiceProviderIncluded { get; }
         public bool IsStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesItemCreatable { get; }
@@ -68415,6 +68501,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentReferenceSupported;
                 case "StudentSpecialEducationProgramAssociationDisabilities":
                     return IsStudentSpecialEducationProgramAssociationDisabilitiesSupported;
+                case "StudentSpecialEducationProgramAssociationResponsibleContacts":
+                    return IsStudentSpecialEducationProgramAssociationResponsibleContactsSupported;
                 case "StudentSpecialEducationProgramAssociationServiceProviders":
                     return IsStudentSpecialEducationProgramAssociationServiceProvidersSupported;
                 case "StudentSpecialEducationProgramAssociationSpecialEducationProgramServices":
@@ -68445,6 +68533,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentSpecialEducationProgramAssociationDisabilities":
                     return IsStudentSpecialEducationProgramAssociationDisabilitiesItemCreatable;
+                case "StudentSpecialEducationProgramAssociationResponsibleContacts":
+                    return IsStudentSpecialEducationProgramAssociationResponsibleContactsItemCreatable;
                 case "StudentSpecialEducationProgramAssociationServiceProviders":
                     return IsStudentSpecialEducationProgramAssociationServiceProvidersItemCreatable;
                 case "StudentSpecialEducationProgramAssociationSpecialEducationProgramServices":
@@ -68595,6 +68685,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisabilityDesignationDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentSpecialEducationProgramAssociationResponsibleContact model.
+    /// </summary>
+    public interface IStudentSpecialEducationProgramAssociationResponsibleContact : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentSpecialEducationProgramAssociation StudentSpecialEducationProgramAssociation { get; set; }
+        
+        DateTime ContactResponsibilityBeginDate { get; set; }
+        
+        string ContactResponsibilityDescriptor { get; set; }
+        
+        string ContactUniqueId { get; set; }
+
+        // Non-PK properties
+        DateTime? ContactResponsibilityEndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? ContactResourceId { get; set; }
+        string ContactDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentSpecialEducationProgramAssociationResponsibleContactMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentSpecialEducationProgramAssociationResponsibleContactMappingContract(
+            bool isContactReferenceSupported,
+            bool isContactResponsibilityEndDateSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsContactReferenceSupported = isContactReferenceSupported;
+            IsContactResponsibilityEndDateSupported = isContactResponsibilityEndDateSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsContactReferenceSupported { get; }
+        public bool IsContactResponsibilityEndDateSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "ContactReference":
+                    return IsContactReferenceSupported;
+                case "ContactResponsibilityEndDate":
+                    return IsContactResponsibilityEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ContactResponsibilityBeginDate":
+                    return true;
+                case "ContactResponsibilityDescriptor":
+                    return true;
+                case "ContactUniqueId":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");

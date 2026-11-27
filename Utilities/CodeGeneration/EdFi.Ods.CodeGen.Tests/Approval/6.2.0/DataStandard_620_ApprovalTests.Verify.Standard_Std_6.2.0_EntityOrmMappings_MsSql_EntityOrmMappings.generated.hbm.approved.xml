@@ -6816,6 +6816,22 @@
           <!-- Collections -->
       </join>
     </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ContactResponsibilityDescriptorAggregate.EdFi.ContactResponsibilityDescriptor" lazy="false" discriminator-value="edfi.ContactResponsibilityDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ContactResponsibilityDescriptor" >
+          <key>
+            <column name="ContactResponsibilityDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ContactResponsibilityDescriptorId" column="ContactResponsibilityDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.ContentClassDescriptorAggregate.EdFi.ContentClassDescriptor" lazy="false" discriminator-value="edfi.ContentClassDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="ContentClassDescriptor" >
           <key>
@@ -13939,6 +13955,18 @@
               <column name="StudentUSI" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationDisability" />
+          </set>
+
+          <set name="StudentSpecialEducationProgramAssociationResponsibleContacts" cascade="all-delete-orphan" inverse="true" lazy="true">
+            <key>
+              <column name="BeginDate" />
+              <column name="EducationOrganizationId" />
+              <column name="ProgramEducationOrganizationId" />
+              <column name="ProgramName" />
+              <column name="ProgramTypeDescriptorId" />
+              <column name="StudentUSI" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContact" />
           </set>
 
           <set name="StudentSpecialEducationProgramAssociationServiceProviders" cascade="all-delete-orphan" inverse="true" lazy="true">
@@ -27937,6 +27965,41 @@
     <!-- Properties -->
 
     <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationResponsibleContact" table="StudentSpecialEducationProgramAssociationResponsibleContact" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ContactResponsibilityBeginDate" column="ContactResponsibilityBeginDate" type="date" />
+      <key-property name="ContactResponsibilityDescriptorId" column="ContactResponsibilityDescriptorId" type="int" />
+      <key-property name="ContactUSI" column="ContactUSI" type="int" />
+      <key-many-to-one name="StudentSpecialEducationProgramAssociation">
+        <column name="BeginDate" />
+        <column name="EducationOrganizationId" />
+        <column name="ProgramEducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="ContactResponsibilityEndDate" column="ContactResponsibilityEndDate" type="date" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="ContactReferenceData" class="EdFi.Ods.Entities.NHibernate.ContactAggregate.EdFi.ContactReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ContactUSI" />
+    </many-to-one>
 
     <!-- Back references -->
 

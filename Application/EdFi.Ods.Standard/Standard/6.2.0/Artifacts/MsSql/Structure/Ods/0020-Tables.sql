@@ -2943,6 +2943,15 @@ GO
 ALTER TABLE [edfi].[ContactPersonalIdentificationDocument] ADD CONSTRAINT [ContactPersonalIdentificationDocument_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[ContactResponsibilityDescriptor] --
+CREATE TABLE [edfi].[ContactResponsibilityDescriptor] (
+    [ContactResponsibilityDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ContactResponsibilityDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ContactResponsibilityDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [edfi].[ContactTelephone] --
 CREATE TABLE [edfi].[ContactTelephone] (
     [ContactUSI] [INT] NOT NULL,
@@ -14600,6 +14609,35 @@ CREATE TABLE [edfi].[StudentSpecialEducationProgramAssociationDisabilityDesignat
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationDisabilityDesignation] ADD CONSTRAINT [StudentSpecialEducationProgramAssociationDisabilityDesignation_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[StudentSpecialEducationProgramAssociationResponsibleContact] --
+CREATE TABLE [edfi].[StudentSpecialEducationProgramAssociationResponsibleContact] (
+    [BeginDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramName] [NVARCHAR](60) NOT NULL,
+    [ProgramTypeDescriptorId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [ContactResponsibilityBeginDate] [DATE] NOT NULL,
+    [ContactResponsibilityDescriptorId] [INT] NOT NULL,
+    [ContactUSI] [INT] NOT NULL,
+    [ContactResponsibilityEndDate] [DATE] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentSpecialEducationProgramAssociationResponsibleContact_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [EducationOrganizationId] ASC,
+        [ProgramEducationOrganizationId] ASC,
+        [ProgramName] ASC,
+        [ProgramTypeDescriptorId] ASC,
+        [StudentUSI] ASC,
+        [ContactResponsibilityBeginDate] ASC,
+        [ContactResponsibilityDescriptorId] ASC,
+        [ContactUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationResponsibleContact] ADD CONSTRAINT [StudentSpecialEducationProgramAssociationResponsibleContact_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[StudentSpecialEducationProgramAssociationServiceProvider] --

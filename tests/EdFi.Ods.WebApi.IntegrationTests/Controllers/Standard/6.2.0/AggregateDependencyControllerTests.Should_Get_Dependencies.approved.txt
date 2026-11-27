@@ -64,6 +64,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/addressCharacteristicDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/addressTypeDescriptors",
     "order": 1,
     "operations": [
@@ -408,6 +416,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/contactResponsibilityDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/contentClassDescriptors",
     "order": 1,
     "operations": [
@@ -680,6 +696,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/durationIntervalDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/economicDisadvantageDescriptors",
     "order": 1,
     "operations": [
@@ -872,6 +896,22 @@
     ]
   },
   {
+    "resource": "/ed-fi/eventComplianceDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/eventReasonDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/exitWithdrawTypeDescriptors",
     "order": 1,
     "operations": [
@@ -897,6 +937,14 @@
   },
   {
     "resource": "/ed-fi/financialCollectionDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/frequencyIntervalDescriptors",
     "order": 1,
     "operations": [
       "Create",
@@ -1008,6 +1056,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/ideaEventTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/ideaPartDescriptors",
     "order": 1,
     "operations": [
@@ -1017,6 +1073,22 @@
   },
   {
     "resource": "/ed-fi/identificationDocumentUseDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/iepGoalTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/iepStatusDescriptors",
     "order": 1,
     "operations": [
       "Create",
@@ -1880,7 +1952,39 @@
     ]
   },
   {
+    "resource": "/ed-fi/serviceDeliveryDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/serviceDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/serviceLocationTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/servicePrescriptionDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/serviceProviderTypeDescriptors",
     "order": 1,
     "operations": [
       "Create",
@@ -2965,6 +3069,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/ideaEvents",
+    "order": 14,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/pathPhases",
     "order": 14,
     "operations": [
@@ -3308,6 +3420,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/studentIEPs",
+    "order": 15,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/studentPathMilestoneStatuses",
     "order": 15,
     "operations": [
@@ -3348,6 +3468,14 @@
   },
   {
     "resource": "/ed-fi/studentAssessmentRegistrations",
+    "order": 16,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentIEPGoals",
     "order": 16,
     "operations": [
       "Create",
@@ -3530,6 +3658,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/studentIEPServicePrescriptions",
+    "order": 19,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/studentProgramEvaluations",
     "order": 19,
     "operations": [
@@ -3555,6 +3691,14 @@
   },
   {
     "resource": "/ed-fi/studentCompetencyObjectives",
+    "order": 20,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentIEPServiceDeliveries",
     "order": 20,
     "operations": [
       "Create",

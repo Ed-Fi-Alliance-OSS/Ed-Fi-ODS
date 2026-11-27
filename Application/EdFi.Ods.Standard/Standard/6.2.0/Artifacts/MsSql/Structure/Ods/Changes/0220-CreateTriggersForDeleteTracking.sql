@@ -1691,6 +1691,27 @@ ALTER TABLE [edfi].[ContactIdentificationSystemDescriptor] ENABLE TRIGGER [edfi_
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_ContactResponsibilityDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ContactResponsibilityDescriptor_TR_DeleteTracking] ON [edfi].[ContactResponsibilityDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.ContactResponsibilityDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.ContactResponsibilityDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ContactResponsibilityDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ContactResponsibilityDescriptor] ENABLE TRIGGER [edfi_ContactResponsibilityDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_ContentClassDescriptor_TR_DeleteTracking]
 GO
 

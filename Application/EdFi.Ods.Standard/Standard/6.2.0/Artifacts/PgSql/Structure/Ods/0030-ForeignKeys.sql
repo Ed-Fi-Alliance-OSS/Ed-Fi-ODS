@@ -2096,6 +2096,11 @@ REFERENCES edfi.PersonalInformationVerificationDescriptor (PersonalInformationVe
 CREATE INDEX FK_277c31_PersonalInformationVerificationDescriptor
 ON edfi.ContactPersonalIdentificationDocument (PersonalInformationVerificationDescriptorId ASC);
 
+ALTER TABLE edfi.ContactResponsibilityDescriptor ADD CONSTRAINT FK_64806a_Descriptor FOREIGN KEY (ContactResponsibilityDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.ContactTelephone ADD CONSTRAINT FK_225a51_Contact FOREIGN KEY (ContactUSI)
 REFERENCES edfi.Contact (ContactUSI)
 ON DELETE CASCADE
@@ -9467,6 +9472,25 @@ ON edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation (Disabili
 
 ALTER TABLE edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation ADD CONSTRAINT FK_a2fd20_StudentSpecialEducationProgramAssociationDisability FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, DisabilityDescriptorId)
 REFERENCES edfi.StudentSpecialEducationProgramAssociationDisability (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, DisabilityDescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentSpecialEducationProgramAssociationResponsibleContact ADD CONSTRAINT FK_b8d1a7_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
+;
+
+CREATE INDEX FK_b8d1a7_Contact
+ON edfi.StudentSpecialEducationProgramAssociationResponsibleContact (ContactUSI ASC);
+
+ALTER TABLE edfi.StudentSpecialEducationProgramAssociationResponsibleContact ADD CONSTRAINT FK_b8d1a7_ContactResponsibilityDescriptor FOREIGN KEY (ContactResponsibilityDescriptorId)
+REFERENCES edfi.ContactResponsibilityDescriptor (ContactResponsibilityDescriptorId)
+;
+
+CREATE INDEX FK_b8d1a7_ContactResponsibilityDescriptor
+ON edfi.StudentSpecialEducationProgramAssociationResponsibleContact (ContactResponsibilityDescriptorId ASC);
+
+ALTER TABLE edfi.StudentSpecialEducationProgramAssociationResponsibleContact ADD CONSTRAINT FK_b8d1a7_StudentSpecialEducationProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+REFERENCES edfi.StudentSpecialEducationProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ON DELETE CASCADE
 ;
 

@@ -57778,7 +57778,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CommunityOrganization.EdFi
         private ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
-        [NoDuplicateMembers][RequiredCollection]
+        [NoDuplicateMembers]
         [DataMember(Name="categories")]
         public ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> EducationOrganizationCategories
         {
@@ -58539,7 +58539,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CommunityProvider.EdFi
         private ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
-        [NoDuplicateMembers][RequiredCollection]
+        [NoDuplicateMembers]
         [DataMember(Name="categories")]
         public ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> EducationOrganizationCategories
         {
@@ -65523,6 +65523,280 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ContactIdentificationSystemDescri
     public class ContactIdentificationSystemDescriptorPutPostRequestValidator : FluentValidation.AbstractValidator<ContactIdentificationSystemDescriptor>
     {
         protected override bool PreValidate(FluentValidation.ValidationContext<ContactIdentificationSystemDescriptor> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
+// Aggregate: ContactResponsibilityDescriptor
+
+namespace EdFi.Ods.Api.Common.Models.Resources.ContactResponsibilityDescriptor.EdFi
+{
+    /// <summary>
+    /// A class which represents the edfi.ContactResponsibilityDescriptor table of the ContactResponsibilityDescriptor aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class ContactResponsibilityDescriptor : Entities.Common.EdFi.IContactResponsibilityDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
+    {
+        private static FullName _fullName = new FullName("edfi", "ContactResponsibilityDescriptor");
+
+        // Fluent validator instance (threadsafe)
+        private static ContactResponsibilityDescriptorPutPostRequestValidator _validator = new ContactResponsibilityDescriptorPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+
+        /// <summary>
+        /// The unique identifier for the ContactResponsibilityDescriptor resource.
+        /// </summary>
+        [DataMember(Name="id")]
+        [JsonConverter(typeof(GuidConverter))]
+        public Guid Id { get; set; }
+
+        public IdentifierSource IdSource { get; set; }
+
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [JsonIgnore]
+        public int ContactResponsibilityDescriptorId { get; set; }
+
+        int IDescriptor.DescriptorId
+        {
+            get { return ContactResponsibilityDescriptorId; }
+            set { ContactResponsibilityDescriptorId = value; }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.EdFi.IContactResponsibilityDescriptor;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+
+            // Derived Property
+            if (!(this as Entities.Common.EdFi.IContactResponsibilityDescriptor).ContactResponsibilityDescriptorId.Equals(compareTo.ContactResponsibilityDescriptorId))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+
+            //Derived Property
+            hash.Add((this as Entities.Common.EdFi.IContactResponsibilityDescriptor).ContactResponsibilityDescriptorId);
+
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// A code or abbreviation that is used to refer to the descriptor.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="codeValue")]
+        public string CodeValue { get; set; }
+
+        /// <summary>
+        /// The description of the descriptor.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// The beginning date of the period when the descriptor is in effect. If omitted, the default is immediate effectiveness.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? EffectiveBeginDate { get; set; }
+
+        /// <summary>
+        /// The end date of the period when the descriptor is in effect.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? EffectiveEndDate { get; set; }
+
+        /// <summary>
+        /// A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="namespace")]
+        public string Namespace { get; set; }
+
+        /// <summary>
+        /// A shortened description for the descriptor.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="shortDescription")]
+        public string ShortDescription { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+
+        [DataMember(Name="_etag")]
+        public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
+
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.EdFi.ContactResponsibilityDescriptorMapper.SynchronizeTo(this, (Entities.Common.EdFi.IContactResponsibilityDescriptor)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.EdFi.ContactResponsibilityDescriptorMapper.MapTo(this, (Entities.Common.EdFi.IContactResponsibilityDescriptor)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class ContactResponsibilityDescriptorPutPostRequestValidator : FluentValidation.AbstractValidator<ContactResponsibilityDescriptor>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<ContactResponsibilityDescriptor> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
             {
@@ -99744,7 +100018,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganizationNetwork.EdFi
         private ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
-        [NoDuplicateMembers][RequiredCollection]
+        [NoDuplicateMembers]
         [DataMember(Name="categories")]
         public ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> EducationOrganizationCategories
         {
@@ -101780,7 +102054,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationServiceCenter.EdFi
         private ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
-        [NoDuplicateMembers][RequiredCollection]
+        [NoDuplicateMembers]
         [DataMember(Name="categories")]
         public ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> EducationOrganizationCategories
         {
@@ -162233,7 +162507,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.LocalEducationAgency.EdFi
         private ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
-        [NoDuplicateMembers][RequiredCollection]
+        [NoDuplicateMembers]
         [DataMember(Name="categories")]
         public ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> EducationOrganizationCategories
         {
@@ -176026,7 +176300,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.OrganizationDepartment.EdFi
         private ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
-        [NoDuplicateMembers][RequiredCollection]
+        [NoDuplicateMembers]
         [DataMember(Name="categories")]
         public ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> EducationOrganizationCategories
         {
@@ -187093,7 +187367,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryInstitution.EdFi
         private ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
-        [NoDuplicateMembers][RequiredCollection]
+        [NoDuplicateMembers]
         [DataMember(Name="categories")]
         public ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> EducationOrganizationCategories
         {
@@ -218668,7 +218942,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi
         private ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
-        [NoDuplicateMembers][RequiredCollection]
+        [NoDuplicateMembers]
         [DataMember(Name="educationOrganizationCategories")]
         public ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> EducationOrganizationCategories
         {
@@ -252156,7 +252430,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StateEducationAgency.EdFi
         private ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
-        [NoDuplicateMembers][RequiredCollection]
+        [NoDuplicateMembers]
         [DataMember(Name="categories")]
         public ICollection<EducationOrganization.EdFi.EducationOrganizationCategory> EducationOrganizationCategories
         {
@@ -298200,7 +298474,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentInterventionAttendanceEven
         // -------------------------------------------------------------
 
         /// <summary>
-        /// A code describing the attendance event, for example:         Present         Unexcused absence         Excused absence         Tardy.
+        /// A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [RequiredWithNonDefault]
@@ -307556,7 +307830,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentProgramAttendanceEvent.EdF
         // -------------------------------------------------------------
 
         /// <summary>
-        /// A code describing the attendance event, for example:         Present         Unexcused absence         Excused absence         Tardy.
+        /// A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [RequiredWithNonDefault]
@@ -312815,7 +313089,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAttendanceEvent.EdFi
         // -------------------------------------------------------------
 
         /// <summary>
-        /// A code describing the attendance event, for example:         Present         Unexcused absence         Excused absence         Tardy.
+        /// A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [RequiredWithNonDefault]
@@ -316951,7 +317225,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAttendanceEvent.EdF
         // -------------------------------------------------------------
 
         /// <summary>
-        /// A code describing the attendance event, for example:         Present         Unexcused absence         Excused absence         Tardy.
+        /// A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [RequiredWithNonDefault]
@@ -318076,6 +318350,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSpecialEducationProgramAss
         public StudentSpecialEducationProgramAssociation()
         {
             StudentSpecialEducationProgramAssociationDisabilities = new List<StudentSpecialEducationProgramAssociationDisability>();
+            StudentSpecialEducationProgramAssociationResponsibleContacts = new List<StudentSpecialEducationProgramAssociationResponsibleContact>();
             StudentSpecialEducationProgramAssociationServiceProviders = new List<StudentSpecialEducationProgramAssociationServiceProvider>();
             StudentSpecialEducationProgramAssociationSpecialEducationProgramServices = new List<StudentSpecialEducationProgramAssociationSpecialEducationProgramService>();
 
@@ -318660,6 +318935,36 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSpecialEducationProgramAss
             set { StudentSpecialEducationProgramAssociationDisabilities = new List<StudentSpecialEducationProgramAssociationDisability>(value.Cast<StudentSpecialEducationProgramAssociationDisability>()); }
         }
 
+        private ICollection<StudentSpecialEducationProgramAssociationResponsibleContact> _studentSpecialEducationProgramAssociationResponsibleContacts;
+        private ICollection<Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact> _studentSpecialEducationProgramAssociationResponsibleContactsCovariant;
+
+        [NoDuplicateMembers]
+        [DataMember(Name="responsibleContacts")]
+        public ICollection<StudentSpecialEducationProgramAssociationResponsibleContact> StudentSpecialEducationProgramAssociationResponsibleContacts
+        {
+            get { return _studentSpecialEducationProgramAssociationResponsibleContacts; }
+            set
+            {
+                if (value == null) return;
+                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
+                var list = new CollectionAdapterWithAddNotifications<StudentSpecialEducationProgramAssociationResponsibleContact>(value,
+                    (s, e) => ((Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact)e.Item).StudentSpecialEducationProgramAssociation = this);
+                _studentSpecialEducationProgramAssociationResponsibleContacts = list;
+
+                // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact, StudentSpecialEducationProgramAssociationResponsibleContact>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact)e.Item).StudentSpecialEducationProgramAssociation = this;
+                _studentSpecialEducationProgramAssociationResponsibleContactsCovariant = covariantList;
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact> Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation.StudentSpecialEducationProgramAssociationResponsibleContacts
+        {
+            get { return _studentSpecialEducationProgramAssociationResponsibleContactsCovariant; }
+            set { StudentSpecialEducationProgramAssociationResponsibleContacts = new List<StudentSpecialEducationProgramAssociationResponsibleContact>(value.Cast<StudentSpecialEducationProgramAssociationResponsibleContact>()); }
+        }
+
         private ICollection<StudentSpecialEducationProgramAssociationServiceProvider> _studentSpecialEducationProgramAssociationServiceProviders;
         private ICollection<Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationServiceProvider> _studentSpecialEducationProgramAssociationServiceProvidersCovariant;
 
@@ -318748,6 +319053,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSpecialEducationProgramAss
             }
 
             if (_studentSpecialEducationProgramAssociationDisabilities != null) foreach (var item in _studentSpecialEducationProgramAssociationDisabilities)
+            {
+                item.StudentSpecialEducationProgramAssociation = this;
+            }
+
+            if (_studentSpecialEducationProgramAssociationResponsibleContacts != null) foreach (var item in _studentSpecialEducationProgramAssociationResponsibleContacts)
             {
                 item.StudentSpecialEducationProgramAssociation = this;
             }
@@ -318870,6 +319180,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSpecialEducationProgramAss
                     }
                 }
 
+                if (StudentSpecialEducationProgramAssociationResponsibleContacts.Any() && mappingContract?.IsMemberSupported("StudentSpecialEducationProgramAssociationResponsibleContacts") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("StudentSpecialEducationProgramAssociationResponsibleContacts");
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentSpecialEducationProgramAssociationResponsibleContacts, validationContext, validationContext.Items.ForCollection("StudentSpecialEducationProgramAssociationResponsibleContacts"))))
+                    {
+                        yield return result;
+                    }
+                }
+
                 if (StudentSpecialEducationProgramAssociationServiceProviders.Any() && mappingContract?.IsMemberSupported("StudentSpecialEducationProgramAssociationServiceProviders") != false)
                 {
                     // Reset path builder
@@ -318945,6 +319267,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSpecialEducationProgramAss
 
         // Declare collection item validators
         private StudentSpecialEducationProgramAssociationDisabilityPutPostRequestValidator _studentSpecialEducationProgramAssociationDisabilitiesValidator = new ();
+        private StudentSpecialEducationProgramAssociationResponsibleContactPutPostRequestValidator _studentSpecialEducationProgramAssociationResponsibleContactsValidator = new ();
         private StudentSpecialEducationProgramAssociationServiceProviderPutPostRequestValidator _studentSpecialEducationProgramAssociationServiceProvidersValidator = new ();
         private StudentSpecialEducationProgramAssociationSpecialEducationProgramServicePutPostRequestValidator _studentSpecialEducationProgramAssociationSpecialEducationProgramServicesValidator = new ();
         private GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatusPutPostRequestValidator _generalStudentProgramAssociationProgramParticipationStatusesValidator = new ();
@@ -318979,6 +319302,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSpecialEducationProgramAss
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
                         failures.Add(new ValidationFailure("StudentSpecialEducationProgramAssociationDisabilities", $"A supplied 'StudentSpecialEducationProgramAssociationDisability' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.IsStudentSpecialEducationProgramAssociationResponsibleContactIncluded != null)
+                {
+                    var hasInvalidStudentSpecialEducationProgramAssociationResponsibleContactsItems = instance.StudentSpecialEducationProgramAssociationResponsibleContacts.Any(x => !mappingContract.IsStudentSpecialEducationProgramAssociationResponsibleContactIncluded(x));
+        
+                    if (hasInvalidStudentSpecialEducationProgramAssociationResponsibleContactsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentSpecialEducationProgramAssociationResponsibleContacts", $"A supplied 'StudentSpecialEducationProgramAssociationResponsibleContact' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
@@ -319674,6 +320008,393 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSpecialEducationProgramAss
     public class StudentSpecialEducationProgramAssociationDisabilityDesignationPutPostRequestValidator : FluentValidation.AbstractValidator<StudentSpecialEducationProgramAssociationDisabilityDesignation>
     {
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentSpecialEducationProgramAssociationDisabilityDesignation> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
+    /// A class which represents the edfi.StudentSpecialEducationProgramAssociationResponsibleContact table of the StudentSpecialEducationProgramAssociation aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class StudentSpecialEducationProgramAssociationResponsibleContact : Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact, IValidatableObject
+    {
+        private static FullName _fullName = new FullName("edfi", "StudentSpecialEducationProgramAssociationResponsibleContact");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentSpecialEducationProgramAssociationResponsibleContactPutPostRequestValidator _validator = new StudentSpecialEducationProgramAssociationResponsibleContactPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+
+        private bool _contactReferenceExplicitlyAssigned;
+        private Contact.EdFi.ContactReference _contactReference;
+        private Contact.EdFi.ContactReference ImplicitContactReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_contactReference == null && !_contactReferenceExplicitlyAssigned)
+                    _contactReference = new Contact.EdFi.ContactReference();
+
+                return _contactReference;
+            }
+        }
+
+        [DataMember(Name="contactReference")]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
+        public Contact.EdFi.ContactReference ContactReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitContactReference != null
+                    && (_contactReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitContactReference.IsReferenceFullyDefined()))
+                    return ImplicitContactReference;
+
+                return null;
+            }
+            set
+            {
+                _contactReferenceExplicitlyAssigned = true;
+                _contactReference = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation _studentSpecialEducationProgramAssociation;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation IStudentSpecialEducationProgramAssociationResponsibleContact.StudentSpecialEducationProgramAssociation
+        {
+            get { return _studentSpecialEducationProgramAssociation; }
+            set { SetStudentSpecialEducationProgramAssociation(value); }
+        }
+
+        public Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation StudentSpecialEducationProgramAssociation
+        {
+            set { SetStudentSpecialEducationProgramAssociation(value); }
+        }
+
+        private void SetStudentSpecialEducationProgramAssociation(Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation value)
+        {
+            _studentSpecialEducationProgramAssociation = value;
+        }
+
+        /// <summary>
+        /// The date on which the specific contact responsibility for the student becomes effective. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [DataMember(Name="contactResponsibilityBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime ContactResponsibilityBeginDate { get; set; }
+
+        /// <summary>
+        /// Defines the type of responsibility a contact has for a specific student.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="contactResponsibilityDescriptor")][DescriptorExists("ContactResponsibilityDescriptor")]
+        public string ContactResponsibilityDescriptor { get; set; }
+
+        /// <summary>
+        /// A unique alphanumeric code assigned to a contact.
+        /// </summary>
+        // IS in a reference, NOT a lookup column 
+        string Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact.ContactUniqueId
+        {
+            get
+            {
+                if (ImplicitContactReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitContactReference.IsReferenceFullyDefined()))
+                    return ImplicitContactReference.ContactUniqueId;
+
+                return default(string);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // Contact
+                _contactReferenceExplicitlyAssigned = false;
+                ImplicitContactReference.ContactUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Contact", value);                
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentSpecialEducationProgramAssociation == null || !_studentSpecialEducationProgramAssociation.Equals(compareTo.StudentSpecialEducationProgramAssociation))
+                return false;
+
+
+            // Standard Property
+            if (!(this as Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact).ContactResponsibilityBeginDate.Equals(compareTo.ContactResponsibilityBeginDate))
+                return false;
+
+
+            // Standard Property
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact).ContactResponsibilityDescriptor, compareTo.ContactResponsibilityDescriptor))
+                return false;
+
+
+            // Referenced Property
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact).ContactUniqueId, compareTo.ContactUniqueId))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentSpecialEducationProgramAssociation != null)
+                hash.Add(_studentSpecialEducationProgramAssociation);
+
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact).ContactResponsibilityBeginDate);
+
+
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact).ContactResponsibilityDescriptor);
+
+
+            //Referenced Property
+            hash.Add((this as Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact).ContactUniqueId);
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The date on which the specific contact responsibility for the student ends. Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="contactResponsibilityEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? ContactResponsibilityEndDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        [JsonProperty("_ext")][JsonConverter(typeof(ExtensionsConverter), "StudentSpecialEducationProgramAssociation", "StudentSpecialEducationProgramAssociationResponsibleContact")]
+        public System.Collections.IDictionary Extensions { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.EdFi.StudentSpecialEducationProgramAssociationResponsibleContactMapper.SynchronizeTo(this, (Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.EdFi.StudentSpecialEducationProgramAssociationResponsibleContactMapper.MapTo(this, (Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        Guid? Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact.ContactResourceId
+        {
+            get { return null; }
+            set { ImplicitContactReference.ResourceId = value ?? default(Guid); }
+        }
+
+        string Entities.Common.EdFi.IStudentSpecialEducationProgramAssociationResponsibleContact.ContactDiscriminator
+        {
+            // Not supported for Resources
+            get { return null; }
+            set { ImplicitContactReference.Discriminator = value; }
+        }
+
+
+        // -----------------------------------------------------------------
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+
+                // ---------------------
+                //  Validate Extensions
+                // ---------------------
+                if (Extensions != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(Extensions));
+    
+                    foreach (var result in ValidationHelpers.ValidateExtensions(validationContext, mappingContract))
+                    {
+                        yield return result;
+                    }
+                }
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentSpecialEducationProgramAssociationResponsibleContactPutPostRequestValidator : FluentValidation.AbstractValidator<StudentSpecialEducationProgramAssociationResponsibleContact>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentSpecialEducationProgramAssociationResponsibleContact> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
             {
